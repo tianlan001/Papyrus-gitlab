@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+  Copyright (c) 2011 Mia-Software.
+  
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License 2.0
+  which accompanies this distribution, and is available at
+  https://www.eclipse.org/legal/epl-2.0/
+
+  SPDX-License-Identifier: EPL-2.0
+ 
+  Contributors:
+  	Gregoire Dupe (Mia-Software) - Bug 361794 - [Restructuring] New customization meta-model
+       Gregoire Dupe (Mia-Software) - Bug 369987 - [Restructuring][Table] Switch to the new customization and facet framework
+       Gregoire Dupe (Mia-Software) - Bug 373078 - API Cleaning 
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+   	 <!-- @generated NOT -->
+      <wizard
+            id="org.eclipse.papyrus.emf.facet.custom.metamodel.v0_2_0.custom.presentation.CustomModelWizardID"
+            name="%_UI_CustomModelWizard_label"
+            class="org.eclipse.papyrus.emf.facet.custom.metamodel.v0_2_0.custom.presentation.CustomModelWizard"
+            category="org.eclipse.papyrus.wizards.category/org.eclipse.papyrus.wizards.custo.category/org.eclipse.papyrus.wizards.custo.modelexplorer.category"
+            icon="icons/full/obj16/CustomModelFile.gif">
+         <description>%_UI_CustomModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="org.eclipse.papyrus.emf.facet.custom.metamodel.v0_2_0.custom.presentation.CustomEditorID"
+            name="%_UI_CustomEditor_label"
+            icon="icons/full/obj16/CustomModelFile.gif"
+            extensions="custom"
+            class="org.eclipse.papyrus.emf.facet.custom.metamodel.v0_2_0.custom.presentation.CustomEditor"
+            contributorClass="org.eclipse.papyrus.emf.facet.custom.metamodel.v0_2_0.custom.presentation.CustomActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

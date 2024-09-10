@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+ Copyright (c) 2011, 2014 LIFL, CEA, and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   LIFL - Initial API and implementation
+   Christian W. Damus (CEA) - bug 323802
+   
+-->
+<plugin>
+<extension
+      point="org.eclipse.ui.commands">
+   <command
+         categoryId="org.eclipse.papyrus.editor.category"
+         defaultHandler="org.eclipse.papyrus.uml.diagram.deployment.custom.actions.ShowHideRelatedContentsHandler"
+         description="Call the Show/Hide Related Contents Command"
+         id="org.eclipse.papyrus.uml.diagram.deployment.commands.ShowHideRelatedContentsCommand"
+         name="Show/Hide Related Contents Command">
+   </command>
+</extension>
+<extension
+      point="org.eclipse.ui.services">
+   <sourceProvider
+         provider="org.eclipse.papyrus.uml.diagram.deployment.custom.providers.ActionStateSourceProvider">
+      <variable
+            name="showHideRelatedContents"
+            priorityLevel="workbench">
+      </variable>
+   </sourceProvider>
+</extension>
+<extension
+      point="org.eclipse.ui.handlers">
+   <handler
+         class="org.eclipse.papyrus.uml.diagram.deployment.custom.actions.ShowHideRelatedContentsHandler"
+         commandId="org.eclipse.papyrus.uml.diagram.deployment.commands.ShowHideRelatedContentsCommand">
+      <activeWhen>
+         <and>
+            <with
+                  variable="showHideRelatedContents">
+               <equals
+                     value="enabled">
+               </equals>
+            </with>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <instanceof
+                        value="org.eclipse.papyrus.uml.diagram.deployment.edit.parts.ArtifactEditPart">
+                  </instanceof>
+               </iterate>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+</extension>
+<!-- The Command to manages the Provided and Required Interfaces for a Port-->
+<!-- The Handler to manages the Provided and Required Interfaces for a Port-->
+<!-- Add the Menu to manages the Provided and Required Interfaces for a Port-->
+<extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.eclipse.papyrus.editor.category"
+            defaultHandler="org.eclipse.papyrus.uml.diagram.deployment.CreateDeploymentDiagramCommand"
+            description="Create a new Deployment Diagramt Diagram"
+            id="org.eclipse.papyrus.uml.diagram.deployment.CreateDeploymentDiagramCommand"
+            name="Create a new Deployment Diagram">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.ui.papyrusDiagram">
+      <editorDiagram
+            actionBarContributorId="org.eclipse.papyrus.uml.diagram.common.part.UMLDiagramActionBarContributor"
+            factoryClass="org.eclipse.papyrus.uml.diagram.deployment.DeploymentDiagramEditorFactory"
+            icon="icons/obj16/DeploymentDiagram.gif">
+      </editorDiagram>
+      <creationCommand
+            creationCommandClass="org.eclipse.papyrus.uml.diagram.deployment.CreateDeploymentDiagramCommand"
+            creationCondition="org.eclipse.papyrus.uml.diagram.deployment.DeploymentDiagramCreationCondition"
+            icon="icons/obj16/DeploymentDiagram.gif"
+            id="org.eclipse.papyrus.uml.diagram.deployment.CreateDeploymentDiagramCommand"
+            label="Deployment Diagram"
+            language="uml">
+      </creationCommand>
+   </extension>
+
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+				      <?gmfgen generated="true"?>
+				      <context
+				         description="%context.description"
+				         id="org.eclipse.papyrus.uml.diagram.deployment.ui.diagramContext"
+				         name="%context.name"
+				         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+				      </context>
+				   </extension>
+   
+   
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.papyrus.uml.diagram.deployment.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="org.eclipse.papyrus.uml.diagram.deployment.part.UMLDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.papyrus.uml.diagram.deployment.edit.parts.DeploymentDiagramEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="org.eclipse.papyrus.uml.diagram.deployment.part.UMLDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="org.eclipse.papyrus.uml.diagram.deployment.LoadResourceAction"
+         name="Load Resource"
+         categoryId="org.eclipse.papyrus.uml.diagram.deployment.part.UMLDiagramEditorID"
+         defaultHandler="org.eclipse.papyrus.uml.diagram.deployment.part.LoadResourceAction"/>
+   </extension>
+
+		
+
+<extension point="org.eclipse.ui.preferencePages" id="prefpages">
+		      <?gmfgen generated="true"?>
+		<page
+		      id="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLDeploymentDiagram"
+		      name="PapyrusUMLDeploymentDiagram Diagram"
+		      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams"
+		      class="org.eclipse.papyrus.uml.diagram.deployment.preferences.DiagramGeneralPreferencePage">
+		</page>
+		<page
+		      id="org.eclipse.papyrus.uml.diagram.deployment.preferences.DiagramPrintingPreferencePage"
+		      name="%prefpage.org.eclipse.uml2.uml.diagram.printing"
+		      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLDeploymentDiagram"
+		      class="org.eclipse.papyrus.uml.diagram.deployment.preferences.DiagramPrintingPreferencePage">
+		</page>
+		   </extension>
+<extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+	      <?gmfgen generated="true"?>
+	      <ParserProvider class="org.eclipse.papyrus.uml.diagram.deployment.providers.UMLParserProvider">
+	         <Priority name="Lowest"/>
+	      </ParserProvider>
+	   </extension>
+
+
+<extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="org.eclipse.papyrus.uml.diagram.deployment"
+            labelProvider="org.eclipse.papyrus.uml.diagram.deployment.sheet.UMLSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+<extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.papyrus.uml.diagram.deployment">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+<extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.papyrus.uml.diagram.deployment">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.papyrus.uml.diagram.deployment.sheet.UMLPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
+<extension point="org.eclipse.core.runtime.preferences" id="prefs">
+		      <?gmfgen generated="true"?>
+		      <initializer class="org.eclipse.papyrus.uml.diagram.deployment.preferences.DiagramPreferenceInitializer"/>
+		   </extension>
+
+<extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+	      <?gmfgen generated="true"?>
+	      <viewProvider class="org.eclipse.papyrus.uml.diagram.deployment.providers.UMLViewProvider">
+	         <Priority name="Lowest"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="PapyrusUMLDeploymentDiagram"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="Dependency_Shape,Model_Shape,Package_Shape,Constraint_Shape,Comment_Shape,ExecutionEnvironment_Shape,Device_Shape,Artifact_Shape,Node_Shape,NamedElement_DefaultShape,DeploymentSpecification_Shape,Model_Shape_CN,Package_Shape_CN,Device_Shape_CCN,Device_Shape_CN,ExecutionEnvironment_Shape_CCN,ExecutionEnvironment_Shape_CN,Node_Shape_CCN,Node_Shape_CN,Artifact_Shape_CCN,Artifact_Shape_ACN,Artifact_Shape_CN,Comment_Shape_CN,Constraint_Shape_CN,DeploymentSpecification_Shape_CCN,DeploymentSpecification_Shape_CN,DeploymentSpecification_Shape_ACN"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="Link_DescriptorEdge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,Deployment_Edge,Manifestation_Edge,Generalization_Edge,Dependency_Edge,Dependency_BranchEdge,CommunicationPath_Edge"/>
+	      </viewProvider>
+	   </extension>
+
+<extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+	      <?gmfgen generated="true"?>
+	      <editpartProvider class="org.eclipse.papyrus.uml.diagram.deployment.providers.UMLEditPartProvider">
+	         <Priority name="Lowest"/>
+	         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+	            <method name="getType()" value="PapyrusUMLDeploymentDiagram"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+	            <method name="getType()" value="Dependency_Shape,Model_Shape,Package_Shape,Constraint_Shape,Comment_Shape,ExecutionEnvironment_Shape,Device_Shape,Artifact_Shape,Node_Shape,NamedElement_DefaultShape,DeploymentSpecification_Shape,Model_Shape_CN,Package_Shape_CN,Device_Shape_CCN,Device_Shape_CN,ExecutionEnvironment_Shape_CCN,ExecutionEnvironment_Shape_CN,Node_Shape_CCN,Node_Shape_CN,Artifact_Shape_CCN,Artifact_Shape_ACN,Artifact_Shape_CN,Comment_Shape_CN,Constraint_Shape_CN,DeploymentSpecification_Shape_CCN,DeploymentSpecification_Shape_CN,DeploymentSpecification_Shape_ACN"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+	            <method name="getType()" value="Link_DescriptorEdge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,Deployment_Edge,Manifestation_Edge,Generalization_Edge,Dependency_Edge,Dependency_BranchEdge,CommunicationPath_Edge"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+	            <method name="getType()" value="Dependency_MultiNameLabel,Model_NameLabel,Package_NameLabel,Constraint_NameLabel,Constraint_BodyLabel,Comment_BodyLabel,ExecutionEnvironment_NameLabel,Device_NameLabel,Artifact_NameLabel,Artifact_FloatingNameLabel,Node_NameLabel,NamedElement_NameLabel,DeploymentSpecification_NameLabel,DeploymentSpecification_FloatingNameLabel,Model_NameLabel_CN,Package_NameLabel_CN,Device_NameLabel_CCN,Device_NameLabel_CN,ExecutionEnvironment_NameLabel_CCN,ExecutionEnvironment_NameLabel_CN,Node_NameLabel_CCN,Node_NameLabel_CN,Artifact_NameLabel_CCN,Artifact_FloatingNameLabel_CCN,Artifact_NameLabel_ACN,Artifact_FloatingNameLabel_ACN,Artifact_NameLabel_CN,Comment_BodyLabel_CN,Constraint_NameLabel_CN,Constraint_BodyLabel_CN,DeploymentSpecification_NameLabel_CCN,DeploymentSpecification_FloatingNameLabel_CCN,DeploymentSpecification_NameLabel_CN,DeploymentSpecification_FloatingNameLabel_CN,DeploymentSpecification_NameLabel_ACN,DeploymentSpecification_FloatingNameLabel_ACN"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+	            <method name="getType()" value="Model_PackagedElementCompartment,Package_PackagedElementCompartment,Device_NestedNodeCompartment,ExecutionEnvironment_NestedNodeCompartment,Node_NestedNodeCompartment,Artifact_NestedArtifactCompartment,Model_PackagedElementCompartment_CN,Package_PackagedElementCompartment_CN,Device_NestedNodeCompartment_CN,ExecutionEnvironment_NestedNodeCompartment_CN,Node_NestedNodeCompartment_CN,Artifact_NestedArtifactCompartment_CCN,Artifact_NestedArtifactCompartment_ACN"/>
+	         </object>
+	         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+	      </editpartProvider>
+	   </extension>
+   
+
+<extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+	      <?gmfgen generated="true"?>
+	      <IconProvider class="org.eclipse.papyrus.uml.diagram.deployment.providers.UMLIconProvider">
+	         <Priority name="Low"/>
+	      </IconProvider>
+	   </extension>
+
+
+
+
+<extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+				      <?gmfgen generated="true"?>
+				      <MarkerNavigationProvider class="org.eclipse.papyrus.uml.diagram.deployment.providers.UMLMarkerNavigationProvider">
+				         <MarkerType name="org.eclipse.papyrus.uml.diagram.deployment.diagnostic"/>
+				         <Priority name="Lowest"/>
+				      </MarkerNavigationProvider>
+				   </extension>
+
+<extension id="diagnostic" name="Papyrus Deployment Diagram  problems" point="org.eclipse.core.resources.markers">
+				      <?gmfgen generated="true"?>
+				      <super type="org.eclipse.core.resources.problemmarker"/>
+				      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+				      <persistent value="true"/>
+				   </extension><extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+				      <?gmfgen generated="true"?>
+				      <decoratorProvider class="org.eclipse.papyrus.uml.diagram.deployment.providers.UMLValidationDecoratorProvider">
+				         <Priority name="Lowest"/>
+				         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+				         <context decoratorTargets="PRIMARY_VIEW"/>
+				      </decoratorProvider>
+				   </extension>
+<extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
+<extension point="org.eclipse.papyrus.infra.gmfdiag.common.notationTypesMapping"> 
+   <?gmfgen generated="true"?>
+   <diagramMappings diagramID="PapyrusUMLDeploymentDiagram">
+   	<mapping type="PapyrusUMLDeploymentDiagram" humanReadableType="DeploymentDiagram"/>
+			<mapping
+				humanReadableType="Model"
+				type="Model_PackagedElementCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="PackageableElement"
+				type="Package_PackagedElementCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="DeviceComposite"
+				type="Device_NestedNodeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="ExecutionEnvironmentComposite"
+				type="ExecutionEnvironment_NestedNodeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="Composite"
+				type="Node_NestedNodeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="ArtifactComposite"
+				type="Artifact_NestedArtifactCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="Model"
+				type="Model_PackagedElementCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="PackageableElement"
+				type="Package_PackagedElementCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="DeviceComposite"
+				type="Device_NestedNodeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="ExecutionEnvironmentComposite"
+				type="ExecutionEnvironment_NestedNodeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Composite"
+				type="Node_NestedNodeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="ArtifactComposite"
+				type="Artifact_NestedArtifactCompartment_CCN">
+			</mapping>
+			<mapping
+				humanReadableType="ArtifactComposite"
+				type="Artifact_NestedArtifactCompartment_ACN">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Deployment_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Deployment_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Manifestation_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Manifestation_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Generalization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Dependency_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Dependency_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="CommunicationPath_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="CommunicationPath_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Artifact_FloatingNameLabel_CCN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Artifact_FloatingNameLabel_ACN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DeploymentSpecification_FloatingNameLabel_CCN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DeploymentSpecification_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DeploymentSpecification_FloatingNameLabel_ACN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Artifact_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DeploymentSpecification_FloatingNameLabel">
+			</mapping>
+   </diagramMappings>
+</extension>
+
+	<extension
+      point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+   <ParserProvider
+         class="org.eclipse.papyrus.uml.diagram.deployment.custom.providers.CustomUMLParserProvider">
+      <Priority
+            name="Medium">
+      </Priority>
+   </ParserProvider>
+</extension>
+
+<extension
+      point="org.eclipse.papyrus.infra.gmfdiag.common.diagramReconciler">
+   <diagramReconciler
+         diagramType="PapyrusUMLDeploymentDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.deployment.custom.migration.DeploymentReconciler_1_1_0"
+         source="1.0.0"
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="PapyrusUMLDeploymentDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.deployment.custom.migration.DeploymentReconcilerForCompartment_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="PapyrusUMLDeploymentDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.deployment.custom.migration.DeploymentReconciler_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+</extension>
+   <extension point="org.eclipse.papyrus.infra.gmfdiag.common.visualTypeProviders">
+	      <?gmfgen generated="true"?>
+	      <visualTypeProvider
+	            class="org.eclipse.papyrus.uml.diagram.deployment.providers.UMLVisualTypeProvider"
+	            diagramType="PapyrusUMLDeploymentDiagram">
+	         </visualTypeProvider>
+	   </extension>
+
+
+
+   <!-- optionally, specify keybindings -->
+</plugin>

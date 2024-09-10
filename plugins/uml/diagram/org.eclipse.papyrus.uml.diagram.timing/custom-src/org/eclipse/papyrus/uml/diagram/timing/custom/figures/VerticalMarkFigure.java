@@ -1,0 +1,47 @@
+/*****************************************************************************
+ * Copyright (c) 2012 CEA LIST.
+ *
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ *****************************************************************************/
+package org.eclipse.papyrus.uml.diagram.timing.custom.figures;
+
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.papyrus.uml.diagram.common.figure.node.PapyrusNodeFigure;
+import org.eclipse.swt.graphics.Image;
+
+public class VerticalMarkFigure extends PapyrusNodeFigure {
+
+	public static final int PREFERRED_WIDTH = 5;
+
+	public static final int PREFERRED_HEIGHT = 12;
+
+	public VerticalMarkFigure() {
+		super();
+	}
+
+	@Override
+	public void paintFigure(final Graphics g) {
+		super.paintFigure(g);
+		g.pushState();
+		final int middleX = this.bounds.x + this.bounds.width / 2;
+		g.setLineWidth(3);
+		g.drawLine(middleX, this.bounds.y, middleX, this.bounds.y + this.bounds.height);
+		g.popState();
+	}
+
+	@Override
+	public Dimension getPreferredSize(final int wHint, final int hHint) {
+		return new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT);
+	}
+
+	public void setStereotypeDisplay(final String stereotypes, final Image image) {
+	}
+}

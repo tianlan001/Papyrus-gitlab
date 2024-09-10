@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_u8yXkELLEeWmC5E_nIZ9vQ" name="model">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_vWnM0ELLEeWmC5E_nIZ9vQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_webJcELLEeWmC5E_nIZ9vQ" name="Class1">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_zCqn0ELLEeWmC5E_nIZ9vQ" name="name">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_2A-zEELLEeWmC5E_nIZ9vQ" name="class2" type="_xIcW0ELLEeWmC5E_nIZ9vQ" association="_2A7vwELLEeWmC5E_nIZ9vQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_xIcW0ELLEeWmC5E_nIZ9vQ" name="Class2">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_2A_aIELLEeWmC5E_nIZ9vQ" name="class1" type="_webJcELLEeWmC5E_nIZ9vQ" association="_2A7vwELLEeWmC5E_nIZ9vQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_2A7vwELLEeWmC5E_nIZ9vQ" memberEnd="_2A-zEELLEeWmC5E_nIZ9vQ _2A_aIELLEeWmC5E_nIZ9vQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2A9k8ELLEeWmC5E_nIZ9vQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_2A-MAELLEeWmC5E_nIZ9vQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+  </packagedElement>
+</uml:Model>

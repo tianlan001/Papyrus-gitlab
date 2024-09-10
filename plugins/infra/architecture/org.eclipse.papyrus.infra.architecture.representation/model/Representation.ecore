@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="representation" nsURI="http://www.eclipse.org/papyrus/infra/core/architecture/representation"
+    nsPrefix="representation">
+  <eClassifiers xsi:type="ecore:EClass" name="PapyrusRepresentationKind" abstract="true"
+      eSuperTypes="../../org.eclipse.papyrus.infra.core.architecture/model/Architecture.ecore#//RepresentationKind">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A subclass of representation kind that adds rules"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//PapyrusRepresentationKind">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The parent representation kind from which this representation kind inherits"/>
+        <details key="propertyCategory" value="Representation Kind"/>
+        <details key="propertyDescription" value="The parent representation kind from which this representation kind inherits"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelRules" lowerBound="1"
+        upperBound="-1" eType="#//ModelRule" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The set of rules that determine which model elements can be the semantic element behind this diagram"/>
+        <details key="propertyCategory" value="Representation Kind"/>
+        <details key="propertyDescription" value="The set of rules that determine which model elements can be the semantic element behind this diagram"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owningRules" lowerBound="1"
+        upperBound="-1" eType="#//OwningRule" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The set of rules that determine which elements can be the syntactic owner of this diagram"/>
+        <details key="propertyCategory" value="Representation Kind"/>
+        <details key="propertyDescription" value="The set of rules that determine which elements can be the syntactic owner of this diagram"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="implementationID" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The id of the underlying implementation of this representation kind"/>
+        <details key="propertyCategory" value="Representation Kind"/>
+        <details key="propertyDescription" value="The id of the underlying implementation of this representation kind"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Rule" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A rule that controls the definition of a representation kind."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="permit" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Whether the rule permits or forbids the action it represents"/>
+        <details key="propertyDescription" value="Whether the rule permits or forbids the action it represents"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelRule" eSuperTypes="#//Rule ../../org.eclipse.papyrus.infra.constraints/Model/Constraints.ecore#//DisplayUnit">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A rule that controls which element this representation is for."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="element" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The type (from the language's metamodel) that a model element must have for a representation of this kind to apply to."/>
+        <details key="propertyDescription" value="The type (from the language's metamodel) that a model element must have for a representation of this kind to apply to."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stereotypes" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The set of stereotypes (from the language's profiles) that a model element must have for a representation of this kind to apply to."/>
+        <details key="propertyDescription" value="The set of stereotypes (from the language's profiles) that a model element must have for a representation of this kind to apply to."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="multiplicity" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="-1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The maximum number of representations of this kind that a model element can have. -1 represents an unbounded number."/>
+        <details key="propertyDescription" value="The maximum number of representations of this kind that a model element can have. -1 represents an unbounded number."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OwningRule" eSuperTypes="#//Rule">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A rule that controls what element can own representations of this kind."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="element" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The type (from the language's metamodel) that a model element must have to own a representation of this kind."/>
+        <details key="propertyDescription" value="The type (from the language's metamodel) that a model element must have to own a representation of this kind."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stereotypes" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The set of stereotypes (from the language's profiles) that a model element must have to own a representation of this kind."/>
+        <details key="propertyDescription" value="The set of stereotypes (from the language's profiles) that a model element must have to own a representation of this kind."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="multiplicity" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="-1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The maximum number of representations of this kind that a model element can own. -1 represents an unbounded number."/>
+        <details key="propertyDescription" value="The maximum number of representations of this kind that a model element can own. -1 represents an unbounded number."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="newModelPath" upperBound="-1"
+        eType="#//ModelAutoCreate" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The settings of auto creating model elements with this representation kind"/>
+        <details key="propertyDescription" value="The settings of auto creating model elements with this representation kind"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="selectDiagramRoot" upperBound="-1"
+        eType="#//RootAutoSelect" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The settings of selecting a model element that is the root of this representation kind"/>
+        <details key="propertyDescription" value="The settings of selecting a model element that is the root of this representation kind"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelAutoCreate">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The settings of auto creating model elements with a representation kind"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A reference in the origin type that will contain the newly created model element with this representation kind."/>
+        <details key="propertyDescription" value="A reference in the origin type that will contain the newly created model element with this representation kind."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="origin" lowerBound="1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The type (from the language's metamodel) that will own the newly created model element."/>
+        <details key="propertyDescription" value="The type (from the language's metamodel) that will own the newly created model element"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationType" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The element type (from the element type registry) that will used to created the new model element."/>
+        <details key="propertyDescription" value="The element type (from the element type registry) that will used to created the new model element."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RootAutoSelect">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The settings of selecting a model element that is the root of a representation kind"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A reference from the newly created element type that is used to get the root of a representation of this kind."/>
+        <details key="propertyDescription" value="A reference from the newly created element type that is used to get the root of a representation of this kind"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>

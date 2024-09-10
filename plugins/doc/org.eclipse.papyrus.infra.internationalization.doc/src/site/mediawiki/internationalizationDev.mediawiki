@@ -1,0 +1,277 @@
+= Internationalization =
+
+== Requirements ==
+Requirements for the internationalization are this following:
+
+[[File:images/Internationalization_Requirements.png]]
+
+== Use case ==
+The principal use case for this feature is this following:
+
+[[File:images/Internationalization_UseCase.png]]
+
+== Description ==
+
+The internationalization is the way to manage your model with a specific language by labels. Like Eclipse, the internationalization is managed by the 'properties' file which are defined depending language as following (with for example, english language in US country):
+* ''modelName'''''_en_US.properties'''
+* ''modelName'''''_en.properties'''
+* ''modelName'''''.properties'''
+
+[[Image:images/PropertiesModelExplorer.png|frame|none|Properties files in Model Explorer]]
+
+== Plugins ==
+The plugins for the internationalization are the following:
+* <code>org.eclipse.papyrus.infra.internationalization</code>: it contains:
+** Internationalization Meta-model
+** Generated code from the Meta-model
+** The model resources for the internationalization entries (key and label of internationalized objects) and internationalization preferences
+** Utils classes to manage the labels and the preferences
+* <code>org.eclipse.papyrus.infra.internationalization.edit</code>: contains generated edit code from the Meta-model
+* <code>org.eclipse.papyrus.infra.internationalization.common</code>: contains all the common classes to manage command modification and some utils for the internationalization preferences. It contains the <code>IInternationalizationEditor</code> interface too which allows to define the editor that can be internationalized.
+* <code>org.eclipse.papyrus.infra.internationalization.controlmode</code>: contains the needed elements to manage the control mode for the properties and the preferences files
+* <code>org.eclipse.papyrus.infra.internationalization.ui</code>: contains the needed ui classes especially for the internationalization preferences
+* <code>org.eclipse.papyrus.infra.internationalization.utils</code>: contains all the needed utils classes to manage the label which can be used to get the diagrams and tables labels
+* <code>org.eclipse.papyrus.infra.editor.welcome.internationalization</code>: contains the needed classes to manage the preferences in the welcome page
+* <code>org.eclipse.papyrus.uml.internationalization</code>: contains the UML internationalization model resource which can manage the UML elements in the properties file
+* <code>org.eclipse.papyrus.uml.internationalization.edit</code>: contains the <code>InternationalizationUMLItemProviderAdapterFactory</code> which define the ItemProvider of UML elements to use the Papyrus getLabel function instead of UML getLabel function
+* <code>org.eclipse.papyrus.uml.internationalization.utils</code>: contains all the needed utils classes to manage the label which can be used to get the named elements labels
+
+== How to use internationalization ==
+Instead of name, the label of objects must be displayed in Papyrus.
+
+=== How the labels are managed in properties file ===
+Each element which have a label must be written in the properties file as following:
+* If this is a diagram: 
+** '''_labelDiagram_'''''DiagramOwnerQualifiedName'''''_label_'''''DiagramName'' '''=''' ''DiagramLabel''
+* If this is a table: 
+** '''_labelTable_'''''TableOwnerQualifiedName'''''_label_'''''TableName'' '''=''' ''TableLabel''
+* If this is an UML NamedElement: 
+** '''_label_'''''NamedElementQualifiedName'' '''=''' ''NamedElementLabel''
+
+[[Image:images/LabelsInternationalizationExample.png|frame|none|Example of internationalization labels]]
+
+=== Infra (Diagrams and Tables) ===
+For the Diagrams and the Tables, UML is not needed. So to use the internationalization, you just need to:
+* add the org.eclipse.papyrus.infra.internationalization.utils dependency
+* use methods/functions of <code>LabelInternationalization</code>
+
+The <code>LabelInternationalization</code> class contains the following needed methods/functions:
+{| class="wikitable" border="1"
+! style="text-align: center;" | Method/Function
+! style="text-align: center;" | Parameters
+! style="text-align: center;" | Description
+|-
+! style="font-weight: bold;" | getInstance
+| 
+| The the instance of LabelInternationalization
+|-
+! style="font-weight: bold;" | getDiagramLabelWithoutName
+| Diagram
+| Get the label of the diagram without getting its name if label is not available
+|-
+! style="font-weight: bold;" | getDiagramLabel
+| Diagram
+| Get the label of the diagram or the name if the diagram label is not available
+|-
+! style="font-weight: bold;" | setDiagramLabel
+| Diagram, String, Locale
+| Set the label (in parameter) of the Diagram for the locale needed (if <code>null</code>, the current must be used) without using command
+|-
+! style="font-weight: bold;" | getSetDiagramLabelCommand
+| EditingDomain, Diagram, String, Locale
+| Get the command to set the label (in parameter) of the Diagram for the locale needed (if <code>null</code>, the current must be used)
+|-
+! style="font-weight: bold;" | getTableLabelWithoutName
+| Table
+| Get the label of the Table without getting its name if label is not available
+|-
+! style="font-weight: bold;" | getTableLabel
+| Table
+| Get the label of the Table or the name if the Table label is not available
+|-
+! style="font-weight: bold;" | setDiagramLabel
+| Table, String, Locale
+| Set the label (in prameter) of the Table for the locale needed (if <code>null</code>, the current must be used) without using command
+|-
+! style="font-weight: bold;" | getSetTableLabelCommand
+| EditingDomain, Table, String, Locale
+| Get the command to set the label (in parameter) of the Table for the locale needed (if <code>null</code>, the current must be used)
+|}
+
+=== UML Named Elements ===
+For the UML NamedElement, to use the internationalization, you just need to:
+* add the org.eclipse.papyrus.uml.internationalization.utils dependency
+* use the <code>UMLLabelInternationalization</code>
+
+The <code>UMLLabelInternationalization</code> class contains following needed methods/functions:
+{| class="wikitable" border="1"
+! style="text-align: center;" | Method/Function
+! style="text-align: center;" | Parameters
+! style="text-align: center;" | Description
+|-
+! style="font-weight: bold;" | getInstance
+| 
+| The the instance of LabelInternationalization
+|-
+! style="font-weight: bold;" | getLabelWithoutName
+| NamedElement
+| Get the label of the NamedElement without getting its name if label is not available
+|-
+! style="font-weight: bold;" | getLabel
+| NamedElement
+| Get the label of the NamedElement or the name if the NamedElement label is not available
+|-
+! style="font-weight: bold;" | setLabel
+| NamedElement, String, Locale
+| Set the label (in parameter) of the NamedElement for the locale needed (if <code>null</code>, the current must be used) without using command
+|-
+! style="font-weight: bold;" | getSetLabelCommand
+| EditingDomain, NamedElement, String, Locale
+| Get the command to set the label (in parameter) of the NamedElement for the locale needed (if <code>null</code>, the current must be used)
+|-
+! style="font-weight: bold;" | getKeywordWithoutName
+| Stereotype
+| Get the keyword of the Stereotype without getting its name if keyword is not available
+|-
+! style="font-weight: bold;" | getKeyword
+| Stereotype
+| Get the keyword of the Stereotype or the name if the Stereotype keyword is not available
+|-
+! style="font-weight: bold;" | setKeyword
+| Stereotype, String, Locale
+| Set the keyword (in parameter) of the Stereotype for the locale needed (if <code>null</code>, the current must be used) without using command
+|-
+! style="font-weight: bold;" | getSetKeywordCommand
+| EditingDomain, Stereotype, String, Locale
+| Get the command to set the keyword (in parameter) of the Stereotype for the locale needed (if <code>null</code>, the current must be used)
+|}
+
+== Internationalization preferences ==
+===Preferences for internationalization usability===
+Two preferences are managed in the Papyrus model:
+* useInternationalization: Boolean to determinate if the internationalization must be used
+* language: String to define the selected language for the internationalization
+
+
+The preferences are stored as EAnnotation:
+* in the notation file in this is a private storage
+* in the metadata in this is not a private storage
+
+
+[[Image:images/InternationalizationPreferencesForModel.png|frame|none|Internationalization model preferences management]]
+
+
+Those preferences are managed in a <code>PreferenceStore</code> in the activator of org.eclipse.papyrus.infra.internationalization.common plugin.
+
+The <code>PapyrusProjectScope</code> allows to manage the preferences for the Eclipse project with Papyrus model name.
+
+===Preferences for internationalization activation===
+Two preferences are managed for the internationalization activation:
+* Load internationalization files for model
+* Load internationalization of external files (profiles, imported packages)
+
+[[Image:images/InternationalizationPreferences.png|frame|none|Internationalization preferences management]]
+
+Thoses preferences are stored in the <code>PreferenceStore</code> in the activator of org.eclipse.papyrus.infra.internationalization.common plugin and are managed by the org.eclipse.papyrus.infra.internationalization.common plugin.
+
+
+== Control mode ==
+The sub-models are managed with the properties files.
+Indeed, when an object is created as sub-model, the key representing this object or its descendance in the properties files must be moved in sub-properties files corresponding to the controlled object.
+During this sub-model creation, the qualified names of the keys that are moved change, the new qualified names are calculated from the root of the sub-model.
+
+=== What is it managed ===
+The managed files/objects are:
+* The properties files and their keys
+* The notation and the internationalization preferences if this is private storage
+
+=== How is it managed ===
+The <code>org.eclipse.papyrus.infra.internationalization.controlmode</code> manage all the control mode for the internationalization.
+
+The properties files are managed by:
+* <code>PropertiesControlParticipant</code> and <code>PropertiesUncontrolParticipant</code> for the participants
+* <code>CreatePropertiesControlResourceCommand</code> which define the command to create the controlled properties file
+* <code>RemovePropertiesControlResourceCommand</code> which define the command to delete the controlled properties file
+* <code>ControlPropertiesCommand</code> which define the command to manage the internationalization entries to move into the controlled properties
+
+The notation and the internationalization preference storage are managed by:
+* <code>InternationalizationAnnotationControlParticipant</code> for the participant (uncontrolled is not needed because the parent is priority)
+* <code>InternationalizationAnnotationCommand</code> which define the command to create the internationalization preference into the controlled notation file
+
+== Specificities ==
+=== Loading properties resources ===
+The properties resources are loaded and managed by the <code>InternationalizationResource</code> class.
+The load is managed as following:
+# Load the properties file contents (keys, values)
+# Create the <code>InternationalizationLibrary</code>
+# Loop on each keys, create the <code>InternationalizationEntry</code> (added in library) and try to resolve the key as object (Diagram, Table or UML element) with the <code>InternationalizationKeyResolver</code>.
+# Set the <code>InternationalizationLibrary</code> to the resource contents
+
+The <code>InternationalizationResource</code> need options for its load and save:
+* Load
+** The <code>InternationalizationKeyResolver</code>
+** The initial <code>URI</code> of the resource to load (without the locale in the name file)
+** The locale of the file to load (but can be null)
+* save
+** The <code>InternationalizationKeyResolver</code>
+** ''optional'' The list of objects which be not store in the properties file
+** ''optional'' The sort boolean to determinate if the properties must be sorted by key
+
+=== Model Resource ===
+The <code>InternationalizationResource</code> are managed with a <code>ModelResource</code>.
+For the internationalization, the model resource is the <code>UMLInternationalizationModelResource</code> (UML plugins) inherit from <code>InternationalizationModelResource</code> (infra plugins).
+
+The internationalization must be managed by a resource containing data from EMF meta-model according to the ‘*.properties’ file.
+The EMF meta-model can be similar to this one:
+
+[[File:images/Internationalization_Resource_MetaModel.png]]
+ 
+This data must be loaded and set when the resource set of the project will be opened. This must be managed as following:
+
+[[File:images/Internationalization_Resource_Load.png]]
+
+To read the ‘*.properties’ file (if exists), the ‘ResourceBundle’ simplify this one. By example:
+
+<source lang="java">
+InternationalisationLibrary library = InternationalisationFactory.eINSTANCE.createInternationalisationLibrary();
+
+ResourceBundle resourceBundle = ResourceBundle.getBundle(eObject, localize);
+
+Enumeration keys = resourceBundle.getKeys();
+
+while (keys.hasMoreElements()) {
+
+    InternationalisationEntry entry = InternationalisationFactory.eINSTANCE.createInternationalisationEntry();
+
+    String key = (String)keys.nextElement();
+
+    entry.setKey(key);
+
+    entry.setValue(resourceBundle.getString(key));
+
+    library.getEntries().add(entry);
+
+}</source>
+
+The internationalization library must be created as previously with String ‘key’ in a first way.
+To create the UML Element reference in a second way, two ways are possible:
+* Browse all the UML elements in model and search the qualified name match
+* Retrieve the UML Element by its qualified name using ‘NameResolutionUtils’
+
+=== InternationalizationKeyResolver ===
+The <code>InternationalizationKeyResolver</code> and <code>UMLInternationalizationKeyResolver</code> manage the correct retrieve of Diagrams, Tables (infra plugins) and UML elements (UML plugins) by the keys and the correct save elements keys as specified previously.
+
+Those ones are created respectively in the <code>InternationalizationModelResource</code> and <code>UMLInternationalizationModelResource</code>.
+This key resolver is needed for the <code>InternationalizationResource</code> and must be added to its options.
+
+=== InternationalizationUMLItemProviderAdapterFactory ===
+The <code>InternationalizationUMLItemProviderAdapterFactory</code> extends <code>UMLItemProviderAdapterFactory</code> and allows to redefine the ItemProvider of UML elements to get the Papyrus internationalization getLabel instead of UML getLabel.
+
+If an ItemProvider of UML element needs to be redefined, the ItemProviderAdapterFactory must ihnerit from this class instead of <code>UMLItemProviderAdapterFactory</code>.
+
+=== Diagram and Table owner QualifiedName ===
+The diagrams and the tables are managed in the infra plugins, however, the owner of the diagram or table must be serialized in the properties file by its QualifiedName. So the owner QualifiedName is managed by the class <code>QualifiedNameUtils</code> and calculated manually.
+
+=== Editors ===
+The diagrams and tables are managed by the internationalization. To do this, the diagram and table editor must inherit from <code>IInternationalizationEditor</code> which allows to modify part name and refresh the editor with the label.
+If any new editor is comming with internationalization management, this one must ihnerit from <code>IInternationalizationEditor</code> too.

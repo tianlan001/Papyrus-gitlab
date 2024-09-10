@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_m57FgJnMEeWYtqO0PaPS_g" name="RootElement">
+  <packagedElement xmi:type="uml:Package" xmi:id="_uogh0JnMEeWYtqO0PaPS_g" name="nameclash">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_B_Z30KS_EeW4s_E9GftyFw" annotatedElement="_sn8YQJnMEeWYtqO0PaPS_g _qkJ7kJnMEeWYtqO0PaPS_g">
+      <body>Check a simple standard UML constraint: elements in the same namespace must have unique names</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qkJ7kJnMEeWYtqO0PaPS_g" name="Class1"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_sn8YQJnMEeWYtqO0PaPS_g" name="Class1"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_xjBLIJnMEeWYtqO0PaPS_g" name="multiplicity">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_TQp9MKS_EeW4s_E9GftyFw" annotatedElement="_zv4rUJnMEeWYtqO0PaPS_g">
+      <body>The attribute in this class has a non-integer multiplicity. This must not be detected as a failure</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Class" xmi:id="_zv4rUJnMEeWYtqO0PaPS_g" name="NonStandardMultiplicity">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_1MB5MJnMEeWYtqO0PaPS_g" name="attribute">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7DpM0JnMEeWYtqO0PaPS_g" value="1"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_FCLSgJnNEeWYtqO0PaPS_g" value="MAX"/>
+      </ownedAttribute>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_hMHn8KS-EeW4s_E9GftyFw" name="oclFromFile">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_mJgSgKS_EeW4s_E9GftyFw" annotatedElement="_mL57sKS-EeW4s_E9GftyFw">
+      <body>This naming of this class is normally valid. However, the test loads an OCL constraint from a file that checks that all classes start with an upper case letter, i.e. this class violates this constraints.</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Class" xmi:id="_mL57sKS-EeW4s_E9GftyFw" name="lowerCaseClass"/>
+  </packagedElement>
+</uml:Model>

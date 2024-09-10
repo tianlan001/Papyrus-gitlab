@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+	    <groupId>org.eclipse.papyrus</groupId>
+	    <artifactId>org.eclipse.papyrus.uml</artifactId>
+	    <version>7.0.0-SNAPSHOT</version>
+    </parent>
+    <groupId>org.eclipse.papyrus.uml-expressions</groupId>
+	<artifactId>org.eclipse.papyrus.uml-expressions</artifactId>
+	<version>7.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+    <name>Papyrus UML Expressions Infrastructure</name>
+	<description>Plug-ins providing UML Expressions Framework.</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.uml.expressions</module>
+		<module>org.eclipse.papyrus.uml.expressions.edit</module>
+		<module>org.eclipse.papyrus.uml.expressions.properties</module>
+	</modules>
+</project>

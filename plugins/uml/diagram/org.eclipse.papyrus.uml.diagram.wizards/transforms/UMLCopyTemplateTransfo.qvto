@@ -1,0 +1,10 @@
+modeltype UML uses "http://www.eclipse.org/uml2/5.0.0/UML";
+
+
+transformation UMLCopyTemplateTransfo(in template : UML, inout target : UML);
+
+
+main() {
+
+	template.objectsOfType(Model).ownedElement->clone();
+}

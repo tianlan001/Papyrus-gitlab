@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:nattable="http://www.eclipse.org/papyrus/nattable/model" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xsi:schemaLocation="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis http://www.eclipse.org/papyrus/nattable/model#//nattableaxis http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider http://www.eclipse.org/papyrus/nattable/model#//nattableaxisprovider">
+  <nattable:Table xmi:id="_80uvkM4rEemJH8FcCaThIQ" name="Class Tree Table" currentRowAxisProvider="_80uvk84rEemJH8FcCaThIQ" currentColumnAxisProvider="_80uvkc4rEemJH8FcCaThIQ" tableKindId="org.eclipse.papyrus.uml.table.classTree">
+    <eAnnotations xmi:id="_802EUM4rEemJH8FcCaThIQ" source="http://www.eclipse.org/papyrus/infra/nattable/version">
+      <details xmi:id="_802EUc4rEemJH8FcCaThIQ" key="version" value="1.3.0"/>
+    </eAnnotations>
+    <context href="SwitchViewpoints.uml#_8ySfkM4rEemJH8FcCaThIQ"/>
+    <owner href="SwitchViewpoints.uml#_8ySfkM4rEemJH8FcCaThIQ"/>
+    <tableConfiguration href="platform:/resource/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#PapyrusClassTreeTable_XMI_ID"/>
+    <columnAxisProvidersHistory xsi:type="nattableaxisprovider:SlaveObjectAxisProvider" xmi:id="_80uvkc4rEemJH8FcCaThIQ" description="This axis provider provides available columns according to the rows of the table (features of the object displayed on the other axis)" name="UML Feature axis provider">
+      <axis xsi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_80uvks4rEemJH8FcCaThIQ">
+        <manager href="platform:/resource/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#_UJa7yDzQEei_1txcmoHe_A"/>
+        <element xsi:type="ecore:EAttribute" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+      </axis>
+    </columnAxisProvidersHistory>
+    <rowAxisProvidersHistory xsi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_80uvk84rEemJH8FcCaThIQ" description="This axis provider manages the rows, according to the wanted hierarchy" name="HierarchicalRowaAxisManager" disconnectSlave="true"/>
+  </nattable:Table>
+  <notation:Diagram xmi:id="_82XuUM4rEemJH8FcCaThIQ" type="PapyrusUMLClassDiagram" name="Class Diagram" measurementUnit="Pixel">
+    <styles xsi:type="notation:StringValueStyle" xmi:id="_82XuUc4rEemJH8FcCaThIQ" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xsi:type="notation:DiagramStyle" xmi:id="_82XuUs4rEemJH8FcCaThIQ"/>
+    <styles xsi:type="style:PapyrusDiagramStyle" xmi:id="_82XuU84rEemJH8FcCaThIQ" diagramKindId="org.eclipse.papyrus.uml.diagram.class">
+      <owner href="SwitchViewpoints.uml#_8ySfkM4rEemJH8FcCaThIQ"/>
+    </styles>
+    <element href="SwitchViewpoints.uml#_8ySfkM4rEemJH8FcCaThIQ"/>
+  </notation:Diagram>
+  <notation:Diagram xmi:id="_84OvgM4rEemJH8FcCaThIQ" type="PapyrusUMLStateMachineDiagram" name="State Machine Diagram" measurementUnit="Pixel">
+    <children xsi:type="notation:Shape" xmi:id="_84Ovgc4rEemJH8FcCaThIQ" type="StateMachine_Shape">
+      <children xsi:type="notation:DecorationNode" xmi:id="_84Ovgs4rEemJH8FcCaThIQ" type="StateMachine_NameLabel">
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_84Ovg84rEemJH8FcCaThIQ" width="700" height="20"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_84OvhM4rEemJH8FcCaThIQ" type="StateMachine_RegionCompartment">
+        <children xsi:type="notation:Shape" xmi:id="_84Ovhc4rEemJH8FcCaThIQ" type="Region_Shape">
+          <eAnnotations xmi:id="_84Ovhs4rEemJH8FcCaThIQ" source="RegionAnnotationKey">
+            <details xmi:id="_84Ovh84rEemJH8FcCaThIQ" key="RegionZoneKey" value=""/>
+          </eAnnotations>
+          <children xsi:type="notation:BasicCompartment" xmi:id="_84OviM4rEemJH8FcCaThIQ" type="Region_SubvertexCompartment">
+            <layoutConstraint xsi:type="notation:Bounds" xmi:id="_84Ovic4rEemJH8FcCaThIQ"/>
+          </children>
+          <element href="SwitchViewpoints.uml#_84GMoM4rEemJH8FcCaThIQ"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_84Ovis4rEemJH8FcCaThIQ" width="700" height="280"/>
+        </children>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_84Ovi84rEemJH8FcCaThIQ" y="20" width="700" height="280"/>
+      </children>
+      <element href="SwitchViewpoints.uml#_83PRAM4rEemJH8FcCaThIQ"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_84OvjM4rEemJH8FcCaThIQ" x="30" y="30" width="700" height="300"/>
+    </children>
+    <styles xsi:type="notation:StringValueStyle" xmi:id="_84Ovjc4rEemJH8FcCaThIQ" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xsi:type="notation:DiagramStyle" xmi:id="_84Ovjs4rEemJH8FcCaThIQ"/>
+    <styles xsi:type="style:PapyrusDiagramStyle" xmi:id="_84Ovj84rEemJH8FcCaThIQ" diagramKindId="org.eclipse.papyrus.uml.diagram.stateMachine">
+      <owner href="SwitchViewpoints.uml#_8ySfkM4rEemJH8FcCaThIQ"/>
+    </styles>
+    <element href="SwitchViewpoints.uml#_83PRAM4rEemJH8FcCaThIQ"/>
+  </notation:Diagram>
+  <notation:Diagram xmi:id="_84q0YM4rEemJH8FcCaThIQ" type="PapyrusUMLActivityDiagram" name="Activity Diagram" measurementUnit="Pixel">
+    <children xsi:type="notation:Shape" xmi:id="_84q0Yc4rEemJH8FcCaThIQ" type="Activity_Shape">
+      <children xsi:type="notation:DecorationNode" xmi:id="_84q0Ys4rEemJH8FcCaThIQ" type="Activity_NameLabel"/>
+      <children xsi:type="notation:DecorationNode" xmi:id="_84q0Y84rEemJH8FcCaThIQ" type="Activity_KeywordLabel"/>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_84q0ZM4rEemJH8FcCaThIQ" type="Activity_ParameterCompartment">
+        <styles xsi:type="notation:SortingStyle" xmi:id="_84q0Zc4rEemJH8FcCaThIQ"/>
+        <styles xsi:type="notation:FilteringStyle" xmi:id="_84q0Zs4rEemJH8FcCaThIQ"/>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_84q0Z84rEemJH8FcCaThIQ"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_84q0aM4rEemJH8FcCaThIQ" type="Activity_PreconditionCompartment">
+        <styles xsi:type="notation:SortingStyle" xmi:id="_84q0ac4rEemJH8FcCaThIQ"/>
+        <styles xsi:type="notation:FilteringStyle" xmi:id="_84q0as4rEemJH8FcCaThIQ"/>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_84q0a84rEemJH8FcCaThIQ"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_84q0bM4rEemJH8FcCaThIQ" type="Activity_PostconditionCompartment">
+        <styles xsi:type="notation:SortingStyle" xmi:id="_84q0bc4rEemJH8FcCaThIQ"/>
+        <styles xsi:type="notation:FilteringStyle" xmi:id="_84q0bs4rEemJH8FcCaThIQ"/>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_84q0b84rEemJH8FcCaThIQ"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_84q0cM4rEemJH8FcCaThIQ" type="Activity_ActivityNodeCompartment">
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_84q0cc4rEemJH8FcCaThIQ"/>
+      </children>
+      <element href="SwitchViewpoints.uml#_84bj0M4rEemJH8FcCaThIQ"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_84q0cs4rEemJH8FcCaThIQ"/>
+    </children>
+    <styles xsi:type="notation:StringValueStyle" xmi:id="_84q0c84rEemJH8FcCaThIQ" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xsi:type="notation:DiagramStyle" xmi:id="_84q0dM4rEemJH8FcCaThIQ"/>
+    <styles xsi:type="style:PapyrusDiagramStyle" xmi:id="_84q0dc4rEemJH8FcCaThIQ" diagramKindId="org.eclipse.papyrus.uml.diagram.activity">
+      <owner href="SwitchViewpoints.uml#_8ySfkM4rEemJH8FcCaThIQ"/>
+    </styles>
+    <element href="SwitchViewpoints.uml#_84bj0M4rEemJH8FcCaThIQ"/>
+  </notation:Diagram>
+</xmi:XMI>

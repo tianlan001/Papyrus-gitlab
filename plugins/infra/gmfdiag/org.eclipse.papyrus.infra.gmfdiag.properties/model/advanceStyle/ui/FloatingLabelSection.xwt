@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite xmlns="http://www.eclipse.org/xwt/presentation"
+	xmlns:gmf="clr-namespace:org.eclipse.papyrus.infra.gmfdiag.widgets.editors"
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns:uml="clr-namespace:org.eclipse.papyrus.uml.properties.widgets"
+	xmlns:lay="clr-namespace:org.eclipse.papyrus.infra.gmfdiag.properties.layout"
+	xmlns:x="http://www.eclipse.org/xwt">
+	<Composite.layout>
+		<GridLayout></GridLayout>
+	</Composite.layout>
+	<Composite>
+		<Composite.layout>
+			<ppel:PropertiesLayout></ppel:PropertiesLayout>
+		</Composite.layout>
+		<ppe:BooleanCheckbox input="{Binding}"
+			property="GenericShape:FloatingLabelCustomisation:visible"
+			customLabel="visibility"></ppe:BooleanCheckbox>
+	</Composite>
+	<Composite>
+		<Composite.layout>
+			<ppel:PapyrusRowLayout></ppel:PapyrusRowLayout>
+		</Composite.layout>
+		<ppe:StringMask input="{Binding}"
+			property="GenericShape:FloatingLabelCustomisation:maskLabel">
+			<ppe:StringMask.maskProvider>
+				<uml:LabelCustomizationMaskProvider
+					property="GenericShape:FloatingLabelCustomisation:maskLabel" input="{Binding}"></uml:LabelCustomizationMaskProvider>
+			</ppe:StringMask.maskProvider>
+		</ppe:StringMask>
+		<Group text="Margin">
+			<Group.layout>
+				<ppel:PropertiesLayout numColumns="2"></ppel:PropertiesLayout>
+			</Group.layout>
+			<ppe:IntegerEditor input="{Binding}"
+				property="GenericShape:LabelCustomisation:topMarginLabel"
+				customLabel="Top"></ppe:IntegerEditor>
+			<ppe:IntegerEditor input="{Binding}"
+				property="GenericShape:LabelCustomisation:bottomMarginLabel"
+				customLabel="Bottom"></ppe:IntegerEditor>
+			<ppe:IntegerEditor input="{Binding}"
+				property="GenericShape:LabelCustomisation:rightMarginLabel"
+				customLabel="Right"></ppe:IntegerEditor>
+			<ppe:IntegerEditor input="{Binding}"
+				property="GenericShape:LabelCustomisation:leftMarginLabel"
+				customLabel="Left"></ppe:IntegerEditor>
+		</Group>
+	</Composite>
+</Composite>

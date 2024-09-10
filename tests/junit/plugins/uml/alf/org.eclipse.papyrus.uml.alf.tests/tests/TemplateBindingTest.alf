@@ -1,0 +1,8 @@
+active class TemplateBindingTest {
+  class C<T> {
+    @Create public C(){}
+  }
+  public c : C<Integer>;
+} do {
+  this.c = new C<Integer>();
+}

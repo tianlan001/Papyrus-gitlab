@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.papyrus.infra.services.controlmode" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.eclipse.papyrus.infra.services.controlmode" id="participant" name="Control Mode Participant"/>
+      </appinfo>
+      <documentation>
+         This extension point is used to register participant to compute the control command.
+WARNING : The attribute ID is not being used for now
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="participant" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="participant">
+      <annotation>
+         <documentation>
+            Registration of a participant in the construction of control commands.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Class that implements the participant. This participant should implements either IControlCommandParticipant or IUncontrolCommandParticipant or both.
+
+As of the 1.3 release, another participant interface may be
+implemented for validation of a control mode request:  IControlCommandApprover.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.papyrus.infra.services.controlmode.participants.IControlModeParticipant"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         0.8.2
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="examples"/>
+      </appinfo>
+      <documentation>
+         &lt;extension
+         point=&quot;org.eclipse.papyrus.infra.services.controlmode.participant&quot;&gt;
+      &lt;participant
+            class=&quot;org.eclipse.papyrus.infra.services.controlmode.participants.NotationControlModeParticipant&quot;&gt;
+      &lt;/participant&gt;
+&lt;/extension&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="apiinfo"/>
+      </appinfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="implementation"/>
+      </appinfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="copyright"/>
+      </appinfo>
+      <documentation>
+         /*****************************************************************************
+         * Copyright (c) 2013, 2016 ATOS Origin, CEA LIST and others.
+         *
+         *    
+         * All rights reserved. This program and the accompanying materials
+         * are made available under the terms of the Eclipse Public License 2.0
+         * which accompanies this distribution, and is available at
+         * https://www.eclipse.org/legal/epl-2.0/
+         *
+         * SPDX-License-Identifier: EPL-2.0
+         *
+         * Contributors:
+         * CEA LIST - Initial API and implementation
+         *
+         *****************************************************************************/
+      </documentation>
+   </annotation>
+
+</schema>

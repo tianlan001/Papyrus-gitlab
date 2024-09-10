@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_3XN_kDGdEeexFNyA-Izhlg" name="Customization plug-in">
+  <tabs xmi:id="_3XN_kTGdEeexFNyA-Izhlg" label="Customization plug-in" id="customizationPlugin" category="org.eclipse.papyrus">
+    <sections xmi:id="_3XN_kjGdEeexFNyA-Izhlg" name="Single CustomizationConfiguration" sectionFile="ui/SingleCustomizationConfiguration.xwt">
+      <widget href="ui/SingleCustomizationConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XN_kzGdEeexFNyA-Izhlg" name="Single CustomizableElement" sectionFile="ui/SingleCustomizableElement.xwt">
+      <widget href="ui/SingleCustomizableElement.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XOmoDGdEeexFNyA-Izhlg" name="Single FileBasedCustomizableElement" sectionFile="ui/SingleFileBasedCustomizableElement.xwt">
+      <widget href="ui/SingleFileBasedCustomizableElement.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XOmoTGdEeexFNyA-Izhlg" name="Single PropertyView" sectionFile="ui/SinglePropertyView.xwt">
+      <widget href="ui/SinglePropertyView.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XOmojGdEeexFNyA-Izhlg" name="Single UICustom" sectionFile="ui/SingleUICustom.xwt">
+      <widget href="ui/SingleUICustom.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XOmozGdEeexFNyA-Izhlg" name="Single ModelTemplate" sectionFile="ui/SingleModelTemplate.xwt">
+      <widget href="ui/SingleModelTemplate.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XOmpDGdEeexFNyA-Izhlg" name="Single Palette" sectionFile="ui/SinglePalette.xwt">
+      <widget href="ui/SinglePalette.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XOmpTGdEeexFNyA-Izhlg" name="Single Profile" sectionFile="ui/SingleProfile.xwt">
+      <widget href="ui/SingleProfile.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XOmpjGdEeexFNyA-Izhlg" name="Single UMLModel" sectionFile="ui/SingleUMLModel.xwt">
+      <widget href="ui/SingleUMLModel.xwt#/"/>
+    </sections>
+    <sections xmi:id="_BY6HsDcUEeeMbsajGQHQlg" name="Single TableConfiguration" sectionFile="ui/SingleTableConfiguration.xwt">
+      <widget href="ui/SingleTableConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XOmpzGdEeexFNyA-Izhlg" name="Multiple CustomizationConfiguration" sectionFile="ui/MultipleCustomizationConfiguration.xwt">
+      <widget href="ui/MultipleCustomizationConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XOmqDGdEeexFNyA-Izhlg" name="Multiple CustomizableElement" sectionFile="ui/MultipleCustomizableElement.xwt">
+      <widget href="ui/MultipleCustomizableElement.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XOmqTGdEeexFNyA-Izhlg" name="Multiple FileBasedCustomizableElement" sectionFile="ui/MultipleFileBasedCustomizableElement.xwt">
+      <widget href="ui/MultipleFileBasedCustomizableElement.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XPNsDGdEeexFNyA-Izhlg" name="Multiple PropertyView" sectionFile="ui/MultiplePropertyView.xwt">
+      <widget href="ui/MultiplePropertyView.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XPNsTGdEeexFNyA-Izhlg" name="Multiple UICustom" sectionFile="ui/MultipleUICustom.xwt">
+      <widget href="ui/MultipleUICustom.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XPNszGdEeexFNyA-Izhlg" name="Multiple Palette" sectionFile="ui/MultiplePalette.xwt">
+      <widget href="ui/MultiplePalette.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XPNtDGdEeexFNyA-Izhlg" name="Multiple Profile" sectionFile="ui/MultipleProfile.xwt">
+      <widget href="ui/MultipleProfile.xwt#/"/>
+    </sections>
+    <sections xmi:id="_3XPNtTGdEeexFNyA-Izhlg" name="Multiple UMLModel" sectionFile="ui/MultipleUMLModel.xwt">
+      <widget href="ui/MultipleUMLModel.xwt#/"/>
+    </sections>
+    <sections xmi:id="_BY6uxTcUEeeMbsajGQHQlg" name="Multiple TableConfiguration" sectionFile="ui/MultipleTableConfiguration.xwt">
+      <widget href="ui/MultipleTableConfiguration.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_3XPNtjGdEeexFNyA-Izhlg" name="Single CustomizationConfiguration" sections="_3XN_kjGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQb_TGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XPNtzGdEeexFNyA-Izhlg" name="isSingleCustomizationConfiguration">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XPNuDGdEeexFNyA-Izhlg" name="className" value="CustomizationConfiguration"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XPNuTGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XPNujGdEeexFNyA-Izhlg" name="Single CustomizableElement" sections="_3XN_kzGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcADGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XPNuzGdEeexFNyA-Izhlg" name="isSingleCustomizableElement">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XPNvDGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XPNvTGdEeexFNyA-Izhlg" name="className" value="CustomizableElement"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XPNvjGdEeexFNyA-Izhlg" name="Single FileBasedCustomizableElement" sections="_3XOmoDGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcATGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XPNvzGdEeexFNyA-Izhlg" name="isSingleFileBasedCustomizableElement">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XPNwDGdEeexFNyA-Izhlg" name="className" value="FileBasedCustomizableElement"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XPNwTGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XPNwjGdEeexFNyA-Izhlg" name="Single PropertyView" sections="_3XOmoTGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcAzGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XPNwzGdEeexFNyA-Izhlg" name="isSinglePropertyView">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XPNxDGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XPNxTGdEeexFNyA-Izhlg" name="className" value="PropertyView"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XPNxjGdEeexFNyA-Izhlg" name="Single UICustom" sections="_3XOmojGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcBDGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XPNxzGdEeexFNyA-Izhlg" name="isSingleUICustom">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XPNyDGdEeexFNyA-Izhlg" name="className" value="UICustom"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XPNyTGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XP0wDGdEeexFNyA-Izhlg" name="Single ModelTemplate" sections="_3XOmozGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcBjGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XP0wTGdEeexFNyA-Izhlg" name="isSingleModelTemplate">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XP0wjGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XP0wzGdEeexFNyA-Izhlg" name="className" value="ModelTemplate"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XP0xDGdEeexFNyA-Izhlg" name="Single Palette" sections="_3XOmpDGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcCjGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XP0xTGdEeexFNyA-Izhlg" name="isSinglePalette">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XP0xjGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XP0xzGdEeexFNyA-Izhlg" name="className" value="Palette"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XQb0DGdEeexFNyA-Izhlg" name="Single Profile" sections="_3XOmpTGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcCzGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XQb0TGdEeexFNyA-Izhlg" name="isSingleProfile">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb0jGdEeexFNyA-Izhlg" name="className" value="Profile"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb0zGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XQb1DGdEeexFNyA-Izhlg" name="Single UMLModel" sections="_3XOmpjGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcETGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XQb1TGdEeexFNyA-Izhlg" name="isSingleUMLModel">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb1jGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb1zGdEeexFNyA-Izhlg" name="className" value="UMLModel"/>
+    </constraints>
+  </views>
+  <views xmi:id="_BGwA3TcUEeeMbsajGQHQlg" name="Single TableConfiguration" sections="_BY6HsDcUEeeMbsajGQHQlg" automaticContext="true" datacontexts="_BGwBNTcUEeeMbsajGQHQlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_BGwA3jcUEeeMbsajGQHQlg" name="isSingleTableConfiguration">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_BGwA3zcUEeeMbsajGQHQlg" name="className" value="TableConfiguration"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_BGwA4DcUEeeMbsajGQHQlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XQb2DGdEeexFNyA-Izhlg" elementMultiplicity="-1" name="Multiple CustomizationConfiguration" sections="_3XOmpzGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQb_TGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XQb2TGdEeexFNyA-Izhlg" name="isMultipleCustomizationConfiguration">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb2jGdEeexFNyA-Izhlg" name="className" value="CustomizationConfiguration"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb2zGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XQb3DGdEeexFNyA-Izhlg" elementMultiplicity="-1" name="Multiple CustomizableElement" sections="_3XOmqDGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcADGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XQb3TGdEeexFNyA-Izhlg" name="isMultipleCustomizableElement">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb3jGdEeexFNyA-Izhlg" name="className" value="CustomizableElement"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb3zGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XQb4DGdEeexFNyA-Izhlg" elementMultiplicity="-1" name="Multiple FileBasedCustomizableElement" sections="_3XOmqTGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcATGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XQb4TGdEeexFNyA-Izhlg" name="isMultipleFileBasedCustomizableElement">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb4jGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb4zGdEeexFNyA-Izhlg" name="className" value="FileBasedCustomizableElement"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XQb5DGdEeexFNyA-Izhlg" elementMultiplicity="-1" name="Multiple PropertyView" sections="_3XPNsDGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcAzGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XQb5TGdEeexFNyA-Izhlg" name="isMultiplePropertyView">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb5jGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb5zGdEeexFNyA-Izhlg" name="className" value="PropertyView"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XQb6DGdEeexFNyA-Izhlg" elementMultiplicity="-1" name="Multiple UICustom" sections="_3XPNsTGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcBDGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XQb6TGdEeexFNyA-Izhlg" name="isMultipleUICustom">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb6jGdEeexFNyA-Izhlg" name="className" value="UICustom"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb6zGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XQb8DGdEeexFNyA-Izhlg" elementMultiplicity="-1" name="Multiple Palette" sections="_3XPNszGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcCjGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XQb8TGdEeexFNyA-Izhlg" name="isMultiplePalette">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb8jGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb8zGdEeexFNyA-Izhlg" name="className" value="Palette"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XQb9DGdEeexFNyA-Izhlg" elementMultiplicity="-1" name="Multiple Profile" sections="_3XPNtDGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcCzGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XQb9TGdEeexFNyA-Izhlg" name="isMultipleProfile">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb9jGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb9zGdEeexFNyA-Izhlg" name="className" value="Profile"/>
+    </constraints>
+  </views>
+  <views xmi:id="_3XQb-DGdEeexFNyA-Izhlg" elementMultiplicity="-1" name="Multiple UMLModel" sections="_3XPNtTGdEeexFNyA-Izhlg" automaticContext="true" datacontexts="_3XQcETGdEeexFNyA-Izhlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_3XQb-TGdEeexFNyA-Izhlg" name="isMultipleUMLModel">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb-jGdEeexFNyA-Izhlg" name="className" value="UMLModel"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_3XQb-zGdEeexFNyA-Izhlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+    </constraints>
+  </views>
+  <views xmi:id="_BGwBDTcUEeeMbsajGQHQlg" elementMultiplicity="-1" name="Multiple TableConfiguration" sections="_BY6uxTcUEeeMbsajGQHQlg" automaticContext="true" datacontexts="_BGwBNTcUEeeMbsajGQHQlg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_BGwBDjcUEeeMbsajGQHQlg" name="isMultipleTableConfiguration">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_BGwBDzcUEeeMbsajGQHQlg" name="className" value="TableConfiguration"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_BGwBEDcUEeeMbsajGQHQlg" name="nsUri" value="http://www.eclipse.org/papyrus/customization"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_3XQb_DGdEeexFNyA-Izhlg" name="customization" label="customization">
+    <elements xmi:id="_3XQb_TGdEeexFNyA-Izhlg" name="CustomizationConfiguration">
+      <properties xmi:id="_3XQb_jGdEeexFNyA-Izhlg" name="plugin"/>
+      <properties xmi:id="_3XQb_zGdEeexFNyA-Izhlg" name="elements" label="Configuration elements" type="Reference" multiplicity="-1"/>
+    </elements>
+    <elements xmi:id="_3XQcADGdEeexFNyA-Izhlg" name="CustomizableElement"/>
+    <elements xmi:id="_3XQcATGdEeexFNyA-Izhlg" name="FileBasedCustomizableElement">
+      <properties xmi:id="_3XQcAjGdEeexFNyA-Izhlg" name="file"/>
+    </elements>
+    <elements xmi:id="_3XQcAzGdEeexFNyA-Izhlg" name="PropertyView"/>
+    <elements xmi:id="_3XQcBDGdEeexFNyA-Izhlg" name="UICustom">
+      <properties xmi:id="_3XQcBTGdEeexFNyA-Izhlg" name="loadByDefault" type="Boolean"/>
+    </elements>
+    <elements xmi:id="_3XQcBjGdEeexFNyA-Izhlg" name="ModelTemplate">
+      <properties xmi:id="_3XQcBzGdEeexFNyA-Izhlg" name="language"/>
+      <properties xmi:id="_3XQcCDGdEeexFNyA-Izhlg" name="name"/>
+      <properties xmi:id="_3XQcCTGdEeexFNyA-Izhlg" name="id"/>
+    </elements>
+    <elements xmi:id="_3XQcCjGdEeexFNyA-Izhlg" name="Palette"/>
+    <elements xmi:id="_3XQcCzGdEeexFNyA-Izhlg" name="Profile">
+      <properties xmi:id="_3XQcDDGdEeexFNyA-Izhlg" name="qualifiednames"/>
+      <properties xmi:id="_3XQcDTGdEeexFNyA-Izhlg" name="iconpath"/>
+      <properties xmi:id="_3XQcDjGdEeexFNyA-Izhlg" name="description"/>
+      <properties xmi:id="_3XQcDzGdEeexFNyA-Izhlg" name="provider"/>
+      <properties xmi:id="_3XQcEDGdEeexFNyA-Izhlg" name="name"/>
+    </elements>
+    <elements xmi:id="_3XQcETGdEeexFNyA-Izhlg" name="UMLModel">
+      <properties xmi:id="_3XQcEjGdEeexFNyA-Izhlg" name="name"/>
+      <properties xmi:id="_3XQcEzGdEeexFNyA-Izhlg" name="iconpath"/>
+      <properties xmi:id="_3XQcFDGdEeexFNyA-Izhlg" name="description"/>
+      <properties xmi:id="_3XQcFTGdEeexFNyA-Izhlg" name="provider"/>
+    </elements>
+    <elements xmi:id="_BGwBNTcUEeeMbsajGQHQlg" name="TableConfiguration">
+      <properties xmi:id="_BGwBNjcUEeeMbsajGQHQlg" name="type"/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.toolsmiths/models/Environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context>

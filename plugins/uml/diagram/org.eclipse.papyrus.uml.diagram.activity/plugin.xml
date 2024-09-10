@@ -1,0 +1,2183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+ Copyright (c) 2009, 2015 CEA, Christian W. Damus, and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   CEA - Initial API and implementation
+   Christian W. Damus (CEA) - bug 323802
+   Christian W. Damus - bug 433206
+   
+-->
+<plugin>
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+				      <?gmfgen generated="true"?>
+				      <context
+				         description="%context.description"
+				         id="org.eclipse.papyrus.uml.diagram.activity.ui.diagramContext"
+				         name="%context.name"
+				         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+				      </context>
+				   </extension>
+   
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <contributionItemProvider checkPluginLoaded="false" class="org.eclipse.papyrus.uml.diagram.activity.providers.ActivityDiagramContributionItemProvider">
+      <Priority name="Low"/>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart" policyClass="org.eclipse.papyrus.uml.diagram.activity.providers.ActivityDiagramContributionPolicyClass"/>
+            <popupAction id="papyrus.restoreRelatedLinksAction" path="/navigateMenu/additions"/>
+         </popupContribution>
+      </contributionItemProvider>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            description="Create a new Activity Diagram"
+            categoryId="org.eclipse.papyrus.editor.category"            
+            id="org.eclipse.papyrus.uml.diagram.activity.CreateActivityDiagramCommand"
+            name="Create a new Activity Diagram">
+      </command>
+   </extension>
+   
+   
+	<extension
+         point="org.eclipse.papyrus.infra.gmfdiag.dnd.dropStrategy">
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.AssociationToClearAssociationActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.AssociationToCreateLinkActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.AssociationToDestroyLinkActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.AssociationToReadLinkActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.ClassifierToCreateObjectActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.ClassifierToReadExtentActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.ClassifierToReadIsClassifiedObjectActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.BehaviorToReduceActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.ClassifierToUnmarshallActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.OperationToCallOperationActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.OperationToAcceptCallActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.ParameterToActivityParameterNodeDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.PropertyToAddStructuralFeatureValueActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.PropertyToClearStructuralFeatureActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.PropertyToReadStructuralFeatureActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.SignalToAcceptEventActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.BehaviorToCallBehaviorActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.SignalToSendSignalActionDropStrategy">
+       </strategy>
+       <strategy
+             strategy="org.eclipse.papyrus.uml.diagram.activity.dnd.strategies.SignalToBroadcastSignalActionDropStrategy">
+       </strategy>
+   </extension>
+
+   <extension
+         point="org.eclipse.papyrus.infra.ui.papyrusDiagram">
+      <editorDiagram
+            contextId="com.cea.papyrus.gmf.editor.context"
+            factoryClass="org.eclipse.papyrus.uml.diagram.activity.ActivityDiagramEditorFactory"
+            icon="icons/obj16/Diagram_Activity.gif">
+      </editorDiagram>
+      <creationCommand
+            creationCommandClass="org.eclipse.papyrus.uml.diagram.activity.CreateActivityDiagramCommand"
+            creationCondition="org.eclipse.papyrus.uml.diagram.activity.ActivityDiagramCreationCondition"
+            icon="icons/obj16/Diagram_Activity.gif"
+            language="uml"
+            id="org.eclipse.papyrus.uml.diagram.activity.CreateActivityDiagramCommand"
+            label="Activity Diagram">
+      </creationCommand>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
+		      <?gmfgen generated="true"?>
+		<page
+		      id="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLActivityDiagram"
+		      name="PapyrusUMLActivityDiagram Diagram"
+		      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams"
+		      class="org.eclipse.papyrus.uml.diagram.activity.preferences.DiagramGeneralPreferencePage">
+		</page>
+		<page
+		      id="org.eclipse.papyrus.uml.diagram.activity.preferences.DiagramPrintingPreferencePage"
+		      name="%prefpage.org.eclipse.uml2.uml.diagram.printing"
+		      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLActivityDiagram"
+		      class="org.eclipse.papyrus.uml.diagram.activity.preferences.DiagramPrintingPreferencePage">
+		</page>
+		   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="org.eclipse.papyrus.uml.diagram.activity"
+            labelProvider="org.eclipse.papyrus.uml.diagram.activity.sheet.UMLSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.papyrus.uml.diagram.activity">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.papyrus.uml.diagram.activity">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.papyrus.uml.diagram.activity.sheet.UMLPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLAbstractNavigatorItem"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
+
+<?gmfgen generated="true"?>
+
+	<extension point="org.eclipse.core.runtime.preferences" id="prefs">
+		      <?gmfgen generated="true"?>
+		      <initializer class="org.eclipse.papyrus.uml.diagram.activity.preferences.DiagramPreferenceInitializer"/>
+		   </extension>
+	<extension point="org.eclipse.core.runtime.preferences">
+		<?gmfgen generated="false"?>
+		<initializer class="org.eclipse.papyrus.uml.diagram.activity.preferences.DiagramSpecificPreferenceInitializer"/>
+	</extension>
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+	      <?gmfgen generated="true"?>
+	      <viewProvider class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLViewProvider">
+	         <Priority name="Lowest"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="PapyrusUMLActivityDiagram"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="Activity_Shape,Parameter_ParameterLabel,Constraint_PreconditionLabel,Constraint_PostconditionLabel,InitialNode_Shape,ActivityFinalNode_Shape,FlowFinalNode_Shape,OpaqueAction_Shape,ValuePin_OpaqueActionInputShape,ActionInputPin_OpaqueActionInputShape,InputPin_OpaqueActionInputShape,OutputPin_OpaqueActionOutputShape,CallBehaviorAction_Shape,ValuePin_CallBehaviorActionArgumentShape,ActionInputPin_CallBehaviorActionArgumentShape,InputPin_CallBehaviorActionArgumentShape,OutputPin_CallBehaviorActionResultShape,CallOperationAction_Shape,ActionInputPin_CallOperationActionArgumentShape,ValuePin_CallOperationActionArgumentShape,InputPin_CallOperationActionArgumentShape,OutputPin_CallOperationActionResultShape,ValuePin_CallOperationActionTargetShape,ActionInputPin_CallOperationActionTargetShape,InputPin_CallOperationActionTargetShape,DurationConstraint_LocalPreconditionShape,DurationConstraint_LocalPostconditionShape,TimeConstraint_LocalPreconditionShape,TimeConstraint_LocalPostconditionShape,IntervalConstraint_LocalPreconditionShape,IntervalConstraint_LocalPostconditionShape,Constraint_LocalPreconditionShape,Constraint_LocalPostconditionShape,DecisionNode_Shape,MergeNode_Shape,ForkNode_Shape,JoinNode_Shape,DataStoreNode_Shape,SendObjectAction_Shape,ValuePin_SendObjectActionRequestShape,ActionInputPin_SendObjectActionRequestShape,InputPin_SendObjectActionRequestShape,ValuePin_SendObjectActionTargetShape,ActionInputPin_SendObjectActionTargetShape,InputPin_SendObjectActionTargetShape,SendSignalAction_Shape,ActionInputPin_SendSignalActionArgumentShape,ValuePin_SendSignalActionArgumentShape,InputPin_SendSignalActionArgumentShape,ValuePin_SendSignalActionTargetShape,ActionInputPin_SendSignalActionTargetShape,InputPin_SendSignalActionTargetShape,ActivityParameterNode_Shape,AcceptEventAction_Shape,OutputPin_AcceptEventActionResultShape,ValueSpecificationAction_Shape,OutputPin_ValueSpecificationActionResultShape,ConditionalNode_Shape,ExpansionRegion_Shape,ExpansionNode_InputShape,ExpansionNode_OutputShape,LoopNode_Shape,InputPin_LoopNodeVariableInputShape,ValuePin_LoopNodeVariableInputShape,ActionInputPin_LoopNodeVariableInputShape,OutputPin_LoopNodeBodyOutputShape,OutputPin_LoopNodeVariableShape,OutputPin_LoopNodeResultShape,SequenceNode_Shape,StructuredActivityNode_Shape,InputPin_StructuredActivityNodeInputShape,ValuePin_StructuredActivityNodeInputShape,ActionInputPin_StructuredActivityNodeInputShape,OutputPin_StructuredActivityNodeOutputShape,ActivityPartition_Shape,InterruptibleActivityRegion_Shape,Comment_Shape,ReadSelfAction_Shape,OutputPin_ReadSelfActionResultShape,Activity_Shape_CN,CreateObjectAction_Shape,OutputPin_CreateObjectActionResultShape,NamedElement_DefaultShape,ReadStructuralFeatureAction_Shape,InputPin_ReadStructuralFeatureActionObjectShape,ValuePin_ReadStructuralFeatureActionObjectShape,ActionInputPin_ReadStructuralFeatureActionObjectShape,OutputPin_ReadStructuralFeatureActionResultShape,AddStructuralFeatureValueAction_Shape,InputPin_AddStructuralFeatureValueActionObjectShape,InputPin_AddStructuralFeatureValueActionValueShape,InputPin_AddStructuralFeatureValueActionInsertAtShape,ValuePin_AddStructuralFeatureValueActionObjectShape,ValuePin_AddStructuralFeatureValueActionValueShape,ValuePin_AddStructuralFeatureValueActionInsertAtShape,ActionInputPin_AddStructuralFeatureValueActionObjectShape,ActionInputPin_AddStructuralFeatureValueActionValueShape,ActionInputPin_AddStructuralFeatureValueActionInsertAtShape,OutputPin_AddStructuralFeatureValueActionResultShape,DestroyObjectAction_Shape,InputPin_DestroyObjectActionTargetShape,ValuePin_DestroyObjectActionTargetShape,ActionInputPin_DestroyObjectActionTargetShape,ReadVariableAction_Shape,OutputPin_ReadVariableActionResultShape,AddVariableValueAction_Shape,InputPin_AddVariableValueActionInsertAtShape,InputPin_AddVariableValueActionValueShape,ValuePin_AddVariableValueActionInsertAtShape,ValuePin_AddVariableValueActionValueShape,ActionInputPin_AddVariableValueActionInsertAtShape,ActionInputPin_AddVariableValueActionValueShape,BroadcastSignalAction_Shape,InputPin_BroadcastSignalActionArgumentShape,ValuePin_BroadcastSignalActionArgumentShape,ActionInputPin_BroadcastSignalActionArgumentShape,CentralBufferNode_Shape,Constraint_Shape,StartObjectBehaviorAction_Shape,OutputPin_StartObjectBehaviorActionResultShape,InputPin_StartObjectBehaviorActionObjectShape,ValuePin_StartObjectBehaviorActionObjectShape,ActionInputPin_StartObjectBehaviorActionObjectShape,InputPin_StartObjectBehaviorActionArgumentShape,ValuePin_StartObjectBehaviorActionArgumentShape,ActionInputPin_StartObjectBehaviorActionArgumentShape,TestIdentityAction_Shape,OutputPin_TestIdentityActionResultShape,InputPin_TestIdentityActionFirstShape,InputPin_TestIdentityActionSecondShape,ValuePin_TestIdentityActionFirstShape,ValuePin_TestIdentityActionSecondShape,ActionInputPin_TestIdentityActionFirstShape,ActionInputPin_TestIdentityActionSecondShape,ClearStructuralFeatureAction_Shape,OutputPin_ClearStructuralFeatureActionResultShape,InputPin_ClearStructuralFeatureActionObjectShape,ValuePin_ClearStructuralFeatureActionObjectShape,ActionInputPin_ClearStructuralFeatureActionObjectShape,CreateLinkAction_Shape,InputPin_CreateLinkActionInputShape,ValuePin_CreateLinkActionInputShape,ActionInputPin_CreateLinkActionInputShape,ReadLinkAction_Shape,OutputPin_ReadLinkActionResultShape,InputPin_ReadLinkActionInputShape,ValuePin_ReadLinkActionInputShape,ActionInputPin_ReadLinkActionInputShape,DestroyLinkAction_Shape,InputPin_DestroyLinkActionInputShape,ValuePin_DestroyLinkActionInputShape,ActionInputPin_DestroyLinkActionInputShape,ClearAssociationAction_Shape,InputPin_ClearAssociationActionObjectShape,ValuePin_ClearAssociationActionObjectShape,ActionInputPin_ClearAssociationActionObjectShape,ReadExtentAction_Shape,OutputPin_ReadExtentActionResultShape,ReclassifyObjectAction_Shape,InputPin_ReclassifyObjectActionObjectShape,ValuePin_ReclassifyObjectActionObjectShape,ActionInputPin_ReclassifyObjectActionObjectShape,ReadIsClassifiedObjectAction_Shape,OutputPin_ReadIsClassifiedObjectActionResultShape,InputPin_ReadIsClassifiedObjectActionObjectShape,ValuePin_ReadIsClassifiedObjectActionObjectShape,ActionInputPin_ReadIsClassifiedObjectActionObjectShape,ReduceAction_Shape,OutputPin_ReduceActionResultShape,InputPin_ReduceActionCollectionShape,ValuePin_ReduceActionCollectionShape,ActionInputPin_ReduceActionCollectionShape,StartClassifierBehaviorAction_Shape,InputPin_StartClassifierBehaviorActionObjectShape,ValuePin_StartClassifierBehaviorActionObjectShape,ActionInputPin_StartClassifierBehaviorActionObjectShape,CreateLinkObjectAction_Shape,InputPin_CreateLinkObjectActionInputShape,ValuePin_CreateLinkObjectActionInputShape,ActionInputPin_CreateLinkObjectActionInputShape,OutputPin_CreateLinkObjectActionResultShape,UnmarshallAction_Shape,InputPin_UnmarshallActionObjectShape,ValuePin_UnmarshallActionObjectShape,ActionInputPin_UnmarshallActionObjectShape,OutputPin_UnmarshallActionResultShape"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="Action_LocalPreconditionEdge,Action_LocalPostconditionEdge,ObjectFlow_Edge,ControlFlow_Edge,ExceptionHandler_Edge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge"/>
+	      </viewProvider>
+	   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+	      <?gmfgen generated="true"?>
+	      <editpartProvider class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLEditPartProvider">
+	         <Priority name="Lowest"/>
+	         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+	            <method name="getType()" value="PapyrusUMLActivityDiagram"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+	            <method name="getType()" value="Activity_Shape,Parameter_ParameterLabel,Constraint_PreconditionLabel,Constraint_PostconditionLabel,InitialNode_Shape,ActivityFinalNode_Shape,FlowFinalNode_Shape,OpaqueAction_Shape,ValuePin_OpaqueActionInputShape,ActionInputPin_OpaqueActionInputShape,InputPin_OpaqueActionInputShape,OutputPin_OpaqueActionOutputShape,CallBehaviorAction_Shape,ValuePin_CallBehaviorActionArgumentShape,ActionInputPin_CallBehaviorActionArgumentShape,InputPin_CallBehaviorActionArgumentShape,OutputPin_CallBehaviorActionResultShape,CallOperationAction_Shape,ActionInputPin_CallOperationActionArgumentShape,ValuePin_CallOperationActionArgumentShape,InputPin_CallOperationActionArgumentShape,OutputPin_CallOperationActionResultShape,ValuePin_CallOperationActionTargetShape,ActionInputPin_CallOperationActionTargetShape,InputPin_CallOperationActionTargetShape,DurationConstraint_LocalPreconditionShape,DurationConstraint_LocalPostconditionShape,TimeConstraint_LocalPreconditionShape,TimeConstraint_LocalPostconditionShape,IntervalConstraint_LocalPreconditionShape,IntervalConstraint_LocalPostconditionShape,Constraint_LocalPreconditionShape,Constraint_LocalPostconditionShape,DecisionNode_Shape,MergeNode_Shape,ForkNode_Shape,JoinNode_Shape,DataStoreNode_Shape,SendObjectAction_Shape,ValuePin_SendObjectActionRequestShape,ActionInputPin_SendObjectActionRequestShape,InputPin_SendObjectActionRequestShape,ValuePin_SendObjectActionTargetShape,ActionInputPin_SendObjectActionTargetShape,InputPin_SendObjectActionTargetShape,SendSignalAction_Shape,ActionInputPin_SendSignalActionArgumentShape,ValuePin_SendSignalActionArgumentShape,InputPin_SendSignalActionArgumentShape,ValuePin_SendSignalActionTargetShape,ActionInputPin_SendSignalActionTargetShape,InputPin_SendSignalActionTargetShape,ActivityParameterNode_Shape,AcceptEventAction_Shape,OutputPin_AcceptEventActionResultShape,ValueSpecificationAction_Shape,OutputPin_ValueSpecificationActionResultShape,ConditionalNode_Shape,ExpansionRegion_Shape,ExpansionNode_InputShape,ExpansionNode_OutputShape,LoopNode_Shape,InputPin_LoopNodeVariableInputShape,ValuePin_LoopNodeVariableInputShape,ActionInputPin_LoopNodeVariableInputShape,OutputPin_LoopNodeBodyOutputShape,OutputPin_LoopNodeVariableShape,OutputPin_LoopNodeResultShape,SequenceNode_Shape,StructuredActivityNode_Shape,InputPin_StructuredActivityNodeInputShape,ValuePin_StructuredActivityNodeInputShape,ActionInputPin_StructuredActivityNodeInputShape,OutputPin_StructuredActivityNodeOutputShape,ActivityPartition_Shape,InterruptibleActivityRegion_Shape,Comment_Shape,ReadSelfAction_Shape,OutputPin_ReadSelfActionResultShape,Activity_Shape_CN,CreateObjectAction_Shape,OutputPin_CreateObjectActionResultShape,NamedElement_DefaultShape,ReadStructuralFeatureAction_Shape,InputPin_ReadStructuralFeatureActionObjectShape,ValuePin_ReadStructuralFeatureActionObjectShape,ActionInputPin_ReadStructuralFeatureActionObjectShape,OutputPin_ReadStructuralFeatureActionResultShape,AddStructuralFeatureValueAction_Shape,InputPin_AddStructuralFeatureValueActionObjectShape,InputPin_AddStructuralFeatureValueActionValueShape,InputPin_AddStructuralFeatureValueActionInsertAtShape,ValuePin_AddStructuralFeatureValueActionObjectShape,ValuePin_AddStructuralFeatureValueActionValueShape,ValuePin_AddStructuralFeatureValueActionInsertAtShape,ActionInputPin_AddStructuralFeatureValueActionObjectShape,ActionInputPin_AddStructuralFeatureValueActionValueShape,ActionInputPin_AddStructuralFeatureValueActionInsertAtShape,OutputPin_AddStructuralFeatureValueActionResultShape,DestroyObjectAction_Shape,InputPin_DestroyObjectActionTargetShape,ValuePin_DestroyObjectActionTargetShape,ActionInputPin_DestroyObjectActionTargetShape,ReadVariableAction_Shape,OutputPin_ReadVariableActionResultShape,AddVariableValueAction_Shape,InputPin_AddVariableValueActionInsertAtShape,InputPin_AddVariableValueActionValueShape,ValuePin_AddVariableValueActionInsertAtShape,ValuePin_AddVariableValueActionValueShape,ActionInputPin_AddVariableValueActionInsertAtShape,ActionInputPin_AddVariableValueActionValueShape,BroadcastSignalAction_Shape,InputPin_BroadcastSignalActionArgumentShape,ValuePin_BroadcastSignalActionArgumentShape,ActionInputPin_BroadcastSignalActionArgumentShape,CentralBufferNode_Shape,Constraint_Shape,StartObjectBehaviorAction_Shape,OutputPin_StartObjectBehaviorActionResultShape,InputPin_StartObjectBehaviorActionObjectShape,ValuePin_StartObjectBehaviorActionObjectShape,ActionInputPin_StartObjectBehaviorActionObjectShape,InputPin_StartObjectBehaviorActionArgumentShape,ValuePin_StartObjectBehaviorActionArgumentShape,ActionInputPin_StartObjectBehaviorActionArgumentShape,TestIdentityAction_Shape,OutputPin_TestIdentityActionResultShape,InputPin_TestIdentityActionFirstShape,InputPin_TestIdentityActionSecondShape,ValuePin_TestIdentityActionFirstShape,ValuePin_TestIdentityActionSecondShape,ActionInputPin_TestIdentityActionFirstShape,ActionInputPin_TestIdentityActionSecondShape,ClearStructuralFeatureAction_Shape,OutputPin_ClearStructuralFeatureActionResultShape,InputPin_ClearStructuralFeatureActionObjectShape,ValuePin_ClearStructuralFeatureActionObjectShape,ActionInputPin_ClearStructuralFeatureActionObjectShape,CreateLinkAction_Shape,InputPin_CreateLinkActionInputShape,ValuePin_CreateLinkActionInputShape,ActionInputPin_CreateLinkActionInputShape,ReadLinkAction_Shape,OutputPin_ReadLinkActionResultShape,InputPin_ReadLinkActionInputShape,ValuePin_ReadLinkActionInputShape,ActionInputPin_ReadLinkActionInputShape,DestroyLinkAction_Shape,InputPin_DestroyLinkActionInputShape,ValuePin_DestroyLinkActionInputShape,ActionInputPin_DestroyLinkActionInputShape,ClearAssociationAction_Shape,InputPin_ClearAssociationActionObjectShape,ValuePin_ClearAssociationActionObjectShape,ActionInputPin_ClearAssociationActionObjectShape,ReadExtentAction_Shape,OutputPin_ReadExtentActionResultShape,ReclassifyObjectAction_Shape,InputPin_ReclassifyObjectActionObjectShape,ValuePin_ReclassifyObjectActionObjectShape,ActionInputPin_ReclassifyObjectActionObjectShape,ReadIsClassifiedObjectAction_Shape,OutputPin_ReadIsClassifiedObjectActionResultShape,InputPin_ReadIsClassifiedObjectActionObjectShape,ValuePin_ReadIsClassifiedObjectActionObjectShape,ActionInputPin_ReadIsClassifiedObjectActionObjectShape,ReduceAction_Shape,OutputPin_ReduceActionResultShape,InputPin_ReduceActionCollectionShape,ValuePin_ReduceActionCollectionShape,ActionInputPin_ReduceActionCollectionShape,StartClassifierBehaviorAction_Shape,InputPin_StartClassifierBehaviorActionObjectShape,ValuePin_StartClassifierBehaviorActionObjectShape,ActionInputPin_StartClassifierBehaviorActionObjectShape,CreateLinkObjectAction_Shape,InputPin_CreateLinkObjectActionInputShape,ValuePin_CreateLinkObjectActionInputShape,ActionInputPin_CreateLinkObjectActionInputShape,OutputPin_CreateLinkObjectActionResultShape,UnmarshallAction_Shape,InputPin_UnmarshallActionObjectShape,ValuePin_UnmarshallActionObjectShape,ActionInputPin_UnmarshallActionObjectShape,OutputPin_UnmarshallActionResultShape"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+	            <method name="getType()" value="Action_LocalPreconditionEdge,Action_LocalPostconditionEdge,ObjectFlow_Edge,ControlFlow_Edge,ExceptionHandler_Edge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+	            <method name="getType()" value="Activity_NameLabel,Activity_KeywordLabel,InitialNode_FloatingNameLabel,InitialNode_StereotypeLabel,ActivityFinalNode_FloatingNameLabel,ActivityFinalNode_StereotypeLabel,FlowFinalNode_FloatingNameLabel,FlowFinalNode_StereotypeLabel,OpaqueAction_NameLabel,OpaqueAction_FloatingNameLabel,ValuePin_OpaqueActionInputNameLabel,ValuePin_OpaqueActionInputValueLabel,ValuePin_OpaqueActionInputStereotypeLabel,ActionInputPin_OpaqueActionInputNameLabel,ActionInputPin_OpaqueActionInputValueLabel,ActionInputPin_OpaqueActionInputStereotypeLabel,InputPin_OpaqueActionInputNameLabel,InputPin_OpaqueActionInputStereotypeLabel,OutputPin_OpaqueActionOutputNameLabel,OutputPin_OpaqueActionOutputStereotypeLabel,CallBehaviorAction_NameLabel,CallBehaviorAction_FloatingNameLabel,ValuePin_CallBehaviorActionArgumentNameLabel,ValuePin_CallBehaviorActionArgumentValueLabel,ValuePin_CallBehaviorActionArgumentStereotypeLabel,ActionInputPin_CallBehaviorActionArgumentNameLabel,ActionInputPin_CallBehaviorActionArgumentValueLabel,ActionInputPin_CallBehaviorActionArgumentStereotypeLabel,InputPin_CallBehaviorActionArgumentNameLabel,InputPin_CallBehaviorActionArgumentStereotypeLabel,OutputPin_CallBehaviorActionResultNameLabel,OutputPin_CallBehaviorActionResultStereotypeLabel,CallOperationAction_NameLabel,CallOperationAction_FloatingNameLabel,ActionInputPin_CallOperationActionArgumentNameLabel,ActionInputPin_CallOperationActionArgumentValueLabel,ActionInputPin_CallOperationActionArgumentStereotypeLabel,ValuePin_CallOperationActionArgumentNameLabel,ValuePin_CallOperationActionArgumentValueLabel,ValuePin_CallOperationActionArgumentStereotypeLabel,InputPin_CallOperationActionArgumentNameLabel,InputPin_CallOperationActionArgumentStereotypeLabel,OutputPin_CallOperationActionResultNameLabel,OutputPin_CallOperationActionResultStereotypeLabel,ValuePin_CallOperationActionTargetNameLabel,ValuePin_CallOperationActionTargetValueLabel,ValuePin_CallOperationActionTargetStereotypeLabel,ActionInputPin_CallOperationActionTargetNameLabel,ActionInputPin_CallOperationActionTargetValueLabel,ActionInputPin_CallOperationActionTargetStereotypeLabel,InputPin_CallOperationActionTargetNameLabel,InputPin_CallOperationActionTargetStereotypeLabel,DurationConstraint_LocalPreconditionNameLabel,DurationConstraint_LocalPreconditionBodyLabel,DurationConstraint_LocalPostconditionNameLabel,DurationConstraint_LocalPostconditionBodyLabel,TimeConstraint_LocalPreconditionNameLabel,TimeConstraint_LocalPreconditionBodyLabel,TimeConstraint_LocalPostconditionNameLabel,TimeConstraint_LocalPostconditionBodyLabel,IntervalConstraint_LocalPreconditionNameLabel,IntervalConstraint_LocalPreconditionBodyLabel,IntervalConstraint_LocalPostconditionNameLabel,IntervalConstraint_LocalPostconditionBodyLabel,Constraint_LocalPreconditionNameLabel,Constraint_LocalPreconditionBodyLabel,Constraint_LocalPostconditionNameLabel,Constraint_LocalPostconditionBodyLabel,DecisionNode_FloatingNameLabel,DecisionNode_DecisionInputLabel,DecisionNode_StereotypeLabel,MergeNode_FloatingNameLabel,MergeNode_StereotypeLabel,ForkNode_FloatingNameLabel,ForkNode_StereotypeLabel,JoinNode_FloatingNameLabel,JoinNode_JoinSpecLabel,JoinNode_StereotypeLabel,DataStoreNode_NameLabel,DataStoreNode_SelectionLabel,DataStoreNode_FloatingNameLabel,SendObjectAction_NameLabel,SendObjectAction_FloatingNameLabel,ValuePin_SendObjectActionRequestNameLabel,ValuePin_SendObjectActionRequestValueLabel,ValuePin_SendObjectActionRequestStereotypeLabel,ActionInputPin_SendObjectActionRequestNameLabel,ActionInputPin_SendObjectActionRequestValueLabel,ActionInputPin_SendObjectActionRequestStereotypeLabel,InputPin_SendObjectActionRequestNameLabel,InputPin_SendObjectActionRequestStereotypeLabel,ValuePin_SendObjectActionTargetNameLabel,ValuePin_SendObjectActionTargetValueLabel,ValuePin_SendObjectActionTargetStereotypeLabel,ActionInputPin_SendObjectActionTargetNameLabel,ActionInputPin_SendObjectActionTargetValueLabel,ActionInputPin_SendObjectActionTargetStereotypeLabel,InputPin_SendObjectActionTargetNameLabel,InputPin_SendObjectActionTargetStereotypeLabel,SendSignalAction_NameLabel,SendSignalAction_FloatingNameLabel,ActionInputPin_SendSignalActionArgumentNameLabel,ActionInputPin_SendSignalActionArgumentValueLabel,ActionInputPin_SendSignalActionArgumentStereotypeLabel,ValuePin_SendSignalActionArgumentNameLabel,ValuePin_SendSignalActionArgumentValueLabel,ValuePin_SendSignalActionArgumentStereotypeLabel,InputPin_SendSignalActionArgumentNameLabel,InputPin_SendSignalActionArgumentStereotypeLabel,ValuePin_SendSignalActionTargetNameLabel,ValuePin_SendSignalActionTargetValueLabel,ValuePin_SendSignalActionTargetStereotypeLabel,ActionInputPin_SendSignalActionTargetNameLabel,ActionInputPin_SendSignalActionTargetValueLabel,ActionInputPin_SendSignalActionTargetStereotypeLabel,InputPin_SendSignalActionTargetNameLabel,InputPin_SendSignalActionTargetStereotypeLabel,ActivityParameterNode_NameLabel,ActivityParameterNode_StreamLabel,ActivityParameterNode_ExceptionLabel,AcceptEventAction_NameLabel,AcceptEventAction_TriggerLabel,AcceptEventAction_StereotypeLabel,AcceptEventAction_FloatingNameLabel,OutputPin_AcceptEventActionResultNameLabel,OutputPin_AcceptEventActionResultStereotypeLabel,ValueSpecificationAction_NameLabel,ValueSpecificationAction_FloatingNameLabel,OutputPin_ValueSpecificationActionResultNameLabel,OutputPin_ValueSpecificationActionResultStereotypeLabel,ConditionalNode_KeywordLabel,ExpansionRegion_KeywordLabel,LoopNode_KeywordLabel,InputPin_LoopNodeVariableInputNameLabel,InputPin_LoopNodeVariableInputStereotypeLabel,ValuePin_LoopNodeVariableInputNameLabel,ValuePin_LoopNodeVariableInputValueLabel,ValuePin_LoopNodeVariableInputStereotypeLabel,ActionInputPin_LoopNodeVariableInputNameLabel,ActionInputPin_LoopNodeVariableInputValueLabel,ActionInputPin_LoopNodeVariableInputStereotypeLabel,OutputPin_LoopNodeBodyOutputNameLabel,OutputPin_LoopNodeBodyOutputStereotypeLabel,OutputPin_LoopNodeVariableNameLabel,OutputPin_LoopNodeVariableStereotypeLabel,OutputPin_LoopNodeResultNameLabel,OutputPin_LoopNodeResultStereotypeLabel,SequenceNode_KeywordLabel,StructuredActivityNode_KeywordLabel,InputPin_StructuredActivityNodeInputNameLabel,InputPin_StructuredActivityNodeInputStereotypeLabel,ValuePin_StructuredActivityNodeInputNameLabel,ValuePin_StructuredActivityNodeInputValueLabel,ValuePin_StructuredActivityNodeInputStereotypeLabel,ActionInputPin_StructuredActivityNodeInputNameLabel,ActionInputPin_StructuredActivityNodeInputValueLabel,ActionInputPin_StructuredActivityNodeInputStereotypeLabel,OutputPin_StructuredActivityNodeOutputNameLabel,OutputPin_StructuredActivityNodeOutputStereotypeLabel,ActivityPartition_NameLabel,ActivityPartition_FloatingNameLabel,Comment_BodyLabel,ReadSelfAction_NameLabel,ReadSelfAction_FloatingNameLabel,OutputPin_ReadSelfActionResultNameLabel,OutputPin_ReadSelfActionResultStereotypeLabel,Activity_NameLabel_CN,Activity_KeywordLabel_CN,CreateObjectAction_NameLabel,CreateObjectAction_FloatingNameLabel,OutputPin_CreateObjectActionResultNameLabel,OutputPin_CreateObjectActionResultStereotypeLabel,NamedElement_NameLabel,ReadStructuralFeatureAction_NameLabel,ReadStructuralFeatureAction_FloatingNameLabel,InputPin_ReadStructuralFeatureActionObjectNameLabel,InputPin_ReadStructuralFeatureActionObjectStereotypeLabel,ValuePin_ReadStructuralFeatureActionObjectNameLabel,ValuePin_ReadStructuralFeatureActionObjectValueLabel,ValuePin_ReadStructuralFeatureActionObjectStereotypeLabel,ActionInputPin_ReadStructuralFeatureActionObjectNameLabel,ActionInputPin_ReadStructuralFeatureActionObjectValueLabel,ActionInputPin_ReadStructuralFeatureActionObjectStereotypeLabel,OutputPin_ReadStructuralFeatureActionResultNameLabel,OutputPin_ReadStructuralFeatureActionResultStereotypeLabel,AddStructuralFeatureValueAction_NameLabel,AddStructuralFeatureValueAction_FloatingNameLabel,InputPin_AddStructuralFeatureValueActionObjectNameLabel,InputPin_AddStructuralFeatureValueActionObjectStereotypeLabel,InputPin_AddStructuralFeatureValueActionValueNameLabel,InputPin_AddStructuralFeatureValueActionValueStereotypeLabel,InputPin_AddStructuralFeatureValueActionInsertAtNameLabel,InputPin_AddStructuralFeatureValueActionInsertAtStereotypeLabel,ValuePin_AddStructuralFeatureValueActionObjectNameLabel,ValuePin_AddStructuralFeatureValueActionObjectValueLabel,ValuePin_AddStructuralFeatureValueActionObjectStereotypeLabel,ValuePin_AddStructuralFeatureValueActionValueNameLabel,ValuePin_AddStructuralFeatureValueActionValueValueLabel,ValuePin_AddStructuralFeatureValueActionValueStereotypeLabel,ValuePin_AddStructuralFeatureValueActionInsertAtNameLabel,ValuePin_AddStructuralFeatureValueActionInsertAtValueLabel,ValuePin_AddStructuralFeatureValueActionInsertAtStereotypeLabel,ActionInputPin_AddStructuralFeatureValueActionObjectNameLabel,ActionInputPin_AddStructuralFeatureValueActionObjectValueLabel,ActionInputPin_AddStructuralFeatureValueActionObjectStereotypeLabel,ActionInputPin_AddStructuralFeatureValueActionValueNameLabel,ActionInputPin_AddStructuralFeatureValueActionValueValueLabel,ActionInputPin_AddStructuralFeatureValueActionValueStereotypeLabel,ActionInputPin_AddStructuralFeatureValueActionInsertAtNameLabel,ActionInputPin_AddStructuralFeatureValueActionInsertAtValueLabel,ActionInputPin_AddStructuralFeatureValueActionInsertAtStereotypeLabel,OutputPin_AddStructuralFeatureValueActionResultNameLabel,OutputPin_AddStructuralFeatureValueActionResultStereotypeLabel,DestroyObjectAction_NameLabel,DestroyObjectAction_FloatingNameLabel,InputPin_DestroyObjectActionTargetNameLabel,InputPin_DestroyObjectActionTargetStereotypeLabel,ValuePin_DestroyObjectActionTargetNameLabel,ValuePin_DestroyObjectActionTargetValueLabel,ValuePin_DestroyObjectActionTargetStereotypeLabel,ActionInputPin_DestroyObjectActionTargetNameLabel,ActionInputPin_DestroyObjectActionTargetValueLabel,ActionInputPin_DestroyObjectActionTargetStereotypeLabel,ReadVariableAction_NameLabel,ReadVariableAction_FloatingNameLabel,OutputPin_ReadVariableActionResultNameLabel,OutputPin_ReadVariableActionResultStereotypeLabel,AddVariableValueAction_NameLabel,AddVariableValueAction_FloatingNameLabel,InputPin_AddVariableValueActionInsertAtNameLabel,InputPin_AddVariableValueActionInsertAtStereotypeLabel,InputPin_AddVariableValueActionValueNameLabel,InputPin_AddVariableValueActionValueStereotypeLabel,ValuePin_AddVariableValueActionInsertAtNameLabel,ValuePin_AddVariableValueActionInsertAtValueLabel,ValuePin_AddVariableValueActionInsertAtStereotypeLabel,ValuePin_AddVariableValueActionValueNameLabel,ValuePin_AddVariableValueActionValueValueLabel,ValuePin_AddVariableValueActionValueStereotypeLabel,ActionInputPin_AddVariableValueActionInsertAtNameLabel,ActionInputPin_AddVariableValueActionInsertAtValueLabel,ActionInputPin_AddVariableValueActionInsertAtStereotypeLabel,ActionInputPin_AddVariableValueActionValueNameLabel,ActionInputPin_AddVariableValueActionValueValueLabel,ActionInputPin_AddVariableValueActionValueStereotypeLabel,BroadcastSignalAction_NameLabel,BroadcastSignalAction_FloatingNameLabel,InputPin_BroadcastSignalActionArgumentNameLabel,InputPin_BroadcastSignalActionArgumentValueLabel,InputPin_BroadcastSignalActionArgumentStereotypeLabel,ValuePin_BroadcastSignalActionArgumentNameLabel,ValuePin_BroadcastSignalActionArgumentValueLabel,ValuePin_BroadcastSignalActionArgumentStereotypeLabel,ActionInputPin_BroadcastSignalActionArgumentNameLabel,ActionInputPin_BroadcastSignalActionArgumentValueLabel,ActionInputPin_BroadcastSignalActionArgumentStereotypeLabel,CentralBufferNode_NameLabel,CentralBufferNode_SelectionLabel,CentralBufferNode_FloatingNameLabel,Constraint_NameLabel,Constraint_BodyLabel,StartObjectBehaviorAction_NameLabel,StartObjectBehaviorAction_FloatingNameLabel,OutputPin_StartObjectBehaviorActionResultNameLabel,OutputPin_StartObjectBehaviorActionResultStereotypeLabel,InputPin_StartObjectBehaviorActionObjectNameLabel,InputPin_StartObjectBehaviorActionObjectStereotypeLabel,ValuePin_StartObjectBehaviorActionObjectNameLabel,ValuePin_StartObjectBehaviorActionObjectValueLabel,ValuePin_StartObjectBehaviorActionObjectStereotypeLabel,ActionInputPin_StartObjectBehaviorActionObjectNameLabel,ActionInputPin_StartObjectBehaviorActionObjectValueLabel,ActionInputPin_StartObjectBehaviorActionObjectStereotypeLabel,InputPin_StartObjectBehaviorActionArgumentNameLabel,InputPin_StartObjectBehaviorActionArgumentStereotypeLabel,ValuePin_StartObjectBehaviorActionArgumentNameLabel,ValuePin_StartObjectBehaviorActionArgumentValueLabel,ValuePin_StartObjectBehaviorActionArgumentStereotypeLabel,ActionInputPin_StartObjectBehaviorActionArgumentNameLabel,ActionInputPin_StartObjectBehaviorActionArgumentValueLabel,ActionInputPin_StartObjectBehaviorActionArgumentStereotypeLabel,TestIdentityAction_NameLabel,TestIdentityAction_FloatingNameLabel,OutputPin_TestIdentityActionResultNameLabel,OutputPin_TestIdentityActionResultStereotypeLabel,InputPin_TestIdentityActionFirstNameLabel,InputPin_TestIdentityActionFirstStereotypeLabel,InputPin_TestIdentityActionSecondNameLabel,InputPin_TestIdentityActionSecondStereotypeLabel,ValuePin_TestIdentityActionFirstNameLabel,ValuePin_TestIdentityActionFirstValueLabel,ValuePin_TestIdentityActionFirstStereotypeLabel,ValuePin_TestIdentityActionSecondNameLabel,ValuePin_TestIdentityActionSecondValueLabel,ValuePin_TestIdentityActionSecondStereotypeLabel,ActionInputPin_TestIdentityActionFirstNameLabel,ActionInputPin_TestIdentityActionFirstValueLabel,ActionInputPin_TestIdentityActionFirstStereotypeLabel,ActionInputPin_TestIdentityActionSecondNameLabel,ActionInputPin_TestIdentityActionSecondValueLabel,ActionInputPin_TestIdentityActionSecondStereotypeLabel,ClearStructuralFeatureAction_NameLabel,ClearStructuralFeatureAction_FloatingNameLabel,OutputPin_ClearStructuralFeatureActionResultNameLabel,OutputPin_ClearStructuralFeatureActionResultStereotypeLabel,InputPin_ClearStructuralFeatureActionObjectNameLabel,InputPin_ClearStructuralFeatureActionObjectStereotypeLabel,ValuePin_ClearStructuralFeatureActionObjectNameLabel,ValuePin_ClearStructuralFeatureActionObjectValueLabel,ValuePin_ClearStructuralFeatureActionObjectStereotypeLabel,ActionInputPin_ClearStructuralFeatureActionObjectNameLabel,ActionInputPin_ClearStructuralFeatureActionObjectValueLabel,ActionInputPin_ClearStructuralFeatureActionObjectStereotypeLabel,CreateLinkAction_NameLabel,CreateLinkAction_FloatingNameLabel,InputPin_CreateLinkActionInputNameLabel,InputPin_CreateLinkActionInputStereotypeLabel,ValuePin_CreateLinkActionInputNameLabel,ValuePin_CreateLinkActionInputValueLabel,ValuePin_CreateLinkActionInputStereotypeLabel,ActionInputPin_CreateLinkActionInputNameLabel,ActionInputPin_CreateLinkActionInputValueLabel,ActionInputPin_CreateLinkActionInputStereotypeLabel,ReadLinkAction_NameLabel,ReadLinkAction_FloatingNameLabel,OutputPin_ReadLinkActionResultNameLabel,OutputPin_ReadLinkActionResultStereotypeLabel,InputPin_ReadLinkActionInputNameLabel,InputPin_ReadLinkActionInputStereotypeLabel,ValuePin_ReadLinkActionInputNameLabel,ValuePin_ReadLinkActionInputValueLabel,ValuePin_ReadLinkActionInputStereotypeLabel,ActionInputPin_ReadLinkActionInputNameLabel,ActionInputPin_ReadLinkActionInputValueLabel,ActionInputPin_ReadLinkActionInputStereotypeLabel,DestroyLinkAction_NameLabel,DestroyLinkAction_FloatingNameLabel,InputPin_DestroyLinkActionInputNameLabel,InputPin_DestroyLinkActionInputStereotypeLabel,ValuePin_DestroyLinkActionInputNameLabel,ValuePin_DestroyLinkActionInputValueLabel,ValuePin_DestroyLinkActionInputStereotypeLabel,ActionInputPin_DestroyLinkActionInputNameLabel,ActionInputPin_DestroyLinkActionInputValueLabel,ActionInputPin_DestroyLinkActionInputStereotypeLabel,ClearAssociationAction_NameLabel,ClearAssociationAction_FloatingNameLabel,InputPin_ClearAssociationActionObjectNameLabel,InputPin_ClearAssociationActionObjectStereotypeLabel,ValuePin_ClearAssociationActionObjectNameLabel,ValuePin_ClearAssociationActionObjectValueLabel,ValuePin_ClearAssociationActionObjectStereotypeLabel,ActionInputPin_ClearAssociationActionObjectNameLabel,ActionInputPin_ClearAssociationActionObjectValueLabel,ActionInputPin_ClearAssociationActionObjectStereotypeLabel,ReadExtentAction_NameLabel,ReadExtentAction_FloatingNameLabel,OutputPin_ReadExtentActionResultNameLabel,OutputPin_ReadExtentActionResultStereotypeLabel,ReclassifyObjectAction_NameLabel,ReclassifyObjectAction_FloatingNameLabel,InputPin_ReclassifyObjectActionObjectNameLabel,InputPin_ReclassifyObjectActionObjectStereotypeLabel,ValuePin_ReclassifyObjectActionObjectNameLabel,ValuePin_ReclassifyObjectActionObjectValueLabel,ValuePin_ReclassifyObjectActionObjectStereotypeLabel,ActionInputPin_ReclassifyObjectActionObjectNameLabel,ActionInputPin_ReclassifyObjectActionObjectValueLabel,ActionInputPin_ReclassifyObjectActionObjectStereotypeLabel,ReadIsClassifiedObjectAction_NameLabel,ReadIsClassifiedObjectAction_FloatingNameLabel,OutputPin_ReadIsClassifiedObjectActionResultNameLabel,OutputPin_ReadIsClassifiedObjectActionResultStereotypeLabel,InputPin_ReadIsClassifiedObjectActionObjectNameLabel,InputPin_ReadIsClassifiedObjectActionObjectStereotypeLabel,ValuePin_ReadIsClassifiedObjectActionObjectNameLabel,ValuePin_ReadIsClassifiedObjectActionObjectValueLabel,ValuePin_ReadIsClassifiedObjectActionObjectStereotypeLabel,ActionInputPin_ReadIsClassifiedObjectActionObjectNameLabel,ActionInputPin_ReadIsClassifiedObjectActionObjectValueLabel,ActionInputPin_ReadIsClassifiedObjectActionObjectStereotypeLabel,ReduceAction_NameLabel,ReduceAction_FloatingNameLabel,OutputPin_ReduceActionResultNameLabel,OutputPin_ReduceActionResultStereotypeLabel,InputPin_ReduceActionCollectionNameLabel,InputPin_ReduceActionCollectionStereotypeLabel,ValuePin_ReduceActionCollectionNameLabel,ValuePin_ReduceActionCollectionValueLabel,ValuePin_ReduceActionCollectionStereotypeLabel,ActionInputPin_ReduceActionCollectionNameLabel,ActionInputPin_ReduceActionCollectionValueLabel,ActionInputPin_ReduceActionCollectionStereotypeLabel,StartClassifierBehaviorAction_NameLabel,StartClassifierBehaviorAction_FloatingNameLabel,InputPin_StartClassifierBehaviorActionObjectNameLabel,InputPin_StartClassifierBehaviorActionObjectStereotypeLabel,ValuePin_StartClassifierBehaviorActionObjectNameLabel,ValuePin_StartClassifierBehaviorActionObjectValueLabel,ValuePin_StartClassifierBehaviorActionObjectStereotypeLabel,ActionInputPin_StartClassifierBehaviorActionObjectNameLabel,ActionInputPin_StartClassifierBehaviorActionObjectValueLabel,ActionInputPin_StartClassifierBehaviorActionObjectStereotypeLabel,CreateLinkObjectAction_NameLabel,CreateLinkObjectAction_FloatingNameLabel,InputPin_CreateLinkObjectActionInputNameLabel,InputPin_CreateLinkObjectActionInputStereotypeLabel,ValuePin_CreateLinkObjectActionInputNameLabel,ValuePin_CreateLinkObjectActionInputValueLabel,ValuePin_CreateLinkObjectActionInputStereotypeLabel,ActionInputPin_CreateLinkObjectActionInputNameLabel,ActionInputPin_CreateLinkObjectActionInputValueLabel,ActionInputPin_CreateLinkObjectActionInputStereotypeLabel,OutputPin_CreateLinkObjectActionResultNameLabel,OutputPin_CreateLinkObjectActionResultStereotypeLabel,UnmarshallAction_NameLabel,UnmarshallAction_FloatingNameLabel,InputPin_UnmarshallActionObjectNameLabel,InputPin_UnmarshallActionObjectStereotypeLabel,ValuePin_UnmarshallActionObjectNameLabel,ValuePin_UnmarshallActionObjectValueLabel,ValuePin_UnmarshallActionObjectStereotypeLabel,ActionInputPin_UnmarshallActionObjectNameLabel,ActionInputPin_UnmarshallActionObjectValueLabel,ActionInputPin_UnmarshallActionObjectStereotypeLabel,OutputPin_UnmarshallActionResultNameLabel,OutputPin_UnmarshallActionResultStereotypeLabel"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+	            <method name="getType()" value="Activity_ParameterCompartment,Activity_PreconditionCompartment,Activity_PostconditionCompartment,Activity_ActivityNodeCompartment,ConditionalNode_ActivityNodeCompartment,ExpansionRegion_ActivityNodeCompartment,LoopNode_ActivityNodeCompartment,SequenceNode_ActivityNodeCompartment,StructuredActivityNode_ActivityNodeCompartment,ActivityPartition_ActivityNodeCompartment,InterruptibleActivityRegion_ActivityNodeCompartment,Activity_ParameterCompartment_CN,Activity_PreconditionCompartment_CN,Activity_PostconditionCompartment_CN,Activity_ActivityNodeCompartment_CN"/>
+	         </object>
+	         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+	      </editpartProvider>
+	   </extension>
+
+   
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+	      <?gmfgen generated="true"?>
+	      <IconProvider class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLIconProvider">
+	         <Priority name="Low"/>
+	      </IconProvider>
+	   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+	      <?gmfgen generated="true"?>
+	      <ParserProvider class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLParserProvider">
+	         <Priority name="Lowest"/>
+	      </ParserProvider>
+	   </extension>
+
+
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isURIEditorInput">
+      <?gmfgen generated="true"?>
+      <propertyTester
+            id="org.eclipse.papyrus.uml.diagram.activity.URIEditorInputPropertyTester"
+            type="org.eclipse.emf.common.ui.URIEditorInput"
+            namespace="org.eclipse.papyrus.uml.diagram.activity"
+            properties="isURIEditorInput"
+            class="org.eclipse.papyrus.uml.diagram.activity.part.UMLUriEditorInputTester">
+      </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
+      <?gmfgen generated="true"?>
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="org.eclipse.papyrus.uml.diagram.activity.resourceContent"/>
+            <contentExtension pattern="org.eclipse.papyrus.uml.diagram.activity.domainResourceContent"/>
+            <contentExtension pattern="org.eclipse.papyrus.uml.diagram.activity.navigatorLinkHelper"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="org.eclipse.papyrus.uml.diagram.activity.navigatorActionProvider"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
+      <?gmfgen generated="true"?>
+      <navigatorContent
+            id="org.eclipse.papyrus.uml.diagram.activity.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLNavigatorContentProvider" 
+            labelProvider="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLNavigatorLabelProvider"
+            icon="icons/obj16/UMLDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+               <and>
+                  <instanceof value="org.eclipse.core.resources.IFile"/>
+                  <test property="org.eclipse.core.resources.extension" value="PapyrusUMLActivity_diagram"/>
+               </and>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLAbstractNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLAbstractNavigatorItem"/>
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="org.eclipse.papyrus.uml.diagram.activity.navigatorSorter" 
+               class="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLNavigatorSorter">
+            <parentExpression>
+               <or>
+                  <and>
+                     <instanceof value="org.eclipse.core.resources.IFile"/>
+                     <test property="org.eclipse.core.resources.extension" value="PapyrusUMLActivity_diagram"/>
+                  </and>
+                  <instanceof value="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLAbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            id="org.eclipse.papyrus.uml.diagram.activity.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLDomainNavigatorContentProvider" 
+            labelProvider="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLDomainNavigatorLabelProvider"
+            icon="icons/obj16/UMLDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+               <and>
+                  <instanceof value="org.eclipse.core.resources.IFile"/>
+                  <test property="org.eclipse.core.resources.extension" value="PapyrusUMLActivity"/>
+               </and>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLDomainNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof value="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLDomainNavigatorItem"/>
+         </possibleChildren>
+      </navigatorContent>
+      <actionProvider
+            id="org.eclipse.papyrus.uml.diagram.activity.navigatorActionProvider"
+            class="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLNavigatorActionProvider">
+         <enablement>
+            <or>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLAbstractNavigatorItem"/>
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+   
+	   <extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
+      <?gmfgen generated="true"?>
+      <linkHelper
+            id="org.eclipse.papyrus.uml.diagram.activity.navigatorLinkHelper"
+            class="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLNavigatorLinkHelper">
+         <editorInputEnablement>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="org.eclipse.papyrus.uml.diagram.activity.isURIEditorInput"/>
+            </and>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="org.eclipse.papyrus.uml.diagram.activity.navigator.UMLAbstractNavigatorItem"/>
+         </selectionEnablement>
+      </linkHelper>
+   </extension>
+   
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.papyrus.uml.diagram.activity.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="org.eclipse.papyrus.uml.diagram.activity.part.UMLDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.papyrus.uml.diagram.activity.edit.parts.ActivityDiagramEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="org.eclipse.papyrus.uml.diagram.activity.part.UMLDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="org.eclipse.papyrus.uml.diagram.activity.LoadResourceAction"
+         name="Load Resource"
+         categoryId="org.eclipse.papyrus.uml.diagram.activity.part.UMLDiagramEditorID"
+         defaultHandler="org.eclipse.papyrus.uml.diagram.activity.part.LoadResourceAction"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+<extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+				      <?gmfgen generated="true"?>
+				      <MarkerNavigationProvider class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLMarkerNavigationProvider">
+				         <MarkerType name="org.eclipse.papyrus.uml.diagram.activity.diagnostic"/>
+				         <Priority name="Lowest"/>
+				      </MarkerNavigationProvider>
+				   </extension>
+
+<extension id="diagnostic" name="Papyrus activity editor Plugin problems" point="org.eclipse.core.resources.markers">
+				      <?gmfgen generated="true"?>
+				      <super type="org.eclipse.core.resources.problemmarker"/>
+				      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+				      <persistent value="true"/>
+				   </extension><extension point="org.eclipse.emf.validation.constraintProviders">
+      <?gmfgen generated="true"?>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate" mandatory="false" name="validateUMLModel">
+         <![CDATA[Validate the UML model]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateInitialNode" mandatory="false" name="validateInitialNode">
+         <![CDATA[Validate an initial node]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateFinalNode" mandatory="false" name="validateFinalNode">
+         <![CDATA[Validate a final node]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateCallBehaviorAction" mandatory="false" name="validateCallBehaviorAction">
+         <![CDATA[Validate a call behavior action]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateCallOperationAction" mandatory="false" name="validateCallOperationAction">
+         <![CDATA[Validate a call operation action]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateCallAction" mandatory="false" name="validateCallAction">
+         <![CDATA[Validate a call action]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateInvocationAction" mandatory="false" name="validateInvocationAction">
+         <![CDATA[Validate an invocation action]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateActivityNode" mandatory="false" name="validateActivityNode">
+         <![CDATA[Validate an activity node]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateRedefinableElement" mandatory="false" name="validateRedefinableElement">
+         <![CDATA[Validate a redefineable element]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateNamedElement" mandatory="false" name="validateNamedElement">
+         <![CDATA[Validate a named element]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateElement" mandatory="false" name="validateElement">
+         <![CDATA[Validate an element]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateObjectNode" mandatory="false" name="validateObjectNode">
+         <![CDATA[Validate an object node]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateMultiplicityElement" mandatory="false" name="validateMultiplicityElement">
+         <![CDATA[Validate a multilicity element]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validatePin" mandatory="false" name="validatePin">
+         <![CDATA[Validate a pin]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateInputPin" mandatory="false" name="validateInputPin">
+         <![CDATA[Validate an input pin]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateActionInputPin" mandatory="false" name="validateActionInputPin">
+         <![CDATA[Validate an action input pin]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateValuePin" mandatory="false" name="validateValuePin">
+         <![CDATA[Validate a value pin]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateOutputPin" mandatory="false" name="validateOutputPin">
+         <![CDATA[Validate an output pin]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateActivityEdge" mandatory="false" name="validateActivityEdge">
+         <![CDATA[Validate an activity edge]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow" mandatory="false" name="validateObjectFlow">
+         <![CDATA[Validate an object flow]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateControlFlow" mandatory="false" name="validateControlFlow">
+         <![CDATA[Validate a control flow]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode" mandatory="false" name="validateDecisionNode">
+         <![CDATA[Validate a decision node]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateMergeNode" mandatory="false" name="validateMergeNode">
+         <![CDATA[Validate a merge node]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateForkNode" mandatory="false" name="validateForkNode">
+         <![CDATA[Validate a fork node]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateJoinNode" mandatory="false" name="validateJoinNode">
+         <![CDATA[Validate a join node]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateActivityParameterNode" mandatory="false" name="validateActivityParameterNode">
+         <![CDATA[Validate an activity parameter node]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateCreateObjectActionClassifier" mandatory="false" name="validateCreateObjectActionClassifier">
+         <![CDATA[Valide classifier for CreateObjectAction]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validaterReadStructuralFeatureAction" mandatory="false" name="validateReadStructuralfeatureAction">
+         <![CDATA[Constraints for Structural Feature Action]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateAddStructuralFeatureValueAction" mandatory="false" name="validateAddStructuralFeatureValueAction">
+         <![CDATA[Constraint for AddStructuralFeatureValueAction]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateDestroyObjectAction" mandatory="false" name="validateDestroyObjectAction">
+         <![CDATA[Constraint for DestroyObjectAction]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateStructuralFeatureAction" mandatory="false" name="validateStructuralfeatureAction">
+         <![CDATA[Constraint for StructuralFeatureAction]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateAddVariableValueAction" mandatory="false" name="validateAddvariablevalueAction">
+         <![CDATA[Constraint for AddVariableValueAction]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateWriteVariableAction" mandatory="false" name="validateWriteVariableAction">
+         <![CDATA[Constraint for WriteVariableAction]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateVariableAction" mandatory="false" name="validateVariableAction">
+         <![CDATA[Constraint for VariableAction]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateReadVariableAction" mandatory="false" name="validateReadVariableAction">
+         <![CDATA[Constraint for ReadVariableAction]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateBroacastSignalAction" mandatory="false" name="validateBroadcastSignalActionTODO">
+         <![CDATA[Constraint for BraodcastSignalAction]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validateElement" mandatory="false" name="validateExceptionHandler">
+         <![CDATA[Constraint Exception Handler]]>
+      </category>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validateElement" mandatory="false" name="validateInterruptibleEdge">
+         <![CDATA[Constraint for interruptible Edge]]>
+      </category>
+      <constraintProvider cache="true">
+         <package namespaceUri="http://www.eclipse.org/uml2/5.0.0/UML"/>
+               <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate">
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateInitialNode">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateInitialNode_validateNoIncomingEdges"
+            lang="OCL"
+            name="validateNoIncomingEdges"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.incoming->isEmpty()]]>
+            <description><![CDATA[An initial node has no incoming edge]]></description>
+            <message><![CDATA[An initial node must have no incoming edge]]></message>
+            <target class="uml.InitialNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateInitialNode_validateControlEdges"
+            lang="OCL"
+            name="validateControlEdges"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[not self.source.oclIsKindOf(InitialNode)]]>
+            <description><![CDATA[Only control edges can have initial nodes as source]]></description>
+            <message><![CDATA[Source of an object flow must not be an initial node]]></message>
+            <target class="uml.ObjectFlow"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateFinalNode">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateFinalNode_validateNoOutgoingEdges"
+            lang="OCL"
+            name="validateNoOutgoingEdges"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.outgoing->isEmpty()]]>
+            <description><![CDATA[A fianl node has no outgoing edge]]></description>
+            <message><![CDATA[A final node must have no outgoing edge]]></message>
+            <target class="uml.FinalNode"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateCallBehaviorAction">
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateCallOperationAction">
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateCallAction">
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateInvocationAction">
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateActivityNode">
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateRedefinableElement">
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateNamedElement">
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateElement">
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateObjectNode">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectNode_validateNotUnique"
+            lang="OCL"
+            name="validateNotUnique"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[-- must be applied on corresponding parameter, if only it exists
+true
+--not self.isUnique]]>
+            <description><![CDATA[Object nodes are not unique typed elements]]></description>
+            <message><![CDATA[isUnique must be false for object nodes.]]></message>
+            <target class="uml.ObjectNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectNode_validateSelectionBehavior"
+            lang="OCL"
+            name="validateSelectionBehavior"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[-- must be applied on corresponding parameter, if only it exists
+true
+--((not self.selection.oclIsUndefined()) implies self.isOrdered) and
+--(self.isOrdered implies (not self.selection.oclIsUndefined()))]]>
+            <description><![CDATA[If an object node has a selection behavior, then the ordering of the object node is ordered, and vice versa.]]></description>
+            <message><![CDATA[isOrdered means there is a selection behavior for object nodes.]]></message>
+            <target class="uml.ObjectNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectNode_validateObjectFlowEdges"
+            lang="OCL"
+            name="validateObjectFlowEdges"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[true
+-- Already checked by validateControlFlow_validateObjectNodes]]>
+            <description><![CDATA[All edges coming into or going out of object nodes must be object flow edges.]]></description>
+            <message><![CDATA[All edges coming into or going out of object nodes must be object flow edges.]]></message>
+            <target class="uml.ObjectNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectNode_validateInputOutputParameter"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter7"
+            name="validateInputOutputParameter"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[A selection behavior has one input parameter and one output parameter. The input parameter must be a bag of elements of the same type as the object node or a supertype of the type of object node. The output parameter must be the same or a subtype of the type of object node. The behavior cannot have side effects.]]></description>
+            <message><![CDATA[The selection behavior of an object node must have one input parameter and one output parameter. The parameters types must be compatible with the object node's type.]]></message>
+            <target class="uml.ObjectNode"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateMultiplicityElement">
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validatePin">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validatePin_validateControlPins"
+            lang="OCL"
+            name="validateControlPins"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.isControl implies self.isControlType]]>
+            <description><![CDATA[Control pins have a control type]]></description>
+            <message><![CDATA[isControl muts imply isControlType for pins.]]></message>
+            <target class="uml.Pin"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateInputPin">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateInputPin_validateOutgoingEdgesStructuredOnly"
+            lang="OCL"
+            name="validateOutgoingEdgesStructuredOnly"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.outgoing.target->forAll(inStructuredNode=self.owner)]]>
+            <description><![CDATA[Input pins may have outgoing edges only when they are on actions that are structured nodes, and these edges must target a node contained by the structured node.]]></description>
+            <message><![CDATA[Input pins may have outgoing edges only when they are on actions that are structured nodes, and these edges must target a node contained by the structured node.]]></message>
+            <target class="uml.InputPin"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateActionInputPin">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateActionInputPin_validateOneOutputPin"
+            lang="OCL"
+            name="validateOneOutputPin"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(not self.fromAction.oclIsUndefined()) implies
+self.fromAction.output->size() = 1]]>
+            <description><![CDATA[The fromAction of an action input pin must have exactly one output pin.]]></description>
+            <message><![CDATA[The fromAction of an action input pin must have exactly one output pin.]]></message>
+            <target class="uml.ActionInputPin"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateActionInputPin_validateInputPin"
+            lang="OCL"
+            name="validateInputPin"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(not self.fromAction.oclIsUndefined()) implies
+self.fromAction.input->forAll(oclIsKindOf(ActionInputPin))]]>
+            <description><![CDATA[The fromAction of an action input pin must only have action input pins as input pins.]]></description>
+            <message><![CDATA[The fromAction of an action input pin must only have action input pins as input pins.]]></message>
+            <target class="uml.ActionInputPin"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateActionInputPin_validateNoControlOrDataFlow"
+            lang="OCL"
+            name="validateNoControlOrDataFlow"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(not self.fromAction.oclIsUndefined()) implies
+(self.fromAction.incoming->isEmpty() and self.fromAction.outgoing->isEmpty()
+and self.fromAction.input->forAll(incoming->isEmpty() and outgoing->isEmpty())
+and self.fromAction.output->forAll(incoming->isEmpty() and outgoing->isEmpty()))]]>
+            <description><![CDATA[The fromAction of an action input pin cannot have control or data flows coming into or out of it or its pins.]]></description>
+            <message><![CDATA[The fromAction of an action input pin cannot have control or data flows coming into or out of it or its pins.]]></message>
+            <target class="uml.ActionInputPin"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateValuePin">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateValuePin_validateCompatibleType"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter13"
+            name="validateCompatibleType"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[The type of value specification must be compatible with the type of the value pin.]]></description>
+            <message><![CDATA[The type of value specification must be compatible with the type of the value pin.]]></message>
+            <target class="uml.ValuePin"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateValuePin_validateNoIncomingEdges"
+            lang="OCL"
+            name="validateNoIncomingEdges"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.incoming->isEmpty()]]>
+            <description><![CDATA[Value pins have no incoming edges.]]></description>
+            <message><![CDATA[Value pins have no incoming edges.]]></message>
+            <target class="uml.ValuePin"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateOutputPin">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateOutputPin_validateIncomingEdgesStructuredOnly"
+            lang="OCL"
+            name="validateIncomingEdgesStructuredOnly"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.incoming.source->forAll(inStructuredNode=self.owner)]]>
+            <description><![CDATA[Output pins may have incoming edges only when they are on actions that are structured nodes, and these edges may not target a node contained by the structured node.]]></description>
+            <message><![CDATA[Output pins may have incoming edges only when they are on actions that are structured nodes, and these edges may not target a node contained by the structured node.]]></message>
+            <target class="uml.OutputPin"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateActivityEdge">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateActivityEdge_validateSourceAndTarget"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter16"
+            name="validateSourceAndTarget"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[The source and target of an edge must be in the same activity as the edge.]]></description>
+            <message><![CDATA[The source and target of an edge must be in the same activity as the edge.]]></message>
+            <target class="uml.ActivityEdge"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateActivityEdge_validateOwned"
+            lang="OCL"
+            name="validateOwned"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.owner.oclIsKindOf(Activity)
+or self.owner.oclIsKindOf(ActivityGroup)]]>
+            <description><![CDATA[Activity edges may be owned only by activities or groups.]]></description>
+            <message><![CDATA[Activity edges may be owned only by activities or groups.]]></message>
+            <target class="uml.ActivityEdge"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateActivityEdge_validateStructuredNode"
+            lang="OCL"
+            name="validateStructuredNode"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[true
+-- constraint is checked by the model structure]]>
+            <description><![CDATA[Activity edges may be owned by at most one structured node.]]></description>
+            <message><![CDATA[Activity edges may be owned by at most one structured node.]]></message>
+            <target class="uml.ActivityEdge"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateActivityEdge_validateHasSourceAndTarget"
+            lang="OCL"
+            name="validateHasSourceAndTarget"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[-- This constraint is implemented separately for not being in live mode.
+-- Other constraints have been relaxed to supprot null source and target
+not self.source.oclIsUndefined() and not self.target.oclIsUndefined()]]>
+            <description><![CDATA[The source and target of an edge must be defined.]]></description>
+            <message><![CDATA[The source and target of an edge must be defined.]]></message>
+            <target class="uml.ActivityEdge"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateExceptionHandler_validateException_StructuredActivityNode_Constraint2"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter66"
+            name="validateException_StructuredActivityNode_Constraint2"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[An edge that has a source in an exception handler structured node must also have its target in the handler, and vice versa.]]></description>
+            <message><![CDATA[An edge that has a source in an exception handler structured node must also have its target in the handler, and vice versa.]]></message>
+            <target class="uml.ActivityEdge"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateNoActions"
+            lang="OCL"
+            name="validateNoActions"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(self.source.oclIsUndefined() or not self.source.oclIsKindOf(Action))
+and (self.target.oclIsUndefined() or not self.target.oclIsKindOf(Action))]]>
+            <description><![CDATA[Object flows may not have actions at either end.]]></description>
+            <message><![CDATA[You can not link an action with an object flow]]></message>
+            <target class="uml.ObjectFlow"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateCompatibleTypes"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter21"
+            name="validateCompatibleTypes"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[Object nodes connected by an object flow, with optionally intervening control nodes, must have compatible types. In particular, the downstream object node type must be the same or a supertype of the upstream object node type]]></description>
+            <message><![CDATA[The object flow must link object nodes with compatible types (target type must be a supertype of the source type).]]></message>
+            <target class="uml.ObjectFlow"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateSameUpperBounds"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter22"
+            name="validateSameUpperBounds"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[Object nodes connected by an object flow, with optionally intervening control nodes, must have the same upper bounds.]]></description>
+            <message><![CDATA[The object flow must link object nodes with the same upper bounds.]]></message>
+            <target class="uml.ObjectFlow"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateTarget"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter23"
+            name="validateTarget"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[An edge with constant weight may not target an object node, or lead to an object node downstream with no intervening actions, that has an upper bound less than the weight.]]></description>
+            <message><![CDATA[The target object node's upper bounds must be less than the object flow weight]]></message>
+            <target class="uml.ObjectFlow"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateTransformationBehaviour"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter24"
+            name="validateTransformationBehaviour"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[A transformation behavior has one input parameter and one output parameter. The input parameter must be the same as or a supertype of the type of object token coming from the source end. The output parameter must be the same or a subtype of the type of object token expected downstream. The behavior cannot have side effects.]]></description>
+            <message><![CDATA[A transformation behavior has one input parameter and one output parameter. The input parameter must be the same as or a supertype of the type of object token coming from the source end. The output parameter must be the same or a subtype of the type of object token expected downstream. The behavior cannot have side effects.]]></message>
+            <target class="uml.ObjectFlow"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateSelectionBehaviour"
+            lang="OCL"
+            name="validateSelectionBehaviour"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(not self.selection.oclIsUndefined()) implies self.source.oclIsKindOf(ObjectNode)]]>
+            <description><![CDATA[An object flow may have a selection behavior only if it has an object node as a source.]]></description>
+            <message><![CDATA[Selection behavior is authorized only when the object flow's source is an object node.]]></message>
+            <target class="uml.ObjectFlow"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateInputAndOutputParameter"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter26"
+            name="validateInputAndOutputParameter"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[A selection behavior has one input parameter and one output parameter. The input parameter must be a bag of elements of the same as or a supertype of the type of source object node. The output parameter must be the same or a subtype of the type of source object node. The behavior cannot have side effects.]]></description>
+            <message><![CDATA[A selection behavior has one input parameter and one output parameter. The input parameter must be a bag of elements of the same as or a supertype of the type of source object node. The output parameter must be the same or a subtype of the type of source object node. The behavior cannot have side effects.]]></message>
+            <target class="uml.ObjectFlow"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateIsMulticastOrIsMultireceive"
+            lang="OCL"
+            name="validateIsMulticastOrIsMultireceive"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.isMulticast implies not self.isMultireceive]]>
+            <description><![CDATA[isMulticast and isMultireceive cannot both be true.]]></description>
+            <message><![CDATA[isMulticast and isMultireceive cannot both be true.]]></message>
+            <target class="uml.ObjectFlow"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateControlFlow">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateControlFlow_validateObjectNodes"
+            lang="OCL"
+            name="validateObjectNodes"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(self.source.oclIsUndefined() or
+	(self.source.oclIsKindOf(ObjectNode) implies
+	self.source.oclAsType(ObjectNode).isControlType)
+) and
+(self.target.oclIsUndefined() or
+	(self.target.oclIsKindOf(ObjectNode) implies
+	self.target.oclAsType(ObjectNode).isControlType)
+)]]>
+            <description><![CDATA[Control flows may not have object nodes at either end, except for object nodes with control type]]></description>
+            <message><![CDATA[You can not link an object node with a control flow (except if its control type is true).]]></message>
+            <target class="uml.ControlFlow"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateIncomingOutgoingEdges"
+            lang="OCL"
+            name="validateIncomingOutgoingEdges"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.outgoing->size() > 0 and
+self.incoming->size() > 0 and
+self.incoming->size() <= 2]]>
+            <description><![CDATA[A decision node has one or two incoming edges and at least one outgoing edge.]]></description>
+            <message><![CDATA[A decision node has one or two incoming edges and at least one outgoing edge.]]></message>
+            <target class="uml.DecisionNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateEdges"
+            lang="OCL"
+            name="validateEdges"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(self.incoming->reject(i | i = self.decisionInputFlow)->forAll(oclIsKindOf(ObjectFlow)) and
+ self.outgoing->forAll(oclIsKindOf(ObjectFlow)) ) or
+(self.incoming->reject(i | i = self.decisionInputFlow)->forAll(oclIsKindOf(ControlFlow)) and
+ self.outgoing->forAll(oclIsKindOf(ControlFlow)) )]]>
+            <description><![CDATA[The edges coming into and out of a decision node, other than the decision input flow (if any), must be either all object flows or all control flows.]]></description>
+            <message><![CDATA[Edges linking the decision node must have be of the same type (except decision input flow).]]></message>
+            <target class="uml.DecisionNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateDecisionInputFlowIncoming"
+            lang="OCL"
+            name="validateDecisionInputFlowIncoming"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(not self.decisionInputFlow.oclIsUndefined()) implies
+self.incoming->includes(self.decisionInputFlow)]]>
+            <description><![CDATA[The decisionInputFlow of a decision node must be an incoming edge of the decision node.]]></description>
+            <message><![CDATA[The decisionInputFlow of a decision node must be an incoming edge of the decision node.]]></message>
+            <target class="uml.DecisionNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateParameters"
+            lang="OCL"
+            name="validateParameters"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(not self.decisionInput.oclIsUndefined()) implies (
+self.decisionInput.ownedParameter->select(
+ direction = ParameterDirectionKind::out or
+ direction = ParameterDirectionKind::inout)->size() = 0
+and self.decisionInput.ownedParameter->select(
+ direction = ParameterDirectionKind::return)->size() = 1
+)]]>
+            <description><![CDATA[A decision input behavior has no output parameters, no in-out parameters and one return parameter.]]></description>
+            <message><![CDATA[A decision input behavior has no output parameters, no in-out parameters and one return parameter.]]></message>
+            <target class="uml.DecisionNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateZeroInputParameters"
+            lang="OCL"
+            name="validateZeroInputParameters"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(not self.decisionInput.oclIsUndefined()) implies (
+  (self.decisionInputFlow.oclIsUndefined() and
+   self.incoming->select(i | i.oclIsKindOf(ControlFlow))->size() = 1
+  ) implies
+  self.decisionInput.ownedParameter->select(
+    direction = ParameterDirectionKind::_in)->size() = 0
+)]]>
+            <description><![CDATA[If the decision node has no decision input flow and an incoming control flow, then a decision input behavior has zero input parameters.]]></description>
+            <message><![CDATA[If the decision node has no decision input flow and an incoming control flow, then a decision input behavior has zero input parameters.]]></message>
+            <target class="uml.DecisionNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateIncomingObjectOneInputParameter"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter34"
+            name="validateIncomingObjectOneInputParameter"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[If the decision node has no decision input flow and an incoming object flow, then a decision input behavior has one input parameter whose type is the same as or a supertype of the type of object tokens offered on the incoming edge.]]></description>
+            <message><![CDATA[If the decision node has no decision input flow and an incoming object flow, then a decision input behavior has one input parameter whose type is the same as or a supertype of the type of object tokens offered on the incoming edge.]]></message>
+            <target class="uml.DecisionNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateIncomingControlOneInputParameter"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter35"
+            name="validateIncomingControlOneInputParameter"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[If the decision node has a decision input flow and an incoming control flow, then a decision input behavior has one input parameter whose type is the same as or a supertype of the type of object tokens offered on the decision input flow.]]></description>
+            <message><![CDATA[If the decision node has a decision input flow and an incoming control flow, then a decision input behavior has one input parameter whose type is the same as or a supertype of the type of object tokens offered on the decision input flow.]]></message>
+            <target class="uml.DecisionNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateTwoInputParameters"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter36"
+            name="validateTwoInputParameters"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[If the decision node has a decision input flow and an second incoming object flow, then a decision input behavior has two input parameters, the first of which has a type that is the same as or a supertype of the type of the type of object tokens offered on the nondecision input flow and the second of which has a type that is the same as or a supertype of the type of object tokens offered on the decision input flow.]]></description>
+            <message><![CDATA[If the decision node has a decision input flow and an incoming control flow, then a decision input behavior has one input parameter whose type is the same as or a supertype of the type of object tokens offered on the decision input flow.]]></message>
+            <target class="uml.DecisionNode"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateMergeNode">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateMergeNode_validateOneOutgoingEdge"
+            lang="OCL"
+            name="validateOneOutgoingEdge"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.outgoing->size() = 1]]>
+            <description><![CDATA[A merge node has one outgoing edge.]]></description>
+            <message><![CDATA[A merge node has one outgoing edge.]]></message>
+            <target class="uml.MergeNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateMergeNode_validateEdges"
+            lang="OCL"
+            name="validateEdges"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(self.outgoing->exists(e | e.oclIsKindOf(ObjectFlow)) implies
+ self.incoming->forAll(e | e.oclIsKindOf(ObjectFlow))) and
+(self.outgoing->exists(e | e.oclIsKindOf(ControlFlow)) implies
+ self.incoming->forAll(e | e.oclIsKindOf(ControlFlow)))]]>
+            <description><![CDATA[The edges coming into and out of a merge node must be either all object flows or all control flows.]]></description>
+            <message><![CDATA[The edges coming into and out of a merge node must be either all object flows or all control flows.]]></message>
+            <target class="uml.MergeNode"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateForkNode">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateForkNode_validateOneIncomingEdge"
+            lang="OCL"
+            name="validateOneIncomingEdge"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.incoming->size() = 1]]>
+            <description><![CDATA[A fork node has one incoming edge.]]></description>
+            <message><![CDATA[A fork node has one incoming edge.]]></message>
+            <target class="uml.ForkNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateForkNode_validateEdges"
+            lang="OCL"
+            name="validateEdges"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(self.incoming->exists(e | e.oclIsKindOf(ObjectFlow)) implies
+ self.outgoing->forAll(e | e.oclIsKindOf(ObjectFlow))) and
+(self.incoming->exists(e | e.oclIsKindOf(ControlFlow)) implies
+ self.outgoing->forAll(e | e.oclIsKindOf(ControlFlow)))]]>
+            <description><![CDATA[The edges coming into and out of a fork node must be either all object flows or all control flows.]]></description>
+            <message><![CDATA[The edges coming into and out of a fork node must be either all object flows or all control flows.]]></message>
+            <target class="uml.ForkNode"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateJoinNode">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateJoinNode_validateOneOutgoingEdge"
+            lang="OCL"
+            name="validateOneOutgoingEdge"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.outgoing->size() = 1]]>
+            <description><![CDATA[A join node has one outgoing edge.]]></description>
+            <message><![CDATA[A join node has one outgoing edge.]]></message>
+            <target class="uml.JoinNode"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateJoinNode_validateIncomingObjectFlow"
+            lang="OCL"
+            name="validateIncomingObjectFlow"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(self.incoming->select(e | e.oclIsKindOf(ObjectFlow))->notEmpty() implies
+ self.outgoing->exists(e | e.oclIsKindOf(ObjectFlow))) and
+(self.incoming->select(e | e.oclIsKindOf(ObjectFlow))->isEmpty() implies
+ self.outgoing->exists(e | e.oclIsKindOf(ControlFlow)))]]>
+            <description><![CDATA[If a join node has an incoming object flow, it must have an outgoing object flow, otherwise, it must have an outgoing control flow.]]></description>
+            <message><![CDATA[If a join node has an incoming object flow, it must have an outgoing object flow, otherwise, it must have an outgoing control flow.]]></message>
+            <target class="uml.JoinNode"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateActivityParameterNode">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateActivityParameterNode_validateIncomingOrOutgoing"
+            lang="OCL"
+            name="validateIncomingOrOutgoing"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(self.incoming->notEmpty() implies self.outgoing->isEmpty()) and
+(self.outgoing->notEmpty() implies self.incoming->isEmpty())]]>
+            <description><![CDATA[An activity parameter node must not have both incoming and outgoing edges.]]></description>
+            <message><![CDATA[An activity parameter node must not have both incoming and outgoing edges.]]></message>
+            <target class="uml.ActivityParameterNode"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateCreateObjectActionClassifier">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateCreateObjectActionClassifier_notAbstract"
+            lang="OCL"
+            name="validateNotAbstract"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(not self.classifier.oclIsUndefined()) implies (self.classifier.isAbstract = false)]]>
+            <description><![CDATA[Check that the classifier is not abstract]]></description>
+            <message><![CDATA[The classifier cannot be abstract.]]></message>
+            <target class="uml.CreateObjectAction"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateCreateObjectActionClassifier_notClassifier"
+            lang="OCL"
+            name="valideNotAssociationClass"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(not self.classifier.oclIsUndefined()) implies (not self.classifier.oclIsKindOf(uml::AssociationClass))]]>
+            <description><![CDATA[Check that the classifier is not an association class]]></description>
+            <message><![CDATA[The classifier cannot be an association class.]]></message>
+            <target class="uml.CreateObjectAction"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validaterReadStructuralFeatureAction">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateReadStructuralFeatureAction_onlyOneClassifier"
+            lang="OCL"
+            name="validateOnlyOneClassifier"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.structuralFeature.featuringClassifier->size() = 1]]>
+            <description><![CDATA[Check that a structural feature has exactly one featuringClassifier.]]></description>
+            <message><![CDATA[A structural feature has exactly one featuringClassifier.]]></message>
+            <target class="uml.ReadStructuralFeatureAction"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateAddStructuralFeatureValueAction">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateAddStructuralFeatureValueAction_ValidInputPinType"
+            lang="OCL"
+            name="validateInputPinType"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.value->notEmpty() implies self.value.type = self.structuralFeature.type]]>
+            <description><![CDATA[Check valide that the type of the input pin is the same than the one from the structural feature]]></description>
+            <message><![CDATA[The type of the value input pin is the same as the type of the structural feature.]]></message>
+            <target class="uml.AddStructuralFeatureValueAction"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateAddStructuralFeatureValueAction_validateOutputPinType"
+            lang="OCL"
+            name="validateOutputPinType"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[result->notEmpty() implies self.result.type = self.object.type]]>
+            <description><![CDATA[Check that the type of the result output pin is the same as the type of the inherited object input pin.]]></description>
+            <message><![CDATA[The type of the result output pin is the same as the type of the inherited object input pin.]]></message>
+            <target class="uml.AddStructuralFeatureValueAction"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateAddStructuralFeatureValueAction_valideTheRequiredValuePin"
+            lang="OCL"
+            name="A value input pin is required"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.value -> notEmpty()]]>
+            <description><![CDATA[Check that a value input pin is required]]></description>
+            <message><![CDATA[org.eclipse.uml2.uml.util.UMLValidator.validateAddStructuralFeatureValueAction]]></message>
+            <target class="uml.AddStructuralFeatureValueAction"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateAddStructuralFeatureValueAction_onlyOneClassifier"
+            lang="OCL"
+            name="validateOnlyOneClassifier"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.structuralFeature.featuringClassifier->size() = 1]]>
+            <description><![CDATA[Check that a structural feature has exactly one featuringClassifier.]]></description>
+            <message><![CDATA[A structural feature has exactly one featuringClassifier.]]></message>
+            <target class="uml.AddStructuralFeatureValueAction"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateDestroyObjectAction">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateDestroyObjectAction_InputPinHasNotType"
+            lang="OCL"
+            name="validateInputPinHasNoType"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[if self.target.oclIsUndefined() then true else self.target.type->size() = 0 endif]]>
+            <description><![CDATA[Check that the input pin has no type]]></description>
+            <message><![CDATA[The input pin has no type]]></message>
+            <target class="uml.DestroyObjectAction"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateStructuralFeatureAction">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateStructuralFeatureAction_FeatureNotStatic"
+            lang="OCL"
+            name="validateFeatureNotStatic"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(not self.structuralFeature.oclIsUndefined()) implies (self.structuralFeature.isStatic = false)]]>
+            <description><![CDATA[Check that the structural feature must not be static.]]></description>
+            <message><![CDATA[The structural feature must not be static.]]></message>
+            <target class="uml.StructuralFeatureAction"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateStructuralFeatureAction_validateOwningFeteatringType"
+            lang="OCL"
+            name="validateValideTypeOwningFeature"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.structuralFeature.featuringClassifier.oclAsType(Type)->includes(self.object.type) or
+self.structuralFeature.oclAsType(Property).opposite.type = self.object.type]]>
+            <description><![CDATA[Check that the structural feature must either be owned by the type of the object input pin, or it must be an owned end of a binary]]></description>
+            <message><![CDATA[The structural feature must either be owned by the type of the object input pin, or it must be an owned end of a binary]]></message>
+            <target class="uml.StructuralFeatureAction"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateStructuralFeatureAction_InputPinMulitplicity"
+            lang="OCL"
+            name="validateInputPinMultiplicity"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.object.lowerBound()=1 and self.object.upperBound()=1]]>
+            <description><![CDATA[Check that the multiplicity of the object input pin must be 1..1.]]></description>
+            <message><![CDATA[The multiplicity of the object input pin must be 1..1.]]></message>
+            <target class="uml.StructuralFeatureAction"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateStructuralFeatureAction_OnlyOneFeaturingClassifier"
+            lang="OCL"
+            name="validateOnlyOneFeaturingClassifier"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.structuralFeature.featuringClassifier->size() = 1]]>
+            <description><![CDATA[Check that a structural feature has exactly one featuringClassifier.]]></description>
+            <message><![CDATA[A structural feature has exactly one featuringClassifier.]]></message>
+            <target class="uml.StructuralFeatureAction"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateAddVariableValueAction">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateAddVariableValueAction_AsAtLeastOneInputPin"
+            lang="OCL"
+            name="validateInputPinAsValueAsAtLeastOneInputPin"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.value -> notEmpty()]]>
+            <description><![CDATA[Check that a value input pin is required.]]></description>
+            <message><![CDATA[A value input pin is required.]]></message>
+            <target class="uml.AddVariableValueAction"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateWriteVariableAction">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateWriteVariableAction_InputPinValidePin"
+            lang="OCL"
+            name="valideInputPinType"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.value -> notEmpty() implies self.value.type = self.variable.type]]>
+            <description><![CDATA[Check that the type input pin is the same as the type of the variable.]]></description>
+            <message><![CDATA[The type input pin is the same as the type of the variable.]]></message>
+            <target class="uml.WriteVariableAction"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateWriteVariableAction_valideInputPinMultiplicity"
+            lang="OCL"
+            name="validateInputPinMultiplicity"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.value.lowerBound()=1 and self.value.upperBound()=1]]>
+            <description><![CDATA[Check that the multiplicity of the input pin is 1..1.]]></description>
+            <message><![CDATA[The multiplicity of the input pin is 1..1.]]></message>
+            <target class="uml.WriteVariableAction"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateVariableAction">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateVariableAction_VariableScope"
+            lang="OCL"
+            name="validateVariableScope"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.variable.isAccessibleBy(self)]]>
+            <description><![CDATA[Check that the action must be in the scope of the variable.]]></description>
+            <message><![CDATA[The action must be in the scope of the variable.]]></message>
+            <target class="uml.VariableAction"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateReadVariableAction">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateReadVariableAction_OutputPinType"
+            lang="OCL"
+            name="validateOutputPinType"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[self.result.type =self.variable.type and self.result.isOrdered = self.variable.isOrdered]]>
+            <description><![CDATA[Check that the type and ordering of the result output pin of a read-variable action are the same as the type and ordering of the]]></description>
+            <message><![CDATA[The type and ordering of the result output pin of a read-variable action are the same as the type and ordering of the]]></message>
+            <target class="uml.ReadVariableAction"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateReadVariableAction_OutputPinMultiplicity"
+            lang="OCL"
+            name="validateOutputPinMultiplicity"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(self.result.lowerBound() <= self.variable.lowerBound())  and (self.result.upperBound() >= self.variable.lowerBound())]]>
+            <description><![CDATA[Check that the multiplicity of the variable must be compatible with the multiplicity of the output pin]]></description>
+            <message><![CDATA[The multiplicity of the variable must be compatible with the multiplicity of the output pin]]></message>
+            <target class="uml.ReadVariableAction"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/org.eclipse.uml2.uml.util.UMLValidator.validateBroacastSignalAction">
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validateElement">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateExceptionHandler_validateException_HandlerBody_Constraint4"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter62"
+            name="validateException_HandlerBody_Constraint4"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[The handler body has one input, and that input is the same as the exception input.]]></description>
+            <message><![CDATA[The handler body has one input, and that input is the same as the exception input.]]></message>
+            <target class="uml.ExceptionHandler"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateExceptionHandler_validateException_StructuredActivityNode_Constraint3"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter64"
+            name="validateException_StructuredActivityNode_Constraint3"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[If the protected node is a StructuredActivityNode with output pins, then the exception handler body must also be a StructuredActivityNode with output pins that correspond in number and types to those of the protected node.]]></description>
+            <message><![CDATA[If the protected node is a StructuredActivityNode with output pins, then the exception handler body must also be a StructuredActivityNode with output pins that correspond in number and types to those of the protected node.]]></message>
+            <target class="uml.ExceptionHandler"/>
+         </constraint>
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateExceptionHandler_validateException_SourceAndTargetEdge_Constraint1"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter65"
+            name="validateException_SourceAndTargetEdge_Constraint1"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[The exception handler and its input object node are not the source or target of any edge.]]></description>
+            <message><![CDATA[The exception handler and its input object node are not the source or target of any edge.]]></message>
+            <target class="uml.ExceptionHandler"/>
+         </constraint>
+                  </constraints>
+            <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validateElement">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateInterruptibleEdge_validateEdge"
+            lang="Java" class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$Adapter63"
+            name="validateInterruptibleEdge"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            
+            <description><![CDATA[Validate the constraint for interruptible Edge]]></description>
+            <message><![CDATA[Interrupting edges of a region must have their source node in the region and their target node outside the region in the]]></message>
+            <target class="uml.ActivityEdge"/>
+         </constraint>
+                  </constraints>
+      </constraintProvider>
+   </extension>
+
+<extension point="org.eclipse.emf.validation.constraintBindings">
+      <?gmfgen generated="true"?>
+      <clientContext default="false" id="org.eclipse.papyrus.uml.diagram.activityDefaultCtx">
+         <selector class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$DefaultCtx"/>
+      </clientContext>
+      <binding context="org.eclipse.papyrus.uml.diagram.activityDefaultCtx">
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateInitialNode_validateNoIncomingEdges"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateInitialNode_validateControlEdges"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateFinalNode_validateNoOutgoingEdges"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectNode_validateNotUnique"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectNode_validateSelectionBehavior"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectNode_validateObjectFlowEdges"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectNode_validateInputOutputParameter"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validatePin_validateControlPins"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateInputPin_validateOutgoingEdgesStructuredOnly"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateActionInputPin_validateOneOutputPin"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateActionInputPin_validateInputPin"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateActionInputPin_validateNoControlOrDataFlow"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateValuePin_validateCompatibleType"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateValuePin_validateNoIncomingEdges"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateOutputPin_validateIncomingEdgesStructuredOnly"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateActivityEdge_validateSourceAndTarget"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateActivityEdge_validateOwned"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateActivityEdge_validateStructuredNode"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateActivityEdge_validateHasSourceAndTarget"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateNoActions"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateCompatibleTypes"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateSameUpperBounds"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateTarget"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateTransformationBehaviour"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateSelectionBehaviour"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateInputAndOutputParameter"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateObjectFlow_validateIsMulticastOrIsMultireceive"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateControlFlow_validateObjectNodes"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateIncomingOutgoingEdges"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateEdges"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateDecisionInputFlowIncoming"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateParameters"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateZeroInputParameters"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateIncomingObjectOneInputParameter"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateIncomingControlOneInputParameter"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateDecisionNode_validateTwoInputParameters"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateMergeNode_validateOneOutgoingEdge"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateMergeNode_validateEdges"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateForkNode_validateOneIncomingEdge"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateForkNode_validateEdges"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateJoinNode_validateOneOutgoingEdge"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateJoinNode_validateIncomingObjectFlow"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateActivityParameterNode_validateIncomingOrOutgoing"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateCreateObjectActionClassifier_notAbstract"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateCreateObjectActionClassifier_notClassifier"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateReadStructuralFeatureAction_onlyOneClassifier"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateAddStructuralFeatureValueAction_ValidInputPinType"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateAddStructuralFeatureValueAction_validateOutputPinType"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateAddStructuralFeatureValueAction_valideTheRequiredValuePin"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateAddStructuralFeatureValueAction_onlyOneClassifier"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateDestroyObjectAction_InputPinHasNotType"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateStructuralFeatureAction_FeatureNotStatic"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateStructuralFeatureAction_validateOwningFeteatringType"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateStructuralFeatureAction_InputPinMulitplicity"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateStructuralFeatureAction_OnlyOneFeaturingClassifier"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateAddVariableValueAction_AsAtLeastOneInputPin"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateWriteVariableAction_InputPinValidePin"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateWriteVariableAction_valideInputPinMultiplicity"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateVariableAction_VariableScope"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateReadVariableAction_OutputPinType"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateReadVariableAction_OutputPinMultiplicity"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateExceptionHandler_validateException_HandlerBody_Constraint4"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateInterruptibleEdge_validateEdge"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateExceptionHandler_validateException_StructuredActivityNode_Constraint3"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateExceptionHandler_validateException_SourceAndTargetEdge_Constraint1"/>
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.org.eclipse.uml2.uml.util.UMLValidator.validateExceptionHandler_validateException_StructuredActivityNode_Constraint2"/>
+               </binding>
+
+   </extension>
+   
+<extension point="org.eclipse.emf.validation.constraintProviders">
+      <?gmfgen generated="false"?>
+      <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/pinAndParameterSynchronization" mandatory="false" name="validatePinAndParameterSynchronization">
+         <![CDATA[Validate that Pin and corresponding Parameter are correctly synchronized]]>
+      </category>
+      <constraintProvider cache="true">
+         <package namespaceUri="http://www.eclipse.org/uml2/5.0.0/UML"/>
+         <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/pinAndParameterSynchronization">
+                  <constraint id="org.eclipse.papyrus.uml.diagram.activity.helper.PinAndParameterSynchronizer"
+            lang="Java"
+            name="PinAndParameterSynchronizer"
+            class="org.eclipse.papyrus.uml.diagram.activity.helper.PinAndParameterSynchronizer"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <description><![CDATA[Action's Pins and invoked object's Parameters are synchronized]]></description>
+            <message><![CDATA[Action's Pins must correspond to the called object's Parameters]]></message>
+            <target class="uml.Pin"/>
+            <target class="uml.Parameter"/>
+            <target class="uml.Property"/>
+            <target class="uml.CallOperationAction"/>
+            <target class="uml.Operation"/>
+            <target class="uml.CallBehaviorAction"/>
+            <target class="uml.Behavior"/>
+            <target class="uml.ValueSpecification"/>
+            <target class="uml.SendSignalAction"/>
+            <target class="uml.Signal"/>
+            <target class="uml.SendObjectAction"/>
+            <target class="uml.BroadcastSignalAction"/>
+         </constraint>
+                  </constraints>
+      </constraintProvider>
+   </extension>
+
+	<extension point="org.eclipse.emf.validation.constraintBindings">
+      <?gmfgen generated="false"?>
+      <clientContext default="false" id="org.eclipse.papyrus.uml.diagram.activityDefaultCtx">
+         <selector class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$DefaultCtx"/>
+      </clientContext>
+      <binding context="org.eclipse.papyrus.uml.diagram.activityDefaultCtx">
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.helper.PinAndParameterSynchronizer"/>
+      </binding>
+
+   </extension>
+   
+   <extension point="org.eclipse.emf.validation.constraintProviders">
+      <?gmfgen generated="false"?>
+      <category id="org.eclipse.uml2.uml.util.UMLValidator.validate/activityParameterAndParameterSynchronization" mandatory="false" name="synchronizeActivityParameterAndParameter">
+         <![CDATA[Validate that Activity Parameter Node and corresponding Parameter type are correctly synchronized]]>
+      </category>
+      <constraintProvider cache="true">
+         <package namespaceUri="http://www.eclipse.org/uml2/3.0.0/UML"/>
+         <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validate/activityParameterAndParameterSynchronization">
+                  <constraint id="org.eclipse.papyrus.uml.diagram.activity.helper.ActivityParameterAndParameterSynchronizer"
+            lang="Java"
+            name="ActivityParameterAndParameterSynchronizer"
+            class="org.eclipse.papyrus.uml.diagram.activity.helper.ActivityParameterAndParameterSynchronizer"
+            mode="Batch"
+            severity="ERROR" statusCode="200">
+            <description><![CDATA[Validate that Activity Parameter Node and corresponding Parameter type are correctly synchronized]]></description>
+            <message>Activity parameter node must be synchronized with its parameter.</message>
+            <target class="uml.Activity"/>
+            <target class="uml.Parameter"/>
+            <target class="uml.ActivityParameterNode"/>
+         </constraint>
+                  </constraints>
+      </constraintProvider>
+   </extension>
+
+	<extension point="org.eclipse.emf.validation.constraintBindings">
+      <?gmfgen generated="false"?>
+      <clientContext default="false" id="org.eclipse.papyrus.uml.diagram.activityDefaultCtx">
+         <selector class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationProvider$DefaultCtx"/>
+      </clientContext>
+      <binding context="org.eclipse.papyrus.uml.diagram.activityDefaultCtx">
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.activity.helper.ActivityParameterAndParameterSynchronizer"/>
+               </binding>
+
+   </extension>
+
+   <!--
+   <extension
+         point="org.eclipse.papyrus.uml.diagram.common.groups.groupcontainment"
+         name="ActivityGroup"
+         id="org.eclipse.papyrus.uml.diagram.activity.activitygroup">
+         <modelContainer editPartType="org.eclipse.papyrus.uml.diagram.activity.edit.parts.StructuredActivityNodeStructuredActivityNodeContentCompartmentEditPart"
+          descriptor="org.eclipse.papyrus.uml.diagram.activity.groupcontainment.StructuredActivityNodeContainment"/>
+         <modelContainer
+               descriptor="org.eclipse.papyrus.uml.diagram.activity.groupcontainment.ConditionalNodeContainment"
+               editPartType="org.eclipse.papyrus.uml.diagram.activity.edit.parts.ConditionalNodeStructuredActivityNodeContentCompartmentEditPart">
+         </modelContainer>
+         <modelContainer
+               descriptor="org.eclipse.papyrus.uml.diagram.activity.groupcontainment.ExpansionRegionContainment"
+               editPartType="org.eclipse.papyrus.uml.diagram.activity.edit.parts.ExpansionRegionStructuredActivityNodeContentCompartmentEditPart">
+         </modelContainer>
+         <modelContainer
+               descriptor="org.eclipse.papyrus.uml.diagram.activity.groupcontainment.LoopNodeContainment"
+               editPartType="org.eclipse.papyrus.uml.diagram.activity.edit.parts.LoopNodeStructuredActivityNodeContentCompartmentEditPart">
+         </modelContainer>
+         <modelContainer
+               descriptor="org.eclipse.papyrus.uml.diagram.activity.groupcontainment.SequenceNodeContainment"
+               editPartType="org.eclipse.papyrus.uml.diagram.activity.edit.parts.SequenceNodeStructuredActivityNodeContentCompartmentEditPart">
+         </modelContainer>
+         <referenceContainer
+               descriptor="org.eclipse.papyrus.uml.diagram.activity.groupcontainment.InterruptibleActivityRegionContainment"
+               editPartType="org.eclipse.papyrus.uml.diagram.activity.edit.parts.InterruptibleActivityRegionInterruptibleActivityRegionContentCompartmentEditPart"/>
+         <referenceContainer
+               descriptor="org.eclipse.papyrus.uml.diagram.activity.groupcontainment.ActivityPartitionContainment"
+               editPartType="org.eclipse.papyrus.uml.diagram.activity.edit.parts.ActivityPartitionActivityPartitionContentCompartmentEditPart"/>
+   </extension>
+   -->
+<extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+				      <?gmfgen generated="true"?>
+				      <decoratorProvider class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLValidationDecoratorProvider">
+				         <Priority name="Lowest"/>
+				         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+				         <context decoratorTargets="PRIMARY_VIEW"/>
+				      </decoratorProvider>
+				   </extension>
+
+<extension point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
+      <?gmfgen generated="true"?>
+         <clientContext id="org.eclipse.papyrus.uml.diagram.activityDefaultCtx"/>
+      </extension>
+
+<extension
+      point="org.eclipse.gmf.runtime.diagram.ui.editpolicyProviders">
+   <editpolicyProvider
+         class="org.eclipse.papyrus.uml.diagram.activity.activitygroup.GroupEditPolicyProvider">
+      <Priority
+            name="Low">
+      </Priority>
+   </editpolicyProvider>
+</extension>
+<extension
+       point="org.eclipse.emf.transaction.listeners">
+    <listener
+          class="org.eclipse.papyrus.uml.diagram.activity.listeners.InterruptibleEdgeListener">
+       <editingDomain
+             id="org.eclipse.papyrus.SharedEditingDomainID">
+       </editingDomain></listener>
+    <listener
+          class="org.eclipse.papyrus.uml.diagram.activity.listeners.ExceptionHandlerListener">
+       <editingDomain
+             id="org.eclipse.papyrus.SharedEditingDomainID">
+       </editingDomain>
+    </listener>
+    <listener
+          class="org.eclipse.papyrus.uml.diagram.activity.listeners.InInterruptibleActivityRegionListener">
+       <editingDomain
+             id="org.eclipse.papyrus.SharedEditingDomainID">
+       </editingDomain>
+    </listener>
+    <listener
+          class="org.eclipse.papyrus.uml.diagram.activity.listeners.ObjectNodeListener">
+       <editingDomain
+             id="org.eclipse.papyrus.SharedEditingDomainID">
+       </editingDomain>
+    </listener>
+    <listener
+          class="org.eclipse.papyrus.uml.diagram.activity.listeners.ObjectFlowListener">
+       <editingDomain
+             id="org.eclipse.papyrus.SharedEditingDomainID">
+       </editingDomain>
+    </listener>
+ </extension>
+ 
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <editpartProvider class="org.eclipse.papyrus.uml.diagram.activity.providers.CustomUMLEditPartProvider">
+         <Priority name="High"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="PapyrusUMLActivityDiagram"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="Activity_Shape,Parameter_ParameterLabel,Constraint_PreconditionLabel,Constraint_PostconditionLabel,InitialNode_Shape,ActivityFinalNode_Shape,FlowFinalNode_Shape,OpaqueAction_Shape,ValuePin_OpaqueActionInputShape,ActionInputPin_OpaqueActionInputShape,InputPin_OpaqueActionInputShape,OutputPin_OpaqueActionOutputShape,CallBehaviorAction_Shape,ValuePin_CallBehaviorActionArgumentShape,ActionInputPin_CallBehaviorActionArgumentShape,InputPin_CallBehaviorActionArgumentShape,OutputPin_CallBehaviorActionResultShape,CallOperationAction_Shape,ActionInputPin_CallOperationActionArgumentShape,ValuePin_CallOperationActionArgumentShape,InputPin_CallOperationActionArgumentShape,OutputPin_CallOperationActionResultShape,ValuePin_CallOperationActionTargetShape,ActionInputPin_CallOperationActionTargetShape,InputPin_CallOperationActionTargetShape,DurationConstraint_LocalPreconditionShape,DurationConstraint_LocalPostconditionShape,TimeConstraint_LocalPreconditionShape,TimeConstraint_LocalPostconditionShape,IntervalConstraint_LocalPreconditionShape,IntervalConstraint_LocalPostconditionShape,Constraint_LocalPreconditionShape,Constraint_LocalPostconditionShape,DecisionNode_Shape,MergeNode_Shape,ForkNode_Shape,JoinNode_Shape,DataStoreNode_Shape,SendObjectAction_Shape,ValuePin_SendObjectActionRequestShape,ActionInputPin_SendObjectActionRequestShape,InputPin_SendObjectActionRequestShape,ValuePin_SendObjectActionTargetShape,ActionInputPin_SendObjectActionTargetShape,InputPin_SendObjectActionTargetShape,SendSignalAction_Shape,ActionInputPin_SendSignalActionArgumentShape,ValuePin_SendSignalActionArgumentShape,InputPin_SendSignalActionArgumentShape,ValuePin_SendSignalActionTargetShape,ActionInputPin_SendSignalActionTargetShape,InputPin_SendSignalActionTargetShape,ActivityParameterNode_Shape,AcceptEventAction_Shape,OutputPin_AcceptEventActionResultShape,ValueSpecificationAction_Shape,OutputPin_ValueSpecificationActionResultShape,ConditionalNode_Shape,ExpansionRegion_Shape,ExpansionNode_InputShape,ExpansionNode_OutputShape,LoopNode_Shape,InputPin_LoopNodeVariableInputShape,ValuePin_LoopNodeVariableInputShape,ActionInputPin_LoopNodeVariableInputShape,OutputPin_LoopNodeBodyOutputShape,OutputPin_LoopNodeVariableShape,OutputPin_LoopNodeResultShape,SequenceNode_Shape,StructuredActivityNode_Shape,InputPin_StructuredActivityNodeInputShape,ValuePin_StructuredActivityNodeInputShape,ActionInputPin_StructuredActivityNodeInputShape,OutputPin_StructuredActivityNodeOutputShape,ActivityPartition_Shape,InterruptibleActivityRegion_Shape,Comment_Shape,ReadSelfAction_Shape,OutputPin_ReadSelfActionResultShape,Activity_Shape_CN,CreateObjectAction_Shape,OutputPin_CreateObjectActionResultShape,NamedElement_DefaultShape,ReadStructuralFeatureAction_Shape,InputPin_ReadStructuralFeatureActionObjectShape,ValuePin_ReadStructuralFeatureActionObjectShape,ActionInputPin_ReadStructuralFeatureActionObjectShape,OutputPin_ReadStructuralFeatureActionResultShape,AddStructuralFeatureValueAction_Shape,InputPin_AddStructuralFeatureValueActionObjectShape,InputPin_AddStructuralFeatureValueActionValueShape,InputPin_AddStructuralFeatureValueActionInsertAtShape,ValuePin_AddStructuralFeatureValueActionObjectShape,ValuePin_AddStructuralFeatureValueActionValueShape,ValuePin_AddStructuralFeatureValueActionInsertAtShape,ActionInputPin_AddStructuralFeatureValueActionObjectShape,ActionInputPin_AddStructuralFeatureValueActionValueShape,ActionInputPin_AddStructuralFeatureValueActionInsertAtShape,OutputPin_AddStructuralFeatureValueActionResultShape,DestroyObjectAction_Shape,InputPin_DestroyObjectActionTargetShape,ValuePin_DestroyObjectActionTargetShape,ActionInputPin_DestroyObjectActionTargetShape,ReadVariableAction_Shape,OutputPin_ReadVariableActionResultShape,AddVariableValueAction_Shape,InputPin_AddVariableValueActionInsertAtShape,InputPin_AddVariableValueActionValueShape,ValuePin_AddVariableValueActionInsertAtShape,ValuePin_AddVariableValueActionValueShape,ActionInputPin_AddVariableValueActionInsertAtShape,ActionInputPin_AddVariableValueActionValueShape,BroadcastSignalAction_Shape,InputPin_BroadcastSignalActionArgumentShape,ValuePin_BroadcastSignalActionArgumentShape,ActionInputPin_BroadcastSignalActionArgumentShape,CentralBufferNode_Shape,Constraint_Shape,StartObjectBehaviorAction_Shape,OutputPin_StartObjectBehaviorActionResultShape,InputPin_StartObjectBehaviorActionObjectShape,ValuePin_StartObjectBehaviorActionObjectShape,ActionInputPin_StartObjectBehaviorActionObjectShape,InputPin_StartObjectBehaviorActionArgumentShape,ValuePin_StartObjectBehaviorActionArgumentShape,ActionInputPin_StartObjectBehaviorActionArgumentShape,TestIdentityAction_Shape,OutputPin_TestIdentityActionResultShape,InputPin_TestIdentityActionFirstShape,InputPin_TestIdentityActionSecondShape,ValuePin_TestIdentityActionFirstShape,ValuePin_TestIdentityActionSecondShape,ActionInputPin_TestIdentityActionFirstShape,ActionInputPin_TestIdentityActionSecondShape,ClearStructuralFeatureAction_Shape,OutputPin_ClearStructuralFeatureActionResultShape,InputPin_ClearStructuralFeatureActionObjectShape,ValuePin_ClearStructuralFeatureActionObjectShape,ActionInputPin_ClearStructuralFeatureActionObjectShape,CreateLinkAction_Shape,InputPin_CreateLinkActionInputShape,ValuePin_CreateLinkActionInputShape,ActionInputPin_CreateLinkActionInputShape,ReadLinkAction_Shape,OutputPin_ReadLinkActionResultShape,InputPin_ReadLinkActionInputShape,ValuePin_ReadLinkActionInputShape,ActionInputPin_ReadLinkActionInputShape,DestroyLinkAction_Shape,InputPin_DestroyLinkActionInputShape,ValuePin_DestroyLinkActionInputShape,ActionInputPin_DestroyLinkActionInputShape,ClearAssociationAction_Shape,InputPin_ClearAssociationActionObjectShape,ValuePin_ClearAssociationActionObjectShape,ActionInputPin_ClearAssociationActionObjectShape,ReadExtentAction_Shape,OutputPin_ReadExtentActionResultShape,ReclassifyObjectAction_Shape,InputPin_ReclassifyObjectActionObjectShape,ValuePin_ReclassifyObjectActionObjectShape,ActionInputPin_ReclassifyObjectActionObjectShape,ReadIsClassifiedObjectAction_Shape,OutputPin_ReadIsClassifiedObjectActionResultShape,InputPin_ReadIsClassifiedObjectActionObjectShape,ValuePin_ReadIsClassifiedObjectActionObjectShape,ActionInputPin_ReadIsClassifiedObjectActionObjectShape,ReduceAction_Shape,OutputPin_ReduceActionResultShape,InputPin_ReduceActionCollectionShape,ValuePin_ReduceActionCollectionShape,ActionInputPin_ReduceActionCollectionShape,StartClassifierBehaviorAction_Shape,InputPin_StartClassifierBehaviorActionObjectShape,ValuePin_StartClassifierBehaviorActionObjectShape,ActionInputPin_StartClassifierBehaviorActionObjectShape,CreateLinkObjectAction_Shape,InputPin_CreateLinkObjectActionInputShape,ValuePin_CreateLinkObjectActionInputShape,ActionInputPin_CreateLinkObjectActionInputShape,OutputPin_CreateLinkObjectActionResultShape"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="Action_LocalPreconditionEdge,Action_LocalPostconditionEdge,ObjectFlow_Edge,ControlFlow_Edge,ExceptionHandler_Edge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="Activity_NameLabel,Activity_KeywordLabel,InitialNode_FloatingNameLabel,InitialNode_StereotypeLabel,ActivityFinalNode_FloatingNameLabel,ActivityFinalNode_StereotypeLabel,FlowFinalNode_FloatingNameLabel,FlowFinalNode_StereotypeLabel,OpaqueAction_NameLabel,OpaqueAction_FloatingNameLabel,ValuePin_OpaqueActionInputNameLabel,ValuePin_OpaqueActionInputValueLabel,ValuePin_OpaqueActionInputStereotypeLabel,ActionInputPin_OpaqueActionInputNameLabel,ActionInputPin_OpaqueActionInputValueLabel,ActionInputPin_OpaqueActionInputStereotypeLabel,InputPin_OpaqueActionInputNameLabel,InputPin_OpaqueActionInputStereotypeLabel,OutputPin_OpaqueActionOutputNameLabel,OutputPin_OpaqueActionOutputStereotypeLabel,CallBehaviorAction_NameLabel,CallBehaviorAction_FloatingNameLabel,ValuePin_CallBehaviorActionArgumentNameLabel,ValuePin_CallBehaviorActionArgumentValueLabel,ValuePin_CallBehaviorActionArgumentStereotypeLabel,ActionInputPin_CallBehaviorActionArgumentNameLabel,ActionInputPin_CallBehaviorActionArgumentValueLabel,ActionInputPin_CallBehaviorActionArgumentStereotypeLabel,InputPin_CallBehaviorActionArgumentNameLabel,InputPin_CallBehaviorActionArgumentStereotypeLabel,OutputPin_CallBehaviorActionResultNameLabel,OutputPin_CallBehaviorActionResultStereotypeLabel,CallOperationAction_NameLabel,CallOperationAction_FloatingNameLabel,ActionInputPin_CallOperationActionArgumentNameLabel,ActionInputPin_CallOperationActionArgumentValueLabel,ActionInputPin_CallOperationActionArgumentStereotypeLabel,ValuePin_CallOperationActionArgumentNameLabel,ValuePin_CallOperationActionArgumentValueLabel,ValuePin_CallOperationActionArgumentStereotypeLabel,InputPin_CallOperationActionArgumentNameLabel,InputPin_CallOperationActionArgumentStereotypeLabel,OutputPin_CallOperationActionResultNameLabel,OutputPin_CallOperationActionResultStereotypeLabel,ValuePin_CallOperationActionTargetNameLabel,ValuePin_CallOperationActionTargetValueLabel,ValuePin_CallOperationActionTargetStereotypeLabel,ActionInputPin_CallOperationActionTargetNameLabel,ActionInputPin_CallOperationActionTargetValueLabel,ActionInputPin_CallOperationActionTargetStereotypeLabel,InputPin_CallOperationActionTargetNameLabel,InputPin_CallOperationActionTargetStereotypeLabel,DurationConstraint_LocalPreconditionNameLabel,DurationConstraint_LocalPreconditionBodyLabel,DurationConstraint_LocalPostconditionNameLabel,DurationConstraint_LocalPostconditionBodyLabel,TimeConstraint_LocalPreconditionNameLabel,TimeConstraint_LocalPreconditionBodyLabel,TimeConstraint_LocalPostconditionNameLabel,TimeConstraint_LocalPostconditionBodyLabel,IntervalConstraint_LocalPreconditionNameLabel,IntervalConstraint_LocalPreconditionBodyLabel,IntervalConstraint_LocalPostconditionNameLabel,IntervalConstraint_LocalPostconditionBodyLabel,Constraint_LocalPreconditionNameLabel,Constraint_LocalPreconditionBodyLabel,Constraint_LocalPostconditionNameLabel,Constraint_LocalPostconditionBodyLabel,DecisionNode_FloatingNameLabel,DecisionNode_DecisionInputLabel,DecisionNode_StereotypeLabel,MergeNode_FloatingNameLabel,MergeNode_StereotypeLabel,ForkNode_FloatingNameLabel,ForkNode_StereotypeLabel,JoinNode_FloatingNameLabel,JoinNode_JoinSpecLabel,JoinNode_StereotypeLabel,DataStoreNode_NameLabel,DataStoreNode_SelectionLabel,DataStoreNode_FloatingNameLabel,SendObjectAction_NameLabel,SendObjectAction_FloatingNameLabel,ValuePin_SendObjectActionRequestNameLabel,ValuePin_SendObjectActionRequestValueLabel,ValuePin_SendObjectActionRequestStereotypeLabel,ActionInputPin_SendObjectActionRequestNameLabel,ActionInputPin_SendObjectActionRequestValueLabel,ActionInputPin_SendObjectActionRequestStereotypeLabel,InputPin_SendObjectActionRequestNameLabel,InputPin_SendObjectActionRequestStereotypeLabel,ValuePin_SendObjectActionTargetNameLabel,ValuePin_SendObjectActionTargetValueLabel,ValuePin_SendObjectActionTargetStereotypeLabel,ActionInputPin_SendObjectActionTargetNameLabel,ActionInputPin_SendObjectActionTargetValueLabel,ActionInputPin_SendObjectActionTargetStereotypeLabel,InputPin_SendObjectActionTargetNameLabel,InputPin_SendObjectActionTargetStereotypeLabel,SendSignalAction_NameLabel,SendSignalAction_FloatingNameLabel,ActionInputPin_SendSignalActionArgumentNameLabel,ActionInputPin_SendSignalActionArgumentValueLabel,ActionInputPin_SendSignalActionArgumentStereotypeLabel,ValuePin_SendSignalActionArgumentNameLabel,ValuePin_SendSignalActionArgumentValueLabel,ValuePin_SendSignalActionArgumentStereotypeLabel,InputPin_SendSignalActionArgumentNameLabel,InputPin_SendSignalActionArgumentStereotypeLabel,ValuePin_SendSignalActionTargetNameLabel,ValuePin_SendSignalActionTargetValueLabel,ValuePin_SendSignalActionTargetStereotypeLabel,ActionInputPin_SendSignalActionTargetNameLabel,ActionInputPin_SendSignalActionTargetValueLabel,ActionInputPin_SendSignalActionTargetStereotypeLabel,InputPin_SendSignalActionTargetNameLabel,InputPin_SendSignalActionTargetStereotypeLabel,ActivityParameterNode_NameLabel,ActivityParameterNode_StreamLabel,ActivityParameterNode_ExceptionLabel,AcceptEventAction_NameLabel,AcceptEventAction_TriggerLabel,AcceptEventAction_StereotypeLabel,AcceptEventAction_FloatingNameLabel,OutputPin_AcceptEventActionResultNameLabel,OutputPin_AcceptEventActionResultStereotypeLabel,ValueSpecificationAction_NameLabel,ValueSpecificationAction_FloatingNameLabel,OutputPin_ValueSpecificationActionResultNameLabel,OutputPin_ValueSpecificationActionResultStereotypeLabel,ConditionalNode_KeywordLabel,ExpansionRegion_KeywordLabel,LoopNode_KeywordLabel,InputPin_LoopNodeVariableInputNameLabel,InputPin_LoopNodeVariableInputStereotypeLabel,ValuePin_LoopNodeVariableInputNameLabel,ValuePin_LoopNodeVariableInputValueLabel,ValuePin_LoopNodeVariableInputStereotypeLabel,ActionInputPin_LoopNodeVariableInputNameLabel,ActionInputPin_LoopNodeVariableInputValueLabel,ActionInputPin_LoopNodeVariableInputStereotypeLabel,OutputPin_LoopNodeBodyOutputNameLabel,OutputPin_LoopNodeBodyOutputStereotypeLabel,OutputPin_LoopNodeVariableNameLabel,OutputPin_LoopNodeVariableStereotypeLabel,OutputPin_LoopNodeResultNameLabel,OutputPin_LoopNodeResultStereotypeLabel,SequenceNode_KeywordLabel,StructuredActivityNode_KeywordLabel,InputPin_StructuredActivityNodeInputNameLabel,InputPin_StructuredActivityNodeInputStereotypeLabel,ValuePin_StructuredActivityNodeInputNameLabel,ValuePin_StructuredActivityNodeInputValueLabel,ValuePin_StructuredActivityNodeInputStereotypeLabel,ActionInputPin_StructuredActivityNodeInputNameLabel,ActionInputPin_StructuredActivityNodeInputValueLabel,ActionInputPin_StructuredActivityNodeInputStereotypeLabel,OutputPin_StructuredActivityNodeOutputNameLabel,OutputPin_StructuredActivityNodeOutputStereotypeLabel,ActivityPartition_NameLabel,ActivityPartition_FloatingNameLabel,Comment_BodyLabel,ReadSelfAction_NameLabel,ReadSelfAction_FloatingNameLabel,OutputPin_ReadSelfActionResultNameLabel,OutputPin_ReadSelfActionResultStereotypeLabel,Activity_NameLabel_CN,Activity_KeywordLabel_CN,CreateObjectAction_NameLabel,CreateObjectAction_FloatingNameLabel,OutputPin_CreateObjectActionResultNameLabel,OutputPin_CreateObjectActionResultStereotypeLabel,NamedElement_NameLabel,ReadStructuralFeatureAction_NameLabel,ReadStructuralFeatureAction_FloatingNameLabel,InputPin_ReadStructuralFeatureActionObjectNameLabel,InputPin_ReadStructuralFeatureActionObjectStereotypeLabel,ValuePin_ReadStructuralFeatureActionObjectNameLabel,ValuePin_ReadStructuralFeatureActionObjectValueLabel,ValuePin_ReadStructuralFeatureActionObjectStereotypeLabel,ActionInputPin_ReadStructuralFeatureActionObjectNameLabel,ActionInputPin_ReadStructuralFeatureActionObjectValueLabel,ActionInputPin_ReadStructuralFeatureActionObjectStereotypeLabel,OutputPin_ReadStructuralFeatureActionResultNameLabel,OutputPin_ReadStructuralFeatureActionResultStereotypeLabel,AddStructuralFeatureValueAction_NameLabel,AddStructuralFeatureValueAction_FloatingNameLabel,InputPin_AddStructuralFeatureValueActionObjectNameLabel,InputPin_AddStructuralFeatureValueActionObjectStereotypeLabel,InputPin_AddStructuralFeatureValueActionValueNameLabel,InputPin_AddStructuralFeatureValueActionValueStereotypeLabel,InputPin_AddStructuralFeatureValueActionInsertAtNameLabel,InputPin_AddStructuralFeatureValueActionInsertAtStereotypeLabel,ValuePin_AddStructuralFeatureValueActionObjectNameLabel,ValuePin_AddStructuralFeatureValueActionObjectValueLabel,ValuePin_AddStructuralFeatureValueActionObjectStereotypeLabel,ValuePin_AddStructuralFeatureValueActionValueNameLabel,ValuePin_AddStructuralFeatureValueActionValueValueLabel,ValuePin_AddStructuralFeatureValueActionValueStereotypeLabel,ValuePin_AddStructuralFeatureValueActionInsertAtNameLabel,ValuePin_AddStructuralFeatureValueActionInsertAtValueLabel,ValuePin_AddStructuralFeatureValueActionInsertAtStereotypeLabel,ActionInputPin_AddStructuralFeatureValueActionObjectNameLabel,ActionInputPin_AddStructuralFeatureValueActionObjectValueLabel,ActionInputPin_AddStructuralFeatureValueActionObjectStereotypeLabel,ActionInputPin_AddStructuralFeatureValueActionValueNameLabel,ActionInputPin_AddStructuralFeatureValueActionValueValueLabel,ActionInputPin_AddStructuralFeatureValueActionValueStereotypeLabel,ActionInputPin_AddStructuralFeatureValueActionInsertAtNameLabel,ActionInputPin_AddStructuralFeatureValueActionInsertAtValueLabel,ActionInputPin_AddStructuralFeatureValueActionInsertAtStereotypeLabel,OutputPin_AddStructuralFeatureValueActionResultNameLabel,OutputPin_AddStructuralFeatureValueActionResultStereotypeLabel,DestroyObjectAction_NameLabel,DestroyObjectAction_FloatingNameLabel,InputPin_DestroyObjectActionTargetNameLabel,InputPin_DestroyObjectActionTargetStereotypeLabel,ValuePin_DestroyObjectActionTargetNameLabel,ValuePin_DestroyObjectActionTargetValueLabel,ValuePin_DestroyObjectActionTargetStereotypeLabel,ActionInputPin_DestroyObjectActionTargetNameLabel,ActionInputPin_DestroyObjectActionTargetValueLabel,ActionInputPin_DestroyObjectActionTargetStereotypeLabel,ReadVariableAction_NameLabel,ReadVariableAction_FloatingNameLabel,OutputPin_ReadVariableActionResultNameLabel,OutputPin_ReadVariableActionResultStereotypeLabel,AddVariableValueAction_NameLabel,AddVariableValueAction_FloatingNameLabel,InputPin_AddVariableValueActionInsertAtNameLabel,InputPin_AddVariableValueActionInsertAtStereotypeLabel,InputPin_AddVariableValueActionValueNameLabel,InputPin_AddVariableValueActionValueStereotypeLabel,ValuePin_AddVariableValueActionInsertAtNameLabel,ValuePin_AddVariableValueActionInsertAtValueLabel,ValuePin_AddVariableValueActionInsertAtStereotypeLabel,ValuePin_AddVariableValueActionValueNameLabel,ValuePin_AddVariableValueActionValueValueLabel,ValuePin_AddVariableValueActionValueStereotypeLabel,ActionInputPin_AddVariableValueActionInsertAtNameLabel,ActionInputPin_AddVariableValueActionInsertAtValueLabel,ActionInputPin_AddVariableValueActionInsertAtStereotypeLabel,ActionInputPin_AddVariableValueActionValueNameLabel,ActionInputPin_AddVariableValueActionValueValueLabel,ActionInputPin_AddVariableValueActionValueStereotypeLabel,BroadcastSignalAction_NameLabel,BroadcastSignalAction_FloatingNameLabel,InputPin_BroadcastSignalActionArgumentNameLabel,InputPin_BroadcastSignalActionArgumentValueLabel,InputPin_BroadcastSignalActionArgumentStereotypeLabel,ValuePin_BroadcastSignalActionArgumentNameLabel,ValuePin_BroadcastSignalActionArgumentValueLabel,ValuePin_BroadcastSignalActionArgumentStereotypeLabel,ActionInputPin_BroadcastSignalActionArgumentNameLabel,ActionInputPin_BroadcastSignalActionArgumentValueLabel,ActionInputPin_BroadcastSignalActionArgumentStereotypeLabel,CentralBufferNode_NameLabel,CentralBufferNode_SelectionLabel,CentralBufferNode_FloatingNameLabel,Constraint_NameLabel,Constraint_BodyLabel,StartObjectBehaviorAction_NameLabel,StartObjectBehaviorAction_FloatingNameLabel,OutputPin_StartObjectBehaviorActionResultNameLabel,OutputPin_StartObjectBehaviorActionResultStereotypeLabel,InputPin_StartObjectBehaviorActionObjectNameLabel,InputPin_StartObjectBehaviorActionObjectStereotypeLabel,ValuePin_StartObjectBehaviorActionObjectNameLabel,ValuePin_StartObjectBehaviorActionObjectValueLabel,ValuePin_StartObjectBehaviorActionObjectStereotypeLabel,ActionInputPin_StartObjectBehaviorActionObjectNameLabel,ActionInputPin_StartObjectBehaviorActionObjectValueLabel,ActionInputPin_StartObjectBehaviorActionObjectStereotypeLabel,InputPin_StartObjectBehaviorActionArgumentNameLabel,InputPin_StartObjectBehaviorActionArgumentStereotypeLabel,ValuePin_StartObjectBehaviorActionArgumentNameLabel,ValuePin_StartObjectBehaviorActionArgumentValueLabel,ValuePin_StartObjectBehaviorActionArgumentStereotypeLabel,ActionInputPin_StartObjectBehaviorActionArgumentNameLabel,ActionInputPin_StartObjectBehaviorActionArgumentValueLabel,ActionInputPin_StartObjectBehaviorActionArgumentStereotypeLabel,TestIdentityAction_NameLabel,TestIdentityAction_FloatingNameLabel,OutputPin_TestIdentityActionResultNameLabel,OutputPin_TestIdentityActionResultStereotypeLabel,InputPin_TestIdentityActionFirstNameLabel,InputPin_TestIdentityActionFirstStereotypeLabel,InputPin_TestIdentityActionSecondNameLabel,InputPin_TestIdentityActionSecondStereotypeLabel,ValuePin_TestIdentityActionFirstNameLabel,ValuePin_TestIdentityActionFirstValueLabel,ValuePin_TestIdentityActionFirstStereotypeLabel,ValuePin_TestIdentityActionSecondNameLabel,ValuePin_TestIdentityActionSecondValueLabel,ValuePin_TestIdentityActionSecondStereotypeLabel,ActionInputPin_TestIdentityActionFirstNameLabel,ActionInputPin_TestIdentityActionFirstValueLabel,ActionInputPin_TestIdentityActionFirstStereotypeLabel,ActionInputPin_TestIdentityActionSecondNameLabel,ActionInputPin_TestIdentityActionSecondValueLabel,ActionInputPin_TestIdentityActionSecondStereotypeLabel,ClearStructuralFeatureAction_NameLabel,ClearStructuralFeatureAction_FloatingNameLabel,OutputPin_ClearStructuralFeatureActionResultNameLabel,OutputPin_ClearStructuralFeatureActionResultStereotypeLabel,InputPin_ClearStructuralFeatureActionObjectNameLabel,InputPin_ClearStructuralFeatureActionObjectStereotypeLabel,ValuePin_ClearStructuralFeatureActionObjectNameLabel,ValuePin_ClearStructuralFeatureActionObjectValueLabel,ValuePin_ClearStructuralFeatureActionObjectStereotypeLabel,ActionInputPin_ClearStructuralFeatureActionObjectNameLabel,ActionInputPin_ClearStructuralFeatureActionObjectValueLabel,ActionInputPin_ClearStructuralFeatureActionObjectStereotypeLabel,CreateLinkAction_NameLabel,CreateLinkAction_FloatingNameLabel,InputPin_CreateLinkActionInputNameLabel,InputPin_CreateLinkActionInputStereotypeLabel,ValuePin_CreateLinkActionInputNameLabel,ValuePin_CreateLinkActionInputValueLabel,ValuePin_CreateLinkActionInputStereotypeLabel,ActionInputPin_CreateLinkActionInputNameLabel,ActionInputPin_CreateLinkActionInputValueLabel,ActionInputPin_CreateLinkActionInputStereotypeLabel,ReadLinkAction_NameLabel,ReadLinkAction_FloatingNameLabel,OutputPin_ReadLinkActionResultNameLabel,OutputPin_ReadLinkActionResultStereotypeLabel,InputPin_ReadLinkActionInputNameLabel,InputPin_ReadLinkActionInputStereotypeLabel,ValuePin_ReadLinkActionInputNameLabel,ValuePin_ReadLinkActionInputValueLabel,ValuePin_ReadLinkActionInputStereotypeLabel,ActionInputPin_ReadLinkActionInputNameLabel,ActionInputPin_ReadLinkActionInputValueLabel,ActionInputPin_ReadLinkActionInputStereotypeLabel,DestroyLinkAction_NameLabel,DestroyLinkAction_FloatingNameLabel,InputPin_DestroyLinkActionInputNameLabel,InputPin_DestroyLinkActionInputStereotypeLabel,ValuePin_DestroyLinkActionInputNameLabel,ValuePin_DestroyLinkActionInputValueLabel,ValuePin_DestroyLinkActionInputStereotypeLabel,ActionInputPin_DestroyLinkActionInputNameLabel,ActionInputPin_DestroyLinkActionInputValueLabel,ActionInputPin_DestroyLinkActionInputStereotypeLabel,ClearAssociationAction_NameLabel,ClearAssociationAction_FloatingNameLabel,InputPin_ClearAssociationActionObjectNameLabel,InputPin_ClearAssociationActionObjectStereotypeLabel,ValuePin_ClearAssociationActionObjectNameLabel,ValuePin_ClearAssociationActionObjectValueLabel,ValuePin_ClearAssociationActionObjectStereotypeLabel,ActionInputPin_ClearAssociationActionObjectNameLabel,ActionInputPin_ClearAssociationActionObjectValueLabel,ActionInputPin_ClearAssociationActionObjectStereotypeLabel,ReadExtentAction_NameLabel,ReadExtentAction_FloatingNameLabel,OutputPin_ReadExtentActionResultNameLabel,OutputPin_ReadExtentActionResultStereotypeLabel,ReclassifyObjectAction_NameLabel,ReclassifyObjectAction_FloatingNameLabel,InputPin_ReclassifyObjectActionObjectNameLabel,InputPin_ReclassifyObjectActionObjectStereotypeLabel,ValuePin_ReclassifyObjectActionObjectNameLabel,ValuePin_ReclassifyObjectActionObjectValueLabel,ValuePin_ReclassifyObjectActionObjectStereotypeLabel,ActionInputPin_ReclassifyObjectActionObjectNameLabel,ActionInputPin_ReclassifyObjectActionObjectValueLabel,ActionInputPin_ReclassifyObjectActionObjectStereotypeLabel,ReadIsClassifiedObjectAction_NameLabel,ReadIsClassifiedObjectAction_FloatingNameLabel,OutputPin_ReadIsClassifiedObjectActionResultNameLabel,OutputPin_ReadIsClassifiedObjectActionResultStereotypeLabel,InputPin_ReadIsClassifiedObjectActionObjectNameLabel,InputPin_ReadIsClassifiedObjectActionObjectStereotypeLabel,ValuePin_ReadIsClassifiedObjectActionObjectNameLabel,ValuePin_ReadIsClassifiedObjectActionObjectValueLabel,ValuePin_ReadIsClassifiedObjectActionObjectStereotypeLabel,ActionInputPin_ReadIsClassifiedObjectActionObjectNameLabel,ActionInputPin_ReadIsClassifiedObjectActionObjectValueLabel,ActionInputPin_ReadIsClassifiedObjectActionObjectStereotypeLabel,ReduceAction_NameLabel,ReduceAction_FloatingNameLabel,OutputPin_ReduceActionResultNameLabel,OutputPin_ReduceActionResultStereotypeLabel,InputPin_ReduceActionCollectionNameLabel,InputPin_ReduceActionCollectionStereotypeLabel,ValuePin_ReduceActionCollectionNameLabel,ValuePin_ReduceActionCollectionValueLabel,ValuePin_ReduceActionCollectionStereotypeLabel,ActionInputPin_ReduceActionCollectionNameLabel,ActionInputPin_ReduceActionCollectionValueLabel,ActionInputPin_ReduceActionCollectionStereotypeLabel,StartClassifierBehaviorAction_NameLabel,StartClassifierBehaviorAction_FloatingNameLabel,InputPin_StartClassifierBehaviorActionObjectNameLabel,InputPin_StartClassifierBehaviorActionObjectStereotypeLabel,ValuePin_StartClassifierBehaviorActionObjectNameLabel,ValuePin_StartClassifierBehaviorActionObjectValueLabel,ValuePin_StartClassifierBehaviorActionObjectStereotypeLabel,ActionInputPin_StartClassifierBehaviorActionObjectNameLabel,ActionInputPin_StartClassifierBehaviorActionObjectValueLabel,ActionInputPin_StartClassifierBehaviorActionObjectStereotypeLabel,CreateLinkObjectAction_NameLabel,CreateLinkObjectAction_FloatingNameLabel,InputPin_CreateLinkObjectActionInputNameLabel,InputPin_CreateLinkObjectActionInputStereotypeLabel,ValuePin_CreateLinkObjectActionInputNameLabel,ValuePin_CreateLinkObjectActionInputValueLabel,ValuePin_CreateLinkObjectActionInputStereotypeLabel,ActionInputPin_CreateLinkObjectActionInputNameLabel,ActionInputPin_CreateLinkObjectActionInputValueLabel,ActionInputPin_CreateLinkObjectActionInputStereotypeLabel,OutputPin_CreateLinkObjectActionResultNameLabel,OutputPin_CreateLinkObjectActionResultStereotypeLabel"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="Activity_ParameterCompartment,Activity_PreconditionCompartment,Activity_PostconditionCompartment,Activity_ActivityNodeCompartment,ConditionalNode_ActivityNodeCompartment,ExpansionRegion_ActivityNodeCompartment,LoopNode_ActivityNodeCompartment,SequenceNode_ActivityNodeCompartment,StructuredActivityNode_ActivityNodeCompartment,ActivityPartition_ActivityNodeCompartment,InterruptibleActivityRegion_ActivityNodeCompartment,Activity_ParameterCompartment_CN,Activity_PreconditionCompartment_CN,Activity_PostconditionCompartment_CN,Activity_ActivityNodeCompartment_CN"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+
+<extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+      <viewProvider class="org.eclipse.papyrus.uml.diagram.activity.providers.CustomUMLViewProvider">
+         <Priority name="Medium"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="PapyrusUMLActivityDiagram"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge"/>
+      </viewProvider>
+   </extension>
+   
+<!-- Defnition for seleciton is call action and editor is papyrus -->
+	<extension
+		point="org.eclipse.core.expressions.definitions">	
+	
+		<definition id="org.eclipse.papyrus.diagram.common.IsCallAction">
+			<and>
+			
+	
+			<with variable="selection">
+				<test property="org.eclipse.papyrus.UMLCallActionTester.isCallAction" value="true"
+					forcePluginActivation="true"/>
+			</with>
+			
+			</and>
+		</definition>
+	</extension>
+
+<!--Test for selection of a call Action -->
+	 <extension
+		point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester
+	       class="org.eclipse.papyrus.uml.diagram.activity.testers.UMLCallActionTester"
+	       id="org.eclipse.papyrus.UMLCallActionTester"
+	       namespace="org.eclipse.papyrus.UMLCallActionTester"
+	       properties="isCallAction"
+	       type="org.eclipse.jface.viewers.ISelection">
+	</propertyTester>
+	</extension>
+<extension
+      point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+   <propertyTabs
+         contributorId="TreeOutlinePage">
+      <propertyTab
+            category="org.eclipse.papyrus"
+            id="org.eclipse.papyrus.tabbedproperties.appearance.appearancetab"
+            label="Appearance">
+      </propertyTab>
+   </propertyTabs>
+</extension>
+
+	
+<!-- UML ElementType bindings to Papyrus shared IClientContext -->
+<extension point="org.eclipse.papyrus.infra.gmfdiag.common.notationTypesMapping"> 
+   <?gmfgen generated="true"?>
+   <diagramMappings diagramID="PapyrusUMLActivityDiagram">
+   	<mapping type="PapyrusUMLActivityDiagram" humanReadableType="ActivityDiagram"/>
+			<mapping
+				humanReadableType="parameters"
+				type="Activity_ParameterCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="pre conditions"
+				type="Activity_PreconditionCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="post conditions"
+				type="Activity_PostconditionCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="content"
+				type="Activity_ActivityNodeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="content"
+				type="ConditionalNode_ActivityNodeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="content"
+				type="ExpansionRegion_ActivityNodeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="content"
+				type="LoopNode_ActivityNodeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="content"
+				type="SequenceNode_ActivityNodeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="content"
+				type="StructuredActivityNode_ActivityNodeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="content"
+				type="ActivityPartition_ActivityNodeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="content"
+				type="InterruptibleActivityRegion_ActivityNodeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="parameters"
+				type="Activity_ParameterCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="pre conditions"
+				type="Activity_PreconditionCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="post conditions"
+				type="Activity_PostconditionCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="content"
+				type="Activity_ActivityNodeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="ObjectFlow_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Weight"
+				type="ObjectFlow_WeightLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Selection"
+				type="ObjectFlow_SelectionLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Transformation"
+				type="ObjectFlow_TransformationLabel">
+			</mapping>
+			<mapping
+				humanReadableType="DecisionInputFlow"
+				type="ObjectFlow_KeywordLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Guard"
+				type="ObjectFlow_GuardLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ObjectFlow_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="ControlFlow_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Weight"
+				type="ControlFlow_WeightLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Guard"
+				type="ControlFlow_GuardLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ControlFlow_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="InitialNode_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InitialNode_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ActivityFinalNode_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ActivityFinalNode_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="FlowFinalNode_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="FlowFinalNode_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="OpaqueAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ValuePin_OpaqueActionInputStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ActionInputPin_OpaqueActionInputStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InputPin_OpaqueActionInputStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="OutputPin_OpaqueActionOutputStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="CallBehaviorAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ValuePin_CallBehaviorActionArgumentStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ActionInputPin_CallBehaviorActionArgumentStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InputPin_CallBehaviorActionArgumentStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="OutputPin_CallBehaviorActionResultStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="CallOperationAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ActionInputPin_CallOperationActionArgumentStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ValuePin_CallOperationActionArgumentStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InputPin_CallOperationActionArgumentStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="OutputPin_CallOperationActionResultStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ValuePin_CallOperationActionTargetStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ActionInputPin_CallOperationActionTargetStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InputPin_CallOperationActionTargetStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DecisionNode_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="DecisionNode_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="MergeNode_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="MergeNode_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ForkNode_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ForkNode_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="JoinNode_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="JoinNode_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DataStoreNode_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="SendObjectAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ValuePin_SendObjectActionRequestStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ActionInputPin_SendObjectActionRequestStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InputPin_SendObjectActionRequestStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ValuePin_SendObjectActionTargetStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ActionInputPin_SendObjectActionTargetStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InputPin_SendObjectActionTargetStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="SendSignalAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ActionInputPin_SendSignalActionArgumentStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ValuePin_SendSignalActionArgumentStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InputPin_SendSignalActionArgumentStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ValuePin_SendSignalActionTargetStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ActionInputPin_SendSignalActionTargetStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InputPin_SendSignalActionTargetStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="AcceptEventAction_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="AcceptEventAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="OutputPin_AcceptEventActionResultStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ValueSpecificationAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="OutputPin_ValueSpecificationActionResultStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ActivityPartition_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ReadSelfAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="OutputPin_ReadSelfActionResultStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="CreateObjectAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="OutputPin_CreateObjectActionResultStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="NamedElement_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ReadStructuralFeatureAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InputPin_ReadStructuralFeatureActionObjectStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="AddStructuralFeatureValueAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DestroyObjectAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ReadVariableAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="OutputPin_ReadVariableActionResultStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="AddVariableValueAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="BroadcastSignalAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="CentralBufferNode_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="StartObjectBehaviorAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="TestIdentityAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ClearStructuralFeatureAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="CreateLinkAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ReadLinkAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DestroyLinkAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ClearAssociationAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ReadExtentAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ReclassifyObjectAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ReadIsClassifiedObjectAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ReduceAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="StartClassifierBehaviorAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="CreateLinkObjectAction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="UnmarshallAction_FloatingNameLabel">
+			</mapping>
+   </diagramMappings>
+</extension>
+
+   <extension
+      point="org.eclipse.papyrus.infra.gmfdiag.common.diagramReconciler">
+   <diagramReconciler
+         diagramType="PapyrusUMLActivityDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.activity.migration.ActivityReconciler_1_1_0"
+         source="1.0.0"
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="PapyrusUMLActivityDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.activity.migration.ActivityReconcilerForCompartment_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="PapyrusUMLActivityDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.activity.migration.ActivityReconciler_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+</extension>
+   <extension point="org.eclipse.papyrus.infra.gmfdiag.common.visualTypeProviders">
+	      <?gmfgen generated="true"?>
+	      <visualTypeProvider
+	            class="org.eclipse.papyrus.uml.diagram.activity.providers.UMLVisualTypeProvider"
+	            diagramType="PapyrusUMLActivityDiagram">
+	         </visualTypeProvider>
+	   </extension>
+
+
+<extension
+      point="org.eclipse.papyrus.infra.hyperlink.hyperlinkContributor">
+   <contributor
+         contributor="org.eclipse.papyrus.uml.diagram.activity.hyperlink.OwnedBehaviorHyperlinkContributor"
+         description="Creates hyperlinks referencing an activity represented in a diagram owned by a behaviored classifier"
+         id="org.eclipse.papyrus.uml.diagram.activity.ownedBehaviorHyperlinkContributor"
+         label="Owned activity hyperlinks">
+   </contributor>
+</extension>
+<extension
+      id="org.eclipse.papyrus.uml.diagram.activity.css"
+      name="CSS extension for activity models"
+      point="org.eclipse.papyrus.infra.gmfdiag.css.userAgentStyleSheet">
+   <stylesheet
+         stylesheetPath="css/default-theme-contribution-activity-diagram.css">
+   </stylesheet>
+</extension>
+<extension
+      point="org.eclipse.ui.preferencePages">
+   <page
+         category="org.eclipse.papyrus.uml.diagram.common.automatedModelCompletionPreferencePage"
+         class="org.eclipse.papyrus.uml.diagram.activity.edit.utils.updater.preferences.ActivityAutomatedModelCompletionPreferencePage"
+         id="org.eclipse.papyrus.uml.diagram.activity.automatedModelCompletionPreferencePage"
+         name="Activities">
+   </page>
+</extension>
+<extension point="org.eclipse.core.runtime.preferences">
+	<?gmfgen generated="false"?>
+	<initializer class="org.eclipse.papyrus.uml.diagram.activity.edit.utils.updater.preferences.AutomatedModelCompletionPreferencesInitializer"/>
+</extension>
+<extension
+      point="org.eclipse.papyrus.infra.properties.environments">
+   <environment
+         environmentModel="model/Environment.xmi">
+   </environment>
+</extension>
+<extension
+      point="org.eclipse.papyrus.infra.properties.contexts">
+   <context
+         contextModel="model/properties/activity.ctx">
+   </context>
+</extension>
+
+
+<extension
+      point="org.eclipse.papyrus.infra.gmfdiag.canonical.strategies">
+   <visualChildrenStrategy
+         class="org.eclipse.papyrus.uml.diagram.activity.canonical.ConstraintVisualChildrenStrategy"
+         priority="20">
+      <enablement>
+         <with
+               variable="element">
+            <instanceof
+                  value="org.eclipse.uml2.uml.ActivityNode">
+            </instanceof>
+         </with>
+      </enablement>
+   </visualChildrenStrategy>
+</extension>
+<extension
+      point="org.eclipse.papyrus.infra.gmfdiag.assistant.modelProviders">
+   <modelProvider
+         uri="model/activityDiagram.assistants">
+   </modelProvider>
+</extension>
+
+</plugin>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.papyrus.infra.core.model">
+      <model
+            classname="org.eclipse.papyrus.uml.internationalization.modelresource.UMLInternationalizationModelResource"
+            description="Model for Papyrus UML internationalization"
+            fileExtension="properties"
+            required="false">
+         <modelSnippet
+               classname="org.eclipse.papyrus.infra.internationalization.modelsnippet.PropertiesAdjunctResourceModelSnippet"
+               description="Snippet for properties resource of referenced model resources">
+         </modelSnippet>
+      </model>
+   </extension>
+</plugin>

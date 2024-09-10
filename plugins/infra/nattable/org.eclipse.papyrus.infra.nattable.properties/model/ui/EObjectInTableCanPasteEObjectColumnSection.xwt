@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt">
+	<Composite.layout>
+		<ppel:PropertiesLayout></ppel:PropertiesLayout>
+	</Composite.layout>
+	<Group text="Paste Column Axis">
+		<Group.layout>
+			<ppel:PropertiesLayout makeColumnsEqualWidth="true"
+				numColumns="3"></ppel:PropertiesLayout>
+		</Group.layout>
+		<ppe:BooleanCheckbox input="{Binding}"
+			property="EObjectInTable:Table:localColumnHeaderAxisConfiguration.detachedMode"
+			customLabel="Detached Mode"></ppe:BooleanCheckbox>
+		<ppe:StringCombo input="{Binding}"
+			property="EObjectInTable:Table:localColumnHeaderAxisConfiguration.pastedEObjectId"
+			customLabel="Pasted Element Id"></ppe:StringCombo>
+		<ppe:ReferenceDialog input="{Binding}"
+			property="EObjectInTable:Table:localColumnHeaderAxisConfiguration.pastedEObjectContainmentFeature"
+			customLabel="Containment Feature"></ppe:ReferenceDialog>
+		<ppe:MultiReference input="{Binding}"
+			property="EObjectInTable:Table:localColumnHeaderAxisConfiguration.postActions"
+			customLabel="Post Actions"></ppe:MultiReference>
+		<ppe:ReferenceDialog input="{Binding}"
+			property="EObjectInTable:Table:localColumnHeaderAxisConfiguration.axisIdentifier"
+			customLabel="Axis used as identifier"></ppe:ReferenceDialog>
+	</Group>
+</Composite>

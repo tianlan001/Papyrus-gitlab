@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2020 CEA LIST and others.&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License 2.0&#xA;which accompanies this distribution, and is available at&#xA;https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA;SPDX-License-Identifier: EPL-2.0&#xA;&#xA;Contributors:&#xA;CEA LIST - Initial API and implementation"
+    modelDirectory="/org.eclipse.papyrus.uml.types.core/src-gen" editDirectory="/org.eclipse.papyrus.uml.types.core/src-gen"
+    editorDirectory="/org.eclipse.papyrus.uml.types.core.editor/src-gen" modelPluginID="org.eclipse.papyrus.uml.types.core"
+    modelName="SetTypeAdvice" modelPluginClass="" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/org.eclipse.papyrus.uml.types.core.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="11.0" copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.genmodel#//types"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>SetTypeAdvice.ecore</foreignModel>
+  <genPackages prefix="SetTypeAdviceConfiguration" basePackage="org.eclipse.papyrus.uml.types.core.advices"
+      disposableProviderFactory="true" childCreationExtenders="true" ecorePackage="SetTypeAdvice.ecore#/">
+    <genClasses ecoreClass="SetTypeAdvice.ecore#//SetTypeAdviceConfiguration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SetTypeAdvice.ecore#//SetTypeAdviceConfiguration/validTypes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SetTypeAdvice.ecore#//SetTypeAdviceConfiguration/creationTypes"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.cellmanager">
+      <cellManager
+            id="org.eclipse.papyrus.uml.nattable.valuespecification.config.cell.manager"
+            manager="org.eclipse.papyrus.uml.nattable.xtext.valuespecification.manager.cell.ValueSpecificationCellManager"
+            order="1100">
+      </cellManager>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.celleditor.configuration">
+      <configuration
+            class="org.eclipse.papyrus.uml.nattable.xtext.valuespecification.celleditor.ValueSpecificationCellEditorConfiguration"
+            order="700">
+      </configuration>
+   </extension>
+</plugin>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns="http://www.eclipse.org/xwt/presentation" xmlns:j="clr-namespace:java.lang"
+	xmlns:x="http://www.eclipse.org/xwt" xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets">
+	<Composite.layout>
+		<ppel:PropertiesLayout></ppel:PropertiesLayout>
+	</Composite.layout>
+	<Composite>
+		<Composite.layout>
+			<ppel:PropertiesLayout numColumns="1"></ppel:PropertiesLayout>
+		</Composite.layout>
+		<ppe:StringEditor input="{Binding}"
+			property="EObjectInTable:TableNamedElement:name" customLabel="Name"></ppe:StringEditor>
+		<ppe:StringEditor input="{Binding}"
+			property="EObjectInTable:TableNamedElement:label"></ppe:StringEditor>
+	</Composite>
+	<Composite>
+		<Composite.layout>
+			<ppel:PropertiesLayout numColumns="2"></ppel:PropertiesLayout>
+		</Composite.layout>
+		<ppe:ReferenceLabel input="{Binding}"
+			property="EObjectInTable:Table:prototype" readOnly="true"
+			customLabel="Table Kind"></ppe:ReferenceLabel>
+		<ppe:ReferenceDialog input="{Binding}"
+			property="EObjectInTable:Table:owner" customLabel="Owner"></ppe:ReferenceDialog>
+		<ppe:ReferenceLabel input="{Binding}"
+			property="EObjectInTable:Table:context" customLabel="Root element"></ppe:ReferenceLabel>
+		<ppe:BooleanRadio input="{Binding}"
+			property="EObjectInTable:Table:invertAxis" customLabel="Invert Axis"></ppe:BooleanRadio>
+	</Composite>
+	<Composite>
+		<Composite.layout>
+			<ppel:PropertiesLayout numColumns="1"></ppel:PropertiesLayout>
+		</Composite.layout>
+		<ppe:StringMultiline input="{Binding}"
+			property="EObjectInTable:TableNamedElement:description" customLabel="Description"></ppe:StringMultiline>
+	</Composite>
+</Composite>

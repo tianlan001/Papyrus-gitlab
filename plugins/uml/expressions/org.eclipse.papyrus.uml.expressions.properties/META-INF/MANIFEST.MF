@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name
+Bundle-SymbolicName: org.eclipse.papyrus.uml.expressions.properties;singleton:=true
+Bundle-Version: 7.0.0.qualifier
+Bundle-Vendor: %Bundle-Vendor
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Require-Bundle: org.eclipse.emf.databinding;bundle-version="[1.5.0,2.0.0)",
+ org.eclipse.emf.edit.ui;bundle-version="[2.18.0,3.0.0)",
+ org.eclipse.gmf.runtime.emf.type.core;bundle-version="[1.9.0,2.0.0)",
+ org.eclipse.papyrus.infra.core.log;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.infra.emf;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.infra.properties;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.infra.properties.ui;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.infra.ui.emf;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.infra.widgets;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.uml.expressions;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.uml.tools;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.ui.views.properties.tabbed;bundle-version="[3.8.0,4.0.0)",
+ org.eclipse.uml2.uml;bundle-version="[5.5.0,6.0.0)"
+Bundle-Activator: org.eclipse.papyrus.uml.expressions.properties.Activator
+Bundle-Description: This plugin provides properties views for the UML Expressions.
+Automatic-Module-Name: org.eclipse.papyrus.uml.expressions.properties

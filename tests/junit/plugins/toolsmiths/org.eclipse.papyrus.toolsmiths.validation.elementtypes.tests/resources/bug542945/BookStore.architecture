@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architecture:ArchitectureDomain xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2" xmi:id="_W0vj0FG2EeuXzM4mqVly4g" id="org.eclipse.papyrus.toolsmiths.validation.elementtypes.example.bookstore" name="BookStore" description="Example architecture domain for testing: a book store modeling language.">
+  <stakeholders xmi:type="architecture:Stakeholder" xmi:id="_zYz54FG5EeuXzM4mqVly4g" id="org.eclipse.papyrus.toolsmiths.validation.elementtypes.example.bookvendor" name="Book Vendor" description="A seller of books, in a bookstore." concerns="_95r3oFG5EeuXzM4mqVly4g"/>
+  <concerns xmi:type="architecture:Concern" xmi:id="_95r3oFG5EeuXzM4mqVly4g" id="org.eclipse.papyrus.toolsmiths.validation.elementtypes.example.bookselling" name="Book Selling" description="The concern of selling books, in a book store."/>
+  <contexts xmi:type="architecture:ArchitectureDescriptionLanguage" xmi:id="_Ty_tQFG6EeuXzM4mqVly4g" id="org.eclipse.papyrus.toolsmiths.validation.elementtypes.context" name="BookStore" extensionPrefix="bookstore">
+    <elementTypes xmi:type="elementtypesconfigurations:ElementTypeSetConfiguration" href="platform:/plugin/org.eclipse.papyrus.toolsmiths.validation.elementtypes.example/resources/BookStore.elementtypesconfigurations#_c0DGsGBhEemoFuWBTUmJOQ"/>
+    <metamodel xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  </contexts>
+</architecture:ArchitectureDomain>

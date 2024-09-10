@@ -1,0 +1,19 @@
+/** Comment */
+abstract class A {
+
+	/** Another comment */
+	activity R(in x: Integer);
+	public activity 'x$defaultValue$1'(): Integer;
+
+	/** Member Comment */
+	private x: Integer = 'x$defaultValue$1'();
+	private y: String;
+	private z: any[0..*];
+	public abstract p(in x: Integer, out y: Integer);
+	public q(in s: String[0..*]): Boolean;
+	@Create
+	public A();
+	@Destroy
+	public destroy();
+
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom:Customization xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:custom="http://www.eclipse.org/papyrus/emf/facet/custom/0.2.incubation/custom" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:efacet="http://www.eclipse.org/papyrus/emf/facet/efacet/0.2.incubation/efacet" xmlns:javaQuery="http://www.eclipse.org/papyrus/emf/facet/query/java/0.2.incubation/javaquery" xmlns:query="http://www.eclipse.org/papyrus/emf/facet/efacet/0.2.incubation/efacet/query" name="EAnnotationCustom" documentation="Display contained EAnnotation" mustBeLoadedByDefault="true" rank="-1000">
+  <eClassifiers xsi:type="custom:EClassCustomization" name="EAnnotation" documentation="Representation of EAnnotation in model explorer">
+    <extendedMetaclass href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation"/>
+    <facetOperations name="getEAnnotationLabel">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="eStructuralFeature">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement"/>
+      </eParameters>
+      <query xsi:type="javaQuery:JavaQuery" implementationClassName="org.eclipse.papyrus.toolsmiths.ecore.internal.queries.GetEAnnotationLabelQuery"/>
+      <override xsi:type="efacet:FacetOperation" href="platform:/plugin/org.eclipse.papyrus.emf.facet.custom.ui/resources/customproperties.efacet#//CustomizedEObject/label"/>
+    </facetOperations>
+    <facetOperations name="getEAnnotationIcon" documentation="Return the path to the icon of the corresponding document">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/papyrus/emf/facet/custom/0.2.incubation/custom_primitive_types#//Image"/>
+      <eParameters name="eObject">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eParameters>
+      <query xsi:type="javaQuery:JavaQuery" implementationClassName="org.eclipse.papyrus.toolsmiths.ecore.internal.queries.GetEAnnotationIconQuery"/>
+      <override xsi:type="efacet:FacetOperation" href="platform:/plugin/org.eclipse.papyrus.emf.facet.custom.ui/resources/customproperties.efacet#//CustomizedEObject/image"/>
+    </facetOperations>
+    <facetOperations name="getVisibleReferences" upperBound="-1">
+      <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
+      <query xsi:type="javaQuery:JavaQuery" implementationClassName="org.eclipse.papyrus.toolsmiths.ecore.internal.queries.GetVisibleReferencesQuery"/>
+      <override xsi:type="efacet:FacetOperation" href="platform:/plugin/org.eclipse.papyrus.emf.facet.custom.ui/resources/customproperties.efacet#//CustomizedEObject/visibleReferences"/>
+    </facetOperations>
+    <facetOperations name="getEAnnotationParent">
+      <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      <eParameters name="eStructuralFeature">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement"/>
+      </eParameters>
+      <query xsi:type="javaQuery:JavaQuery" implementationClassName="org.eclipse.papyrus.toolsmiths.ecore.internal.queries.GetEAnnotationParentQuery"/>
+      <override xsi:type="efacet:FacetOperation" href="platform:/plugin/org.eclipse.papyrus.emf.facet.custom.ui/resources/customproperties.efacet#//CustomizedEObject/parent"/>
+    </facetOperations>
+    <facetOperations name="CollapseContainmentRef">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eParameters name="eStructuralFeature">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature"/>
+      </eParameters>
+      <query xsi:type="query:TrueLiteralQuery" canBeCached="true"/>
+      <override xsi:type="efacet:FacetOperation" href="platform:/plugin/org.eclipse.papyrus.emf.facet.custom.ui/resources/customproperties.efacet#//CustomizedEObject/collapseLink"/>
+    </facetOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="efacet:Facet" name="EAnnotationContainer" documentation="this is a container of EAnnotation" conformanceTypedElement="//EAnnotationContainer/isEAnnotationContainer">
+    <extendedMetaclass href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    <facetOperations name="isEAnnotationContainer" documentation="test if it references EAnnotation">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <query xsi:type="javaQuery:JavaQuery" implementationClassName="org.eclipse.papyrus.toolsmiths.ecore.internal.queries.IsEAnnotationContainerQuery"/>
+    </facetOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="custom:FacetCustomization" name="EAnnotationContainer" documentation="representation of a container of EAnnotation" extendedFacets="//EAnnotationContainer" customizedFacet="//EAnnotationContainer">
+    <facetElements xsi:type="efacet:FacetReference" name="eAnnotations" upperBound="-1" defaultValueLiteral="" derived="true">
+      <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation"/>
+      <query xsi:type="query:OperationCallQuery" operation="//EAnnotationContainer.1/getContainedEAnnotations"/>
+    </facetElements>
+    <facetOperations name="getContainedEAnnotations" upperBound="-1" documentation="Get the collection of all contained EAnnotations">
+      <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation"/>
+      <query xsi:type="javaQuery:JavaQuery" implementationClassName="org.eclipse.papyrus.toolsmiths.ecore.internal.queries.GetContainedEAnnotations"/>
+    </facetOperations>
+  </eClassifiers>
+</custom:Customization>

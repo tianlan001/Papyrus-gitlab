@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.eclipse.org/papyrus/diagram/paletteconfiguration/0.8"
+            class="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.PaletteconfigurationPackage"
+            genModel="model/PaletteConfiguration.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="paletteconfiguration"
+            class="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.util.PaletteConfigurationResourceFactory"/>
+   </extension>
+   
+     <extension
+        point="org.eclipse.papyrus.infra.properties.environments">
+     <environment
+           environmentModel="model/environment.xmi">
+     </environment>
+  </extension>
+  
+</plugin>

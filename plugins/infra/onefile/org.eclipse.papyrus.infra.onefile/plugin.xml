@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="modelFactory" name="Model Factory" schema="schema/modelFactory.exsd"/>
+   <extension-point id="diViewFilter" name="Di View Filter" schema="schema/diViewFilter.exsd"/>
+   
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.papyrus.infra.onefile.model.IPapyrusFile"
+           	 class="org.eclipse.papyrus.infra.onefile.model.adapters.ModelAdapterFactory">
+	     <adapter type="org.eclipse.core.resources.mapping.ResourceMapping" />
+	     <adapter type="java.util.Collection" />
+      </factory>
+      <factory
+            adaptableType="org.eclipse.papyrus.infra.onefile.model.ISubResourceFile"
+            class="org.eclipse.papyrus.infra.onefile.model.adapters.SubResourceAdapterFactory">
+         <adapter
+               type="org.eclipse.core.resources.mapping.ResourceMapping">
+         </adapter>
+         <adapter
+               type="org.eclipse.core.resources.IFile">
+         </adapter>
+         <adapter
+               type="org.eclipse.core.resources.IResource">
+         </adapter>
+      </factory>
+   </extension>
+   
+   <extension
+         id="modelProvider"
+         name="One File Model Provider"
+         point="org.eclipse.core.resources.modelProviders">
+      <modelProvider
+            class="org.eclipse.papyrus.infra.onefile.providers.OneFileModelProvider"/>
+      <extends-model id="org.eclipse.core.resources.modelProvider"/>
+   </extension>
+
+   <extension
+         point="org.eclipse.papyrus.infra.onefile.modelFactory">
+      <factory
+            instance="org.eclipse.papyrus.infra.onefile.model.impl.PapyrusModelFactory"
+            priority="1">
+      </factory>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.onefile.diViewFilter">
+      <filter
+            instance="org.eclipse.papyrus.infra.onefile.model.impl.PapyrusDiViewFilter"
+            priority="1">
+      </filter>
+   </extension>
+ 
+</plugin>

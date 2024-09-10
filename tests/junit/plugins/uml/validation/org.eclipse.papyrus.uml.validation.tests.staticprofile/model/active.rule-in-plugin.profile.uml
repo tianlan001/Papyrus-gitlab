@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Profile xmi:id="_GkQEIOGnEeO2stwZ2ZCXww" name="profile" metaclassReference="_sAN54OGoEeOLd684kqvD2g _JlLW0OV-EeOFd8atAXGFIA">
+    <elementImport xmi:type="uml:ElementImport" xmi:id="_sAN54OGoEeOLd684kqvD2g" alias="Class">
+      <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </elementImport>
+    <elementImport xmi:type="uml:ElementImport" xmi:id="_JlLW0OV-EeOFd8atAXGFIA" alias="Package">
+      <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Package"/>
+    </elementImport>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_pG-b4OGoEeOLd684kqvD2g" name="AlwaysActive">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="_uHg9kOGoEeOLd684kqvD2g" name="ConstraintAlwaysActive">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_xQ_P8OGoEeOLd684kqvD2g">
+          <language>OCL</language>
+          <body>base_Class.isActive</body>
+        </specification>
+      </ownedRule>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_tkXNMOGoEeOLd684kqvD2g" name="base_Class" association="_tkX0QOGoEeOLd684kqvD2g">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_tkX0QOGoEeOLd684kqvD2g" name="E_AlwaysActive_Class1" memberEnd="_tkX0QeGoEeOLd684kqvD2g _tkXNMOGoEeOLd684kqvD2g">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_tkX0QeGoEeOLd684kqvD2g" name="extension_AlwaysActive" type="_pG-b4OGoEeOLd684kqvD2g" aggregation="composite" association="_tkX0QOGoEeOLd684kqvD2g"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_CSo9UOV-EeOFd8atAXGFIA" name="Tst">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_KgaQAOV-EeOFd8atAXGFIA" name="base_Package" association="_Kga3EOV-EeOFd8atAXGFIA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Package"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_Kga3EOV-EeOFd8atAXGFIA" name="E_Tst_Package1" memberEnd="_Kga3EeV-EeOFd8atAXGFIA _KgaQAOV-EeOFd8atAXGFIA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_Kga3EeV-EeOFd8atAXGFIA" name="extension_Tst" type="_CSo9UOV-EeOFd8atAXGFIA" aggregation="composite" association="_Kga3EOV-EeOFd8atAXGFIA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_neZ30DHGEeSIQaU3LZ0hmw" name="AlwaysActiveMalformed">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="_xPHj8DHGEeSIQaU3LZ0hmw" name="ConstraintAlwaysActiveMF">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_02t8wDHGEeSIQaU3LZ0hmw">
+          <language>OCL</language>
+          <body>self.oclAsType(Class).isActive</body>
+        </specification>
+      </ownedRule>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_uGowEDHGEeSIQaU3LZ0hmw" name="base_Class" association="_uGpXIDHGEeSIQaU3LZ0hmw">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_uGpXIDHGEeSIQaU3LZ0hmw" name="E_AlwaysActiveMalformed_Class1" memberEnd="_uGpXITHGEeSIQaU3LZ0hmw _uGowEDHGEeSIQaU3LZ0hmw">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_uGpXITHGEeSIQaU3LZ0hmw" name="extension_AlwaysActiveMalformed" type="_neZ30DHGEeSIQaU3LZ0hmw" aggregation="composite" association="_uGpXIDHGEeSIQaU3LZ0hmw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_S607oJ5zEeWRy9FpOq-8kw" name="AlwaysPassiveJava">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="_ROKlgJ5zEeWRy9FpOq-8kw" name="AlwaysPassive">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_8CKP4J50EeWRy9FpOq-8kw">
+          <language>JAVA</language>
+          <body>return !self.getBase_Class().isActive();</body>
+        </specification>
+      </ownedRule>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_iD0ekJ50EeWRy9FpOq-8kw" name="base_Class" association="_iDxbQJ50EeWRy9FpOq-8kw">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iDxbQJ50EeWRy9FpOq-8kw" name="E_AlwaysPassiveJava_Class1" memberEnd="_iDz3gJ50EeWRy9FpOq-8kw _iD0ekJ50EeWRy9FpOq-8kw">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iDz3gJ50EeWRy9FpOq-8kw" name="extension_AlwaysPassiveJava" type="_S607oJ5zEeWRy9FpOq-8kw" aggregation="composite" association="_iDxbQJ50EeWRy9FpOq-8kw"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_euhykJ7IEeWu3Jt7boFR1Q">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eukO0J7IEeWu3Jt7boFR1Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Profile>
+  <Ecore:EPackage xmi:id="_gWqOAJ7IEeWu3Jt7boFR1Q" base_Package="_GkQEIOGnEeO2stwZ2ZCXww" packageName="profile" nsURI="http://org.eclipse.papyrus/activetest/1" basePackage="org.eclipse.papyrus.validation.tests"/>
+</xmi:XMI>

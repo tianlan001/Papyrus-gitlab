@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.properties.contexts">
+      <context
+            contextModel="properties/RuntimeValuesAdvice.ctx"
+            isCustomizable="true">
+      </context>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.properties.contexts">
+      <context
+            contextModel="properties/SetValuesAdvice.ctx"
+            isCustomizable="true">
+      </context>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.properties.environments">
+      <environment
+            environmentModel="model/environment.xmi">
+      </environment>
+   </extension>
+
+</plugin>

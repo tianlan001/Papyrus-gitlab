@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_iM9CcM33Eee3Tq5d85ujcg" name="xtext">
+  <dependencies href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_69QJkKDJEeSZxfCXzZz3-w"/>
+  <tabs xmi:id="_kWGgQM33Eee3Tq5d85ujcg" label="Xtext-example" id="xtext" priority="100">
+    <afterTab href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_69QJkaDJEeSZxfCXzZz3-w"/>
+    <sections xmi:id="_kWOcEc33Eee3Tq5d85ujcg" name="Single Transition" sectionFile="ui/SingleTransition.xwt">
+      <widget href="ui/SingleTransition.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_iM9pjM33Eee3Tq5d85ujcg" name="Single Transition" sections="_kWOcEc33Eee3Tq5d85ujcg" automaticContext="true" datacontexts="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690yiKDJEeSZxfCXzZz3-w">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_iM9pjc33Eee3Tq5d85ujcg" name="isSingleTransition">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_iM9pjs33Eee3Tq5d85ujcg" name="umlClassName" value="Transition"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_iM9ppM33Eee3Tq5d85ujcg" name="xtext">
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@modelElementFactories.2"/>
+  </dataContexts>
+</contexts:Context>

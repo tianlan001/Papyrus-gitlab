@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nattable:Table xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:configuration="http://www.eclipse.org/papyrus/infra/viewpoints/configuration" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:nattable="http://www.eclipse.org/papyrus/nattable/model" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisconfiguration="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:nattableconfiguration="http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration" xmlns:nattablelabelprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattablecontentprovider" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis http://www.eclipse.org/papyrus/nattable/model#//nattableaxis http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration http://www.eclipse.org/papyrus/nattable/model#//nattableaxisconfiguration http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider http://www.eclipse.org/papyrus/nattable/model#//nattableaxisprovider http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration http://www.eclipse.org/papyrus/nattable/model#//nattableconfiguration http://www.eclipse.org/papyrus/nattable/model/table/nattablecontentprovider http://www.eclipse.org/papyrus/nattable/model#//nattablelabelprovider" xmi:id="_3kVVsJTcEeWwmpQpJqo7nw" name="ClassTreeTable" currentRowAxisProvider="_3kV8wpTcEeWwmpQpJqo7nw" currentColumnAxisProvider="_3kV8wJTcEeWwmpQpJqo7nw">
+  <context xmi:type="uml:Model" href="NoDepth0TreeFillingConfigurationTest.uml#_aDGFYJTcEeWwmpQpJqo7nw"/>
+  <owner xmi:type="uml:Model" href="NoDepth0TreeFillingConfigurationTest.uml#_aDGFYJTcEeWwmpQpJqo7nw"/>
+  <prototype xmi:type="configuration:PapyrusSyncTable" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.clazz.config/configs/classTreeTable.configuration#_P3J1cEr7EeSVGbM3cmVSqQ"/>
+  <tableConfiguration xmi:type="nattableconfiguration:TableConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#/"/>
+  <columnAxisProvidersHistory xmi:type="nattableaxisprovider:SlaveObjectAxisProvider" xmi:id="_3kV8wJTcEeWwmpQpJqo7nw" description="This axis provider provides available columns according to the rows of the table (features of the object displayed on the other axis)" name="UML Feature axis provider">
+    <axis xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_3kV8wZTcEeWwmpQpJqo7nw">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#//@columnHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="ecore:EAttribute" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+    </axis>
+  </columnAxisProvidersHistory>
+  <rowAxisProvidersHistory xmi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_3kV8wpTcEeWwmpQpJqo7nw" description="This axis provider manages the rows, according to the wanted hierarchy" name="HierarchicalRowaAxisManager" disconnectSlave="true"/>
+  <localRowHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:LocalTableHeaderAxisConfiguration" xmi:id="_5Vw3EJTcEeWwmpQpJqo7nw" indexStyle="NUMERIC">
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:TreeFillingConfiguration" xmi:id="_5Vz6YJTcEeWwmpQpJqo7nw" pasteConfiguration="_5V0hcJTcEeWwmpQpJqo7nw" depth="1" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.treefilling.feature.labelprovider">
+      <axisUsedAsAxisProvider xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_5Vz6YZTcEeWwmpQpJqo7nw" alias="">
+        <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuredClassifier/ownedAttribute"/>
+      </axisUsedAsAxisProvider>
+      <labelProvider xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#//@rowHeaderAxisConfiguration/@ownedLabelConfigurations.1"/>
+    </ownedAxisConfigurations>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:TreeFillingConfiguration" xmi:id="_5Vz6YpTcEeWwmpQpJqo7nw" pasteConfiguration="_5V0hcZTcEeWwmpQpJqo7nw" depth="1" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.treefilling.feature.labelprovider">
+      <axisUsedAsAxisProvider xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_5Vz6Y5TcEeWwmpQpJqo7nw" alias="">
+        <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class/nestedClassifier"/>
+      </axisUsedAsAxisProvider>
+      <labelProvider xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#//@rowHeaderAxisConfiguration/@ownedLabelConfigurations.1"/>
+    </ownedAxisConfigurations>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:TreeFillingConfiguration" xmi:id="_5Vz6ZJTcEeWwmpQpJqo7nw" pasteConfiguration="_5V0hcpTcEeWwmpQpJqo7nw" depth="1" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.treefilling.feature.labelprovider">
+      <axisUsedAsAxisProvider xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_5Vz6ZZTcEeWwmpQpJqo7nw" alias="">
+        <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class/ownedOperation"/>
+      </axisUsedAsAxisProvider>
+      <labelProvider xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#//@rowHeaderAxisConfiguration/@ownedLabelConfigurations.1"/>
+    </ownedAxisConfigurations>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:TreeFillingConfiguration" xmi:id="_5Vz6ZpTcEeWwmpQpJqo7nw" pasteConfiguration="_5V0hc5TcEeWwmpQpJqo7nw" depth="2" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.treefilling.feature.labelprovider">
+      <axisUsedAsAxisProvider xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_5Vz6Z5TcEeWwmpQpJqo7nw" alias="">
+        <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature/ownedParameter"/>
+      </axisUsedAsAxisProvider>
+      <labelProvider xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#//@rowHeaderAxisConfiguration/@ownedLabelConfigurations.1"/>
+    </ownedAxisConfigurations>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:PasteEObjectConfiguration" xmi:id="_5V0hcJTcEeWwmpQpJqo7nw" pastedElementId="org.eclipse.papyrus.uml.Property">
+      <pasteElementContainementFeature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuredClassifier/ownedAttribute"/>
+    </ownedAxisConfigurations>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:PasteEObjectConfiguration" xmi:id="_5V0hcZTcEeWwmpQpJqo7nw" pastedElementId="org.eclipse.papyrus.uml.Class">
+      <pasteElementContainementFeature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class/nestedClassifier"/>
+    </ownedAxisConfigurations>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:PasteEObjectConfiguration" xmi:id="_5V0hcpTcEeWwmpQpJqo7nw" pastedElementId="org.eclipse.papyrus.uml.Operation">
+      <pasteElementContainementFeature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class/ownedOperation"/>
+    </ownedAxisConfigurations>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:PasteEObjectConfiguration" xmi:id="_5V0hc5TcEeWwmpQpJqo7nw" pastedElementId="org.eclipse.papyrus.uml.Parameter">
+      <pasteElementContainementFeature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature/ownedParameter"/>
+    </ownedAxisConfigurations>
+    <axisManagerConfigurations xmi:type="nattableaxisconfiguration:AxisManagerConfiguration" xmi:id="_5VzTUJTcEeWwmpQpJqo7nw" localSpecificConfigurations="_5Vz6YJTcEeWwmpQpJqo7nw _5Vz6YpTcEeWwmpQpJqo7nw _5Vz6ZJTcEeWwmpQpJqo7nw _5Vz6ZpTcEeWwmpQpJqo7nw">
+      <axisManager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+    </axisManagerConfigurations>
+  </localRowHeaderAxisConfiguration>
+</nattable:Table>

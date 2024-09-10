@@ -1,0 +1,60 @@
+/** 
+ * Test block, empty and local name declaration statements.
+ **/
+active class Statements_Simple {
+
+	class Offer {
+
+		@Create
+		public Offer();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Member {
+
+		public isActive: Boolean;
+		public name: String;
+		@Create
+		public Member(in isActive: Boolean, in name: String);
+		@Destroy
+		public destroy();
+
+	}
+
+	class RealProperty {
+
+		public name: String;
+		@Create
+		public RealProperty(in name: String);
+		@Destroy
+		public destroy();
+
+	}
+
+	datatype Point {
+		public x: Integer;
+		public y: Integer;
+	}
+
+	datatype Money {
+		public amount: Integer;
+	}
+
+	public activity 'offers$defaultValue$1'(): Offer[0..*];
+	public activity 'principal$defaultValue$1'(): Integer;
+	public activity 'rate$defaultValue$1'(): Integer;
+	offers: Offer[0..*] = 'offers$defaultValue$1'();
+	principal: Integer = 'principal$defaultValue$1'();
+	rate: Integer = 'rate$defaultValue$1'();
+	test(out i: Integer, out last: Integer, out collection: Integer[0..*]
+		sequence, out offer: Offer, out money: Money, out members: Member[0..*]
+		sequence, out properties: RealProperty[0..*] sequence,
+		out assets: RealProperty[0..*] sequence, out point: Point);
+	@Create
+	public Statements_Simple();
+	@Destroy
+	public destroy();
+
+} do 'Statements_Simple$behavior$1'

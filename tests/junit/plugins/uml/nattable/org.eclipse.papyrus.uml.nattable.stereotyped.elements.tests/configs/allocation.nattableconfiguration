@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nattableconfiguration:TableConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisconfiguration="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:nattableconfiguration="http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration" xmlns:nattablelabelprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattablecontentprovider" xmlns:nattablestyle="http://www.eclipse.org/papyrus/nattable/model/table/nattablestyle" xmi:id="PapyrusDynamicAllocationTable_XMI_ID" description="This table is used to display SysML Allocation" name="AllocationTable" type="PapyrusDynamicAllocationTable" iconPath="platform:/plugin/org.eclipse.papyrus.uml.nattable.stereotyped.elements.tests/icons/table_SysML_Allocation.png" cellEditorDeclaration="COLUMN" defaultRowAxisProvider="_jRUvDDzQEei_1txcmoHe_A" defaultColumnAxisProvider="_jRUvBzzQEei_1txcmoHe_A">
+  <styles xmi:type="nattablestyle:StringListValueStyle" xmi:id="_jRTg4TzQEei_1txcmoHe_A" name="dragRegions">
+    <stringListValue>ROW_HEADER</stringListValue>
+  </styles>
+  <rowHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:TableHeaderAxisConfiguration" xmi:id="_jRUH8DzQEei_1txcmoHe_A" indexStyle="NUMERIC" displayLabel="true" displayFilter="false" displayIndex="true">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:ObjectLabelProviderConfiguration" xmi:id="_jRUH8TzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true"/>
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:OperationLabelProviderConfiguration" xmi:id="_jRUH8jzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayType="false" displayMultiplicity="false" displayName="true"/>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:EStructuralFeatureValueFillingConfiguration" xmi:id="_jRUH8zzQEei_1txcmoHe_A">
+      <listenFeature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Namespace/ownedMember"/>
+    </ownedAxisConfigurations>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:PasteEObjectConfiguration" xmi:id="_jRUH9DzQEei_1txcmoHe_A" detachedMode="true" pastedElementId="org.eclipse.papyrus.uml.Abstraction">
+      <postActions>applyStereotype:/SysMLCopy::Allocations::Allocate</postActions>
+      <pasteElementContainementFeature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package/packagedElement"/>
+      <axisIdentifier xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_OgydQXmoEeWVZIGG1XbiFw">
+        <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="//@columnHeaderAxisConfiguration/@axisManagers.0"/>
+        <element xmi:type="ecore:EAttribute" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+      </axisIdentifier>
+    </ownedAxisConfigurations>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_jRUvADzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.uml.nattable.dyanmic.allocate.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.labelprovider" headerLabelConfiguration="_jRUH8TzQEei_1txcmoHe_A" specificAxisConfigurations="_jRUH8zzQEei_1txcmoHe_A"/>
+  </rowHeaderAxisConfiguration>
+  <columnHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:TableHeaderAxisConfiguration" xmi:id="_jRUvATzQEei_1txcmoHe_A" displayLabel="true" displayFilter="false" displayIndex="true">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" xmi:id="_jRUvAjzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayIsDerived="true" displayType="true" displayMultiplicity="true" displayName="true"/>
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:OperationLabelProviderConfiguration" xmi:id="_jRUvAzzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayType="true" displayMultiplicity="true" displayName="true"/>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_jRUvBDzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.uml.nattable.feature.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.feature.labelprovider" headerLabelConfiguration="_jRUvAjzQEei_1txcmoHe_A"/>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_jRUvBTzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.uml.nattable.stereotype.property.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.feature.labelprovider" headerLabelConfiguration="_jRUvAjzQEei_1txcmoHe_A"/>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_jRUvBjzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.uml.nattable.operation.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.operation.labelprovider" headerLabelConfiguration="_jRUvAzzQEei_1txcmoHe_A"/>
+  </columnHeaderAxisConfiguration>
+  <columnAxisProviders xmi:type="nattableaxisprovider:SlaveObjectAxisProvider" xmi:id="_jRUvBzzQEei_1txcmoHe_A" description="This provider provides the default columns for the SysML Allocation Table" name="SysMLAllocationFeatureProvider">
+    <axis xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_jRUvCDzQEei_1txcmoHe_A" manager="_jRUvBDzQEei_1txcmoHe_A">
+      <element xmi:type="ecore:EAttribute" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_jRUvCTzQEei_1txcmoHe_A" manager="_jRUvBDzQEei_1txcmoHe_A">
+      <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Dependency/client"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_jRUvCjzQEei_1txcmoHe_A" manager="_jRUvBDzQEei_1txcmoHe_A">
+      <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Dependency/supplier"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_jRUvCzzQEei_1txcmoHe_A" manager="_jRUvBDzQEei_1txcmoHe_A">
+      <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element/owner"/>
+    </axis>
+  </columnAxisProviders>
+  <rowAxisProviders xmi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_jRUvDDzQEei_1txcmoHe_A" description="This row providers allows to display all Allocation in a Table" name="SysMLAllocationProvider" disconnectSlave="true"/>
+</nattableconfiguration:TableConfiguration>

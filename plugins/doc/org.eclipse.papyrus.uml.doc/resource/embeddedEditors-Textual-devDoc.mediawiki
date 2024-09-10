@@ -1,0 +1,72 @@
+=General Presentation=
+Since Papyrus 1.1.0 (Eclipse Mars), Papyrus provides a new texutal editor to edit references to UML NamedElement. This editor works only for references which are not in containment.
+This editor has not been developed using XText. it use a custom string parser and the class NameResolutionHelper to find named elements from their name.
+This string editor works for all references multiplicities.
+
+=Grammar=
+* in case of multivalued references, the separator between the name of the element is the comma,
+* if the name contains a comma, the string typed by the user must be prefixed and suffixed by a single quote <code>'</code>.
+
+=Generic Behavior=
+* the value typed by the user are checked and the value is not committed if the named element is not found (an error message is displayed to the user)
+* completion
+**CTRL-SPACE opens a popup providing an helper for the completion
+*** if the text field is empty, the completion provides only the <code><Undefined></code> value and display <code>...</code> to prevent the user than it should type more text.
+*** if more than 15 elements are found to match the string, we display only the 15 first values + <code><Undefined></code> + <code>...</code> to prevent the user than more values are available, opening the dialog
+
+==Usage==
+* This editors allows to find named element typing its name. 
+* In case of several elements to found, the separator to use is the comma <code>'</code>
+* If the name of the element contains a comma, you should prefix and suffix its name by a quote <code>'</code>.
+* The value will not be set if the element can't be found is the model
+
+==Example==
+If you have 3 Classes in your model, named <code>Class1</code>, <code>Class2</code> and <code>Clas,s3</code>.
+{| class="wikitable" border="1" cellspacing="0"
+! style="font-weight: bold;" | typed text
+! style="font-weight: bold;" | completion proposal
+! style="font-weight: bold;" | explanation
+|-
+| empty string
+| <Undefined>, ...
+| we look for nothing, so we provide the <code><Undefined></code> value and <code>...</code> to ask to the user to write more text
+|-
+| Clas
+| <Undefined>,Class1,Class2,Clas,s3
+| 3 classes matches the string, <code><Undefined></code> is always proposed
+|-
+| Class
+| <Undefined>,Class1,Class2
+| 3 classes matches the string, <code><Undefined></code>is always proposed
+|-
+| 'Clas
+| <Undefined>, Clas,s3
+| the string starts with a quote and Clas,s3 contains a comma, so we propose <code>Clas,s3</code>; <code><Undefined></code> is always proposed
+|-
+| Clas,
+| <Undefined>,...
+| interpreted as a list of value, the first value is <code>Clas</code>, and we have no information for the second one, for the completion it is an empty string
+|}
+
+=Integration=
+==Property View==
+This editor has been added to the list of available editors for the property view.
+* <code>CompletionStyledTextReferenceDialog</code> to edit single reference value
+** This editor is integrated as a textfield, with additional button to its right
+[[File:images/Editing_the_Type_of_a_Property_in_Property_View.png|Editing the Type of a Property in Property View]]
+* <code>CompletionStyledTextMultiReference</code> to edit multi references values
+**This editor is the <code>MultiReference</code> editor, and we added it the text field for completion
+[[File:images/Editing_the_precondition_of_an_Operation_in_Property_View.png|Editing the precondition of an Operation in Property View]]
+
+==Table==
+Papyrus provide an integration of this editor for Papyrus NatTable. This is the same editor for single and multi references. 
+It is a textfield, with a button displayed to its right. This button allows to the user to open the dialog to choose the reference too.
+It allows to the user to edit the cell as text or selected the new value directly in the model tree with the dialog
+*<code>org.eclipse.papyrus.uml.nattable.manager.cell.editor.UMLReferenceTextWithCompletionCellEditor</code>
+**The editor itself for single and multi values
+*<code>org.eclipse.papyrus.uml.nattable.config.UMLSingleReferenceTextualCellEditorWithButtonConfiguration</code>
+**The configuration to use to edit single value. Currently, this editor is not used by default in Papyrus.
+[[File:images/Editing_the_Type_of_a_Property_in_Table.png |Editing the Type of a Property in Table]]
+*<code>org.eclipse.papyrus.uml.nattable.manager.cell.editor.UMLReferenceTextWithCompletionCellEditor</code>
+**The configuration to use to edit multi value. Currently, this editor is not used by default in Papyrus.
+[[File:images/Editing_the_precondition_of_an_Operation_in_Table_View.png|Editing the precondition of an Operation in Table]]

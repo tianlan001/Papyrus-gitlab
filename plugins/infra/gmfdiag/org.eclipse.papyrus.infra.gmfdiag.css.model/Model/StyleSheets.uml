@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5"
+	xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
+	xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+	<uml:Model xmi:id="_MeGMUNBHEeeeIb5NcUL5SQ" name="StyleSheets">
+		<packageImport xmi:type="uml:PackageImport" xmi:id="_MoMjgNBHEeeeIb5NcUL5SQ">
+			<importedPackage xmi:type="uml:Model"
+				href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0" />
+		</packageImport>
+		<packageImport xmi:type="uml:PackageImport" xmi:id="_zx1iYNBQEeeeIb5NcUL5SQ">
+			<importedPackage xmi:type="uml:Model"
+				href="pathmap://ECORE_METAMODEL_LIBRARY/Ecore.uml#_SeWiQMX_EduPJbEsMYXjUQ" />
+		</packageImport>
+		<packagedElement xmi:type="uml:Class" xmi:id="_ONMLYNBHEeeeIb5NcUL5SQ"
+			name="ModelStyleSheets">
+			<generalization xmi:type="uml:Generalization" xmi:id="_3v7IkNBQEeeeIb5NcUL5SQ">
+				<general xmi:type="uml:Class"
+					href="pathmap://ECORE_METAMODEL_LIBRARY/Ecore.uml#_SeWihMX_EduPJbEsMYXjUQ" />
+			</generalization>
+			<ownedAttribute xmi:type="uml:Property" xmi:id="_B6mi8NBIEeeeIb5NcUL5SQ"
+				name="stylesheets" type="_SV34ANBHEeeeIb5NcUL5SQ" aggregation="composite">
+				<lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EqaYINBIEeeeIb5NcUL5SQ" />
+				<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+					xmi:id="_EqepkNBIEeeeIb5NcUL5SQ" value="*" />
+			</ownedAttribute>
+		</packagedElement>
+		<packagedElement xmi:type="uml:Interface" xmi:id="_SV34ANBHEeeeIb5NcUL5SQ"
+			name="StyleSheet" />
+		<packagedElement xmi:type="uml:Class" xmi:id="_T7RIgNBHEeeeIb5NcUL5SQ"
+			name="StyleSheetReference">
+			<generalization xmi:type="uml:Generalization" xmi:id="_q5ewsNBHEeeeIb5NcUL5SQ"
+				general="_SV34ANBHEeeeIb5NcUL5SQ" />
+			<ownedAttribute xmi:type="uml:Property" xmi:id="_vQE9gNBHEeeeIb5NcUL5SQ"
+				name="path">
+				<type xmi:type="uml:PrimitiveType"
+					href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString" />
+			</ownedAttribute>
+		</packagedElement>
+		<packagedElement xmi:type="uml:Class" xmi:id="_X9zJ0NBHEeeeIb5NcUL5SQ"
+			name="WorkspaceThemes">
+			<generalization xmi:type="uml:Generalization" xmi:id="_3MTeINBQEeeeIb5NcUL5SQ">
+				<general xmi:type="uml:Class"
+					href="pathmap://ECORE_METAMODEL_LIBRARY/Ecore.uml#_SeWihMX_EduPJbEsMYXjUQ" />
+			</generalization>
+			<ownedAttribute xmi:type="uml:Property" xmi:id="_9LmdMNBHEeeeIb5NcUL5SQ"
+				name="themes" type="_eE2noNBHEeeeIb5NcUL5SQ" aggregation="composite">
+				<lowerValue xmi:type="uml:LiteralInteger" xmi:id="__QH5sNBHEeeeIb5NcUL5SQ" />
+				<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+					xmi:id="__QQckNBHEeeeIb5NcUL5SQ" value="*" />
+			</ownedAttribute>
+		</packagedElement>
+		<packagedElement xmi:type="uml:Class" xmi:id="_Z-sqkNBHEeeeIb5NcUL5SQ"
+			name="EmbeddedStyleSheet">
+			<generalization xmi:type="uml:Generalization" xmi:id="_rVcT8NBHEeeeIb5NcUL5SQ"
+				general="_SV34ANBHEeeeIb5NcUL5SQ" />
+			<ownedAttribute xmi:type="uml:Property" xmi:id="_0czhENBHEeeeIb5NcUL5SQ"
+				name="label">
+				<type xmi:type="uml:PrimitiveType"
+					href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString" />
+				<lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4oWUcNBHEeeeIb5NcUL5SQ" />
+				<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+					xmi:id="_4omzINBHEeeeIb5NcUL5SQ" value="1" />
+			</ownedAttribute>
+			<ownedAttribute xmi:type="uml:Property" xmi:id="_2RGwQNBHEeeeIb5NcUL5SQ"
+				name="content">
+				<type xmi:type="uml:PrimitiveType"
+					href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString" />
+			</ownedAttribute>
+		</packagedElement>
+		<packagedElement xmi:type="uml:Class" xmi:id="_eE2noNBHEeeeIb5NcUL5SQ"
+			name="Theme">
+			<ownedAttribute xmi:type="uml:Property" xmi:id="_JzUysNBIEeeeIb5NcUL5SQ"
+				name="id">
+				<type xmi:type="uml:PrimitiveType"
+					href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString" />
+				<lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MgzsoNBIEeeeIb5NcUL5SQ" />
+				<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+					xmi:id="_Mg5MMNBIEeeeIb5NcUL5SQ" value="1" />
+			</ownedAttribute>
+			<ownedAttribute xmi:type="uml:Property" xmi:id="_Nj2eANBIEeeeIb5NcUL5SQ"
+				name="label">
+				<type xmi:type="uml:PrimitiveType"
+					href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString" />
+				<lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ooz68NBIEeeeIb5NcUL5SQ" />
+				<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+					xmi:id="_Oo9r8NBIEeeeIb5NcUL5SQ" value="1" />
+			</ownedAttribute>
+			<ownedAttribute xmi:type="uml:Property" xmi:id="_Qe89MNBIEeeeIb5NcUL5SQ"
+				name="icon">
+				<type xmi:type="uml:PrimitiveType"
+					href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString" />
+				<lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Rg5iYNBIEeeeIb5NcUL5SQ" />
+				<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+					xmi:id="_RhAQENBIEeeeIb5NcUL5SQ" value="1" />
+			</ownedAttribute>
+			<ownedAttribute xmi:type="uml:Property" xmi:id="_Swnd0NBIEeeeIb5NcUL5SQ"
+				name="stylesheets" type="_SV34ANBHEeeeIb5NcUL5SQ" aggregation="composite">
+				<lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UopWcNBIEeeeIb5NcUL5SQ" />
+				<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+					xmi:id="_UowrMNBIEeeeIb5NcUL5SQ" value="*" />
+			</ownedAttribute>
+		</packagedElement>
+		<profileApplication xmi:type="uml:ProfileApplication"
+			xmi:id="_PBxMgNBTEeeU9PQLfR1STw">
+			<eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PB3TINBTEeeU9PQLfR1STw"
+				source="http://www.eclipse.org/uml2/2.0.0/UML">
+				<references xmi:type="ecore:EPackage"
+					href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA" />
+			</eAnnotations>
+			<appliedProfile xmi:type="uml:Profile"
+				href="pathmap://UML_PROFILES/Ecore.profile.uml#_0" />
+		</profileApplication>
+	</uml:Model>
+	<Ecore:EPackage xmi:id="_PoenMNBTEeeU9PQLfR1STw"
+		base_Package="_MeGMUNBHEeeeIb5NcUL5SQ" packageName="stylesheets"
+		nsPrefix="css" nsURI="http://www.eclipse.org/papyrus/infra/gmfdiag/css"
+		basePackage="org.eclipse.papyrus.infra.gmfdiag.css" prefix="Stylesheets" />
+</xmi:XMI>

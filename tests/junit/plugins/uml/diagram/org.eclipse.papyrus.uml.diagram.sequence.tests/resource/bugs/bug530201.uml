@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_HWN6cEMwEeiEZ5Jtfh6-KA" name="bug530201">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_HeHSMEMwEeiEZ5Jtfh6-KA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Jqu6wEMwEeiEZ5Jtfh6-KA" name="Foo" classifierBehavior="_POkWwEMwEeiEZ5Jtfh6-KA">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_LwEPkEMwEeiEZ5Jtfh6-KA" name="a"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_M6OVkEMwEeiEZ5Jtfh6-KA" name="b"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_PQddMFe1EeioAP7w1C-s3w" name="c"/>
+    <ownedBehavior xmi:type="uml:Interaction" xmi:id="_POkWwEMwEeiEZ5Jtfh6-KA" name="DoIt">
+      <lifeline xmi:type="uml:Lifeline" xmi:id="_RZwb8EMwEeiEZ5Jtfh6-KA" name="a" represents="_LwEPkEMwEeiEZ5Jtfh6-KA"/>
+      <lifeline xmi:type="uml:Lifeline" xmi:id="_R0URAEMwEeiEZ5Jtfh6-KA" name="b" represents="_M6OVkEMwEeiEZ5Jtfh6-KA"/>
+      <lifeline xmi:type="uml:Lifeline" xmi:id="_N4Oe8Fe1EeioAP7w1C-s3w" name="c" represents="_PQddMFe1EeioAP7w1C-s3w"/>
+    </ownedBehavior>
+  </packagedElement>
+</uml:Model>

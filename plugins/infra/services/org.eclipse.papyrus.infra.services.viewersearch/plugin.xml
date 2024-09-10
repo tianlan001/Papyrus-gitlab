@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="viewerSearcher" name="viewerSearcher" schema="schema/viewerSearcher.exsd"/>
+   <extension
+         point="org.eclipse.papyrus.infra.core.service">
+      <!-- Invalid ID; still preserved for backwards compatibility, just in case -->
+      <service
+            classname="org.eclipse.papyrus.infra.services.viewersearch.impl.ViewerSearchService"
+            id="viewerSearchService"
+            priority="1"
+            startKind="lazy">
+      </service>
+      <service
+            classname="org.eclipse.papyrus.infra.services.viewersearch.impl.ViewerSearchService"
+            id="org.eclipse.papyrus.infra.services.viewersearch.impl.ViewerSearchService"
+            priority="1"
+            startKind="lazy">
+      </service>
+   </extension>
+
+</plugin>

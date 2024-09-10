@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.papyrus.infra</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+	    <groupId>org.eclipse.papyrus</groupId>
+	    <artifactId>org.eclipse.papyrus.plugins</artifactId>
+	    <version>7.0.0-SNAPSHOT</version>
+    </parent>
+	<name>Papyrus Infra</name>
+	<description>Container of the core APIs of the Papyrus editor and headless components.</description>
+
+	<modules>
+		<module>architecture</module>
+		<module>core</module>
+		<module>onefile</module>
+		<module>constraints</module>
+		<module>editor</module>
+		<module>emf</module>
+		<module>filters</module>
+		<module>properties</module>
+		<module>services</module>
+		<module>newchild</module>
+
+		<module>textedit</module>
+		<module>types</module>
+
+		<module>viewpoints</module>
+		<module>nattable</module>
+
+		<!-- This is separate because it combines Table and Diagram Layer APIs -->
+		<module>nattable/org.eclipse.papyrus.infra.nattable.gmfdiag</module>
+
+		<module>ui</module>
+		<module>misc</module>
+		<module>internationalization</module>
+	</modules>
+</project>

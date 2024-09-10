@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_gJfb0Ld1EeShYcLqgrAa5Q" name="UMLStereotypeApplicationExternalResource" label="UML Profile Externalization">
+  <dependencies href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_69QJkKDJEeSZxfCXzZz3-w"/>
+  <tabs xmi:id="_gJfb0bd1EeShYcLqgrAa5Q" label="Profile" id="profile" category="org.eclipse.papyrus" priority="50">
+    <sections xmi:id="_gJfb0rd1EeShYcLqgrAa5Q" name="SinglePackageProfile" sectionFile="ui/SinglePackageProfile.xwt">
+      <widget href="ui/SinglePackageProfile.xwt#/"/>
+    </sections>
+  </tabs>
+  <tabs xmi:id="_gJfb07d1EeShYcLqgrAa5Q" label="Applications" id="applications" category="org.eclipse.papyrus" priority="50">
+    <afterTab href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#//@tabs.1"/>
+    <sections xmi:id="_gJfb1Ld1EeShYcLqgrAa5Q" name="SinglePackageDecoratorModels" sectionFile="ui/SinglePackageDecoratorModels.xwt">
+      <widget href="ui/SinglePackageDecoratorModels.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_gJgC4Ld1EeShYcLqgrAa5Q" name="SinglePackageProfile" sections="_gJfb0rd1EeShYcLqgrAa5Q" automaticContext="true">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_gJgC4bd1EeShYcLqgrAa5Q" name="isSinglePackage" overrideable="false">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_gJgC4rd1EeShYcLqgrAa5Q" name="umlClassName" value="Package"/>
+    </constraints>
+  </views>
+  <views xmi:id="_gJgC47d1EeShYcLqgrAa5Q" name="SinglePackageDecoratorModels" sections="_gJfb1Ld1EeShYcLqgrAa5Q">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_gJgC5Ld1EeShYcLqgrAa5Q" name="hasExternalizedProfileApplications">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.decoratormodel.properties/resources/UMLStereotypeApplicationExternalResourceEnvironment.xmi#//@constraintTypes.0"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_gJgC5bd1EeShYcLqgrAa5Q" name="PackageAdditions" label="Package Additions">
+    <elements xmi:id="_gJgC5rd1EeShYcLqgrAa5Q" name="Package">
+      <properties xmi:id="_gJgC57d1EeShYcLqgrAa5Q" name="profileApplication" label="Profile Applications" type="Reference" description="References the ProfileApplications that indicate which profiles have been applied to the Package."/>
+      <properties xmi:id="_gJgC6Ld1EeShYcLqgrAa5Q" name="externalProfileApplication" label="External Profile Applications" type="Reference" description="The models in the workspace that apply profiles to the package, loaded and unloaded."/>
+    </elements>
+    <modelElementFactory href="UMLStereotypeApplicationExternalResourceEnvironment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context>

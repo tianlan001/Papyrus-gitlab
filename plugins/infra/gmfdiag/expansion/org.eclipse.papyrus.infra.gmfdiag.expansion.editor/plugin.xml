@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated NOT Expansion -->
+      <wizard
+            id="org.eclipse.papyrus.infra.gmfdiag.expansion.expansionmodel.presentation.ExpansionModelModelWizardID"
+            name="%_UI_ExpansionModelModelWizard_label"
+            class="org.eclipse.papyrus.infra.gmfdiag.expansion.expansionmodel.presentation.ExpansionModelModelWizard"
+            category="org.eclipse.papyrus.wizards.category/org.eclipse.papyrus.wizards.dev.category/org.eclipse.papyrus.wizards.dev.editors.category"
+            icon="icons/full/obj16/ExpansionModelModelFile.gif">
+         <description>%_UI_ExpansionModelModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated Expansion -->
+      <editor
+            id="org.eclipse.papyrus.infra.gmfdiag.expansion.expansionmodel.presentation.ExpansionModelEditorID"
+            name="%_UI_ExpansionModelEditor_label"
+            icon="icons/full/obj16/ExpansionModelModelFile.gif"
+            extensions="expansionmodel"
+            class="org.eclipse.papyrus.infra.gmfdiag.expansion.expansionmodel.presentation.ExpansionModelEditor"
+            contributorClass="org.eclipse.papyrus.infra.gmfdiag.expansion.expansionmodel.presentation.ExpansionModelActionBarContributor">
+      </editor>
+   </extension>
+</plugin>

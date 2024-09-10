@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension point="org.eclipse.jdt.ui.javaElementFilters">
+      <filter
+            id="org.eclipse.papyrus.gmf.codegen.ui.hide_generated"
+            targetId="org.eclipse.jdt.ui.PackageExplorer"
+            name="%filter.hide.generated.label"
+            description="%filter.hide.generated.description"
+            enabled="false"
+			class="org.eclipse.papyrus.gmf.internal.codegen.HideGeneratedFilter">
+      </filter>
+   </extension>
+
+</plugin>

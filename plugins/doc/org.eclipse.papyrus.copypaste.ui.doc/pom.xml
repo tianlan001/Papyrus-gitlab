@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>org.eclipse.papyrus.plugins-doc</artifactId>
+		<groupId>org.eclipse.papyrus</groupId>
+		<version>7.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>org.eclipse.papyrus.copypaste.ui.doc</artifactId>
+	<version>7.0.0-SNAPSHOT</version>
+	<packaging>eclipse-plugin</packaging>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.mylyn.docs</groupId>
+				<artifactId>org.eclipse.mylyn.wikitext.maven</artifactId>
+				<configuration>
+					<sourceFolder>resource</sourceFolder>
+					<outputFolder>${project.build.directory}/generated-eclipse-help</outputFolder>
+					<!-- copyrightNotice>${help.copyrightNotice}</copyrightNotice> <title>${help.documentTitle}</title -->
+					<multipleOutputFiles>false</multipleOutputFiles>
+					<navigationImages>true</navigationImages>
+					<formatOutput>true</formatOutput>
+					<htmlFilenameFormat>$1.html</htmlFilenameFormat>
+					<xmlFilenameFormat>$1-toc.xml</xmlFilenameFormat>
+					<helpPrefix>target/generated-eclipse-help</helpPrefix>
+					<!-- stylesheetUrls> <param>styles/main.css</param> </stylesheetUrls -->
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>eclipse-help</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.mylyn.docs</groupId>
+						<artifactId>org.eclipse.mylyn.wikitext.mediawiki</artifactId>
+						<version>${mylyn.wikitext.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-publish-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<!-- checkoutDirectory>${scmPubCheckoutDirectory}</checkoutDirectory -->
+					<content>${siteMainDirectory}</content> <!-- tryUpdate>true</tryUpdate -->
+					<scmBranch>gh-pages</scmBranch>
+					<pubScmUrl>scm:git:git@github.com:flefevre/testpapy.git</pubScmUrl>
+				</configuration>
+				<executions>
+					<execution>
+						<id>scm-publish</id>
+						<phase>site-deploy</phase>
+						<goals>
+							<goal>publish-scm</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<name>Papyrus Copypaste UI doc</name>
+</project>

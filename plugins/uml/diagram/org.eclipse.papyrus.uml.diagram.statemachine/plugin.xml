@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+ Copyright (c) 2009, 2016 MOSKitt, CEA, Christian W. Damus, and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   MOSKitt - Initial API and implementation
+   Christian W. Damus (CEA) - bug 323802
+   Christian W. Damus - bug 433206, 463513, 495279
+   
+-->
+<plugin>
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+				      <?gmfgen generated="true"?>
+				      <MarkerNavigationProvider class="org.eclipse.papyrus.uml.diagram.statemachine.providers.UMLMarkerNavigationProvider">
+				         <MarkerType name="org.eclipse.papyrus.uml.diagram.statemachine.diagnostic"/>
+				         <Priority name="Lowest"/>
+				      </MarkerNavigationProvider>
+				   </extension>
+
+   <extension id="diagnostic" name="PapyrusUMLStateMachineDiagram problems" point="org.eclipse.core.resources.markers">
+				      <?gmfgen generated="true"?>
+				      <super type="org.eclipse.core.resources.problemmarker"/>
+				      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+				      <persistent value="true"/>
+				   </extension>   
+
+   <extension point="org.eclipse.core.runtime.preferences" id="prefs">
+		      <?gmfgen generated="true"?>
+		      <initializer class="org.eclipse.papyrus.uml.diagram.statemachine.preferences.DiagramPreferenceInitializer"/>
+		   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
+		      <?gmfgen generated="true"?>
+		<page
+		      id="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLStateMachineDiagram"
+		      name="PapyrusUMLStateMachineDiagram Diagram"
+		      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams"
+		      class="org.eclipse.papyrus.uml.diagram.statemachine.preferences.DiagramGeneralPreferencePage">
+		</page>
+		<page
+		      id="org.eclipse.papyrus.uml.diagram.statemachine.preferences.DiagramPrintingPreferencePage"
+		      name="%prefpage.org.eclipse.uml2.uml.diagram.printing"
+		      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLStateMachineDiagram"
+		      class="org.eclipse.papyrus.uml.diagram.statemachine.preferences.DiagramPrintingPreferencePage">
+		</page>
+		   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="org.eclipse.papyrus.uml.diagram.statemachine"
+            labelProvider="org.eclipse.papyrus.uml.diagram.statemachine.sheet.UMLSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.papyrus.uml.diagram.statemachine">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.papyrus.uml.diagram.statemachine">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.papyrus.uml.diagram.statemachine.sheet.UMLPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+         </propertySection>
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.papyrus.uml.diagram.statemachine.sheet.UMLPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+         </propertySection>
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.papyrus.uml.diagram.statemachine.sheet.UMLPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
+
+<?gmfgen generated="true"?>
+
+	
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+	      <?gmfgen generated="true"?>
+	      <viewProvider class="org.eclipse.papyrus.uml.diagram.statemachine.providers.UMLViewProvider">
+	         <Priority name="Lowest"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="PapyrusUMLStateMachineDiagram"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="StateMachine_Shape,State_Shape_TN,Region_Shape,FinalState_Shape,State_Shape,Pseudostate_InitialShape,Pseudostate_JoinShape,Pseudostate_ForkShape,Pseudostate_ChoiceShape,Pseudostate_JunctionShape,Pseudostate_ShallowHistoryShape,Pseudostate_DeepHistoryShape,Pseudostate_TerminateShape,Pseudostate_EntryPointShape,Pseudostate_ExitPointShape,ConnectionPointReference_Shape,Comment_Shape,Constraint_Shape,Transition_InternalTransitionLabel,Behavior_EntryBehaviorLabel,Behavior_DoActivityBehaviorLabel,Behavior_ExitBehaviorLabel,Trigger_DeferrableTriggerLabel"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="Transition_Edge,Generalization_Edge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,Constraint_ContextEdge"/>
+	      </viewProvider>
+	   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+	      <?gmfgen generated="true"?>
+	      <editpartProvider class="org.eclipse.papyrus.uml.diagram.statemachine.providers.UMLEditPartProvider">
+	         <Priority name="Lowest"/>
+	         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+	            <method name="getType()" value="PapyrusUMLStateMachineDiagram"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+	            <method name="getType()" value="StateMachine_Shape,State_Shape_TN,Region_Shape,FinalState_Shape,State_Shape,Pseudostate_InitialShape,Pseudostate_JoinShape,Pseudostate_ForkShape,Pseudostate_ChoiceShape,Pseudostate_JunctionShape,Pseudostate_ShallowHistoryShape,Pseudostate_DeepHistoryShape,Pseudostate_TerminateShape,Pseudostate_EntryPointShape,Pseudostate_ExitPointShape,ConnectionPointReference_Shape,Comment_Shape,Constraint_Shape,Transition_InternalTransitionLabel,Behavior_EntryBehaviorLabel,Behavior_DoActivityBehaviorLabel,Behavior_ExitBehaviorLabel,Trigger_DeferrableTriggerLabel"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+	            <method name="getType()" value="Transition_Edge,Generalization_Edge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,Constraint_ContextEdge"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+	            <method name="getType()" value="StateMachine_NameLabel,State_NameLabel_TN,FinalState_FloatingNameLabel,FinalState_StereotypeLabel,State_NameLabel,State_FloatingNameLabel,Pseudostate_InitialFloatingNameLabel,Pseudostate_InitialStereotypeLabel,Pseudostate_JoinFloatingNameLabel,Pseudostate_JoinStereotypeLabel,Pseudostate_ForkFloatingNameLabel,Pseudostate_ForkStereotypeLabel,Pseudostate_ChoiceFloatingNameLabel,Pseudostate_ChoiceStereotypeLabel,Pseudostate_JunctionFloatingNameLabel,Pseudostate_JunctionStereotypeLabel,Pseudostate_ShallowHistoryFloatingNameLabel,Pseudostate_ShallowHistoryStereotypeLabel,Pseudostate_DeepHistoryFloatingNameLabel,Pseudostate_DeepHistoryStereotypeLabel,Pseudostate_TerminateFloatingNameLabel,Pseudostate_TerminateStereotypeLabel,Pseudostate_EntryPointFloatingNameLabel,Pseudostate_EntryPointStereotypeLabel,Pseudostate_ExitPointFloatingNameLabel,Pseudostate_ExitPointStereotypeLabel,ConnectionPointReference_NameLabel,ConnectionPointReference_StereotypeLabel,Comment_BodyLabel,Constraint_NameLabel,Constraint_BodyLabel"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+	            <method name="getType()" value="Region_SubvertexCompartment,StateMachine_RegionCompartment,State_RegionCompartment,State_RegionCompartment_TN"/>
+	         </object>
+	         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+	      </editpartProvider>
+	   </extension>
+
+   
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+	      <?gmfgen generated="true"?>
+	      <IconProvider class="org.eclipse.papyrus.uml.diagram.statemachine.providers.UMLIconProvider">
+	         <Priority name="Low"/>
+	      </IconProvider>
+	   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+	      <?gmfgen generated="true"?>
+	      <ParserProvider class="org.eclipse.papyrus.uml.diagram.statemachine.providers.UMLParserProvider">
+	         <Priority name="Lowest"/>
+	      </ParserProvider>
+	   </extension>
+
+   
+	   
+	   
+	<!-- Diagram specific advices -->
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.papyrus.uml.diagram.statemachine.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="org.eclipse.papyrus.uml.diagram.statemachine.part.UMLDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.papyrus.uml.diagram.statemachine.edit.parts.PackageEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="org.eclipse.papyrus.uml.diagram.statemachine.part.UMLDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="org.eclipse.papyrus.uml.diagram.statemachine.LoadResourceAction"
+         name="Load Resource"
+         categoryId="org.eclipse.papyrus.uml.diagram.statemachine.part.UMLDiagramEditorID"
+         defaultHandler="org.eclipse.papyrus.uml.diagram.statemachine.part.LoadResourceAction"/>
+   </extension>
+
+<!-- Diagram creation command and handler -->
+<extension point="org.eclipse.ui.commands">
+	<command id="org.eclipse.papyrus.uml.diagram.statemachine.CreationCommand"
+		name="Create a new StateMachine Diagram"
+		description="Create a new StateMachine Diagram"
+		categoryId="org.eclipse.papyrus.editor.category"/>
+</extension>
+
+
+<!-- Diagram creation command registration in menu and toolbar -->
+   
+   <extension
+         point="org.eclipse.papyrus.infra.ui.papyrusDiagram">
+      <editorDiagram
+            actionBarContributorId="org.eclipse.papyrus.uml.diagram.common.part.UMLDiagramActionBarContributor"
+            factoryClass="org.eclipse.papyrus.uml.diagram.statemachine.StateMachineDiagramEditorFactory"
+            icon="icons/obj16/Diagram_StateMachine.gif">
+      </editorDiagram>
+      <creationCommand
+            creationCommandClass="org.eclipse.papyrus.uml.diagram.statemachine.CreateStateMachineDiagramCommand"
+            creationCondition="org.eclipse.papyrus.uml.diagram.statemachine.StateMachineDiagramCreationCondition"
+            icon="icons/obj16/Diagram_StateMachine.gif"
+            id="org.eclipse.papyrus.uml.diagram.statemachine.CreationCommand"
+            language="uml"
+            label="StateMachine Diagram">
+      </creationCommand>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <editpartProvider class="org.eclipse.papyrus.uml.diagram.statemachine.custom.providers.CustomUMLEditPartProvider">
+         <Priority name="Low"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="PapyrusUMLStateMachineDiagram"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="StateMachine_Shape,Region_Shape,FinalState_Shape,State_Shape,Pseudostate_InitialShape,Pseudostate_JoinShape,Pseudostate_ForkShape,Pseudostate_ChoiceShape,Pseudostate_JunctionShape,Pseudostate_ShallowHistoryShape,Pseudostate_DeepHistoryShape,Pseudostate_TerminateShape,Pseudostate_EntryPointShape,Pseudostate_ExitPointShape,ConnectionPointReference_Shape,Comment_Shape,Constraint_Shape,Transition_InternalTransitionLabel,Behavior_EntryBehaviorLabel,Behavior_DoActivityBehaviorLabel,Behavior_ExitBehaviorLabel"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="Transition_Edge,Generalization_Edge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,Constraint_ContextEdge"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="StateMachine_NameLabel,FinalState_FloatingNameLabel,FinalState_StereotypeLabel,State_NameLabel,State_FloatingNameLabel,Pseudostate_InitialFloatingNameLabel,Pseudostate_InitialStereotypeLabel,Pseudostate_JoinFloatingNameLabel,Pseudostate_JoinStereotypeLabel,Pseudostate_ForkFloatingNameLabel,Pseudostate_ForkStereotypeLabel,Pseudostate_ChoiceFloatingNameLabel,Pseudostate_ChoiceStereotypeLabel,Pseudostate_JunctionFloatingNameLabel,Pseudostate_JunctionStereotypeLabel,Pseudostate_ShallowHistoryFloatingNameLabel,Pseudostate_ShallowHistoryStereotypeLabel,Pseudostate_DeepHistoryFloatingNameLabel,Pseudostate_DeepHistoryStereotypeLabel,Pseudostate_TerminateFloatingNameLabel,Pseudostate_TerminateStereotypeLabel,Pseudostate_EntryPointFloatingNameLabel,Pseudostate_EntryPointStereotypeLabel,Pseudostate_ExitPointFloatingNameLabel,Pseudostate_ExitPointStereotypeLabel,ConnectionPointReference_NameLabel,ConnectionPointReference_StereotypeLabel,Comment_BodyLabel,Constraint_NameLabel,Constraint_BodyLabel"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="Region_SubvertexCompartment,StateMachine_RegionCompartment,State_RegionCompartment"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+
+
+
+
+
+
+<extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+<extension
+      id="ui-context"
+      point="org.eclipse.ui.contexts">
+   <context
+         description="%context.description"
+         id="org.eclipse.papyrus.uml.diagram.statemachine.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+   </context>
+</extension>
+<extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+				      <?gmfgen generated="true"?>
+				      <decoratorProvider class="org.eclipse.papyrus.uml.diagram.statemachine.providers.UMLValidationDecoratorProvider">
+				         <Priority name="Lowest"/>
+				         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+				         <context decoratorTargets="PRIMARY_VIEW"/>
+				      </decoratorProvider>
+				   </extension>
+<extension point="org.eclipse.emf.validation.constraintProviders">
+      <?gmfgen generated="true"?>
+            <category id="org.eclipse.uml2.uml.util.UMLValidator.validateInternalTransition" mandatory="false" name="validateInternalTransition">
+         <![CDATA[Validate internal transition]]>
+      </category>
+      <constraintProvider cache="true">
+         <package namespaceUri="http://www.eclipse.org/uml2/5.0.0/UML"/>
+               <constraints categories="org.eclipse.uml2.uml.util.UMLValidator.validateInternalTransition">
+                  <constraint id="org.eclipse.uml2.uml.util.UMLValidator.validateInternalTransition_sameTargetAndSrouce"
+            lang="OCL"
+            name="validateInternalTransitionEnd"
+            mode="Live"
+            severity="ERROR" statusCode="200">
+            <![CDATA[(kind = TransitionKind::internal) implies (source.oclIsKindOf (State) and source = target)]]>
+            <description><![CDATA[Validate that internal transition has the same state for source and target]]></description>
+            <message><![CDATA[Validate that internal transition has the same state for source and target]]></message>
+            <target class="uml.Transition"/>
+         </constraint>
+                  </constraints>
+      </constraintProvider>
+   </extension>
+
+<extension point="org.eclipse.emf.validation.constraintBindings">
+      <?gmfgen generated="true"?>
+      <clientContext default="false" id="org.eclipse.papyrus.uml.diagram.statemachineDefaultCtx">
+         <selector class="org.eclipse.papyrus.uml.diagram.statemachine.providers.UMLValidationProvider$DefaultCtx"/>
+      </clientContext>
+      <binding context="org.eclipse.papyrus.uml.diagram.statemachineDefaultCtx">
+                  <constraint ref="org.eclipse.papyrus.uml.diagram.statemachine.org.eclipse.uml2.uml.util.UMLValidator.validateInternalTransition_sameTargetAndSrouce"/>
+               </binding>
+
+   </extension>
+
+<extension point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
+      <?gmfgen generated="true"?>
+         <clientContext id="org.eclipse.papyrus.uml.diagram.statemachineDefaultCtx"/>
+      </extension>
+ 
+ <extension
+      point="org.eclipse.emf.transaction.listeners">
+   <listener
+         class="org.eclipse.papyrus.uml.diagram.statemachine.custom.listeners.StateBehaviorsListener">
+      <editingDomain
+            id="org.eclipse.papyrus.SharedEditingDomainID">
+      </editingDomain>
+   </listener>
+	   <listener
+	         class="org.eclipse.papyrus.uml.diagram.statemachine.custom.listeners.InternalStateListener">
+	      <editingDomain
+	            id="org.eclipse.papyrus.SharedEditingDomainID">
+	      </editingDomain>
+	   </listener>
+	</extension>
+
+				
+
+	<extension point="org.eclipse.ui.preferencePages">
+		<page
+			category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLStateMachineDiagram"
+			class="org.eclipse.papyrus.uml.diagram.statemachine.custom.preferences.CustomTransitionPreferencePage"
+			id="org.eclipse.papyrus.uml.diagram.statemachine.custom.preferences.CustomTransitionPreferencePage_ID"
+			name="Transition and behavior options">
+      </page>
+	</extension>
+ 
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer
+			class="org.eclipse.papyrus.uml.diagram.statemachine.custom.preferences.CustomTransitionPreferenceInitializer">
+		</initializer>
+	</extension>
+<extension point="org.eclipse.papyrus.infra.gmfdiag.common.notationTypesMapping"> 
+   <?gmfgen generated="true"?>
+   <diagramMappings diagramID="PapyrusUMLStateMachineDiagram">
+   	<mapping type="PapyrusUMLStateMachineDiagram" humanReadableType="StateMachineDiagram"/>
+			<mapping
+				humanReadableType="Region"
+				type="Region_SubvertexCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="StateMachine"
+				type="StateMachine_RegionCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="State"
+				type="State_RegionCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="State"
+				type="State_RegionCompartment_TN">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Transition_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Guard"
+				type="Transition_GuardLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Transition_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Generalization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Constraint_KeywordLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="FinalState_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="State_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Pseudostate_InitialFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Pseudostate_JoinFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Pseudostate_ForkFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Pseudostate_ChoiceFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Pseudostate_JunctionFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Pseudostate_ShallowHistoryFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Pseudostate_DeepHistoryFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Pseudostate_TerminateFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Pseudostate_EntryPointFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Pseudostate_EntryPointStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Pseudostate_ExitPointFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Pseudostate_ExitPointStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="ConnectionPointReference_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ConnectionPointReference_StereotypeLabel">
+			</mapping>
+   </diagramMappings>
+</extension>
+
+
+    <extension
+      point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+   <ParserProvider
+         class="org.eclipse.papyrus.uml.diagram.statemachine.custom.providers.CustomUMLParserProvider">
+      <Priority
+            name="Medium">
+      </Priority>
+   </ParserProvider>
+</extension>
+<extension
+      point="org.eclipse.papyrus.infra.gmfdiag.common.diagramReconciler">
+   <diagramReconciler
+         diagramType="PapyrusUMLStateMachineDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.statemachine.custom.migration.StateMachineReconcilerForCompartment_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="PapyrusUMLStateMachineDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.statemachine.custom.migration.StateMachineReconciler_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+</extension>
+   <extension point="org.eclipse.papyrus.infra.gmfdiag.common.visualTypeProviders">
+	      <?gmfgen generated="true"?>
+	      <visualTypeProvider
+	            class="org.eclipse.papyrus.uml.diagram.statemachine.providers.UMLVisualTypeProvider"
+	            diagramType="PapyrusUMLStateMachineDiagram">
+	         </visualTypeProvider>
+	   </extension>
+<extension
+      point="org.eclipse.papyrus.infra.hyperlink.hyperlinkContributor">
+   <contributor
+         contributor="org.eclipse.papyrus.uml.diagram.statemachine.custom.hyperlink.OwnedBehaviorHyperlinkContributor"
+         description="Creates hyperlinks referencing a state machine represented in a diagram owned by a behaviored classifier"
+         id="org.eclipse.papyrus.uml.diagram.statemachine.ownedBehaviorHyperlinkContributor"
+         label="Owned state machine hyperlinks">
+   </contributor>
+</extension>
+
+<extension point="org.eclipse.papyrus.infra.gmfdiag.assistant.modelProviders">
+    <modelProvider uri="model/stateMachineDiagram.assistants"/>
+</extension>
+<extension
+      point="org.eclipse.papyrus.infra.gmfdiag.canonical.strategies">
+   <semanticChildrenStrategy
+         class="org.eclipse.papyrus.uml.diagram.statemachine.custom.strategies.StateSemanticConnectionsStrategy"
+         editPart="org.eclipse.papyrus.uml.diagram.statemachine.edit.parts.StateEditPart"
+         priority="50">
+   </semanticChildrenStrategy>
+</extension>
+
+
+</plugin>

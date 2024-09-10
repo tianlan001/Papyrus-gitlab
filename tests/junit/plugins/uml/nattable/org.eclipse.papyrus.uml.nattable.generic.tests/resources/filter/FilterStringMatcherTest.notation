@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nattable:Table xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:configuration="http://www.eclipse.org/papyrus/infra/viewpoints/configuration" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:nattable="http://www.eclipse.org/papyrus/nattable/model" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisconfiguration="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:nattableconfiguration="http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis http://www.eclipse.org/papyrus/nattable/model#//nattableaxis http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration http://www.eclipse.org/papyrus/nattable/model#//nattableaxisconfiguration http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider http://www.eclipse.org/papyrus/nattable/model#//nattableaxisprovider http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration http://www.eclipse.org/papyrus/nattable/model#//nattableconfiguration" xmi:id="_LnUnoKh0EeSdCYE6DduyjQ" name="GenericTable0" currentRowAxisProvider="_LnUnoqh0EeSdCYE6DduyjQ" currentColumnAxisProvider="_LnUnoah0EeSdCYE6DduyjQ">
+  <context xmi:type="uml:Model" href="FilterStringMatcherTest.uml#_5xLsgKhzEeSdCYE6DduyjQ"/>
+  <owner xmi:type="uml:Model" href="FilterStringMatcherTest.uml#_5xLsgKhzEeSdCYE6DduyjQ"/>
+  <prototype xmi:type="configuration:PapyrusSyncTable" href="platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/builtin/default.configuration#_7wNb2NxhEeOqHvRyiN87hA"/>
+  <tableConfiguration xmi:type="nattableconfiguration:TableConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#/"/>
+  <columnAxisProvidersHistory xmi:type="nattableaxisprovider:SlaveObjectAxisProvider" xmi:id="_LnUnoah0EeSdCYE6DduyjQ" description="This axis provider provides available columns according to the rows of the table (features of the object displayed on the other axis)" name="UML Feature axis provider">
+    <axis xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_Oz7tkKh0EeSdCYE6DduyjQ">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@columnHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="ecore:EAttribute" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+    </axis>
+  </columnAxisProvidersHistory>
+  <rowAxisProvidersHistory xmi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_LnUnoqh0EeSdCYE6DduyjQ" description="This axis provider contains the object dropped by the user into the table" name="DroppedElementAxisProvider" disconnectSlave="true">
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_PW4poKh0EeSdCYE6DduyjQ">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Class" href="FilterStringMatcherTest.uml#_6xZzYKhzEeSdCYE6DduyjQ"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_PW4poah0EeSdCYE6DduyjQ">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Class" href="FilterStringMatcherTest.uml#_7Y-wwKhzEeSdCYE6DduyjQ"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_PW4poqh0EeSdCYE6DduyjQ">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Class" href="FilterStringMatcherTest.uml#_JNRAAKh0EeSdCYE6DduyjQ"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_PW4po6h0EeSdCYE6DduyjQ">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Class" href="FilterStringMatcherTest.uml#_76384KhzEeSdCYE6DduyjQ"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_PW4ppKh0EeSdCYE6DduyjQ">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Class" href="FilterStringMatcherTest.uml#_-C1H4KhzEeSdCYE6DduyjQ"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_PW4ppah0EeSdCYE6DduyjQ">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Class" href="FilterStringMatcherTest.uml#_Bf0zMKh0EeSdCYE6DduyjQ"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_PW4ppqh0EeSdCYE6DduyjQ">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Class" href="FilterStringMatcherTest.uml#_DB6RAKh0EeSdCYE6DduyjQ"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_PW4pp6h0EeSdCYE6DduyjQ">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Class" href="FilterStringMatcherTest.uml#_D9fvgKh0EeSdCYE6DduyjQ"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_PW4pqKh0EeSdCYE6DduyjQ">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Class" href="FilterStringMatcherTest.uml#_D9gWkKh0EeSdCYE6DduyjQ"/>
+    </axis>
+  </rowAxisProvidersHistory>
+  <localColumnHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:LocalTableHeaderAxisConfiguration" xmi:id="_P8FocKh0EeSdCYE6DduyjQ" displayFilter="true"/>
+</nattable:Table>

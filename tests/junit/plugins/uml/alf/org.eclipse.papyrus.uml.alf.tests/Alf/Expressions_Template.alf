@@ -1,0 +1,66 @@
+/**
+ * Test expressions involving templates.
+ **/
+active class Expressions_Template {
+
+	public receive signal Continue {
+	}
+
+	public activity A<T specializes B>(in x: T): Integer;
+	public class B {
+
+		public i: Integer;
+		@Create
+		public B(in i: Integer);
+		@Destroy
+		public destroy();
+
+	}
+
+	public class C<T> {
+
+		activity E(in x: T): T;
+		p: T;
+		@Create
+		public C(in p: T);
+		r(): T;
+		@Destroy
+		public destroy();
+
+	}
+
+	public active class H<T> {
+
+		public a: T;
+		public b: T;
+		public t: TestRunner;
+		@Create
+		public H(in a: T, in t: TestRunner);
+		@Destroy
+		public destroy();
+
+	} do 'H$behavior$1'
+
+	public active class TestRunner {
+
+		public receive signal Start {
+		}
+
+		public receive signal Continue {
+		}
+
+		public test(out i: Integer, out j: Integer, out h: H< B >,
+			out s: Set< Integer >, out list: List< Integer >);
+		@Create
+		public TestRunner();
+		@Destroy
+		public destroy();
+
+	} do 'TestRunner$behavior$1'
+
+	@Create
+	public Expressions_Template();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Template$behavior$1'

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_L12q4HaSEeeEHdA8pJmIgQ" name="edgeCustomisation">
+  <packagedElement xmi:type="uml:Class" xmi:id="_BPZNEHaTEeeEHdA8pJmIgQ" name="Class1">
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_BqZHAHaTEeeEHdA8pJmIgQ" name="Port1" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_CN3ngHaTEeeEHdA8pJmIgQ" name="Port2" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_Ik4y8HaeEeeEHdA8pJmIgQ" name="Port3" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_JEVIAHaeEeeEHdA8pJmIgQ" name="Port4" aggregation="composite"/>
+    <ownedConnector xmi:type="uml:Connector" xmi:id="_DV2jQHaTEeeEHdA8pJmIgQ" name="DefaultConnector">
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_DV6NoHaTEeeEHdA8pJmIgQ" role="_BqZHAHaTEeeEHdA8pJmIgQ"/>
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_DV60sHaTEeeEHdA8pJmIgQ" role="_CN3ngHaTEeeEHdA8pJmIgQ"/>
+    </ownedConnector>
+    <ownedConnector xmi:type="uml:Connector" xmi:id="_KTBvwHaeEeeEHdA8pJmIgQ" name="CSSConnector">
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_KTCW0HaeEeeEHdA8pJmIgQ" role="_Ik4y8HaeEeeEHdA8pJmIgQ"/>
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_KTCW0XaeEeeEHdA8pJmIgQ" role="_JEVIAHaeEeeEHdA8pJmIgQ"/>
+    </ownedConnector>
+    <ownedConnector xmi:type="uml:Connector" xmi:id="_M7zv4HaeEeeEHdA8pJmIgQ" name="PropertiesSetConnector">
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_M70W8HaeEeeEHdA8pJmIgQ" role="_JEVIAHaeEeeEHdA8pJmIgQ"/>
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_M70W8XaeEeeEHdA8pJmIgQ" role="_CN3ngHaTEeeEHdA8pJmIgQ"/>
+    </ownedConnector>
+  </packagedElement>
+</uml:Model>

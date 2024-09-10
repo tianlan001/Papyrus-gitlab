@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="navigationRules" name="navigationRules" schema="schema/navigationRules.exsd"/>
+   <extension-point id="navigationDecoratorRules" name="navigationDecoratorRules" schema="schema/navigationDecoratorRules.exsd"/>
+   <extension-point id="navigationColorProviders" name="navigationColorProviders" schema="schema/navigationColorProviders.exsd"/>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.papyrus.infra.core.sasheditor.preferences.generalcategory"
+            class="org.eclipse.papyrus.infra.gmfdiag.navigation.preference.NavigationPreferencePage"
+            id="org.eclipse.papyrus.navigation"
+            name="Navigation">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.eclipse.papyrus.infra.gmfdiag.navigation.preference.NavigationPreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <decoratorProvider
+            class="org.eclipse.papyrus.infra.gmfdiag.navigation.decorator.NavigationDecoratorProvider">
+         <Priority
+               name="Medium">
+         </Priority>
+      </decoratorProvider>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.services.navigation.navigationMenuContributor">
+      <contributor
+            contributor="org.eclipse.papyrus.infra.gmfdiag.navigation.menuContributor.OwnedDiagramsButton"
+            description="Diagrams owned by the selected element"
+            id="org.eclipse.papyrus.infra.gmfdiag.navigation..ownedDiagramsButton"
+            label="Owned diagrams">
+      </contributor>
+   </extension>
+   
+   <extension
+         point="org.eclipse.papyrus.infra.services.navigation.navigationMenu">
+      <menu
+            description="The default navigation menu that appears on Alt+Hover"
+            id="org.eclipse.papyrus.infra.gmfdiag.navigation.defaultNavigationMenu"
+            label="Default navigation menu"
+            menu="org.eclipse.papyrus.infra.gmfdiag.navigation.menu.DefaultNavigationMenu">
+      </menu>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.papyrus.views.modelexplorer.modelexplorer.popup?before=newelements">
+	    <separator
+	          name="navigat"
+	          visible="true">
+	    </separator>
+         <menu
+               id="org.eclipse.papyrus.infra.services.navigation.ui.popup.navigate"
+               label="Navigate"
+               tooltip="Navigate from this element">
+            <dynamic
+                  class="org.eclipse.papyrus.infra.gmfdiag.navigation.ui.ModelExplorerDynamicNavigate"
+                  id="org.eclipse.papyrus.infra.gmfdiag.navigation.ui.popup.modelExplorerDynamicNavigate">
+            </dynamic>
+         </menu>
+         <separator
+               name="navigation"
+               visible="true">
+         </separator>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <menu
+               id="navigateMenu"
+               label="Navigate">
+            <dynamic
+                  class="org.eclipse.papyrus.infra.gmfdiag.navigation.ui.DiagramDynamicNavigate"
+                  id="org.eclipse.papyrus.infra.gmfdiag.navigation.ui.popup.diagramDynamicNavigate">
+            </dynamic>
+         </menu>
+      </menuContribution>
+   </extension>
+</plugin>

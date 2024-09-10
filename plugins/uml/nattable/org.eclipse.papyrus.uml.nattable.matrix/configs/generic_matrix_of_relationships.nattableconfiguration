@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nattableconfiguration:TableConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisconfiguration="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:nattableconfiguration="http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration" xmlns:nattablelabelprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattablecontentprovider" xmlns:nattablestyle="http://www.eclipse.org/papyrus/nattable/model/table/nattablestyle" xmi:id="UMLGenericMatrixOfRelationships_XMI_ID" description="This table allows to display relationship between UML elements as relationship" name="Relationship Generic Matrix" type="UMLGenericMatrixOfRelationships" iconPath="platform:/plugin/org.eclipse.papyrus.uml.nattable.matrix/icons/uml_generic_matrix_relationships.png" cellEditorDeclaration="COLUMN" defaultRowAxisProvider="_dSCtITzQEei_1txcmoHe_A" defaultColumnAxisProvider="_dSCtIjzQEei_1txcmoHe_A">
+  <styles xmi:type="nattablestyle:TableDisplayStyle" xmi:id="_dSCGETzQEei_1txcmoHe_A" displayStyle="HIERARCHIC_SINGLE_TREE_COLUMN"/>
+  <styles xmi:type="nattablestyle:StringListValueStyle" xmi:id="_dSCGEjzQEei_1txcmoHe_A" name="dragRegions">
+    <stringListValue>ROW_HEADER</stringListValue>
+  </styles>
+  <styles xmi:type="nattablestyle:IntListValueStyle" xmi:id="_dSCGEzzQEei_1txcmoHe_A" name="hiddenCategoriesByDepth">
+    <intListValue>1</intListValue>
+  </styles>
+  <styles xmi:type="nattablestyle:BooleanValueStyle" xmi:id="_dSCGFDzQEei_1txcmoHe_A" name="expandAll" booleanValue="true"/>
+  <rowHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:TableHeaderAxisConfiguration" xmi:id="_dSCGFTzQEei_1txcmoHe_A" indexStyle="NUMERIC" displayLabel="true" displayFilter="false" displayIndex="true">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:ObjectLabelProviderConfiguration" xmi:id="_dSCGFjzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true"/>
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" xmi:id="_dSCGFzzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayIsDerived="true" displayType="false" displayMultiplicity="false" displayName="true"/>
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:OperationLabelProviderConfiguration" xmi:id="_dSCGGDzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayType="false" displayMultiplicity="false" displayName="true"/>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:TreeFillingConfiguration" xmi:id="_dSCGGTzQEei_1txcmoHe_A" depth="1" labelProvider="_dSCGFzzQEei_1txcmoHe_A" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.treefilling.feature.labelprovider">
+      <axisUsedAsAxisProvider xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_dSCGGjzQEei_1txcmoHe_A" alias="">
+        <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element/ownedElement"/>
+      </axisUsedAsAxisProvider>
+    </ownedAxisConfigurations>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_dSCGGzzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.infra.uml.nattable.tree.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.labelprovider" headerLabelConfiguration="_dSCGFjzQEei_1txcmoHe_A" specificAxisConfigurations="_dSCGGTzQEei_1txcmoHe_A"/>
+  </rowHeaderAxisConfiguration>
+  <columnHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:TableHeaderAxisConfiguration" xmi:id="_dSCGHDzQEei_1txcmoHe_A" displayLabel="true" displayFilter="false" displayIndex="true">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:ObjectLabelProviderConfiguration" xmi:id="_dSCGHTzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true"/>
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" xmi:id="_dSCGHjzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayIsDerived="true" displayType="false" displayMultiplicity="false" displayName="true"/>
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:OperationLabelProviderConfiguration" xmi:id="_dSCGHzzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayType="false" displayMultiplicity="false" displayName="true"/>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:TreeFillingConfiguration" xmi:id="_dSCGIDzQEei_1txcmoHe_A" depth="1" labelProvider="_dSCGHjzQEei_1txcmoHe_A" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.treefilling.feature.labelprovider">
+      <axisUsedAsAxisProvider xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_dSCGITzQEei_1txcmoHe_A">
+        <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element/ownedElement"/>
+      </axisUsedAsAxisProvider>
+    </ownedAxisConfigurations>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_dSCtIDzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.infra.emf.nattable.axis.column.eobject.matrix.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.labelprovider" headerLabelConfiguration="_dSCGHTzQEei_1txcmoHe_A" specificAxisConfigurations="_dSCGIDzQEei_1txcmoHe_A"/>
+  </columnHeaderAxisConfiguration>
+  <columnAxisProviders xmi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_dSCtITzQEei_1txcmoHe_A" description="This axis provider manages the rows, according to the wanted hierarchy" name="HierarchicalRowAxisManager" disconnectSlave="true"/>
+  <rowAxisProviders xmi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_dSCtIjzQEei_1txcmoHe_A" description="This axis provider manages the columns, according to the wanted hierarchy" name="HierarchicalColumnsAxisManager" disconnectSlave="true"/>
+</nattableconfiguration:TableConfiguration>

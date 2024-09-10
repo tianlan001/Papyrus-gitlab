@@ -1,0 +1,37 @@
+EMF model: 
+
+NON-NLS markers : true
+header to specify
+rename src into src-gen
+define base package
+body for operation: 
+   eannotation : GenModel -> body + java code  (doesn't work from UML)
+  
+
+OSGI-Compatible: true or false ?
+
+Generate ModelWizard -> false when possible 
+
+Manual change in 
+in org.eclipse.papyrus.infra.emf.expressions.booleanexpressionspackage.impl.EObjectBooleanExpressionsPackageImpl.createUMLAnnotations()
+   comment the 2nd addAnnotation (if not we break ALL existing Papyrus model):
+   
+   //		addAnnotation
+//		  (null, 
+//		   source, 
+//		   new String[] {
+//			 "originalName", "REDEFINED_CONTEXT_TYPE" //$NON-NLS-1$ //$NON-NLS-2$
+//		   }); 
+
+
+-> the generated Package could probably overriden overriding org.eclipse.emf.ecore.package_registry_implementation 
+AND setting the constructor to protected in the genmodel if this option exists.
+
+
+TODO : look this thread : https://www.eclipse.org/forums/index.php/t/1085429/
+TODO : try to don't have a custom BooleanObject in my Papyrus model
+TODO : try to make working UML2EMFConverter undestanding EObject and EClass UML without creating them in the Ecore model
+
+Create child menu extender : true, to be able to branch easily the other model extending expression
+
+Creation Icon have been set to false, in order to use the defined objects icons

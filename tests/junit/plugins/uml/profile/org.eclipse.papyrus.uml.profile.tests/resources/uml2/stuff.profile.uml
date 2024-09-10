@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_A-GnsEXcEeWW-NrtKWQJcQ" name="stuff" URI="http://www.eclipse.org/papyrus/test/2015/profile/stuff" metaclassReference="_jjbc8EXcEeWW-NrtKWQJcQ">
+  <eAnnotations xmi:id="_tECQgEXcEeWW-NrtKWQJcQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_RSSycEXdEeWW-NrtKWQJcQ" name="stuff" nsURI="http://www.eclipse.org/papyrus/test/2015/profile/stuff" nsPrefix="stuff">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_RSSycUXdEeWW-NrtKWQJcQ" name="Thing">
+        <eAnnotations xmi:id="_RSSyckXdEeWW-NrtKWQJcQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_VP0NYEXcEeWW-NrtKWQJcQ"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RSSyc0XdEeWW-NrtKWQJcQ" name="description" ordered="false">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_RSSydUXdEeWW-NrtKWQJcQ" name="base_Classifier" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RSSyd0XdEeWW-NrtKWQJcQ" name="tag" ordered="false" upperBound="-1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_tEC3kEXcEeWW-NrtKWQJcQ" name="stuff" nsURI="http://www.eclipse.org/papyrus/test/2015/profile/stuff" nsPrefix="stuff">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_tEC3kUXcEeWW-NrtKWQJcQ" name="Thing">
+        <eAnnotations xmi:id="_tEC3kkXcEeWW-NrtKWQJcQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_VP0NYEXcEeWW-NrtKWQJcQ"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_tEC3k0XcEeWW-NrtKWQJcQ" name="description" ordered="false">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_tEC3lUXcEeWW-NrtKWQJcQ" name="base_Classifier" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <elementImport xmi:id="_jjbc8EXcEeWW-NrtKWQJcQ">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_VP0NYEXcEeWW-NrtKWQJcQ" name="Thing">
+    <ownedAttribute xmi:id="_aIBScEXcEeWW-NrtKWQJcQ" name="description">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cQ64oEXcEeWW-NrtKWQJcQ"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_o3FH4UXcEeWW-NrtKWQJcQ" name="base_Classifier" association="_o3Eg0EXcEeWW-NrtKWQJcQ">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_Lqte4EXdEeWW-NrtKWQJcQ" name="tag">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lqte4UXdEeWW-NrtKWQJcQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_PPYfgEXdEeWW-NrtKWQJcQ" value="*"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_o3Eg0EXcEeWW-NrtKWQJcQ" name="Classifier_Thing" memberEnd="_o3FH4EXcEeWW-NrtKWQJcQ _o3FH4UXcEeWW-NrtKWQJcQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_o3FH4EXcEeWW-NrtKWQJcQ" name="extension_Thing" type="_VP0NYEXcEeWW-NrtKWQJcQ" aggregation="composite" association="_o3Eg0EXcEeWW-NrtKWQJcQ"/>
+  </packagedElement>
+</uml:Profile>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns:ppew="clr-namespace:org.eclipse.papyrus.infra.editor.welcome.internal.widgets"
+	xmlns:j="clr-namespace:java.lang" xmlns:x="http://www.eclipse.org/xwt"
+	xmlns="http://www.eclipse.org/xwt/presentation">
+	<Composite.layout>
+		<ppel:PropertiesLayout></ppel:PropertiesLayout>
+	</Composite.layout>
+	<ppew:OpenViewLink label="Properties View" viewID="org.eclipse.ui.views.PropertySheet"></ppew:OpenViewLink>
+	<ppew:OpenViewLink label="Model Explorer" viewID="org.eclipse.papyrus.views.modelexplorer.modelexplorer"></ppew:OpenViewLink>
+	<ppew:OpenViewLink label="Model Validation" viewID="org.eclipse.papyrus.views.validation.ModelValidationView"></ppew:OpenViewLink>
+</Composite>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Z_d8gP_uEeWeEdC7hbdSmw" name="RootElement">
+  <packagedElement xmi:type="uml:Component" xmi:id="_bSWgsP_uEeWeEdC7hbdSmw" name="Component">
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_b0AcQP_uEeWeEdC7hbdSmw" name="onlinePort" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_nnSdEP_uEeWeEdC7hbdSmw" name="onlinePort2Resized" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_tM6zYP_vEeWeEdC7hbdSmw" name="insidePort2Resized" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_tmei4P_vEeWeEdC7hbdSmw" name="outsidePort2Resized" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_2TAOIP_vEeWeEdC7hbdSmw" name="insidePort" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_2nOKoP_vEeWeEdC7hbdSmw" name="outsidePort" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_yIq7cBaHEeaWc-G5enLUZQ" name="onlinePort2" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_1T128BaHEeaWc-G5enLUZQ" name="insidePort2" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_3c2x4BaHEeaWc-G5enLUZQ" name="outsidePort2" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_hv5y8P_uEeWeEdC7hbdSmw" name="Class">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_iKTP8P_uEeWeEdC7hbdSmw" name="Attribute" type="_bSWgsP_uEeWeEdC7hbdSmw"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_ilKnAP_uEeWeEdC7hbdSmw" name="onlinePort1" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_uKVd4P_vEeWeEdC7hbdSmw" name="insidePort1" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_ue7N0P_vEeWeEdC7hbdSmw" name="outsidePort1" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_UUSa0BXFEeaQOqKbZy9Uvg" name="Component4CornerPosition">
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_U89kYBXFEeaQOqKbZy9Uvg" name="NEPort" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_V5W7MBXFEeaQOqKbZy9Uvg" name="SEPort" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_Wt26QBXFEeaQOqKbZy9Uvg" name="NWPort" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_X4ruoBXFEeaQOqKbZy9Uvg" name="SWPort" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_iDYOwBXKEeajjfMdXxCzwA" name="OvalComponent">
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_iYN2UBXKEeajjfMdXxCzwA" name="PortOnOval" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_nznvEBXKEeajjfMdXxCzwA" name="PackagedComponent">
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_phLdEBXKEeajjfMdXxCzwA" name="PortOnPackage" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_rfKEgBX9EeaWc-G5enLUZQ" name="ClassForResizedPort">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_rfKEgRX9EeaWc-G5enLUZQ" name="AttributeForResizedPort" type="_bSWgsP_uEeWeEdC7hbdSmw"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_rfKEghX9EeaWc-G5enLUZQ" name="onlinePort1Resized" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_rfKEgxX9EeaWc-G5enLUZQ" name="insidePort1Resized" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_rfKEhBX9EeaWc-G5enLUZQ" name="outsidePort1Resized" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_QldGoBaLEeaWc-G5enLUZQ" name="topPortInsideResized" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_RTjiwBaLEeaWc-G5enLUZQ" name="topPortOnlineResized" aggregation="composite"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_TF97kBaLEeaWc-G5enLUZQ" name="topPortOutsideResized" aggregation="composite"/>
+  </packagedElement>
+</uml:Model>

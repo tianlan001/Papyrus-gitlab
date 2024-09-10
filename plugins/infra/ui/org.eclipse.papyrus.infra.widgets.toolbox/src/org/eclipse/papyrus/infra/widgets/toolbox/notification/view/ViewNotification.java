@@ -1,0 +1,46 @@
+/*****************************************************************************
+ * Copyright (c) 2010 ATOS ORIGIN.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *  Tristan Faure (ATOS ORIGIN INTEGRATION) tristan.faure@atosorigin.com - Initial API and implementation
+ *****************************************************************************/
+package org.eclipse.papyrus.infra.widgets.toolbox.notification.view;
+
+import org.eclipse.papyrus.infra.widgets.toolbox.notification.INotification;
+
+/**
+ * The INotification corresponding to the view builder
+ *
+ * @author tfaure
+ *
+ */
+public class ViewNotification implements INotification {
+
+	private final AbstractInsideComposite viewCompo;
+
+	public ViewNotification(AbstractInsideComposite viewCompo) {
+		this.viewCompo = viewCompo;
+	}
+
+	public void delete() {
+		viewCompo.close();
+	}
+
+	/**
+	 *
+	 * whether the current notification is deleted
+	 *
+	 * @see org.eclipse.papyrus.infra.widgets.toolbox.notification.INotification#isDeleted()
+	 * @return true if notification is deleted
+	 */
+	public boolean isDeleted() {
+		return viewCompo.isDisposed();
+	}
+}

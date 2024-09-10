@@ -1,0 +1,1423 @@
+/*****************************************************************************
+ * Copyright (c) 2010, 2015 CEA LIST and others.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ * 	 Florian Noyrit  (CEA) florian.noyrit@cea.fr - Initial API and Implementation
+ *   Mickael ADAM (ALL4TEC) mickael.adam@all4tec.net - reconciler to add floating label
+ *
+ *****************************************************************************/
+package org.eclipse.papyrus.uml.diagram.activity.migration;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.runtime.common.core.command.AbstractCommand;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.common.core.command.CompositeCommand;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.papyrus.infra.gmfdiag.common.reconciler.DiagramReconciler;
+
+/**
+ * Activity Diagram Reconciler from 1.1.0 to 1.2.0
+ */
+public class ActivityReconciler_1_2_0 extends DiagramReconciler {
+
+	@Override
+	public ICommand getReconcileCommand(Diagram diagram) {
+		CompositeCommand cc = new CompositeCommand("Migrate diagram from 1.1.0 to 1.2.0");
+		cc.add(new DeleteObsoleteViewCommand(diagram));
+		cc.add(new ChangeVisualIDsCommand(diagram));
+		return cc;
+	}
+
+	protected class DeleteObsoleteViewCommand extends AbstractCommand {
+
+		protected final Diagram diagram;
+
+		public DeleteObsoleteViewCommand(Diagram diagram) {
+			super("Deleting obselete views in 1.1.0");
+			this.diagram = diagram;
+		}
+
+		@Override
+		protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) throws ExecutionException {
+			TreeIterator<EObject> allContentIterator = diagram.eAllContents();
+
+			Set<View> toDelete = new HashSet<>();
+			while (allContentIterator.hasNext()) {
+				EObject eObject = allContentIterator.next();
+				if (eObject instanceof View) {
+					View view = (View) eObject;
+					if (view.getType().equals("5173")) {
+						toDelete.add(view);
+					}
+				}
+			}
+
+			for (View v : toDelete) {
+				View container = (View) v.eContainer();
+				container.getPersistedChildren().remove(v);
+			}
+
+			return CommandResult.newOKCommandResult();
+		}
+
+		@Override
+		public boolean canUndo() {
+			return false;
+		}
+
+		@Override
+		public boolean canRedo() {
+			return false;
+		}
+
+		@Override
+		protected CommandResult doRedoWithResult(IProgressMonitor progressMonitor, IAdaptable info) throws ExecutionException {
+			throw new ExecutionException("Should not be called, canRedo false");
+		}
+
+		@Override
+		protected CommandResult doUndoWithResult(IProgressMonitor progressMonitor, IAdaptable info) throws ExecutionException {
+			throw new ExecutionException("Should not be called, canUndo false");
+		}
+	}
+
+	protected class ChangeVisualIDsCommand extends AbstractCommand {
+
+		protected final Diagram diagram;
+
+		public ChangeVisualIDsCommand(Diagram diagram) {
+			super("Change the diagram's visual ids from 1.1.0 to 1.2.0");
+			this.diagram = diagram;
+		}
+
+		@Override
+		protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) throws ExecutionException {
+			TreeIterator<EObject> allContentIterator = diagram.eAllContents();
+
+			while (allContentIterator.hasNext()) {
+				EObject eObject = allContentIterator.next();
+				if (eObject instanceof View) {
+					View view = (View) eObject;
+					view.setType(getNewVisualID(view.getType()));
+				}
+			}
+
+			return CommandResult.newOKCommandResult();
+		}
+
+		@Override
+		public boolean canUndo() {
+			return false;
+		}
+
+		@Override
+		public boolean canRedo() {
+			return false;
+		}
+
+		@Override
+		protected CommandResult doRedoWithResult(IProgressMonitor progressMonitor, IAdaptable info) throws ExecutionException {
+			throw new ExecutionException("Should not be called, canRedo false");
+		}
+
+		@Override
+		protected CommandResult doUndoWithResult(IProgressMonitor progressMonitor, IAdaptable info) throws ExecutionException {
+			throw new ExecutionException("Should not be called, canUndo false");
+		}
+	}
+
+	public static String getNewVisualID(String oldVisualID) {
+		switch (oldVisualID) {
+		case "1000":
+			return "Package_ActivityDiagram";
+		case "3001":
+			return "Parameter_ParameterLabel";
+		case "3002":
+			return "Constraint_PreconditionLabel";
+		case "3003":
+			return "Constraint_PostconditionLabel";
+		case "3004":
+			return "InitialNode_Shape";
+		case "6034":
+			return "InitialNode_FloatingNameLabel";
+		case "5080":
+			return "InitialNode_StereotypeLabel";
+		case "3005":
+			return "ActivityFinalNode_Shape";
+		case "6033":
+			return "ActivityFinalNode_FloatingNameLabel";
+		case "5081":
+			return "ActivityFinalNode_StereotypeLabel";
+		case "3006":
+			return "FlowFinalNode_Shape";
+		case "6035":
+			return "FlowFinalNode_FloatingNameLabel";
+		case "5082":
+			return "FlowFinalNode_StereotypeLabel";
+		case "3007":
+			return "OpaqueAction_Shape";
+		case "5003":
+			return "OpaqueAction_NameLabel";
+		case "6028":
+			return "OpaqueAction_FloatingNameLabel";
+		case "3015":
+			return "ValuePin_OpaqueActionInputShape";
+		case "5011":
+			return "ValuePin_OpaqueActionInputNameLabel";
+		case "5024":
+			return "ValuePin_OpaqueActionInputValueLabel";
+		case "5083":
+			return "ValuePin_OpaqueActionInputStereotypeLabel";
+		case "3016":
+			return "ActionInputPin_OpaqueActionInputShape";
+		case "5012":
+			return "ActionInputPin_OpaqueActionInputNameLabel";
+		case "5025":
+			return "ActionInputPin_OpaqueActionInputValueLabel";
+		case "5084":
+			return "ActionInputPin_OpaqueActionInputStereotypeLabel";
+		case "3013":
+			return "InputPin_OpaqueActionInputShape";
+		case "5009":
+			return "InputPin_OpaqueActionInputNameLabel";
+		case "5085":
+			return "InputPin_OpaqueActionInputStereotypeLabel";
+		case "3014":
+			return "OutputPin_OpaqueActionOutputShape";
+		case "5010":
+			return "OutputPin_OpaqueActionOutputNameLabel";
+		case "5086":
+			return "OutputPin_OpaqueActionOutputStereotypeLabel";
+		case "3008":
+			return "CallBehaviorAction_Shape";
+		case "5004":
+			return "CallBehaviorAction_NameLabel";
+		case "6029":
+			return "CallBehaviorAction_FloatingNameLabel";
+		case "3017":
+			return "ValuePin_CallBehaviorActionArgumentShape";
+		case "5013":
+			return "ValuePin_CallBehaviorActionArgumentNameLabel";
+		case "5026":
+			return "ValuePin_CallBehaviorActionArgumentValueLabel";
+		case "5087":
+			return "ValuePin_CallBehaviorActionArgumentStereotypeLabel";
+		case "3018":
+			return "ActionInputPin_CallBehaviorActionArgumentShape";
+		case "5014":
+			return "ActionInputPin_CallBehaviorActionArgumentNameLabel";
+		case "5027":
+			return "ActionInputPin_CallBehaviorActionArgumentValueLabel";
+		case "5088":
+			return "ActionInputPin_CallBehaviorActionArgumentStereotypeLabel";
+		case "3019":
+			return "InputPin_CallBehaviorActionArgumentShape";
+		case "5015":
+			return "InputPin_CallBehaviorActionArgumentNameLabel";
+		case "5089":
+			return "InputPin_CallBehaviorActionArgumentStereotypeLabel";
+		case "3020":
+			return "OutputPin_CallBehaviorActionResultShape";
+		case "5016":
+			return "OutputPin_CallBehaviorActionResultNameLabel";
+		case "5090":
+			return "OutputPin_CallBehaviorActionResultStereotypeLabel";
+		case "3010":
+			return "CallOperationAction_Shape";
+		case "5006":
+			return "CallOperationAction_NameLabel";
+		case "6020":
+			return "CallOperationAction_FloatingNameLabel";
+		case "3021":
+			return "ActionInputPin_CallOperationActionArgumentShape";
+		case "5017":
+			return "ActionInputPin_CallOperationActionArgumentNameLabel";
+		case "5028":
+			return "ActionInputPin_CallOperationActionArgumentValueLabel";
+		case "5091":
+			return "ActionInputPin_CallOperationActionArgumentStereotypeLabel";
+		case "3022":
+			return "ValuePin_CallOperationActionArgumentShape";
+		case "5018":
+			return "ValuePin_CallOperationActionArgumentNameLabel";
+		case "5029":
+			return "ValuePin_CallOperationActionArgumentValueLabel";
+		case "5092":
+			return "ValuePin_CallOperationActionArgumentStereotypeLabel";
+		case "3023":
+			return "InputPin_CallOperationActionArgumentShape";
+		case "5019":
+			return "InputPin_CallOperationActionArgumentNameLabel";
+		case "5093":
+			return "InputPin_CallOperationActionArgumentStereotypeLabel";
+		case "3024":
+			return "OutputPin_CallOperationActionResultShape";
+		case "5020":
+			return "OutputPin_CallOperationActionResultNameLabel";
+		case "5094":
+			return "OutputPin_CallOperationActionResultStereotypeLabel";
+		case "3025":
+			return "ValuePin_CallOperationActionTargetShape";
+		case "5021":
+			return "ValuePin_CallOperationActionTargetNameLabel";
+		case "5030":
+			return "ValuePin_CallOperationActionTargetValueLabel";
+		case "5095":
+			return "ValuePin_CallOperationActionTargetStereotypeLabel";
+		case "3026":
+			return "ActionInputPin_CallOperationActionTargetShape";
+		case "5022":
+			return "ActionInputPin_CallOperationActionTargetNameLabel";
+		case "5031":
+			return "ActionInputPin_CallOperationActionTargetValueLabel";
+		case "5096":
+			return "ActionInputPin_CallOperationActionTargetStereotypeLabel";
+		case "3027":
+			return "InputPin_CallOperationActionTargetShape";
+		case "5023":
+			return "InputPin_CallOperationActionTargetNameLabel";
+		case "5097":
+			return "InputPin_CallOperationActionTargetStereotypeLabel";
+		case "3034":
+			return "DurationConstraint_LocalPreconditionShape";
+		case "5038":
+			return "DurationConstraint_LocalPreconditionNameLabel";
+		case "5130":
+			return "DurationConstraint_LocalPreconditionBodyLabel";
+		case "3035":
+			return "DurationConstraint_LocalPostconditionShape";
+		case "5039":
+			return "DurationConstraint_LocalPostconditionNameLabel";
+		case "5131":
+			return "DurationConstraint_LocalPostconditionBodyLabel";
+		case "3036":
+			return "TimeConstraint_LocalPreconditionShape";
+		case "5040":
+			return "TimeConstraint_LocalPreconditionNameLabel";
+		case "5132":
+			return "TimeConstraint_LocalPreconditionBodyLabel";
+		case "3037":
+			return "TimeConstraint_LocalPostconditionShape";
+		case "5041":
+			return "TimeConstraint_LocalPostconditionNameLabel";
+		case "5133":
+			return "TimeConstraint_LocalPostconditionBodyLabel";
+		case "3032":
+			return "IntervalConstraint_LocalPreconditionShape";
+		case "5036":
+			return "IntervalConstraint_LocalPreconditionNameLabel";
+		case "5134":
+			return "IntervalConstraint_LocalPreconditionBodyLabel";
+		case "3033":
+			return "IntervalConstraint_LocalPostconditionShape";
+		case "5037":
+			return "IntervalConstraint_LocalPostconditionNameLabel";
+		case "5135":
+			return "IntervalConstraint_LocalPostconditionBodyLabel";
+		case "3011":
+			return "Constraint_LocalPreconditionShape";
+		case "5007":
+			return "Constraint_LocalPreconditionNameLabel";
+		case "5136":
+			return "Constraint_LocalPreconditionBodyLabel";
+		case "3012":
+			return "Constraint_LocalPostconditionShape";
+		case "5008":
+			return "Constraint_LocalPostconditionNameLabel";
+		case "5137":
+			return "Constraint_LocalPostconditionBodyLabel";
+		case "3038":
+			return "DecisionNode_Shape";
+		case "6036":
+			return "DecisionNode_FloatingNameLabel";
+		case "5043":
+			return "DecisionNode_DecisionInputLabel";
+		case "5098":
+			return "DecisionNode_StereotypeLabel";
+		case "3039":
+			return "MergeNode_Shape";
+		case "6037":
+			return "MergeNode_FloatingNameLabel";
+		case "5099":
+			return "MergeNode_StereotypeLabel";
+		case "3040":
+			return "ForkNode_Shape";
+		case "6038":
+			return "ForkNode_FloatingNameLabel";
+		case "5100":
+			return "ForkNode_StereotypeLabel";
+		case "3041":
+			return "JoinNode_Shape";
+		case "6039":
+			return "JoinNode_FloatingNameLabel";
+		case "5042":
+			return "JoinNode_JoinSpecLabel";
+		case "5101":
+			return "JoinNode_StereotypeLabel";
+		case "3078":
+			return "DataStoreNode_Shape";
+		case "5127":
+			return "DataStoreNode_NameLabel";
+		case "5128":
+			return "DataStoreNode_SelectionLabel";
+		case "6031":
+			return "DataStoreNode_FloatingNameLabel";
+		case "3042":
+			return "SendObjectAction_Shape";
+		case "5059":
+			return "SendObjectAction_NameLabel";
+		case "6027":
+			return "SendObjectAction_FloatingNameLabel";
+		case "3046":
+			return "ValuePin_SendObjectActionRequestShape";
+		case "5049":
+			return "ValuePin_SendObjectActionRequestNameLabel";
+		case "5050":
+			return "ValuePin_SendObjectActionRequestValueLabel";
+		case "5102":
+			return "ValuePin_SendObjectActionRequestStereotypeLabel";
+		case "3047":
+			return "ActionInputPin_SendObjectActionRequestShape";
+		case "5051":
+			return "ActionInputPin_SendObjectActionRequestNameLabel";
+		case "5052":
+			return "ActionInputPin_SendObjectActionRequestValueLabel";
+		case "5103":
+			return "ActionInputPin_SendObjectActionRequestStereotypeLabel";
+		case "3048":
+			return "InputPin_SendObjectActionRequestShape";
+		case "5053":
+			return "InputPin_SendObjectActionRequestNameLabel";
+		case "5104":
+			return "InputPin_SendObjectActionRequestStereotypeLabel";
+		case "3049":
+			return "ValuePin_SendObjectActionTargetShape";
+		case "5054":
+			return "ValuePin_SendObjectActionTargetNameLabel";
+		case "5055":
+			return "ValuePin_SendObjectActionTargetValueLabel";
+		case "5105":
+			return "ValuePin_SendObjectActionTargetStereotypeLabel";
+		case "3050":
+			return "ActionInputPin_SendObjectActionTargetShape";
+		case "5056":
+			return "ActionInputPin_SendObjectActionTargetNameLabel";
+		case "5057":
+			return "ActionInputPin_SendObjectActionTargetValueLabel";
+		case "5106":
+			return "ActionInputPin_SendObjectActionTargetStereotypeLabel";
+		case "3051":
+			return "InputPin_SendObjectActionTargetShape";
+		case "5058":
+			return "InputPin_SendObjectActionTargetNameLabel";
+		case "5107":
+			return "InputPin_SendObjectActionTargetStereotypeLabel";
+		case "3052":
+			return "SendSignalAction_Shape";
+		case "5060":
+			return "SendSignalAction_NameLabel";
+		case "6032":
+			return "SendSignalAction_FloatingNameLabel";
+		case "3053":
+			return "ActionInputPin_SendSignalActionArgumentShape";
+		case "5061":
+			return "ActionInputPin_SendSignalActionArgumentNameLabel";
+		case "5062":
+			return "ActionInputPin_SendSignalActionArgumentValueLabel";
+		case "5108":
+			return "ActionInputPin_SendSignalActionArgumentStereotypeLabel";
+		case "3054":
+			return "ValuePin_SendSignalActionArgumentShape";
+		case "5063":
+			return "ValuePin_SendSignalActionArgumentNameLabel";
+		case "5064":
+			return "ValuePin_SendSignalActionArgumentValueLabel";
+		case "5109":
+			return "ValuePin_SendSignalActionArgumentStereotypeLabel";
+		case "3055":
+			return "InputPin_SendSignalActionArgumentShape";
+		case "5065":
+			return "InputPin_SendSignalActionArgumentNameLabel";
+		case "5110":
+			return "InputPin_SendSignalActionArgumentStereotypeLabel";
+		case "3060":
+			return "ValuePin_SendSignalActionTargetShape";
+		case "5072":
+			return "ValuePin_SendSignalActionTargetNameLabel";
+		case "5073":
+			return "ValuePin_SendSignalActionTargetValueLabel";
+		case "5111":
+			return "ValuePin_SendSignalActionTargetStereotypeLabel";
+		case "3061":
+			return "ActionInputPin_SendSignalActionTargetShape";
+		case "5074":
+			return "ActionInputPin_SendSignalActionTargetNameLabel";
+		case "5075":
+			return "ActionInputPin_SendSignalActionTargetValueLabel";
+		case "5112":
+			return "ActionInputPin_SendSignalActionTargetStereotypeLabel";
+		case "3062":
+			return "InputPin_SendSignalActionTargetShape";
+		case "5076":
+			return "InputPin_SendSignalActionTargetNameLabel";
+		case "5113":
+			return "InputPin_SendSignalActionTargetStereotypeLabel";
+		case "3059":
+			return "ActivityParameterNode_Shape";
+		case "5071":
+			return "ActivityParameterNode_NameLabel";
+		case "5430":
+			return "ActivityParameterNode_StreamLabel";
+		case "5431":
+			return "ActivityParameterNode_ExceptionLabel";
+		case "3063":
+			return "AcceptEventAction_Shape";
+		case "5078":
+			return "AcceptEventAction_NameLabel";
+		case "5079":
+			return "AcceptEventAction_TriggerLabel";
+		case "5115":
+			return "AcceptEventAction_StereotypeLabel";
+		case "6040":
+			return "AcceptEventAction_FloatingNameLabel";
+		case "3064":
+			return "OutputPin_AcceptEventActionResultShape";
+		case "5077":
+			return "OutputPin_AcceptEventActionResultNameLabel";
+		case "5114":
+			return "OutputPin_AcceptEventActionResultStereotypeLabel";
+		case "3076":
+			return "ValueSpecificationAction_Shape";
+		case "5126":
+			return "ValueSpecificationAction_NameLabel";
+		case "6026":
+			return "ValueSpecificationAction_FloatingNameLabel";
+		case "3077":
+			return "OutputPin_ValueSpecificationActionResultShape";
+		case "5124":
+			return "OutputPin_ValueSpecificationActionResultNameLabel";
+		case "5125":
+			return "OutputPin_ValueSpecificationActionResultStereotypeLabel";
+		case "3069":
+			return "ConditionalNode_Shape";
+		case "5119":
+			return "ConditionalNode_KeywordLabel";
+		case "3070":
+			return "ExpansionRegion_Shape";
+		case "5120":
+			return "ExpansionRegion_KeywordLabel";
+		case "3074":
+			return "ExpansionNode_InputShape";
+		case "3075":
+			return "ExpansionNode_OutputShape";
+		case "3071":
+			return "LoopNode_Shape";
+		case "5121":
+			return "LoopNode_KeywordLabel";
+		case "3105":
+			return "InputPin_LoopNodeVariableInputShape";
+		case "5178":
+			return "InputPin_LoopNodeVariableInputNameLabel";
+		case "5179":
+			return "InputPin_LoopNodeVariableInputStereotypeLabel";
+		case "3192":
+			return "ValuePin_LoopNodeVariableInputShape";
+		case "5388":
+			return "ValuePin_LoopNodeVariableInputNameLabel";
+		case "5389":
+			return "ValuePin_LoopNodeVariableInputValueLabel";
+		case "5390":
+			return "ValuePin_LoopNodeVariableInputStereotypeLabel";
+		case "3193":
+			return "ActionInputPin_LoopNodeVariableInputShape";
+		case "5391":
+			return "ActionInputPin_LoopNodeVariableInputNameLabel";
+		case "5392":
+			return "ActionInputPin_LoopNodeVariableInputValueLabel";
+		case "5393":
+			return "ActionInputPin_LoopNodeVariableInputStereotypeLabel";
+		case "3109":
+			return "OutputPin_LoopNodeBodyOutputShape";
+		case "5184":
+			return "OutputPin_LoopNodeBodyOutputNameLabel";
+		case "5185":
+			return "OutputPin_LoopNodeBodyOutputStereotypeLabel";
+		case "3110":
+			return "OutputPin_LoopNodeVariableShape";
+		case "5186":
+			return "OutputPin_LoopNodeVariableNameLabel";
+		case "5183":
+			return "OutputPin_LoopNodeVariableStereotypeLabel";
+		case "3111":
+			return "OutputPin_LoopNodeResultShape";
+		case "5187":
+			return "OutputPin_LoopNodeResultNameLabel";
+		case "5188":
+			return "OutputPin_LoopNodeResultStereotypeLabel";
+		case "3073":
+			return "SequenceNode_Shape";
+		case "5123":
+			return "SequenceNode_KeywordLabel";
+		case "3065":
+			return "StructuredActivityNode_Shape";
+		case "5117":
+			return "StructuredActivityNode_KeywordLabel";
+		case "3188":
+			return "InputPin_StructuredActivityNodeInputShape";
+		case "5377":
+			return "InputPin_StructuredActivityNodeInputNameLabel";
+		case "5378":
+			return "InputPin_StructuredActivityNodeInputStereotypeLabel";
+		case "3189":
+			return "ValuePin_StructuredActivityNodeInputShape";
+		case "5379":
+			return "ValuePin_StructuredActivityNodeInputNameLabel";
+		case "5380":
+			return "ValuePin_StructuredActivityNodeInputValueLabel";
+		case "5381":
+			return "ValuePin_StructuredActivityNodeInputStereotypeLabel";
+		case "3190":
+			return "ActionInputPin_StructuredActivityNodeInputShape";
+		case "5382":
+			return "ActionInputPin_StructuredActivityNodeInputNameLabel";
+		case "5383":
+			return "ActionInputPin_StructuredActivityNodeInputValueLabel";
+		case "5384":
+			return "ActionInputPin_StructuredActivityNodeInputStereotypeLabel";
+		case "3191":
+			return "OutputPin_StructuredActivityNodeOutputShape";
+		case "5385":
+			return "OutputPin_StructuredActivityNodeOutputNameLabel";
+		case "5386":
+			return "OutputPin_StructuredActivityNodeOutputStereotypeLabel";
+		case "3067":
+			return "ActivityPartition_Shape";
+		case "5118":
+			return "ActivityPartition_NameLabel";
+		case "6016":
+			return "ActivityPartition_FloatingNameLabel";
+		case "3068":
+			return "InterruptibleActivityRegion_Shape";
+		case "3080":
+			return "Comment_Shape";
+		case "5138":
+			return "Comment_BodyLabel";
+		case "3081":
+			return "ReadSelfAction_Shape";
+		case "5139":
+			return "ReadSelfAction_NameLabel";
+		case "6025":
+			return "ReadSelfAction_FloatingNameLabel";
+		case "3084":
+			return "OutputPin_ReadSelfActionResultShape";
+		case "5144":
+			return "OutputPin_ReadSelfActionResultNameLabel";
+		case "5145":
+			return "OutputPin_ReadSelfActionResultStereotypeLabel";
+		case "3083":
+			return "Activity_Shape_CN";
+		case "5142":
+			return "Activity_NameLabel_CN";
+		case "5143":
+			return "Activity_KeywordLabel_CN";
+		case "3086":
+			return "CreateObjectAction_Shape";
+		case "5148":
+			return "CreateObjectAction_NameLabel";
+		case "6024":
+			return "CreateObjectAction_FloatingNameLabel";
+		case "3087":
+			return "OutputPin_CreateObjectActionResultShape";
+		case "5146":
+			return "OutputPin_CreateObjectActionResultNameLabel";
+		case "5147":
+			return "OutputPin_CreateObjectActionResultStereotypeLabel";
+		case "3085":
+			return "NamedElement_DefaultShape";
+		case "5129":
+			return "NamedElement_NameLabel";
+		case "3088":
+			return "ReadStructuralFeatureAction_Shape";
+		case "5153":
+			return "ReadStructuralFeatureAction_NameLabel";
+		case "6023":
+			return "ReadStructuralFeatureAction_FloatingNameLabel";
+		case "3089":
+			return "InputPin_ReadStructuralFeatureActionObjectShape";
+		case "5149":
+			return "InputPin_ReadStructuralFeatureActionObjectNameLabel";
+		case "5150":
+			return "InputPin_ReadStructuralFeatureActionObjectStereotypeLabel";
+		case "3203":
+			return "ValuePin_ReadStructuralFeatureActionObjectShape";
+		case "5420":
+			return "ValuePin_ReadStructuralFeatureActionObjectNameLabel";
+		case "5421":
+			return "ValuePin_ReadStructuralFeatureActionObjectValueLabel";
+		case "5422":
+			return "ValuePin_ReadStructuralFeatureActionObjectStereotypeLabel";
+		case "3204":
+			return "ActionInputPin_ReadStructuralFeatureActionObjectShape";
+		case "5423":
+			return "ActionInputPin_ReadStructuralFeatureActionObjectNameLabel";
+		case "5419":
+			return "ActionInputPin_ReadStructuralFeatureActionObjectValueLabel";
+		case "5418":
+			return "ActionInputPin_ReadStructuralFeatureActionObjectStereotypeLabel";
+		case "3090":
+			return "OutputPin_ReadStructuralFeatureActionResultShape";
+		case "5151":
+			return "OutputPin_ReadStructuralFeatureActionResultNameLabel";
+		case "5152":
+			return "OutputPin_ReadStructuralFeatureActionResultStereotypeLabel";
+		case "3091":
+			return "AddStructuralFeatureValueAction_Shape";
+		case "5160":
+			return "AddStructuralFeatureValueAction_NameLabel";
+		case "6019":
+			return "AddStructuralFeatureValueAction_FloatingNameLabel";
+		case "3092":
+			return "InputPin_AddStructuralFeatureValueActionObjectShape";
+		case "5154":
+			return "InputPin_AddStructuralFeatureValueActionObjectNameLabel";
+		case "5155":
+			return "InputPin_AddStructuralFeatureValueActionObjectStereotypeLabel";
+		case "3093":
+			return "InputPin_AddStructuralFeatureValueActionValueShape";
+		case "5156":
+			return "InputPin_AddStructuralFeatureValueActionValueNameLabel";
+		case "5157":
+			return "InputPin_AddStructuralFeatureValueActionValueStereotypeLabel";
+		case "3181":
+			return "InputPin_AddStructuralFeatureValueActionInsertAtShape";
+		case "5357":
+			return "InputPin_AddStructuralFeatureValueActionInsertAtNameLabel";
+		case "5358":
+			return "InputPin_AddStructuralFeatureValueActionInsertAtStereotypeLabel";
+		case "3182":
+			return "ValuePin_AddStructuralFeatureValueActionObjectShape";
+		case "5359":
+			return "ValuePin_AddStructuralFeatureValueActionObjectNameLabel";
+		case "5360":
+			return "ValuePin_AddStructuralFeatureValueActionObjectValueLabel";
+		case "5361":
+			return "ValuePin_AddStructuralFeatureValueActionObjectStereotypeLabel";
+		case "3183":
+			return "ValuePin_AddStructuralFeatureValueActionValueShape";
+		case "5362":
+			return "ValuePin_AddStructuralFeatureValueActionValueNameLabel";
+		case "5363":
+			return "ValuePin_AddStructuralFeatureValueActionValueValueLabel";
+		case "5364":
+			return "ValuePin_AddStructuralFeatureValueActionValueStereotypeLabel";
+		case "3184":
+			return "ValuePin_AddStructuralFeatureValueActionInsertAtShape";
+		case "5365":
+			return "ValuePin_AddStructuralFeatureValueActionInsertAtNameLabel";
+		case "5366":
+			return "ValuePin_AddStructuralFeatureValueActionInsertAtValueLabel";
+		case "5367":
+			return "ValuePin_AddStructuralFeatureValueActionInsertAtStereotypeLabel";
+		case "3185":
+			return "ActionInputPin_AddStructuralFeatureValueActionObjectShape";
+		case "5368":
+			return "ActionInputPin_AddStructuralFeatureValueActionObjectNameLabel";
+		case "5369":
+			return "ActionInputPin_AddStructuralFeatureValueActionObjectValueLabel";
+		case "5370":
+			return "ActionInputPin_AddStructuralFeatureValueActionObjectStereotypeLabel";
+		case "3186":
+			return "ActionInputPin_AddStructuralFeatureValueActionValueShape";
+		case "5371":
+			return "ActionInputPin_AddStructuralFeatureValueActionValueNameLabel";
+		case "5372":
+			return "ActionInputPin_AddStructuralFeatureValueActionValueValueLabel";
+		case "5373":
+			return "ActionInputPin_AddStructuralFeatureValueActionValueStereotypeLabel";
+		case "3187":
+			return "ActionInputPin_AddStructuralFeatureValueActionInsertAtShape";
+		case "5374":
+			return "ActionInputPin_AddStructuralFeatureValueActionInsertAtNameLabel";
+		case "5375":
+			return "ActionInputPin_AddStructuralFeatureValueActionInsertAtValueLabel";
+		case "5376":
+			return "ActionInputPin_AddStructuralFeatureValueActionInsertAtStereotypeLabel";
+		case "3094":
+			return "OutputPin_AddStructuralFeatureValueActionResultShape";
+		case "5158":
+			return "OutputPin_AddStructuralFeatureValueActionResultNameLabel";
+		case "5159":
+			return "OutputPin_AddStructuralFeatureValueActionResultStereotypeLabel";
+		case "3095":
+			return "DestroyObjectAction_Shape";
+		case "5163":
+			return "DestroyObjectAction_NameLabel";
+		case "6022":
+			return "DestroyObjectAction_FloatingNameLabel";
+		case "3096":
+			return "InputPin_DestroyObjectActionTargetShape";
+		case "5161":
+			return "InputPin_DestroyObjectActionTargetNameLabel";
+		case "5162":
+			return "InputPin_DestroyObjectActionTargetStereotypeLabel";
+		case "3173":
+			return "ValuePin_DestroyObjectActionTargetShape";
+		case "5332":
+			return "ValuePin_DestroyObjectActionTargetNameLabel";
+		case "5333":
+			return "ValuePin_DestroyObjectActionTargetValueLabel";
+		case "5334":
+			return "ValuePin_DestroyObjectActionTargetStereotypeLabel";
+		case "3174":
+			return "ActionInputPin_DestroyObjectActionTargetShape";
+		case "5335":
+			return "ActionInputPin_DestroyObjectActionTargetNameLabel";
+		case "5336":
+			return "ActionInputPin_DestroyObjectActionTargetValueLabel";
+		case "5337":
+			return "ActionInputPin_DestroyObjectActionTargetStereotypeLabel";
+		case "3097":
+			return "ReadVariableAction_Shape";
+		case "5166":
+			return "ReadVariableAction_NameLabel";
+		case "6021":
+			return "ReadVariableAction_FloatingNameLabel";
+		case "3098":
+			return "OutputPin_ReadVariableActionResultShape";
+		case "5164":
+			return "OutputPin_ReadVariableActionResultNameLabel";
+		case "5165":
+			return "OutputPin_ReadVariableActionResultStereotypeLabel";
+		case "3099":
+			return "AddVariableValueAction_Shape";
+		case "5171":
+			return "AddVariableValueAction_NameLabel";
+		case "6018":
+			return "AddVariableValueAction_FloatingNameLabel";
+		case "3100":
+			return "InputPin_AddVariableValueActionInsertAtShape";
+		case "5167":
+			return "InputPin_AddVariableValueActionInsertAtNameLabel";
+		case "5168":
+			return "InputPin_AddVariableValueActionInsertAtStereotypeLabel";
+		case "3101":
+			return "InputPin_AddVariableValueActionValueShape";
+		case "5169":
+			return "InputPin_AddVariableValueActionValueNameLabel";
+		case "5170":
+			return "InputPin_AddVariableValueActionValueStereotypeLabel";
+		case "3175":
+			return "ValuePin_AddVariableValueActionInsertAtShape";
+		case "5350":
+			return "ValuePin_AddVariableValueActionInsertAtNameLabel";
+		case "5339":
+			return "ValuePin_AddVariableValueActionInsertAtValueLabel";
+		case "5340":
+			return "ValuePin_AddVariableValueActionInsertAtStereotypeLabel";
+		case "3176":
+			return "ValuePin_AddVariableValueActionValueShape";
+		case "5341":
+			return "ValuePin_AddVariableValueActionValueNameLabel";
+		case "5342":
+			return "ValuePin_AddVariableValueActionValueValueLabel";
+		case "5343":
+			return "ValuePin_AddVariableValueActionValueStereotypeLabel";
+		case "3177":
+			return "ActionInputPin_AddVariableValueActionInsertAtShape";
+		case "5344":
+			return "ActionInputPin_AddVariableValueActionInsertAtNameLabel";
+		case "5345":
+			return "ActionInputPin_AddVariableValueActionInsertAtValueLabel";
+		case "5346":
+			return "ActionInputPin_AddVariableValueActionInsertAtStereotypeLabel";
+		case "3178":
+			return "ActionInputPin_AddVariableValueActionValueShape";
+		case "5347":
+			return "ActionInputPin_AddVariableValueActionValueNameLabel";
+		case "5348":
+			return "ActionInputPin_AddVariableValueActionValueValueLabel";
+		case "5349":
+			return "ActionInputPin_AddVariableValueActionValueStereotypeLabel";
+		case "3102":
+			return "BroadcastSignalAction_Shape";
+		case "5175":
+			return "BroadcastSignalAction_NameLabel";
+		case "6017":
+			return "BroadcastSignalAction_FloatingNameLabel";
+		case "3103":
+			return "InputPin_BroadcastSignalActionArgumentShape";
+		case "5172":
+			return "InputPin_BroadcastSignalActionArgumentNameLabel";
+		case "5173":
+			return "InputPin_BroadcastSignalActionArgumentValueLabel";
+		case "5174":
+			return "InputPin_BroadcastSignalActionArgumentStereotypeLabel";
+		case "3179":
+			return "ValuePin_BroadcastSignalActionArgumentShape";
+		case "5351":
+			return "ValuePin_BroadcastSignalActionArgumentNameLabel";
+		case "5352":
+			return "ValuePin_BroadcastSignalActionArgumentValueLabel";
+		case "5353":
+			return "ValuePin_BroadcastSignalActionArgumentStereotypeLabel";
+		case "3180":
+			return "ActionInputPin_BroadcastSignalActionArgumentShape";
+		case "5354":
+			return "ActionInputPin_BroadcastSignalActionArgumentNameLabel";
+		case "5355":
+			return "ActionInputPin_BroadcastSignalActionArgumentValueLabel";
+		case "5356":
+			return "ActionInputPin_BroadcastSignalActionArgumentStereotypeLabel";
+		case "3104":
+			return "CentralBufferNode_Shape";
+		case "5176":
+			return "CentralBufferNode_NameLabel";
+		case "5177":
+			return "CentralBufferNode_SelectionLabel";
+		case "6030":
+			return "CentralBufferNode_FloatingNameLabel";
+		case "3112":
+			return "Constraint_Shape";
+		case "5189":
+			return "Constraint_NameLabel";
+		case "5190":
+			return "Constraint_BodyLabel";
+		case "3113":
+			return "StartObjectBehaviorAction_Shape";
+		case "5191":
+			return "StartObjectBehaviorAction_NameLabel";
+		case "5394":
+			return "StartObjectBehaviorAction_FloatingNameLabel";
+		case "3125":
+			return "OutputPin_StartObjectBehaviorActionResultShape";
+		case "5203":
+			return "OutputPin_StartObjectBehaviorActionResultNameLabel";
+		case "5204":
+			return "OutputPin_StartObjectBehaviorActionResultStereotypeLabel";
+		case "3132":
+			return "InputPin_StartObjectBehaviorActionObjectShape";
+		case "5217":
+			return "InputPin_StartObjectBehaviorActionObjectNameLabel";
+		case "5218":
+			return "InputPin_StartObjectBehaviorActionObjectStereotypeLabel";
+		case "3145":
+			return "ValuePin_StartObjectBehaviorActionObjectShape";
+		case "5245":
+			return "ValuePin_StartObjectBehaviorActionObjectNameLabel";
+		case "5246":
+			return "ValuePin_StartObjectBehaviorActionObjectValueLabel";
+		case "5247":
+			return "ValuePin_StartObjectBehaviorActionObjectStereotypeLabel";
+		case "3158":
+			return "ActionInputPin_StartObjectBehaviorActionObjectShape";
+		case "5263":
+			return "ActionInputPin_StartObjectBehaviorActionObjectNameLabel";
+		case "5264":
+			return "ActionInputPin_StartObjectBehaviorActionObjectValueLabel";
+		case "5265":
+			return "ActionInputPin_StartObjectBehaviorActionObjectStereotypeLabel";
+		case "3133":
+			return "InputPin_StartObjectBehaviorActionArgumentShape";
+		case "5219":
+			return "InputPin_StartObjectBehaviorActionArgumentNameLabel";
+		case "5220":
+			return "InputPin_StartObjectBehaviorActionArgumentStereotypeLabel";
+		case "3146":
+			return "ValuePin_StartObjectBehaviorActionArgumentShape";
+		case "5248":
+			return "ValuePin_StartObjectBehaviorActionArgumentNameLabel";
+		case "5249":
+			return "ValuePin_StartObjectBehaviorActionArgumentValueLabel";
+		case "5250":
+			return "ValuePin_StartObjectBehaviorActionArgumentStereotypeLabel";
+		case "3159":
+			return "ActionInputPin_StartObjectBehaviorActionArgumentShape";
+		case "5266":
+			return "ActionInputPin_StartObjectBehaviorActionArgumentNameLabel";
+		case "5267":
+			return "ActionInputPin_StartObjectBehaviorActionArgumentValueLabel";
+		case "5268":
+			return "ActionInputPin_StartObjectBehaviorActionArgumentStereotypeLabel";
+		case "3114":
+			return "TestIdentityAction_Shape";
+		case "5192":
+			return "TestIdentityAction_NameLabel";
+		case "5395":
+			return "TestIdentityAction_FloatingNameLabel";
+		case "3126":
+			return "OutputPin_TestIdentityActionResultShape";
+		case "5205":
+			return "OutputPin_TestIdentityActionResultNameLabel";
+		case "5206":
+			return "OutputPin_TestIdentityActionResultStereotypeLabel";
+		case "3134":
+			return "InputPin_TestIdentityActionFirstShape";
+		case "5221":
+			return "InputPin_TestIdentityActionFirstNameLabel";
+		case "5222":
+			return "InputPin_TestIdentityActionFirstStereotypeLabel";
+		case "3135":
+			return "InputPin_TestIdentityActionSecondShape";
+		case "5223":
+			return "InputPin_TestIdentityActionSecondNameLabel";
+		case "5224":
+			return "InputPin_TestIdentityActionSecondStereotypeLabel";
+		case "3147":
+			return "ValuePin_TestIdentityActionFirstShape";
+		case "5251":
+			return "ValuePin_TestIdentityActionFirstNameLabel";
+		case "5252":
+			return "ValuePin_TestIdentityActionFirstValueLabel";
+		case "5253":
+			return "ValuePin_TestIdentityActionFirstStereotypeLabel";
+		case "3148":
+			return "ValuePin_TestIdentityActionSecondShape";
+		case "5254":
+			return "ValuePin_TestIdentityActionSecondNameLabel";
+		case "5255":
+			return "ValuePin_TestIdentityActionSecondValueLabel";
+		case "5256":
+			return "ValuePin_TestIdentityActionSecondStereotypeLabel";
+		case "3160":
+			return "ActionInputPin_TestIdentityActionFirstShape";
+		case "5269":
+			return "ActionInputPin_TestIdentityActionFirstNameLabel";
+		case "5270":
+			return "ActionInputPin_TestIdentityActionFirstValueLabel";
+		case "5271":
+			return "ActionInputPin_TestIdentityActionFirstStereotypeLabel";
+		case "3161":
+			return "ActionInputPin_TestIdentityActionSecondShape";
+		case "5272":
+			return "ActionInputPin_TestIdentityActionSecondNameLabel";
+		case "5273":
+			return "ActionInputPin_TestIdentityActionSecondValueLabel";
+		case "5274":
+			return "ActionInputPin_TestIdentityActionSecondStereotypeLabel";
+		case "3115":
+			return "ClearStructuralFeatureAction_Shape";
+		case "5193":
+			return "ClearStructuralFeatureAction_NameLabel";
+		case "5396":
+			return "ClearStructuralFeatureAction_FloatingNameLabel";
+		case "3127":
+			return "OutputPin_ClearStructuralFeatureActionResultShape";
+		case "5207":
+			return "OutputPin_ClearStructuralFeatureActionResultNameLabel";
+		case "5208":
+			return "OutputPin_ClearStructuralFeatureActionResultStereotypeLabel";
+		case "3136":
+			return "InputPin_ClearStructuralFeatureActionObjectShape";
+		case "5225":
+			return "InputPin_ClearStructuralFeatureActionObjectNameLabel";
+		case "5226":
+			return "InputPin_ClearStructuralFeatureActionObjectStereotypeLabel";
+		case "3149":
+			return "ValuePin_ClearStructuralFeatureActionObjectShape";
+		case "5260":
+			return "ValuePin_ClearStructuralFeatureActionObjectNameLabel";
+		case "5261":
+			return "ValuePin_ClearStructuralFeatureActionObjectValueLabel";
+		case "5262":
+			return "ValuePin_ClearStructuralFeatureActionObjectStereotypeLabel";
+		case "3162":
+			return "ActionInputPin_ClearStructuralFeatureActionObjectShape";
+		case "5275":
+			return "ActionInputPin_ClearStructuralFeatureActionObjectNameLabel";
+		case "5276":
+			return "ActionInputPin_ClearStructuralFeatureActionObjectValueLabel";
+		case "5277":
+			return "ActionInputPin_ClearStructuralFeatureActionObjectStereotypeLabel";
+		case "3117":
+			return "CreateLinkAction_Shape";
+		case "5195":
+			return "CreateLinkAction_NameLabel";
+		case "5397":
+			return "CreateLinkAction_FloatingNameLabel";
+		case "3137":
+			return "InputPin_CreateLinkActionInputShape";
+		case "5227":
+			return "InputPin_CreateLinkActionInputNameLabel";
+		case "5228":
+			return "InputPin_CreateLinkActionInputStereotypeLabel";
+		case "3151":
+			return "ValuePin_CreateLinkActionInputShape";
+		case "5281":
+			return "ValuePin_CreateLinkActionInputNameLabel";
+		case "5282":
+			return "ValuePin_CreateLinkActionInputValueLabel";
+		case "5283":
+			return "ValuePin_CreateLinkActionInputStereotypeLabel";
+		case "3163":
+			return "ActionInputPin_CreateLinkActionInputShape";
+		case "5278":
+			return "ActionInputPin_CreateLinkActionInputNameLabel";
+		case "5279":
+			return "ActionInputPin_CreateLinkActionInputValueLabel";
+		case "5280":
+			return "ActionInputPin_CreateLinkActionInputStereotypeLabel";
+		case "3116":
+			return "ReadLinkAction_Shape";
+		case "5194":
+			return "ReadLinkAction_NameLabel";
+		case "5398":
+			return "ReadLinkAction_FloatingNameLabel";
+		case "3128":
+			return "OutputPin_ReadLinkActionResultShape";
+		case "5209":
+			return "OutputPin_ReadLinkActionResultNameLabel";
+		case "5210":
+			return "OutputPin_ReadLinkActionResultStereotypeLabel";
+		case "3138":
+			return "InputPin_ReadLinkActionInputShape";
+		case "5229":
+			return "InputPin_ReadLinkActionInputNameLabel";
+		case "5230":
+			return "InputPin_ReadLinkActionInputStereotypeLabel";
+		case "3150":
+			return "ValuePin_ReadLinkActionInputShape";
+		case "5287":
+			return "ValuePin_ReadLinkActionInputNameLabel";
+		case "5288":
+			return "ValuePin_ReadLinkActionInputValueLabel";
+		case "5289":
+			return "ValuePin_ReadLinkActionInputStereotypeLabel";
+		case "3164":
+			return "ActionInputPin_ReadLinkActionInputShape";
+		case "5284":
+			return "ActionInputPin_ReadLinkActionInputNameLabel";
+		case "5285":
+			return "ActionInputPin_ReadLinkActionInputValueLabel";
+		case "5286":
+			return "ActionInputPin_ReadLinkActionInputStereotypeLabel";
+		case "3118":
+			return "DestroyLinkAction_Shape";
+		case "5196":
+			return "DestroyLinkAction_NameLabel";
+		case "5399":
+			return "DestroyLinkAction_FloatingNameLabel";
+		case "3139":
+			return "InputPin_DestroyLinkActionInputShape";
+		case "5231":
+			return "InputPin_DestroyLinkActionInputNameLabel";
+		case "5232":
+			return "InputPin_DestroyLinkActionInputStereotypeLabel";
+		case "3152":
+			return "ValuePin_DestroyLinkActionInputShape";
+		case "5290":
+			return "ValuePin_DestroyLinkActionInputNameLabel";
+		case "5291":
+			return "ValuePin_DestroyLinkActionInputValueLabel";
+		case "5292":
+			return "ValuePin_DestroyLinkActionInputStereotypeLabel";
+		case "3165":
+			return "ActionInputPin_DestroyLinkActionInputShape";
+		case "5293":
+			return "ActionInputPin_DestroyLinkActionInputNameLabel";
+		case "5294":
+			return "ActionInputPin_DestroyLinkActionInputValueLabel";
+		case "5295":
+			return "ActionInputPin_DestroyLinkActionInputStereotypeLabel";
+		case "3119":
+			return "ClearAssociationAction_Shape";
+		case "5197":
+			return "ClearAssociationAction_NameLabel";
+		case "5400":
+			return "ClearAssociationAction_FloatingNameLabel";
+		case "3140":
+			return "InputPin_ClearAssociationActionObjectShape";
+		case "5235":
+			return "InputPin_ClearAssociationActionObjectNameLabel";
+		case "5236":
+			return "InputPin_ClearAssociationActionObjectStereotypeLabel";
+		case "3153":
+			return "ValuePin_ClearAssociationActionObjectShape";
+		case "5296":
+			return "ValuePin_ClearAssociationActionObjectNameLabel";
+		case "5297":
+			return "ValuePin_ClearAssociationActionObjectValueLabel";
+		case "5298":
+			return "ValuePin_ClearAssociationActionObjectStereotypeLabel";
+		case "3166":
+			return "ActionInputPin_ClearAssociationActionObjectShape";
+		case "5299":
+			return "ActionInputPin_ClearAssociationActionObjectNameLabel";
+		case "5300":
+			return "ActionInputPin_ClearAssociationActionObjectValueLabel";
+		case "5301":
+			return "ActionInputPin_ClearAssociationActionObjectStereotypeLabel";
+		case "3120":
+			return "ReadExtentAction_Shape";
+		case "5198":
+			return "ReadExtentAction_NameLabel";
+		case "5402":
+			return "ReadExtentAction_FloatingNameLabel";
+		case "3129":
+			return "OutputPin_ReadExtentActionResultShape";
+		case "5211":
+			return "OutputPin_ReadExtentActionResultNameLabel";
+		case "5212":
+			return "OutputPin_ReadExtentActionResultStereotypeLabel";
+		case "3121":
+			return "ReclassifyObjectAction_Shape";
+		case "5199":
+			return "ReclassifyObjectAction_NameLabel";
+		case "5401":
+			return "ReclassifyObjectAction_FloatingNameLabel";
+		case "3141":
+			return "InputPin_ReclassifyObjectActionObjectShape";
+		case "5237":
+			return "InputPin_ReclassifyObjectActionObjectNameLabel";
+		case "5238":
+			return "InputPin_ReclassifyObjectActionObjectStereotypeLabel";
+		case "3154":
+			return "ValuePin_ReclassifyObjectActionObjectShape";
+		case "5302":
+			return "ValuePin_ReclassifyObjectActionObjectNameLabel";
+		case "5303":
+			return "ValuePin_ReclassifyObjectActionObjectValueLabel";
+		case "5304":
+			return "ValuePin_ReclassifyObjectActionObjectStereotypeLabel";
+		case "3167":
+			return "ActionInputPin_ReclassifyObjectActionObjectShape";
+		case "5305":
+			return "ActionInputPin_ReclassifyObjectActionObjectNameLabel";
+		case "5306":
+			return "ActionInputPin_ReclassifyObjectActionObjectValueLabel";
+		case "5307":
+			return "ActionInputPin_ReclassifyObjectActionObjectStereotypeLabel";
+		case "3122":
+			return "ReadIsClassifiedObjectAction_Shape";
+		case "5200":
+			return "ReadIsClassifiedObjectAction_NameLabel";
+		case "5403":
+			return "ReadIsClassifiedObjectAction_FloatingNameLabel";
+		case "3130":
+			return "OutputPin_ReadIsClassifiedObjectActionResultShape";
+		case "5213":
+			return "OutputPin_ReadIsClassifiedObjectActionResultNameLabel";
+		case "5214":
+			return "OutputPin_ReadIsClassifiedObjectActionResultStereotypeLabel";
+		case "3142":
+			return "InputPin_ReadIsClassifiedObjectActionObjectShape";
+		case "5239":
+			return "InputPin_ReadIsClassifiedObjectActionObjectNameLabel";
+		case "5240":
+			return "InputPin_ReadIsClassifiedObjectActionObjectStereotypeLabel";
+		case "3155":
+			return "ValuePin_ReadIsClassifiedObjectActionObjectShape";
+		case "5308":
+			return "ValuePin_ReadIsClassifiedObjectActionObjectNameLabel";
+		case "5309":
+			return "ValuePin_ReadIsClassifiedObjectActionObjectValueLabel";
+		case "5310":
+			return "ValuePin_ReadIsClassifiedObjectActionObjectStereotypeLabel";
+		case "3168":
+			return "ActionInputPin_ReadIsClassifiedObjectActionObjectShape";
+		case "5311":
+			return "ActionInputPin_ReadIsClassifiedObjectActionObjectNameLabel";
+		case "5312":
+			return "ActionInputPin_ReadIsClassifiedObjectActionObjectValueLabel";
+		case "5313":
+			return "ActionInputPin_ReadIsClassifiedObjectActionObjectStereotypeLabel";
+		case "3123":
+			return "ReduceAction_Shape";
+		case "5201":
+			return "ReduceAction_NameLabel";
+		case "5404":
+			return "ReduceAction_FloatingNameLabel";
+		case "3131":
+			return "OutputPin_ReduceActionResultShape";
+		case "5215":
+			return "OutputPin_ReduceActionResultNameLabel";
+		case "5216":
+			return "OutputPin_ReduceActionResultStereotypeLabel";
+		case "3143":
+			return "InputPin_ReduceActionCollectionShape";
+		case "5241":
+			return "InputPin_ReduceActionCollectionNameLabel";
+		case "5242":
+			return "InputPin_ReduceActionCollectionStereotypeLabel";
+		case "3156":
+			return "ValuePin_ReduceActionCollectionShape";
+		case "5314":
+			return "ValuePin_ReduceActionCollectionNameLabel";
+		case "5315":
+			return "ValuePin_ReduceActionCollectionValueLabel";
+		case "5316":
+			return "ValuePin_ReduceActionCollectionStereotypeLabel";
+		case "3169":
+			return "ActionInputPin_ReduceActionCollectionShape";
+		case "5317":
+			return "ActionInputPin_ReduceActionCollectionNameLabel";
+		case "5318":
+			return "ActionInputPin_ReduceActionCollectionValueLabel";
+		case "5319":
+			return "ActionInputPin_ReduceActionCollectionStereotypeLabel";
+		case "3124":
+			return "StartClassifierBehaviorAction_Shape";
+		case "5202":
+			return "StartClassifierBehaviorAction_NameLabel";
+		case "5405":
+			return "StartClassifierBehaviorAction_FloatingNameLabel";
+		case "3144":
+			return "InputPin_StartClassifierBehaviorActionObjectShape";
+		case "5243":
+			return "InputPin_StartClassifierBehaviorActionObjectNameLabel";
+		case "5244":
+			return "InputPin_StartClassifierBehaviorActionObjectStereotypeLabel";
+		case "3157":
+			return "ValuePin_StartClassifierBehaviorActionObjectShape";
+		case "5320":
+			return "ValuePin_StartClassifierBehaviorActionObjectNameLabel";
+		case "5321":
+			return "ValuePin_StartClassifierBehaviorActionObjectValueLabel";
+		case "5322":
+			return "ValuePin_StartClassifierBehaviorActionObjectStereotypeLabel";
+		case "3170":
+			return "ActionInputPin_StartClassifierBehaviorActionObjectShape";
+		case "5323":
+			return "ActionInputPin_StartClassifierBehaviorActionObjectNameLabel";
+		case "5324":
+			return "ActionInputPin_StartClassifierBehaviorActionObjectValueLabel";
+		case "5325":
+			return "ActionInputPin_StartClassifierBehaviorActionObjectStereotypeLabel";
+		case "3198":
+			return "CreateLinkObjectAction_Shape";
+		case "5406":
+			return "CreateLinkObjectAction_NameLabel";
+		case "5407":
+			return "CreateLinkObjectAction_FloatingNameLabel";
+		case "3199":
+			return "InputPin_CreateLinkObjectActionInputShape";
+		case "5408":
+			return "InputPin_CreateLinkObjectActionInputNameLabel";
+		case "5409":
+			return "InputPin_CreateLinkObjectActionInputStereotypeLabel";
+		case "3200":
+			return "ValuePin_CreateLinkObjectActionInputShape";
+		case "5410":
+			return "ValuePin_CreateLinkObjectActionInputNameLabel";
+		case "5411":
+			return "ValuePin_CreateLinkObjectActionInputValueLabel";
+		case "5412":
+			return "ValuePin_CreateLinkObjectActionInputStereotypeLabel";
+		case "3201":
+			return "ActionInputPin_CreateLinkObjectActionInputShape";
+		case "5413":
+			return "ActionInputPin_CreateLinkObjectActionInputNameLabel";
+		case "5414":
+			return "ActionInputPin_CreateLinkObjectActionInputValueLabel";
+		case "5415":
+			return "ActionInputPin_CreateLinkObjectActionInputStereotypeLabel";
+		case "3202":
+			return "OutputPin_CreateLinkObjectActionResultShape";
+		case "5416":
+			return "OutputPin_CreateLinkObjectActionResultNameLabel";
+		case "5417":
+			return "OutputPin_CreateLinkObjectActionResultStereotypeLabel";
+		case "2001":
+			return "Activity_Shape";
+		case "5001":
+			return "Activity_NameLabel";
+		case "5002":
+			return "Activity_KeywordLabel";
+		case "4001":
+			return "Action_LocalPreconditionEdge";
+		case "4002":
+			return "Action_LocalPostconditionEdge";
+		case "4003":
+			return "ObjectFlow_Edge";
+		case "6001":
+			return "ObjectFlow_NameLabel";
+		case "6002":
+			return "ObjectFlow_WeightLabel";
+		case "6005":
+			return "ObjectFlow_SelectionLabel";
+		case "6006":
+			return "ObjectFlow_TransformationLabel";
+		case "6007":
+			return "ObjectFlow_KeywordLabel";
+		case "6008":
+			return "ObjectFlow_GuardLabel";
+		case "6010":
+			return "ObjectFlow_StereotypeLabel";
+		case "6014":
+			return "ObjectFlow_IconLabel";
+		case "4004":
+			return "ControlFlow_Edge";
+		case "6003":
+			return "ControlFlow_NameLabel";
+		case "6004":
+			return "ControlFlow_WeightLabel";
+		case "6009":
+			return "ControlFlow_GuardLabel";
+		case "6011":
+			return "ControlFlow_StereotypeLabel";
+		case "6013":
+			return "ControlFlow_IconLabel";
+		case "4005":
+			return "ExceptionHandler_Edge";
+		case "6012":
+			return "ExceptionHandler_TypeLabel";
+		case "6015":
+			return "ExceptionHandler_IconLabel";
+		case "4006":
+			return "Comment_AnnotatedElementEdge";
+		case "4007":
+			return "Constraint_ConstrainedElementEdge";
+		case "7001":
+			return "Activity_ParameterCompartment";
+		case "7002":
+			return "Activity_PreconditionCompartment";
+		case "7003":
+			return "Activity_PostconditionCompartment";
+		case "7004":
+			return "Activity_ActivityNodeCompartment";
+		case "7008":
+			return "ConditionalNode_ActivityNodeCompartment";
+		case "7009":
+			return "ExpansionRegion_ActivityNodeCompartment";
+		case "7010":
+			return "LoopNode_ActivityNodeCompartment";
+		case "7012":
+			return "SequenceNode_ActivityNodeCompartment";
+		case "7005":
+			return "StructuredActivityNode_ActivityNodeCompartment";
+		case "7006":
+			return "ActivityPartition_ActivityNodeCompartment";
+		case "7007":
+			return "InterruptibleActivityRegion_ActivityNodeCompartment";
+		case "7014":
+			return "Activity_ParameterCompartment_CN";
+		case "7015":
+			return "Activity_PreconditionCompartment_CN";
+		case "7016":
+			return "Activity_PostconditionCompartment_CN";
+		case "7013":
+			return "Activity_ActivityNodeCompartment_CN";
+		default:
+			return defaultGetNewVisualID(oldVisualID);
+		}
+	}
+
+	private static String defaultGetNewVisualID(String oldVisualID) {
+		return oldVisualID;
+	}
+}

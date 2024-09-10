@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Model xmi:id="_2IHXICwWEeeGrqtgh2TERg" name="paletteconfiguration" URI="http://www.eclipse.org/papyrus/diagram/paletteconfiguration/0.8">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_w97OIIvlEeeGyKO2MvkxHA">
+      <importedPackage xmi:type="uml:Model" href="platform:/plugin/org.eclipse.papyrus.infra.filters/model/filters.uml#_u1APUG86EeSumdlFUM6GVw"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2IHXISwWEeeGrqtgh2TERg" name="PaletteConfiguration">
+      <generalization xmi:type="uml:Generalization" xmi:id="_2IHXIiwWEeeGrqtgh2TERg" general="_2IHXKCwWEeeGrqtgh2TERg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXIywWEeeGrqtgh2TERg" name="drawerConfigurations" type="_2IHXOywWEeeGrqtgh2TERg" isOrdered="true" aggregation="composite" association="_2IHXQywWEeeGrqtgh2TERg">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2IHXJCwWEeeGrqtgh2TERg" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXJSwWEeeGrqtgh2TERg" name="requiredProfiles" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2IHXJiwWEeeGrqtgh2TERg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2IHXJywWEeeGrqtgh2TERg" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2IHXKCwWEeeGrqtgh2TERg" name="Configuration" isAbstract="true">
+      <generalization xmi:type="uml:Generalization" xmi:id="_FiTpYIywEeesNNBCp0L8sw">
+        <general xmi:type="uml:Class" href="platform:/plugin/org.eclipse.papyrus.infra.filters/model/filters.uml#_xqfKYIyvEeesNNBCp0L8sw"/>
+      </generalization>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXKSwWEeeGrqtgh2TERg" name="id" visibility="public" isOrdered="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_2IHXKiwWEeeGrqtgh2TERg" annotatedElement="_2IHXKSwWEeeGrqtgh2TERg">
+          <body>unique identifier of the configuration, used by the tool to retrieve the configuration</body>
+        </ownedComment>
+        <ownedComment xmi:type="uml:Comment" xmi:id="_2IgYsCwWEeeGrqtgh2TERg" annotatedElement="_2IHXKSwWEeeGrqtgh2TERg">
+          <body>unique identifier of the configuration, used by the tool to retrieve the configuration</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXKywWEeeGrqtgh2TERg" name="label" visibility="public" isOrdered="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_2IHXLCwWEeeGrqtgh2TERg" annotatedElement="_2IHXKywWEeeGrqtgh2TERg">
+          <body>label of the configuration, used only for display</body>
+        </ownedComment>
+        <ownedComment xmi:type="uml:Comment" xmi:id="_2Ig_wCwWEeeGrqtgh2TERg" annotatedElement="_2IHXKywWEeeGrqtgh2TERg">
+          <body>label of the configuration, used only for display</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXLSwWEeeGrqtgh2TERg" name="description" visibility="public" isOrdered="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_2IHXLiwWEeeGrqtgh2TERg" annotatedElement="_2IHXLSwWEeeGrqtgh2TERg">
+          <body>Description of the configuration.</body>
+        </ownedComment>
+        <ownedComment xmi:type="uml:Comment" xmi:id="_2Ig_wSwWEeeGrqtgh2TERg" annotatedElement="_2IHXLSwWEeeGrqtgh2TERg">
+          <body>Description of the configuration.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2IHXLywWEeeGrqtgh2TERg"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXMCwWEeeGrqtgh2TERg" name="icon" type="_2IHXMiwWEeeGrqtgh2TERg" isOrdered="true" aggregation="composite" association="_2IHXOSwWEeeGrqtgh2TERg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2IHXMSwWEeeGrqtgh2TERg"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2IHXMiwWEeeGrqtgh2TERg" name="IconDescriptor">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_2IHXMywWEeeGrqtgh2TERg" annotatedElement="_2IHXMiwWEeeGrqtgh2TERg">
+        <body>Descriptor for icons, constituted from the bundle ID and the path in the bundle.</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_2Ig_wiwWEeeGrqtgh2TERg" annotatedElement="_2IHXMiwWEeeGrqtgh2TERg">
+        <body>Descriptor for icons, constituted from the bundle ID and the path in the bundle.</body>
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXNCwWEeeGrqtgh2TERg" name="pluginID" visibility="public" isOrdered="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_2IHXNSwWEeeGrqtgh2TERg" annotatedElement="_2IHXNCwWEeeGrqtgh2TERg">
+          <body>ID of the plugin where the icon is located. If not set, the tool will look in the bundle defining the palette.</body>
+        </ownedComment>
+        <ownedComment xmi:type="uml:Comment" xmi:id="_2Ig_wywWEeeGrqtgh2TERg" annotatedElement="_2IHXNCwWEeeGrqtgh2TERg">
+          <body>ID of the plugin where the icon is located. If not set, the tool will look in the bundle defining the palette.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2IHXNiwWEeeGrqtgh2TERg"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXNywWEeeGrqtgh2TERg" name="iconPath" visibility="public" isOrdered="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_2IHXOCwWEeeGrqtgh2TERg" annotatedElement="_2IHXNywWEeeGrqtgh2TERg">
+          <body>Path of the icon in the bundle. </body>
+        </ownedComment>
+        <ownedComment xmi:type="uml:Comment" xmi:id="_2Ig_xCwWEeeGrqtgh2TERg" annotatedElement="_2IHXNywWEeeGrqtgh2TERg">
+          <body>Path of the icon in the bundle. </body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_2IHXOSwWEeeGrqtgh2TERg" memberEnd="_2IHXMCwWEeeGrqtgh2TERg _2IHXOiwWEeeGrqtgh2TERg">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_2IHXOiwWEeeGrqtgh2TERg" type="_2IHXKCwWEeeGrqtgh2TERg" association="_2IHXOSwWEeeGrqtgh2TERg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2IHXOywWEeeGrqtgh2TERg" name="DrawerConfiguration">
+      <generalization xmi:type="uml:Generalization" xmi:id="_2IHXPCwWEeeGrqtgh2TERg" general="_2IHXKCwWEeeGrqtgh2TERg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXPSwWEeeGrqtgh2TERg" name="ownedConfigurations" type="_2IHXPywWEeeGrqtgh2TERg" isOrdered="true" aggregation="composite" association="_2IHXQSwWEeeGrqtgh2TERg">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2IHXPiwWEeeGrqtgh2TERg" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2IHXPywWEeeGrqtgh2TERg" name="ChildConfiguration" isAbstract="true">
+      <generalization xmi:type="uml:Generalization" xmi:id="_2IHXQCwWEeeGrqtgh2TERg" general="_2IHXKCwWEeeGrqtgh2TERg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_2IHXQSwWEeeGrqtgh2TERg" memberEnd="_2IHXPSwWEeeGrqtgh2TERg _2IHXQiwWEeeGrqtgh2TERg">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_2IHXQiwWEeeGrqtgh2TERg" type="_2IHXOywWEeeGrqtgh2TERg" association="_2IHXQSwWEeeGrqtgh2TERg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_2IHXQywWEeeGrqtgh2TERg" memberEnd="_2IHXIywWEeeGrqtgh2TERg _2IHXRCwWEeeGrqtgh2TERg">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_2IHXRCwWEeeGrqtgh2TERg" type="_2IHXISwWEeeGrqtgh2TERg" association="_2IHXQywWEeeGrqtgh2TERg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2IHXRSwWEeeGrqtgh2TERg" name="ToolConfiguration">
+      <generalization xmi:type="uml:Generalization" xmi:id="_2IHXRiwWEeeGrqtgh2TERg" general="_2IH-MSwWEeeGrqtgh2TERg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXRywWEeeGrqtgh2TERg" name="kind" visibility="public" type="_2IH-MywWEeeGrqtgh2TERg" isOrdered="true">
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_2IHXSCwWEeeGrqtgh2TERg" type="_2IH-MywWEeeGrqtgh2TERg" instance="_2IH-NCwWEeeGrqtgh2TERg"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXSSwWEeeGrqtgh2TERg" name="elementDescriptors" type="_2IH-NiwWEeeGrqtgh2TERg" isOrdered="true" aggregation="composite" association="_2IH-PSwWEeeGrqtgh2TERg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2IHXSiwWEeeGrqtgh2TERg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2IHXSywWEeeGrqtgh2TERg" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IHXTCwWEeeGrqtgh2TERg" name="toolClassName" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2IH-MCwWEeeGrqtgh2TERg"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2IH-MSwWEeeGrqtgh2TERg" name="LeafConfiguration" isAbstract="true">
+      <generalization xmi:type="uml:Generalization" xmi:id="_2IH-MiwWEeeGrqtgh2TERg" general="_2IHXPywWEeeGrqtgh2TERg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_2IH-MywWEeeGrqtgh2TERg" name="ToolKind">
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_2IH-NCwWEeeGrqtgh2TERg" name="CreationTool"/>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_2IH-NSwWEeeGrqtgh2TERg" name="ConnectionTool"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2IH-NiwWEeeGrqtgh2TERg" name="ElementDescriptor">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IH-NywWEeeGrqtgh2TERg" name="graphicalHints" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2IH-OCwWEeeGrqtgh2TERg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2IH-OSwWEeeGrqtgh2TERg" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IH-OiwWEeeGrqtgh2TERg" name="elementType" association="_2IH-OywWEeeGrqtgh2TERg">
+        <type xmi:type="uml:Class" href="platform:/plugin/org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.uml#_VkhwQhLoEeeDV7UHoBIkeA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_2IH-OywWEeeGrqtgh2TERg" memberEnd="_2IH-OiwWEeeGrqtgh2TERg _2IH-PCwWEeeGrqtgh2TERg">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_2IH-PCwWEeeGrqtgh2TERg" type="_2IH-NiwWEeeGrqtgh2TERg" association="_2IH-OywWEeeGrqtgh2TERg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_2IH-PSwWEeeGrqtgh2TERg" memberEnd="_2IHXSSwWEeeGrqtgh2TERg _2IH-PiwWEeeGrqtgh2TERg">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_2IH-PiwWEeeGrqtgh2TERg" type="_2IHXRSwWEeeGrqtgh2TERg" association="_2IH-PSwWEeeGrqtgh2TERg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2IH-PywWEeeGrqtgh2TERg" name="StackConfiguration">
+      <generalization xmi:type="uml:Generalization" xmi:id="_2IH-QCwWEeeGrqtgh2TERg" general="_2IHXPywWEeeGrqtgh2TERg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2IH-QSwWEeeGrqtgh2TERg" name="ownedConfigurations" type="_2IH-MSwWEeeGrqtgh2TERg" isOrdered="true" aggregation="composite" association="_2IH-QywWEeeGrqtgh2TERg">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2IH-QiwWEeeGrqtgh2TERg" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_2IH-QywWEeeGrqtgh2TERg" memberEnd="_2IH-QSwWEeeGrqtgh2TERg _2IH-RCwWEeeGrqtgh2TERg">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_2IH-RCwWEeeGrqtgh2TERg" type="_2IH-PywWEeeGrqtgh2TERg" association="_2IH-QywWEeeGrqtgh2TERg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2IH-RSwWEeeGrqtgh2TERg" name="SeparatorConfiguration">
+      <generalization xmi:type="uml:Generalization" xmi:id="_2IH-RiwWEeeGrqtgh2TERg" general="_2IH-MSwWEeeGrqtgh2TERg"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_2IH-RywWEeeGrqtgh2TERg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2IH-SCwWEeeGrqtgh2TERg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <Ecore:EPackage xmi:id="_2IH-SSwWEeeGrqtgh2TERg" base_Package="_2IHXICwWEeeGrqtgh2TERg" nsPrefix="paletteconfiguration" basePackage="org.eclipse.papyrus.infra.gmfdiag"/>
+  <Ecore:EClass xmi:id="_2IH-SiwWEeeGrqtgh2TERg" base_Class="_2IHXISwWEeeGrqtgh2TERg"/>
+  <Ecore:EReference xmi:id="_2IH-SywWEeeGrqtgh2TERg" base_Property="_2IHXIywWEeeGrqtgh2TERg"/>
+  <Ecore:EClass xmi:id="_2IH-TCwWEeeGrqtgh2TERg" base_Class="_2IHXKCwWEeeGrqtgh2TERg"/>
+  <Ecore:EReference xmi:id="_2IH-TSwWEeeGrqtgh2TERg" base_Property="_2IHXMCwWEeeGrqtgh2TERg"/>
+  <Ecore:EClass xmi:id="_2IH-TiwWEeeGrqtgh2TERg" base_Class="_2IHXMiwWEeeGrqtgh2TERg"/>
+  <Ecore:EClass xmi:id="_2IH-TywWEeeGrqtgh2TERg" base_Class="_2IHXOywWEeeGrqtgh2TERg"/>
+  <Ecore:EReference xmi:id="_2IH-UCwWEeeGrqtgh2TERg" base_Property="_2IHXPSwWEeeGrqtgh2TERg"/>
+  <Ecore:EClass xmi:id="_2IH-USwWEeeGrqtgh2TERg" base_Class="_2IHXPywWEeeGrqtgh2TERg"/>
+  <Ecore:EClass xmi:id="_2IH-UiwWEeeGrqtgh2TERg" base_Class="_2IHXRSwWEeeGrqtgh2TERg"/>
+  <Ecore:EReference xmi:id="_2IH-UywWEeeGrqtgh2TERg" base_Property="_2IHXSSwWEeeGrqtgh2TERg"/>
+  <Ecore:EClass xmi:id="_2IIlQCwWEeeGrqtgh2TERg" base_Class="_2IH-MSwWEeeGrqtgh2TERg"/>
+  <Ecore:EEnum xmi:id="_2IIlQSwWEeeGrqtgh2TERg" base_Enumeration="_2IH-MywWEeeGrqtgh2TERg"/>
+  <Ecore:EEnumLiteral xmi:id="_2IIlQiwWEeeGrqtgh2TERg" base_EnumerationLiteral="_2IH-NCwWEeeGrqtgh2TERg" literal="CreationTool"/>
+  <Ecore:EEnumLiteral xmi:id="_2IIlQywWEeeGrqtgh2TERg" base_EnumerationLiteral="_2IH-NSwWEeeGrqtgh2TERg" literal="ConnectionTool"/>
+  <Ecore:EClass xmi:id="_2IIlRCwWEeeGrqtgh2TERg" base_Class="_2IH-NiwWEeeGrqtgh2TERg"/>
+  <Ecore:EReference xmi:id="_2IIlRSwWEeeGrqtgh2TERg" base_Property="_2IH-OiwWEeeGrqtgh2TERg"/>
+  <Ecore:EClass xmi:id="_2IIlRiwWEeeGrqtgh2TERg" base_Class="_2IH-PywWEeeGrqtgh2TERg"/>
+  <Ecore:EReference xmi:id="_2IIlRywWEeeGrqtgh2TERg" base_Property="_2IH-QSwWEeeGrqtgh2TERg"/>
+  <Ecore:EClass xmi:id="_2IIlSCwWEeeGrqtgh2TERg" base_Class="_2IH-RSwWEeeGrqtgh2TERg"/>
+</xmi:XMI>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite
+	xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns:x="http://www.eclipse.org/xwt"
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns:gmf="clr-namespace:org.eclipse.papyrus.infra.gmfdiag.widgets.editors"
+	xmlns="http://www.eclipse.org/xwt/presentation"
+	xmlns:lay="clr-namespace:org.eclipse.papyrus.infra.gmfdiag.properties.layout">
+	<Composite.layout>
+		<GridLayout></GridLayout>
+	</Composite.layout>
+	<ppe:StringCombo input="{Binding}"
+		property="GenericShape:PortCustomisation:portPosition"></ppe:StringCombo>
+	<Composite>
+		<Composite.layout>
+			<RowLayout></RowLayout>
+		</Composite.layout>
+		<Group text="Shape">
+			<Group.layout>
+				<ppel:PropertiesLayout></ppel:PropertiesLayout>
+			</Group.layout>
+			<Composite>
+				<Composite.layout>
+					<RowLayout></RowLayout>
+				</Composite.layout>
+				<ppe:BooleanCheckbox input="{Binding}"
+					property="GenericShape:ShapeCustomisation:isOval"></ppe:BooleanCheckbox>
+			</Composite>
+			<ppe:IntegerEditor input="{Binding}"
+				property="GenericShape:ShapeCustomisation:radiusWidth"></ppe:IntegerEditor>
+			<ppe:IntegerEditor input="{Binding}"
+				property="GenericShape:ShapeCustomisation:radiusHeight"></ppe:IntegerEditor>
+			<ppe:StringCombo input="{Binding}"
+				property="GenericShape:ShapeCustomisation:borderStyle"></ppe:StringCombo>
+			<ppe:MultiString input="{Binding}"
+				property="GenericShape:ShapeCustomisation:customDash"></ppe:MultiString>
+		</Group>
+		<Group text="Shadow">
+			<Group.layout>
+				<ppel:PropertiesLayout></ppel:PropertiesLayout>
+			</Group.layout>
+			<ppe:BooleanCheckbox input="{Binding}"
+				property="UMLNotation:Shadow:shadow"></ppe:BooleanCheckbox>
+			<ppe:IntegerEditor input="{Binding}"
+				property="GenericShape:ShadowCustomisation:shadowWidth"></ppe:IntegerEditor>
+			<gmf:XWTAwareStringColorPicker
+				property="GenericShape:ShadowCustomisation:shadowColor" input="{Binding}"></gmf:XWTAwareStringColorPicker>
+		</Group>
+	</Composite>
+</Composite>

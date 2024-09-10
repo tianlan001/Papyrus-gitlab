@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.papyrus.tests</groupId>
+		<artifactId>org.eclipse.papyrus.plugins.tests.releng</artifactId>
+		<version>7.0.0-SNAPSHOT</version>
+	</parent>
+	<groupId>org.eclipse.papyrus.tests</groupId>
+	<artifactId>org.eclipse.papyrus.toolsmiths.tests.releng</artifactId>
+	<version>7.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<!-- Suites -->
+		<module>org.eclipse.papyrus.toolsmiths.suite.tests</module>
+
+		<module>org.eclipse.papyrus.toolsmiths.validation.common.tests</module>
+		<module>org.eclipse.papyrus.toolsmiths.profilemigration.tests</module>
+		<module>org.eclipse.papyrus.toolsmiths.validation.profile.tests</module>
+		<module>org.eclipse.papyrus.toolsmiths.validation.elementtypes.tests</module>
+		<module>org.eclipse.papyrus.toolsmiths.validation.architecture.tests</module>
+		<module>org.eclipse.papyrus.toolsmiths.validation.newchild.tests</module>
+		<module>org.eclipse.papyrus.toolsmiths.validation.properties.tests</module>
+	</modules>
+
+</project>

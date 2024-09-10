@@ -1,0 +1,213 @@
+== Papyrus Oxygen API Migration Guide ==
+
+This document provides a guide to migrating applications that extend Papyrus to the new Oxygen version APIs.
+
+== API Evolution Report ==
+
+An API Evolution Report is generated for "Neon to Oxygen" and it is available here: [https://hudson.eclipse.org/papyrus/job/Papyrus-Master-Developer/lastSuccessfulBuild/artifact/apireports/html/api.html API Evolution Report]
+
+== Infra Layer ==
+=== Deprecated code ===
+Following deprecated types have been removed: 
+{| class="wikitable" border="1" cellspacing="0"
+!width="50%"| Deprectated Types
+!width="49%"| New Types
+|-
+|<code>org.eclipse.papyrus.infra.emf.readonly.AbstractReadOnlyHandler</code>
+|<code>org.eclipse.papyrus.infra.core.resource.AbstractReadOnlyHandler</code>
+|-
+|<code>org.eclipse.papyrus.commands.NotifyingWorkspaceCommandStack</code>
+|<code>org.eclipse.papyrus.infra.emf.gmf.command.NotifyingWorkspaceCommandStack</code>
+|-
+|<code>org.eclipse.papyrus.commands.wrappers.EMFtoGMFCommandWrapper</code>
+|<code>org.eclipse.papyrus.infra.emf.gmf.command.EMFtoGMFCommandWrapper</code>
+|-
+|<code>org.eclipse.papyrus.commands.wrappers.GMFtoEMFCommandWrapper</code>
+|<code>org.eclipse.papyrus.infra.emf.gmf.command.GMFtoEMFCommandWrapper</code>
+|-
+|<code>org.eclipse.papyrus.infra.gmfdiag.common.utils.GMFUnsafe</code>
+|<code>org.eclipse.papyrus.infra.emf.gmf.util.GMFUnsafe</code>
+|-
+|<code>org.eclipse.papyrus.infra.gmfdiag.preferences.pages.AbstractPapyrusPreferencePage</code>
+|<code>org.eclipse.papyrus.infra.ui.preferences.AbstractPapyrusPreferencePage</code>
+|-
+|<code>org.eclipse.papyrus.uml.diagram.common.util.MDTUtil</code>
+|<code>org.eclipse.papyrus.infra.gmfdiag.common.utils.MDTUtil</code>
+|}
+
+=== ElementTypesConfiguration Framework ===
+
+==== ElementTypesConfiguration Metamodel Changes ====
+
+The metamodel for the ElementTypesConfigurations has been changed to use model-based defintion of specialization relationships among elementtypes and advice ordering specification.
+Although these changes don't change the underlying concepts of the elementtypesconfigurations and their extensions, they impact the <code>*.elementtypesconfigurations</code> models created with this metamodel.
+
+You'll find all the details of the changes below. A little developer tool has been developed to assist the migration in the <code>org.eclipse.papyrus.types.dev</code> plugin (namely: <code>org.eclipse.papyrus.dev.types.handlers.MigrateSpecializations</code>). Note that if there are specializations of elementtypes coming from multiple files, you must select all the files to migrate. 
+
+'''Migration of the NsURI'''
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="50%"| Old Namespace URI
+!width="49%"| New Namespace URI
+|-
+| <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1</code>
+| <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2</code>
+|}
+
+'''Migration of the SpecializationTypeConfiguration'''
+
+The <code>specializedTypesID</code> attribute of <code>org.eclipse.papyrus.infra.types.SpecializationTypeConfiguration</code> is now <code>specializedTypes</code>. Instead of being a list of String-based identifiers of elementtypes, developers can now reference to the <code>org.eclipse.papyrus.infra.types.ElementTypeConfiguration</code> to specialize at a model level directly. 
+
+Should the elementtype to reference be already defined using the extension point mechanism, developers may use an <code>org.eclipse.papyrus.infra.types.ExternallyRegisteredType</code> to have a model element that is a "proxy" to the extension point definition. 
+
+'''Migration of the AdviceConfiguration'''
+
+The <code>before</code> and <code>after</code> attributes of <code>org.eclipse.papyrus.infra.types.AdviceConfiguration</code> are now  lists of <code>org.eclipse.papyrus.infra.types.AdviceConfiguration</code> instead of being lists of String-based qualified names of Java classes implementing <code>org.eclipse.gmf.runtime.emf.type.core.edithelper.IEditHelperAdvice</code>. Developers can now reference to the <code>org.eclipse.papyrus.infra.types.AdviceConfiguration</code> to force advice execution order at a model level directly. 
+
+Should the advice to reference be already defined using the extension point mechanism, developers may use an <code>org.eclipse.papyrus.infra.types.ExternallyRegisteredAdvice</code> to have a model element that is a "proxy" to the extension point definition.
+
+== Toolsmiths Layer ==
+
+===A feature for expert user that creates upon Papyrus ===
+
+A new feature has been created to gather all plugins utilities dedicated to create utility programs upon Papyrus.
+At present time, it contains the following plugins:
+
+* org.eclipse.papyrus.customization.nattableconfiguration
+* org.eclipse.papyrus.toolsmiths.palette
+* org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.editor
+* org.eclipse.papyrus.views.properties.toolsmiths
+* org.eclipse.papyrus.uml.properties.generation
+* org.eclipse.papyrus.views.properties.model.xwt
+* org.eclipse.papyrus.infra.gmfdiag.expansion.edit
+* org.eclipse.papyrus.infra.gmfdiag.expansion.editor
+* org.eclipse.papyrus.infra.emf.types.ui.properties
+* org.eclipse.gmf.runtime.emf.ui.properties
+* org.eclipse.papyrus.uml.types.ui.properties
+* org.eclipse.papyrus.toolsmiths
+
+
+To do so a refactoring has been done to migrate those plugins into their own sub folders. At present time a maven pom approach has been priviled by creating when possible a folder with a pom plugin.
+
+* rename from plugins/customization/org.eclipse.papyrus.customization.properties.generation to plugins/uml/properties/org.eclipse.papyrus.uml.properties.generation
+* rename from plugins/customization/org.eclipse.papyrus.customization.properties.model.xwt to plugins/views/properties/org.eclipse.papyrus.views.properties.model.xwt
+* rename from plugins/customization/org.eclipse.papyrus.customization.properties to plugins/views/properties/org.eclipse.papyrus.views.properties.toolsmiths
+* rename from plugins/customization/org.eclipse.papyrus.infra.gmfdiag.expansion.[edit/editor] to plugins/infra/gmfdiag/expansion/org.eclipse.papyrus.infra.gmfdiag.expansion.edit
+* rename from plugins/customization/org.eclipse.papyrus.customization.nattableconfiguration to plugins/infra/nattable/org.eclipse.papyrus.customization.nattableconfiguration
+
+===Focus on the DSML Configurator Plugin ===
+
+In order to help expert user to create upon Papyrus, several improvements have been made to a former plugin dedicated to generate plugin from a list of model customization:
+
+* ModelTemplate now takes into account di and notation files in addition of uml file
+* Palette has been migrated to latest version
+* TableConfiguration plugin has been integrated
+
+Nevertheless at present time, an important effort should be made to switch to View point with the generation of Architrecture file.
+
+===Switching from Ecore models to Papyrus UML models ===
+
+An effort has been made to switch from pure ecore model to Papyrus UML model in all relevant plugins used in Papyrus Toolsmiths.
+The genmodel is now based on the UML model, it generates the Ecore model used to produce model, edit and editor plugins.
+Preexiting ecore diagrams have been migrated to Papyrus Class diagrams ensuring a full compatibilty with Papyrus tools.
+
+===Switching from Elementtype String based references to Elementtype EReference ===
+
+Papyrus is becomming more and more model based, an effort has been made to migrate all models that use Elementtype with String references to Elementtype with EReferences in elementtype, palette and new child.
+The string reference has been deleted and a new EErefence attribut has been created.
+
+* expansionmodel.ecore . uml: deletion of graphicalElementType and creation of graphicalElementTypeRef
+* elementCreationMenuModel.ecore / uml: deletion of elementTypeIdRef and creation of elementType
+* PaletteConfiguration.ecore / uml: deletion of elementTypeIdRef and creation of elementType
+
+====Tool 1: from String to EReference ====
+A first tool has been developed to help you to migrate all models based on Elementtype String reference to Elementtype EReference.
+org.eclipse.papyrus.tools/migrationelementtype
+
+By providing the git folder where the elementtype files are located and the git folder where you want to migrate your initial model, it will replace all Elementtype String to Elementtype EReference.
+It will generate an automatic xmi:id which as no human meaning.
+
+For instance, it will switch 
+*from
+<code> <specializedTypesID>org.eclipse.papyrus.uml.Abstraction</specializedTypesID></code>
+* to
+<code><specializedTypes xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#_ScP1oVYCEeS0WsAAtVmToA"/></code>
+
+====Tool 2: from EReference Auto Id to Human readable Ids ====
+
+In order to have human readble elementtype ids, a plugin has been developed to
+For instance, it will switch
+
+* from
+<code>
+<specializedTypes xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#_ScP1oVYCEeS0WsAAtVmToA"/>
+</code>
+* to
+<code>
+<specializedTypes xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#Abstraction "/>
+</code>
+
+== PaletteConfiguration model ==
+
+Currently there is no automatic way to migrate the palette configuration from old to the new version. Later a tool should be available.
+
+Here is a manual method to pass from old to new model.
+
+In a papyrus instance:
+#Create a copy of your palette configuration model.
+#open it with a text editor
+#Remove all ''elementTypeId'' attributes. (keep it in the original file)
+#replace <code>http://www.eclipse.org/papyrus/diagram/paletteconfiguration/0.7</code> by  <code>http://www.eclipse.org/papyrus/diagram/paletteconfiguration/0.8</code>
+#Save it and open it with palette configuration editor.
+#For each tool, add elementType which corresponds to the ''elementTypeId''s in the original file. Past its id in the search field is a easy way to find the corresponding element type.
+#In the plugin.xml file at the palette configuration declaration. Replace ''org.eclipse.papyrus.uml.diagram.common.paletteDefinition'' by ''org.eclipse.papyrus.infra.gmfdiag.common.paletteDefinition''.
+
+
+== Tables ==
+=== Metamodel ===
+The metamodel has changed to manage the matrices:
+*a new EPackage called '''nattablecelleditor''' has been created. It provides interfaces and concrete EClass to store the required information about the relationship edition.
+**'''ICellEditorConfiguration''': common interface for all futures cell editor configurations;
+**'''IMatrixCellEditorConfiguration''': common interface for all futures matrix cell editor configurations;
+**'''GenericRelationshipMatrixCellEditorConfiguration''': the configuration cell editor used by the matrix of relationship. This class contents these fields:
+***'''direction''': the direction of the edited relationships in the table;
+***'''cellContentsFilter''': a IBooleanEObjectExpression to filter (if required) the contents of the cell in order to display only relationship choosen by the user;
+***'''editedElement''': the EClass (UML in our usecase) representing the relationship edited by the table;
+*a new EPackage called '''wrapper''' has been created. It provides wrappers to be able to reference easily several kind of objects. Currently, only the implementation for EObject is provided, but extending it, we will be able to reference object which are not EObject too.
+*in '''TableConfiguration''':
+**a new property '''ownedCellEditorConfigurations''', used to define the initial matrix configuration;
+*in '''Table'''
+**a new property '''ownedCellEditorConfigurations''', used to define the matrix configuration. This property is copied from the TableConfiguration during the creation of a new table;
+*in '''IMasterAxisProvider''':
+**a new field '''sources''', typed by '''IWrapper''': this field allows to reference the objects of the model used to get the rows and the columns of the table
+*in  '''TreeFillingConfiguration''':
+**a new filter called '''filterRule''' and typed by an IBooleanEObjectExpression has been added. When this field is defined, the axis displayed in table must match the filter.
+
+=== Managers ===
+==== ICellManager ====
+For each methods in <code>ICellManager</code> class, the <code>INattableModelManager</code> corresponding to the current table has been added as parameter.
+When this parameter was already available, this one was moved as the last parameter position.
+This signature of methods are now:
+
+{| class="wikitable" border="1" cellspacing="0"
+!width| Old Signature method
+!width| New Signature method
+|-
+|<code>handles(Object, Object)</code>
+|<code>handles(Object, Object, INattableModelManager)</code>
+|-
+|<code>isCellEditable(Object, Object, Map<?,?>)</code>
+|<code>isCellEditable(Object, Object, Map<?,?>, INattableModelManager)</code>
+|-
+|<code>isCellEditable(Object, Object)</code>
+|<code>isCellEditable(Object, Object, INattableModelManager)</code>
+|-
+|<code>getOrCreateStringValueConverterClass(INattableModelManager, Map<Class<? extends AbstractStringValueConverter>,AbstractStringValueConverter>, String)</code>
+|<code>getOrCreateStringValueConverterClass(Map<Class<? extends AbstractStringValueConverter>,AbstractStringValueConverter>, String, INattableModelManager)</code>
+|-
+|<code>setStringValue(Object, Object, String, AbstractStringValueConverter, INattableModelManager, Map<?,?>)</code>
+|<code>setStringValue(Object, Object, String, AbstractStringValueConverter, Map<?,?>, INattableModelManager)</code>
+|}
+
+==== ICompositeAxisManager ====
+The <code>sortAxisByName(boolean, IConfigRegistry)</code> method in <code>ICompositeAxisManager</code> class have one more parameter and become <code>sortAxisByName(boolean, IConfigRegistry, boolean)</code>. This boolean determinates if this is a rows sort (<code>true</code>) or a columns sort (<code>false</code>).

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<elementtypesconfigurations:ElementTypeSetConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2" xmi:id="_rWI4YHPzEeSnGJwaJWHCSg" description="" identifier="org.eclipse.papyrus.uml.diagram.clazz.elementTypeSet" name="PapyrusUMLClassDiagram" metamodelNsURI="http://www.eclipse.org/uml2/5.0.0/UML">
+  <adviceBindingsConfigurations xmi:type="elementtypesconfigurations:AdviceBindingConfiguration" xmi:id="_fdf5EGBZEeWbqYFeFvN0SQ" description="Enumeration specific advices (remove inconsistent views when an Enumeration or a child is moved)" identifier="org.eclipse.papyrus.uml.diagram.clazz.EnumerationHelperAdvice" inheritance="all" editHelperAdviceClassName="org.eclipse.papyrus.uml.diagram.clazz.custom.helper.advice.EnumerationHelperAdvice">
+    <target xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Enumeration"/>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xmi:type="elementtypesconfigurations:AdviceBindingConfiguration" xmi:id="_VPE3UJpvEeWZOI1l_xp4vg" description="Generalizarion specific advices (remove inconsistent views when a Generalization is deleted)" identifier="org.eclipse.papyrus.uml.diagram.clazz.GeneralizationHelperAdvice" inheritance="all" editHelperAdviceClassName="org.eclipse.papyrus.uml.diagram.clazz.custom.helper.advice.GeneralizationHelperAdvice">
+    <target xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Generalization"/>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xmi:type="elementtypesconfigurations:AdviceBindingConfiguration" xmi:id="_46cVMPszEeWBLbCxWzTFGw" identifier="org.eclipse.papyrus.uml.diagram.class.NamespaceHelperAdvice" inheritance="all" editHelperAdviceClassName="org.eclipse.papyrus.uml.diagram.clazz.custom.helper.advice.NamespaceHelperAdvice">
+    <target xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Namespace"/>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xmi:type="elementtypesconfigurations:AdviceBindingConfiguration" xmi:id="_P80rsPs0EeWBLbCxWzTFGw" identifier="org.eclipse.papyrus.uml.diagram.class.ConstraintHelperAdvice" editHelperAdviceClassName="org.eclipse.papyrus.uml.diagram.clazz.custom.helper.advice.ConstraintHelperAdvice">
+    <target xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Constraint"/>
+  </adviceBindingsConfigurations>
+</elementtypesconfigurations:ElementTypeSetConfiguration>

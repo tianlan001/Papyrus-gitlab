@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>org.eclipse.papyrus.uml</artifactId>
+		<groupId>org.eclipse.papyrus</groupId>
+		<version>7.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>org.eclipse.papyrus.uml-nattable</artifactId>
+	<version>7.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Papyrus UML Nattable</name>
+	<description>Papyrus Nattable are a set of plugins dedicated to manage tables in relation with models.</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.uml.nattable</module>
+		<module>org.eclipse.papyrus.uml.nattable.clazz.config</module>
+		<module>org.eclipse.papyrus.uml.nattable.generic</module>
+		<module>org.eclipse.papyrus.uml.nattable.generic.config</module>
+		<module>org.eclipse.papyrus.uml.nattable.matrix</module>
+		<module>org.eclipse.papyrus.uml.nattable.menu</module>
+		<module>org.eclipse.papyrus.uml.nattable.properties</module>
+		<module>org.eclipse.papyrus.uml.nattable.richtext</module>
+		<module>org.eclipse.papyrus.uml.nattable.stereotype.display</module>
+		<module>org.eclipse.papyrus.uml.nattable.xtext.integration</module>
+		<module>org.eclipse.papyrus.uml.nattable.xtext.valuespecification</module>
+	</modules>
+
+</project>

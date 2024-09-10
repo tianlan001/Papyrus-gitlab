@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.gmfdiag.extensionpoints.editors.DirectEditor">
+      <DirectEditor
+      	    additionalConstraint="org.eclipse.papyrus.uml.textedit.tests.editor.CppDirectEditorConstraint"
+            contributor="CEA LIST"
+            icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Constraint.gif"
+            language="Textual editor for constraint edition with C++"
+            objectToEdit="org.eclipse.uml2.uml.Constraint">
+         <popupeditor
+               editorConfiguration="org.eclipse.papyrus.uml.textedit.tests.editor.ConstraintWithCppPopupEditorConfiguration">
+         </popupeditor>
+		<Priority name="High">
+		</Priority>
+      </DirectEditor>
+   </extension>
+</plugin>

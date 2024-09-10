@@ -1,0 +1,906 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+ Copyright (c) 2009, 2018 CEA, Christian W. Damus, and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   CEA - Initial API and implementation
+   Christian W. Damus (CEA) - bug 323802
+   Christian W. Damus - bug 451230
+   Sebastien Gabel - bug 532943
+   
+-->
+<plugin> 
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+				      <?gmfgen generated="true"?>
+				      <context
+				         description="%context.description"
+				         id="org.eclipse.papyrus.uml.diagram.clazz.ui.diagramContext"
+				         name="%context.name"
+				         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+				      </context>
+				   </extension>
+
+<extension point="org.eclipse.core.runtime.preferences" id="prefs">
+		      <?gmfgen generated="true"?>
+		      <initializer class="org.eclipse.papyrus.uml.diagram.clazz.preferences.DiagramPreferenceInitializer"/>
+		   </extension>
+<extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="org.eclipse.papyrus.uml.diagram.clazz"
+            labelProvider="org.eclipse.papyrus.uml.diagram.clazz.sheet.UMLSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+<extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.papyrus.uml.diagram.clazz">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+<extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.papyrus.uml.diagram.clazz">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.papyrus.uml.diagram.clazz.sheet.UMLPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLAbstractNavigatorItem"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+<extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+	      <?gmfgen generated="true"?>
+	      <viewProvider class="org.eclipse.papyrus.uml.diagram.clazz.providers.UMLViewProvider">
+	         <Priority name="Lowest"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="PapyrusUMLClassDiagram"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="Dependency_Shape,AssociationClass_Shape,Association_Shape,InstanceSpecification_Shape,Component_Shape,Signal_Shape,Interface_Shape,Model_Shape,Enumeration_Shape,Package_Shape,InformationItem_Shape,Class_Shape,PrimitiveType_Shape,DataType_Shape,Constraint_PackagedElementShape,Comment_Shape,Diagram_ShortcutShape,DurationObservation_Shape,TimeObservation_Shape,NamedElement_DefaultShape,Property_ClassAttributeLabel,Property_ComponentAttributeLabel,Property_SignalAttributeLabel,Property_InterfaceAttributeLabel,Property_PrimitiveTypeAttributeLabel,Property_DataTypeAttributeLabel,Class_ClassNestedClassifierLabel,Class_ComponentNestedClassifierLabel,Class_InterfaceNestedClassifierLabel,Operation_ClassOperationLabel,Operation_ComponentOperationLabel,Operation_InterfaceOperationLabel,Operation_PrimitiveTypeOperationLabel,Operation_DataTypeOperationLabel,ConnectableElementTemplateParameter_TemplateParameterLabel,OperationTemplateParameter_TemplateParameterLabel,ClassifierTemplateParameter_TemplateParameterLabel,TemplateParameter_TemplateParameterLabel,EnumerationLiteral_LiteralLabel,Reception_ReceptionLabel,Reception_InterfaceReceptionLabel,Slot_SlotLabel,RedefinableTemplateSignature_Shape,TemplateSignature_Shape,InstanceSpecification_Shape_CN,Component_Shape_CN,Signal_Shape_CN,Interface_Shape_CN,Model_Shape_CN,Enumeration_Shape_CN,Package_Shape_CN,InformationItem_Shape_CN,Class_Shape_CN,PrimitiveType_Shape_CN,DataType_Shape_CN,Comment_Shape_CN,Constraint_PackagedElementShape_CN,Interface_ClassNestedClassifierLabel,Interface_ComponentNestedClassifierLabel,Interface_InterfaceNestedClassifierLabel,Enumeration_ClassNestedClassifierLabel,Enumeration_ComponentNestedClassifierLabel,Enumeration_InterfaceNestedClassifierLabel,PrimitiveType_ClassNestedClassifierLabel,PrimitiveType_ComponentNestedClassifierLabel,PrimitiveType_InterfaceNestedClassifierLabel,DataType_ClassNestedClassifierLabel,DataType_ComponentNestedClassifierLabel,DataType_InterfaceNestedClassifierLabel,Signal_ClassNestedClassifierLabel,Signal_ComponentNestedClassifierLabel,Signal_InterfaceNestedClassifierLabel,Component_ClassNestedClassifierLabel,Component_InterfaceNestedClassifierLabel,Component_ComponentNestedClassifierLabel"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="AssociationClass_TetherEdge,AssociationClass_Edge,Association_Edge,Association_BranchEdge,Generalization_Edge,InterfaceRealization_Edge,Substitution_Edge,Realization_Edge,Abstraction_Edge,Usage_Edge,Dependency_Edge,Dependency_BranchEdge,ElementImport_Edge,PackageImport_Edge,PackageMerge_Edge,ProfileApplication_Edge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,TemplateBinding_Edge,GeneralizationSet_Edge,InstanceSpecification_Edge,Element_ContainmentEdge,TimeObservation_EventEdge,DurationObservation_EventEdge,InformationFlow_Edge,Constraint_ContextEdge"/>
+	      </viewProvider>
+	   </extension>
+<extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <?gmfgen generated="false"?>
+      <editpartProvider class="org.eclipse.papyrus.uml.diagram.clazz.custom.providers.CustomUMLEditPartProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="PapyrusUMLClassDiagram"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="Dependency_Shape,AssociationClass_Shape,Association_Shape,InstanceSpecification_Shape,Component_Shape,Signal_Shape,Interface_Shape,Model_Shape,Enumeration_Shape,Package_Shape,InformationItem_Shape,Class_Shape,PrimitiveType_Shape,DataType_Shape,Constraint_PackagedElementShape,Comment_Shape,Diagram_ShortcutShape,DurationObservation_Shape,TimeObservation_Shape,NamedElement_DefaultShape,Property_ClassAttributeLabel,Property_ComponentAttributeLabel,Property_SignalAttributeLabel,Property_InterfaceAttributeLabel,Property_PrimitiveTypeAttributeLabel,Property_DataTypeAttributeLabel,Class_ClassNestedClassifierLabel,Class_ComponentNestedClassifierLabel,Class_InterfaceNestedClassifierLabel,Operation_ClassOperationLabel,Operation_ComponentOperationLabel,Operation_InterfaceOperationLabel,Operation_PrimitiveTypeOperationLabel,Operation_DataTypeOperationLabel,ConnectableElementTemplateParameter_TemplateParameterLabel,OperationTemplateParameter_TemplateParameterLabel,ClassifierTemplateParameter_TemplateParameterLabel,TemplateParameter_TemplateParameterLabel,EnumerationLiteral_LiteralLabel,Reception_ReceptionLabel,Reception_InterfaceReceptionLabel,Slot_SlotLabel,RedefinableTemplateSignature_Shape,TemplateSignature_Shape,InstanceSpecification_Shape_CN,Component_Shape_CN,Signal_Shape_CN,Interface_Shape_CN,Model_Shape_CN,Enumeration_Shape_CN,Package_Shape_CN,InformationItem_Shape_CN,Class_Shape_CN,PrimitiveType_Shape_CN,DataType_Shape_CN,Comment_Shape_CN,Constraint_PackagedElementShape_CN,Interface_ClassNestedClassifierLabel,Interface_ComponentNestedClassifierLabel,Interface_InterfaceNestedClassifierLabel,Enumeration_ClassNestedClassifierLabel,Enumeration_ComponentNestedClassifierLabel,Enumeration_InterfaceNestedClassifierLabel,PrimitiveType_ClassNestedClassifierLabel,PrimitiveType_ComponentNestedClassifierLabel,PrimitiveType_InterfaceNestedClassifierLabel,DataType_ClassNestedClassifierLabel,DataType_ComponentNestedClassifierLabel,DataType_InterfaceNestedClassifierLabel,Signal_ClassNestedClassifierLabel,Signal_ComponentNestedClassifierLabel,Signal_InterfaceNestedClassifierLabel,Component_ClassNestedClassifierLabel,Component_InterfaceNestedClassifierLabel,Component_ComponentNestedClassifierLabel"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="AssociationClass_TetherEdge,AssociationClass_Edge,Association_Edge,Association_BranchEdge,Generalization_Edge,InterfaceRealization_Edge,Substitution_Edge,Realization_Edge,Abstraction_Edge,Usage_Edge,Dependency_Edge,Dependency_BranchEdge,ElementImport_Edge,PackageImport_Edge,PackageMerge_Edge,ProfileApplication_Edge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,TemplateBinding_Edge,GeneralizationSet_Edge,InstanceSpecification_Edge,Element_ContainmentEdge,TimeObservation_EventEdge,DurationObservation_EventEdge,InformationFlow_Edge,Constraint_ContextEdge"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="Dependency_MultiNameLabel,Dependency_FloatingNameLabel,AssociationClass_NameLabel,AssociationClass_FloatingNameLabel,Association_FloatingNameLabel,InstanceSpecification_NameLabel,InstanceSpecification_FloatingNameLabel,Component_NameLabel,Component_FloatingNameLabel,Signal_NameLabel,Signal_FloatingNameLabel,Interface_NameLabel,Interface_FloatingNameLabel,Model_NameLabel,Enumeration_NameLabel,Enumeration_FloatingNameLabel,Package_NameLabel,InformationItem_NameLabel,InformationItem_FloatingNameLabel,Class_NameLabel,Class_FloatingNameLabel,PrimitiveType_NameLabel,PrimitiveType_FloatingNameLabel,DataType_NameLabel,DataType_FloatingNameLabel,Constraint_NameLabel,Constraint_BodyLabel,Comment_BodyLabel,Diagram_NameLabel,DurationObservation_FloatingNameLabel,DurationObservation_StereotypeLabel,TimeObservation_FloatingNameLabel,TimeObservation_StereotypeLabel,NamedElement_NameLabel,InstanceSpecification_NameLabel_CN,InstanceSpecification_FloatingNameLabel_CN,Component_NameLabel_CN,Component_FloatingNameLabel_CN,Signal_NameLabel_CN,Signal_FloatingNameLabel_CN,Interface_NameLabel_CN,Interface_FloatingNameLabel_CN,Model_NameLabel_CN,Enumeration_NameLabel_CN,Enumeration_FloatingNameLabel_CN,Package_NameLabel_CN,InformationItem_NameLabel_CN,InformationItem_FloatingNameLabel_CN,Class_NameLabel_CN,Class_FloatingNameLabel_CN,PrimitiveType_NameLabel_CN,PrimitiveType_FloatingNameLabel_CN,DataType_NameLabel_CN,DataType_FloatingNameLabel_CN,Comment_BodyLabel_CN,Constraint_NameLabel_CN,Constraint_FloatingNameLabel_CN"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="Class_AttributeCompartment_CN,Class_OperationCompartment_CN,Class_NestedClassifierCompartment_CN,Component_AttributeCompartment_CN,Component_OperationCompartment_CN,Component_NestedClassifierCompartment_CN,Signal_AttributeCompartment_CN,Interface_AttributeCompartment_CN,Interface_OperationCompartment_CN,Interface_NestedClassifierCompartment_CN,PrimitiveType_AttributeCompartment_CN,PrimitiveType_OperationCompartment_CN,DataType_AttributeCompartment_CN,DataType_OperationCompartment_CN,Model_PackagedElementCompartment_CN,Package_PackagedElementCompartment_CN,Enumeration_LiteralCompartment_CN,InstanceSpecification_SlotCompartment_CN,Class_AttributeCompartment,Class_OperationCompartment,Class_NestedClassifierCompartment,Component_AttributeCompartment,Component_OperationCompartment,Component_NestedClassifierCompartment,Interface_AttributeCompartment,Interface_OperationCompartment,Interface_NestedClassifierCompartment,PrimitiveType_AttributeCompartment,PrimitiveType_OperationCompartment,DataType_AttributeCompartment,DataType_OperationCompartment,AssociationClass_AttributeCompartment,InstanceSpecification_SlotCompartment,Signal_AttributeCompartment,Model_PackagedElementCompartment,Package_PackagedElementCompartment,Enumeration_LiteralCompartment,AssociationClass_OperationCompartment,AssociationClass_NestedClassifierCompartment,RedefinableTemplateSignature_TemplateParameterCompartment,TemplateSignature_TemplateParameterCompartment"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+<extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+	      <?gmfgen generated="true"?>
+	      <IconProvider class="org.eclipse.papyrus.uml.diagram.clazz.providers.UMLIconProvider">
+	         <Priority name="Low"/>
+	      </IconProvider>
+	   </extension>
+<extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+	      <?gmfgen generated="true"?>
+	      <ParserProvider class="org.eclipse.papyrus.uml.diagram.clazz.providers.UMLParserProvider">
+	         <Priority name="Lowest"/>
+	      </ParserProvider>
+	   </extension>
+
+<extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isURIEditorInput">
+      <?gmfgen generated="true"?>
+      <propertyTester
+            id="org.eclipse.papyrus.uml.diagram.clazz.URIEditorInputPropertyTester"
+            type="org.eclipse.emf.common.ui.URIEditorInput"
+            namespace="org.eclipse.papyrus.uml.diagram.clazz"
+            properties="isURIEditorInput"
+            class="org.eclipse.papyrus.uml.diagram.clazz.part.UMLUriEditorInputTester">
+      </propertyTester>
+   </extension>
+<extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
+      <?gmfgen generated="true"?>
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="org.eclipse.papyrus.uml.diagram.clazz.resourceContent"/>
+            <contentExtension pattern="org.eclipse.papyrus.uml.diagram.clazz.domainResourceContent"/>
+            <contentExtension pattern="org.eclipse.papyrus.uml.diagram.clazz.navigatorLinkHelper"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="org.eclipse.papyrus.uml.diagram.clazz.navigatorActionProvider"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+<extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
+      <?gmfgen generated="true"?>
+      <navigatorContent
+            id="org.eclipse.papyrus.uml.diagram.clazz.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLNavigatorContentProvider" 
+            labelProvider="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLNavigatorLabelProvider"
+            icon="icons/obj16/UMLDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+               <and>
+                  <instanceof value="org.eclipse.core.resources.IFile"/>
+                  <test property="org.eclipse.core.resources.extension" value="PapyrusUMLClass_diagram"/>
+               </and>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLAbstractNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLAbstractNavigatorItem"/>
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="org.eclipse.papyrus.uml.diagram.clazz.navigatorSorter" 
+               class="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLNavigatorSorter">
+            <parentExpression>
+               <or>
+                  <and>
+                     <instanceof value="org.eclipse.core.resources.IFile"/>
+                     <test property="org.eclipse.core.resources.extension" value="PapyrusUMLClass_diagram"/>
+                  </and>
+                  <instanceof value="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLAbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            id="org.eclipse.papyrus.uml.diagram.clazz.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLDomainNavigatorContentProvider" 
+            labelProvider="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLDomainNavigatorLabelProvider"
+            icon="icons/obj16/UMLDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+               <and>
+                  <instanceof value="org.eclipse.core.resources.IFile"/>
+                  <test property="org.eclipse.core.resources.extension" value="PapyrusUMLClass"/>
+               </and>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLDomainNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof value="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLDomainNavigatorItem"/>
+         </possibleChildren>
+      </navigatorContent>
+      <actionProvider
+            id="org.eclipse.papyrus.uml.diagram.clazz.navigatorActionProvider"
+            class="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLNavigatorActionProvider">
+         <enablement>
+            <or>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLAbstractNavigatorItem"/>
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+<extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
+      <?gmfgen generated="true"?>
+      <linkHelper
+            id="org.eclipse.papyrus.uml.diagram.clazz.navigatorLinkHelper"
+            class="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLNavigatorLinkHelper">
+         <editorInputEnablement>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="org.eclipse.papyrus.uml.diagram.clazz.isURIEditorInput"/>
+            </and>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="org.eclipse.papyrus.uml.diagram.clazz.navigator.UMLAbstractNavigatorItem"/>
+         </selectionEnablement>
+      </linkHelper>
+   </extension>
+<extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="org.eclipse.papyrus.uml.diagram.clazz.part.UMLDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="org.eclipse.papyrus.uml.diagram.clazz.LoadResourceAction"
+         name="Load Resource"
+         categoryId="org.eclipse.papyrus.uml.diagram.clazz.part.UMLDiagramEditorID"
+         defaultHandler="org.eclipse.papyrus.uml.diagram.clazz.part.LoadResourceAction"/>
+   </extension>
+<extension point="org.eclipse.ui.commands">
+	<command
+            categoryId="org.eclipse.papyrus.editor.category"
+            description="Create a new Class Diagram"
+            id="org.eclipse.papyrus.uml.diagram.clazz.CreateClassDiagramCommand"
+            name="Create a new Class Diagram">
+	</command>
+</extension>
+
+
+
+
+
+   <extension
+         point="org.eclipse.papyrus.infra.ui.papyrusDiagram">
+      <editorDiagram
+            actionBarContributorId="org.eclipse.papyrus.uml.diagram.common.part.UMLDiagramActionBarContributor"
+            contextId="com.cea.papyrus.gmf.editor.context"
+            factoryClass="org.eclipse.papyrus.uml.diagram.clazz.ClassDiagramEditorFactory"
+            icon="icons/obj16/Diagram_Class.gif">
+      </editorDiagram>
+      <creationCommand
+            creationCommandClass="org.eclipse.papyrus.uml.diagram.clazz.CreateClassDiagramCommand"
+            creationCondition="org.eclipse.papyrus.uml.diagram.clazz.ClassDiagramCreationCondition"
+            icon="icons/obj16/Diagram_Class.gif"
+            id="org.eclipse.papyrus.uml.diagram.clazz.CreateClassDiagramCommand"
+            language="uml"
+            label="Class Diagram">
+      </creationCommand>
+      <editorDiagram
+            actionBarContributorId="org.eclipse.papyrus.uml.diagram.common.part.UMLDiagramActionBarContributor"
+            factoryClass="org.eclipse.papyrus.uml.diagram.clazz.PackageDiagramEditorFactory"
+            icon="platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/icons/Diagram_Package.gif">
+      </editorDiagram>      
+   </extension>
+   <!--extension
+         point="org.eclipse.gmf.runtime.diagram.ui.editpolicyProviders">
+      <editpolicyProvider
+            class="org.eclipse.papyrus.uml.diagram.clazz.custom.providers.CustomEditPolicyProvider">
+         <Priority
+               name="Highest">
+         </Priority>
+      </editpolicyProvider>
+   </extension-->   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.papyrus.uml.diagram.clazz.objectContribution.dependencybranchdeletion"
+            objectClass="org.eclipse.papyrus.uml.diagram.clazz.edit.parts.DependencyBranchEditPart">
+    
+         <action
+               class="org.eclipse.papyrus.uml.diagram.clazz.custom.command.DependencyBranchDeletion"
+               definitionId="org.eclipse.papyrus.uml.diagram.clazz.dependencybranchdeletionID"
+               enablesFor="1"
+               icon="icons/Delete_16x16.gif"
+               id="org.eclipse.papyrus.uml.diagram.clazz.dependencybranchdeletionActionID"
+               label="Delete dependency branch  from  model"
+               menubarPath="editGroup">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.papyrus.uml.diagram.clazz.objectContribution.associationbranchdeletion"
+            objectClass="org.eclipse.papyrus.uml.diagram.clazz.edit.parts.AssociationBranchEditPart">
+         <action
+               class="org.eclipse.papyrus.uml.diagram.clazz.custom.command.AssociationBranchDeletion"
+               definitionId="org.eclipse.papyrus.uml.diagram.clazz.associationbranchdeletionID"
+               enablesFor="1"
+               icon="icons/Delete_16x16.gif"
+               id="org.eclipse.papyrus.uml.diagram.clazz.AssociationbranchdeletionActionID"
+               label=" Delete association branch from model"
+               menubarPath="editGroup">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.papyrus.uml.diagram.clazz.objectContribution.displayAllAssociationBranch"
+            objectClass="org.eclipse.papyrus.uml.diagram.clazz.edit.parts.AssociationNodeEditPart">
+         <action
+               class="org.eclipse.papyrus.uml.diagram.clazz.custom.command.DisplayAllAssociationBranchCommand"
+               definitionId="org.eclipse.papyrus.uml.diagram.clazz.DisplayAllAssociationBranchesID"
+               enablesFor="1"
+               id="org.eclipse.papyrus.uml.diagram.clazz.DisplayAllAssociationBranchesActionID"
+               label="Display all association branches"
+               menubarPath="editGroup">
+         </action>
+      </objectContribution>
+</extension>
+<extension point="org.eclipse.ui.preferencePages" id="prefpages">
+		      <?gmfgen generated="true"?>
+		<page
+		      id="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLClassDiagram"
+		      name="PapyrusUMLClassDiagram Diagram"
+		      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams"
+		      class="org.eclipse.papyrus.uml.diagram.clazz.preferences.DiagramGeneralPreferencePage">
+		</page>
+		<page
+		      id="org.eclipse.papyrus.uml.diagram.clazz.preferences.DiagramPrintingPreferencePage"
+		      name="%prefpage.org.eclipse.uml2.uml.diagram.printing"
+		      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLClassDiagram"
+		      class="org.eclipse.papyrus.uml.diagram.clazz.preferences.DiagramPrintingPreferencePage">
+		</page>
+		   </extension>
+
+<extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.papyrus.uml.diagram.clazz.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="org.eclipse.papyrus.uml.diagram.clazz.part.UMLDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.papyrus.uml.diagram.clazz.edit.parts.ModelEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+
+<extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+				      <?gmfgen generated="true"?>
+				      <MarkerNavigationProvider class="org.eclipse.papyrus.uml.diagram.clazz.providers.UMLMarkerNavigationProvider">
+				         <MarkerType name="org.eclipse.papyrus.uml.diagram.clazz.diagnostic"/>
+				         <Priority name="Lowest"/>
+				      </MarkerNavigationProvider>
+				   </extension>
+
+<extension id="diagnostic" name="PapyrusUMLClassDiagram problems" point="org.eclipse.core.resources.markers">
+				      <?gmfgen generated="true"?>
+				      <super type="org.eclipse.core.resources.problemmarker"/>
+				      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+				      <persistent value="true"/>
+				   </extension><extension
+      point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+   <ParserProvider
+         class="org.eclipse.papyrus.uml.diagram.clazz.custom.providers.CustomUMLParserProvider">
+      <Priority
+            name="Medium">
+      </Priority>
+   </ParserProvider>
+</extension>
+
+<extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+				      <?gmfgen generated="true"?>
+				      <decoratorProvider class="org.eclipse.papyrus.uml.diagram.clazz.providers.UMLValidationDecoratorProvider">
+				         <Priority name="Lowest"/>
+				         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+				         <context decoratorTargets="PRIMARY_VIEW"/>
+				      </decoratorProvider>
+				   </extension>
+
+<extension
+      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+   <contributionItemProvider
+         checkPluginLoaded="false"
+         class="org.eclipse.papyrus.uml.diagram.clazz.custom.providers.ClassDiagramContributionItemProvider">
+      <Priority
+            name="Low">
+      </Priority>
+      <popupContribution
+            class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+         <popupStructuredContributionCriteria
+               objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"
+               policyClass="org.eclipse.papyrus.uml.diagram.clazz.custom.providers.ClassDiagramContributionPolicyClass">
+         </popupStructuredContributionCriteria>
+         <popupAction
+               id="papyrus.restoreRelatedLinksAction"
+               path="/navigateMenu/additions">
+         </popupAction>
+      </popupContribution>
+   </contributionItemProvider>
+</extension>
+
+<extension point="org.eclipse.papyrus.infra.gmfdiag.common.notationTypesMapping"> 
+   <?gmfgen generated="true"?>
+   <diagramMappings diagramID="PapyrusUMLClassDiagram">
+   	<mapping type="PapyrusUMLClassDiagram" humanReadableType="ClassDiagram"/>
+			<mapping
+				humanReadableType="attributes"
+				type="Class_AttributeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="Class_OperationCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="nested classifiers"
+				type="Class_NestedClassifierCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="Component_AttributeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="Component_OperationCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="nested classifiers"
+				type="Component_NestedClassifierCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="Signal_AttributeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="Interface_AttributeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="Interface_OperationCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="nested classifiers"
+				type="Interface_NestedClassifierCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="PrimitiveType_AttributeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="PrimitiveType_OperationCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="DataType_AttributeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="DataType_OperationCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="packaged elements"
+				type="Model_PackagedElementCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="packaged elements"
+				type="Package_PackagedElementCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="literals"
+				type="Enumeration_LiteralCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="slots"
+				type="InstanceSpecification_SlotCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="Class_AttributeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="Class_OperationCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="nested classifiers"
+				type="Class_NestedClassifierCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="Component_AttributeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="Component_OperationCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="nested classifiers"
+				type="Component_NestedClassifierCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="Interface_AttributeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="Interface_OperationCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="nested classifiers"
+				type="Interface_NestedClassifierCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="PrimitiveType_AttributeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="PrimitiveType_OperationCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="DataType_AttributeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="DataType_OperationCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="AssociationClass_AttributeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="slots"
+				type="InstanceSpecification_SlotCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="Signal_AttributeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="packaged elements"
+				type="Model_PackagedElementCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="packaged elements"
+				type="Package_PackagedElementCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="literals"
+				type="Enumeration_LiteralCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="AssociationClass_OperationCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="nested classifiers"
+				type="AssociationClass_NestedClassifierCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="TemplateParameter"
+				type="RedefinableTemplateSignature_TemplateParameterCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="TemplateParameter"
+				type="TemplateSignature_TemplateParameterCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="SourceRole"
+				type="AssociationClass_SourceRoleLabel">
+			</mapping>
+			<mapping
+				humanReadableType="TargetRole"
+				type="AssociationClass_TargetRoleLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Association_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Association_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="TargetRole"
+				type="Association_TargetRoleLabel">
+			</mapping>
+			<mapping
+				humanReadableType="SourceRole"
+				type="Association_SourceRoleLabel">
+			</mapping>
+			<mapping
+				humanReadableType="SourceMultiplicity"
+				type="Association_SourceMultiplicityLabel">
+			</mapping>
+			<mapping
+				humanReadableType="TargetMultiplicity"
+				type="Association_TargetMultiplicityLabel">
+			</mapping>
+			<mapping
+				humanReadableType="TargetRole"
+				type="Association_BranchRoleLabel">
+			</mapping>
+			<mapping
+				humanReadableType="TargetMultiplicity"
+				type="Association_BranchMultiplicityLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Generalization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InterfaceRealization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="InterfaceRealization_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Substitution_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Substitution_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Realization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Realization_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Abstraction_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Abstraction_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Usage_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Usage_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Dependency_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Dependency_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Alias"
+				type="ElementImport_AliasLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ElementImport_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="PackageImport_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="PackageMerge_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="TemplateParameterSubstitution"
+				type="TemplateBinding_SubstitutionLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="TemplateBinding_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="GeneralizationSet_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="SourceRole"
+				type="InstanceSpecification_SourceRoleLabel">
+			</mapping>
+			<mapping
+				humanReadableType="TargetRole"
+				type="InstanceSpecification_TargetRoleLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InformationFlow_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="InformationFlow_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Constraint_KeywordLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="InstanceSpecification_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Component_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Signal_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Interface_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Enumeration_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="InformationItem_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Class_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="PrimitiveType_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DataType_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Dependency_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="AssociationClass_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Association_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="InstanceSpecification_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Component_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Signal_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Interface_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Enumeration_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="InformationItem_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Class_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="PrimitiveType_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DataType_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DurationObservation_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="DurationObservation_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="TimeObservation_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="TimeObservation_StereotypeLabel">
+			</mapping>
+   </diagramMappings>
+</extension>
+<extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+<extension
+      point="org.eclipse.papyrus.infra.gmfdiag.assistant.modelProviders">
+   <modelProvider
+         uri="model/classdiagram.assistants"></modelProvider>
+</extension>
+<extension
+      point="org.eclipse.papyrus.infra.gmfdiag.common.diagramReconciler">
+   <diagramReconciler
+         diagramType="PapyrusUMLClassDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.clazz.custom.migration.ClassReconciler_1_1_0"
+         source="1.0.0" 
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="PapyrusUMLClassDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.clazz.custom.migration.ClassReconcilerForCompartment_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="PapyrusUMLClassDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.clazz.custom.migration.ClassReconciler_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+</extension>
+
+   <extension point="org.eclipse.papyrus.infra.gmfdiag.common.visualTypeProviders">
+	      <?gmfgen generated="true"?>
+	      <visualTypeProvider
+	            class="org.eclipse.papyrus.uml.diagram.clazz.providers.UMLVisualTypeProvider"
+	            diagramType="PapyrusUMLClassDiagram">
+	         </visualTypeProvider>
+	   </extension>
+<extension
+         point="org.eclipse.papyrus.infra.hyperlink.hyperlinkContributor">
+      <contributor
+            contributor="org.eclipse.papyrus.uml.diagram.clazz.custom.hyperlink.InnerClassHyperlinkContributor"
+            description="Creates hyperlinks referencing inner classes of a class"
+            id="org.eclipse.papyrus.uml.diagram.clazz.hyperlink.innerClassHyperlinkContributor"
+            label="Inner class diagram hyperlinks">
+      </contributor>
+      <contributor
+            contributor="org.eclipse.papyrus.uml.diagram.clazz.custom.hyperlink.NestingPackageHyperlinkContributor"
+            description="Creates hyperlinks referencing class diagrams that are directly owned by the nesting package of the selected package"
+            id="org.eclipse.papyrus.uml.diagram.clazz.hyperlink.NestingPackageHyperlinkContributor"
+            label="Nesting package class diagram hyperlinks">
+      </contributor>
+      <contributor
+            contributor="org.eclipse.papyrus.uml.diagram.clazz.custom.hyperlink.NestedPackageHyperlinkContributor"
+            description="Creates hyperlinks referencing class diagrams that are directly owned by nested packages of the selected package"
+            id="org.eclipse.papyrus.uml.diagram.clazz.hyperlink.NestedPackageHyperlinkContributor"
+            label="Nested package class diagram hyperlinks">
+      </contributor>
+</extension>
+
+
+
+</plugin>

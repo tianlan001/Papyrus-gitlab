@@ -1,0 +1,264 @@
+/*****************************************************************************
+ * Copyright (c) 2015 CEA LIST.
+ *
+ *    
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *  Ed Seidewitz (MDS)
+ * 
+ *****************************************************************************/
+modeltype Alf uses "http://www.omg.org/spec/ALF/20120827";
+modeltype UML uses "http://www.eclipse.org/uml2/5.0.0/UML";
+
+library UML2AlfLibrary;
+
+property model : Model;
+property modelScopeContextName : String;
+
+helper setModel(model_ : Model) {
+	model := model_;
+}
+
+query isModel(element : Element) : Boolean {
+	return element = model;
+}
+
+helper setModelScope(modelScope : ModelNamespace) {
+	modelScopeContextName := 
+		modelScope.context().asUml().oclAsType(NamedElement).umlQualifiedName(null); 
+}
+
+query Stereotype::toAnnotation() : StereotypeAnnotation {
+  var qualifiedName := self.qualifiedName;
+  if qualifiedName.startsWith("StandardProfile::") then
+    qualifiedName := qualifiedName.substring(17, qualifiedName.length())
+  endif;
+  return object StereotypeAnnotation {
+    stereotypeName := qualifiedName.toAlfQualifiedName(null);
+    // TODO: Handle tagged values.
+  }
+}
+
+query NamedElement::alfQualifiedName(context : NamedElement) : QualifiedName {
+	return self.NamedElement_alfQualifiedName(context);
+}
+
+query NamedElement::NamedElement_alfQualifiedName(context : NamedElement) : QualifiedName {
+  var namespace := if context = null then null else context.namespace endif;
+  return 
+    if namespace <> null and namespace.member->includes(self) then
+    	let names = namespace.getNamesOfMember(self) in
+    	if names->isEmpty() or names->includes(self.name) then
+    	  self.name.toAlfQualifiedName(null)
+    	else
+    	  names->any(true).toAlfQualifiedName(null)
+    	endif
+    else
+      self.umlQualifiedName().toAlfQualifiedName(context)
+    endif;
+}
+
+query Classifier::alfQualifiedName(context : NamedElement) : QualifiedName {
+  var qualifiedName : QualifiedName;
+  if (self.templateBinding->isEmpty()) then {
+    return self.NamedElement_alfQualifiedName(context)
+  } else {
+    var templateBinding := self.templateBinding->any(true);
+    var template := templateBinding.signature.template.oclAsType(NamedElement);
+    qualifiedName := template.alfQualifiedName(context);
+    var parameterSubstitutions := templateBinding.parameterSubstitution;
+    var finalBinding := 
+      if parameterSubstitutions->size() <= 1 then
+        object PositionalTemplateBinding {
+        	argumentName := parameterSubstitutions->toArgumentName(context);
+        }
+      else
+        object NamedTemplateBinding{
+          substitution := templateBinding.parameterSubstitution->
+            toTemplateParameterSubstitution(context);
+        }
+      endif;
+    qualifiedName.nameBinding->last().binding := finalBinding;
+  } endif;
+  return qualifiedName;
+}
+
+query uml::TemplateParameterSubstitution::toTemplateParameterSubstitution(context : NamedElement) : TemplateParameterSubstitution {
+  return
+    object TemplateParameterSubstitution {
+      parameterName := self.formal.parameteredElement.oclAsType(NamedElement).alfName();
+      argumentName := self.toArgumentName(context);
+    }
+}
+
+query uml::TemplateParameterSubstitution::toArgumentName(context : NamedElement) : QualifiedName {
+	return self.actual.oclAsType(NamedElement).alfQualifiedName(context);
+}
+
+query NamedElement::alfPathName(context : NamedElement) : String {
+	return self.NamedElement_alfPathName(context);
+}
+
+query NamedElement::NamedElement_alfPathName(context : NamedElement) : String {
+  var namespace := if context = null then null else context.namespace endif;
+  return 
+    if namespace <> null and namespace.member->includes(self) then
+    	let names = namespace.getNamesOfMember(self) in
+    	if names->isEmpty() or names->includes(self.name) then
+    	  self.name.toAlfPathName(null)
+    	else
+    	  names->any(true).toAlfPathName(null)
+    	endif
+    else
+      self.umlQualifiedName().toAlfPathName(context)
+    endif;
+}
+
+query Classifier::alfPathName(context : NamedElement) : String {
+  return
+    if (self.templateBinding->isEmpty()) then {
+      return self.NamedElement_alfPathName(context)
+    } else {
+      var templateBinding := self.templateBinding->any(true);
+      var template := templateBinding.signature.template.oclAsType(NamedElement);
+      var templateName := template.alfPathName(context);
+      var parameterSubstitutions := templateBinding.parameterSubstitution;
+      var n = parameterSubstitutions->size();
+      var finalBinding := 
+        if n = 0 then ""
+        else if n = 1 then
+          parameterSubstitutions->any(true).toArgumentPathName(context)
+        else
+          parameterSubstitutions->iterate(substitution; s : String = "" |
+	              if s = "" then "" else ", " endif +
+	              substitution.toString() 
+          )
+        endif endif;
+      return templateName + "<" + finalBinding + ">";
+    } endif;
+}
+
+query uml::TemplateParameterSubstitution::toString(context : NamedElement) : String {
+  return self.formal.parameteredElement.oclAsType(NamedElement).alfName() + "=>" +
+      	 self.toArgumentPathName(context);
+}
+
+query uml::TemplateParameterSubstitution::toArgumentPathName(context : NamedElement) : String {
+	return self.actual.oclAsType(NamedElement).alfPathName(context);
+}
+
+query NamedElement::alfName() : String {
+	return toName(self.name);
+}
+
+query toVisibilityString(visibility : VisibilityKind) : String {
+  return
+    if visibility = null or visibility = VisibilityKind::package then null
+    else if visibility = VisibilityKind::private then "private"
+    else if visibility = VisibilityKind::protected then "protected"
+    else if visibility = VisibilityKind::public then "public"
+    endif endif endif endif
+}
+
+query String::toNameSequence(context : NamedElement) : Sequence(String) {
+  var names := self.tokenize("::");
+  if names->size() > 1 and context <> null then {
+    var unqualifiedName := names->last();
+    if context.namespace <> null and
+      (context.namespace.umlQualifiedName() + "::").startsWith(
+        self.substring(1, self.length() - unqualifiedName.length())) then
+      names := Sequence{unqualifiedName}
+    else if (model <> null and names->at(1) = model.name or 
+        names->at(1) = "PrimitiveTypes") then
+      names := names->subSequence(2, names->size())
+    else if names->size() > 2 and names->at(1) = "FoundationalModelLibrary" then
+      names := names->subSequence(3, names->size())
+    else if names->size() > 3 and 
+            names->at(1) = "Alf" and names->at(2) = "Library" then
+      names := names->subSequence(4, names->size())
+    endif endif endif endif
+  } endif;
+  return names;
+}
+
+query String::toAlfQualifiedName(context : NamedElement) : QualifiedName {
+  return 
+	  object QualifiedName {
+	    isAmbiguous := false;
+	    nameBinding := self.toNameSequence(context)->
+	    	object (n) NameBinding { 
+	    		name := toName(n) 
+	  		};
+	  }; 
+}
+
+query String::toAlfPathName(context : NamedElement) : String {
+	return self.toNameSequence(context)->iterate(n; s : String = "" |
+			if s = "" then n else s + "::" + n endif
+		);
+}
+
+// Return the UML qualified name, but allowing for empty names and accounting for model scope.
+query NamedElement::umlQualifiedName() : String {
+	return self.umlQualifiedName(modelScopeContextName);
+}
+
+query NamedElement::umlQualifiedName(outerQualifiedName : String) : String {
+	var name := if self.name->isEmpty() then "" else self.name endif;
+	var namespace := self.namespace;
+	if namespace = null and 
+		self.oclIsKindOf(ParameterableElement) and 
+		self.oclAsType(ParameterableElement).templateParameter <> null then {
+		namespace := self.oclAsType(ParameterableElement).templateParameter.signature.template.oclAsType(Namespace);
+	} endif;
+	return
+		if namespace <> null then namespace.umlQualifiedName(outerQualifiedName) + "::" + name
+		else if outerQualifiedName = null then name
+		else outerQualifiedName
+		endif endif;
+}
+
+query toName(name : String) : String {
+  return
+   if name = null or name.isIdentifier() then name
+   else name.toRestrictedName()
+   endif;   	
+}
+
+query String::isIdentifier() : Boolean {
+	return self.matches("[a-zA-z_][a-zA-z_0-9]*") and not self.isReservedWord();
+}
+
+property reservedWords : Set(String) = Set{
+  "abstract", "accept", "active", "activity", "allInstances", "any",
+  "as", "assoc", "break", "case", "class", "classify", "clearAssoc",
+  "compose", "createLink", "datatype", "default", "destroyLink", "do",
+  "else", "enum" , "for", "from", "hastype", "if", "import", "in",
+  "inout", "instanceof", "let", "namespace", "new", "nonunique", "null",
+  "or", "ordered", "out", "package", "private", "protected", "public",
+  "receive", "redefines", "reduce", "return", "sequence", "specializes",
+  "super", "signal", "switch", "this", "to", "while"
+};
+
+query String::isReservedWord() : Boolean {
+	return reservedWords->includes(self);
+}
+
+query String::toRestrictedName() : String {
+	return "'" + self.
+	 replace("\\", "\\\\").
+	 replace("\b", "\\b").
+	 replace("\t", "\\t").
+	 replace("\n", "\\n").
+	 replace("\f", "\\f").
+	 replace("\r", "\\r").
+	 replace("'", "\\'") +
+	 "'";
+}
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<elementtypesconfigurations:ElementTypeSetConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2" xmi:id="_ScP1oFYCEeS0WsAAtVmToA" identifier="org.eclipse.papyrus.infra.types.tests.cyclicAdvices.elementtypesconfigurations" name="Test cyclic edvices dependencies" metamodelNsURI="http://www.eclipse.org/uml2/5.0.0/UML">
+  <adviceBindingsConfigurations xsi:type="elementtypesconfigurations:AdviceBindingConfiguration" xmi:id="_SGAo4LK-EeWUIbTgfwAP3g" after="_nSyIoLK-EeWUIbTgfwAP3g _ojuzILK-EeWUIbTgfwAP3g" identifier="TestEditHelperAdvice1" editHelperAdviceClassName="org.eclipse.papyrus.infra.types.tests.TestEditHelperAdvice1">
+    <target xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="../../../plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Class"/>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="elementtypesconfigurations:AdviceBindingConfiguration" xmi:id="_nSyIoLK-EeWUIbTgfwAP3g" before="_SGAo4LK-EeWUIbTgfwAP3g" after="_ojuzILK-EeWUIbTgfwAP3g" identifier="TestEditHelperAdvice2" editHelperAdviceClassName="org.eclipse.papyrus.infra.types.tests.TestEditHelperAdvice2">
+    <target xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="../../../plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Class"/>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="elementtypesconfigurations:AdviceBindingConfiguration" xmi:id="_ojuzILK-EeWUIbTgfwAP3g" before="_SGAo4LK-EeWUIbTgfwAP3g _nSyIoLK-EeWUIbTgfwAP3g" after="_SGAo4LK-EeWUIbTgfwAP3g" identifier="TestEditHelperAdvice3" editHelperAdviceClassName="org.eclipse.papyrus.infra.types.tests.TestEditHelperAdvice3">
+    <target xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="../../../plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Class"/>
+  </adviceBindingsConfigurations>
+</elementtypesconfigurations:ElementTypeSetConfiguration>

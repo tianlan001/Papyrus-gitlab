@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns:umlXtext="clr-namespace:org.eclipse.papyrus.uml.properties.xtext"
+	xmlns:j="clr-namespace:java.lang" xmlns="http://www.eclipse.org/xwt/presentation"
+	xmlns:xtext="clr-namespace:org.eclipse.papyrus.infra.widgets.xtext.creation"
+	xmlns:x="http://www.eclipse.org/xwt">
+	<Composite.layout>
+		<ppel:PropertiesLayout></ppel:PropertiesLayout>
+	</Composite.layout>
+	<Composite>
+		<Composite.layout>
+			<ppel:PropertiesLayout></ppel:PropertiesLayout>
+		</Composite.layout>
+		<ppe:StringEditor input="{Binding}" property="UML:NamedElement:name"></ppe:StringEditor>
+	</Composite>
+	<Composite>
+		<Composite.layout>
+			<ppel:PropertiesLayout numColumns="2"></ppel:PropertiesLayout>
+		</Composite.layout>
+		<ppe:BooleanRadio input="{Binding}"
+			property="UML:BehavioralFeature:isAbstract"></ppe:BooleanRadio>
+		<ppe:BooleanRadio input="{Binding}"
+			property="UML:RedefinableElement:isLeaf"></ppe:BooleanRadio>
+		<ppe:BooleanRadio input="{Binding}" property="UML:Operation:isQuery"></ppe:BooleanRadio>
+		<ppe:BooleanRadio input="{Binding}" property="UML:Feature:isStatic"></ppe:BooleanRadio>
+	</Composite>
+	<Composite>
+		<Composite.layout>
+			<ppel:PropertiesLayout numColumns="2"></ppel:PropertiesLayout>
+		</Composite.layout>
+		<ppe:ReferenceDialog input="{Binding}"
+			property="UML:Operation:bodyCondition"></ppe:ReferenceDialog>
+		<ppe:EnumCombo input="{Binding}" property="UML:NamedElement:visibility"></ppe:EnumCombo>
+		<ppe:EnumCombo input="{Binding}" property="UML:BehavioralFeature:concurrency"></ppe:EnumCombo>
+	</Composite>
+	<Composite>
+		<Composite.layout>
+			<ppel:PropertiesLayout numColumns="2"></ppel:PropertiesLayout>
+		</Composite.layout>
+		<ppe:MultiReference input="{Binding}"
+			property="UML:BehavioralFeature:method"></ppe:MultiReference>
+		<ppe:MultiReference input="{Binding}"
+			property="UML:BehavioralFeature:ownedParameter"></ppe:MultiReference>
+		<ppe:MultiReference input="{Binding}" property="UML:Operation:precondition" customLabel="Classic PreCondition"></ppe:MultiReference>
+		<ppe:CompletionStyledTextMultiReference input="{Binding}" property="UML:Operation:precondition" customLabel="Auto-fill Precondition"></ppe:CompletionStyledTextMultiReference>
+		<ppe:MultiReference input="{Binding}"
+			property="UML:Operation:postcondition"></ppe:MultiReference>
+	</Composite>
+</Composite>

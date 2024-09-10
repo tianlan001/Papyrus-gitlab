@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension
+         point="org.eclipse.emf.validation.constraintParsers">
+      <constraintParser
+            class="org.eclipse.papyrus.uml.service.validation.oclpivot.OCLpivotConstraintParser"
+            lang="OCLpivot">
+      </constraintParser>
+  </extension>
+  <extension
+        point="org.eclipse.papyrus.infra.services.validation.diagnosticians">
+        <diagnostician
+			id="org.eclipse.papyrus.uml.service.diagnostician"
+			filter="org.eclipse.papyrus.uml.service.validation.internal.UMLFilter"
+			diagnostician="org.eclipse.papyrus.uml.service.validation.internal.UMLDiagnostician">
+        </diagnostician>    
+  </extension>
+</plugin>

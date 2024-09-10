@@ -1,0 +1,18 @@
+active class TemplateBindingTest {
+
+	class C<T> {
+
+		@Create
+		public C();
+		@Destroy
+		public destroy();
+
+	}
+
+	public c: C< Integer >;
+	@Create
+	public TemplateBindingTest();
+	@Destroy
+	public destroy();
+
+} do 'TemplateBindingTest$behavior$1'

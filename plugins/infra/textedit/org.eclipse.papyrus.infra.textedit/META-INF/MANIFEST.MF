@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.papyrus.infra.textedit;singleton:=true
+Bundle-Version: 7.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: org.eclipse.papyrus.infra.textedit.textdocument,
+ org.eclipse.papyrus.infra.textedit.textdocument.impl,
+ org.eclipse.papyrus.infra.textedit.textdocument.util
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.22.0,4.0.0)";x-installation:=greedy;resolution:=optional,
+ org.eclipse.emf.ecore;bundle-version="[2.24.0,3.0.0)"
+Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.eclipse.papyrus.infra.textedit
+Bundle-RequiredExecutionEnvironment: JavaSE-17

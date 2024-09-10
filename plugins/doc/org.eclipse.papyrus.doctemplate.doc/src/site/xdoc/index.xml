@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+	<properties>
+		<title>Papyrus Developer Documentation</title>
+	</properties>
+
+	<body>
+		<section name="Documentation">
+			<subsection name="Contexte">
+				<p>Papyrus provides several documentation: the official wiki, the embeded one in Eclipse. Here the following documentation is included in the official git repository within the code. It is mainly based upon the Maven site generator.</p> 
+			</subsection>
+			<subsection name="Commands">
+				<p>Javadoc generation defined in plugin section"</p>
+				<source>mvn javadoc:javadoc</source>
+				<p>"Web site generation with javadoc defined in report section"</p>
+				<source>mvn site:site</source>
+				<p>Pdf generation"</p>
+				<source>mvn pdf:pdf</source>
+			</subsection>
+			<subsection name="Docs">
+				<p>Have a look to tips for video creation <a href="video.html">Video Tips</a></p>
+				<p>Download the pdf <a href="video.xml.pdf">Doc.pdf</a></p>
+			</subsection>
+		</section>
+	</body>
+</document>

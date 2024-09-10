@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Profile xmi:id="_Kf85gFmaEeunPscLYhz2dA" name="EditionExample" metaclassReference="_XenvYFmaEeunPscLYhz2dA">
+    <elementImport xmi:type="uml:ElementImport" xmi:id="_XenvYFmaEeunPscLYhz2dA" alias="NamedElement">
+      <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#NamedElement"/>
+    </elementImport>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_KhyskFmaEeunPscLYhz2dA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_KhyskVmaEeunPscLYhz2dA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_NZFCwFmaEeunPscLYhz2dA" name="LastEdition">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_PnXfQFmaEeunPscLYhz2dA" name="date">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_ZpaL8FmaEeunPscLYhz2dA" name="base_NamedElement" association="_ZpYWwFmaEeunPscLYhz2dA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#NamedElement"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZpaL8VmaEeunPscLYhz2dA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_ZpYWwFmaEeunPscLYhz2dA" name="E_LastEdition_NamedElement5" memberEnd="_ZpZk4FmaEeunPscLYhz2dA _ZpaL8FmaEeunPscLYhz2dA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ZpZk4FmaEeunPscLYhz2dA" name="extension_LastEdition" type="_NZFCwFmaEeunPscLYhz2dA" aggregation="composite" association="_ZpYWwFmaEeunPscLYhz2dA"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w-5rsFmaEeunPscLYhz2dA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w-7g4FmaEeunPscLYhz2dA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Profile>
+  <Ecore:EPackage xmi:id="_x7WF0FmaEeunPscLYhz2dA" base_Package="_Kf85gFmaEeunPscLYhz2dA" packageName="profile" nsURI="http://www.eclipse.org/papyrus/uml/edition/example" basePackage="org.eclipse.papyrus.examples.uml.edition"/>
+</xmi:XMI>

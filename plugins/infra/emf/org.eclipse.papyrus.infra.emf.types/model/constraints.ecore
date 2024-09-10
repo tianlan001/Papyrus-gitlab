@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="constraints" nsURI="http://www.eclipse.org/Papyrus/2021/types/constraints"
+    nsPrefix="constraints">
+  <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <details key="originalName" value="constraintAdvice"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstraintAdviceConfiguration" eSuperTypes="../../org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.ecore#//AbstractAdviceBindingConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//AdviceConstraint" containment="true"
+        eOpposite="#//AdviceConstraint/owningAdvice"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AdviceConstraint" abstract="true">
+    <eOperations name="approveRequest" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean">
+      <eParameters name="request" ordered="false" lowerBound="1" eType="#//EditCommandRequest"/>
+    </eOperations>
+    <eOperations name="getAdvice" ordered="false" lowerBound="1" eType="#//ConstraintAdviceConfiguration">
+      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <details key="originalName" value="advice"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="suppressedVisibility" value="true"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="composite" ordered="false"
+        eType="#//CompositeConstraint" eOpposite="#//CompositeConstraint/constraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="advice" ordered="false"
+        lowerBound="1" eType="#//ConstraintAdviceConfiguration" changeable="false"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owningAdvice" ordered="false"
+        eType="#//ConstraintAdviceConfiguration" eOpposite="#//ConstraintAdviceConfiguration/constraint"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeConstraint" eSuperTypes="#//AdviceConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="operandCount"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="if operator = filters::OperatorKind::_not then&#xA;  constraint->size() = 1&#xA;else&#xA;  constraint->size() >= 2&#xA;endif"/>
+    </eAnnotations>
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EOperation" name="approveRequest" ordered="false"
+          lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean">
+        <eAnnotations source="redefines" references="#//AdviceConstraint/approveRequest"/>
+        <eParameters name="request" ordered="false" lowerBound="1" eType="#//EditCommandRequest"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" ordered="false"
+        lowerBound="1" eType="ecore:EEnum ../../org.eclipse.papyrus.infra.filters/model/filters.ecore#//OperatorKind"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" ordered="false"
+        upperBound="-1" eType="#//AdviceConstraint" containment="true" eOpposite="#//AdviceConstraint/composite"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="EditCommandRequest" instanceClassName="org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ReferenceConstraint" eSuperTypes="#//AdviceConstraint">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EOperation" name="approveRequest" ordered="false"
+          lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean">
+        <eAnnotations source="redefines" references="#//AdviceConstraint/approveRequest"/>
+        <eParameters name="request" ordered="false" lowerBound="1" eType="#//EditCommandRequest"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="permission" lowerBound="1"
+        upperBound="-1" eType="#//ReferencePermission" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReferencePermission" abstract="true"
+      eSuperTypes="../../org.eclipse.papyrus.infra.filters/model/filters.ecore#//FilteredElement">
+    <eOperations name="matches" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean">
+      <eParameters name="reference" ordered="false" lowerBound="1" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="permitted" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean"
+        defaultValueLiteral="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AnyReference" eSuperTypes="#//ReferencePermission">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EOperation" name="matches" ordered="false" lowerBound="1"
+          eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean">
+        <eAnnotations source="redefines" references="#//ReferencePermission/matches"/>
+        <eParameters name="reference" ordered="false" lowerBound="1" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="referenceKind" ordered="false"
+        lowerBound="1" eType="#//ReferenceKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ReferenceKind">
+    <eLiterals name="any"/>
+    <eLiterals name="containment" value="1"/>
+    <eLiterals name="cross" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Reference" eSuperTypes="#//ReferencePermission">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EOperation" name="matches" ordered="false" lowerBound="1"
+          eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean">
+        <eAnnotations source="redefines" references="#//ReferencePermission/matches"/>
+        <eParameters name="reference" ordered="false" lowerBound="1" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementTypeFilter" eSuperTypes="../../org.eclipse.papyrus.infra.filters/model/filters.ecore#//Filter">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EOperation" name="matches" ordered="false" lowerBound="1"
+          eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean">
+        <eAnnotations source="redefines" references="../../org.eclipse.papyrus.infra.filters/model/filters.ecore#//Filter/matches"/>
+        <eParameters name="input" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.papyrus.infra.filters/model/filters.ecore#//Object"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elementType" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.ecore#//ElementTypeConfiguration"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="relationship" ordered="false"
+        lowerBound="1" eType="#//ElementTypeRelationshipKind" defaultValueLiteral="subtype"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ElementTypeRelationshipKind">
+    <eLiterals name="exactType">
+      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <details key="originalName" value="exact_type"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="specializationType" value="1">
+      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <details key="originalName" value="specialization_type"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="subtype" value="2"/>
+    <eLiterals name="supertype" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelationshipConstraint" eSuperTypes="#//AdviceConstraint">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EOperation" name="approveRequest" ordered="false"
+          lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean">
+        <eAnnotations source="redefines" references="#//AdviceConstraint/approveRequest"/>
+        <eParameters name="request" ordered="false" lowerBound="1" eType="#//EditCommandRequest"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="permission" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//EndPermission" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EndPermission" eSuperTypes="../../org.eclipse.papyrus.infra.filters/model/filters.ecore#//FilteredElement">
+    <eOperations name="matches" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean">
+      <eParameters name="end" ordered="false" lowerBound="1" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="endKind" ordered="false"
+        lowerBound="1" eType="#//EndKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="permitted" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="endFilter" ordered="false"
+        eType="ecore:EClass ../../org.eclipse.papyrus.infra.filters/model/filters.ecore#//Filter"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EndKind">
+    <eLiterals name="all"/>
+    <eLiterals name="source" value="1"/>
+    <eLiterals name="target" value="2"/>
+  </eClassifiers>
+</ecore:EPackage>

@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Require-Bundle: org.eclipse.papyrus.junit.utils;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.eclipse.project.editors;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.ui;bundle-version="3.6.0";resolution:=optional,
+ org.eclipse.core.resources;visibility:=reexport
+Import-Package: com.ibm.icu.text;resolution:=optional,
+ org.eclipse.emf.ecore;version="2.10.0"
+Export-Package: org.eclipse.papyrus.eclipse.project.editors.tests;x-internal:=true,
+ org.eclipse.papyrus.foo.tests;version="2.0.0"
+Bundle-Vendor: Papyrus Project
+Bundle-ActivationPolicy: lazy
+Bundle-Version: 7.0.0.qualifier
+Bundle-Name: Papyrus Test Bundle
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.eclipse.papyrus.foo
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+
+Name: author-info
+Full-Name: Christian W. Damus
+Company: independent
+Committer: true

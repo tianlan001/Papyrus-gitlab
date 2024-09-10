@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite
+	xmlns:lay="clr-namespace:org.eclipse.papyrus.infra.gmfdiag.properties.layout"
+	xmlns:gmf="clr-namespace:org.eclipse.papyrus.infra.gmfdiag.widgets.editors"
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns:x="http://www.eclipse.org/xwt" xmlns="http://www.eclipse.org/xwt/presentation">
+	<Composite.layout>
+		<ppel:PropertiesLayout></ppel:PropertiesLayout>
+	</Composite.layout>
+	<Composite>
+		<Composite.layout>
+			<ppel:PapyrusRowLayout></ppel:PapyrusRowLayout>
+		</Composite.layout>
+		<Group text="Shape">
+			<Group.layout>
+				<ppel:PropertiesLayout></ppel:PropertiesLayout>
+			</Group.layout>
+			<Composite>
+				<Composite.layout>
+					<RowLayout></RowLayout>
+				</Composite.layout>
+				<ppe:BooleanCheckbox input="{Binding}"
+					property="GenericShape:ShapeCustomisation:isOval"></ppe:BooleanCheckbox>
+				<ppe:BooleanCheckbox input="{Binding}"
+					property="GenericShape:ShapeCustomisation:isPackage"></ppe:BooleanCheckbox>
+			</Composite>
+			<ppe:IntegerEditor input="{Binding}"
+				property="GenericShape:ShapeCustomisation:radiusWidth"></ppe:IntegerEditor>
+			<ppe:IntegerEditor input="{Binding}"
+				property="GenericShape:ShapeCustomisation:radiusHeight"></ppe:IntegerEditor>
+			<ppe:StringCombo input="{Binding}"
+				property="GenericShape:ShapeCustomisation:borderStyle"></ppe:StringCombo>
+			<ppe:MultiString input="{Binding}"
+				property="GenericShape:ShapeCustomisation:customDash"></ppe:MultiString>
+		</Group>
+		<Group text="Name">
+			<Group.layout>
+				<ppel:PropertiesLayout></ppel:PropertiesLayout>
+			</Group.layout>
+			<ppe:StringCombo input="{Binding}"
+				property="GenericShape:LabelCustomisation:textAlignment"></ppe:StringCombo>
+			<gmf:XWTAwareStringColorPicker input="{Binding}"
+				property="GenericShape:LabelCustomisation:nameBackgroundColor"
+				customLabel="Background color"></gmf:XWTAwareStringColorPicker>
+			<ppe:BooleanCheckbox input="{Binding}"
+				property="GenericShape:LabelCustomisation:displayHeader"></ppe:BooleanCheckbox>
+			<ppe:BooleanCheckbox input="{Binding}"
+				property="GenericShape:LabelCustomisation:isNameWrap"></ppe:BooleanCheckbox>
+			<Group text="Margin">
+				<Group.layout>
+					<ppel:PropertiesLayout numColumns="2"></ppel:PropertiesLayout>
+				</Group.layout>
+				<ppe:IntegerEditor input="{Binding}"
+					property="GenericShape:LabelCustomisation:topMarginLabel"
+					customLabel="Top"></ppe:IntegerEditor>
+				<ppe:IntegerEditor input="{Binding}"
+					property="GenericShape:LabelCustomisation:bottomMarginLabel"
+					customLabel="Bottom"></ppe:IntegerEditor>
+				<ppe:IntegerEditor input="{Binding}"
+					property="GenericShape:LabelCustomisation:rightMarginLabel"
+					customLabel="Right"></ppe:IntegerEditor>
+				<ppe:IntegerEditor input="{Binding}"
+					property="GenericShape:LabelCustomisation:leftMarginLabel"
+					customLabel="Left"></ppe:IntegerEditor>
+			</Group>
+		</Group>
+		<Group text="Compartments">
+			<Group.layout>
+				<ppel:PropertiesLayout></ppel:PropertiesLayout>
+			</Group.layout>
+			<ppe:StringCombo input="{Binding}"
+				property="GenericShape:CompartmentCustomisation:linePosition"></ppe:StringCombo>
+			<ppe:IntegerEditor input="{Binding}"
+				property="GenericShape:CompartmentCustomisation:lineLength"></ppe:IntegerEditor>
+			<ppe:StringEditor input="{Binding}"
+				property="GenericShape:CompartmentCustomisation:lineLengthRatio"></ppe:StringEditor>
+		</Group>
+		<Group text="Shadow">
+			<Group.layout>
+				<ppel:PropertiesLayout></ppel:PropertiesLayout>
+			</Group.layout>
+			<ppe:BooleanCheckbox input="{Binding}"
+				property="UMLNotation:Shadow:shadow"></ppe:BooleanCheckbox>
+			<gmf:XWTAwareStringColorPicker input="{Binding}"
+				property="GenericShape:ShadowCustomisation:shadowColor"></gmf:XWTAwareStringColorPicker>
+			<ppe:IntegerEditor input="{Binding}"
+				property="GenericShape:ShadowCustomisation:shadowWidth"></ppe:IntegerEditor>
+		</Group>
+		<Group text="Floating Label">
+			<Group.layout>
+				<ppel:PropertiesLayout></ppel:PropertiesLayout>
+			</Group.layout>
+			<ppe:BooleanCheckbox input="{Binding}"
+				property="GenericShape:FloatingLabelCustomisation:visible"
+				customLabel="Display floating label"></ppe:BooleanCheckbox>
+			<ppe:BooleanCheckbox input="{Binding}"
+				property="GenericShape:FloatingLabelCustomisation:isFloatingLabelConstrained"></ppe:BooleanCheckbox>
+		</Group>
+		<Group text="SVG Symbol">
+			<Group.layout>
+				<ppel:PropertiesLayout></ppel:PropertiesLayout>
+			</Group.layout>
+			<ppe:BooleanCheckbox input="{Binding}"
+				property="GenericShape:SVGCustomisation:maintainSymbolRatio"></ppe:BooleanCheckbox>
+			<ppe:BooleanCheckbox input="{Binding}"
+				property="GenericShape:SVGCustomisation:followSVGSymbol"></ppe:BooleanCheckbox>
+			<ppe:BooleanCheckbox input="{Binding}"
+				property="GenericShape:SVGCustomisation:useOriginalColors"></ppe:BooleanCheckbox>
+		</Group>
+	</Composite>
+</Composite>

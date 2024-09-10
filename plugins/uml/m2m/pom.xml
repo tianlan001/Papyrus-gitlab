@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.papyrus.uml.m2m.qvto.common.plugins</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+	    <groupId>org.eclipse.papyrus</groupId>
+	    <artifactId>org.eclipse.papyrus.uml</artifactId>
+	    <version>7.0.0-SNAPSHOT</version>
+    </parent>
+	<name>Papyrus M2M QvTo</name>
+	<description>Papyrus Model to Model with QvTo transformations common plugins.</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.uml.m2m.qvto.common</module>
+		<module>org.eclipse.papyrus.uml.m2m.qvto.common.blackboxes</module>
+	</modules>
+</project>

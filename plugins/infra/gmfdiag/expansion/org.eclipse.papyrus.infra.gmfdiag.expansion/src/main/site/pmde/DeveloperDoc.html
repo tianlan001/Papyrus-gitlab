@@ -1,0 +1,326 @@
+<html>
+<link rel="stylesheet" href="default.css" type="text/css">
+<H1>Expansion of diagram by adding compartments</H1>
+<H2 id ="_iTtIUA6jEeW5sJOMCMaCHg">Table of Contents</H2>
+<ul><a href="#_iTu9gQ6jEeW5sJOMCMaCHg">Requirements</a></ul>
+<ul><a href="#_iUMQgQ6jEeW5sJOMCMaCHg">Use Cases</a><li><a href="#_iV6u0Q6jEeW5sJOMCMaCHg"> Diagram Expansion</a></li>
+<ul><li><a href="#_iYF5EA6jEeW5sJOMCMaCHg"> Create an expansion model</a></li>
+<ul><li><a href="#_iYJjcQ6jEeW5sJOMCMaCHg"> How to</a></li>
+<ul></ul>
+</ul>
+<li><a href="#_iYSGUQ6jEeW5sJOMCMaCHg"> Reuse a representation</a></li>
+<ul><li><a href="#_iYWXwA6jEeW5sJOMCMaCHg"> How to</a></li>
+<ul></ul>
+</ul>
+<li><a href="#_iYaCIA6jEeW5sJOMCMaCHg"> Add a graphical representation</a></li>
+<ul></ul>
+<li><a href="#_iYceYQ6jEeW5sJOMCMaCHg"> Add compartments</a></li>
+<ul></ul>
+<li><a href="#_iYgIwQ6jEeW5sJOMCMaCHg"> Add new nodes</a></li>
+<ul></ul>
+<li><a href="#_iYjzIQ6jEeW5sJOMCMaCHg"> Add new child label</a></li>
+<ul></ul>
+<li><a href="#_iYndgQ6jEeW5sJOMCMaCHg"> Add new border item</a></li>
+<ul></ul>
+<li><a href="#_iYru8A6jEeW5sJOMCMaCHg"> Add new link</a></li>
+<ul></ul>
+</ul>
+</ul>
+<ul><a href="#_iYvZUQ6jEeW5sJOMCMaCHg">Design</a><li><a href="#_iYwncQ6jEeW5sJOMCMaCHg"> expansionmodel</a></li>
+<ul><li><a href="#_igBtEA6jEeW5sJOMCMaCHg"> Class Representation</a></li>
+<ul></ul>
+<li><a href="#_igFXcQ6jEeW5sJOMCMaCHg"> Class InducedRepresentation</a></li>
+<ul></ul>
+<li><a href="#_igJB0Q6jEeW5sJOMCMaCHg"> Class GraphicalElementLibrary</a></li>
+<ul></ul>
+<li><a href="#_igKP8Q6jEeW5sJOMCMaCHg"> Class UseContext</a></li>
+<ul></ul>
+<li><a href="#_igMsMQ6jEeW5sJOMCMaCHg"> Class DiagramExpansion</a></li>
+<ul></ul>
+<li><a href="#_igPIcQ6jEeW5sJOMCMaCHg"> Class GMFT_BasedRepresentation</a></li>
+<ul></ul>
+<li><a href="#_igSy0Q6jEeW5sJOMCMaCHg"> Class RepresentationKind</a></li>
+<ul></ul>
+<li><a href="#_igVPEQ6jEeW5sJOMCMaCHg"> Class AbstractRepresentation</a></li>
+<ul></ul>
+</ul>
+<li><a href="#_igY5cQ6jEeW5sJOMCMaCHg"> Package org.eclipse.papyrus.infra.gmfdiag.common</a></li>
+<ul><li><a href="#_igauoA6jEeW5sJOMCMaCHg"> Package Expansion</a></li>
+<ul><li><a href="#_ioz1oQ6jEeW5sJOMCMaCHg"> Class ChildrenListRepresentation</a></li>
+<ul></ul>
+<li><a href="#_io248A6jEeW5sJOMCMaCHg"> Class CreateInducedRepresentationViewCommand</a></li>
+<ul></ul>
+<li><a href="#_io6jUQ6jEeW5sJOMCMaCHg"> Class DiagramExpansionSingleton</a></li>
+<ul></ul>
+<li><a href="#_io8_kQ6jEeW5sJOMCMaCHg"> Class DiagramExpansionsRegistry</a></li>
+<ul></ul>
+<li><a href="#_io_b0Q6jEeW5sJOMCMaCHg"> Class ExpandEditPartProvider</a></li>
+<ul></ul>
+<li><a href="#_ipDtQA6jEeW5sJOMCMaCHg"> Class ExpandViewProvider</a></li>
+<ul></ul>
+<li><a href="#_ipHXoQ6jEeW5sJOMCMaCHg"> Class IdentityGraphicalElementType</a></li>
+<ul></ul>
+<li><a href="#_ipLCAQ6jEeW5sJOMCMaCHg"> Class InducedRepresentationCreationEditPolicy</a></li>
+<ul></ul>
+<li><a href="#_ipPTcA6jEeW5sJOMCMaCHg"> Class InducedRepresentationPolicyProvider</a></li>
+<ul></ul>
+</ul>
+<li><a href="#_ipS90Q6jEeW5sJOMCMaCHg"> Package expansionmodel</a></li>
+<ul><li><a href="#_ipUL8Q6jEeW5sJOMCMaCHg"> Class UseContext</a></li>
+<ul></ul>
+<li><a href="#_ipVaEQ6jEeW5sJOMCMaCHg"> Class AbstractRepresentation</a></li>
+<ul></ul>
+<li><a href="#_ipWoMQ6jEeW5sJOMCMaCHg"> Class DiagramExpansion</a></li>
+<ul></ul>
+</ul>
+<li><a href="#_ipYdYA6jEeW5sJOMCMaCHg"> Package providers</a></li>
+<ul><li><a href="#_ipZrgA6jEeW5sJOMCMaCHg"> Class CustomAbstractViewProvider</a></li>
+<ul></ul>
+<li><a href="#_ipa5oA6jEeW5sJOMCMaCHg"> Interface IGraphicalTypeRegistry</a></li>
+<ul></ul>
+</ul>
+<li><a href="#_ipcHwA6jEeW5sJOMCMaCHg"> Package service</a></li>
+<ul><li><a href="#_ipdV4Q6jEeW5sJOMCMaCHg"> Package shape</a></li>
+<ul><li><a href="#_ipfLEA6jEeW5sJOMCMaCHg"> Class NotificationManager</a></li>
+<ul></ul>
+</ul>
+</ul>
+</ul>
+</ul>
+<ul><a href="#_ipgZMA6jEeW5sJOMCMaCHg">Tests</a><li><a href="#_iqG2IQ6jEeW5sJOMCMaCHg"> TestCase T001-Load ExpansionModel</a></li>
+<ul></ul>
+<li><a href="#_iqIEQQ6jEeW5sJOMCMaCHg"> TestCase T002-Add a compartment</a></li>
+<ul></ul>
+<li><a href="#_iqKggQ6jEeW5sJOMCMaCHg"> TestCase T003-Add Child Label</a></li>
+<ul></ul>
+<li><a href="#_iqM8wQ6jEeW5sJOMCMaCHg"> TestCase T006-Add Compartment with Kind</a></li>
+<ul></ul>
+<li><a href="#_iqOx8Q6jEeW5sJOMCMaCHg"> TestCase T004-Add Border Item</a></li>
+<ul></ul>
+<li><a href="#_iqROMQ6jEeW5sJOMCMaCHg"> TestCase T005-Add link</a></li>
+<ul></ul>
+<li><a href="#_iqTqcQ6jEeW5sJOMCMaCHg"> TestCase T006-Drop of Elements</a></li>
+<ul></ul>
+<li><a href="#_iqU4kQ6jEeW5sJOMCMaCHg"> TestCase T007-AssistantUsage</a></li>
+<ul></ul>
+</ul>
+<ul><a href="#_iqXU0A6jEeW5sJOMCMaCHg">Requirements Coverage</a></ul>
+<H2 id ="_iTu9gQ6jEeW5sJOMCMaCHg">Requirements</H2>
+<pre id ="_iTwysQ6jEeW5sJOMCMaCHg">- Add Graphical Elements (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_010): <BR/> The system shall be able to add new graphical elements in new diagrams or existing diagrams</pre>
+<pre id ="_iTyn4A6jEeW5sJOMCMaCHg">- Add Graphical Compartments (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_011): <BR/> The developper can add new compartments from a existed graphical element.</pre>
+<pre id ="_iTz2AQ6jEeW5sJOMCMaCHg">- Add new nodes (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_012): <BR/> A developper can add new nodes in the diagram that no exist in the existed diagram or  add element by reusing existed shape.</pre>
+<pre id ="_iT1rMA6jEeW5sJOMCMaCHg">- Add new child label  (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_013): <BR/>  A developper can add new child labels ( element that can be contained in a list compartment) in the diagram that no exist in the existed diagram or  add element by reusing existed child label.</pre>
+<pre id ="_iT25UQ6jEeW5sJOMCMaCHg">- Add new border item (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_014): <BR/> A developper can add new border items ( element that can be installed around the  shape) in the diagram that no exist in the existed diagram or  add element by reusing existed border item.</pre>
+<pre id ="_iT4ugA6jEeW5sJOMCMaCHg">- Add new links  (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_015): <BR/> A developper can add new links in the diagram that no exist in the existed diagram or  add element by reuse existed links.</pre>
+<pre id ="_iT6jsA6jEeW5sJOMCMaCHg">- Reuse representations from diagram (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_016): <BR/> It must be able to reuse rperesentations from existed diagrams</pre>
+<pre id ="_iT8Y4A6jEeW5sJOMCMaCHg">- Drop of new Elements (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_020): <BR/> New Elements can be dropped from the model explorer.</pre>
+<pre id ="_iT9nAQ6jEeW5sJOMCMaCHg">- Assistant (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_030): <BR/> The new element must be created by using assistant mechanism</pre>
+<pre id ="_iT_cMQ6jEeW5sJOMCMaCHg">- Creation from the palette (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_040): <BR/> Elements can be created fom the palette</pre>
+<pre id ="_iUBRYA6jEeW5sJOMCMaCHg">- Non impact on parent diagrams (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_050): <BR/> the inheridted diagram must not impact parent diagram by addin the new compartments.</pre>
+<pre id ="_iUCfgQ6jEeW5sJOMCMaCHg">- ExpransionModel (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_060): <BR/> The expansion of diagram has to be a model and be interpreted</pre>
+<pre id ="_iUEUsA6jEeW5sJOMCMaCHg">- The model has to be well-built (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_061): <BR/> When the model is done, the ystem has to ensure that it can be correctly interpreted.</pre>
+<pre id ="_iUGJ4A6jEeW5sJOMCMaCHg">- Expanded diagrams viewed with original editor (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_070): <BR/> The original diagram must be view in original diagram, exteernal element must have a predefined shape.<BR/>It cannot be implemented for the version Mars</pre>
+<pre id ="_iUHYAQ6jEeW5sJOMCMaCHg">- CSS driven (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_080): <BR/> The added element must be driven by CSS</pre>
+<pre id ="_iUJNMQ6jEeW5sJOMCMaCHg">- View point relation (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_090): <BR/> The new specialization editor must benefit of all specializations.</pre>
+<pre id ="_iULCYA6jEeW5sJOMCMaCHg">- Loading at runtime (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_0100): <BR/> An expansion model must be able to load during runtime, not only with extension point.<BR/>It allow to be tested by Junit Tests.<BR/></pre>
+<H2 id ="_iUMQgQ6jEeW5sJOMCMaCHg">Use Cases</H2>
+<P align="middle"><img src=./imgDOC/UseCaseDiagram.png alt=UseCaseDiagram ></P><P align="middle">UseCaseDiagram</P></BR>
+<H3 id ="_iV6u0Q6jEeW5sJOMCMaCHg">Diagram Expansion</H3>
+<P align="middle"><img src=./imgDOC/CommentDiagram.png alt=CommentDiagram ></P><P align="middle">CommentDiagram</P></BR>
+<H4 id ="_iYF5EA6jEeW5sJOMCMaCHg">Create an expansion model</H4>
+<pre id ="_iYHHMQ6jEeW5sJOMCMaCHg">  - traces to <a href="#_iUCfgQ6jEeW5sJOMCMaCHg" title="Requirement ExpransionModel">ExpransionModel</a></pre>
+<pre id ="_iYIVUQ6jEeW5sJOMCMaCHg">The developper can model the expansion of diagram.<BR/></pre>
+<H5 id ="_iYJjcQ6jEeW5sJOMCMaCHg">How to</H5>
+<pre id ="_iYKxkQ6jEeW5sJOMCMaCHg">In order to be able to edit this kind of model, the developper has to download the code of this editor. <BR/>To do that, click on menu File--> new-->Other<BR/>Choose "Example EMF models creation wizards" and select Expansion Model.<BR/>Then select as root Object a diagram expansion.<BR/></pre>
+<P align="middle"><img src=C:/git/org.eclipse.papyrus/plugins/infra/gmfdiag/org.eclipse.papyrus.infra.gmfdiag.common/doc/imgDOC/CreateNewExpansionModel_2.png alt=Create a new expansion model step 2 ></P><P align="middle">Create a new expansion model step 2</P></BR>
+<P align="middle"><img src=C:/git/org.eclipse.papyrus/plugins/infra/gmfdiag/org.eclipse.papyrus.infra.gmfdiag.common/doc/imgDOC/CreateNewExpansionModel_1.png alt=Create a new expansion model step 1 ></P><P align="middle">Create a new expansion model step 1</P></BR>
+<pre id ="_iYPDAA6jEeW5sJOMCMaCHg">I has to be included inside plug-ins and fill the extension point: "org.eclipse.papyrus.infra.gmfdiag.common.diagramExpansion".<BR/>Note: If the model is not valid, the framework does not take in account your model expansion.<BR/>		--> so valid it, and see your log error.<BR/>		<BR/></pre>
+<pre id ="_iYPqEQ6jEeW5sJOMCMaCHg">In order to add an expansion for a diagram, the developper has to wonder "Which diagram must be expanded?<BR/>To specify it the advanced user has to create  a UseContext. The diagram type is the reference to your diagram,  class diagram, composite diagram or your view point?</pre>
+<P align="middle"><img src=C:/git/org.eclipse.papyrus/plugins/infra/gmfdiag/org.eclipse.papyrus.infra.gmfdiag.common/doc/imgDOC/UseContext.png alt=Set a UseContext ></P><P align="middle">Set a UseContext</P></BR>
+<H4 id ="_iYSGUQ6jEeW5sJOMCMaCHg">Reuse a representation</H4>
+<pre id ="_iYT7gA6jEeW5sJOMCMaCHg">  - traces to <a href="#_iT6jsA6jEeW5sJOMCMaCHg" title="Requirement Reuse representations from diagram">Reuse representations from diagram</a></pre>
+<pre id ="_iYVJoA6jEeW5sJOMCMaCHg">It must be able to reuse reperesentations from existed diagrams</pre>
+<H5 id ="_iYWXwA6jEeW5sJOMCMaCHg">How to</H5>
+<pre id ="_iYXl4A6jEeW5sJOMCMaCHg">Reuse representation of existing diagram implies knowledge of each representation. A representation is composed by three concepts:<BR/>- the model (in our case this is the notation model or more see serailization of the diagram)<BR/>- the controler (in the context of GEF, it is named "EditPart"<BR/>- and the view ( the java Darw2d figure)<BR/><BR/>First indicate the visual ID that you want to overload  (this id can be found in the code or in the gmfgen files)<BR/>So if you want to change  the serialization of the new representation change the view factory<BR/>If you want to associate a new controler to the model notation change the editpart.<BR/>In order to have more detailled information see the MVC of GEF.<BR/><BR/>The name in this element is never used programmtically. It is used as an information.<BR/></pre>
+<P align="middle"><img src=C:/git/org.eclipse.papyrus/plugins/infra/gmfdiag/org.eclipse.papyrus.infra.gmfdiag.common/doc/imgDOC/ResuseNode.png alt=Resuse class representation form class diagram ></P><P align="middle">Resuse class representation form class diagram</P></BR>
+<H4 id ="_iYaCIA6jEeW5sJOMCMaCHg">Add a graphical representation</H4>
+<pre id ="_iYbQQA6jEeW5sJOMCMaCHg">  - traces to <a href="#_iTwysQ6jEeW5sJOMCMaCHg" title="Requirement Add Graphical Elements">Add Graphical Elements</a></pre>
+<H4 id ="_iYceYQ6jEeW5sJOMCMaCHg">Add compartments</H4>
+<pre id ="_iYdsgQ6jEeW5sJOMCMaCHg">  - traces to <a href="#_iTyn4A6jEeW5sJOMCMaCHg" title="Requirement Add Graphical Compartments">Add Graphical Compartments</a></pre>
+<pre id ="_iYe6oQ6jEeW5sJOMCMaCHg">A developper can add compartments inside a node. It can be XYlayout or list or other type of compartments.</pre>
+<H4 id ="_iYgIwQ6jEeW5sJOMCMaCHg">Add new nodes</H4>
+<pre id ="_iYhW4Q6jEeW5sJOMCMaCHg">  - traces to <a href="#_iTz2AQ6jEeW5sJOMCMaCHg" title="Requirement Add new nodes">Add new nodes</a></pre>
+<pre id ="_iYilAQ6jEeW5sJOMCMaCHg">A developper can add new nodes in the diagram that no exist in the existed diagram or  add element by reusing existed shape.</pre>
+<H4 id ="_iYjzIQ6jEeW5sJOMCMaCHg">Add new child label</H4>
+<pre id ="_iYlBQQ6jEeW5sJOMCMaCHg">  - traces to <a href="#_iT1rMA6jEeW5sJOMCMaCHg" title="Requirement Add new child label ">Add new child label </a></pre>
+<pre id ="_iYmPYQ6jEeW5sJOMCMaCHg"> A developper can add new child labels ( element that can be contained in a list compartment) in the diagram that no exist in the existed diagram or  add element by reusing existed child label.</pre>
+<H4 id ="_iYndgQ6jEeW5sJOMCMaCHg">Add new border item</H4>
+<pre id ="_iYpSsA6jEeW5sJOMCMaCHg">  - traces to <a href="#_iT25UQ6jEeW5sJOMCMaCHg" title="Requirement Add new border item">Add new border item</a></pre>
+<pre id ="_iYp5wQ6jEeW5sJOMCMaCHg">A developper can add new border items ( element that can be installed around the  shape) in the diagram that no exist in the existed diagram or  add element by reusing existed border item.</pre>
+<H4 id ="_iYru8A6jEeW5sJOMCMaCHg">Add new link</H4>
+<pre id ="_iYs9EA6jEeW5sJOMCMaCHg">  - traces to <a href="#_iT4ugA6jEeW5sJOMCMaCHg" title="Requirement Add new links ">Add new links </a></pre>
+<pre id ="_iYuLMQ6jEeW5sJOMCMaCHg">A developper can add new links in the diagram that no exist in the existed diagram or  add element by reuse existed links.</pre>
+<H2 id ="_iYvZUQ6jEeW5sJOMCMaCHg">Design</H2>
+<pre id ="_igXrUQ6jEeW5sJOMCMaCHg">The code is dispatched in several packages.<BR/>The infra.gmf.common contains the essential of the code.<BR/>One part has been generated from the UML model to design the structure of representation.<BR/>The second part has been coded manuaaly in order to interpret instances of models.</pre>
+<H3 id ="_iYwncQ6jEeW5sJOMCMaCHg">expansionmodel</H3>
+<P align="middle"><img src=./imgDOC/NewEcoreUMLClassDiagram.png alt=NewEcoreUMLClassDiagram ></P><P align="middle">NewEcoreUMLClassDiagram</P></BR>
+<H4 id ="_igBtEA6jEeW5sJOMCMaCHg">Class Representation</H4>
+<pre id ="_igC7MQ6jEeW5sJOMCMaCHg">  - specializes <a href="#_igVPEQ6jEeW5sJOMCMaCHg" title="Class AbstractRepresentation">AbstractRepresentation</a></pre>
+<pre id ="_igEJUQ6jEeW5sJOMCMaCHg">A representation is en element that is displyed on a diagram it is attached to a controler (see editpart) and to a notation structure( build bt the viewFactory)</pre>
+<H4 id ="_igFXcQ6jEeW5sJOMCMaCHg">Class InducedRepresentation</H4>
+<pre id ="_igGlkQ6jEeW5sJOMCMaCHg">  - specializes <a href="#_igVPEQ6jEeW5sJOMCMaCHg" title="Class AbstractRepresentation">AbstractRepresentation</a></pre>
+<pre id ="_igHzsQ6jEeW5sJOMCMaCHg">An Induced Representation is a representation that is automatically created by its parent representation (compartment, label of a shape, label of link, label or border item)</pre>
+<H4 id ="_igJB0Q6jEeW5sJOMCMaCHg">Class GraphicalElementLibrary</H4>
+<H4 id ="_igKP8Q6jEeW5sJOMCMaCHg">Class UseContext</H4>
+<pre id ="_igLeEQ6jEeW5sJOMCMaCHg">The use context is the point used to extend a diagram, it indicate for wich diagram all representation will be added or extended.</pre>
+<H4 id ="_igMsMQ6jEeW5sJOMCMaCHg">Class DiagramExpansion</H4>
+<pre id ="_igN6UQ6jEeW5sJOMCMaCHg">This the root element model that can contain Use context or libraries. <BR/>An Id is associated in order to allow debbugging in the case of model is bad build.</pre>
+<H4 id ="_igPIcQ6jEeW5sJOMCMaCHg">Class GMFT_BasedRepresentation</H4>
+<pre id ="_igQWkQ6jEeW5sJOMCMaCHg">  - specializes <a href="#_igBtEA6jEeW5sJOMCMaCHg" title="Class Representation">Representation</a></pre>
+<pre id ="_igRksQ6jEeW5sJOMCMaCHg">A GMF_BasedRepresentation is  reuse of an element generated by GMFT, for example well would to add compartments for class. we need to references class  of class diagram. this element is used o this.</pre>
+<H4 id ="_igSy0Q6jEeW5sJOMCMaCHg">Class RepresentationKind</H4>
+<pre id ="_igUA8Q6jEeW5sJOMCMaCHg">This Element is a library of Type of representation, for display as label, border item, classifier...</pre>
+<H4 id ="_igVPEQ6jEeW5sJOMCMaCHg">Class AbstractRepresentation</H4>
+<pre id ="_igWdMQ6jEeW5sJOMCMaCHg">This is an abstract representation used to display  shape or reused shape in diagram.</pre>
+<H3 id ="_igY5cQ6jEeW5sJOMCMaCHg">Package org.eclipse.papyrus.infra.gmfdiag.common</H3>
+<H4 id ="_igauoA6jEeW5sJOMCMaCHg">Package Expansion</H4>
+<P align="middle"><img src=./imgDOC/View_Providers.png alt=View Providers ></P><P align="middle">View Providers</P></BR>
+<pre id ="_ij5gcA6jEeW5sJOMCMaCHg">This design contains classes to interpret model of expansion and create graphical elements from the palette.</pre>
+<P align="middle"><img src=./imgDOC/Creation_of_InducedRepresentations.png alt=Creation of InducedRepresentations ></P><P align="middle">Creation of InducedRepresentations</P></BR>
+<pre id ="_ioyngQ6jEeW5sJOMCMaCHg">This design contains classes to interpret model of expansion and create induced representation ( compartments, labels...).</pre>
+<H5 id ="_ioz1oQ6jEeW5sJOMCMaCHg">Class ChildrenListRepresentation</H5>
+<pre id ="_io1DwQ6jEeW5sJOMCMaCHg">This class is a structure that is adapted for the code of provider not to describe compartments as the model<BR/> it satisfy #Req org.eclipse.papyrus.infra.gmfdiag.expansion.Req_060<BR/> </pre>
+<H5 id ="_io248A6jEeW5sJOMCMaCHg">Class CreateInducedRepresentationViewCommand</H5>
+<pre id ="_io4HEA6jEeW5sJOMCMaCHg">  - specializes <a href="#_P0CkpfSwEeSXvMBl0X3W0A" title="Class RecordingCommand">RecordingCommand</a></pre>
+<pre id ="_io5VMQ6jEeW5sJOMCMaCHg">Command to create the compartment displaying shapes for an element<BR/>see #Req org.eclipse.papyrus.infra.gmfdiag.expansion.Req_011<BR/> </pre>
+<H5 id ="_io6jUQ6jEeW5sJOMCMaCHg">Class DiagramExpansionSingleton</H5>
+<pre id ="_io7xcQ6jEeW5sJOMCMaCHg">This factory is used to give an instance of the diagram expansion </pre>
+<H5 id ="_io8_kQ6jEeW5sJOMCMaCHg">Class DiagramExpansionsRegistry</H5>
+<pre id ="_io-NsQ6jEeW5sJOMCMaCHg">This class is used to load all extension point call org.eclipse.papyrus.infra.gmfdiag.diagramexpansion<BR/> It gives the set of all Diagram expansion that has to be used<BR/> #Req org.eclipse.papyrus.infra.gmfdiag.expansion.Req_060<BR/> </pre>
+<H5 id ="_io_b0Q6jEeW5sJOMCMaCHg">Class ExpandEditPartProvider</H5>
+<pre id ="_ipAp8Q6jEeW5sJOMCMaCHg">  - specializes <a href="#_P5iIoPSwEeSXvMBl0X3W0A" title="Class AbstractEditPartProvider">AbstractEditPartProvider</a></pre>
+<pre id ="_ipB4EQ6jEeW5sJOMCMaCHg">This class is a generic EditpartProvider that is enable to associate controler to new notation element by reading an expansion model<BR/> See Requirement #Req org.eclipse.papyrus.infra.gmfdiag.expansion.Req_010<BR/> </pre>
+<H5 id ="_ipDtQA6jEeW5sJOMCMaCHg">Class ExpandViewProvider</H5>
+<pre id ="_ipE7YQ6jEeW5sJOMCMaCHg">  - specializes <a href="#_ipZrgA6jEeW5sJOMCMaCHg" title="Class CustomAbstractViewProvider">CustomAbstractViewProvider</a><BR/><BR/>  - realizes <a href="#_P8LM9fSwEeSXvMBl0X3W0A" title="Interface IViewProvider">IViewProvider</a></pre>
+<pre id ="_ipGJgQ6jEeW5sJOMCMaCHg">This class is a generic ViewProvider that is enable to create notation element by reading an expansion model<BR/> See Requirement #Req org.eclipse.papyrus.infra.gmfdiag.expansion.Req_010<BR/>#Req org.eclipse.papyrus.infra.gmfdiag.expansion.Req_040<BR/><BR/> </pre>
+<H5 id ="_ipHXoQ6jEeW5sJOMCMaCHg">Class IdentityGraphicalElementType</H5>
+<pre id ="_ipIlwQ6jEeW5sJOMCMaCHg">  - realizes <a href="#_ipa5oA6jEeW5sJOMCMaCHg" title="Interface IGraphicalTypeRegistry">IGraphicalTypeRegistry</a></pre>
+<pre id ="_ipJz4Q6jEeW5sJOMCMaCHg">This class is used to know all graphical type that can be added in the diagram.<BR/>By default it accepts all. This is the ExpandViewProvider that verify the job<BR/>#Req org.eclipse.papyrus.infra.gmfdiag.expansion.Req_010<BR/> </pre>
+<H5 id ="_ipLCAQ6jEeW5sJOMCMaCHg">Class InducedRepresentationCreationEditPolicy</H5>
+<pre id ="_ipMQIQ6jEeW5sJOMCMaCHg">  - specializes <a href="#_P-ikdfSwEeSXvMBl0X3W0A" title="Class GraphicalEditPolicy">GraphicalEditPolicy</a></pre>
+<pre id ="_ipOFUA6jEeW5sJOMCMaCHg">This edit policy can be apply only on {@link IPapyrusEditPart} in order to  access to primary figure. the primary figure has to be a {@link IPapyrusNodeUMLElementFigure}.<BR/>It creates the compartment displaying shapes for an element by reading the expansion model<BR/> see #Req org.eclipse.papyrus.infra.gmfdiag.expansion.Req_011<BR/> </pre>
+<H5 id ="_ipPTcA6jEeW5sJOMCMaCHg">Class InducedRepresentationPolicyProvider</H5>
+<pre id ="_ipQhkA6jEeW5sJOMCMaCHg">  - specializes <a href="#_P_p-wfSwEeSXvMBl0X3W0A" title="Class AbstractProvider">AbstractProvider</a><BR/><BR/>  - realizes <a href="#_P_ql0PSwEeSXvMBl0X3W0A" title="Interface IEditPolicyProvider">IEditPolicyProvider</a></pre>
+<pre id ="_ipRvsQ6jEeW5sJOMCMaCHg">Edit policy provider to install InducedRepresentationPolicy in charge to create compartments displaying shapes for an element by reading the expansion model<BR/>see #Req org.eclipse.papyrus.infra.gmfdiag.expansion.Req_011<BR/> </pre>
+<H4 id ="_ipS90Q6jEeW5sJOMCMaCHg">Package expansionmodel</H4>
+<H5 id ="_ipUL8Q6jEeW5sJOMCMaCHg">Class UseContext</H5>
+<H5 id ="_ipVaEQ6jEeW5sJOMCMaCHg">Class AbstractRepresentation</H5>
+<H5 id ="_ipWoMQ6jEeW5sJOMCMaCHg">Class DiagramExpansion</H5>
+<H4 id ="_ipYdYA6jEeW5sJOMCMaCHg">Package providers</H4>
+<H5 id ="_ipZrgA6jEeW5sJOMCMaCHg">Class CustomAbstractViewProvider</H5>
+<H5 id ="_ipa5oA6jEeW5sJOMCMaCHg">Interface IGraphicalTypeRegistry</H5>
+<H4 id ="_ipcHwA6jEeW5sJOMCMaCHg">Package service</H4>
+<H5 id ="_ipdV4Q6jEeW5sJOMCMaCHg">Package shape</H5>
+<H6 id ="_ipfLEA6jEeW5sJOMCMaCHg">Class NotificationManager</H6>
+<H2 id ="_ipgZMA6jEeW5sJOMCMaCHg">Tests</H2>
+<P align="middle"><img src=./imgDOC/Test_expansion_model.png alt=Test expansion model ></P><P align="middle">Test expansion model</P></BR>
+<pre id ="_iqFoAQ6jEeW5sJOMCMaCHg">The code coverage  for:<BR/>- org.eclipse.papyrus.infra.gmfdiag.common.expansion is equals to 90,1 %.<BR/>- ExpansionElementDropStrategy.java	87,0 %<BR/><BR/>The function is coverage at 64%</pre>
+<H3 id ="_iqG2IQ6jEeW5sJOMCMaCHg">TestCase T001-Load ExpansionModel</H3>
+<H3 id ="_iqIEQQ6jEeW5sJOMCMaCHg">TestCase T002-Add a compartment</H3>
+<pre id ="_iqJSYQ6jEeW5sJOMCMaCHg">The goal of this test is to know if a compartment can be added on existed node.</pre>
+<H3 id ="_iqKggQ6jEeW5sJOMCMaCHg">TestCase T003-Add Child Label</H3>
+<pre id ="_iqLuoQ6jEeW5sJOMCMaCHg">The goal of this test is to know if a child label can be added inside compartments.</pre>
+<H3 id ="_iqM8wQ6jEeW5sJOMCMaCHg">TestCase T006-Add Compartment with Kind</H3>
+<pre id ="_iqOK4A6jEeW5sJOMCMaCHg">The goal of this test is to know if a compartment can be added on existed node by using library of compartments.</pre>
+<H3 id ="_iqOx8Q6jEeW5sJOMCMaCHg">TestCase T004-Add Border Item</H3>
+<pre id ="_iqQAEQ6jEeW5sJOMCMaCHg">The goal of this test is to know if a border item can be added on existed node.</pre>
+<H3 id ="_iqROMQ6jEeW5sJOMCMaCHg">TestCase T005-Add link</H3>
+<pre id ="_iqScUQ6jEeW5sJOMCMaCHg">The goal of this test is to know if a link can be added inside a diagram.</pre>
+<H3 id ="_iqTqcQ6jEeW5sJOMCMaCHg">TestCase T006-Drop of Elements</H3>
+<H3 id ="_iqU4kQ6jEeW5sJOMCMaCHg">TestCase T007-AssistantUsage</H3>
+<pre id ="_iqWGsQ6jEeW5sJOMCMaCHg">The goal of this test case is to ensure that the  assistant can be used with the an expansion of model. It contains on test based on node.<BR/>It remains to add a test based on links.</pre>
+<H2 id ="_iqXU0A6jEeW5sJOMCMaCHg">Requirements Coverage</H2>
+<table style="border-collapse: collapse;"><caption style="caption-side: bottom;">RequirementsCoverageTable</caption><tr><th style="border: 1px solid black">Id</th><th style="border: 1px solid black">Satisfied by</th><th style="border: 1px solid black">Verified by</th></tr>
+<tr><td style="border : 1px solid black"><a href="#_iTwysQ6jEeW5sJOMCMaCHg" title="Add Graphical Elements">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_010</a><BR/>
+</td><td style="border : 1px solid black">Add a graphical representation<BR/>
+</td><td style="border : 1px solid black"><a href="#_iqIEQQ6jEeW5sJOMCMaCHg" title="T002-Add a compartment">T002-Add a compartment, 
+</a><BR/>
+<a href="#_iqKggQ6jEeW5sJOMCMaCHg" title="T003-Add Child Label">T003-Add Child Label, 
+</a><BR/>
+<a href="#_iqM8wQ6jEeW5sJOMCMaCHg" title="T006-Add Compartment with Kind">T006-Add Compartment with Kind, 
+</a><BR/>
+<a href="#_iqROMQ6jEeW5sJOMCMaCHg" title="T005-Add link">T005-Add link, 
+</a><BR/>
+<a href="#_iqOx8Q6jEeW5sJOMCMaCHg" title="T004-Add Border Item">T004-Add Border Item</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iTyn4A6jEeW5sJOMCMaCHg" title="Add Graphical Compartments">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_011</a><BR/>
+</td><td style="border : 1px solid black">Add compartments<BR/>
+</td><td style="border : 1px solid black"><a href="#_iqIEQQ6jEeW5sJOMCMaCHg" title="T002-Add a compartment">T002-Add a compartment, 
+</a><BR/>
+<a href="#_iqM8wQ6jEeW5sJOMCMaCHg" title="T006-Add Compartment with Kind">T006-Add Compartment with Kind</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iTz2AQ6jEeW5sJOMCMaCHg" title="Add new nodes">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_012</a><BR/>
+</td><td style="border : 1px solid black">Add new nodes<BR/>
+</td><td style="border : 1px solid black"><a href="#_iqOx8Q6jEeW5sJOMCMaCHg" title="T004-Add Border Item">T004-Add Border Item</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iT1rMA6jEeW5sJOMCMaCHg" title="Add new child label ">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_013</a><BR/>
+</td><td style="border : 1px solid black">Add new child label<BR/>
+</td><td style="border : 1px solid black"><a href="#_iqKggQ6jEeW5sJOMCMaCHg" title="T003-Add Child Label">T003-Add Child Label</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iT25UQ6jEeW5sJOMCMaCHg" title="Add new border item">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_014</a><BR/>
+</td><td style="border : 1px solid black">Add new border item<BR/>
+</td><td style="border : 1px solid black"><a href="#_iqOx8Q6jEeW5sJOMCMaCHg" title="T004-Add Border Item">T004-Add Border Item</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iT4ugA6jEeW5sJOMCMaCHg" title="Add new links ">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_015</a><BR/>
+</td><td style="border : 1px solid black">Add new link<BR/>
+</td><td style="border : 1px solid black"><a href="#_iqROMQ6jEeW5sJOMCMaCHg" title="T005-Add link">T005-Add link</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iT6jsA6jEeW5sJOMCMaCHg" title="Reuse representations from diagram">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_016</a><BR/>
+</td><td style="border : 1px solid black">Reuse a representation<BR/>
+</td><td style="border : 1px solid black"><a href="#_iqKggQ6jEeW5sJOMCMaCHg" title="T003-Add Child Label">T003-Add Child Label, 
+</a><BR/>
+<a href="#_iqIEQQ6jEeW5sJOMCMaCHg" title="T002-Add a compartment">T002-Add a compartment, 
+</a><BR/>
+<a href="#_iqM8wQ6jEeW5sJOMCMaCHg" title="T006-Add Compartment with Kind">T006-Add Compartment with Kind, 
+</a><BR/>
+<a href="#_iqOx8Q6jEeW5sJOMCMaCHg" title="T004-Add Border Item">T004-Add Border Item</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iT8Y4A6jEeW5sJOMCMaCHg" title="Drop of new Elements">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_020</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"><a href="#_iqTqcQ6jEeW5sJOMCMaCHg" title="T006-Drop of Elements">T006-Drop of Elements</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iT9nAQ6jEeW5sJOMCMaCHg" title="Assistant">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_030</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"><a href="#_iqU4kQ6jEeW5sJOMCMaCHg" title="T007-AssistantUsage">T007-AssistantUsage</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iT_cMQ6jEeW5sJOMCMaCHg" title="Creation from the palette">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_040</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iUBRYA6jEeW5sJOMCMaCHg" title="Non impact on parent diagrams">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_050</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iUCfgQ6jEeW5sJOMCMaCHg" title="ExpransionModel">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_060</a><BR/>
+</td><td style="border : 1px solid black">Create an expansion model<BR/>
+</td><td style="border : 1px solid black"><a href="#_iqG2IQ6jEeW5sJOMCMaCHg" title="T001-Load ExpansionModel">T001-Load ExpansionModel, 
+</a><BR/>
+<a href="#_iqIEQQ6jEeW5sJOMCMaCHg" title="T002-Add a compartment">T002-Add a compartment, 
+</a><BR/>
+<a href="#_iqM8wQ6jEeW5sJOMCMaCHg" title="T006-Add Compartment with Kind">T006-Add Compartment with Kind, 
+</a><BR/>
+<a href="#_iqROMQ6jEeW5sJOMCMaCHg" title="T005-Add link">T005-Add link, 
+</a><BR/>
+<a href="#_iqOx8Q6jEeW5sJOMCMaCHg" title="T004-Add Border Item">T004-Add Border Item, 
+</a><BR/>
+<a href="#_iqKggQ6jEeW5sJOMCMaCHg" title="T003-Add Child Label">T003-Add Child Label</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iUEUsA6jEeW5sJOMCMaCHg" title="The model has to be well-built">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_061</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iUGJ4A6jEeW5sJOMCMaCHg" title="Expanded diagrams viewed with original editor">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_070</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iUHYAQ6jEeW5sJOMCMaCHg" title="CSS driven">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_080</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iUJNMQ6jEeW5sJOMCMaCHg" title="View point relation">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_090</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_iULCYA6jEeW5sJOMCMaCHg" title="Loading at runtime">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_0100</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"><a href="#_iqG2IQ6jEeW5sJOMCMaCHg" title="T001-Load ExpansionModel">T001-Load ExpansionModel</a><BR/>
+</td></tr>
+</table>
+<pre id ="_iqX74g6jEeW5sJOMCMaCHg">Unsatisfied requirements (9 out of 17) : </pre>
+<a href="#_iT8Y4A6jEeW5sJOMCMaCHg" title="Drop of new Elements">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_020, </a><a href="#_iT9nAQ6jEeW5sJOMCMaCHg" title="Assistant">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_030, </a><a href="#_iT_cMQ6jEeW5sJOMCMaCHg" title="Creation from the palette">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_040, </a><a href="#_iUBRYA6jEeW5sJOMCMaCHg" title="Non impact on parent diagrams">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_050, </a><a href="#_iUEUsA6jEeW5sJOMCMaCHg" title="The model has to be well-built">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_061, </a><a href="#_iUGJ4A6jEeW5sJOMCMaCHg" title="Expanded diagrams viewed with original editor">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_070, </a><a href="#_iUHYAQ6jEeW5sJOMCMaCHg" title="CSS driven">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_080, </a><a href="#_iUJNMQ6jEeW5sJOMCMaCHg" title="View point relation">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_090, </a><a href="#_iULCYA6jEeW5sJOMCMaCHg" title="Loading at runtime">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_0100</a><pre id ="_iqZKAQ6jEeW5sJOMCMaCHg">Unverified requirements (6 out of 17) : </pre>
+<a href="#_iT_cMQ6jEeW5sJOMCMaCHg" title="Creation from the palette">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_040, </a><a href="#_iUBRYA6jEeW5sJOMCMaCHg" title="Non impact on parent diagrams">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_050, </a><a href="#_iUEUsA6jEeW5sJOMCMaCHg" title="The model has to be well-built">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_061, </a><a href="#_iUGJ4A6jEeW5sJOMCMaCHg" title="Expanded diagrams viewed with original editor">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_070, </a><a href="#_iUHYAQ6jEeW5sJOMCMaCHg" title="CSS driven">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_080, </a><a href="#_iUJNMQ6jEeW5sJOMCMaCHg" title="View point relation">org.eclipse.papyrus.infra.gmfdiag.expansion.Req_090</a></html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2014 CEA LIST.
+ 
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+  CEA LIST - Initial API and implementation
+-->
+
+<plugin>
+
+
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated NOT ElementTypesConfigurations -->
+      <wizard
+            id="org.eclipse.papyrus.infra.types.presentation.ElementTypesConfigurationsModelWizardID"
+            name="%_UI_ElementTypesConfigurationsModelWizard_label"
+            class="org.eclipse.papyrus.infra.types.presentation.ElementTypesConfigurationsModelWizard"
+            category="org.eclipse.papyrus.wizards.category/org.eclipse.papyrus.wizards.custo.category/org.eclipse.papyrus.wizards.custo.framework.category"
+            icon="icons/full/obj16/ElementTypesConfigurationsModelFile.gif">
+         <description>%_UI_ElementTypesConfigurationsModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated ElementTypesConfigurations -->
+      <editor
+            id="org.eclipse.papyrus.infra.types.presentation.ElementTypesConfigurationsEditorID"
+            name="%_UI_ElementTypesConfigurationsEditor_label"
+            icon="icons/full/obj16/ElementTypesConfigurationsModelFile.gif"
+            extensions="elementtypesconfigurations"
+            class="org.eclipse.papyrus.infra.types.presentation.ElementTypesConfigurationsEditor"
+            contributorClass="org.eclipse.papyrus.infra.types.presentation.ElementTypesConfigurationsActionBarContributor">
+         <contentTypeBinding contentTypeId="org.eclipse.papyrus.infra.types"/>
+      </editor>
+   </extension>
+</plugin>

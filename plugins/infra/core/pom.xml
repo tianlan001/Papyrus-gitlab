@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.papyrus.infra-core</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+	    <groupId>org.eclipse.papyrus</groupId>
+	    <artifactId>org.eclipse.papyrus.infra</artifactId>
+	    <version>7.0.0-SNAPSHOT</version>
+    </parent>
+	<name>Papyrus Infra Core</name>
+	<description>Core frameworks for Papyrus, including the Service Registry, Editor, and logging and other utilities.</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.infra.core</module>
+		<module>org.eclipse.papyrus.infra.core.architecture</module>
+		<module>org.eclipse.papyrus.infra.core.architecture.edit</module>
+		<module>org.eclipse.papyrus.infra.core.log</module>
+		<module>org.eclipse.papyrus.infra.core.sasheditor</module>
+		<module>org.eclipse.papyrus.infra.core.sasheditor.di</module>
+		<module>org.eclipse.papyrus.infra.core.sashwindows.di</module>
+		<module>org.eclipse.papyrus.infra.tools</module>
+	</modules>
+</project>

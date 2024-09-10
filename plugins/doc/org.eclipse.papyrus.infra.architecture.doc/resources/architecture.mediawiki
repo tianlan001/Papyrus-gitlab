@@ -1,0 +1,411 @@
+<!--
+ Copyright (c) 2017, 2020 CEA LIST.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+
+ Contributors:
+  Maged E. Elaasar (melaasar@gmail.com) - Initial API and implementation
+  Christophe Aussagues (christophe.aussagues@cea.fr) - Modifications to walkthrough 
+-->
+
+=Introduction=
+
+An architecture context is a method for customizing Papyrus for a given domain. It defines a regime for editing a Papyrus model semantically and notationally. The semantic editing is defined by a set of  element type set configurations (from some domain), while the notational side is defined by a set of viewpoints consisting of a set of representation kinds (e.g., diagram kinds and table kinds) and other notational configurations.
+
+An architecture context is composed within an architecture domain (a namespace) and satisfies a set of concerns that belong to a set of stakeholders, both of which are composed in (the same or another) architecture domain. An architecture domain can be specified by one or more architecture models. In the latter case, all of these models are dynamically merged at runtime. 
+
+An architecture context can either be an architecture description language or an architecture framework. In the former case, it can own its own set of representation kinds, while in the latter, it cannot. However, in both cases, a context can own a set of viewpoints that reference representation kinds owned by any description language.
+
+Each model in Papyrus is created using a specific architecture context, although this context may later be switched, possibly resulting in the model details being changed. A model also specifies a subset of its context's viewpoints as enabled at creation time, although this set may later be switched as well. When a viewpoint is enabled on a model, a user can create representations, based on this viewpoint's referenced representation kinds, and see them in model explorer. When a viewpoint is disabled, its representations become invisible, unless another enabled viewpoint references their representation kinds.
+
+=Architecture Context Preference Page=
+
+Papyrus is typically deployed with one or more architecture models that are registered through platform extensions. The architecture contexts contributed by these models can be seen in the Architecture Context Preference Page:
+
+[[Image:images/preferences.png]] 
+
+A user can choose to enable or disable those architecture contexts in the workbench by toggling their checkboxes, set one of them as a default context (using the Make Default button), or extend existing contexts or add to them at runtime by specifying other architecture models from the file system or the workspace (using the Other Architecture Models button):
+
+[[Image:images/othermodels.png]] 
+
+=Architecture Context UI Elements=
+
+The enabling of architecture contexts in a workbench has some impacts on the following UI elements in Papyrus:
+
+==Select Architecture Context==
+The '''Select Architecture Context''' page of the '''New Papyrus Model''' wizard allows for selecting one of the enabled architecture contexts to create the model in. It also allows for enabling/disabling on the model the set of viewpoints that are provided by the context.
+
+[[Image:images/selectarchitecture.png]]
+
+==Initialization Information==
+The '''Initialization Information''' in the '''New Papyrus Model''' wizard has a '''Select a Representation Kind''' section that is populated with only the diagrams and tables that are available in the enabled viewpoints.
+
+[[Image:images/diagramkind.png]]
+
+==Switch Architecture Context and Viewpoints==
+The '''Switch Architecture Context...''' context menu action in the Model Explorer view allows for switching the model's architecture context and/or viewpoints. Similarly, the '''Switch Architecture Viewpoints''' context menu allows for quickly enabling/disabling a viewpoint.
+
+[[Image:images/switchmenus.png]]
+
+===Switch Architecture Viewpoint===
+When the '''Switch Architecture Viewpoints''' is disabling viewpoint(s), there are these behaviors:
+* The diagrams/tables provided by this viewpoint(s):
+** are closed (if they are not enabled by another viewpoint)
+** are still visible in Model Explorer, Welcome Page, Hyperlink and Table of views but with a grayed icon
+** cannot be opened (double click on them opens a window to activate the correct viewpoint)
+* The new diagram/table menu for the diagrams/tables in this viewpoint(s) becomes not available
+
+On the contrary, when the '''Switch Architecture Viewpoints''' is enabling viewpoint(s):
+* The diagrams/table provided by this viewpoint(s) are visible with initial icon in Model Explorer, Welcome Page, Hyperlink and Table of views
+* The new diagram/table menu for the diagrams/tables in this viewpoint(s) becomes available
+
+==Unsupported Diagrams/Tables filter==
+The '''Unsupported Diagrams/Tables''' filter in the Model Explorer view hides diagrams/tables whose kinds are not supported by the viewpoints currently enabled on the model.
+
+==New Diagram/Table menu==
+The '''New Diagram''' and '''New Table''' contextual menus for the model elements in the Model Explorer view provides only the diagrams and tables that are available in the enabled viewpoints and are applicable to the currently selected model element. For example, when a UML Activity is selected, the '''New Diagram''' context menu will not offer to create a Package diagram, or a class diagram. The same holds for the toolbar elements for the creation of diagrams and tables.
+
+[[Image:images/contextmenu.png]]
+
+==Properties view==
+The diagrams properties show the following information:
+
+[[Image:images/properties.png]]
+
+==Diagrams/Tables==
+* '''Diagram Type''' or '''Table Kind''' is the qualified name of the representation kind. It gives an indication of which architecture context is providing it.
+* The '''Owner''' attribute is the model element that syntactically contains the representation in the model explorer. It can be different from the root element.
+* The '''Root''' element attribute is the model element that is the representation's root semantic element.
+
+=Definition of New Architecture Models=
+
+Papyrus supports the definition of new architecture models that can subsequently be used by selecting them as other models in the Papyrus Architecture Context preference page, as presented above. Papyrus architecture models are defined in files with the *.architecture extension. They are really just EMF models that can be edited with the specialized architecture model editor provided by Papyrus.
+
+==Basic Concepts==
+
+The architecture metamodel in Papyrus is implemented as a realization and an extension to the ISO 42010 standard for architecture of systems. Hence many concepts present in the metamodel are derived from those presented in the ISO 42010 standard. However, the standard has been extended with Papyrus-specific concepts and properties.
+* A ''domain'' is the root of the architecture model. It can contains a collection of ''concerns'', ''stakeholders'', as well as ''contexts'' (which can be ''description languages'' and/or ''frameworks'').
+* A ''concern'' (from ISO 42010) represents in Papyrus a matter of interest to some stakeholder.
+* A ''stakeholder'' (from ISO 42010) represents in Papyrus an archetype of users. It references a set of its ''concerns''.
+* A ''description language'' (from ISO 42010) represents in Papyrus a modeling language (e.g., UML, SysML). It has a unique ''identifier'' that corresponds to that of an ''IClientContext'' from GMF. It references a ''metamodel'', a set of ''profiles'', a set of ''element type set configurations'', a ''creation command'' (creates a model of this language), a ''conversion command'' (converts a model to this language), and an ''icon''. It also has an optional ''extension prefix'' for its models. It can also contain a set of ''representation kinds'' (which can be either ''diagrams'' or ''tables'') and a set of ''viewpoints''. This element can also provide ''TreeViewerConfigurations'' elements to configure the display of the model in TreeViewer (used in Dialogs and in the Model Explorer).
+* A ''framework'' (from ISO 42010) represents in Papyrus a modeling framework (e.g., DoDAF). It has a unique ''identifier'' that corresponds to that of an ''IClientContext'' from GMF. It references a set of ''element type set configurations'', a ''creation command'' (creates a model of this framework), a ''conversion command'' (converts a model to this framework), and an ''icon''. It also has an optional ''extension prefix'' for its models. It can also contain a set of ''viewpoints''.
+* A ''viewpoint'' (from ISO 42010) in Papyrus references a set of ''representation kinds'', which can be ''diagrams'' or ''tables''.
+* A ''diagram'' in this context does not represent a single instance (for example the diagram named X in model Y), but the specification (or prototype) of all diagrams of this kind. For example the ''UML Class Diagram''.
+* A ''table'' is another kind of view in Papyrus that enables the presentation of models in a tabular format.
+* A ''tree viewer configuration'' is used to configure the display of the model in TreeViewer (used in Dialogs and in the Model Explorer). An implementation of it is provided by the class ''EMFFacetTreeViewerConfiguration''
+
+==Extension and Inheritance==
+
+Papyrus adds to the ISO 42010 standard two mechanisms that enable reuse of and additions to ''architecture contexts'' provided by other bundles.
+These are ''extension'' and ''inheritance.'' Extension allows an ''architecture context'' to '''add''' definitions to other contexts; these added
+definitions are merged as appropriate (see below) with definitions already in the receiving context and contributed to it by other extensions.
+Inheritance allows an ''architecture context'' to reuse definitions from another context, integrating them into itself in accordance with the same
+merge semantics as extension: inherited definitions are merged into the inheriting context's local definitions and also any definitions that may
+be added to it by extensions.
+
+===Context Extension===
+
+A common use case for context extension is the addition of custom viewpoints and representation kinds to some context. For example, consider a
+plug-in that defines a new kind of diagram or table for some peculiar visualization of elements in UML models. Papyrus provides an ''architecture
+description language'' covering the standard UML diagrams. An custom ''architecture description language'' can have an ''extension'' relationship
+to UML by adding the UML language to its ''extended contexts'' list. Its custom viewpoint with its custom representation kinds are then '''added'''
+to the viewpoints and representation kinds defined in the UML context.
+
+An ''architecture context'' that extends other contexts via this mechanism is an ''extension context'' and is not instantiable in its own right in
+Papyrus models. Its only purpose is to contribute definitions to the contexts that it extends. In Papyrus, its definitions are ''merged'' into the
+contexts that it extends and then it is elided from the set of contexts available in the UI.
+
+===Context Inheritance===
+
+Another use case involves specialization of another ''architecture context'' for domain-specific semantics. For example, UML is engineered to enable
+refinement of the language in various ways for the description of domain-specific modeling languages (DSMLs) such as UML-RT or SysML. For these
+purposes, Papyrus makes it possible to define an ''architecture context'' that '''inherits''' another context. A domain-specific
+''architecture description language'' can, for example, set the UML ''architecture description language'' as its ''general context''. This defines
+a new language that has all of the definitions provided by its general context (here, UML) and adds further definitions of its own. Unlike the
+''extension'' scenario, a ''specialization context'' that inherits some other context is a first-class context that is available in Papyrus for
+creation of models in that language (or framework).
+
+===Architecture Context Merge===
+
+In cases of ''extension'' and ''inheritance'' of contexts, definitions from one context are added to another context, albeit in different directions.
+This contribution of definitions from one context to another is not strictly additive: definitions that would have the same name in the
+same scope (thus would have equal ''qualified names'') are ''merged''. When Papyrus initializes its ''architecture definition'' subsystem, it loads
+all of the source architecture models and merges their contexts according to the semantics described below. The contexts resulting from this merge
+operation are what are presented in the ''New Model Wizard'' and other UI.
+
+====Semantics of Merge====
+
+Architecture Contexts
+
+* in the case of ''inheritance'', the definitions (viewpoints, representation kinds, etc.) in the ''general'' context are merged into the ''specific'' (inheriting) context. A context may inherit zero or one contexts of the same kind (''architecture description language'' or ''architecture framework'')
+* in the case of ''extension'', the definitions in the ''extending'' (or extension) context are merged into each of the ''extended'' contexts. A context may extend zero or more contexts of the same kind (''architecture description language'' or ''architecture framework'')
+* the ''specific'' context or ''extended'' context into which some context is merged will copy attributes from the merged context as follows:
+** the receiving context copies the ''name'' of the merged context if it does not already have a name specified
+** the receiving context copies the ''description'' of the merged context if it does not already have a description specified
+** the receiving context copies the ''identifier'' of the merged context if it does not already have an identifier specified
+** the receiving context copies the ''icon'' of the merged context if it does not already have an icon specified
+** the receiving context copies the ''creation command class'' of the merged context if it does not already have a class specified
+** the receiving context copies the ''conversion command class'' of the merged context if it does not already have a class specified
+** the receiving context adds any ''element type set configurations'' of the merged context that it does not already reference
+** the receiving context '''merges''' the ''viewpoints'' of the merged context (details below)
+** the receiving ''architecture description language'' copies the referenced ''metamodel'' of the merged language if it does not already reference some metamodel
+** the receiving ''architecture description language'' adds any referenced ''profiles'' of the merged language that it does not already reference
+** the receiving ''architecture description language'' copies ''tree viewer configurations'' of the merged language
+** the receiving ''architecture description language'' '''merges''' the ''representation kinds'' of the merged language
+
+Viewpoints
+
+* a viewpoint received into an ''architecture context'' is merged with a viewpoint of the same name, if any, already defined in the receiving context. Otherwise, the viewpoint is just copied into the receiving context
+* in the case of a merge,
+** the receiving viewpoint copies the ''description'' of the merged viewpoint if it does not already have a description specified
+** the receiving viewpoint copies the ''identifier'' of the merged viewpoint if it does not already have an identifier specified
+** the receiving viewpoint copies the ''icon'' of the merged viewpoint if it does not already have an icon specified
+** the receiving viewpoint adds any ''concerns'' of the merged viewpoint that it does not already reference
+** the receiving viewpoint '''merges''' the ''representation kinds'' of the merged viewpoint
+
+Representation Kinds
+
+* a representation kind received into an ''architecture context'' is merged with a representation kind of the same name and type (diagram, table, etc.), if any, already defined in the receiving context. Otherwise, the representation kind is just copied into the receiving context
+* a representation kind received into a ''viewpoint'' is merged in the ''architecture context'' featuring that viewpoint, which is its namespace
+* in the case of a merge,
+** the receiving representation kind copies the ''description'' of the merged representation kind if it does not already have a description specified
+** the receiving representation kind copies the ''identifier'' of the merged representation kind if it does not already have an identifier specified
+** the receiving representation kind copies the ''icon'' of the merged representation kind if it does not already have an icon specified
+** the receiving representation kind copies the ''grayed icon'' of the merged representation kind if it does not already have an icon specified
+** the receiving representation kind adds any ''concerns'' of the merged representation kind that it does not already reference
+** the receiving ''diagram'' '''merges''' the parent diagram of the merged diagram, if any
+** all other details of the merged representation kind are dropped
+
+====Interaction of Context Inheritance and Extension====
+
+An ''architecture context'' may participate in both inheritance and extension relationships. In this case, the context is an ''extension context'' and
+as such is elided by the merge algorithm.
+
+Conceptually, the merge algorithm proceeds in two stages: first a top-down merge of contexts in ''inheritance'' relationships and second a bottom-up
+merge of contexts in ''extension'' relationships. This has several consequences:
+
+* contexts '''do not inherit''' definitions that are added to their general contexts (recursively) by extensions, because inheritance is merged first. This is practically useful because it means that the inheriting context knows extactly what definitions it is inheriting: only those defined locally in its general context (and that context's general context, recursively)
+* extension contexts '''do contribute''' definitions to their extended contexts that they inherit from their general context. Because inheritance is merged first, those inherited definitions are present in the specific context to be merged into the extended contexts
+* contexts that inherit definitions from a general context '''may receive definitions''' from contexts that extend them
+
+As inheritance is transitive, so is extension: a context that merges its definitions into some extended contexts will include in that merge any definitions that are merged into it by other contexts that extend it.
+
+There are configurations of inheritance and extension that are not permitted and are flagged as errors by validation of ''architecture models'':
+
+* a context may not inherit itself, either directly or indirectly. Inheritance cycles are forbidden
+* a context may not extend itself, either directly or indirectly. Extension cycles are forbidden
+* a context may not inherit, either directly or indirectly, a context that it extends, either directly or indirectly. Otherwise, it would inherit its own definitions
+
+The ''architecture contexts'' that result from this merge algorithm do not have any references to inherited and/or extended contexts. This reflects
+semantics of merge as ''copying'' definitions from merged to contexts to receiving contexts, so that these relationships are not needed in the merge
+result. But also, more practically, extension contexts are not included in the merge result (as they only exist to donate definitions to other contexts)
+and so do not exist to reference as general or extended contexts.
+
+<blockquote>''For advanced tools that need it, Papyrus does provide a mechanism by which contexts and other elements in the merge result can be traced to the elements in the source'' architecture models ''from which they are derived. Those source models retain the original inheritance and extension relationships.''</blockquote>
+
+====Architecture Context Debugging====
+
+In case the Papyrus workbench shows an unexpected configuration of ''architecture contexts'', Eclipse tracing options are available
+to assist in the analysis of how the source architecture models were merged to produce that outcome. These are:
+
+* <tt>org.eclipse.papyrus.infra.architecture/debug/models</tt> to trace the discovery and processing of source models by the ''Architecture Domain Manager''
+* <tt>org.eclipse.papyrus.infra.architecture/debug/merge</tt> to trace the merge algorithm as it transforms those source models into the merged ''architecture contexts''
+
+==Walkthrough==
+
+The definition of an architecture model in Papyrus starts with the selection of the ''Architecture Model''  option in the Eclipse ''New'' creation wizard under the ''Papyrus'' category and clicking Finish.
+At each following step, it is strongly recommended to validate the ''Architecture Model'' by selecting the ''''Papyrus Developer''''>''''Validate architecture'''' menu.
+
+<u>Step 0 (optional)</u>: If a profile is used to define the ''Architecture description language'', prepare the profile plugin. The profile plugin shall have ''org.eclipse.papyrus.infra.architecture'' as dependencies. The profile shall extend ''org.eclipse.papyrus.infra.architecture.models'' with the path to the ''architecture model file'' as shown below. 
+
+[[Image:images/profileextension.png]]
+
+Do not forget to include the profile and architecture resource directories in the ''Binary build''. 
+
+<u>Step 1</u>: Specify the ''Name'', ''Id'' and ''Description'' of the ''Architecture Domain'' (the root element).
+
+<u>Step 2</u>: Right click on the domain to add one or more ''Concerns''. In the properties view, specify the following for each concern: a ''Name'', an ''Id'' and a ''Description''.
+
+<u>Step 3</u>: Right click on the domain to add one or more ''Stakeholders''. In the properties view, specify the following for each stakeholder: a ''Name'', an ''Id', a ''Description'', and one or more references to ''Concerns''.
+
+<u>Step 4</u>: Right click on the domain to add one or more ''Architecture Description Languages''. In the properties view, specify for each language: a ''Name'', a ''Description'', a unique ''Id'' (e.g., org.eclipse.uml2.UML), an ''Extension Prefix'' if desired (e.g., profile), an ''Icon'' using a platform plugin URI (e.g., platform:/plugin/project/icons/xxx.png), a ''Metamodel'' as a reference to an ''EPackage'' (load the Ecore model first), one or more ''Profiles'' as references to ''EPackages'' (load the Ecore models first), one or more ''Element Types'' as references to ''ElementTypeSetConfigurations'' (load the *.elementtypesetconfiguration models first), a creation command using a fully qualified of a Java class implementing the IModelCreationCommand interface, and an optional conversion command using a fully qualified of a Java class implementing the IModelConversionCommand interface.
+
+More precisely, as far as one or several profiles are concerned, launch Papyrus in a runtime and edit the plugin to add the related profile(s) to the description language as shown below.
+
+[[Image:images/languageprofilesetting.png]]
+
+Add, in the <code>CreateMyProfileTestModelCommand.java</code> source file, one Java Class named CreateMyProfileTestModelCommand that extends ModelCreationCommandBase as shown below.
+
+[[Image:images/javaclasscreation.png]]
+
+The following code shall then be entered, provided the profile project name (here <code>my_profile_test</code>) and the profile's pathmap (here <code>"pathmap://toy/my_profile_test.profile.uml"</code>) that is the one filled in the profile plugin (''org.eclipse.papyrus.uml.extensionpoints.UMLprofile'' extension point).
+
+ package my_profile_test;
+ import org.eclipse.emf.common.util.URI;
+ import org.eclipse.emf.ecore.EObject;
+ import org.eclipse.papyrus.infra.architecture.commands.IModelCreationCommand;
+ import org.eclipse.papyrus.uml.diagram.common.commands.ModelCreationCommandBase;
+ import org.eclipse.papyrus.uml.tools.utils.PackageUtil;
+ import org.eclipse.uml2.uml.Package;
+ import org.eclipse.uml2.uml.Profile;
+ import org.eclipse.uml2.uml.UMLFactory;
+ public class CreateMyProfileTestModelCommand extends ModelCreationCommandBase implements IModelCreationCommand {
+  @Override
+  protected EObject createRootElement() {
+    return UMLFactory.eINSTANCE.createModel();
+  }
+  @Override
+  protected void initializeModel(EObject owner) {
+    super.initializeModel(owner);
+    Profile myProfileTest = (Profile) PackageUtil.loadPackage(URI.createURI("pathmap://toy/my_profile_test.profile.uml"), owner.eResource().getResourceSet());
+    if (myProfileTest != null) {
+      PackageUtil.applyProfile((Package) owner, myProfileTest, true);
+    }
+  }
+ }
+
+Last but not least, the ''Creation Command Class'' shall be entered in the ''Architecture Model'' properties as shown below.
+
+[[Image:images/creationcommandclass.png]]
+
+
+<u>Step 4A</u>: Right click on the description language to add one or more representation kinds, i.e., ''Papyrus Diagram'', ''Papyrus Table'' or ''Papyrus Sync Table'' (see details below).
+
+<u>Step 5</u>: Right click on the domain to add one or more ''Architecture Framework''. In the properties view, specify for each framework: a ''Name'', a ''Description'', a unique ''Id'' (e.g., org.eclipse.dodaf), an ''Extension Prefix'' if desired (e.g., profile), an ''Icon'' using a platform plugin URI (e.g., platform:/plugin/project/icons/xxx.png), and one or more ''Element Types'' as references to ''ElementTypeSetConfigurations'' (load the *.elementtypesetconfiguration models first). 
+
+<u>Step 6</u>: Right click on the description language (step 4) or framework (step 5) to add one or more ''Architecture Viewpoints''. In the properties view, specify for each viewpoint: a ''Name'', a ''Description'',  a unique ''Id'' (e.g., org.eclipse.uml.design), one ore more references to ''Concerns'', and one or more references to ''Representation Kinds''.
+
+<u>Step 7</u>: Right click on the description language (step 4), to add one or more ''EMFFacetTreeViewerConfiguration''. In the properties view, specify : a ''Description'' and the extended ''EMFFacetTreeViewerConfiguration'' or keep the value to ''null''.
+
+<u>Step 7A</u>: Right click on the ''EMFFacetTreeViewerConfiguration'' and create one or more ''CustomizatioReference''. In the properties view, specify the ''Referenced Customization''. You need to get the project providing the ''Customization'' in your workspace. To be able to reference the ''Customization'', you need to load in from the workspace in your architecture file'' ('''Right click -> Load Resource -> From Workspace''')
+
+<u>Step 7B</u>: Right click on the ''CustomizatioReference'' and create an application rule (''Absolute Order'' or ''Relative Order'' or ''Redefinition''). ''Absolute Order'' allows to give the order of application (the smallest order is the first applied). ''Relative Order'' allows to define if your ''CustomizationReference'' must be applied ''Before'' or ''After'' another one. ''Redefinition'' allows to replace the a ''CustomizationReference'' with a new one. 
+
+<u>Step 8</u>: Deploy the model. The new architecture file can be deployed in an Eclipse plugin and registered through an extension point. The extension point to use is <code>org.eclipse.papyrus.infra.architecture.models</code>. Alternatively, the model can be deployed using the ''Other Architecture Model'' button in the ''Architecture Contexts'' preference page.
+
+Note: If the Architecture Model you are developing is considered an extension of another model that is available in the target platform, and you want to reference some of its dependencies (like elementtypeconfigurations and palleteconfiguration, etc.) you first need to load the plugin that contains the model in your workspace. Then, using the  Architecture Model editor, load the other Architecture Model using the ''Load Resource->Browse Workspace'' context menu action). This will import it using its "platform:/resource" URI. On the other hand, if the extended architecture model is rather deployed in the current platform, then use the ''Loaded Resource->Browse Registered Architectures'' context menu action. This will load the model using its "platform:/plugin" URI. Once the extended model is loaded in the editor, you can invoke the context menu action ''Resolve All'' to load all its related resources.
+
+==Papyrus Diagram Specification==
+
+Once a ''Papyrus Diagram'' is created, in the properties view, specify for it:
+* A ''Name'' (required) that is the user-visible name of the diagram. It will appear in the creation menus and property panel.
+* An ''Icon'' (required), as an URI of the form <code>platform:/plugin/...</code>.
+* An ''Implementation ID'' (required) which selects the physical (hard-coded) diagram in Papyrus that will be used as a base. The possible values for this property are summarized in the following table.
+* An optional ''Parent'' that specifies a parent viewpoint-defined diagram to inherit from. Essentially, the inheriting diagram will defer to its parent�s rules (see below) when its own are not sufficient to take a decision.
+* An optional ''Custom Style'' as an URI of the form <code>platform:/plugin/...</code>. It must point to a CSS file that will then be automatically applied to the diagram.
+* An optional ''Palette'' as an URI. It must point a palette definition in XML that will be automatically applied to the diagram.
+* Other attributes are inherited from the ISO 42010 implementation and are currently not used in Papyrus.
+
+{| border="solid 1px grey"
+! Implementation ID
+! Description
+|-
+| '''PapyrusUMLActivityDiagram'''
+| UML Activity Diagram
+|-
+| '''PapyrusUMLClassDiagram'''
+| UML Class Diagram
+|-
+| '''PapyrusUMLCommunicationDiagram'''
+| UML Communication Diagram
+|-
+| '''PapyrusUMLComponentDiagram'''
+| UML Component Diagram
+|-
+| '''CompositeStructure'''
+| UML Composite Diagram
+|-
+| '''PapyrusUMLDeploymentDiagram'''
+| UML Deployment Diagram
+|-
+| '''PapyrusUMLProfileDiagram'''
+| UML Profile Diagram
+|-
+| '''PapyrusUMLSequenceDiagram'''
+| UML Sequence Diagram
+|-
+| '''PapyrusUMLStateMachineDiagram'''
+| UML State Machine Diagram
+|-
+| '''PapyrusUMLTimingDiagram'''
+| UML Timing Diagram
+|-
+| '''UseCase'''
+| UML Use Case Diagram
+|-
+| '''PapyrusUMLInteractionOverviewDiagram'''
+| UML Interaction Overview Diagram
+|-
+| '''BlockDefinition'''
+| SysML Block Definition Diagram
+|-
+| '''InternalBlock'''
+| SysML Internal Block Diagram
+|-
+| '''Parametric'''
+| SysML Parametric Diagram
+|-
+| '''RequirementDiagram'''
+| SysML Requirements Diagram
+|}
+
+Once a diagram has been created it can be constrained using rules (some of them are required, others are optional). There are four kinds of rules:
+* Model rules constrain the type of the (root) model elements that can be visualized through this view. Hence model rules control what model elements can be selected for the ''Root element'' property of the diagrams, as shown in the capture below.
+* Owning rules constrain the type of the model elements that can own the diagram itself. In practice this materializes as the type of model elements under which the diagrams can appear in the model explorer. Owning rules control what model elements can be selected for the ''Owner'' property of the diagrams, as shown in the capture below.
+* Child rules constrain the type of the model elements that can be dropped within this diagram.
+* Palette rules constrain the display of the diagram's palette elements.
+
+[[Image:images/properties.png]]
+
+Each rule has a ''Permit'' property that specify whether the rule authorizes or forbids the action it represents. Otherwise, the properties of the rules are as follow:
+* ''Model Rules''
+** ''Element'' (required) represents the type of the model elements to apply the rule on.
+** ''Multiplicity'' (required, default is -1) represents the maximum number of this kind of diagram that can be created for the referenced model element. -1 represents an unbounded number.
+** ''Stereotypes'' represents the set of stereotypes that must be applied in the model element for the rule to match. The stereotypes can be picked from the classifiers of the ''Profiles'' defined in the parent diagram.
+* ''Owning Rules''
+** ''Element'' (required) represents the type of the model elements to apply the rule on.
+** ''Multiplicity'' (required, default is -1) represents the maximum number of this kind of diagram that can be created for the referenced model element. -1 represents an unbounded number.
+** ''Stereotypes'' represents the set of stereotypes that must be applied in the model element for the rule to match. The stereotypes can be picked from the classifiers of the ''Profiles'' defined in the parent diagram.
+* ''Child Rules''
+** ''Element'' (required) represents the type of the model elements begin dropped.
+** ''Stereotypes'' represents the set of stereotypes that must be applied in the model element for the rule to match. The stereotypes can be picked from the classifiers of the ''Profiles'' defined in the parent diagram.
+** ''Origin'' (required) represents the type of the model elements that are the target of the drop. It is usually one of the type defined in the ''Model Rules''.
+** Additionally, ''Child Rules'' can be completed with children called ''Path Elements'' using the '''New Child''' contextual menu. ''Path Elements'' defines a path of properties that must be used from the ''Origin'' to insert the new ''Element'' in the model.
+* ''Palette Rules''
+** ''Element'' (required) represents a pattern to match for the identifier of a palette element.
+*** If the value ends with '*', it will match any palette element with the prefix specified before the '*'.
+*** If the value is '*', it will match any palette element.
+
+The minimal required rules for a diagram specification to work are:
+* A model rule that allows the diagram to be created for a model element. For example, a model rule with ''Element'' set to UML Package, ''Multiplicity'' to -1 and ''Permit'' to true; meaning this diagram can be created for UML Packages and an unlimited number of diagrams can be created for each UML Package.
+* An owning rule that allows the diagram to be owned by a model element (appear under an element in the model explorer). For example, an owning rule with ''Element'' set to UML Package, ''Multiplicity'' set to -1 and ''Permit'' to true; meaning an unlimited number of diagrams of this kind can be placed under each UML Package element in the model explorer.
+* A child rule that allows the dropping of any element in the diagram, expressed with the ''Permit'' attribute set to true and other attributes left empty.
+
+==EMFFacetTreeViewerConfiguration specifications==
+* An ''ArchitectureDescriptionLanguage'' can contains 0, 1 or more ''EMFFacetTreeViewerConfiguration''.
+* As the declaration of ''ArchitectureDescriptionLanguage'' can be split on several architecture file and merged by the framework, the ''TreeViewerConfiguration'' can also be split on several architecture files and merged by the framework. Here we explain the rules for the definition of ''EMFFacetTreeViewerConfiguration''.
+** At least one of the ''EMFFacetTreeViewerConfiguration'' must not extend another ''EMFFacetTreeViewerConfiguration'', to be used as starting point of the ''Customization'' application. We call these configurations ''roots'' in the next sentences.
+** Several ''EMFFacetTreeViewerConfiguration'' can extends a given ''EMFFacetTreeViewerConfiguration''.
+** All the ''CustomizationReference'' owned by ''roots'' ''EMFFacetTreeViewerConfiguration'' must use the ''AbsoluteOrder''.
+** The reference''EMFFacetTreeViewerConfiguration#extends'' must target an ''EMFFacetTreeViewerConfiguration'' defined in the same ''ArchitectureDescriptionLanguage''  (but not necessary in the same architecture file).
+** All ''AbsoluteOrder#order''value must be unique for a given ''ArchitectureDescriptionLanguage''.
+** ''Redefinition'' is allowed only one time for a ''CustomizationReference'', so you can't redefines several time the same ''CustomizationReference''.
+** ''Relative Order'' allowed to define only one ''CustomizationReference'' before another one, and only one ''CustomizationReference'' after another one. So you can't declare several ''CustomizationReference'' before/after an other one.
+
+===Description of the merge process===
+The merge is done by the class '''org.eclipse.papyrus.emf.facet.architecture.customizationconfiguration.comparators.CustomizationReferenceMerger'''. Here, the description of the process:
+# the process starts from the ''roots'' (''EMFFacetTreeViewerConfiguration'' which extend nobody),
+# all ''CustomizationReference'' of the ''roots'' are taken into account and sorted by order,
+# the ''EMFFacetTreeViewerConfiguration#extends'' link is used recursively and reversed.
+## so the ''EMFFacetTreeViewerConfiguration'' extending the ''roots'' ones are applied first, 
+## then the ''EMFFacetTreeViewerConfiguration'' extending the previous ones and so one.
+### at each step, the ''CustomizationReference'' are applied to build a ''intermediate result list'' of the ''CustomizationReference'' to apply, 
+#### the ''EMFFacetTreeViewerConfiguration'' declared as redefinition are applied first,
+#### then the ''EMFFacetTreeViewerConfiguration'' declared with a ''Relative Location'' (''Before/After'').
+
+If an error occurred during this process, the error is logged and Papyrus will use the produced ''intermediate result list'' which is just a partial merge of the ''Customization'' to apply.
+

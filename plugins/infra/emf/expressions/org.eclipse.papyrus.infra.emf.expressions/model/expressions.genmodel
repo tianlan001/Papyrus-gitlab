@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/uml2/2.2.0/GenModel"
+    copyrightText="Copyright (c) 2017 CEA LIST.&#xA;&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License 2.0&#xA; which accompanies this distribution, and is available at&#xA; https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA; SPDX-License-Identifier: EPL-2.0&#xA;&#xA; Contributors:&#xA; Vincent Lorenzo (CEA LIST) vincent.lorenzo@cea.fr - Initial API and implementation"
+    modelDirectory="/org.eclipse.papyrus.infra.emf.expressions/src-gen" creationIcons="false"
+    creationSubmenus="true" editDirectory="/org.eclipse.papyrus.infra.emf.expressions.edit/src-gen"
+    editorDirectory="/org.eclipse.papyrus.infra.emf.expressions.editor/src-gen" modelPluginID="org.eclipse.papyrus.infra.emf.expressions"
+    modelName="Expressions" nonNLSMarkers="true" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/org.eclipse.papyrus.infra.emf.expressions.tests/src-gen" importerID="org.eclipse.uml2.uml.ecore.importer"
+    complianceLevel="8.0" copyrightFields="false" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
+    operationReflection="true" importOrganizing="true" oSGiCompatible="true">
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/importer/org.eclipse.uml2.uml.ecore.importer">
+    <details key="OPPOSITE_ROLE_NAMES" value="IGNORE"/>
+    <details key="DUPLICATE_FEATURES" value="DISCARD"/>
+    <details key="ANNOTATION_DETAILS" value="PROCESS"/>
+    <details key="PROPERTY_DEFAULT_EXPRESSIONS" value="IGNORE"/>
+    <details key="DUPLICATE_FEATURE_INHERITANCE" value="DISCARD"/>
+    <details key="COMMENTS" value="PROCESS"/>
+    <details key="DERIVED_FEATURES" value="PROCESS"/>
+    <details key="SUPER_CLASS_ORDER" value="PROCESS"/>
+    <details key="DUPLICATE_OPERATION_INHERITANCE" value="DISCARD"/>
+    <details key="REDEFINING_OPERATIONS" value="REPORT"/>
+    <details key="INVARIANT_CONSTRAINTS" value="PROCESS"/>
+    <details key="UNION_PROPERTIES" value="REPORT"/>
+    <details key="DUPLICATE_OPERATIONS" value="DISCARD"/>
+    <details key="NON_API_INVARIANTS" value="IGNORE"/>
+    <details key="CAMEL_CASE_NAMES" value="IGNORE"/>
+    <details key="SUBSETTING_PROPERTIES" value="REPORT"/>
+    <details key="OPERATION_BODIES" value="IGNORE"/>
+    <details key="ECORE_TAGGED_VALUES" value="PROCESS"/>
+    <details key="UNTYPED_PROPERTIES" value="REPORT"/>
+    <details key="REDEFINING_PROPERTIES" value="PROCESS"/>
+    <details key="INVOCATION_DELEGATES" value="IGNORE"/>
+    <details key="VALIDATION_DELEGATES" value="IGNORE"/>
+  </genAnnotations>
+  <foreignModel>expressions.uml</foreignModel>
+  <genPackages xsi:type="genmodel:GenPackage" prefix="Expressions" basePackage="org.eclipse.papyrus.infra.emf"
+      disposableProviderFactory="true" extensibleProviderFactory="true" childCreationExtenders="true"
+      ecorePackage="expressions.ecore#/">
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="expressions.ecore#//IBasicExpressionElement">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute expressions.ecore#//IBasicExpressionElement/name"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute expressions.ecore#//IBasicExpressionElement/description"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="expressions.ecore#//IExpression">
+      <genTypeParameters ecoreTypeParameter="expressions.ecore#//IExpression/CONTEXT_TYPE"/>
+      <genTypeParameters ecoreTypeParameter="expressions.ecore#//IExpression/RETURN_TYPE"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="expressions.ecore#//IExpression/evaluate">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="expressions.ecore#//IExpression/evaluate/context"/>
+      </genOperations>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="expressions.ecore#//ExpressionCatalog">
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference expressions.ecore#//ExpressionCatalog/expressions"/>
+    </genClasses>
+    <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="BooleanExpressions"
+        basePackage="org.eclipse.papyrus.infra.emf.expressions" disposableProviderFactory="true"
+        generateExampleClass="false" multipleEditorPages="false" generateModelWizard="false"
+        extensibleProviderFactory="true" childCreationExtenders="true" ecorePackage="expressions.ecore#//booleanexpressions">
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="expressions.ecore#//booleanexpressions/OrExpression"/>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="expressions.ecore#//booleanexpressions/AbtractMultiBooleanEObjectExpressionsOwnedExpression">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference expressions.ecore#//booleanexpressions/AbtractMultiBooleanEObjectExpressionsOwnedExpression/ownedExpressions"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="expressions.ecore#//booleanexpressions/IBooleanEObjectExpression"/>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="expressions.ecore#//booleanexpressions/IBooleanExpression">
+        <genTypeParameters ecoreTypeParameter="expressions.ecore#//booleanexpressions/IBooleanExpression/IBooleanExpression_REDEFINED_CONTEXT_TYPE"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="expressions.ecore#//booleanexpressions/AbstractMultiBooleanEObjectExpressionsReferenceExpression">
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference expressions.ecore#//booleanexpressions/AbstractMultiBooleanEObjectExpressionsReferenceExpression/referencedExpressions"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="expressions.ecore#//booleanexpressions/AndExpression"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="expressions.ecore#//booleanexpressions/NotExpression"/>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="expressions.ecore#//booleanexpressions/AbstractSingleBooleanEObjectExpressionOwnedExpression">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference expressions.ecore#//booleanexpressions/AbstractSingleBooleanEObjectExpressionOwnedExpression/ownedExpression"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="expressions.ecore#//booleanexpressions/AbstractSingleBooleanEObjectExpressionReferenceExpression">
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference expressions.ecore#//booleanexpressions/AbstractSingleBooleanEObjectExpressionReferenceExpression/referencedExpression"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="expressions.ecore#//booleanexpressions/LiteralTrueExpression"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="expressions.ecore#//booleanexpressions/LiteralFalseExpression"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="expressions.ecore#//booleanexpressions/ReferenceBooleanExpression">
+        <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="propertyEditorFactory" value="http://www.eclipse.org/papyrus/expressions/singleBooleanExpressionReference"/>
+        </genAnnotations>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="expressions.ecore#//booleanexpressions/SingleEAttributeValueEqualityExpression">
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference expressions.ecore#//booleanexpressions/SingleEAttributeValueEqualityExpression/eAttribute"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute expressions.ecore#//booleanexpressions/SingleEAttributeValueEqualityExpression/expectedValue"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,695 @@
+==Overview==
+
+Papyrus provides a framework to define specific editing rules for model elements, the '''Element Types Configurations''' models. This aggregation of models, integrated with the '''Architecture Framework''' or simple extension points, can define how domain specific tool users will edit their model elements using operations such as create, delete, move, or set attributes.  
+
+This documentation will provide some simple recipes on how to use this configuration model with concrete examples. These examples can be imported and run in your development environment to see them in action.
+
+==Prerequisites==
+
+* Java basic knowledge
+* UML knowledge
+
+The Element Types Framework is a component of the GMF Run-time. It provides for pluggable rules to manage the lifecycle of model elements, and allows extension and modification of existing rules by means of ''advice''. Papyrus adds on top of that framework a model-based description of ''element types'' and ''advice'', rather than using simply extension points. It is then much simpler to define new concepts, and the extension mechanism is designed so it can be extended itself, and it can also be referenced by other configuration models, like architecture models or palette configurations for diagrams.
+The goal of this document is to walk through the most typical scenarios in which the ''Element Types Configurations'' models are used to customize the
+editing experience for a domain-specific language, by way of a fully-formed example.
+
+==Example Project==
+
+The recipes presented in this document are implemented in an example ''Architecture Framework'' for creation and editing of ''metamodels'' using UML. This is an extension of the ''Software Engineering'' architecture domain for UML that is provided by Papyrus, adding a ''Metamodels'' architecture
+framework alongside Papyrus's ''UML'' language and ''Profile'' framework. To install the example plug-in project, %LAUNCH_EXAMPLE_WIZARD% or launch the ''New Example'' wizard
+via the ''File'' &rarr; ''New'' &rarr; ''Example...'' menu:
+
+[[Image:images/new-example.png|thumb|New Example Project wizard]]
+
+Select the ''Element Types Configurations Recipes'' example and press ''Next''.
+
+[[Image:images/types-example.png|thumb|New Element Types Configurations Recipes example]]
+
+Finish the wizard to create the plug-in project and it will open the ''Element Types Configurations'' model for the ''UML for Metamodels''
+architecture framework. Build the project and launch a run-time workbench. In that workbench, you can now create a new UML-based metamodel using
+the ''New Papyrus Model'' wizard. In the ''Papyrus'' perspective, invoke the ''File'' &rarr; ''New'' &rarr; ''Papyrus Model'' action and
+choose the ''Metamodels'' framework in the ''Software Engineering'' domain:
+
+[[Image:images/new-model-wizard.png|thumb|New Papyrus Model wizard]]
+
+Complete the wizard as usual to create a new UML-based metamodel and see how the ''Element Types Configurations'' defined in this plug-in reduce the
+UML concepts available to just those employed in the definition of metamodels. And observe the initial configuration of new model, which is all
+implemented by ''advice'' in the element types configurations model: a default value for the package URI and a "starter kit" metaclass with a name
+attribute:
+
+[[Image:images/new-model.png|thumb|New metamodel configured by edit advice]]
+
+==Generic Editing Rules==
+
+This section presents recipes for common editing customizations that are not specific to UML semantics but are generally applicable to EMF-based models.
+The example Element Types Configurations model for UML metamodels defines a number of ''edit advice'' contributions to two element types
+used in metamodels, including two ''specialization types'' specific to metamodels (beyond common UML concepts):
+
+* Metamodel: a model stereotyped as «metamodel» from the UML Standard Profile
+* Metaclass: a class stereotyped as «metaclass» from the UML Standard Profile
+
+The stereotype aspect of these element type configurations is detailed in the section on UML-specific editing rules, below.
+
+===Configuring a New Element===
+
+Creation of a new element in the model comprises two steps: the edit helper of the container provides a command to create the new element,
+and then once that new element has been created, the edit helper for that element provides a command to ''configure'' it.
+
+This is demonstrated in the example by the ''New Metaclass Advice'' bound to the ''Metaclass'' element type configuration. This is a
+simple ''AdviceBindingConfiguration'' owned by the ''Metaclass'' specialization type configuration. This advice binding primarily just
+references a Java class implementing the <tt>IEditHelperAdvice</tt> interface, in this case the <tt>NewMetaclassAdvice</tt> class. Many common scenarios
+for edit advice do not require custom code implemented this way in Java, but can be expressed directly in the Element Types Configurations model.
+This configuration example is a case where it is convenient to do it in code.
+
+The <tt>NewMetaclassAdvice</tt> class overrides the <tt>getAfterConfigureCommand(ConfigureRequest)</tt> method to create a property
+in the new metaclass, to get the user started with some content to edit. This creation of additional objects is itself implemented via
+the ''Element Types'' framework, using the edit helpers and their attendant advice to accomplish the creation of the property and setting
+its type, potentially further advices by other contributions.
+
+<source lang="java">
+    @Override
+    protected ICommand getAfterConfigureCommand(ConfigureRequest request) {
+        org.eclipse.uml2.uml.Class metaclass = (org.eclipse.uml2.uml.Class) request.getElementToConfigure();
+
+        // Create a new property
+        CreateElementRequest createRequest = new CreateElementRequest(metaclass, MetamodelElementTypes.getPropertyType());
+        createRequest.setParameter(RequestParameterConstants.NAME_TO_SET, "name"); //$NON-NLS-1$
+
+        // Use the edit service to ensure that creation of the property, itself, is advised by element types
+        IElementEditService edit = ElementEditServiceUtils.getCommandProvider(metaclass);
+        ICommand createProperty = edit.getEditCommand(createRequest);
+
+        // The type of the new property can only be set once the property exists, so defer setting it until then
+        SetRequest setTypeRequest = new SetRequest(request.getEditingDomain(), null,
+                UMLPackage.Literals.TYPED_ELEMENT__TYPE, getStringType(request));
+        ICommand setType = new DeferredSetValueCommand(setTypeRequest) {
+            @Override
+            protected EObject getElementToEdit() {
+                return createRequest.getNewElement();
+            }
+        };
+
+        return CompositeCommand.compose(createProperty, setType);
+    }
+</source>
+
+A simpler example of configuration of new elements is setting initial values of attributes. In the example of the UML for Metamodels, the
+''SetValuesAdviceConfiguration'' is used to set the visibility of newly created elements. Both advice configurations are bound to the
+''UML::NamedElement'' type (for which visibility is defined):
+
+* for named elements that must be public (as determined by a custom ''MustBePublicMatcher'' class), the advice sets the visibility to ''public''
+* for named elements that must be private (as is the case for associations), the advice sets the visibility to ''private''
+
+[[Image:images/set-values.png|thumb|Set values advice configurations]]
+
+<blockquote>The warning markers are a consequence of the reuse in the ''SetValuesAdviceConfiguration'' of the UML Metamodel in a non-UML context.
+The advice configuration uses the UML ''ValueSpecification'' to model the values to set in attributes of the matching elements, but a
+''ValueSpecification'' must be owned by another UML element. Here, there is no UML owner because the value is contained in an Element Types
+Configurations element. Hence the warnings reported by validation of the Element Types Configurations model.</blockquote>
+
+The simplest values to set are primitives: booleans, numers, and strings, for which UML provides convenient literal value specifications:
+
+[[Image:images/value-specifications.png|thumb|UML value specifications]]
+
+In the UML for Metamodels example, the specification of the value to set is a bit more complex because the value is an ''enumeration literal'',
+which is defined in the ''UML Metamodel Library'' model and so must be referenced by indirection using an ''InstanceValue''.
+
+
+===Deleting Dependent Elements===
+
+It often happens that an element in a model requires others for its definition, such that if some element it depends on is deleted from the model,
+then it should be deleted, also. For example, an a UML model, a ''Generalization'' relationship does not make sense without the ''general'' classifier
+to which refers. If that general classifier should be deleted from the model, then all generalizations that reference it as their general are also
+deleted.
+
+Exceptions to this behaviour can be established on a case-by-case basis. The advice that implements destruction of dependents may choose to
+recognize the <tt>DEPENDENTS_TO_KEEP</tt> request parameter to exempt dependent elements that otherwise would be deleted.
+
+Finally, deletion of dependents is not limited to deletion of dependent ''elements'' from the model only. Any action can be taken on deletion of
+an object to update dependents to make them "correct" according to the domain's semantics.
+
+====Destroy Dependents====
+
+The GMF Run-time provides the <tt>DestroyDependentsRequest</tt> to gather commands from edit advice to delete elements from the model that
+need to be deleted along with an element that is being deleted (usually resulting from some user action). Override the
+<tt>getBeforeDestroyDependentsCommand(DestroyDependentsRequest)</tt> method in your advice class to return one or more commands to destroy
+dependent elements. Because the deletion of an element is a recursive process over its entire content tree in the model and the same elements
+may be dependents of multiple elements being destroyed, and also because this process is recursive over the dependents being destroyed, the
+request itself provides tracking of which dependents are being destroyed overall to avoid redundant calculations of commands.
+
+In the UML for Metamodels example, the ''DataTypeDeletionAdvice'' advice binding configuration provides for deletion of attributes of metaclasses
+that are typed by an enumeration or primitive type that is being deleted from the model. In the Java implementation of this advice, you can
+see how the UML <tt>CacheAdapter</tt> API is used to find elements by inverse reference that are typed by the ''DataType'' being deleted.
+For each, the advice obtains a deletion command from the ''Destroy Dependents Request'': if any is already being deleted for any reason, then
+the request returns <tt>null</tt> for the command to avoid redundancy. This null result is seamlessly handled by the command composition API.
+
+An wrinkle that applications may sometimes want to overlay on this process is prompting the user to confirm whether they want to proceed with
+a command because of the possibly unintended consequences that it will have. The example ''DataTypeDeletionAdvice'' achieves this by including
+in the edit operation a command that prompts the user upon execution and cancels itself if the user does not confirm.
+
+<blockquote>'''Note''' that it is important never to put up a dialog or other user interaction in the advice, itself, when it constructs these
+edit commands. The advice can be consulted in many circumstances where Papyrus needs a command not to execute but to determine what to
+present in the UI, for example whether to show an edit command in a menu or to enable or disable controls in the ''Properties'' view.
+Any user interaction must be performed only when the command is actually executed, and then may necessitate cancellation of the command,
+which implies unrolling any changes made by prior commands in a composite operation (which is handled automatically by the GMF Run-time).</blockquote>
+
+<source lang="java">
+    /**
+     * When destroying a {@link DataType}, destroy also any properties or operation parameters
+     * typed by it, with interactive user confirmation.
+     */
+    @Override
+    protected ICommand getBeforeDestroyDependentsCommand(DestroyDependentsRequest request) {
+        ICommand result = null;
+
+        // This covers the enumerations and primitive types that we can use in metamodels
+        if (request.getElementToDestroy() instanceof DataType) {
+            // Find attributes typed by this data type
+            DataType dataType = (DataType) request.getElementToDestroy();
+
+            // The UML Cache Adapter maintains an inverse reference map. We need to find
+            // objects that reference our DataType; the DataType does not reference them
+            CacheAdapter cache = CacheAdapter.getCacheAdapter(dataType);
+            if (cache != null) {
+                Collection<EStructuralFeature.Setting> settings = cache.getInverseReferences(dataType, UMLPackage.Literals.TYPED_ELEMENT__TYPE, true);
+                if (!settings.isEmpty()) {
+                    result = deleteOwners(settings, request);
+                }
+            }
+        }
+
+        return CompositeCommand.compose(result, super.getBeforeDestroyDependentsCommand(request));
+    }
+
+    /**
+     * Obtain a command to delete the owners of reference {@code settings}.
+     *
+     * @param settings
+     *            settings of references to the object being deleted
+     * @param request
+     *            the request gathering dependents of the the object to delete that also should be deleted
+     * @return a command to delete the objects that own the reference {@code settings}
+     */
+    private ICommand deleteOwners(Collection<EStructuralFeature.Setting> settings, DestroyDependentsRequest request) {
+        Collection<TypedElement> typedElements = settings.stream().map(EStructuralFeature.Setting::getEObject)
+                .map(TypedElement.class::cast).distinct().collect(Collectors.toList());
+
+        String listOfNames = typedElements.stream().map(NamedElement::getQualifiedName).collect(Collectors.joining(", "));
+        String prompt = NLS.bind("The following elements will also be deleted. Proceed?\n{0}.", listOfNames);
+
+        ICommand promptToConfirm = new PromptToConfirmCommand(prompt);
+        ICommand destroyTypedElements = request.getDestroyDependentsCommand(typedElements);
+
+        return CompositeCommand.compose(promptToConfirm, destroyTypedElements);
+    }
+</source>
+
+====Preserve Select Dependents====
+
+Papyrus provides a full-featured suite of Element Types Configurations and edit advice for the UML language. The example ''architecture framework''
+for metamodel definition extends, refines, and restricts these to suit its purposes. One default editing behaviour that it needs to override
+is an edit advice for deletion of ''Associations'' that Papyrus provides, to delete the member ends that the ''Association'' does not own but
+are owned by the associated classifiers (owned ends of the association are deleted anyways as they are contained within it). The advice that
+performs this deletion of dependent member ends observes the <tt>DEPENDENTS_TO_KEEP</tt> parameter of the request to skip deleting any
+member ends that are in this preservation list.
+
+The UML for Metamodels example defines an ''AssociationEditAdvice'' that overrides the <tt>getBeforeDestroyDependentsCommand</tt> method
+to add the association's member ends to the <tt>DEPENDENTS_TO_KEEP</tt> parameter (creating this list if it does not already exist).
+To ensure that this advice can set the preservation list before the standard UML advice calculates what to delete, the ''AssociationEditAdvice''
+in the <tt>uml4metamodels.elementtypesconfigurations</tt> model is configured to be ordered ''before'' the Papyrus UML association advice.
+
+<source lang="java">
+    @Override
+    protected ICommand getBeforeDestroyDependentsCommand(DestroyDependentsRequest request) {
+        ICommand result = null;
+
+        if (request.getElementToDestroy() instanceof Association) {
+            // The association advice following this will attempt to destroy the member ends, so block that
+            Association association = (Association) request.getElementToDestroy();
+            protectMemberEnds(association, request);
+        }
+
+        return CompositeCommand.compose(result, super.getBeforeDestroyDependentsCommand(request));
+    }
+
+    /**
+     * Configure the <em>dependents to keep</em> parameter of the {@code request} to preserve the
+     * member ends of the {@code association} that it does not own.
+     *
+     * @param association
+     *            an association being destroyed
+     * @param request
+     *            the gathering dependencies of the {@code association} that also should be destroyed
+     */
+    protected void protectMemberEnds(Association association, DestroyDependentsRequest request) {
+        List<EObject> dependentsToKeep = RequestParameterUtils.getDependentsToKeep(request, true);
+
+        for (Property end : association.getMemberEnds()) {
+            if (end.getOwningAssociation() != association) {
+                dependentsToKeep.add(end);
+            }
+        }
+    }
+</source>
+
+====Update Dependents====
+
+The usual response to the <tt>DestroyDependentsRequest</tt> is to provide commands to destroy additional elements that depend on the element
+being destroyed, usually mediated by the request as discussed above. However, the contract of advice is to provide additional commands generally
+into the edit operation. These commands can perform whatever kinds of changes are needed, and the destroy-dependents phase can be a useful hook
+for this.
+
+The UML for Metamodels example, again in the ''AssociationEditAdvice'', not only blocks the standard behaviour of deleting member ends but
+effectively supplants that behaviour by updating attributes of those end properties that they may only have in the context of an association.
+In this case, as we will see below, a property may only subset another property if it is an end of an association. So here, in response to
+the <tt>DestroyDependentsRequest</tt>, the ''AssociationEditAdvice'' finds any classifier-owned member ends that are subsets and provides
+command to clear those collections of subsetted properties.
+
+<source lang="java">
+    @Override
+    protected ICommand getBeforeDestroyDependentsCommand(DestroyDependentsRequest request) {
+        ICommand result = null;
+
+        if (request.getElementToDestroy() instanceof Association) {
+            // The association advice following this will attempt to destroy the member ends, so block that
+            Association association = (Association) request.getElementToDestroy();
+            protectMemberEnds(association, request);
+
+            // But as these ends will no longer be in an association, they should not be subsets
+            for (Property end : association.getMemberEnds()) {
+                if (end.getOwningAssociation() != association && end.eIsSet(UMLPackage.Literals.PROPERTY__SUBSETTED_PROPERTY)) {
+                    result = CompositeCommand.compose(result, getUnsetCommand(request, end, UMLPackage.Literals.PROPERTY__SUBSETTED_PROPERTY));
+                }
+            }
+        }
+
+        return CompositeCommand.compose(result, super.getBeforeDestroyDependentsCommand(request));
+    }
+
+    /**
+     * Create a command to unset the given {@code feature} of an {@code owner} of that feature.
+     *
+     * @param parentRequest
+     *            the request in which edit context we are fetching a corollary command
+     * @param owner
+     *            the object that owns the {@code feature} to unset
+     * @param feature
+     *            the feature to unset in the {@code owner}
+     * @return the unset command, or {@code null} if no relevant command can be obtained
+     */
+    protected ICommand getUnsetCommand(IEditCommandRequest parentRequest, EObject owner, EStructuralFeature feature) {
+        ICommand result = null;
+
+        IElementEditService edit = ElementEditServiceUtils.getCommandProvider(owner, parentRequest.getClientContext());
+        if (edit != null) {
+            result = edit.getEditCommand(new UnsetRequest(parentRequest.getEditingDomain(), owner, feature));
+        }
+
+        return result;
+    }
+</source>
+
+===Forbid Element Creation===
+
+A very common customization is to forbid the creation of certain kinds of elements in certain other elements. In particular, this is one of the
+primary mechanisms for pruning the "New Child" and "New Relationship" menus in the Papyrus context menu. This menu is generated dynamically and
+omits entries for elements that the Element Types framework provides non-executable commands to create.
+
+In the UML for Metamodels example, a Metamodel may contain only a tiny subset of what UML generally permits as contents of a package.
+The ''Metamodel'' element type configuration defines a ''ConstraintAdviceConfiguration'' with a ''ReferenceConstraint'' that is configured to
+permit a metamodel to contain only a select few types of elements and reject all others. The details of how this works are so:
+
+* the ''ReferenceConstraint'' includes a rule that allows elements matching a select few ''element types'' to be referenced by the package (note that, in this case, the only valid references of these types happen to be containment references)
+* a second rule in the ''ReferenceConstraint'' forbids all elements in any containment reference of the package (note that the absence of a filter means that the rule matches anything)
+
+[[Image:images/reference-constraint.png|thumb|Reference constraint restricting the contents of a metamodel]]
+
+Papyrus provides an edit advice implementation that interprets this constraint configuration model at run-time in the ''request approval'' phase of
+building the edit operation (the <tt>approveRequest(IEditCommandRequest)</tt> API). The algorithm is an iterative evaluation of the reference constraints:
+
+* if the first reference constraint matches the reference into which the request would either create, set, or move an element, then the constraint's filter is evaluated on the object that is to be created/set/moved into that reference. If the filter matches, then the request is approved or denied according the ''isPermitted'' attribute of the constraint. Otherwise, the algorithm proceeds to the next constraint to repeat the process
+* if all of the reference constraints have been processed and none matched the reference being edited, then the constraint overall is deemed not to be applicable and the edit request is approved. '''Note''' that some other advice may independently deny the edit request for whatever reason
+
+A reference constraint can be configured with rules of two kinds:
+
+* an ''AnyReference'' rule matches any reference being edited. It can be configured to match any containment reference, any cross-reference, or any reference whatsoever. Container references are always excluded from consideration because they are canonically edited from the containing end
+* a ''Reference'' rule matches some particular <tt>EReference</tt> specified in its configuration
+
+This configuration model is extensible: if these rules do not match your needs, you can define your own in an Ecore model extending the ''ReferencePermission'' <tt>EClass</tt> and use it in your Element Types Configurations models.
+
+The filters to match the element being created or set in a reference are similarly extensible. Papyrus provides the ''ElementTypeFilter'' that
+handles most common scenarios: it specifies an ''Element Type'' to match against the element and an indication of whether to match
+
+* when the element matches the given ''Element Type'' or any specialization of that type (the default match condition)
+* when the element matches exactly the given ''Element Type'', not any specialization of it
+* when the element matches the given ''Element Type'' or any subtype. This includes not only specialization types, but also metamodel types that are subtypes of the given type's metamodel type and specializations of those metamodel subtypes
+* when the element matches any supertype of the the given ''Element Type''
+
+Of course, toolsmiths are free to define custom filters to handle requirements not covered by the filters provided by Papyrus.
+
+===Forbid Certain Changes to Properties===
+
+A corollary to initialization of properties as described above with ''SetValuesAdviceConfigurations'' is the prevention of certain edits
+to the properties of model elements.
+
+The typical way to forbid certain edits is via the ''approve request'' mechanism discussed above in the reference constraints. The UML for
+Metamodels example also demonstrates how to do this with custom code. The ''MetamodelRequiredAttributesAdvice'' overrides the
+<tt>approveRequest(IEditCommandRequest)</tt> method to deny edits that would unset or blank the package URI via a <tt>SetRequest</tt> or
+<tt>UnsetRequest</tt>.
+
+<source lang="java">
+    @Override
+    public boolean approveRequest(IEditCommandRequest request) {
+        if (request instanceof SetRequest) {
+            return approveSetRequest((SetRequest) request);
+        } else if (request instanceof UnsetRequest) {
+            return approveUnsetRequest((UnsetRequest) request);
+        } else {
+            return super.approveRequest(request);
+        }
+    }
+
+    protected boolean approveSetRequest(SetRequest request) {
+        boolean result = true;
+
+        if (request.getFeature() == UMLPackage.Literals.PACKAGE__URI) {
+            result = request.getValue() != null && !String.valueOf(request.getValue()).isBlank();
+        }
+
+        return result;
+    }
+
+    protected boolean approveUnsetRequest(UnsetRequest request) {
+        boolean result = true;
+
+        if (request.getFeature() == UMLPackage.Literals.PACKAGE__URI) {
+            result = false;
+        }
+
+        return result;
+    }
+</source>
+
+Similarly, the ''AssociationEndAdvice'' denies approval of requests that would add properties to the ''subsettedProperty'' attribute of a
+''Property'' that is not an end of an association. The ''RequiredVisibilityAdvice'' rejects any request that would set the visibility of
+an element that requires either public or private visibility to something else.
+
+===Forbid Relationship Creation or Reorientation===
+
+The preceding discussion covers the restriction of creation or assignment of the properties of model elements, whether references or
+or attributes, including containment references to forbid certain contents of an element. Many modeling languages have more elaborate
+ways of connecting elements, generally called ''Relationships'', that are themselves model elements. It is common, especially in UML,
+that these objects are neither contained by nor referenced by the objects that they relate. Instead, the only relationship references
+the elements that it relates and it may be contained by some element that is none of them.
+
+So, how to forbid creation of relationships between certain elements that otherwise the language would allow? The GMF Run-time provides
+two requests that the ''edit helper advice'' can intercept: <tt>CreateRelationshipRequest</tt> and <tt>ReorientRelationshipRequest</tt>.
+The former requests creation of a relationship between a source and a target end (for n-ary relationships, a sequence of edits is required)
+and the latter requests the change of source or target end of an existing relationship.
+
+The UML for Metamodels example allows creation only two of the many relationships supported by UML ''Classifiers'': ''Generalization'' and
+''Association''. Furthermore, these relationships are only allowed between metaclasses. So the ''Metaclass'' specialization type configuration
+includes a ''ConstraintAdviceConfiguration'' that constrains the allowed relationships:
+
+[[Image:images/relationship-constraint.png|thumb|Relationship constraint restricting the metaclass type]]
+
+Here the constraint is configured by a number of ''EndPermissions''. The evaluation of the constraint follows an algorithm similar to
+the ''ReferenceConstraint'':
+
+* an ''EndPermission'' either grants or denies an edit request matching its relationship filter. In the example above this is an ''ElementTypeFilter'' matching either the ''Generalization'' or ''Association'' type from UML
+* an ''EndPermission'' that matches the relationship type then tests the end or ends being edited against its ''end filter.'' Here permission is granted only for ends that are metaclasses
+
+The ''EndPermission'' has an attribute that determines which ends it will attempt to match: source, target, or all. The constraint overall applies equally to creation of a new relationship and to reorientation of an existing relationship. However, the latter case adds a wrinkle: whereas
+creation of a new relationship can be constrained exclusively by advice on the element types that it relates, the reorientation request is processed
+by the relationship, itself that exists ''a priori'' (or, more correctly, by its ''edit helper'' and attendant ''advice''). For that reason the
+UML for Metamodels example also defines ''ConstraintAdvice'' for the ''Generalization'' and ''Association'' element types:
+
+[[Image:images/reorient-constraint.png|thumb|Relationship constraints for reorientation]]
+
+These quite simply enumerate the permitted relationship ends.
+
+==UML-specific Editing Rules==
+
+The Element Types framework of the GMF Run-time is quite generic, handling the semantics of typical Ecore-defined models. As such, is has no
+inherent support for UML semantics, such as the strong dependency of stereotype applications on the elements that they extend. To cover these
+additional semantics, Papyrus adds more kinds of requests to manage the application and unapplication of stereotypes and profiles.
+Some specific advice configurations also are provided by Papyrus to implement basic editing constraints for stereotype and profile applications.
+
+The UML-specific edit requests that advice may be asked to approve or to contribute commands to are
+
+* <tt>ApplyStereotypeRequest</tt>: indicates the element to which a stereotype is to be applied, and which stereotype
+* <tt>UnapplyStereotypeRequest</tt>: indicates the element from which a stereotype is to be unapplied, and which stereotype
+* <tt>ApplyProfileRequest</tt>: indicates the profile to which a profile is to be applied, and which profile
+* <tt>UnapplyProfileRequest</tt>: indicates the profile from which a profile is to be unapplied, and which profile
+
+===Stereotype-based Element Types===
+
+A very common case in which editing functions need to be specialized is in models that have some domain-specific profile applied. In such
+case, it is usual that the stereotypes of the profile represent unique modeling concepts that it is useful to capture as ''Element Types''
+derived as specializations of types from UML. So, for example, in the domain of metamodelling, UML itself provides the ''Standard Profile''
+with stereotypes <tt>«Metamodel»</tt> and <tt>«Metaclass»</tt>. In the UML for Metamodels example project, these are modeled as specializations
+of the <tt>UML::Model</tt> and <tt>UML::Class</tt> element types, respectively:
+
+[[Image:images/stereotype-types.png|thumb|Element Types Configurations based on UML stereotypes]]
+
+===Applied Stereotype Matchers and Advice===
+
+Stereotype-based element types configurations need two essential components to capture the stereotype concept:
+
+* an ''element matcher'' that recognizes stereotyped elements as instances of the ''element type'' and
+* an ''advice'' that applies the stereotype to the UML element upon creation of an instance of the ''element type''
+
+Both of these functions are provided by the ''StereotypeMatcherAdviceConfiguration''. Create an instance of this configuration as the
+''matcher'' of your element type configuration and specify the profile URI and name of the stereotype:
+
+[[Image:images/stereotype-matcher.png|thumb|Specifying the stereotype to match/apply]]
+
+Note that this configuration supports multiple stereotypes, in which case all stereotypes must be applied for a successful match and all will
+be applied upon creation.
+
+===Applied Stereotype Invariant Constraint===
+
+An element in a UML or other EMF-based model generally cannot change its class and so has an invariant class type. An ''element type'' based
+on stereotype applications is more dynamic than the element's class because stereotypes may be applied or unapplied to or from an element, thus
+changing the ''element types'' that it matches. In cases where this plasticity of type is unwanted, the element type configuration can be
+configured with ''Constraint Advice'' bearing a ''StereotypeInvariantConstraint''. In the UML for Metamodels example, all classes in a
+metamodel are metaclasses and so must be recognized as such by their <tt>«Metaclass»</tt> stereotype:
+
+[[Image:images/required-stereotype.png|thumb|Required stereotype constraint]]
+
+This constraint denies any ''UnapplyStereotypeRequest'' that would remove any of the stereotypes specified by the element type's
+''matcher configuration''.
+
+<blockquote>'''Note''' that this constraint only works in ''element types'' configured with some kind of ''StereotypeApplicationMatcherConfiguration'',
+of which the dual-purpose ''StereotypeMatcherAdviceConfiguration'' is one.</blockquote>
+
+==Tips and Tricks==
+
+This section presents some tips for more effective editing advice and pitfalls to avoid when possible.
+
+===Performance===
+
+There are three areas generally to concentrate on to help reduce the performance impact of your edit-helper advice. Consider that the UML metamodel
+comprises hundreds of classes, each of which has at least one corresponding ''element type'' and ''edit helper'', and that Papyrus adds to this
+dozens of instances of advice for a wide variety of specific and cross-cutting editing concerns, ranging from the semantics of association ends to
+controlled resources (sub-models) and dependencies of diagram views.
+
+====Target Element Type====
+
+Try to bind your advice to the narrowest possible ''element type''. Advice bindings are not qualified by edit request, so for any edit operation,
+all advices bound to the element types being edit are consulted regardless of what kind of edit is requested. For some recursive operations, such
+as ''destroy element'' (and the ''destroy dependents'' that always accompanies it) this can add up to processing the product of a large number of
+requests with many advices. So, for example, if advice applies only an element with some stereotype, bind it to the specialization for that
+stereotype, like in the examples for the ''Metaclass'' type above. If an advice applies only to classes, bind it to the ''UML::Class'' element type
+and not to ''UML::Classifier'' or ''UML::NamedElement'' and just only provide commands for inputs that are classes. Most elements in an UML model
+are ''NamedElement''s!
+
+There are, however, cases where more general bindings are appropriate or even necessary. Papyrus provides several examples, itself:
+
+* an advice that deletes stereotype applications for an element being deleted. As all elements can be stereotype, this is bound to the ''UML::Element'' type
+* an advice that denies any request to edit an object in a read-only resource. As any kind of model object, not just UML elements but also diagram views and more, can be in a read-only resource, this advice is a wildcard binding (bound to all ''element types'')
+
+====Finding Associated Model Elements====
+
+A great many, if not most, use cases for edit advice require either examination of or operation on elements related in some way to the element for
+which an edit command is requested. The canonical case of this is the ''destroy dependents'' phase in assembly of a command for the
+''destroy element'' request. But there are others, especially in ''approval'' (or more precisely denial) of edit requests based on conditions
+involving the wider context of the model element.
+
+Often the related elements of interest are reachable by references from the element being edited, in which case they can be found quite efficiently.
+But in many cases, and curiously more often in the cases for which the advice is needed in the first place, these related elements are not reachable
+from the subject element but rather they are the ones that reference it, either directly or indirectly. Depending on the size of a model, it can be
+very costly to search the entire EMF ''ResourceSet'' looking for certain objects that reference the element being edited. For these cases, the EMF
+and UML2 APIs provide ''cross referencers'' that provide effectively constant-time look-up of inverse references.
+
+* for EMF-based models generally, the ''ECrossReferenceAdapter''
+* for UML models specifically, the UML2 ''CacheAdapter'' that provides the same ''ECrossReferenceAdapter'' API
+
+<blockquote>'''Note''' that in the context of Papyrus UML models, the UML API will always ensure that the ''CacheAdapter'' is attached
+to all elements in the model (in the ''ResourceSet''), so it should preferred as adding another ''ECrossReferenceAdapter'' is just redundant.
+</blockquote>
+
+Consider, for example, edit advice that seeks to deny approval of a ''DestroyElementRequest'' that would destroy a ''Classifier'' if that classifier
+is the type of one or more ''InstanceSpecification''s (ignoring for now enumerations and their owned literals). An ''InstanceSpecification'' references
+the ''Classifier''s that are its types; a ''Classifier'' does not reference its ''InstanceSpecification''s. So, this advice needs to ''invert'' the
+''InstanceSpecification::type'' reference:
+
+<source lang="java">
+    protected boolean approveDestroyElementRequest(DestroyElementRequest request) {
+        Classifier classifier = (Classifier) request.getElementToDestroy();
+        CacheAdapter cache = CacheAdapter.getCacheAdapter(classifier);
+        Collection<EStructuralFeature.Setting> settings = cache.getInverseReferences(classifier, UMLPackage.Literals.INSTANCE_SPECIFICATION__CLASSIFIER, true);
+        return settings.isEmpty();
+    }
+</source>
+
+This is a simple case where all that is needed is to determine that there is ''some'' object that references the element being edited in a particular
+role. More complex cases may need to iterate the settings provided as inverse references to inspect details of the objects (in this case,
+''InstanceSpecification''s) that own those references. But the important point is that in neither case is it necessary to search over the entire
+resource set looking for references. The adapter caches these at the time the model is loaded and maintains its index as it changes.
+
+====Avoiding Repeated Computation====
+
+Some edit operations are recursive by nature, especially ''DestroyElementRequest'' and ''DestroyDependentsRequest''. It may happen that dependents
+of the original element being edited have, recursively, dependents and that they have dependents in common. A naïve recursive algorithm could
+perform redundant computations repeatedly on the same and related model elements. One pattern often used in such situations is the storing of
+pre-computed results ''in the request''.
+
+An ''IEditCommandRequest'' includes a map of named parameters. Some of these are inputs to the original requested edit operation, e.g., name to assign
+to a new model element or pointer location at which to create a diagram view, but others can be set by advice routines to communication information
+to other advice. A single request instance is provided to all advice, or if not then at least the request parameters are propagated to any new
+request instances that are created, so that any advice can pick up data stashed previously in the processing of the reqiest.
+
+The GMF Run-time provides a special case of this in the ''DestroyDependentsRequest'' API. For any dependent element discovered by advice, if that
+dependent also should be deleted, then the advice asks the ''request'' for a command to delete it and returns that (possibly in addition to other
+commands performing other kinds of changes). This has two benefits:
+
+* the request keeps track of dependent elements for which it has created destruction commands. If some advice asks for a command to destroy some element that has already been processed, the request just returns <tt>null</tt> because there is nothing more to do
+* in the case that a new command needs to be computed to destroy a dependent, the request takes care of implementing the entire recursive deletion algorithm, including the recursive dependency graph, so that the advice need not be concerned with this complexity. By tracking all of this in the one request instance, depdency cycles are readily handled and do not result in unbounded recursion or iteration
+
+Any other advice classes implemented in coordination can pre-compute any kind of results on the graph of model elements and store it in
+the request parameters for other advice to pick up and avoid repeating work. An advice like the snippet below may not be doing much computation
+that is expensive to repeat, but it illustrates the APIs involved, accessing the request parameters:
+
+<source lang="java">
+    public class AutoNameAdvice extends AbstractEditHelperAdvice {
+
+        static final class Autonamer implements Supplier<String> {
+            private final String baseName;
+            private int index;
+        
+            Autonamer(String baseName, int index) {
+                this.baseName = baseName;
+                this.index = index;
+            }
+        
+            @Override
+            public String get() {
+                String result = baseName + " " + index;
+                index = index + 1;
+                return result;
+            }
+        }
+    
+        @Override
+        public void configureRequest(IEditCommandRequest request) {
+            super.configureRequest(request);
+        
+            if (request instanceof CreateElementRequest) {
+                configureCreateRequest((CreateElementRequest) request);
+            }
+        }
+
+        protected void configureCreateRequest(CreateElementRequest request) {
+            Autonamer autonamer = (Autonamer) request.getParameter(Autonamer.class.getName());
+            if (autonamer == null && request.getContainer() instanceof Namespace) {
+                // Create an autonamer to pick up again in configuring creation requests for
+                // any other elements in this namespace that other advices may wish to create
+                Namespace namespace = (Namespace) request.getContainer();
+                int memberCount = namespace.getMembers().size();
+            
+                autonamer = new Autonamer("NewElement", memberCount + 1);
+            
+                // This parameter will be passed along to the configure request after creation of
+                // the new element, so any advice that then creates further new elements can
+                // initialize create requests with the parameters of the configure request to
+                // pass along this context of unique automatic names
+                request.setParameter(Autonamer.class.getName(), autonamer);
+            }
+        
+            if (autonamer != null) {
+                // Configure the unique name to set into the new element
+                request.setParameter(RequestParameterConstants.NAME_TO_SET, autonamer.get());
+            }
+        }
+    }
+</source>
+
+===Things to Avoid===
+
+This section discusses a few common pitfalls to avoid in the implementation of custom edit advice.
+
+====Interactive UI====
+
+An edit advice is involved in three of four phases of the construction and execution of an ''edit command'':
+
+1. configuring the edit request
+2. approving the edit request
+3. creating a command to compose in the requested edit operation
+
+Only the fourth stage, execution of the composed edit command, does not involve consultation of the advice. And it is only in this stage
+that it is safe to present any interactive UI. The first three stages can occur in a variety of situations that will not be followed by
+the fourth, e.g.:
+
+* collect edit operations to present in some kind of a menu
+* query whether an edit operation would be available/permitted
+
+In such scenarios edit commands may be created without any intent to execute them or, perhaps, to defer execution until some later time.
+Moreover, it can happen, and does in GMF-based applications such as Papyrus, that an edit command is created multiple times even when the
+intent is immediately to execute it.
+
+If a custom edit advice must seek user input via a dialog or menu or other mechanism in order to provide an executable command, then it
+cannot seek this input before creating that command. Instead, it must create a command that does the required user interaction when
+executed and, if it does not get acceptable input, returns a cancel result. The GMF Run-time handles this gracefully by reverting any
+model changes already performed by earlier commands in the composed edit command.
+
+A convenient pattern for this kind of user interactive command is the ''command wrapper''. This is especially useful when the command
+proceed with any input (even just some default). In cases where it is possible that the user interaction may not yield sufficient input,
+it is necessary to halt command execution and roll back any changes already performed by other commands. The best way to do this is to
+compose the edit advice command with a prior command that performs the interaction, updates shared state if necessary to capture in
+results, or cancels if the requisite inputs are not obtained. The ''DataTypeDeletionAdvice'' in the example project does just this to
+prompt the user to confirm deletion of related elements:
+
+<source lang="java">
+    Collection<TypedElement> typedElements = settings.stream().map(EStructuralFeature.Setting::getEObject)
+            .map(TypedElement.class::cast).distinct().collect(Collectors.toList());
+
+    String listOfNames = typedElements.stream().map(NamedElement::getQualifiedName).collect(Collectors.joining(", "));
+    String prompt = NLS.bind("The following elements will also be deleted. Proceed?\n{0}.", listOfNames);
+
+    // If this returns a cancel result, then the framework will undo any changes performed by earlier commands
+    ICommand promptToConfirm = new PromptToConfirmCommand("Delete Typed Elements", prompt);
+    ICommand destroyTypedElements = request.getDestroyDependentsCommand(typedElements);
+
+    return CompositeCommand.compose(promptToConfirm, destroyTypedElements);
+</source>
+
+In this simple case there is no other input requested than confirmation to proceed. More complex cases may need to store information
+provided by the user in some shared state for execution of the edit advice command to pick up.
+
+====Deferring Large Computations====
+
+Some edit commands may perform a great number of changes or require many complex calculations to determine what to do. The most common
+example of this in applications based on the GMF Run-time is deletion. This is a recursive operation over the entire content trees of
+all model elements selected by the user. If the computation of the advice command for operations that can tend to scale so large is
+particularly onerous, it may be a good idea to defer some of into the execution of the advice command, itself, rather than perform it
+up-front in the advice. This is very similar to the case of user interaction via the UI discussed above.
+
+====Modifying the Model in the Advice====
+
+Because the commands provided by advice may never end up being executed, for a variety of reasons, the advice should never make changes
+to the model except in the ''execute()''' method of the command that it provides. Advices are requested to configure and create commands
+in contexts that are ''read-only'' with respect to the model, where even changes that the advice would immediately revert are not
+permitted.
+
+

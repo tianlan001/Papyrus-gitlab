@@ -1,0 +1,235 @@
+=Overview=
+Papyrus provides for validation of tooling models for DSML and other customization plug-ins, including:
+
+* Validation of a UML '''profiles''', both static (generated) and dynamic
+* Validation of '''element types configurations'''
+* Validation of '''architecture domain''' models
+* Validation of '''element creation menu''' models
+
+Validation is provided as a project builder that is optionally enabled by the user.
+
+==Papyrus Plug-in Builder==
+
+To enable automatic validation of tooling models in your customization plug-ins, configure the '''Papyrus Plug-in''' nature on
+your customization plug-in projects. In the context menu for your project, select the '''Configure &rarr; Convert to Papyrus Plugin''' action:
+
+[[File:images/devDoc/Papyrus_ConfigurePluginNature.png|frame|none|Configure the Papyrus Plug-in project nature]]
+
+What is checked by the builder depends on settings in the '''Preferences'''. By default, the '''Papyrus Plug-in Builder''' performs no validation.
+
+[[File:images/devDoc/Papyrus_PluginBuilderPreferences.png|frame|none|Papyrus plug-in builder preferences]]
+
+There are a number of options available to enable:
+
+* whether to check anything at all when building a Papyrus project
+* whether to validate Papyrus tooling customization models. And, if so, whether to
+** check that model dependencies implied by tooling models are included in the bundle manifest
+** check other well-formedness rules of the models, themselves
+* whether to validate bundle and plug-in manifests. And, if so, whether to
+** check for the anti-pattern of dependency re-exports
+** check for the recommended practice of constraining bundle dependencies with compatible version ranges
+
+==Profile Plug-in Validation==
+
+This section describes the validation checks performed by the '''Papyrus Plug-in Builder''' on ''UML Profiles''.
+
+===What is checked?===
+To validate a profile plug-in, we have some points to check. Here are the checked points:
+* For each profile found in the plug-in:
+** Validation of the profile definition into the 'plugin.xml' file: '''ERROR''' (for 'generated_package' extension) and '''WARNING''' (for 'UMLProfile' extension)
+** Validate that the profile has no definition because it's not working with static profile: '''ERROR'''
+** Validation of the dependencies needed in the 'MANIFEST.MF' file for the external dependencies of the profile file: '''WARNING''' (because maybe the dependency is not really needed (implicit dependence?))
+** Validation of the 'build.properties' file (it must contain the profile file): '''ERROR'''
+
+===Where to find the result?===
+The result is display in the ''''Problems'''' view and are categorized by the type ''''Papyrus Toolsmiths Profile Plug-in problems''''.
+
+[[File:images/devDoc/Papyrus_ProblemsViewProfile.png|frame|none|Profile problems]]
+
+Like others problems, you can double-click on one to open the concerning file. You can delete problem too when you think it is managed.
+
+==Element Types Plug-in Validation==
+
+This section describes the validation checks performed by the '''Papyrus Plug-in Builder''' on ''Element Types Configurations''.
+
+===What is checked?===
+Several validation rules are checked for any plug-in project that contains Element Types Configuration models, including:
+* Bundle manifest dependencies on core element-types framework bundles: '''WARNING'''
+** 'org.eclipse.papyrus.infra.types.core'
+** 'org.eclipse.papyrus.infra.types'
+* For each element types configuration model found in the plug-in:
+** Validation of the element types file itself: errors or warnings as described for different elements, below
+*** an icon resource referenced by the element types configuration model does not exist: '''ERROR'''
+** Validation of the element types model registration in the 'plugin.xml' file
+*** if there is a registration on the extension point, and it omits the client-context ID: '''ERROR'''
+*** if there is no registration extension and there is no architecture model that references it: '''WARNING'''
+** Validation of bundle dependencies in the 'MANIFEST.MF' file implied by the element types configuration model:
+*** missing dependency on the bundle that deploys the metamodel referenced by NS URI: '''ERROR'''
+*** referenced metamodel NS URI that cannot be resolved to a bundle that provides the metamodel: '''ERROR'''
+*** missing dependency on the bundle that deploys a referenced element types configuration model: '''ERROR'''
+*** missing dependency on the bundle that deploys a profile referenced by UML stereotype element-types: '''ERROR'''
+*** missing dependency on the bundle that deploys an icon referenced by the model: '''ERROR'''
+** Validation of the 'build.properties' file
+*** If any of the following resources is not included in the binary build: '''ERROR'''
+**** the element types configuration model file, itself
+**** any other element types configuration model or icon referenced by the model that is in the same plug-in
+
+There are special element types configuration model elements available for definition of element types on the basis of the
+stereotypes in UML profiles. These are validated for availability or suitability of the referenced UML profile constructs:
+* ''Apply Stereotype Advice''
+** profile referenced by qualified name is not found in the workspace nor in the target platform: '''ERROR'''
+** stereotype referenced by qualified name is not found in any profile in the workspace nor in the target platform: '''ERROR'''
+** a ''Feature to Set'' is not contained by an ''Apply Stereotype Advice Configuration'': '''ERROR'''
+** a ''Feature to Set'' references a feature that the stereotype does not have: '''ERROR'''
+* ''Stereotype Application Matcher'' (and, by inheritance, the ''Stereotype Application Matcher Advice'')
+** profile referenced by namespace URI is not found in the workspace nor in the target platform: '''ERROR'''
+** stereotype referenced by qualified name is not found in any profile in the workspace nor in the target platform: '''ERROR'''
+* ''Stereotype Property Reference Edge Advice''
+** stereotype referenced by qualified name is not found in any profile in the workspace nor in the target platform: '''ERROR'''
+** the feature to set references a feature that the stereotype does not have: '''ERROR'''
+** the feature to set does not have a type, and therefore cannot be set: '''ERROR'''
+
+The rules above are not checked in the ''Element Types Configurations Editor'' while editing a model because they
+depend on the deployment of dependent resources in tooling bundles. Therefore, they are only checked by the
+tooling validation mechanisms described in this documentation. Other intrinsic model well-formedness constraints
+for element types configurations are checked by the editor; they are described in the documentation of the
+''Element Types Configurations'' model.
+
+===Where to find the result?===
+The result is displayed in the ''''Problems'''' view and are categorized by the type ''''Papyrus Toolsmiths Element Types Plug-in Problem''''.
+
+[[File:images/devDoc/Papyrus_ProblemsViewElementTypes.png|frame|none|Element types problems]]
+
+Like others problems, you can double-click on one to open the relevant file. You may delete a problem that you think is resolved, but if it is not, then it will be presented again by the next validation.
+
+==Architecture Plug-in Validation==
+
+This section describes the validation checks performed by the '''Papyrus Plug-in Builder''' on ''Architecture Models''.
+
+===What is checked?===
+Several validation rules are checked for any plug-in project that contains Architecture Context models, including:
+* Bundle manifest dependencies on core Architecture Framework bundles: '''WARNING'''
+** 'org.eclipse.papyrus.infra.architecture'
+* For each architecture context model found in the plug-in:
+** Validation of the architecture context model file itself: errors or warnings as described for different elements, below
+** an icon resource referenced by the architecture context model does not exist: '''ERROR'''
+** Validation of the architecture context model registration in the 'plugin.xml' file
+*** if there is no registration extension: '''ERROR'''
+** Validation of bundle dependencies in the 'MANIFEST.MF' file implied by the architecture context model:
+*** missing dependency on the bundle that deploys a metamodel or profile referenced by some Architecture Context: '''ERROR'''
+*** referenced metamodel that cannot be resolved to a bundle that provides the metamodel or profile: '''ERROR'''
+*** missing dependency on the bundle that deploys or defines an external resource: '''ERROR'''
+**** element types configuration model referenced by an Architecture Context
+**** palette configuration model referenced by a Representation Kind
+**** an icon resource referenced by the architecture context model
+**** a creation or conversion command class referenced by an Architecture Context or a Representation Kind
+** Validation of the 'build.properties' file
+*** If any of the following resources is not included in the binary build: '''ERROR'''
+**** the architecture context model file, itself
+**** any element types configuration model file, palette configuration model file, or icon referenced by the model that is in the same plug-in
+
+The rules above are not checked in the ''Architecture Model Editor'' while editing a model because they
+depend on the deployment of dependent resources in tooling bundles. Therefore, they are only checked by the
+tooling validation mechanisms described in this documentation. Other intrinsic model well-formedness constraints
+for architecture contexts are checked by the editor; they are described in the documentation of the
+''Architecture Context'' model.
+
+===Where to find the result?===
+The result is displayed in the ''''Problems'''' view and are categorized by the type ''''Papyrus Toolsmiths Architecture Plug-in Problem''''.
+
+[[File:images/devDoc/Papyrus_ProblemsViewArchitecture.png|frame|none|Architecture problems]]
+
+Like others problems, you can double-click on one to open the relevant file. You may delete a problem that you think is resolved, but if it is not, then it will be presented again by the next validation.
+
+==Element Creation Menu Plug-in Validation==
+
+This section describes the validation checks performed by the '''Papyrus Plug-in Builder''' on ''Element Creation Menus''.
+
+===What is checked?===
+Several validation rules are checked for any plug-in project that contains Element Creation Menu models, including:
+* Bundle manifest dependencies on core Element Creation Menu bundles: '''WARNING'''
+** 'org.eclipse.papyrus.infra.newchild'
+* For each element creation menu model found in the plug-in:
+** Validation of the element creation menu model file itself: errors or warnings as described for different elements, below
+** an icon resource referenced by the element creation menu model does not exist: '''ERROR'''
+** a ''role'' name configured on a ''creation menu'' does not appear to exist in any known registered ''element type configuration'': '''WARNING'''
+** Validation of the element creation menu model registration in the 'plugin.xml' file
+*** if there is no registration extension: '''ERROR'''
+** Validation of bundle dependencies in the 'MANIFEST.MF' file implied by the element creation menu model:
+*** missing dependency on the bundle that provides any of the items, below: '''ERROR'''
+**** an ''element type'' referenced by some creation menu
+**** an icon resource referenced by the creation menu model
+** Validation of the 'build.properties' file
+*** If any of the following resources is not included in the binary build: '''ERROR'''
+**** the element creation menu model file, itself
+**** any element types configuration model file or icon referenced by the model that is in the same plug-in
+
+The rules above are not checked in the ''Element Creation Menu Model Editor'' while editing a model because they
+depend on the deployment of dependent resources in tooling bundles. Therefore, they are only checked by the
+tooling validation mechanisms described in this documentation. Other intrinsic model well-formedness constraints
+for element creation menu models are checked by the editor; they are described in the documentation of the
+''Element Creation Menu'' model.
+
+===Where to find the result?===
+The result is displayed in the ''''Problems'''' view and are categorized by the type ''''Papyrus Toolsmiths Element Creation Menu Plug-in Problem''''.
+
+[[File:images/devDoc/Papyrus_ProblemsViewNewChild.png|frame|none|Element Creation Menu problems]]
+
+Like others problems, you can double-click on one to open the relevant file. You may delete a problem that you think is resolved, but if it is not, then it will be presented again by the next validation.
+
+==Properties Model Plug-in Validation==
+
+This section describes the validation checks performed by the '''Papyrus Plug-in Builder''' on ''Properties models''.
+
+===What is checked?===
+Several validation rules are checked for any plug-in project that contains Properties Context and/or Environment models, including:
+* Bundle manifest dependencies on core Papyrus Properties Framework bundles: '''WARNING'''
+** 'org.eclipse.papyrus.infra.properties'
+* For each properties context model found in the plug-in that traces to a UML Profile or an Ecore package from which it was generated:
+** Validation of the context model file itself and XWT section files that it references: errors or warnings as described for different elements, below
+*** a data context package does not trace to a source UML Profile or Ecore package: '''WARNING'''
+*** a data context package traces to a source UML Profile or Ecore package that appears no longer to exist: '''ERROR'''
+*** a data context package has a different name than the source UML Profile or Ecore package to which it traces: '''ERROR'''
+*** a data context package is missing nested packages or data context elements for nested packages or classes in the source UML Profile or Ecore package: '''WARNING'''
+*** a data context element does not trace to a source UML Stereotype or Ecore Eclass: '''WARNING'''
+*** a data context element traces to a source UML Stereotype or Ecore Eclass that appears no longer to exist: '''WARNING'''
+*** a data context element has a different name than the source UML Stereotype or Ecore Eclass to which it traces: '''ERROR'''
+*** a data context element is missing properties for attributes of the source UML Stereotype or Ecore EClass: '''WARNING'''
+*** a data context package does not trace to an attribute of a source UML Stereotype or Ecore Eclass: '''WARNING'''
+*** a data context property traces to an attribute of the source UML Profile or Ecore package that appears no longer to exist: '''ERROR'''
+*** a data context property has a different name than the attribute of the source UML Stereotype or Ecore Eclass to which it traces: '''ERROR'''
+*** a data context property has a type that appears to be inconsistent with the type of the corresponding attribute in the source UML Stereotype or Ecore Eclass: '''WARNING'''
+*** a property editor in the XWT section has a widget type that appears to be inconsistent with the type of the data context property that it edits: '''WARNING'''
+** Validation of the properties context model registration in the 'plugin.xml' file
+*** if there is no registration extension: '''ERROR'''
+** Validation of bundle dependencies in the 'MANIFEST.MF' file implied by the properties context model:
+*** missing dependency on the bundle that deploys the UML Profile or Ecore package from which the context was generated: '''ERROR'''
+** Validation of the 'build.properties' file
+*** If any of the following resources is not included in the binary build: '''ERROR'''
+**** the properties context model file, itself
+**** any XWT resource referenced by the context
+* For each properties environment model found in the plug-in:
+** Validation of the environment model file itself: errors or warnings as described for different elements, below
+*** a Java class referenced for a model element factory or other concept does not exist: '''ERROR'''
+** Validation of the properties environment model registration in the 'plugin.xml' file
+*** if there is no registration extension: '''ERROR'''
+** Validation of bundle dependencies in the 'MANIFEST.MF' file implied by the properties environment model:
+*** missing dependency on the bundle that defines Java classes referenced in the environment: '''ERROR'''
+** Validation of the 'build.properties' file
+*** If any of the following resources is not included in the binary build: '''ERROR'''
+**** the properties model file, itself
+**** any other environment model cross-referenced by it in the same project
+
+The rules above are not checked in the ''Properties Context Editor'' while editing a model because they
+depend on the deployment of dependent resources in tooling bundles. Therefore, they are only checked by the
+tooling validation mechanisms described in this documentation. Other intrinsic model well-formedness constraints
+for modelign assistants are checked by the editor; they are described in the documentation of the
+''Properties Context'' model.
+
+===Where to find the result?===
+The result is displayed in the ''''Problems'''' view and are categorized by the type ''''Papyrus Toolsmiths Properties Plug-in Problem''''.
+
+[[File:images/devDoc/Papyrus_ProblemsViewProperties.png|frame|none|Properties model problems]]
+
+Like other problems, you can double-click on one to open the relevant file. You may delete a problem that you think is resolved, but if it is not, then it will be presented again by the next validation.
+

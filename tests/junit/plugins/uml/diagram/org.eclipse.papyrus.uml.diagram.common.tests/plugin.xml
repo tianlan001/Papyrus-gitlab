@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension
+         point="org.eclipse.papyrus.infra.types.core.elementTypeSetConfiguration">
+      <elementTypeSet
+            clientContextID="org.eclipse.papyrus.infra.services.edit.TypeContext"
+            path="resources/518645/StereotypePropertyReferenceEdge.elementtypesconfigurations">
+      </elementTypeSet>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.gmfdiag.common.paletteDefinition">
+      <paletteDefinition
+            ID="org.eclipse.papyrus.uml.service.types.tests.StereotypePropertyReferenceEdge.paletteDefinition"
+            class="org.eclipse.papyrus.infra.gmfdiag.common.service.palette.ExtendedPluginPaletteProvider"
+            name="Test Palette Configuration"
+            path="resources/518645/StereotypePropertyReferenceEdge.paletteconfiguration"
+            provider="Eclipse Modeling Project">
+         <Priority
+               name="Medium">
+         </Priority>
+      </paletteDefinition>
+   </extension>
+
+</plugin>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<elementtypesconfigurations:ElementTypeSetConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:applystereotypeadvice="http://www.eclipse.org/papyrus/uml/types/applystereotypeadvice/1.1" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2" xmi:id="_c0DGsGBhEemoFuWBTUmJOQ" identifier="org.eclipse.papyrus.toolsmiths.validation.elementtypes.elementTypeSet" name="BookStore" metamodelNsURI="http://www.eclipse.org/uml2/5.0.0/UML">
+  <adviceBindingsConfigurations xmi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_h1LeQGBhEemoFuWBTUmJOQ" identifier="org.eclipse.papyrus.toolsmiths.validation.elementtypes.book" target="_fen2kGBhEemoFuWBTUmJOQ">
+    <stereotypesToApply xmi:type="applystereotypeadvice:StereotypeToApply" xmi:id="_SncTUGBiEemoFuWBTUmJOQ" stereotypeQualifiedName="BookStore::Book">
+      <requiredProfiles>BookStore</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xmi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_NnwtQGBiEemoFuWBTUmJOQ" identifier="org.eclipse.papyrus.toolsmiths.validation.elementtypes.person" target="_ECdm8GBiEemoFuWBTUmJOQ">
+    <stereotypesToApply xmi:type="applystereotypeadvice:StereotypeToApply" xmi:id="_S5wyYGBiEemoFuWBTUmJOQ" stereotypeQualifiedName="BookStore::Person">
+      <requiredProfiles>BookStore</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xmi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_Ns-kcGBiEemoFuWBTUmJOQ" identifier="org.eclipse.papyrus.toolsmiths.validation.elementtypes.author" target="_EIk2AGBiEemoFuWBTUmJOQ">
+    <stereotypesToApply xmi:type="applystereotypeadvice:StereotypeToApply" xmi:id="_TK9QEGBiEemoFuWBTUmJOQ" stereotypeQualifiedName="BookStore::Author">
+      <requiredProfiles>BookStore</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xmi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_N72t8GBiEemoFuWBTUmJOQ" identifier="org.eclipse.papyrus.toolsmiths.validation.elementtypes.editor" target="_ENo8MGBiEemoFuWBTUmJOQ">
+    <stereotypesToApply xmi:type="applystereotypeadvice:StereotypeToApply" xmi:id="_T9BmMGBiEemoFuWBTUmJOQ" stereotypeQualifiedName="BookStore::Editor">
+      <requiredProfiles>BookStore</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <elementTypeConfigurations xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_fen2kGBhEemoFuWBTUmJOQ" identifier="org.eclipse.papyrus.toolsmiths.validation.elementtypes.Book" name="Book" hint="UML::Class" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+    <iconEntry xmi:type="elementtypesconfigurations:IconEntry" xmi:id="_LsdB0FXJEeuFR-D4wbaD1A" iconPath="icons/full/obj16/Book.png"/>
+    <specializedTypes xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Class"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_ECdm8GBiEemoFuWBTUmJOQ" identifier="org.eclipse.papyrus.toolsmiths.validation.elementtypes.Person" name="Person" hint="UML::Class" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+    <specializedTypes xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Class"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_EIk2AGBiEemoFuWBTUmJOQ" identifier="org.eclipse.papyrus.toolsmiths.validation.elementtypes.Author" name="Author" hint="UML::Class" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType" specializedTypes="_ECdm8GBiEemoFuWBTUmJOQ"/>
+  <elementTypeConfigurations xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_ENo8MGBiEemoFuWBTUmJOQ" identifier="org.eclipse.papyrus.toolsmiths.validation.elementtypes.Editor" name="Editor" hint="UML::Class" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType" specializedTypes="_ECdm8GBiEemoFuWBTUmJOQ"/>
+  <elementTypeConfigurations xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_mq-6IGBiEemoFuWBTUmJOQ" name="TestError" hint="" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+    <specializedTypes xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.sysml16.service.types/model/SysML16.elementtypesconfigurations#org.eclipse.papyrus.SysML16.Requirement"/>
+  </elementTypeConfigurations>
+</elementtypesconfigurations:ElementTypeSetConfiguration>

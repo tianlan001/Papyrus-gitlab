@@ -1,0 +1,71 @@
+=Introduction=
+Since Papyrus 3.0 (Eclipse Oxygen), Papyrus provides a generic matrix for UML Relationships. This matrix allows to represent a relation between a row element and a column element by a checkbox. This matrix allows to display, create and remove relationship between the elements of your model.
+
+=Starting with the UML Relationship Generic Matrix=
+Some illustration are available after the description of the steps.
+#select a Package in the '''Model Explorer View''', then '''Right Click'''->'''New Table'''->'''Relationship Generic Matrix''',
+#a new table is now created, but empty. '''Click''' inside the empty table, then go into the '''Property View''', then select the '''Matrix Tab''',
+#define the rows for your table: in the '''Rows''' group,
+##fill the field '''Sources'''. This field defines the element owning the rows you want to display in the table,
+##if required, fill the fields '''Filter'''. When these fields are set, only the elements owned by the selected sources and matching your filter will be displayed as rows.
+#define the columns for your table: this is the same process than for rows, but in the '''Columns''' group
+#define the relationship edition, in the '''Cell Contents''' group:
+##fill the field '''Relation Kind''' to select the kind of relationship managed by the table,
+##fill the field '''Direction''' to define the direction of the relationship managed by the table,
+##if required, fill the field '''Contents Filter''', to be more precise in the displayed relationship.
+##if required, define the '''Owner Strategy''', to define which element will be the owner of the created relationships. 
+##*'''Default''': this is Papyrus which is in charge to determine the owner.
+##*'''Other''': you must define yourself the owner for all created relationship, editing the next field too. 
+##'''Relation Owner''': select a model element to contains all relationships created in the current matrix. A compatibility check will be done at your first cell edition in the Matrix and a dialog will be open in case of problems with your choices. This value is only used when '''Owner Strategy''' is set to '''Other'''.
+#Now, if it is not already done, you can expand the rows of your table: '''Right CLick''' on the row header, then '''Expand All'''.
+
+
+*the creation of the matrix
+[[File:images/matrix/MatrixRelationshipCreation.png|frame|none|Creation of the Generic Matrix of Relationship]]
+
+*the matrix just after the creation
+[[File:images/matrix/MatrixJustAfterCreation.png|frame|none|The matrix just after its creation. It is empty!]]
+
+*the matrix property view used to configure the new matrix
+[[File:images/matrix/ThePropertyViewForMatrix.png|frame|none|The Matrix property view, with the described order for its configuration.]]
+
+
+*the result for a small model
+[[File:images/matrix/MatrixResult.png|frame|none|The resulting matrix, for a small model, with its configuration displayed in the Property View]]
+
+==Cell Edition in the matrices==
+When the cell display one of the following message (see previous snapshot for illustration), the cell is ''read-only'', so you can't create or destroy the existing relationship throw the matrix.
+*'''>1 link''': means that there are at least 2 matching relationships between the row element and the column element. 
+*'''>2 ends''': means that the relationship represented by the cells has more than one source or more than one target. We are able to display it, but we are not able to edit it throw the matrix.
+
+==General informations about the matrices==
+Maybe you already well known the table features in Papyrus. The matrices framework uses the same architecture than tree tables, but with some restrictions:
+*the rows and columns can't be inverted,
+*the rows and columns are calculated at runtime, so the appearance changes done by the user are not saved (order of the axis, height/width, expanded/collapsed, ...):
+*paste and import features are not supported in the matrices.
+*you can't drag and drop an element from the '''Model Explorer View''' to use it as row or as column in the table (matrix is synchronized on your model).
+
+==Matrices and depth==
+The predefined matrices provided by Papyrus are configured to show the elements directly owned by the selected '''sources''':
+*for the columns, you can't change this behavior (we are not able to show several level for columns),
+*for the rows, you can configure the feature to listen and the filter to apply for all depths as for the Tree Table, with the same dialog. To get it, '''Right-Click''' inside the table, then '''Configure Categories and Paste'''. In the open dialog, you can select the feature to listen, and add depth. For a Matrix, the depth, must start to '''1''' (the 0 depth is provided by the sources field in the '''Property View''').
+
+
+=FAQ=
+===The cells are empty===
+If all the cells of your table are empty, you can check these points:
+*Do you have define the kind of relationship to edit?
+*Are you sure the selected relationship can be created between the selected elements?
+
+===An element matching the filters is not displayed as row/column in the matrix===
+If you use filters checking a specific property of the UML element (like <code>Class#isAbstract()</code> for example) or checking a stereotype application, the table axis (rows/columns) won't be updated after this kind of changes on UML elements. The solution is to '''close''' and '''reopen''' the table or doing the action '''Reload Table Editor''' available in the contextual menu.
+
+===I don't found the relationship I need in the '''Relation Kind''' dialog===
+On the next snapshot, we show how to get the dialog from the Matrix Property View.
+
+[[File:images/matrix/RelationKindDialog.png|frame|none|The Relation Kind dialog]]
+
+
+*the Papyrus 3.0 (Eclipse Oxygen) only supports '''Abstraction''' and '''Dependency''' and their stereotyped versions (with SysML for example: '''Allocate''', '''Refine''', '''Verify''', '''Safisfy'''). The other relationship should be provided with the SR1
+*the SysML relationships (or relationship from an other profile) are not displayed in the '''Relation Kind''' dialog.
+**Even if the SysML Profile (or another one) is applied on your model, if your are not in the good '''Architecture Context''', you won't be able to edit this kind of relationship. To change the '''Architecture Context''', from the '''Model Explorer View''', do '''Right-Click->Switch Architecture Context'''.

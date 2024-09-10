@@ -1,0 +1,49 @@
+private import
+FoundationalModelLibrary::PrimitiveBehaviors::IntegerFunctions::ToString;
+
+/**
+ * Test behavior, operation and super invocation expressions.
+ **/
+active class Expressions_Invocation {
+
+	activity A(in x: Integer, in y: Boolean[0..1]): Integer;
+	activity ComputeInterest(in amount: Integer): Integer;
+	activity B(out s: String);
+	activity C(in b: BitString, out c: Integer);
+	class Super {
+
+		public activity 'value$defaultValue$1'(): Integer;
+		public activity 'name$defaultValue$1'(): String;
+		public value: Integer = 'value$defaultValue$1'();
+		public name: String = 'name$defaultValue$1'();
+		public run();
+		public initialize(in value: Integer);
+		public setName(in name: String);
+		@Create
+		public Super();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Super1 specializes Super {
+
+		public 'do'(in i: Integer);
+		@Create
+		public Super1();
+		@Destroy
+		public destroy();
+
+	}
+
+	test(out c: Integer, out b: BitString, inout status1: String,
+		out status2: String, out statuses: String[0..*], out i: Integer,
+		out j: Integer, out k: Integer, out l: Integer, out m: Integer,
+		out n: Integer, out n1: Integer, out obj: Super1, out list: Super[0..*]
+		sequence, out ns: Integer);
+	@Create
+	public Expressions_Invocation();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Invocation$behavior$1'

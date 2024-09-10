@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nattable:Table xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:nattable="http://www.eclipse.org/papyrus/nattable/model" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisconfiguration="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:nattablecelleditor="http://www.eclipse.org/papyrus/nattable/model/table/nattablecelleditor" xmlns:nattableconfiguration="http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration" xmlns:nattablelabelprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattablecontentprovider" xmlns:nattablestyle="http://www.eclipse.org/papyrus/nattable/model/table/nattablestyle" xmlns:nattablewrapper="http://www.eclipse.org/papyrus/nattable/model/table/nattablewrapper" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis http://www.eclipse.org/papyrus/nattable/model#//nattableaxis http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration http://www.eclipse.org/papyrus/nattable/model#//nattableaxisconfiguration http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider http://www.eclipse.org/papyrus/nattable/model#//nattableaxisprovider http://www.eclipse.org/papyrus/nattable/model/table/nattablecelleditor http://www.eclipse.org/papyrus/nattable/model#//nattablecelleditor http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration http://www.eclipse.org/papyrus/nattable/model#//nattableconfiguration http://www.eclipse.org/papyrus/nattable/model/table/nattablecontentprovider http://www.eclipse.org/papyrus/nattable/model#//nattablelabelprovider http://www.eclipse.org/papyrus/nattable/model/table/nattablestyle http://www.eclipse.org/papyrus/nattable/model#//nattablestyle http://www.eclipse.org/papyrus/nattable/model/table/nattablewrapper http://www.eclipse.org/papyrus/nattable/model#//nattablewrapper" xmi:id="_U7I0sFzFEeenisH0-0NwUA" description="This matrix is already preconfigured with required local rox header and local column header" name="MatrixOfRelationships" currentRowAxisProvider="_U7I0s1zFEeenisH0-0NwUA" currentColumnAxisProvider="_U7I0slzFEeenisH0-0NwUA" tableKindId="org.eclipse.papyrus.uml.table.matrix">
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_U7I0tVzFEeenisH0-0NwUA" source="http://www.eclipse.org/papyrus/infra/nattable/version">
+    <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_U7I0tlzFEeenisH0-0NwUA" key="version" value="1.3.0"/>
+  </eAnnotations>
+  <styles xmi:type="nattablestyle:IntListValueStyle" xmi:id="_U7I0sVzFEeenisH0-0NwUA" name="hiddenCategoriesByDepth">
+    <intListValue>1</intListValue>
+  </styles>
+  <context xmi:type="uml:Model" href="updateTableContentsAfterExpressionChangeWithExistingLocalHeader.uml#_U7DVIFzFEeenisH0-0NwUA"/>
+  <owner xmi:type="uml:Model" href="updateTableContentsAfterExpressionChangeWithExistingLocalHeader.uml#_U7DVIFzFEeenisH0-0NwUA"/>
+  <tableConfiguration xmi:type="nattableconfiguration:TableConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.matrix/configs/generic_matrix_of_relationships.nattableconfiguration#/"/>
+  <columnAxisProvidersHistory xmi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_U7I0slzFEeenisH0-0NwUA" description="This axis provider manages the columns, according to the wanted hierarchy" name="HierarchicalColumnsAxisManager" disconnectSlave="true">
+    <sources xmi:type="nattablewrapper:EObjectWrapper" xmi:id="_hWI80FzFEeenisH0-0NwUA">
+      <element xmi:type="uml:Model" href="updateTableContentsAfterExpressionChangeWithExistingLocalHeader.uml#_U7DVIFzFEeenisH0-0NwUA"/>
+    </sources>
+  </columnAxisProvidersHistory>
+  <rowAxisProvidersHistory xmi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_U7I0s1zFEeenisH0-0NwUA" description="This axis provider manages the rows, according to the wanted hierarchy" name="HierarchicalRowAxisManager" disconnectSlave="true">
+    <axis xmi:type="nattableaxis:EObjectTreeItemAxis" xmi:id="_g-rfEVzFEeenisH0-0NwUA">
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.matrix/configs/generic_matrix_of_relationships.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Model" href="updateTableContentsAfterExpressionChangeWithExistingLocalHeader.uml#_U7DVIFzFEeenisH0-0NwUA"/>
+    </axis>
+    <sources xmi:type="nattablewrapper:EObjectWrapper" xmi:id="_g-rfEFzFEeenisH0-0NwUA">
+      <element xmi:type="uml:Model" href="updateTableContentsAfterExpressionChangeWithExistingLocalHeader.uml#_U7DVIFzFEeenisH0-0NwUA"/>
+    </sources>
+  </rowAxisProvidersHistory>
+  <localRowHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:LocalTableHeaderAxisConfiguration" xmi:id="_v8Q4sFzFEeenisH0-0NwUA" indexStyle="NUMERIC">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:ObjectLabelProviderConfiguration" xmi:id="_v8Q4sVzFEeenisH0-0NwUA"/>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:TreeFillingConfiguration" xmi:id="_v8Q4slzFEeenisH0-0NwUA" depth="1" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.treefilling.feature.labelprovider">
+      <axisUsedAsAxisProvider xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_v8Q4s1zFEeenisH0-0NwUA" alias="">
+        <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element/ownedElement"/>
+      </axisUsedAsAxisProvider>
+      <labelProvider xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.matrix/configs/generic_matrix_of_relationships.nattableconfiguration#//@rowHeaderAxisConfiguration/@ownedLabelConfigurations.1"/>
+    </ownedAxisConfigurations>
+    <axisManagerConfigurations xmi:type="nattableaxisconfiguration:AxisManagerConfiguration" xmi:id="_v8Q4tFzFEeenisH0-0NwUA" localHeaderLabelConfiguration="_v8Q4sVzFEeenisH0-0NwUA" localSpecificConfigurations="_v8Q4slzFEeenisH0-0NwUA">
+      <axisManager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.matrix/configs/generic_matrix_of_relationships.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+    </axisManagerConfigurations>
+  </localRowHeaderAxisConfiguration>
+  <localColumnHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:LocalTableHeaderAxisConfiguration" xmi:id="_wvUtUFzFEeenisH0-0NwUA">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:ObjectLabelProviderConfiguration" xmi:id="_wvUtUVzFEeenisH0-0NwUA"/>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:TreeFillingConfiguration" xmi:id="_wvUtUlzFEeenisH0-0NwUA" depth="1" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.treefilling.feature.labelprovider">
+      <axisUsedAsAxisProvider xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_wvUtU1zFEeenisH0-0NwUA">
+        <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Element/ownedElement"/>
+      </axisUsedAsAxisProvider>
+      <labelProvider xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.matrix/configs/generic_matrix_of_relationships.nattableconfiguration#//@columnHeaderAxisConfiguration/@ownedLabelConfigurations.1"/>
+    </ownedAxisConfigurations>
+    <axisManagerConfigurations xmi:type="nattableaxisconfiguration:AxisManagerConfiguration" xmi:id="_wvUtVFzFEeenisH0-0NwUA" localHeaderLabelConfiguration="_wvUtUVzFEeenisH0-0NwUA" localSpecificConfigurations="_wvUtUlzFEeenisH0-0NwUA">
+      <axisManager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.matrix/configs/generic_matrix_of_relationships.nattableconfiguration#//@columnHeaderAxisConfiguration/@axisManagers.0"/>
+    </axisManagerConfigurations>
+  </localColumnHeaderAxisConfiguration>
+  <ownedCellEditorConfigurations xmi:type="nattablecelleditor:GenericRelationshipMatrixCellEditorConfiguration" xmi:id="_U7I0tFzFEeenisH0-0NwUA" cellEditorId="GenericRelationshipMatrixEditorConfiguration"/>
+</nattable:Table>

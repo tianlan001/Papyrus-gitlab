@@ -1,0 +1,123 @@
+diff --git a/plugins/org.eclipse.uml2.uml/src/org/eclipse/uml2/uml/util/UMLUtil.java b/plugins/org.eclipse.uml2.uml/src/org/eclipse/uml2/uml/util/UMLUtil.java
+old mode 100644
+new mode 100755
+index 3e9a153..11fc2c6
+--- a/plugins/org.eclipse.uml2.uml/src/org/eclipse/uml2/uml/util/UMLUtil.java
++++ b/plugins/org.eclipse.uml2.uml/src/org/eclipse/uml2/uml/util/UMLUtil.java
+@@ -117,6 +117,7 @@
+ import org.eclipse.uml2.uml.Profile;
+ import org.eclipse.uml2.uml.Property;
+ import org.eclipse.uml2.uml.RedefinableElement;
++import org.eclipse.uml2.uml.RedefinableTemplateSignature;
+ import org.eclipse.uml2.uml.Stereotype;
+ import org.eclipse.uml2.uml.StringExpression;
+ import org.eclipse.uml2.uml.StructuralFeature;
+@@ -5325,6 +5326,95 @@
+ 		}
+ 
+ 		@Override
++		public Object caseTemplateBinding(TemplateBinding object) {
++			final Element theTemplatedObject = object.getOwner();
++
++			for (TemplateParameterSubstitution sub : object.getParameterSubstitutions()) {
++				final TemplateParameter formal = sub.getFormal();
++
++				// 1. we can have a property typed by a parameterized class. In
++				// this case, I assume the TemplateBinding is set between the
++				// owner of the property and the class typing the property
++
++				final List<Property> propertiesToManage = new ArrayList<Property>();// a list because we could have several properties typed by the same class
++				if (theTemplatedObject instanceof org.eclipse.uml2.uml.AttributeOwner) {
++					for (final Property currentProperty : ((org.eclipse.uml2.uml.AttributeOwner) theTemplatedObject)
++							.getOwnedAttributes()) {
++						if (currentProperty.getType() instanceof TemplateableElement) {
++							final TemplateableElement type = (TemplateableElement) currentProperty.getType();
++							final TemplateSignature templateSignature = type.getOwnedTemplateSignature();
++							if (null != templateSignature) {
++								for (TemplateParameter param : templateSignature.getParameters()) {
++									if (param == formal) {
++										// the template binding must be applied
++										// on the class
++										propertiesToManage.add(currentProperty);
++									}
++
++								}
++							}
++
++						}
++					}
++				}
++
++				for (final Property current : propertiesToManage) {// TODO : seems useless with the current Papyrus expression model and probably wrong
++					EModelElement eModelElement = (EModelElement) doSwitch(current);
++					if (eModelElement instanceof EReference) {
++
++						EGenericType genericType = ((EReference) eModelElement).getEGenericType();
++						Object actualRep = doSwitch(sub.getActual());
++
++						EGenericType type = EcoreFactory.eINSTANCE.createEGenericType();
++						type.setEClassifier((EClassifier) actualRep);
++						genericType.getETypeArguments().add(type);
++
++					}
++				}
++
++				// 2. the template binding can comes from a generalization
++				if (theTemplatedObject instanceof Classifier) {
++
++					final Classifier clazz = (Classifier) theTemplatedObject;
++					final List<Classifier> superTypeToDefine = new ArrayList<Classifier>();
++					for (Generalization generalization : clazz.getGeneralizations()) {
++						doSwitch(generalization);
++					}
++					final List<Classifier> superClasses = clazz.getGenerals();
++					for (Classifier current : superClasses) {
++						TemplateSignature curr = current.getOwnedTemplateSignature();
++						RedefinableTemplateSignature signature = (RedefinableTemplateSignature) curr;
++						for (TemplateParameter param : signature.getParameters()) {
++							if (param == formal) {
++								// the template binding must be applied on the
++								// class
++								superTypeToDefine.add(current);
++							}
++						}
++					}
++
++					if (!superTypeToDefine.isEmpty()) {
++						final EModelElement eModelElement = (EModelElement) doSwitch(clazz);
++						if (eModelElement instanceof EClass) {
++							for (final Classifier current : superTypeToDefine) {
++								final EModelElement currentAsEMF = (EModelElement) doSwitch(current);
++								if (null != currentAsEMF) {
++									for (EGenericType genericType : ((EClass) eModelElement).getEGenericSuperTypes()) {
++										if (genericType.getEClassifier() == currentAsEMF) {
++											EGenericType res = getEGenericType((Type) sub.getActual());
++											genericType.getETypeArguments().add(res);
++										}
++									}
++								}
++							}
++						}
++					}
++				}
++			}
++			return super.caseTemplateBinding(object);
++		}
++		
++		@Override
+ 		public Object caseTemplateParameter(TemplateParameter templateParameter) {
+ 			return defaultCase(templateParameter);
+ 		}
+@@ -5344,6 +5434,12 @@
+ 				eTypedElement.setEGenericType(getEGenericType(typedElement
+ 					.getType()));
+ 
++				if(eTypedElement.getEType()!=null && eTypedElement.getEType().getETypeParameters().size()!=0) {
++					for(int i=0;i<eTypedElement.getEType().getETypeParameters().size();i++) {
++						eTypedElement.getEGenericType().getETypeArguments().add(EcoreFactory.eINSTANCE.createEGenericType());
++					}
++				}
++				
+ 				return eTypedElement;
+ 			}
+ 

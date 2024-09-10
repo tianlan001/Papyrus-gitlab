@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_PkuSgBjcEeWMjJEqhdMs0g" name="RootElement" metaclassReference="_R9tjIBjcEeWMjJEqhdMs0g">
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YON34BjcEeWMjJEqhdMs0g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_YON34RjcEeWMjJEqhdMs0g" name="RootElement" nsURI="http:///schemas/RootElement/_YOMpwBjcEeWMjJEqhdMs0g/0" nsPrefix="RootElement">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YOPtERjcEeWMjJEqhdMs0g" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YOPtEhjcEeWMjJEqhdMs0g" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YOPtExjcEeWMjJEqhdMs0g" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YOPtFBjcEeWMjJEqhdMs0g" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YOPtFRjcEeWMjJEqhdMs0g" key="Date" value="2015-06-22"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YOPtFhjcEeWMjJEqhdMs0g" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_YON34hjcEeWMjJEqhdMs0g" name="StereotypeTest">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YON34xjcEeWMjJEqhdMs0g" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_ShiB4BjcEeWMjJEqhdMs0g"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_YON35BjcEeWMjJEqhdMs0g" name="base_Component" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Component"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <elementImport xmi:type="uml:ElementImport" xmi:id="_R9tjIBjcEeWMjJEqhdMs0g" alias="Component">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Component"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_ShiB4BjcEeWMjJEqhdMs0g" name="StereotypeTest">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_TJ_JABjcEeWMjJEqhdMs0g" name="base_Component" association="_TJ-h8BjcEeWMjJEqhdMs0g">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Component"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_TJ-h8BjcEeWMjJEqhdMs0g" name="E_StereotypeTest_Component1" memberEnd="_TJ-h8RjcEeWMjJEqhdMs0g _TJ_JABjcEeWMjJEqhdMs0g">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_TJ-h8RjcEeWMjJEqhdMs0g" name="extension_StereotypeTest" type="_ShiB4BjcEeWMjJEqhdMs0g" aggregation="composite" association="_TJ-h8BjcEeWMjJEqhdMs0g"/>
+  </packagedElement>
+</uml:Profile>

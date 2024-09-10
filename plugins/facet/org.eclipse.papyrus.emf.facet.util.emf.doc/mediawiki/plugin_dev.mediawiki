@@ -1,0 +1,38 @@
+== Browser Registry ==
+EMF Facet contains a registry for model browsers. When a component needs to open a model in Eclipse, it can query the registry to find a suitable model browser. EMF Facet lets end users choose which model browser they want to use through an Eclipse preference page.
+
+=== Registering a model browser ===
+To register a model browser, you must use the '''org.eclipse.papyrus.emf.facet.util.emf.core''' extension point, and provide a subset or all of the following interfaces (through the '''ePackageViewer''', '''eObjectViewer''' and '''resourceViewer''' elements in the extension):
+* implement '''IEPackageBrowserOpener''' if the model browser that your are registering can be opened on an EPackage
+* implement '''IEObjectBrowserOpener''' if the model browser that your are registering can be opened on an EObject
+* implement '''IResourceBrowserOpener''' if the model browser that your are registering can be opened on an EMF Resource.
+
+=== Querying the registry ===
+You can obtain an interface used to open a model browser by querying the registry. For example, to get all model browsers that can be opened on EObjects:
+
+<code>List<IEObjectBrowserOpener> openers = IBrowserRegistry.INSTANCE.getAllRegisteredEObjectBrowsers();</code>
+
+Or to get the default model browser for Resources:
+
+<code>IResourceBrowserOpener defaultOpener = IBrowserRegistry.INSTANCE.getDefaultResourceBrowserOpener();</code>
+
+You can also ask the registry to directly open the given Resource/EObject/EPackage. For example:
+ 
+<code>IBrowserRegistry.INSTANCE.browseResource(targetModel);</code>
+
+== Serialization ==
+You can use extension point ''org.eclipse.papyrus.emf.facet.widgets.celleditors.serialization'' to specify an implementation for serializing specific types.
+A serializer can be registered like this:
+ <extension point="org.eclipse.papyrus.emf.facet.util.emf.core.serialization">
+    <serializer class="com.example.MyTypeSerializer"/>
+ </extension>
+
+<font size="-2">
+Copyright (c) 2012 Mia-Software.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License 2.0
+which accompanies this distribution, and is available at
+https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0.
+</font>

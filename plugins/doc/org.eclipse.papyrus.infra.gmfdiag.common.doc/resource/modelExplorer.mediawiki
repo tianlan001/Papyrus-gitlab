@@ -1,0 +1,271 @@
+
+= How to customize the model explorer from profile =
+
+Model explorer gives a tree representation of the element model .
+
+[[Image:images/modelExplorer/ModelExplorer-01.png|500px|frame]]
+ 
+To be clear about the use of vocabulary, we suppose that :
+
+* « Package2 » is a child of « NouveauProjet »
+
+* « Package1 » is a child of « Package2 ».
+
+We will explain the following cases:
+
+* How to add child.
+
+* How to filter child.
+
+== Prerequisite ==
+ 
+installation required:
+
+* Add the Papyrus update link : https://www.eclipse.org/papyrus/download.html .
+* Choose the adapted version : 
+
+for example in case of eclipse 2020-06 we choose : http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2020-06 .
+
+* Install Papyrus toolsmith.
+
+[[Image:images/modelExplorer/ModelExplorer-02.png|500px|frame]]
+
+
+== Creation of the configuration file ==
+
+First create a plug-in that will contain the configuration of your model explorer.
+
+=== Create a file ".custom" ===
+
+[[Image:images/modelExplorer/ModelExplorer-03.png|400px|frame]]
+
+Choose as Customization root.
+
+[[Image:images/modelExplorer/ModelExplorer-04.png|500px|frame]]
+
+=== Add customization ===
+
+[[Image:images/modelExplorer/ModelExplorer-05.png|900px|frame]]
+ 
+===	Add the referencing extension point for the file ".custom" ===
+
+In this part we need to reference our emf Facet model on the plug-in .xml .
+
+[[Image:images/modelExplorer/ModelExplorer-06.png|500px|frame]]
+
+Choose the created file ".custom" .
+ 
+[[Image:images/modelExplorer/ModelExplorer-07.png|900px|frame]]
+
+
+== How to display additional children  ==
+
+=== Context  ===
+
+Our profile representation :
+
+[[Image:images/modelExplorer/ModelExplorer-08.png|500px|frame]]
+
+« stereotypeB » references « stereotypeC ».
+
+In the explorer model we represent the « stereotypeC » classes  as  children of « stereotypeB ». 
+
+=== Creation of EclassCustomization  ===
+
+We have to customize the « stereotypeB »  representation to be able to display new children . 
+
+* Create e new EClass Customization : right button > EclassCustomization.
+
+[[Image:images/modelExplorer/ModelExplorer-09.png|500px|frame]]
+
+* Fill in the field Extended Meta class .
+
+* Select the UML  EPackage.
+
+[[Image:images/modelExplorer/ModelExplorer-10.png|500px|frame]]
+
+As we extend the metaClass , we choose Class.
+
+[[Image:images/modelExplorer/ModelExplorer-11.png|500px|frame]]
+ 
+You have to chose Extended Facet  and select « CustomizedEobject » Then we name it «CustomizationOfStereotypeB » .
+
+[[Image:images/modelExplorer/ModelExplorer-12.png|500px|frame]]
+ 
+[[Image:images/modelExplorer/ModelExplorer-13.png|700px|frame]]
+ 
+=== Creation of an "EMF facet" operation to customize only "StereotypeB" ===
+
+We are going to restrict the modification only to the classes to which we apply the stereotypeB.
+
+Create an EMF Facet operation named « isAstereotypeB ».
+
+[[Image:images/modelExplorer/ModelExplorer-14.png|500px|frame]]
+
+* Put lowerBound=1.
+
+* Choose the metaModel Ecore and put « EBoolean » as Type.
+
+[[Image:images/modelExplorer/ModelExplorer-15.png|500px|frame]]
+
+ 
+=== Creation of Java Query  ===
+
+[[Image:images/modelExplorer/ModelExplorer-16.png|500px|frame]]
+
+Validation with « OK ».
+
+[[Image:images/modelExplorer/ModelExplorer-17.png|500px|frame]]
+
+The Request does not exist ,so we create a Java class.
+ 
+[[Image:images/modelExplorer/ModelExplorer-18.png|500px|frame]]
+
+Validation with « OK ».
+
+[[Image:images/modelExplorer/ModelExplorer-19.png|500px|frame]]
+ 
+Result :
+
+[[Image:images/modelExplorer/ModelExplorer-20.png|700px|frame]]
+
+Then, you have to write this code :
+
+[[Image:images/modelExplorer/ModelExplorer-21.png|700px|frame]]
+
+The generated class contains the signature of the operation. 
+You just have to fill in it.
+
+=== Fill in the field «conformanceType» of  «stereotypeB»  ===
+
+Fill in the field « Conformance Typed Element » with our EMF facet operation.
+
+[[Image:images/modelExplorer/ModelExplorer-22.png|900px|frame]]
+
+=== Creation of «ERefrence» to visualize the children of «stereotypeB»  ===
+
+Now we will specify the display of « C classes » as Child. In order to do this, we will add a reference facet.
+
+[[Image:images/modelExplorer/ModelExplorer-23.png|900px|frame]]
+
+A dialog box pop up:
+
+[[Image:images/modelExplorer/ModelExplorer-24.png|500px|frame]]
+
+Fill in :
+
+* « Lower bound » with  0 .
+
+* « Upper Bound » with  -1  (because it’s a EMF collection).
+
+Put type as a UML class  choose « UML metaModel » then the  « Class metaclasse ».
+
+Choose a Java request by following the wizardVous.
+
+As a result ,You must obtain:
+
+[[Image:images/modelExplorer/ModelExplorer-25.png|900px|frame]]
+
+Also,we have to write the Java request
+
+[[Image:images/modelExplorer/ModelExplorer-26.png|900px|frame]]
+
+=== Let's test our customization  ===
+
+* Launch a «eclipse runtime ».
+
+* Open our Model.
+
+We have to choose the customization we have created.
+
+Click on « Customize Model Explorer ».
+ 
+[[Image:images/modelExplorer/ModelExplorer-27.png|500px|frame]]
+
+Select « simpleexample ».
+
+[[Image:images/modelExplorer/ModelExplorer-28.png|700px|frame]]
+ 
+Put it on the « Loaded Customizations » list.
+
+[[Image:images/modelExplorer/ModelExplorer-29.png|700px|frame]]
+
+Now we can see that « stereotypeC » child of «  stereotypeB ».
+ 
+[[Image:images/modelExplorer/ModelExplorer-30.png|500px|frame]]
+
+== How to filter the children ? ==
+
+Now we want no longer to see « stereotypeC » under packages, Hence filtering.
+ 
+In this framework, it’s impossible to filter directly, so the solution is to create a new « Ereference » and to hide the reference that displays the elements.
+
+=== How to hide children  ===
+
+With Papyrus we display all the composite relationships.
+
+[[Image:images/modelExplorer/ModelExplorer-31.png|500px|frame]]
+
+To display the Roles click on  « toggle advanced » in  model explorer.
+The role displaying the classes is « packagedElement ».
+
+[[Image:images/modelExplorer/ModelExplorer-32.png|500px|frame]]
+
+To  hide the display of the « packagedElements » role,we  have to create an « EClass Customization » on Package (see the section «  creating an "EClassCustomization" »)
+
+[[Image:images/modelExplorer/ModelExplorer-33.png|900px|frame]]
+
+Here the "conformance Typed Element" field will not be filled, because we are customizing all the package representations.
+
+We will create an operation « hide packageableElement ».
+
+[[Image:images/modelExplorer/ModelExplorer-34.png|500px|frame]]
+
+* We select  « JavaQuery0.2 ».
+
+* Button of JavaClass name.
+
+* Create newClass
+
+In the class below we don't display « PackagedElement ».
+
+[[Image:images/modelExplorer/ModelExplorer-35.png|700px|frame]]
+
+We select the EMF Facet operation.
+
+Put « visibleReferences » to the « Override » field.
+
+[[Image:images/modelExplorer/ModelExplorer-36.png|900px|frame]]
+ 
+In application, this configuration must be priority over SimpleUML ,so we must put it before:
+
+[[Image:images/modelExplorer/ModelExplorer-37.png|700px|frame]]
+ 
+result --> no longer classes
+
+[[Image:images/modelExplorer/ModelExplorer-38.png|500px|frame]]
+ 
+Now we have to add a « Reference » where we only see the « stereotypeA » and « sterotypeB ».
+
+=== Creation of a new «Eref» to see «SterotypeA» and «sterotypeB» ===
+
+We want to see « stereotypeA » and « StereotypeB » as children of the package, For this we create a "FacetReference".
+
+[[Image:images/modelExplorer/ModelExplorer-39.png|500px|frame]]
+ 
+As we return a list:
+
+* Upper Bound  value must be -1.
+
+* We create  a JAVA request.
+
+[[Image:images/modelExplorer/ModelExplorer-40.png|500px|frame]]
+ 
+The code must be written is as follows:
+
+[[Image:images/modelExplorer/ModelExplorer-41.png|800px|frame]]
+ 
+Once change applied we have the wanted result:
+
+[[Image:images/modelExplorer/ModelExplorer-42.png|500px|frame]]
+ 

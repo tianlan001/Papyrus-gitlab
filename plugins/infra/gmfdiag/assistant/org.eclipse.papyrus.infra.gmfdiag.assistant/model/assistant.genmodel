@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/uml2/2.2.0/GenModel"
+    copyrightText="Copyright (c) 2014, 2015 Christian W. Damus and others.&#xA;&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License 2.0&#xA; which accompanies this distribution, and is available at&#xA; https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA; SPDX-License-Identifier: EPL-2.0&#xA;&#xA; Contributors:&#xA; Christian W. Damus - Initial API and implementation"
+    modelDirectory="/org.eclipse.papyrus.infra.gmfdiag.assistant/src-gen" creationIcons="false"
+    editDirectory="/org.eclipse.papyrus.infra.gmfdiag.assistant.edit/src-gen" editorDirectory="/org.eclipse.papyrus.infra.gmfdiag.assistant.editor/src-gen"
+    modelPluginID="org.eclipse.papyrus.infra.gmfdiag.assistant" modelName="Assistant"
+    nonNLSMarkers="true" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" commentFormatting="true" testsDirectory="/org.eclipse.papyrus.infra.gmfdiag.assistant.tests/src-gen"
+    booleanFlagsField="_flags" booleanFlagsReservedBits="8" importerID="org.eclipse.uml2.uml.ecore.importer"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipse.papyrus.infra.filters/model/filters.genmodel#//filters ../../org.eclipse.uml2.types/model/Types.genmodel#//types"
+    operationReflection="true" importOrganizing="true" cleanup="true" factoryMethods="true"
+    pluralizedGetters="true" safeStrings="true" invariantPrefix="validate">
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/importer/org.eclipse.uml2.uml.ecore.importer">
+    <details key="ECORE_TAGGED_VALUES" value="PROCESS"/>
+    <details key="UNION_PROPERTIES" value="PROCESS"/>
+    <details key="UNTYPED_PROPERTIES" value="REPORT"/>
+    <details key="DUPLICATE_FEATURES" value="DISCARD"/>
+    <details key="SUBSETTING_PROPERTIES" value="PROCESS"/>
+    <details key="VALIDATION_DELEGATES" value="IGNORE"/>
+    <details key="OPPOSITE_ROLE_NAMES" value="IGNORE"/>
+    <details key="COMMENTS" value="PROCESS"/>
+    <details key="DUPLICATE_FEATURE_INHERITANCE" value="DISCARD"/>
+    <details key="DUPLICATE_OPERATIONS" value="DISCARD"/>
+    <details key="PROPERTY_DEFAULT_EXPRESSIONS" value="IGNORE"/>
+    <details key="INVARIANT_CONSTRAINTS" value="PROCESS"/>
+    <details key="REDEFINING_PROPERTIES" value="PROCESS"/>
+    <details key="ANNOTATION_DETAILS" value="PROCESS"/>
+    <details key="NON_API_INVARIANTS" value="IGNORE"/>
+    <details key="DUPLICATE_OPERATION_INHERITANCE" value="DISCARD"/>
+    <details key="REDEFINING_OPERATIONS" value="PROCESS"/>
+    <details key="INVOCATION_DELEGATES" value="IGNORE"/>
+    <details key="DERIVED_FEATURES" value="PROCESS"/>
+    <details key="OPERATION_BODIES" value="IGNORE"/>
+    <details key="CAMEL_CASE_NAMES" value="IGNORE"/>
+    <details key="SUPER_CLASS_ORDER" value="PROCESS"/>
+  </genAnnotations>
+  <foreignModel>assistant.merged.uml</foreignModel>
+  <genPackages xsi:type="genmodel:GenPackage" prefix="Assistant" basePackage="org.eclipse.papyrus.infra.gmfdiag"
+      resource="XMI" disposableProviderFactory="true" generateExampleClass="false"
+      multipleEditorPages="false" extensibleProviderFactory="true" childCreationExtenders="true"
+      contentTypeIdentifier="org.eclipse.papyrus.infra.gmfdiag.assistants" fileExtensions="assistants"
+      ecorePackage="assistant.ecore#/" resourceInterfaces="true" operationsPackage="org.eclipse.papyrus.infra.gmfdiag.assistant.internal.operations">
+    <genDataTypes xsi:type="genmodel:GenDataType" ecoreDataType="assistant.ecore#//ElementType"/>
+    <genDataTypes xsi:type="genmodel:GenDataType" ecoreDataType="assistant.ecore#//ClientContext"/>
+    <genDataTypes xsi:type="genmodel:GenDataType" ecoreDataType="assistant.ecore#//IProviderChangeListener"/>
+    <genDataTypes xsi:type="genmodel:GenDataType" ecoreDataType="assistant.ecore#//IOperation"/>
+    <genDataTypes xsi:type="genmodel:GenDataType" ecoreDataType="assistant.ecore#//IAdaptable"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="assistant.ecore#//AssistedElementTypeFilter">
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference assistant.ecore#//AssistedElementTypeFilter/provider"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//AssistedElementTypeFilter/getProvider"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="assistant.ecore#//ModelingAssistantProvider">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute assistant.ecore#//ModelingAssistantProvider/name"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EReference assistant.ecore#//ModelingAssistantProvider/assistant"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference assistant.ecore#//ModelingAssistantProvider/ownedFilter"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference assistant.ecore#//ModelingAssistantProvider/popupAssistant"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference assistant.ecore#//ModelingAssistantProvider/connectionAssistant"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute assistant.ecore#//ModelingAssistantProvider/elementType">
+        <propertyFilterFlags>org.eclipse.ui.views.properties.expert</propertyFilterFlags>
+      </genFeatures>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute assistant.ecore#//ModelingAssistantProvider/elementTypeID"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EAttribute assistant.ecore#//ModelingAssistantProvider/clientContext">
+        <propertyFilterFlags>org.eclipse.ui.views.properties.expert</propertyFilterFlags>
+      </genFeatures>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute assistant.ecore#//ModelingAssistantProvider/clientContextID"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute assistant.ecore#//ModelingAssistantProvider/excludedElementType">
+        <propertyFilterFlags>org.eclipse.ui.views.properties.expert</propertyFilterFlags>
+      </genFeatures>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute assistant.ecore#//ModelingAssistantProvider/excludedElementTypeID"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute assistant.ecore#//ModelingAssistantProvider/relationshipType">
+        <propertyFilterFlags>org.eclipse.ui.views.properties.expert</propertyFilterFlags>
+      </genFeatures>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute assistant.ecore#//ModelingAssistantProvider/relationshipTypeID"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//ModelingAssistantProvider/getElementTypes"
+          cacheAdapterScope="Resource"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//ModelingAssistantProvider/getClientContext"
+          cacheAdapterScope="Resource"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//ModelingAssistantProvider/getElementType">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//ModelingAssistantProvider/getElementType/id"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//ModelingAssistantProvider/getExcludedElementTypes"
+          cacheAdapterScope="Resource"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//ModelingAssistantProvider/getRelationshipTypes"
+          cacheAdapterScope="Resource"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//ModelingAssistantProvider/isRelationshipType">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//ModelingAssistantProvider/isRelationshipType/elementType"/>
+      </genOperations>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="assistant.ecore#//Assistant">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute assistant.ecore#//Assistant/elementTypeID"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute assistant.ecore#//Assistant/elementType">
+        <propertyFilterFlags>org.eclipse.ui.views.properties.expert</propertyFilterFlags>
+      </genFeatures>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+          createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference assistant.ecore#//Assistant/provider"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//Assistant/getElementType"
+          cacheAdapterScope="Resource"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="assistant.ecore#//PopupAssistant">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference assistant.ecore#//PopupAssistant/filter"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference assistant.ecore#//PopupAssistant/ownedFilter"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference assistant.ecore#//PopupAssistant/owningProvider"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="assistant.ecore#//ConnectionAssistant">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference assistant.ecore#//ConnectionAssistant/sourceFilter"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference assistant.ecore#//ConnectionAssistant/ownedSourceFilter"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference assistant.ecore#//ConnectionAssistant/targetFilter"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference assistant.ecore#//ConnectionAssistant/ownedTargetFilter"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference assistant.ecore#//ConnectionAssistant/owningProvider"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="assistant.ecore#//IModelingAssistantProvider">
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IModelingAssistantProvider/getTypes">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getTypes/hint"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getTypes/data"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IModelingAssistantProvider/getRelTypesOnSource">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getRelTypesOnSource/source"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IModelingAssistantProvider/getRelTypesOnTarget">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getRelTypesOnTarget/target"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IModelingAssistantProvider/getRelTypesOnSourceAndTarget">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getRelTypesOnSourceAndTarget/source"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getRelTypesOnSourceAndTarget/target"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IModelingAssistantProvider/getRelTypesForSREOnTarget">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getRelTypesForSREOnTarget/target"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IModelingAssistantProvider/getRelTypesForSREOnSource">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getRelTypesForSREOnSource/source"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IModelingAssistantProvider/getTypesForSource">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getTypesForSource/target"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getTypesForSource/relationshipType"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IModelingAssistantProvider/getTypesForTarget">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getTypesForTarget/source"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getTypesForTarget/relationshipType"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IModelingAssistantProvider/selectExistingElementForSource">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/selectExistingElementForSource/target"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/selectExistingElementForSource/relationshipType"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IModelingAssistantProvider/selectExistingElementForTarget">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/selectExistingElementForTarget/source"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/selectExistingElementForTarget/relationshipType"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IModelingAssistantProvider/getTypesForPopupBar">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IModelingAssistantProvider/getTypesForPopupBar/host"/>
+      </genOperations>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="assistant.ecore#//IProvider">
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EAttribute assistant.ecore#//IProvider/listener"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IProvider/provides">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IProvider/provides/operation"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IProvider/addProviderChangeListener">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IProvider/addProviderChangeListener/listener"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//IProvider/removeProviderChangeListener">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="assistant.ecore#//IProvider/removeProviderChangeListener/listener"/>
+      </genOperations>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="assistant.ecore#//ElementTypeFilter">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute assistant.ecore#//ElementTypeFilter/elementTypeID"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute assistant.ecore#//ElementTypeFilter/elementType">
+        <propertyFilterFlags>org.eclipse.ui.views.properties.expert</propertyFilterFlags>
+      </genFeatures>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference assistant.ecore#//ElementTypeFilter/provider"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//ElementTypeFilter/getElementType"
+          cacheAdapterScope="Resource"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="assistant.ecore#//ElementTypeFilter/getProvider"
+          cacheAdapterScope="Resource"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

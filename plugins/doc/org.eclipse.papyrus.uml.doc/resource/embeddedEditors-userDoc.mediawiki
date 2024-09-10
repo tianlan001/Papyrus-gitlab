@@ -1,0 +1,311 @@
+=Embedded Editors=
+Papyrus provides embedded editors to edit UML Elements. Of course these editors allows to edit the name of the elements, but they allow to edit much more than this.
+
+==UML ValueSpecification editor==
+This editor allows to edit UMLValueSpecification. ValueSpecifications are used to define the default value of a Property or to define the multiplicity of a MultiplicityElement (lower and upper values).
+Papyrus provides an Xtext Editor for UML ValueSpecification. This editor provides completion (CTRL+SPACE) to help the user to define the value to set crossing easily the model. 
+
+You can use this editors in Papyrus table or in papyrus Property View for example.
+
+The developer documentation for this editors is available in the '''Papyrus Developer Guide > Embedded Editors > Value Specification Xtext editor''' topic.
+===Usage===
+The default grammar of the XText parser for the Value Specification is the following:
+
+<code><nowiki>(visibility)? (name'=')? value</nowiki></code>
+
+The values accepted for the differents attributes are the following:
+{| class="wikitable" border="1" cellspacing="0"
+! style="width:20%" | Attribute
+! style="width:10%" | Required
+! style="width:60%" | Values accepted
+|-
+| '''visibility'''
+| align="center" | No
+| 
+* <code>+</code> (public)
+* <code>#</code> (protected)
+* <code>~</code> (package)
+* <code>-</code> (private)
+|-
+| '''name'''
+| align="center" | No
+| String representing an ID (i.e. XText grammar: <code>'^'?('a'..'z'&#124;'A'..'Z'&#124;'_') ('a'..'z'&#124;'A'..'Z'&#124;'_'&#124;'0'..'9')*</code>)
+|-
+| '''value'''
+| align="center" | Yes
+| 
+* <code>true</code> or <code>false</code> (<code>LiteralBoolean</code>)
+* positive integer (<code>LiteralUnlimitedNatural</code>)
+* negative integer (<code>LiteralInteger</code>)
+* double (<code>LiteralReal</code>)
+* <code>null</code> (<code>LiteralNull</code>)
+* String with quote (<code>LiteralSting</code>). The quote (') is essential for 2 reasons:
+** The XText parser cannot define the difference between the name representing an <code>InstanceSpecification</code> and a simple string value
+** A Non-valid value won't be defined as an <code>OpaqueExpression</code> without quote but always as a <code>LiteralString</code> value
+* Instance Specification name (<code>InstanceValue</code>)
+* <code><Undefined></code> or empty (<code>null</code>)
+|}
+
+If the text filled is not compatible with the grammar of XText parser, an <code>OpaqueExpression</code> will be created.
+
+
+The XText parser for Value Specification is not restrictive with the text filled, i.e. the different features setted on an existing Value Specification will be kept if possible.
+
+For example: If an existing Value Specification is a <code>LiteralBoolean</code> named 'testBoolean' with the visibility 'public' and the value setted to <code>true</code>, the text <code>+testBoolean=false</code> and <code>false</code> have the same result: the value of <code>LiteralBoolean</code> existing will pass to <code>false</code> (the name and the visilibity don't change).
+
+
+The XText parser reacts differently instead of the type of the Value Specification's container:
+
+====Example: Without defined type on Value Specification's container====
+
+If the type of Value Specification's container is not defined, the default behaviour will be applied.
+
+Here, some examples:
+{| class="wikitable" border="1" cellspacing="0"
+! style="width:15%" rowspan="2" | Text filled
+! style="width:20%" rowspan="2" | Namely
+! style="width:65%" rowspan="1" colspan="4" | Created ValueSpecification
+|-
+! style="width:15%" rowspan="1" colspan="1" | Type
+! style="width:8%" rowspan="1" colspan="1" | Visibility
+! style="width:15%" rowspan="1" colspan="1" | Name
+! style="width:27%" rowspan="1" colspan="1" | Value
+|-
+| rowspan="2" | +testInstanceValue=InstanceSpec1
+| 'InstanceSpec1' is an <code>InstanceSpecification</code> existing in the model
+| <code>InstanceValue</code>
+| public
+| testInstanceValue
+| 'instance' attribute of <code>InstanceValue</code> is a reference to the existing <code>InstanceSpecification</code> named 'InstanceSpec1'
+|-
+| No <code>InstanceSpecification</code> exist in the model
+| <code>OpaqueExpression</code>
+| public
+| +testInstanceValue=InstanceSpec1
+| 
+|-
+| +testBoolean=true
+| 
+| <code>LiteralBoolean</code>
+| public
+| testBoolean
+| <code>true</code>
+|-
+| #testUnlimitedNatural=5
+| 
+| <code>LiteralUnlimitedNatural</code>
+| protected
+| testUnlimitedNatural
+| 5
+|-
+| ~testInteger=-8
+| 
+| <code>LiteralInteger</code>
+| package
+| testInteger
+| -8
+|-
+| -testReal=12.34
+| 
+| <code>LiteralReal</code>
+| private
+| testReal
+| 12.34
+|-
+| ~testNull=null
+| 
+| <code>LiteralNull</code>
+| package
+| testNull
+| <code>null</code>
+|-
+| -testString="foo"
+| 
+| <code>LiteralString</code>
+| private
+| testString
+| foo
+|-
+| ##testString="foo"
+| 
+| <code>OpaqueExpression</code>
+| public
+| ##testString="foo"
+| 
+|}
+
+====Example: With defined type on Value Specification's container====
+
+If the type of Value Specification's container is setted, the same text filled will be have different behaviour depending to the type. In fact, the value filled must be consistent to the type, otherwise an <code>OpaqueExpression</code> will be created.
+
+The different types corresponding to <code>LiteralSpecification</code> are the following:
+{| class="wikitable" border="1" cellspacing="0"
+! style="width:50%" | LiteralSpecification
+! style="width:50%" | Types corresponding
+|-
+| <code>LiteralBoolean</code>
+| 
+* JavaPrimitiveTypes::boolean
+* EcorePrimitiveTypes::EBoolean
+* EcorePrimitiveTypes::EBooleanObject
+* PrimitiveTypes::Boolean
+* XMLPrimitiveTypes::Boolean
+* XMLPrimitiveTypes::BooleanObject
+|-
+| <code>LiteralUnlimitedNatural</code>
+| 
+* PrimitiveTypes::UnlimitedNatural
+|-
+| <code>LiteralInteger</code>
+| 
+* JavaPrimitiveTypes::int
+* EcorePrimitiveTypes::EInt
+* EcorePrimitiveTypes::EIntegerObject
+* PrimitiveTypes::Integer
+* XMLPrimitiveTypes::Int
+* XMLPrimitiveTypes::Integer
+* XMLPrimitiveTypes::IntObject
+|-
+| <code>LiteralReal</code>
+| 
+* JavaPrimitiveTypes::double
+* EcorePrimitiveTypes::EDouble
+* EcorePrimitiveTypes::EDoubleObject
+* PrimitiveTypes::Real
+* XMLPrimitiveTypes::Double
+* XMLPrimitiveTypes::DoubleObject
+|-
+| <code>LiteralString</code>
+| 
+* EcorePrimitiveTypes::EString
+* PrimitiveTypes::String
+* XMLPrimitiveTypes::String
+|}
+
+Here, some examples:
+{| class="wikitable" border="1" cellspacing="0"
+! style="width:15%" rowspan="2" | Text filled
+! style="width:20%" rowspan="2" | Value Specification's container type
+! style="width:65%" rowspan="1" colspan="4" | Created ValueSpecification
+|-
+! style="width:15%" rowspan="1" colspan="1" | Type
+! style="width:8%" rowspan="1" colspan="1" | Visibility
+! style="width:15%" rowspan="1" colspan="1" | Name
+! style="width:27%" rowspan="1" colspan="1" | Value
+|-
+| rowspan="2" | +testBoolean=true
+| PrimitiveTypes::Boolean
+| <code>LiteralBoolean</code>
+| public
+| testBoolean
+| <code>true</code>
+|-
+| PrimitiveTypes::Integer
+| <code>OpaqueExpression</code>
+| public
+| +testBoolean=true
+|
+|-
+| rowspan="4" | -testUnlimitedNatural=8
+| PrimitiveTypes::UnlimitedNatural
+| <code>LiteralUnlimitedNatural</code>
+| private
+| testUnlimitedNatural
+| 8
+|-
+| PrimitiveTypes::Integer
+| <code>LiteralInteger</code>
+| private
+| testUnlimitedNatural
+| 8
+|-
+| PrimitiveTypes::Real
+| <code>LiteralReal</code>
+| private
+| testUnlimitedNatural
+| 8.0
+|-
+| PrimitiveTypes::Boolean
+| <code>OpaqueExpression</code>
+| public
+| -testUnlimitedNatural=8
+| 
+|-
+| rowspan="4" | #testInteger=-6
+| PrimitiveTypes::UnlimitedNatural
+| <code>OpaqueExpression</code>
+| public
+| #testInteger=6
+| 
+|-
+| PrimitiveTypes::Integer
+| <code>LiteralInteger</code>
+| protected
+| testInteger
+| 6
+|-
+| PrimitiveTypes::Real
+| <code>LiteralReal</code>
+| protected
+| testInteger
+| 6.0
+|-
+| PrimitiveTypes::Boolean
+| <code>OpaqueExpression</code>
+| public
+| #testInteger=6
+| 
+|-
+| rowspan="3" | -testReal=4.5
+| PrimitiveTypes::Integer
+| <code>OpaqueExpression</code>
+| public
+| -testReal=4.5
+| 
+|-
+| PrimitiveTypes::Real
+| <code>LiteralReal</code>
+| private
+| testReal
+| 4.5 
+|}
+
+==Textual Editor For Named Element==
+Since Papyrus 1.1.0 (Eclipse Mars), Papyrus provides a new texutal editor to edit references to UML NamedElement. This editor works only for references which are not in containment. This editor has not been developed using XText. It use a custom string parser and provide a completion (CTRL+SPACE) to help the user to find the named elements to reference in the model.
+
+You can use this editor in Property View or in Papyrus table for example.
+Developer documentation is available in the '''Papyrus Developer Guide > Embedded Editors > Textual Editor For NamedElement''' topic.
+
+===Usage===
+* This editors allows to find named element typing its name. 
+* In case of several elements to found, the separator to use is the comma <code>'</code>
+* If the name of the element contains a comma, you should prefix and suffix its name by a quote <code>'</code>.
+* The value will not be set if the element can't be found is the model
+
+===Example===
+If you have 3 Classes in your model, named <code>Class1</code>, <code>Class2</code> and <code>Clas,s3</code>.
+{| class="wikitable" border="1" cellspacing="0"
+! style="font-weight: bold;" | typed text
+! style="font-weight: bold;" | completion proposal
+! style="font-weight: bold;" | explanation
+|-
+| empty string
+| <Undefined>, ...
+| we look for nothing, so we provide the <code><Undefined></code> value and <code>...</code> to ask to the user to write more text
+|-
+| Clas
+| <Undefined>,Class1,Class2,Clas,s3
+| 3 classes matches the string, <code><Undefined></code> is always proposed
+|-
+| Class
+| <Undefined>,Class1,Class2
+| 3 classes matches the string, <Undefined>is always proposed
+|-
+| 'Clas
+| <Undefined>, Clas,s3
+| the string starts with a quote and Clas,s3 contains a comma, so we propose <code>Clas,s3</code>; <code><Undefined></code> is always proposed
+|-
+| Clas,
+| <Undefined>,...
+| interpreted as a list of value, the first value is <code>Clas</code>, and we have no information for the second one, for the completion it is an empty string
+|}

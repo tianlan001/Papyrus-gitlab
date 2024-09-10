@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_HWN6cEMwEeiEZ5Jtfh6-KA" name="bug533673">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_HeHSMEMwEeiEZ5Jtfh6-KA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Jqu6wEMwEeiEZ5Jtfh6-KA" name="Foo" classifierBehavior="_POkWwEMwEeiEZ5Jtfh6-KA">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_LwEPkEMwEeiEZ5Jtfh6-KA" name="a"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_M6OVkEMwEeiEZ5Jtfh6-KA" name="b"/>
+    <ownedBehavior xmi:type="uml:Interaction" xmi:id="_POkWwEMwEeiEZ5Jtfh6-KA" name="DoIt">
+      <lifeline xmi:type="uml:Lifeline" xmi:id="_RZwb8EMwEeiEZ5Jtfh6-KA" name="a" represents="_LwEPkEMwEeiEZ5Jtfh6-KA" coveredBy="_FQ3nIESnEeilLIdbxjHAOw _XfZkgEMwEeiEZ5Jtfh6-KA _XgH9QEMwEeiEZ5Jtfh6-KA"/>
+      <lifeline xmi:type="uml:Lifeline" xmi:id="_R0URAEMwEeiEZ5Jtfh6-KA" name="b" represents="_M6OVkEMwEeiEZ5Jtfh6-KA" coveredBy="_FQ3nIESnEeilLIdbxjHAOw _XfaLkEMwEeiEZ5Jtfh6-KA _XgHWMEMwEeiEZ5Jtfh6-KA _Xf7wAEMwEeiEZ5Jtfh6-KA"/>
+      <fragment xmi:type="uml:CombinedFragment" xmi:id="_FQ2ZAESnEeilLIdbxjHAOw" covered="_RZwb8EMwEeiEZ5Jtfh6-KA _R0URAEMwEeiEZ5Jtfh6-KA" interactionOperator="opt" name="cfrag">
+        <operand xmi:type="uml:InteractionOperand" xmi:id="_FQ3nIESnEeilLIdbxjHAOw" name="opt" covered="_RZwb8EMwEeiEZ5Jtfh6-KA _R0URAEMwEeiEZ5Jtfh6-KA">
+          <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XfZkgEMwEeiEZ5Jtfh6-KA" name="request-send" covered="_RZwb8EMwEeiEZ5Jtfh6-KA" message="_XfUsAEMwEeiEZ5Jtfh6-KA"/>
+          <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XfaLkEMwEeiEZ5Jtfh6-KA" name="request-recv" covered="_R0URAEMwEeiEZ5Jtfh6-KA" message="_XfUsAEMwEeiEZ5Jtfh6-KA"/>
+          <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_Xf7wAEMwEeiEZ5Jtfh6-KA" name="exec" covered="_R0URAEMwEeiEZ5Jtfh6-KA" finish="_XgHWMEMwEeiEZ5Jtfh6-KA" start="_XfaLkEMwEeiEZ5Jtfh6-KA"/>
+          <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XgHWMEMwEeiEZ5Jtfh6-KA" name="reply-send" covered="_R0URAEMwEeiEZ5Jtfh6-KA" message="_XgGvIEMwEeiEZ5Jtfh6-KA"/>
+          <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XgH9QEMwEeiEZ5Jtfh6-KA" name="reply-recv" covered="_RZwb8EMwEeiEZ5Jtfh6-KA" message="_XgGvIEMwEeiEZ5Jtfh6-KA"/>
+          <guard xmi:type="uml:InteractionConstraint" xmi:id="_FQ3nIUSnEeilLIdbxjHAOw" name="guard"/>
+        </operand>
+      </fragment>
+      <message xmi:type="uml:Message" xmi:id="_XfUsAEMwEeiEZ5Jtfh6-KA" name="request" receiveEvent="_XfaLkEMwEeiEZ5Jtfh6-KA" sendEvent="_XfZkgEMwEeiEZ5Jtfh6-KA"/>
+      <message xmi:type="uml:Message" xmi:id="_XgGvIEMwEeiEZ5Jtfh6-KA" messageSort="reply" receiveEvent="_XgH9QEMwEeiEZ5Jtfh6-KA" sendEvent="_XgHWMEMwEeiEZ5Jtfh6-KA"/>
+    </ownedBehavior>
+  </packagedElement>
+</uml:Model>

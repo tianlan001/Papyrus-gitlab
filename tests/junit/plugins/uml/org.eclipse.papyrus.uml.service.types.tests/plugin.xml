@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+ Copyright (c) 2015 Christian W. Damus and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   Christian W. Damus - Initial API and implementation
+   
+-->
+<fragment>
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="pathmap://bug465899/"
+            target="platform:/plugin/org.eclipse.papyrus.uml.service.types.tests/resource/bug465899/">
+      </mapping>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.uml.extensionpoints.UMLLibrary">
+      <library
+            name="Bug 465899 Library"
+            path="pathmap://bug465899/library.uml">
+      </library>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.dynamic_package">
+      <resource
+            location="pathmap://UML_SERVICE_TYPES_TESTS/UnitTest.profile.uml#_bPTI4CkMEeuEo8scjf0hcw"
+            uri="http://www.eclipse.org/Papyrus/2020/test/UnitTest">
+      </resource>
+   </extension>
+   <extension
+         point="org.eclipse.uml2.uml.dynamic_package">
+      <profile
+            location="pathmap://UML_SERVICE_TYPES_TESTS/UnitTest.profile.uml#_9GF5oCkLEeuEo8scjf0hcw"
+            uri="http://www.eclipse.org/Papyrus/2020/test/UnitTest">
+      </profile>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.types.core.elementTypeSetConfiguration">
+      <elementTypeSet
+            clientContextID="org.eclipse.papyrus.infra.services.edit.TypeContext"
+            path="resource/UnitTest.elementtypesconfigurations">
+      </elementTypeSet>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="pathmap://UML_SERVICE_TYPES_TESTS/"
+            target="platform:/plugin/org.eclipse.papyrus.uml.service.types.tests/resource/">
+      </mapping>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.uml.extensionpoints.UMLProfile">
+      <profile
+            description="Unit Test profile for UML Service Types tests"
+            name="Unit Test Profile"
+            path="pathmap://UML_SERVICE_TYPES_TESTS/UnitTest.profile.uml">
+      </profile>
+   </extension>
+
+</fragment>

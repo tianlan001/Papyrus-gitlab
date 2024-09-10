@@ -1,0 +1,28 @@
+AcceptEventAction, 
+AcceptCallAction,
+AddStructuralFeatureValueAction,
+CallBehaviorAction, 
+CallOperationAction, 
+CreateLinkAction,
+CreateObjectAction,
+DestroyLinkAction,
+ReadLinkAction,
+ReadSelfAction,
+ReadStructuralFeatureAction,
+SendSignalAction,
+StartClassifierBehaviorAction,
+StartObjectBehaviorAction,
+TestIdentityAction,
+ValueSpecificationAction {
+	canonical: true;
+}
+
+StructuredActivityNode,
+LoopNode,
+SequenceNode,
+ConditionalNode,
+InterruptibleActivityRegion,
+ExpansionRegion {
+	borderStyle: custom;
+	customDash: 5 5;
+}

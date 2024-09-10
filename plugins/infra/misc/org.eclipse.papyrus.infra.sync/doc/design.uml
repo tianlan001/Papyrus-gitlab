@@ -1,0 +1,1139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Requirements="http://www.eclipse.org/papyrus/0.7.0/SysML/Requirements" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:structure="http://DeveloperProcess/schemas/structure/_rpmLUHVxEeSZ-fQGFkyJeQ/6" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/papyrus/0.7.0/SysML/Requirements http://www.eclipse.org/papyrus/0.7.0/SysML#//requirements http://DeveloperProcess/schemas/structure/_rpmLUHVxEeSZ-fQGFkyJeQ/6 pathmap://DEVELOPER_PROFILES/developerprocess.profile.uml#_rpmyYHVxEeSZ-fQGFkyJeQ">
+  <uml:Model xmi:id="_y3pEMACLEeWudc8agGQ04Q" name="diagram-sync">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_y3pEMQCLEeWudc8agGQ04Q">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Model" xmi:id="_y3pEMgCLEeWudc8agGQ04Q" name="Requirements">
+      <packagedElement xmi:type="uml:Class" xmi:id="_H3xwAP_lEeScYo8tuJyy0A" name="Model-to-Model Sync"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_NlpXIP_4EeScYo8tuJyy0A" name="Additional Content"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_e-QjYP_lEeScYo8tuJyy0A" name="Diagram-to-Diagram Sync"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_lWa_UP_lEeScYo8tuJyy0A" name="Sync Override"/>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_obO-sP_mEeScYo8tuJyy0A" client="_lWa_UP_lEeScYo8tuJyy0A" supplier="_e-QjYP_lEeScYo8tuJyy0A"/>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_h2TbYACREeWudc8agGQ04Q" client="_NlpXIP_4EeScYo8tuJyy0A" supplier="_H3xwAP_lEeScYo8tuJyy0A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="_y3pEMwCLEeWudc8agGQ04Q" name="Use Cases">
+      <packagedElement xmi:type="uml:Component" xmi:id="_xS4T0P_xEeScYo8tuJyy0A" name="UML-RT Capsule State Machine Diagram Synchronization" useCase="_BwcAgP_0EeScYo8tuJyy0A _xdObQP_0EeScYo8tuJyy0A _zJRGUP_0EeScYo8tuJyy0A _226cwP_0EeScYo8tuJyy0A _5w1QMP_0EeScYo8tuJyy0A __JdhwP_0EeScYo8tuJyy0A _J0AScACxEeWnE_cMzyyIKA">
+        <ownedUseCase xmi:type="uml:UseCase" xmi:id="_BwcAgP_0EeScYo8tuJyy0A" name="Add elements to general state machine" subject="_xS4T0P_xEeScYo8tuJyy0A">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Ydm7wACTEeWudc8agGQ04Q" annotatedElement="_BwcAgP_0EeScYo8tuJyy0A">
+            <body>The UML-RT model has a Capsule that is specialized by some other Capsule
+that has a state machine redefining the parent Capsule's state machine.
+
+When the user adds states, transitions, regions, and other vertices to the
+parent state machine, the system adds corresponding elements to the
+child Capsule's state machine with appropriate redefinition associations.</body>
+          </ownedComment>
+        </ownedUseCase>
+        <ownedUseCase xmi:type="uml:UseCase" xmi:id="_xdObQP_0EeScYo8tuJyy0A" name="Delete elements from general state machine" subject="_xS4T0P_xEeScYo8tuJyy0A">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_tLJh0ACTEeWudc8agGQ04Q" annotatedElement="_xdObQP_0EeScYo8tuJyy0A">
+            <body>The UML-RT model has a Capsule that is specialized by some other Capsule
+that has a state machine redefining the parent Capsule's state machine.
+
+When the user deletes states, transitions, regions, and other vertices from
+the parent state machine, the system deletes the corresponding redefining
+elements from the child Capsule's state machine.</body>
+          </ownedComment>
+        </ownedUseCase>
+        <ownedUseCase xmi:type="uml:UseCase" xmi:id="_zJRGUP_0EeScYo8tuJyy0A" name="Lay out elements in general state machine" subject="_xS4T0P_xEeScYo8tuJyy0A">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_MH8xMACUEeWudc8agGQ04Q" annotatedElement="_zJRGUP_0EeScYo8tuJyy0A">
+            <body>The UML-RT model has a Capsule that is specialized by some other Capsule
+that has a state machine redefining the parent Capsule's state machine.
+
+When the user moves and sizes states, regions, and other vertices in the
+parent state machine diagram, the system moves and sizes the
+corresponding redefining elements in the child Capsule's state machine
+diagram to the redefined elements' locations and sizes, respectively.</body>
+          </ownedComment>
+        </ownedUseCase>
+        <ownedUseCase xmi:type="uml:UseCase" xmi:id="_226cwP_0EeScYo8tuJyy0A" name="Hide elements in general state machine" subject="_xS4T0P_xEeScYo8tuJyy0A">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_UhkHgACUEeWudc8agGQ04Q" annotatedElement="_226cwP_0EeScYo8tuJyy0A">
+            <body>The UML-RT model has a Capsule that is specialized by some other Capsule
+that has a state machine redefining the parent Capsule's state machine.
+
+When the user hides states, regions, and other vertices from the
+parent state machine diagram (deleting the views but not the model
+elements, themselves), the system removes the views of the
+corresponding redefining elements from the child Capsule's state
+machine diagram.</body>
+          </ownedComment>
+        </ownedUseCase>
+        <ownedUseCase xmi:type="uml:UseCase" xmi:id="_5w1QMP_0EeScYo8tuJyy0A" name="Add elements to special state machine" subject="_xS4T0P_xEeScYo8tuJyy0A">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_xMn9wACUEeWudc8agGQ04Q" annotatedElement="_5w1QMP_0EeScYo8tuJyy0A">
+            <body>The UML-RT model has a Capsule that is specialized by some other Capsule
+that has a state machine redefining the parent Capsule's state machine.
+
+The user adds states, transitions, regions, and other vertices to the child
+Capsule's state machine that are new in this context, not redefining any
+elements from the parent state machine.  These may be positioned anywhere
+in the child state machine diagram.
+
+Also, transitions that redefine inherited transitions in the parent state machine
+may be re-targeted and/or re-sourced as necessary in the child capsule.  This
+includes re-connecting transitions to states and other vertices that exist only
+in the child capsule's state machine (that do not redefine inherited vertices).</body>
+          </ownedComment>
+        </ownedUseCase>
+        <ownedUseCase xmi:type="uml:UseCase" xmi:id="__JdhwP_0EeScYo8tuJyy0A" name="Lay out elements in special state machine" subject="_xS4T0P_xEeScYo8tuJyy0A">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_A29vsACVEeWudc8agGQ04Q" annotatedElement="__JdhwP_0EeScYo8tuJyy0A">
+            <body>The UML-RT model has a Capsule that is specialized by some other Capsule
+that has a state machine redefining the parent Capsule's state machine.
+
+When the user deliberately moves and sizes states, regions, and other
+vertices in the child Capsule's state machine diagram, the system detects
+this and exempts the affected views from subsequent synchronization
+of the location and/or size (as appropriate) from the parent state machine
+diagram.  Layout changes in the redefined elements in the parent state
+machine diagram are no longer propagated to these views in the child
+state machine diagram.
+</body>
+          </ownedComment>
+        </ownedUseCase>
+        <ownedUseCase xmi:type="uml:UseCase" xmi:id="_J0AScACxEeWnE_cMzyyIKA" name="Synchronization Lifecycle" subject="_xS4T0P_xEeScYo8tuJyy0A">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_lM4vIACxEeWnE_cMzyyIKA" annotatedElement="_J0AScACxEeWnE_cMzyyIKA">
+            <body>When an editor is opened, the system initializes synchronization of
+model and diagram content according to the state machine
+synchronization triggers defined by the UML-RT plug-in.
+The synchronization system is destroyed when the editor is closed.</body>
+          </ownedComment>
+        </ownedUseCase>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Actor" xmi:id="_B0KNcP_1EeScYo8tuJyy0A" name="User"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_C7VQ4P_1EeScYo8tuJyy0A" memberEnd="_C7aJYP_1EeScYo8tuJyy0A _C7awcP_1EeScYo8tuJyy0A">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_C7Y7QP_1EeScYo8tuJyy0A" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_C7Y7Qf_1EeScYo8tuJyy0A" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_C7aJYP_1EeScYo8tuJyy0A" name="add elements to general state machine" type="_BwcAgP_0EeScYo8tuJyy0A" association="_C7VQ4P_1EeScYo8tuJyy0A"/>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_C7awcP_1EeScYo8tuJyy0A" name="user" type="_B0KNcP_1EeScYo8tuJyy0A" association="_C7VQ4P_1EeScYo8tuJyy0A"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_EvogEP_1EeScYo8tuJyy0A" name="" memberEnd="_EvpHIf_1EeScYo8tuJyy0A _EvpHIv_1EeScYo8tuJyy0A">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_EvogEf_1EeScYo8tuJyy0A" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_EvpHIP_1EeScYo8tuJyy0A" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_EvpHIf_1EeScYo8tuJyy0A" name="delete elements from general state machine" type="_xdObQP_0EeScYo8tuJyy0A" association="_EvogEP_1EeScYo8tuJyy0A"/>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_EvpHIv_1EeScYo8tuJyy0A" name="user" type="_B0KNcP_1EeScYo8tuJyy0A" association="_EvogEP_1EeScYo8tuJyy0A"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_FkGp8P_1EeScYo8tuJyy0A" name="" memberEnd="_FkHRAv_1EeScYo8tuJyy0A _FkH4EP_1EeScYo8tuJyy0A">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_FkHRAP_1EeScYo8tuJyy0A" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_FkHRAf_1EeScYo8tuJyy0A" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_FkHRAv_1EeScYo8tuJyy0A" name="lay out elements in general state machine" type="_zJRGUP_0EeScYo8tuJyy0A" association="_FkGp8P_1EeScYo8tuJyy0A"/>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_FkH4EP_1EeScYo8tuJyy0A" name="user" type="_B0KNcP_1EeScYo8tuJyy0A" association="_FkGp8P_1EeScYo8tuJyy0A"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_GJo_8P_1EeScYo8tuJyy0A" name="" memberEnd="_GJpnAP_1EeScYo8tuJyy0A _GJpnAf_1EeScYo8tuJyy0A">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GJo_8f_1EeScYo8tuJyy0A" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GJo_8v_1EeScYo8tuJyy0A" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_GJpnAP_1EeScYo8tuJyy0A" name="hide elements in general state machine" type="_226cwP_0EeScYo8tuJyy0A" association="_GJo_8P_1EeScYo8tuJyy0A"/>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_GJpnAf_1EeScYo8tuJyy0A" name="user" type="_B0KNcP_1EeScYo8tuJyy0A" association="_GJo_8P_1EeScYo8tuJyy0A"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_GuxtUP_1EeScYo8tuJyy0A" name="" memberEnd="_GuyUYf_1EeScYo8tuJyy0A _GuyUYv_1EeScYo8tuJyy0A">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GuxtUf_1EeScYo8tuJyy0A" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GuyUYP_1EeScYo8tuJyy0A" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_GuyUYf_1EeScYo8tuJyy0A" name="add elements to special state machine" type="_5w1QMP_0EeScYo8tuJyy0A" association="_GuxtUP_1EeScYo8tuJyy0A"/>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_GuyUYv_1EeScYo8tuJyy0A" name="user" type="_B0KNcP_1EeScYo8tuJyy0A" association="_GuxtUP_1EeScYo8tuJyy0A"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_HgO_cP_1EeScYo8tuJyy0A" name="" memberEnd="_HgPmgv_1EeScYo8tuJyy0A _HgPmg__1EeScYo8tuJyy0A">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HgPmgP_1EeScYo8tuJyy0A" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_HgPmgf_1EeScYo8tuJyy0A" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_HgPmgv_1EeScYo8tuJyy0A" name="lay out elements in special state machine" type="__JdhwP_0EeScYo8tuJyy0A" association="_HgO_cP_1EeScYo8tuJyy0A"/>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_HgPmg__1EeScYo8tuJyy0A" name="user" type="_B0KNcP_1EeScYo8tuJyy0A" association="_HgO_cP_1EeScYo8tuJyy0A"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_ZPkSgP_2EeScYo8tuJyy0A" client="_BwcAgP_0EeScYo8tuJyy0A" supplier="_H3xwAP_lEeScYo8tuJyy0A"/>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_PQN4AP_3EeScYo8tuJyy0A" client="_xdObQP_0EeScYo8tuJyy0A" supplier="_H3xwAP_lEeScYo8tuJyy0A"/>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_vHLCgP_3EeScYo8tuJyy0A" client="_zJRGUP_0EeScYo8tuJyy0A" supplier="_e-QjYP_lEeScYo8tuJyy0A"/>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_1OBsAP_3EeScYo8tuJyy0A" client="_226cwP_0EeScYo8tuJyy0A" supplier="_e-QjYP_lEeScYo8tuJyy0A"/>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_8iwBYP_4EeScYo8tuJyy0A" client="_5w1QMP_0EeScYo8tuJyy0A" supplier="_NlpXIP_4EeScYo8tuJyy0A"/>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_-hv6IP_3EeScYo8tuJyy0A" client="__JdhwP_0EeScYo8tuJyy0A" supplier="_lWa_UP_lEeScYo8tuJyy0A"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="_UobeUACxEeWnE_cMzyyIKA" name="Editor"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_mQ37sACxEeWnE_cMzyyIKA" memberEnd="_mQ4iwACxEeWnE_cMzyyIKA _mQ4iwQCxEeWnE_cMzyyIKA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_mQ37sQCxEeWnE_cMzyyIKA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mQ37sgCxEeWnE_cMzyyIKA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_mQ4iwACxEeWnE_cMzyyIKA" name="initialize synchronization" type="_J0AScACxEeWnE_cMzyyIKA" association="_mQ37sACxEeWnE_cMzyyIKA"/>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_mQ4iwQCxEeWnE_cMzyyIKA" name="editor" type="_UobeUACxEeWnE_cMzyyIKA" association="_mQ37sACxEeWnE_cMzyyIKA"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="_y3pENgCLEeWudc8agGQ04Q" name="Design">
+      <packagedElement xmi:type="uml:Realization" xmi:id="_OjDxoACoEeWnE_cMzyyIKA" client="_AtaF4ACnEeWnE_cMzyyIKA _DEZLYACnEeWnE_cMzyyIKA _Jxw48ADAEeWt3cohpcF8rA" supplier="_hTJT4AClEeWnE_cMzyyIKA"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_ndmjoACoEeWnE_cMzyyIKA" client="_hKj4QACoEeWnE_cMzyyIKA" supplier="_i-pMYAClEeWnE_cMzyyIKA"/>
+      <packagedElement xmi:type="uml:Component" xmi:id="_hTJT4AClEeWnE_cMzyyIKA" name="org.eclipse.papyrus.infra.sync">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_6WKFYAClEeWnE_cMzyyIKA" annotatedElement="_hTJT4AClEeWnE_cMzyyIKA">
+          <body>The core generic synchronization framework.  Provides the base abstractions and
+support for synchronization of EMF-based model elements.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Component" xmi:id="_i-pMYAClEeWnE_cMzyyIKA" name="org.eclipse.papyrus.infra.gmfdiag.common">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_M5nZgACmEeWnE_cMzyyIKA" annotatedElement="_i-pMYAClEeWnE_cMzyyIKA">
+          <body>An extension of the synchronization framework that provides support for
+synchronization of GMF-based diagrams as implemented by EditParts.
+Provides specific synchronization features for:
+&lt;ul>
+&lt;li>nested node edit-parts&lt;/li>
+&lt;li>incoming and outgoing connection edit-parts on nodes&lt;/li>
+&lt;li>position of node edit-parts&lt;/li>
+&lt;li>size of node edit-parts&lt;/li>
+&lt;/ul></body>
+        </ownedComment>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_q-QHQAClEeWnE_cMzyyIKA" client="_i-pMYAClEeWnE_cMzyyIKA" supplier="_hTJT4AClEeWnE_cMzyyIKA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Component" xmi:id="_murvgAClEeWnE_cMzyyIKA" name="org.eclipse.papyrus.umlrt.ui">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_Xd0YEACmEeWnE_cMzyyIKA" annotatedElement="_murvgAClEeWnE_cMzyyIKA">
+          <body>Specific implementations of synchronization triggers, registries, buckets, and features for
+semantics of redefining Capsule state machines and visualization of redefining capsule
+state machines in state machine diagrams.</body>
+        </ownedComment>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_ppcQcAClEeWnE_cMzyyIKA" client="_murvgAClEeWnE_cMzyyIKA" supplier="_hTJT4AClEeWnE_cMzyyIKA"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_qOZ-sAClEeWnE_cMzyyIKA" client="_murvgAClEeWnE_cMzyyIKA" supplier="_i-pMYAClEeWnE_cMzyyIKA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_AtaF4ACnEeWnE_cMzyyIKA" name="org.eclipse.papyrus.infra.sync">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_uUrhcACuEeWnE_cMzyyIKA" annotatedElement="_AtaF4ACnEeWnE_cMzyyIKA">
+          <body>Core abstractions of the synchronization framework, including integration with
+EMF Transactions for synchronization of EMF model elements using trigger
+commands to implement follow-up changes to synchronized objects in reaction
+to changes observed (as Notifications) in source objects.</body>
+        </ownedComment>
+        <packagedElement xmi:type="uml:Class" xmi:id="_sVtGwADDEeWt3cohpcF8rA" name="SyncFeature">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_CkBmQADIEeWt3cohpcF8rA" annotatedElement="_sVtGwADDEeWt3cohpcF8rA">
+            <body>A synchronization primitive representing a feature, possibly something
+complex or derived, comprising any number of actual features in EMF
+or Java terms, of the &quot;back-end&quot; object type T that is to be synchronized
+from one or more other objects of the same kind matching the same
+(or equivalent) &quot;front-end&quot; model M, on receipt from the source object
+of some message of type X.</body>
+          </ownedComment>
+          <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_tv7CAADDEeWt3cohpcF8rA" name="RedefinableTemplateSignature1" parameter="_uT-xUADDEeWt3cohpcF8rA _ztOt8ADDEeWt3cohpcF8rA _43dXIADDEeWt3cohpcF8rA">
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_uT-xUADDEeWt3cohpcF8rA" parameteredElement="_yu2aIADDEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_yu2aIADDEeWt3cohpcF8rA" name="M" templateParameter="_uT-xUADDEeWt3cohpcF8rA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_ztOt8ADDEeWt3cohpcF8rA" parameteredElement="_3vj68ADDEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_3vj68ADDEeWt3cohpcF8rA" name="T" templateParameter="_ztOt8ADDEeWt3cohpcF8rA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_43dXIADDEeWt3cohpcF8rA" parameteredElement="_6qn94ADDEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_6qn94ADDEeWt3cohpcF8rA" name="X" templateParameter="_43dXIADDEeWt3cohpcF8rA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_jJG-4ADEEeWt3cohpcF8rA" name="SyncBucket">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_XKJyMADHEeWt3cohpcF8rA" annotatedElement="_jJG-4ADEEeWt3cohpcF8rA">
+            <body>A group of synchronization items that all match different &quot;back-end&quot; objects
+of type T with the same (or logically equivalent; the matching is flexible)
+&quot;front-end&quot; model element of type M.  A bucket coordinates synchronization
+of any number of featuers from the back-end of a source item that has
+changed to the back-ends of the other items in the bucket.</body>
+          </ownedComment>
+          <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_jJG-4QDEEeWt3cohpcF8rA" name="RedefinableTemplateSignature1" parameter="_jJG-4gDEEeWt3cohpcF8rA _jJG-5ADEEeWt3cohpcF8rA _jJG-5gDEEeWt3cohpcF8rA">
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_jJG-4gDEEeWt3cohpcF8rA" parameteredElement="_jJG-4wDEEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_jJG-4wDEEeWt3cohpcF8rA" name="M" templateParameter="_jJG-4gDEEeWt3cohpcF8rA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_jJG-5ADEEeWt3cohpcF8rA" parameteredElement="_jJG-5QDEEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_jJG-5QDEEeWt3cohpcF8rA" name="T" templateParameter="_jJG-5ADEEeWt3cohpcF8rA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_jJG-5gDEEeWt3cohpcF8rA" parameteredElement="_jJG-5wDEEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_jJG-5wDEEeWt3cohpcF8rA" name="X" templateParameter="_jJG-5gDEEeWt3cohpcF8rA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_D8fVYgDFEeWt3cohpcF8rA" name="item" type="_jW6KUADEEeWt3cohpcF8rA" aggregation="composite" association="_D8euUADFEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_L8obwADFEeWt3cohpcF8rA"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_L8pp4ADFEeWt3cohpcF8rA" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_jFmQggDHEeWt3cohpcF8rA" name="feature" type="_sVtGwADDEeWt3cohpcF8rA" aggregation="composite" association="_jFlpcADHEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_m6YJsADHEeWt3cohpcF8rA"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_m6ZX0ADHEeWt3cohpcF8rA" value="*"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_jW6KUADEEeWt3cohpcF8rA" name="SyncItem">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_7gzQkADGEeWt3cohpcF8rA" annotatedElement="_jW6KUADEEeWt3cohpcF8rA">
+            <body>A pairing of a &quot;front-end&quot; model element (of type M) with a &quot;back-end&quot;
+object (of type T) that is synchronized from some other back-end paired
+with the same front-end.</body>
+          </ownedComment>
+          <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_jW6KUQDEEeWt3cohpcF8rA" name="RedefinableTemplateSignature1" parameter="_jW6KUgDEEeWt3cohpcF8rA _jW6KVADEEeWt3cohpcF8rA">
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_jW6KUgDEEeWt3cohpcF8rA" parameteredElement="_jW6KUwDEEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_jW6KUwDEEeWt3cohpcF8rA" name="M" templateParameter="_jW6KUgDEEeWt3cohpcF8rA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_jW6KVADEEeWt3cohpcF8rA" parameteredElement="_jW6KVQDEEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_jW6KVQDEEeWt3cohpcF8rA" name="T" templateParameter="_jW6KVADEEeWt3cohpcF8rA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_kHf5wADEEeWt3cohpcF8rA" name="SyncRegistry">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_cUf6sADIEeWt3cohpcF8rA" annotatedElement="_kHf5wADEEeWt3cohpcF8rA">
+            <body>A registry of synchronization buckets of the same type.  All of the buckets in
+a registry synchronize the same features of the back-ends of type T matching
+front-ends of type M, on receipt of messages of type X.  An instance of the
+synchronization service (which is unique in a Papyrus editor) has an unique
+SyncRegistry for every combination of actual front-end, back-end, and message
+types.</body>
+          </ownedComment>
+          <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_kHf5wQDEEeWt3cohpcF8rA" name="RedefinableTemplateSignature1" parameter="_kHf5wgDEEeWt3cohpcF8rA _kHf5xADEEeWt3cohpcF8rA _kHf5xgDEEeWt3cohpcF8rA">
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_kHf5wgDEEeWt3cohpcF8rA" parameteredElement="_kHf5wwDEEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_kHf5wwDEEeWt3cohpcF8rA" name="M" templateParameter="_kHf5wgDEEeWt3cohpcF8rA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_kHf5xADEEeWt3cohpcF8rA" parameteredElement="_kHf5xQDEEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_kHf5xQDEEeWt3cohpcF8rA" name="T" templateParameter="_kHf5xADEEeWt3cohpcF8rA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_kHf5xgDEEeWt3cohpcF8rA" parameteredElement="_kHf5xwDEEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_kHf5xwDEEeWt3cohpcF8rA" name="X" templateParameter="_kHf5xgDEEeWt3cohpcF8rA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_u6uy0QDEEeWt3cohpcF8rA" name="bucket" type="_jJG-4ADEEeWt3cohpcF8rA" aggregation="composite" association="_u6uLwADEEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2nUEAADEEeWt3cohpcF8rA"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2nVSIADEEeWt3cohpcF8rA" value="*"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_u6uLwADEEeWt3cohpcF8rA" memberEnd="_u6uy0QDEEeWt3cohpcF8rA _u6vZ4ADEEeWt3cohpcF8rA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_u6uLwQDEEeWt3cohpcF8rA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_u6uy0ADEEeWt3cohpcF8rA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_u6vZ4ADEEeWt3cohpcF8rA" name="syncregistry" type="_kHf5wADEEeWt3cohpcF8rA" association="_u6uLwADEEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_D8euUADFEeWt3cohpcF8rA" memberEnd="_D8fVYgDFEeWt3cohpcF8rA _D8f8cADFEeWt3cohpcF8rA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_D8fVYADFEeWt3cohpcF8rA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_D8fVYQDFEeWt3cohpcF8rA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_D8f8cADFEeWt3cohpcF8rA" name="syncbucket" type="_jJG-4ADEEeWt3cohpcF8rA" association="_D8euUADFEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ck51kADFEeWt3cohpcF8rA"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ck7DsADFEeWt3cohpcF8rA" value="1"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_O9-F0ADFEeWt3cohpcF8rA" name="MasterSlaveSyncBucket">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_prMPAADIEeWt3cohpcF8rA" annotatedElement="_O9-F0ADFEeWt3cohpcF8rA">
+            <body>A specialized synchronization bucket that implements a master-slave
+synchronization pattern.  A single SyncItem is identified as the master
+and its back-end is observed for changes, which are pushed to the
+back-ends of all other SyncItems in the bucket (the slaves).</body>
+          </ownedComment>
+          <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_O9-F0QDFEeWt3cohpcF8rA" name="RedefinableTemplateSignature1" parameter="_O9-F0gDFEeWt3cohpcF8rA _O9-F1ADFEeWt3cohpcF8rA _O9-F1gDFEeWt3cohpcF8rA">
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_O9-F0gDFEeWt3cohpcF8rA" parameteredElement="_O9-F0wDFEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_O9-F0wDFEeWt3cohpcF8rA" name="M" templateParameter="_O9-F0gDFEeWt3cohpcF8rA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_O9-F1ADFEeWt3cohpcF8rA" parameteredElement="_O9-F1QDFEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_O9-F1QDFEeWt3cohpcF8rA" name="T" templateParameter="_O9-F1ADFEeWt3cohpcF8rA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_O9-F1gDFEeWt3cohpcF8rA" parameteredElement="_O9-F1wDFEeWt3cohpcF8rA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_O9-F1wDFEeWt3cohpcF8rA" name="X" templateParameter="_O9-F1gDFEeWt3cohpcF8rA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <generalization xmi:type="uml:Generalization" xmi:id="_jIihsADFEeWt3cohpcF8rA" general="_jJG-4ADEEeWt3cohpcF8rA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_O9-F2ADFEeWt3cohpcF8rA" name="item" type="_jW6KUADEEeWt3cohpcF8rA" aggregation="composite">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_O9-F2QDFEeWt3cohpcF8rA"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_O9-F2gDFEeWt3cohpcF8rA" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_WWRJEQDFEeWt3cohpcF8rA" name="master" type="_jW6KUADEEeWt3cohpcF8rA" aggregation="composite" association="_WWQiAADFEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_WWQiAADFEeWt3cohpcF8rA" memberEnd="_WWRJEQDFEeWt3cohpcF8rA _WWSXMADFEeWt3cohpcF8rA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_WWQiAQDFEeWt3cohpcF8rA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_WWRJEADFEeWt3cohpcF8rA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_WWSXMADFEeWt3cohpcF8rA" name="masterslavesyncbucket" type="_O9-F0ADFEeWt3cohpcF8rA" association="_WWQiAADFEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Z1isUADFEeWt3cohpcF8rA"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Z1j6cADFEeWt3cohpcF8rA" value="1"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_HH6TEADGEeWt3cohpcF8rA" name="EMFListener">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_A9NkAADJEeWt3cohpcF8rA" annotatedElement="_HH6TEADGEeWt3cohpcF8rA">
+            <body>A ResourceSetLIstener on the Papyrus editor's TransactionalEditingDomain
+that observes, via EMFDispatch objects, changes in the &quot;back-end&quot; objects
+of SyncItems in a bucket.  When changes are observed, they are dispatched
+to the appropriate SyncFeatures to propagate them (as appropriate) to the
+back-ends of other items in the bucket.</body>
+          </ownedComment>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_NnDgwgDGEeWt3cohpcF8rA" name="dispatch" type="_IShFAADGEeWt3cohpcF8rA" aggregation="composite" association="_NnC5sADGEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_b777oADGEeWt3cohpcF8rA"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_b79JwADGEeWt3cohpcF8rA" value="*"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_IShFAADGEeWt3cohpcF8rA" name="EMFDispatch">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_KZB-MADJEeWt3cohpcF8rA" annotatedElement="_IShFAADGEeWt3cohpcF8rA">
+            <body>A mediator of the propagation of synchronizable feature changes
+from sources to targets when messages are received from the sources
+that trigger synchronization.  In the EMF context, these messages are
+Notifications.</body>
+          </ownedComment>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_NnC5sADGEeWt3cohpcF8rA" memberEnd="_NnDgwgDGEeWt3cohpcF8rA _NnEH0ADGEeWt3cohpcF8rA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NnDgwADGEeWt3cohpcF8rA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NnDgwQDGEeWt3cohpcF8rA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_NnEH0ADGEeWt3cohpcF8rA" name="emflistener" type="_HH6TEADGEeWt3cohpcF8rA" association="_NnC5sADGEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_Vq2_IADGEeWt3cohpcF8rA" name="propagates" client="_sVtGwADDEeWt3cohpcF8rA" supplier="_IShFAADGEeWt3cohpcF8rA"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_jFlpcADHEeWt3cohpcF8rA" memberEnd="_jFmQggDHEeWt3cohpcF8rA _jFm3kADHEeWt3cohpcF8rA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_jFmQgADHEeWt3cohpcF8rA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_jFmQgQDHEeWt3cohpcF8rA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_jFm3kADHEeWt3cohpcF8rA" name="syncbucket" type="_jJG-4ADEEeWt3cohpcF8rA" association="_jFlpcADHEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Collaboration" xmi:id="_FNBpcALkEeWy2L7kEYTJVw" name="Synchronization">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_SmVz8ALkEeWy2L7kEYTJVw" name="emfListener" type="_HH6TEADGEeWt3cohpcF8rA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_U96IQALkEeWy2L7kEYTJVw" name="emfDispatch" type="_IShFAADGEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_f3uKcALkEeWy2L7kEYTJVw" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_f3uxgALkEeWy2L7kEYTJVw" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_XQkHYALkEeWy2L7kEYTJVw" name="syncItem" type="_jW6KUADEEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dcpPIALkEeWy2L7kEYTJVw" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dcp2MALkEeWy2L7kEYTJVw" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_X-insALkEeWy2L7kEYTJVw" name="syncRegistry" type="_kHf5wADEEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fLevgALkEeWy2L7kEYTJVw" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fLfWkALkEeWy2L7kEYTJVw" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_Ye1RUALkEeWy2L7kEYTJVw" name="syncBucket" type="_jJG-4ADEEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_eIOiwALkEeWy2L7kEYTJVw" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_eIPJ0ALkEeWy2L7kEYTJVw" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_Y53ngALkEeWy2L7kEYTJVw" name="syncFeature" type="_sVtGwADDEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cpTGoALkEeWy2L7kEYTJVw" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cpUUwALkEeWy2L7kEYTJVw" value="*"/>
+          </ownedAttribute>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_gtxBoALkEeWy2L7kEYTJVw">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_gt0sAALkEeWy2L7kEYTJVw" role="_SmVz8ALkEeWy2L7kEYTJVw"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_gt1TEALkEeWy2L7kEYTJVw" role="_U96IQALkEeWy2L7kEYTJVw"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_ifsSQALkEeWy2L7kEYTJVw">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_ifs5UALkEeWy2L7kEYTJVw" role="_X-insALkEeWy2L7kEYTJVw"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_ifs5UQLkEeWy2L7kEYTJVw" role="_Ye1RUALkEeWy2L7kEYTJVw"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_jKlpYALkEeWy2L7kEYTJVw">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_jKmQcALkEeWy2L7kEYTJVw" role="_Ye1RUALkEeWy2L7kEYTJVw"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_jKmQcQLkEeWy2L7kEYTJVw" role="_Y53ngALkEeWy2L7kEYTJVw"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_jzDXkALkEeWy2L7kEYTJVw">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_jzD-oALkEeWy2L7kEYTJVw" role="_Ye1RUALkEeWy2L7kEYTJVw"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_jzD-oQLkEeWy2L7kEYTJVw" role="_XQkHYALkEeWy2L7kEYTJVw"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_gH8wcAM0EeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_gH9XgAM0EeWWbMjTqzYc1A" role="_U96IQALkEeWy2L7kEYTJVw"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_gH9XgQM0EeWWbMjTqzYc1A" role="_Y53ngALkEeWy2L7kEYTJVw"/>
+          </ownedConnector>
+          <ownedBehavior xmi:type="uml:Interaction" xmi:id="_mC8rsALmEeWy2L7kEYTJVw" name="Synchronize Model Elements">
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_A4nbsALpEeW1-e4oerqxMg" name="emfListener" represents="_SmVz8ALkEeWy2L7kEYTJVw" coveredBy="_ZVJNQALvEeW1-e4oerqxMg _3RVUMALvEeW1-e4oerqxMg"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_xO2UsALsEeW1-e4oerqxMg" name="emfDispatch" represents="_U96IQALkEeWy2L7kEYTJVw" coveredBy="_ZVJ0UALvEeW1-e4oerqxMg _3RUtIALvEeW1-e4oerqxMg _pA_bEALvEeW1-e4oerqxMg _dt_c0ALvEeW1-e4oerqxMg"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_QU94IALtEeW1-e4oerqxMg" name="syncRegistry" represents="_X-insALkEeWy2L7kEYTJVw" coveredBy="_vtl18ALvEeW1-e4oerqxMg"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_J_Cl8ALvEeW1-e4oerqxMg" name="syncBucket" represents="_Ye1RUALkEeWy2L7kEYTJVw" coveredBy="_pA_bEQLvEeW1-e4oerqxMg _vtlO4ALvEeW1-e4oerqxMg _fp-3gAMzEeWWbMjTqzYc1A _vgs4kAMzEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_P5ytIALvEeW1-e4oerqxMg" name="syncFeature" represents="_Y53ngALkEeWy2L7kEYTJVw" coveredBy="_fp_ekAMzEeWWbMjTqzYc1A _dt-1wALvEeW1-e4oerqxMg _vgtfoAMzEeWWbMjTqzYc1A _rrkK8ALvEeW1-e4oerqxMg"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_Rhhf8ALvEeW1-e4oerqxMg" name="syncItem" represents="_XQkHYALkEeWy2L7kEYTJVw" coveredBy="_rrkyAALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_ZVJNQALvEeW1-e4oerqxMg" name="Message0Send0" covered="_A4nbsALpEeW1-e4oerqxMg" message="_ZUlMkALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_ZVJ0UALvEeW1-e4oerqxMg" name="Message0Recv0" covered="_xO2UsALsEeW1-e4oerqxMg" message="_ZUlMkALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_dt-1wALvEeW1-e4oerqxMg" name="Message0Send1" covered="_P5ytIALvEeW1-e4oerqxMg" message="_dttI8ALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_dt_c0ALvEeW1-e4oerqxMg" name="Message0Recv1" covered="_xO2UsALsEeW1-e4oerqxMg" message="_dttI8ALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_pA_bEALvEeW1-e4oerqxMg" name="Message0Send2" covered="_xO2UsALsEeW1-e4oerqxMg" message="_pAz04ALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_pA_bEQLvEeW1-e4oerqxMg" name="Message0Recv2" covered="_J_Cl8ALvEeW1-e4oerqxMg" message="_pAz04ALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_rrkK8ALvEeW1-e4oerqxMg" name="Message0Send3" covered="_P5ytIALvEeW1-e4oerqxMg" message="_rrYkwALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_rrkyAALvEeW1-e4oerqxMg" name="Message0Recv3" covered="_Rhhf8ALvEeW1-e4oerqxMg" message="_rrYkwALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_vtlO4ALvEeW1-e4oerqxMg" name="Message0Send4" covered="_J_Cl8ALvEeW1-e4oerqxMg" message="_vta20ALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_vtl18ALvEeW1-e4oerqxMg" name="Message0Recv4" covered="_QU94IALtEeW1-e4oerqxMg" message="_vta20ALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3RUtIALvEeW1-e4oerqxMg" name="Message0Send5" covered="_xO2UsALsEeW1-e4oerqxMg" message="_3RFckALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3RVUMALvEeW1-e4oerqxMg" name="Message0Recv5" covered="_A4nbsALpEeW1-e4oerqxMg" message="_3RFckALvEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_fp-3gAMzEeWWbMjTqzYc1A" name="Message0Send6" covered="_J_Cl8ALvEeW1-e4oerqxMg" message="_fp27sAMzEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_fp_ekAMzEeWWbMjTqzYc1A" name="Message0Recv6" covered="_P5ytIALvEeW1-e4oerqxMg" message="_fp27sAMzEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_vgs4kAMzEeWWbMjTqzYc1A" name="Message0Send7" covered="_J_Cl8ALvEeW1-e4oerqxMg" message="_vgkVsAMzEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_vgtfoAMzEeWWbMjTqzYc1A" name="Message0Recv7" covered="_P5ytIALvEeW1-e4oerqxMg" message="_vgkVsAMzEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_ZUlMkALvEeW1-e4oerqxMg" name="5:notifications" receiveEvent="_ZVJ0UALvEeW1-e4oerqxMg" sendEvent="_ZVJNQALvEeW1-e4oerqxMg"/>
+            <message xmi:type="uml:Message" xmi:id="_dttI8ALvEeW1-e4oerqxMg" name="3:create" receiveEvent="_dt_c0ALvEeW1-e4oerqxMg" sendEvent="_dt-1wALvEeW1-e4oerqxMg"/>
+            <message xmi:type="uml:Message" xmi:id="_pAz04ALvEeW1-e4oerqxMg" name="6:propagate" receiveEvent="_pA_bEQLvEeW1-e4oerqxMg" sendEvent="_pA_bEALvEeW1-e4oerqxMg"/>
+            <message xmi:type="uml:Message" xmi:id="_rrYkwALvEeW1-e4oerqxMg" name="8:synchronize" receiveEvent="_rrkyAALvEeW1-e4oerqxMg" sendEvent="_rrkK8ALvEeW1-e4oerqxMg"/>
+            <message xmi:type="uml:Message" xmi:id="_vta20ALvEeW1-e4oerqxMg" name="1:register" receiveEvent="_vtl18ALvEeW1-e4oerqxMg" sendEvent="_vtlO4ALvEeW1-e4oerqxMg"/>
+            <message xmi:type="uml:Message" xmi:id="_3RFckALvEeW1-e4oerqxMg" name="4:add" receiveEvent="_3RVUMALvEeW1-e4oerqxMg" sendEvent="_3RUtIALvEeW1-e4oerqxMg"/>
+            <message xmi:type="uml:Message" xmi:id="_fp27sAMzEeWWbMjTqzYc1A" name="2:add" receiveEvent="_fp_ekAMzEeWWbMjTqzYc1A" sendEvent="_fp-3gAMzEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_vgkVsAMzEeWWbMjTqzYc1A" name="7:synchronize" receiveEvent="_vgtfoAMzEeWWbMjTqzYc1A" sendEvent="_vgs4kAMzEeWWbMjTqzYc1A"/>
+          </ownedBehavior>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_DEZLYACnEeWnE_cMzyyIKA" name="org.eclipse.papyrus.infra.sync.service">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_5c2IsACuEeWnE_cMzyyIKA" annotatedElement="_DEZLYACnEeWnE_cMzyyIKA">
+          <body>A Papyrus registered Service that manages the lifecycle of synchronization,
+including the EMF transaction listener that reacts to changes and the
+application's synchronization triggers and registries.</body>
+        </ownedComment>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_BDQZEACyEeWnE_cMzyyIKA" name="ISyncService">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_js_F0AC1EeWnE_cMzyyIKA" annotatedElement="_BDQZEACyEeWnE_cMzyyIKA">
+            <body>The synchronization service is a registered Papyrus Service that
+manages model-to-model and diagram-to-diagram synchronization
+within the context of an editor.  It manages the EMF transaction
+listener that triggers synchronization operations and it provides the
+API for triggering the configuration of synchronization on objects
+according to registered ISyncTriggers.</body>
+          </ownedComment>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_2Gde4ACyEeWnE_cMzyyIKA" name="run" raisedException="_5aY4UACzEeWnE_cMzyyIKA">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_zyyrwAC1EeWnE_cMzyyIKA" annotatedElement="_2Gde4ACyEeWnE_cMzyyIKA">
+              <body>Runs a SyncServiceRunnable operation in the context of the service.  This context
+is required for all manipulations of the synchronization framework, including
+creation and association of SyncRegistry instances, SyncBuckets, and SyncItems.</body>
+            </ownedComment>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_7AcsoACyEeWnE_cMzyyIKA" name="operation" type="_KiQqIACyEeWnE_cMzyyIKA" effect="read"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_BXSdcAC0EeWnE_cMzyyIKA" type="_0Nk1MACzEeWnE_cMzyyIKA" direction="return"/>
+            <ownedTemplateSignature xmi:type="uml:TemplateSignature" xmi:id="_wvSwcACzEeWnE_cMzyyIKA" parameter="_x-Fe0ACzEeWnE_cMzyyIKA _4YTwQACzEeWnE_cMzyyIKA">
+              <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_x-Fe0ACzEeWnE_cMzyyIKA" parameteredElement="_0Nk1MACzEeWnE_cMzyyIKA">
+                <ownedParameteredElement xmi:type="uml:Class" xmi:id="_0Nk1MACzEeWnE_cMzyyIKA" name="V" templateParameter="_x-Fe0ACzEeWnE_cMzyyIKA"/>
+              </ownedParameter>
+              <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_4YTwQACzEeWnE_cMzyyIKA" parameteredElement="_5aY4UACzEeWnE_cMzyyIKA">
+                <ownedParameteredElement xmi:type="uml:Class" xmi:id="_5aY4UACzEeWnE_cMzyyIKA" name="X" templateParameter="_4YTwQACzEeWnE_cMzyyIKA"/>
+              </ownedParameter>
+            </ownedTemplateSignature>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_CbCEUACyEeWnE_cMzyyIKA" name="ISyncTrigger">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_52WmIAC0EeWnE_cMzyyIKA" annotatedElement="_CbCEUACyEeWnE_cMzyyIKA">
+            <body>Synchronization triggers are registered on an the org.eclipse.papyrus.infra.sync.triggers
+extension point with enablement conditions that match objects on which they should fire. 
+When a trigger fires, it provides a sync action that the synchronization runs.  This sync
+action is expected to configure synchronization of the triggering object and/or &lt;em>cascade&lt;/em>
+the trigger to related objects.</body>
+          </ownedComment>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_E9y8AACyEeWnE_cMzyyIKA" name="ISyncAction">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_T887kAC1EeWnE_cMzyyIKA" annotatedElement="_E9y8AACyEeWnE_cMzyyIKA">
+            <body>An action provided by a synchronization trigger that usually either
+configures synchronization of the triggering object and/or cascade
+the trigger to related objects.</body>
+          </ownedComment>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_KiQqIACyEeWnE_cMzyyIKA" name="SyncServiceRunnable" isAbstract="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_cERccAC_EeWnc73YHF_Igw" annotatedElement="_KiQqIACyEeWnE_cMzyyIKA">
+            <body>An executable operation that is run in the context of an ISyncService.</body>
+          </ownedComment>
+          <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_L09oIACyEeWnE_cMzyyIKA" name="RedefinableTemplateSignature1" parameter="_OKGTgACyEeWnE_cMzyyIKA _SuCYwACyEeWnE_cMzyyIKA">
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_OKGTgACyEeWnE_cMzyyIKA" parameteredElement="_RVX8sACyEeWnE_cMzyyIKA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_RVX8sACyEeWnE_cMzyyIKA" name="V" templateParameter="_OKGTgACyEeWnE_cMzyyIKA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_SuCYwACyEeWnE_cMzyyIKA" parameteredElement="_UEgccACyEeWnE_cMzyyIKA">
+              <ownedParameteredElement xmi:type="uml:Class" xmi:id="_UEgccACyEeWnE_cMzyyIKA" name="X" templateParameter="_SuCYwACyEeWnE_cMzyyIKA"/>
+            </ownedParameter>
+          </ownedTemplateSignature>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_obm4cgCyEeWnE_cMzyyIKA" name="context" type="_BDQZEACyEeWnE_cMzyyIKA" association="_obmRYACyEeWnE_cMzyyIKA"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_da-wsAC_EeWnc73YHF_Igw" name="run">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_icIWYAC_EeWnc73YHF_Igw" name="syncService" type="_BDQZEACyEeWnE_cMzyyIKA" effect="read"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_obmRYACyEeWnE_cMzyyIKA" memberEnd="_obm4cgCyEeWnE_cMzyyIKA _obotoACyEeWnE_cMzyyIKA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_obm4cACyEeWnE_cMzyyIKA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_obm4cQCyEeWnE_cMzyyIKA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_obotoACyEeWnE_cMzyyIKA" name="syncservicerunnable" type="_KiQqIACyEeWnE_cMzyyIKA" association="_obmRYACyEeWnE_cMzyyIKA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_zNLkoACyEeWnE_cMzyyIKA"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_zNOA4ACyEeWnE_cMzyyIKA" value="*"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_WbM8IAC0EeWnE_cMzyyIKA" name="invoke" client="_BDQZEACyEeWnE_cMzyyIKA" supplier="_CbCEUACyEeWnE_cMzyyIKA"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_eacDkAC0EeWnE_cMzyyIKA" name="provide" client="_CbCEUACyEeWnE_cMzyyIKA" supplier="_E9y8AACyEeWnE_cMzyyIKA"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_go6tUAC0EeWnE_cMzyyIKA" name="run" client="_BDQZEACyEeWnE_cMzyyIKA" supplier="_E9y8AACyEeWnE_cMzyyIKA"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_8aHjYAC0EeWnE_cMzyyIKA" name="CascadeTriggers">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_KHxmMAC1EeWnE_cMzyyIKA" annotatedElement="_8aHjYAC0EeWnE_cMzyyIKA">
+            <body>A synchronization action that cascades the trigger to related objects.
+This causes triggers to be matched on those objects, and any triggers
+that do fire produce further actions that are evaluated to initialize
+synchronization (or induce more triggers).</body>
+          </ownedComment>
+          <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_IXISgAC2EeWnE_cMzyyIKA" client="_8aHjYAC0EeWnE_cMzyyIKA" supplier="_E9y8AACyEeWnE_cMzyyIKA" contract="_E9y8AACyEeWnE_cMzyyIKA"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_Jxw48ADAEeWt3cohpcF8rA" name="org.eclipse.papyrus.infra.sync.policy">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_UW5EkADAEeWt3cohpcF8rA" annotatedElement="_Jxw48ADAEeWt3cohpcF8rA">
+          <body>API for definition of sync policies providing for synchronization override.</body>
+        </ownedComment>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_rrfMcADAEeWt3cohpcF8rA" name="ISyncPolicy">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_q1cDUADCEeWt3cohpcF8rA" annotatedElement="_rrfMcADAEeWt3cohpcF8rA">
+            <body>A policy determining whether objects are excluded from synchronization of
+certain features that otherwise would be propagated to them from source objects.</body>
+          </ownedComment>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_tC0LwADAEeWt3cohpcF8rA" name="ISyncPolicyDelegate">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_NmV2cADDEeWt3cohpcF8rA" annotatedElement="_tC0LwADAEeWt3cohpcF8rA">
+            <body>A synchronization policy delegate for a specific synchronization feature.</body>
+          </ownedComment>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_v56UsADAEeWt3cohpcF8rA" name="SyncPolicyDelegate" isAbstract="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_d6VCUADDEeWt3cohpcF8rA" annotatedElement="_v56UsADAEeWt3cohpcF8rA">
+            <body>Abstract implementation of a sync policy delegate for some feature.
+Subclasses are required to determine whether the feature is
+synchronized for some given target object and also to react to
+changes introduced by the user in a target object to disable
+synchronization of the feature (if appropriate).</body>
+          </ownedComment>
+          <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_yffP0ADAEeWt3cohpcF8rA" client="_v56UsADAEeWt3cohpcF8rA" supplier="_tC0LwADAEeWt3cohpcF8rA" contract="_tC0LwADAEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_0G55kADAEeWt3cohpcF8rA" name="delegates" client="_3hd78ADAEeWt3cohpcF8rA" supplier="_tC0LwADAEeWt3cohpcF8rA"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_3hd78ADAEeWt3cohpcF8rA" name="DefaultSyncPolicy">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_I380sADDEeWt3cohpcF8rA" annotatedElement="_3hd78ADAEeWt3cohpcF8rA">
+            <body>Default realization of the ISyncPolicy interface.  Clients of the synchronization
+service may install a policy of their own to replace it.
+
+This default sync policy delegates policy queries to registered policy delegates.</body>
+          </ownedComment>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_zt4gIgDBEeWt3cohpcF8rA" name="registry" type="_603mYADAEeWt3cohpcF8rA" association="_zt35EADBEeWt3cohpcF8rA"/>
+          <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_5P9eEADAEeWt3cohpcF8rA" client="_3hd78ADAEeWt3cohpcF8rA" supplier="_rrfMcADAEeWt3cohpcF8rA" contract="_rrfMcADAEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_603mYADAEeWt3cohpcF8rA" name="ISyncPolicyDelegate.Registry">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_QcyfIADDEeWt3cohpcF8rA" annotatedElement="_603mYADAEeWt3cohpcF8rA">
+            <body>A registry of policy delegates by synchronization feature.</body>
+          </ownedComment>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_e30QMADBEeWt3cohpcF8rA" name="delegate" type="_tC0LwADAEeWt3cohpcF8rA" association="_e3wl0ADBEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pnv9oADBEeWt3cohpcF8rA"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pnzoAADBEeWt3cohpcF8rA" value="*"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_e3wl0ADBEeWt3cohpcF8rA" memberEnd="_e30QMADBEeWt3cohpcF8rA _e32scADBEeWt3cohpcF8rA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_e3ybAADBEeWt3cohpcF8rA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_e3ybAQDBEeWt3cohpcF8rA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_e32scADBEeWt3cohpcF8rA" type="_603mYADAEeWt3cohpcF8rA" association="_e3wl0ADBEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_zt35EADBEeWt3cohpcF8rA" memberEnd="_zt4gIgDBEeWt3cohpcF8rA _zt5HMADBEeWt3cohpcF8rA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zt4gIADBEeWt3cohpcF8rA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zt4gIQDBEeWt3cohpcF8rA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_zt5HMADBEeWt3cohpcF8rA" type="_3hd78ADAEeWt3cohpcF8rA" association="_zt35EADBEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Dependency" xmi:id="_FqOw8ADCEeWt3cohpcF8rA" name="registers" client="_v56UsADAEeWt3cohpcF8rA" supplier="_603mYADAEeWt3cohpcF8rA"/>
+        <packagedElement xmi:type="uml:Dependency" xmi:id="_I0sP4ADEEeWt3cohpcF8rA" name="governs" client="_tC0LwADAEeWt3cohpcF8rA" supplier="_sVtGwADDEeWt3cohpcF8rA"/>
+        <packagedElement xmi:type="uml:Collaboration" xmi:id="_3_HiEAMBEeW1-e4oerqxMg" name="Synchronization Overrides">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_3_HiEQMBEeW1-e4oerqxMg" name="emfListener" type="_HH6TEADGEeWt3cohpcF8rA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_3_HiEgMBEeW1-e4oerqxMg" name="emfDispatch" type="_IShFAADGEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3_HiEwMBEeW1-e4oerqxMg" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3_HiFAMBEeW1-e4oerqxMg" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_3_HiFQMBEeW1-e4oerqxMg" name="syncItem" type="_jW6KUADEEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3_HiFgMBEeW1-e4oerqxMg" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3_HiFwMBEeW1-e4oerqxMg" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_3_HiGAMBEeW1-e4oerqxMg" name="syncRegistry" type="_kHf5wADEEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3_HiGQMBEeW1-e4oerqxMg" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3_HiGgMBEeW1-e4oerqxMg" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_3_HiGwMBEeW1-e4oerqxMg" name="syncBucket" type="_jJG-4ADEEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3_HiHAMBEeW1-e4oerqxMg" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3_HiHQMBEeW1-e4oerqxMg" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_3_HiHgMBEeW1-e4oerqxMg" name="syncFeature" type="_sVtGwADDEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3_HiHwMBEeW1-e4oerqxMg" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3_HiIAMBEeW1-e4oerqxMg" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_tGurIAMgEeWWbMjTqzYc1A" name="syncPolicy" type="_3hd78ADAEeWt3cohpcF8rA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_xDKrgAMgEeWWbMjTqzYc1A" name="syncPolicyDelegate" type="_v56UsADAEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ElL5oAMhEeWWbMjTqzYc1A"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ElMgsAMhEeWWbMjTqzYc1A" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_z2B0sAMgEeWWbMjTqzYc1A" name="delegateRegistry" type="_603mYADAEeWt3cohpcF8rA"/>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_3_HiIQMBEeW1-e4oerqxMg">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_3_HiIgMBEeW1-e4oerqxMg" role="_3_HiEQMBEeW1-e4oerqxMg"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_3_HiIwMBEeW1-e4oerqxMg" role="_3_HiEgMBEeW1-e4oerqxMg"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_3_HiJAMBEeW1-e4oerqxMg">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_3_HiJQMBEeW1-e4oerqxMg" role="_3_HiGAMBEeW1-e4oerqxMg"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_3_HiJgMBEeW1-e4oerqxMg" role="_3_HiGwMBEeW1-e4oerqxMg"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_3_HiJwMBEeW1-e4oerqxMg">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_3_HiKAMBEeW1-e4oerqxMg" role="_3_HiGwMBEeW1-e4oerqxMg"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_3_HiKQMBEeW1-e4oerqxMg" role="_3_HiHgMBEeW1-e4oerqxMg"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_3_HiKgMBEeW1-e4oerqxMg">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_3_HiKwMBEeW1-e4oerqxMg" role="_3_HiGwMBEeW1-e4oerqxMg"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_3_HiLAMBEeW1-e4oerqxMg" role="_3_HiFQMBEeW1-e4oerqxMg"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_F0uO4AMhEeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_F0wEEAMhEeWWbMjTqzYc1A" role="_tGurIAMgEeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_F0wEEQMhEeWWbMjTqzYc1A" role="_z2B0sAMgEeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_Ga2awAMhEeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_Ga3B0AMhEeWWbMjTqzYc1A" role="_z2B0sAMgEeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_Ga3o4AMhEeWWbMjTqzYc1A" role="_xDKrgAMgEeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_gSgf0AMiEeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_gShG4AMiEeWWbMjTqzYc1A" role="_3_HiEgMBEeW1-e4oerqxMg"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_gShG4QMiEeWWbMjTqzYc1A" role="_tGurIAMgEeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_KpMI0AM0EeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_KpMv4AM0EeWWbMjTqzYc1A" role="_3_HiEgMBEeW1-e4oerqxMg"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_KpMv4QM0EeWWbMjTqzYc1A" role="_3_HiHgMBEeW1-e4oerqxMg"/>
+          </ownedConnector>
+          <ownedBehavior xmi:type="uml:Interaction" xmi:id="_3_HiLQMBEeW1-e4oerqxMg" name="Override Diagram Synchronization">
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_3_HiLgMBEeW1-e4oerqxMg" name="emfListener" represents="_3_HiEQMBEeW1-e4oerqxMg" coveredBy="_3_HiNAMBEeW1-e4oerqxMg _3_HiPwMBEeW1-e4oerqxMg"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_3_HiLwMBEeW1-e4oerqxMg" name="emfDispatch" represents="_3_HiEgMBEeW1-e4oerqxMg" coveredBy="_3_HiNQMBEeW1-e4oerqxMg _3_HiNgMBEeW1-e4oerqxMg _3_HiPgMBEeW1-e4oerqxMg _-QdHAQMyEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_3_HiMAMBEeW1-e4oerqxMg" name="syncRegistry" represents="_3_HiGAMBEeW1-e4oerqxMg" coveredBy="_3_HiPQMBEeW1-e4oerqxMg _0mPEcAMyEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_3_HiMQMBEeW1-e4oerqxMg" name="syncBucket" represents="_3_HiGwMBEeW1-e4oerqxMg" coveredBy="_3_HiOQMBEeW1-e4oerqxMg _3_HiOgMBEeW1-e4oerqxMg _3_HiPAMBEeW1-e4oerqxMg _2FzXkAMjEeWWbMjTqzYc1A _OcNZYQMyEeWWbMjTqzYc1A _nRZvIAMjEeWWbMjTqzYc1A _dk520AMyEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_3_HiMgMBEeW1-e4oerqxMg" name="syncFeature" represents="_3_HiHgMBEeW1-e4oerqxMg" coveredBy="_3_HiNwMBEeW1-e4oerqxMg _3_HiOAMBEeW1-e4oerqxMg _2FzXkQMjEeWWbMjTqzYc1A _OcNZYAMyEeWWbMjTqzYc1A _-QdHAAMyEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_3_HiMwMBEeW1-e4oerqxMg" name="syncItem" represents="_3_HiFQMBEeW1-e4oerqxMg" coveredBy="_3_HiOwMBEeW1-e4oerqxMg _dk6d4AMyEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_xgDJ4AMiEeWWbMjTqzYc1A" name="syncPolicy" represents="_tGurIAMgEeWWbMjTqzYc1A" coveredBy="_O3wqwAMjEeWWbMjTqzYc1A _V1bAcAMjEeWWbMjTqzYc1A _lCoxgAMjEeWWbMjTqzYc1A _nRZvIQMjEeWWbMjTqzYc1A _0mPrgAMyEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_1F52QAMiEeWWbMjTqzYc1A" name="delegateRegistry" represents="_z2B0sAMgEeWWbMjTqzYc1A" coveredBy="_O3x44AMjEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_6TzegAMiEeWWbMjTqzYc1A" name="policyDelegate" represents="_xDKrgAMgEeWWbMjTqzYc1A" coveredBy="_V1bAcQMjEeWWbMjTqzYc1A _lCpYkAMjEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiNAMBEeW1-e4oerqxMg" name="Message0Send0" covered="_3_HiLgMBEeW1-e4oerqxMg" message="_3_HiQAMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiNQMBEeW1-e4oerqxMg" name="Message0Recv0" covered="_3_HiLwMBEeW1-e4oerqxMg" message="_3_HiQAMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiNgMBEeW1-e4oerqxMg" name="Message0Send1" covered="_3_HiLwMBEeW1-e4oerqxMg" message="_3_HiQQMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiNwMBEeW1-e4oerqxMg" name="Message0Recv1" covered="_3_HiMgMBEeW1-e4oerqxMg" message="_3_HiQQMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiOAMBEeW1-e4oerqxMg" name="Message0Send2" covered="_3_HiMgMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiOQMBEeW1-e4oerqxMg" name="Message0Recv2" covered="_3_HiMQMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiOgMBEeW1-e4oerqxMg" name="Message0Send3" covered="_3_HiMQMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiOwMBEeW1-e4oerqxMg" name="Message0Recv3" covered="_3_HiMwMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiPAMBEeW1-e4oerqxMg" name="Message0Send4" covered="_3_HiMQMBEeW1-e4oerqxMg" message="_3_HiRAMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiPQMBEeW1-e4oerqxMg" name="Message0Recv4" covered="_3_HiMAMBEeW1-e4oerqxMg" message="_3_HiRAMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiPgMBEeW1-e4oerqxMg" name="Message0Send5" covered="_3_HiLwMBEeW1-e4oerqxMg" message="_3_HiRQMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_3_HiPwMBEeW1-e4oerqxMg" name="Message0Recv5" covered="_3_HiLgMBEeW1-e4oerqxMg" message="_3_HiRQMBEeW1-e4oerqxMg"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_O3wqwAMjEeWWbMjTqzYc1A" name="Message0Send6" covered="_xgDJ4AMiEeWWbMjTqzYc1A" message="_O3dIwAMjEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_O3x44AMjEeWWbMjTqzYc1A" name="Message0Recv6" covered="_1F52QAMiEeWWbMjTqzYc1A" message="_O3dIwAMjEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_V1bAcAMjEeWWbMjTqzYc1A" name="Message0Send7" covered="_xgDJ4AMiEeWWbMjTqzYc1A" message="_V1OMIAMjEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_V1bAcQMjEeWWbMjTqzYc1A" name="Message0Recv7" covered="_6TzegAMiEeWWbMjTqzYc1A" message="_V1OMIAMjEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_lCoxgAMjEeWWbMjTqzYc1A" name="Message0Send8" covered="_xgDJ4AMiEeWWbMjTqzYc1A" message="_lCUBYAMjEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_lCpYkAMjEeWWbMjTqzYc1A" name="Message0Recv8" covered="_6TzegAMiEeWWbMjTqzYc1A" message="_lCUBYAMjEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nRZvIAMjEeWWbMjTqzYc1A" name="Message0Send9" covered="_3_HiMQMBEeW1-e4oerqxMg" message="_nROI8AMjEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nRZvIQMjEeWWbMjTqzYc1A" name="Message0Recv9" covered="_xgDJ4AMiEeWWbMjTqzYc1A" message="_nROI8AMjEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_2FzXkAMjEeWWbMjTqzYc1A" name="Message0Send10" covered="_3_HiMQMBEeW1-e4oerqxMg" message="_2FoYcAMjEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_2FzXkQMjEeWWbMjTqzYc1A" name="Message0Recv10" covered="_3_HiMgMBEeW1-e4oerqxMg" message="_2FoYcAMjEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_OcNZYAMyEeWWbMjTqzYc1A" name="Message0Send101" covered="_3_HiMgMBEeW1-e4oerqxMg" message="_OcDBUAMyEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_OcNZYQMyEeWWbMjTqzYc1A" name="Message0Recv101" covered="_3_HiMQMBEeW1-e4oerqxMg" message="_OcDBUAMyEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_dk520AMyEeWWbMjTqzYc1A" name="Message0Send1011" covered="_3_HiMQMBEeW1-e4oerqxMg" message="_dkuQoAMyEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_dk6d4AMyEeWWbMjTqzYc1A" name="Message0Recv1011" covered="_3_HiMwMBEeW1-e4oerqxMg" message="_dkuQoAMyEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_0mPEcAMyEeWWbMjTqzYc1A" name="Message0Send10111" covered="_3_HiMAMBEeW1-e4oerqxMg" message="_0mEsYAMyEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_0mPrgAMyEeWWbMjTqzYc1A" name="Message0Recv10111" covered="_xgDJ4AMiEeWWbMjTqzYc1A" message="_0mEsYAMyEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_-QdHAAMyEeWWbMjTqzYc1A" name="Message0Send101111" covered="_3_HiMgMBEeW1-e4oerqxMg" message="_-QSH4AMyEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_-QdHAQMyEeWWbMjTqzYc1A" name="Message0Recv101111" covered="_3_HiLwMBEeW1-e4oerqxMg" message="_-QSH4AMyEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_3_HiQAMBEeW1-e4oerqxMg" name="7:notifications" receiveEvent="_3_HiNQMBEeW1-e4oerqxMg" sendEvent="_3_HiNAMBEeW1-e4oerqxMg"/>
+            <message xmi:type="uml:Message" xmi:id="_3_HiQQMBEeW1-e4oerqxMg" name="8:synchronize" receiveEvent="_3_HiNwMBEeW1-e4oerqxMg" sendEvent="_3_HiNgMBEeW1-e4oerqxMg"/>
+            <message xmi:type="uml:Message" xmi:id="_3_HiRAMBEeW1-e4oerqxMg" name="4:register" receiveEvent="_3_HiPQMBEeW1-e4oerqxMg" sendEvent="_3_HiPAMBEeW1-e4oerqxMg"/>
+            <message xmi:type="uml:Message" xmi:id="_3_HiRQMBEeW1-e4oerqxMg" name="3:add" receiveEvent="_3_HiPwMBEeW1-e4oerqxMg" sendEvent="_3_HiPgMBEeW1-e4oerqxMg"/>
+            <message xmi:type="uml:Message" xmi:id="_O3dIwAMjEeWWbMjTqzYc1A" name="11:getDelegate" receiveEvent="_O3x44AMjEeWWbMjTqzYc1A" sendEvent="_O3wqwAMjEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_V1OMIAMjEeWWbMjTqzYc1A" name="6:observe" receiveEvent="_V1bAcQMjEeWWbMjTqzYc1A" sendEvent="_V1bAcAMjEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_lCUBYAMjEeWWbMjTqzYc1A" name="12:shouldSynchronize" receiveEvent="_lCpYkAMjEeWWbMjTqzYc1A" sendEvent="_lCoxgAMjEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_nROI8AMjEeWWbMjTqzYc1A" name="10:shouldSynchronize" receiveEvent="_nRZvIQMjEeWWbMjTqzYc1A" sendEvent="_nRZvIAMjEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_2FoYcAMjEeWWbMjTqzYc1A" name="1:add" receiveEvent="_2FzXkQMjEeWWbMjTqzYc1A" sendEvent="_2FzXkAMjEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_OcDBUAMyEeWWbMjTqzYc1A" name="9:propagate" receiveEvent="_OcNZYQMyEeWWbMjTqzYc1A" sendEvent="_OcNZYAMyEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_dkuQoAMyEeWWbMjTqzYc1A" name="13:synchronize" receiveEvent="_dk6d4AMyEeWWbMjTqzYc1A" sendEvent="_dk520AMyEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_0mEsYAMyEeWWbMjTqzYc1A" name="5:register" receiveEvent="_0mPrgAMyEeWWbMjTqzYc1A" sendEvent="_0mPEcAMyEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_-QSH4AMyEeWWbMjTqzYc1A" name="2:create" receiveEvent="_-QdHAQMyEeWWbMjTqzYc1A" sendEvent="_-QdHAAMyEeWWbMjTqzYc1A"/>
+          </ownedBehavior>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_hKj4QACoEeWnE_cMzyyIKA" name="org.eclipse.papyrus.infra.gmfdiag.common.sync">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_BVQPYACvEeWnE_cMzyyIKA" annotatedElement="_hKj4QACoEeWnE_cMzyyIKA">
+          <body>Implementation of reusable synchronization primitives for GMF-based diagrams.</body>
+        </ownedComment>
+        <packagedElement xmi:type="uml:Class" xmi:id="_rud44ADJEeWt3cohpcF8rA" name="ContainerChildrenSyncFeature">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_iLc_oADLEeWt3cohpcF8rA" annotatedElement="_rud44ADJEeWt3cohpcF8rA">
+            <body>A specialized SyncFeature that manages synchronization of child
+node EditParts for children of the front-end model element.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_K2ZaMADKEeWt3cohpcF8rA" general="_sVtGwADDEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_2t6pAADJEeWt3cohpcF8rA" name="DiagramEdgesSyncFeature">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_oP8RoADLEeWt3cohpcF8rA" annotatedElement="_2t6pAADJEeWt3cohpcF8rA">
+            <body>A specialized SyncFeature that manages synchronization of source
+and target connection EditParts for relationships of the front-end
+model element.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_LROVAADKEeWt3cohpcF8rA" general="_sVtGwADDEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_7_dbIADJEeWt3cohpcF8rA" name="NodePositionSyncFeature">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_sCf9QADLEeWt3cohpcF8rA" annotatedElement="_7_dbIADJEeWt3cohpcF8rA">
+            <body>A specialized SyncFeature that manages synchronization of the location
+in the diagram of a node EditPart.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_LrTB4ADKEeWt3cohpcF8rA" general="_sVtGwADDEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_9S6nEADJEeWt3cohpcF8rA" name="NodeSizeSyncFeature">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_uMuZIADLEeWt3cohpcF8rA" annotatedElement="_9S6nEADJEeWt3cohpcF8rA">
+            <body>A specialized SyncFeature that manages synchronization of the size
+of a node EditPart.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_MEdIwADKEeWt3cohpcF8rA" general="_sVtGwADDEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_aB0bgADKEeWt3cohpcF8rA" name="EditPartSyncRegistry">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_v5cPEADKEeWt3cohpcF8rA" annotatedElement="_aB0bgADKEeWt3cohpcF8rA">
+            <body>A SyncRegistry that manages SyncBuckets for synchronization of diagram
+EditParts that visualize EObjects in GMF-based diagrams.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_h0K9gADKEeWt3cohpcF8rA" general="_kHf5wADEEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_bPHVEADKEeWt3cohpcF8rA" name="EditPartSyncBucket">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_DbvKAADLEeWt3cohpcF8rA" annotatedElement="_bPHVEADKEeWt3cohpcF8rA">
+            <body>A SyncBucket that manages the synchronization of diagram
+EditParts that visualize EObjects in GMF-based diagrams.
+By default, these buckets match edit-parts that all visualize
+the same model element in different diagrams, but this is
+customizable.  For example, in the UML-RT case edit-parts
+are matched not with edit-parts visualizing the same model
+element but with edit-parts visualizing the redefined model
+element.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_hYnp8ADKEeWt3cohpcF8rA" general="_jJG-4ADEEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_ccAmAADKEeWt3cohpcF8rA" name="EditPartSyncItem">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_JpGrMADLEeWt3cohpcF8rA" annotatedElement="_ccAmAADKEeWt3cohpcF8rA">
+            <body>A SyncItem that manages synchronization of an EditPart
+that visualizes an EObjects in a GMF-based diagram.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_g5kWcADKEeWt3cohpcF8rA" general="_jW6KUADEEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Collaboration" xmi:id="_nvdy4AMdEeWWbMjTqzYc1A" name="Notation Synchronization">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_nvdy4QMdEeWWbMjTqzYc1A" name="emfListener" type="_HH6TEADGEeWt3cohpcF8rA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_nvdy4gMdEeWWbMjTqzYc1A" name="positionDispatch" type="_omByAAMeEeWWbMjTqzYc1A">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nvdy4wMdEeWWbMjTqzYc1A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nvdy5AMdEeWWbMjTqzYc1A" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_nvdy5QMdEeWWbMjTqzYc1A" name="syncItem" type="_ccAmAADKEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nvdy5gMdEeWWbMjTqzYc1A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nvdy5wMdEeWWbMjTqzYc1A" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_nvdy6AMdEeWWbMjTqzYc1A" name="syncRegistry" type="_aB0bgADKEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nvdy6QMdEeWWbMjTqzYc1A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nvdy6gMdEeWWbMjTqzYc1A" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_nvdy6wMdEeWWbMjTqzYc1A" name="syncBucket" type="_bPHVEADKEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nvdy7AMdEeWWbMjTqzYc1A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nvdy7QMdEeWWbMjTqzYc1A" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_nvdy7gMdEeWWbMjTqzYc1A" name="positionFeature" type="_7_dbIADJEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nvdy7wMdEeWWbMjTqzYc1A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nvdy8AMdEeWWbMjTqzYc1A" value="1"/>
+          </ownedAttribute>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_nvdy8QMdEeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_nvdy8gMdEeWWbMjTqzYc1A" role="_nvdy4QMdEeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_nvdy8wMdEeWWbMjTqzYc1A" role="_nvdy4gMdEeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_nvdy9AMdEeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_nvdy9QMdEeWWbMjTqzYc1A" role="_nvdy6AMdEeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_nvdy9gMdEeWWbMjTqzYc1A" role="_nvdy6wMdEeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_nvdy9wMdEeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_nvdy-AMdEeWWbMjTqzYc1A" role="_nvdy6wMdEeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_nvdy-QMdEeWWbMjTqzYc1A" role="_nvdy7gMdEeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_nvdy-gMdEeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_nvdy-wMdEeWWbMjTqzYc1A" role="_nvdy6wMdEeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_nvdy_AMdEeWWbMjTqzYc1A" role="_nvdy5QMdEeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_Qlw08AM0EeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_QlxcAAM0EeWWbMjTqzYc1A" role="_nvdy4gMdEeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_QlxcAQM0EeWWbMjTqzYc1A" role="_nvdy7gMdEeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedBehavior xmi:type="uml:Interaction" xmi:id="_nvdy_QMdEeWWbMjTqzYc1A" name="Synchronize Notation Views">
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_nvdy_gMdEeWWbMjTqzYc1A" name="emfListener" represents="_nvdy4QMdEeWWbMjTqzYc1A" coveredBy="_nvdzBAMdEeWWbMjTqzYc1A _nvdzDwMdEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_nvdy_wMdEeWWbMjTqzYc1A" name="emfDispatch" represents="_nvdy4gMdEeWWbMjTqzYc1A" coveredBy="_nvdzBQMdEeWWbMjTqzYc1A _nvdzBgMdEeWWbMjTqzYc1A _nvdzDgMdEeWWbMjTqzYc1A _VkMDUAMfEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_nvdzAAMdEeWWbMjTqzYc1A" name="syncRegistry" represents="_nvdy6AMdEeWWbMjTqzYc1A" coveredBy="_nvdzDQMdEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_nvdzAQMdEeWWbMjTqzYc1A" name="syncBucket" represents="_nvdy6wMdEeWWbMjTqzYc1A" coveredBy="_nvdzCQMdEeWWbMjTqzYc1A _nvdzCgMdEeWWbMjTqzYc1A _nvdzDAMdEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_nvdzAgMdEeWWbMjTqzYc1A" name="positionFeature" represents="_nvdy7gMdEeWWbMjTqzYc1A" coveredBy="_nvdzBwMdEeWWbMjTqzYc1A _nvdzCAMdEeWWbMjTqzYc1A _VkMDUQMfEeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_nvdzAwMdEeWWbMjTqzYc1A" name="syncItem" represents="_nvdy5QMdEeWWbMjTqzYc1A" coveredBy="_nvdzCwMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzBAMdEeWWbMjTqzYc1A" name="Message0Send0" covered="_nvdy_gMdEeWWbMjTqzYc1A" message="_nvdzEAMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzBQMdEeWWbMjTqzYc1A" name="Message0Recv0" covered="_nvdy_wMdEeWWbMjTqzYc1A" message="_nvdzEAMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzBgMdEeWWbMjTqzYc1A" name="Message0Send1" covered="_nvdy_wMdEeWWbMjTqzYc1A" message="_nvdzEQMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzBwMdEeWWbMjTqzYc1A" name="Message0Recv1" covered="_nvdzAgMdEeWWbMjTqzYc1A" message="_nvdzEQMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzCAMdEeWWbMjTqzYc1A" name="Message0Send2" covered="_nvdzAgMdEeWWbMjTqzYc1A" message="_nvdzEgMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzCQMdEeWWbMjTqzYc1A" name="Message0Recv2" covered="_nvdzAQMdEeWWbMjTqzYc1A" message="_nvdzEgMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzCgMdEeWWbMjTqzYc1A" name="Message0Send3" covered="_nvdzAQMdEeWWbMjTqzYc1A" message="_nvdzEwMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzCwMdEeWWbMjTqzYc1A" name="Message0Recv3" covered="_nvdzAwMdEeWWbMjTqzYc1A" message="_nvdzEwMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzDAMdEeWWbMjTqzYc1A" name="Message0Send4" covered="_nvdzAQMdEeWWbMjTqzYc1A" message="_nvdzFAMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzDQMdEeWWbMjTqzYc1A" name="Message0Recv4" covered="_nvdzAAMdEeWWbMjTqzYc1A" message="_nvdzFAMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzDgMdEeWWbMjTqzYc1A" name="Message0Send5" covered="_nvdy_wMdEeWWbMjTqzYc1A" message="_nvdzFQMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_nvdzDwMdEeWWbMjTqzYc1A" name="Message0Recv5" covered="_nvdy_gMdEeWWbMjTqzYc1A" message="_nvdzFQMdEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_VkMDUAMfEeWWbMjTqzYc1A" name="Message0Send6" covered="_nvdy_wMdEeWWbMjTqzYc1A" message="_VjrF8AMfEeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_VkMDUQMfEeWWbMjTqzYc1A" name="Message0Recv6" covered="_nvdzAgMdEeWWbMjTqzYc1A" message="_VjrF8AMfEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_nvdzEAMdEeWWbMjTqzYc1A" name="4:notifications" receiveEvent="_nvdzBQMdEeWWbMjTqzYc1A" sendEvent="_nvdzBAMdEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_nvdzEQMdEeWWbMjTqzYc1A" name="5:synchronize" receiveEvent="_nvdzBwMdEeWWbMjTqzYc1A" sendEvent="_nvdzBgMdEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_nvdzEgMdEeWWbMjTqzYc1A" name="6:propagate" receiveEvent="_nvdzCQMdEeWWbMjTqzYc1A" sendEvent="_nvdzCAMdEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_nvdzEwMdEeWWbMjTqzYc1A" name="7:synchronize" receiveEvent="_nvdzCwMdEeWWbMjTqzYc1A" sendEvent="_nvdzCgMdEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_nvdzFAMdEeWWbMjTqzYc1A" name="1:register" receiveEvent="_nvdzDQMdEeWWbMjTqzYc1A" sendEvent="_nvdzDAMdEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_nvdzFQMdEeWWbMjTqzYc1A" name="3:add" receiveEvent="_nvdzDwMdEeWWbMjTqzYc1A" sendEvent="_nvdzDgMdEeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_VjrF8AMfEeWWbMjTqzYc1A" name="2:getNotifier" receiveEvent="_VkMDUQMfEeWWbMjTqzYc1A" sendEvent="_VkMDUAMfEeWWbMjTqzYc1A"/>
+          </ownedBehavior>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_omByAAMeEeWWbMjTqzYc1A" name="NodePositionSyncDispatcher">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_5AgAYAMeEeWWbMjTqzYc1A" annotatedElement="_omByAAMeEeWWbMjTqzYc1A">
+            <body>A specialized dispatcher that listens to changes in the bounds of the notation view (Node)
+managed by an EditPart.  It tracks the bounds of the shape, firing synchronization only
+when node's position actually changes from the last known position.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_JXKFwAMfEeWWbMjTqzYc1A" general="_IShFAADGEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="__ruiQAMeEeWWbMjTqzYc1A" name="NodeSizeSyncDispatcher">
+          <ownedComment xmi:type="uml:Comment" xmi:id="__ruiQQMeEeWWbMjTqzYc1A" annotatedElement="__ruiQAMeEeWWbMjTqzYc1A">
+            <body>A specialized dispatcher that listens to changes in the bounds of the notation view (Node)
+managed by an EditPart.  It tracks the bounds of the shape, firing synchronization only
+when node's size actually changes from the last known position.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_Jzjt4AMfEeWWbMjTqzYc1A" general="_IShFAADGEeWt3cohpcF8rA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Collaboration" xmi:id="_XpZaUAM1EeWWbMjTqzYc1A" name="Synchronization Exclusions">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_XpZaUQM1EeWWbMjTqzYc1A" name="emfListener" type="_HH6TEADGEeWt3cohpcF8rA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_XpZaUgM1EeWWbMjTqzYc1A" name="emfDispatch" type="_omByAAMeEeWWbMjTqzYc1A">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XpZaUwM1EeWWbMjTqzYc1A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XpZaVAM1EeWWbMjTqzYc1A" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_XpZaVQM1EeWWbMjTqzYc1A" name="syncItem" type="_ccAmAADKEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XpZaVgM1EeWWbMjTqzYc1A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XpZaVwM1EeWWbMjTqzYc1A" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_XpZaWAM1EeWWbMjTqzYc1A" name="syncRegistry" type="_aB0bgADKEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XpZaWQM1EeWWbMjTqzYc1A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XpZaWgM1EeWWbMjTqzYc1A" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_XpZaWwM1EeWWbMjTqzYc1A" name="syncBucket" type="_bPHVEADKEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XpZaXAM1EeWWbMjTqzYc1A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XpZaXQM1EeWWbMjTqzYc1A" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_XpZaXgM1EeWWbMjTqzYc1A" name="syncFeature" type="_7_dbIADJEeWt3cohpcF8rA">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XpZaXwM1EeWWbMjTqzYc1A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XpZaYAM1EeWWbMjTqzYc1A" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_XpZaYQM1EeWWbMjTqzYc1A" name="syncPolicy" type="_3hd78ADAEeWt3cohpcF8rA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_XpZaYgM1EeWWbMjTqzYc1A" name="syncPolicyDelegate" type="_ANAy8AM2EeWWbMjTqzYc1A">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XpZaYwM1EeWWbMjTqzYc1A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XpZaZAM1EeWWbMjTqzYc1A" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_XpZaZQM1EeWWbMjTqzYc1A" name="delegateRegistry" type="_603mYADAEeWt3cohpcF8rA"/>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_XpZaZgM1EeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZaZwM1EeWWbMjTqzYc1A" role="_XpZaUQM1EeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZaaAM1EeWWbMjTqzYc1A" role="_XpZaUgM1EeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_XpZaaQM1EeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZaagM1EeWWbMjTqzYc1A" role="_XpZaWAM1EeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZaawM1EeWWbMjTqzYc1A" role="_XpZaWwM1EeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_XpZabAM1EeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZabQM1EeWWbMjTqzYc1A" role="_XpZaWwM1EeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZabgM1EeWWbMjTqzYc1A" role="_XpZaXgM1EeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_XpZabwM1EeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZacAM1EeWWbMjTqzYc1A" role="_XpZaWwM1EeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZacQM1EeWWbMjTqzYc1A" role="_XpZaVQM1EeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_XpZacgM1EeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZacwM1EeWWbMjTqzYc1A" role="_XpZaYQM1EeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZadAM1EeWWbMjTqzYc1A" role="_XpZaZQM1EeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_XpZadQM1EeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZadgM1EeWWbMjTqzYc1A" role="_XpZaZQM1EeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZadwM1EeWWbMjTqzYc1A" role="_XpZaYgM1EeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_XpZaeAM1EeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZaeQM1EeWWbMjTqzYc1A" role="_XpZaUgM1EeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZaegM1EeWWbMjTqzYc1A" role="_XpZaYQM1EeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedConnector xmi:type="uml:Connector" xmi:id="_XpZaewM1EeWWbMjTqzYc1A">
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZafAM1EeWWbMjTqzYc1A" role="_XpZaUgM1EeWWbMjTqzYc1A"/>
+            <end xmi:type="uml:ConnectorEnd" xmi:id="_XpZafQM1EeWWbMjTqzYc1A" role="_XpZaYgM1EeWWbMjTqzYc1A"/>
+          </ownedConnector>
+          <ownedBehavior xmi:type="uml:Interaction" xmi:id="_XpZafgM1EeWWbMjTqzYc1A" name="Exclude Views from Synchronization">
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_XpZafwM1EeWWbMjTqzYc1A" name="emfListener" represents="_XpZaUQM1EeWWbMjTqzYc1A" coveredBy="_XpZaiAM1EeWWbMjTqzYc1A _XpZakwM1EeWWbMjTqzYc1A _BcRl8AM3EeWWbMjTqzYc1A _EG1HsAM3EeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_XpZagAM1EeWWbMjTqzYc1A" name="emfDispatch" represents="_XpZaUgM1EeWWbMjTqzYc1A" coveredBy="_XpZaiQM1EeWWbMjTqzYc1A _XpZaigM1EeWWbMjTqzYc1A _XpZakgM1EeWWbMjTqzYc1A _XpZapQM1EeWWbMjTqzYc1A __dqkMQM2EeWWbMjTqzYc1A _BcQ-4AM3EeWWbMjTqzYc1A _EG1uwAM3EeWWbMjTqzYc1A _IH_3EAM3EeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_XpZagQM1EeWWbMjTqzYc1A" name="syncRegistry" represents="_XpZaWAM1EeWWbMjTqzYc1A" coveredBy="_XpZakQM1EeWWbMjTqzYc1A _XpZaogM1EeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_XpZahQM1EeWWbMjTqzYc1A" name="syncPolicy" represents="_XpZaYQM1EeWWbMjTqzYc1A" coveredBy="_XpZalAM1EeWWbMjTqzYc1A _XpZalgM1EeWWbMjTqzYc1A _XpZamAM1EeWWbMjTqzYc1A _XpZamwM1EeWWbMjTqzYc1A _XpZaowM1EeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_XpZahgM1EeWWbMjTqzYc1A" name="delegateRegistry" represents="_XpZaZQM1EeWWbMjTqzYc1A" coveredBy="_XpZalQM1EeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_XpZahwM1EeWWbMjTqzYc1A" name="policyDelegate" represents="_XpZaYgM1EeWWbMjTqzYc1A" coveredBy="_XpZalwM1EeWWbMjTqzYc1A _XpZamQM1EeWWbMjTqzYc1A __dqkMAM2EeWWbMjTqzYc1A _IIAeIAM3EeWWbMjTqzYc1A _Q77x4AM3EeWWbMjTqzYc1A"/>
+            <lifeline xmi:type="uml:Lifeline" xmi:id="_MHImIAM3EeWWbMjTqzYc1A" name="editPartSyncItem" represents="_XpZaVQM1EeWWbMjTqzYc1A" coveredBy="_Q78Y8AM3EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZaiAM1EeWWbMjTqzYc1A" name="Message0Send0" covered="_XpZafwM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZaiQM1EeWWbMjTqzYc1A" name="Message0Recv0" covered="_XpZagAM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZaigM1EeWWbMjTqzYc1A" name="Message0Send1" covered="_XpZagAM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZaiwM1EeWWbMjTqzYc1A" name="Message0Recv1"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZajAM1EeWWbMjTqzYc1A" name="Message0Send2"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZajQM1EeWWbMjTqzYc1A" name="Message0Recv2"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZajgM1EeWWbMjTqzYc1A" name="Message0Send3"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZajwM1EeWWbMjTqzYc1A" name="Message0Recv3"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZakAM1EeWWbMjTqzYc1A" name="Message0Send4" message="_XpZaqAM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZakQM1EeWWbMjTqzYc1A" name="Message0Recv4" covered="_XpZagQM1EeWWbMjTqzYc1A" message="_XpZaqAM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZakgM1EeWWbMjTqzYc1A" name="Message0Send5" covered="_XpZagAM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZakwM1EeWWbMjTqzYc1A" name="Message0Recv5" covered="_XpZafwM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZalAM1EeWWbMjTqzYc1A" name="Message0Send6" covered="_XpZahQM1EeWWbMjTqzYc1A" message="_XpZaqgM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZalQM1EeWWbMjTqzYc1A" name="Message0Recv6" covered="_XpZahgM1EeWWbMjTqzYc1A" message="_XpZaqgM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZalgM1EeWWbMjTqzYc1A" name="Message0Send7" covered="_XpZahQM1EeWWbMjTqzYc1A" message="_XpZaqwM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZalwM1EeWWbMjTqzYc1A" name="Message0Recv7" covered="_XpZahwM1EeWWbMjTqzYc1A" message="_XpZaqwM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZamAM1EeWWbMjTqzYc1A" name="Message0Send8" covered="_XpZahQM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZamQM1EeWWbMjTqzYc1A" name="Message0Recv8" covered="_XpZahwM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZamgM1EeWWbMjTqzYc1A" name="Message0Send9" message="_XpZarQM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZamwM1EeWWbMjTqzYc1A" name="Message0Recv9" covered="_XpZahQM1EeWWbMjTqzYc1A" message="_XpZarQM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZanAM1EeWWbMjTqzYc1A" name="Message0Send10"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZanQM1EeWWbMjTqzYc1A" name="Message0Recv10"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZangM1EeWWbMjTqzYc1A" name="Message0Send101"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZanwM1EeWWbMjTqzYc1A" name="Message0Recv101"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZaoAM1EeWWbMjTqzYc1A" name="Message0Send1011"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZaoQM1EeWWbMjTqzYc1A" name="Message0Recv1011"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZaogM1EeWWbMjTqzYc1A" name="Message0Send10111" covered="_XpZagQM1EeWWbMjTqzYc1A" message="_XpZasQM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZaowM1EeWWbMjTqzYc1A" name="Message0Recv10111" covered="_XpZahQM1EeWWbMjTqzYc1A" message="_XpZasQM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZapAM1EeWWbMjTqzYc1A" name="Message0Send101111"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XpZapQM1EeWWbMjTqzYc1A" name="Message0Recv101111" covered="_XpZagAM1EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="__dqkMAM2EeWWbMjTqzYc1A" name="Message0Send1011111" covered="_XpZahwM1EeWWbMjTqzYc1A" message="__dgzMAM2EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="__dqkMQM2EeWWbMjTqzYc1A" name="Message0Recv1011111" covered="_XpZagAM1EeWWbMjTqzYc1A" message="__dgzMAM2EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_BcQ-4AM3EeWWbMjTqzYc1A" name="Message0Send10111111" covered="_XpZagAM1EeWWbMjTqzYc1A" message="_BcHN4AM3EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_BcRl8AM3EeWWbMjTqzYc1A" name="Message0Recv10111111" covered="_XpZafwM1EeWWbMjTqzYc1A" message="_BcHN4AM3EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_EG1HsAM3EeWWbMjTqzYc1A" name="Message0Send101111111" covered="_XpZafwM1EeWWbMjTqzYc1A" message="_EGr9wAM3EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_EG1uwAM3EeWWbMjTqzYc1A" name="Message0Recv101111111" covered="_XpZagAM1EeWWbMjTqzYc1A" message="_EGr9wAM3EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_IH_3EAM3EeWWbMjTqzYc1A" name="Message0Send1011111111" covered="_XpZagAM1EeWWbMjTqzYc1A" message="_IH2GEAM3EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_IIAeIAM3EeWWbMjTqzYc1A" name="Message0Recv1011111111" covered="_XpZahwM1EeWWbMjTqzYc1A" message="_IH2GEAM3EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_Q77x4AM3EeWWbMjTqzYc1A" name="Message0Send10111111111" covered="_XpZahwM1EeWWbMjTqzYc1A" message="_Q7yA4AM3EeWWbMjTqzYc1A"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_Q78Y8AM3EeWWbMjTqzYc1A" name="Message0Recv10111111111" covered="_MHImIAM3EeWWbMjTqzYc1A" message="_Q7yA4AM3EeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_XpZaqAM1EeWWbMjTqzYc1A" name="1:register" receiveEvent="_XpZakQM1EeWWbMjTqzYc1A" sendEvent="_XpZakAM1EeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_XpZaqgM1EeWWbMjTqzYc1A" name="3:register" receiveEvent="_XpZalQM1EeWWbMjTqzYc1A" sendEvent="_XpZalAM1EeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_XpZaqwM1EeWWbMjTqzYc1A" name="4:observe" receiveEvent="_XpZalwM1EeWWbMjTqzYc1A" sendEvent="_XpZalgM1EeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_XpZarQM1EeWWbMjTqzYc1A" name="10:shouldSynchronize" receiveEvent="_XpZamwM1EeWWbMjTqzYc1A" sendEvent="_XpZamgM1EeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_XpZasQM1EeWWbMjTqzYc1A" name="2:register" receiveEvent="_XpZaowM1EeWWbMjTqzYc1A" sendEvent="_XpZaogM1EeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="__dgzMAM2EeWWbMjTqzYc1A" name="5:create" receiveEvent="__dqkMQM2EeWWbMjTqzYc1A" sendEvent="__dqkMAM2EeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_BcHN4AM3EeWWbMjTqzYc1A" name="6:add" receiveEvent="_BcRl8AM3EeWWbMjTqzYc1A" sendEvent="_BcQ-4AM3EeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_EGr9wAM3EeWWbMjTqzYc1A" name="7:notifications" receiveEvent="_EG1uwAM3EeWWbMjTqzYc1A" sendEvent="_EG1HsAM3EeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_IH2GEAM3EeWWbMjTqzYc1A" name="8:overrideOccurred" receiveEvent="_IIAeIAM3EeWWbMjTqzYc1A" sendEvent="_IH_3EAM3EeWWbMjTqzYc1A"/>
+            <message xmi:type="uml:Message" xmi:id="_Q7yA4AM3EeWWbMjTqzYc1A" name="9:stopSynchronizing" receiveEvent="_Q78Y8AM3EeWWbMjTqzYc1A" sendEvent="_Q77x4AM3EeWWbMjTqzYc1A"/>
+          </ownedBehavior>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_ANAy8AM2EeWWbMjTqzYc1A" name="NotationSyncPolicyDelegate">
+          <generalization xmi:type="uml:Generalization" xmi:id="_CS6vgAM2EeWWbMjTqzYc1A" general="_v56UsADAEeWt3cohpcF8rA"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="_y3pEOACLEeWudc8agGQ04Q" name="Tests">
+      <packagedElement xmi:type="uml:Component" xmi:id="_bQLMYAM4EeWWbMjTqzYc1A" name="org.eclipse.papyrus.infra.gmfdiag.common.tests">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_5LGnsAM7EeWWbMjTqzYc1A" annotatedElement="_bQLMYAM4EeWWbMjTqzYc1A">
+          <body>Test bundle for the Papyrus common diagram core plug-in.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_qA5OsAM4EeWWbMjTqzYc1A" name="org.eclipse.papyrus.infra.gmfdiag.common.sync.tests">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_AvGkoAM8EeWWbMjTqzYc1A" annotatedElement="_qA5OsAM4EeWWbMjTqzYc1A">
+          <body>Test suite for the synchronization framework, covering both model-to-model
+and diagram-to-diagram synchronization use cases.</body>
+        </ownedComment>
+        <packagedElement xmi:type="uml:Class" xmi:id="_jt_QwAM5EeWWbMjTqzYc1A" name="MasterSlaveNotationSyncTest">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_ORw4YAM8EeWWbMjTqzYc1A" annotatedElement="_jt_QwAM5EeWWbMjTqzYc1A">
+            <body>Tests the synchronization framework basic synchronization use cases by way
+of master/slave diagram-to-diagram synchronization.</body>
+          </ownedComment>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_spIm0gM5EeWWbMjTqzYc1A" name="fixture" type="_nytqcAM5EeWWbMjTqzYc1A" association="_spH_wAM5EeWWbMjTqzYc1A"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_lhLFoAM5EeWWbMjTqzYc1A" name="NotationSyncOverrideTest">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_R59HEAM8EeWWbMjTqzYc1A" annotatedElement="_lhLFoAM5EeWWbMjTqzYc1A">
+            <body>Tests the synchronization framework's support for synchronization overrides
+by way of master/slave diagram-to-diagram synchronization.</body>
+          </ownedComment>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_sIWN8AM5EeWWbMjTqzYc1A" name="fixture" type="_nytqcAM5EeWWbMjTqzYc1A" association="_sIEhIAM5EeWWbMjTqzYc1A"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_nytqcAM5EeWWbMjTqzYc1A" name="TestSyncFixture">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_ZYyQIAM8EeWWbMjTqzYc1A" annotatedElement="_nytqcAM5EeWWbMjTqzYc1A">
+            <body>A JUnit test-fixture rule that implements a synchronization registry for class
+diagrams in the context of the test execution.</body>
+          </ownedComment>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_sIEhIAM5EeWWbMjTqzYc1A" memberEnd="_sIWN8AM5EeWWbMjTqzYc1A _sIWN8QM5EeWWbMjTqzYc1A">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_sIMc8AM5EeWWbMjTqzYc1A" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_sIMc8QM5EeWWbMjTqzYc1A" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_sIWN8QM5EeWWbMjTqzYc1A" type="_lhLFoAM5EeWWbMjTqzYc1A" association="_sIEhIAM5EeWWbMjTqzYc1A"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_spH_wAM5EeWWbMjTqzYc1A" memberEnd="_spIm0gM5EeWWbMjTqzYc1A _spIm0wM5EeWWbMjTqzYc1A">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_spIm0AM5EeWWbMjTqzYc1A" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_spIm0QM5EeWWbMjTqzYc1A" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_spIm0wM5EeWWbMjTqzYc1A" type="_jt_QwAM5EeWWbMjTqzYc1A" association="_spH_wAM5EeWWbMjTqzYc1A"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_xQPxUAM4EeWWbMjTqzYc1A" client="_qA5OsAM4EeWWbMjTqzYc1A" supplier="_bQLMYAM4EeWWbMjTqzYc1A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_y3pENACLEeWudc8agGQ04Q" name="illustrates" client="_y3pEMwCLEeWudc8agGQ04Q" supplier="_y3pEMgCLEeWudc8agGQ04Q"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_y3pENwCLEeWudc8agGQ04Q" name="realizes" client="_y3pENgCLEeWudc8agGQ04Q" supplier="_y3pEMwCLEeWudc8agGQ04Q"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_y3pEOQCLEeWudc8agGQ04Q" name="verifies" client="_y3pEOACLEeWudc8agGQ04Q" supplier="_y3pEMwCLEeWudc8agGQ04Q"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_y3pEOgCLEeWudc8agGQ04Q" name="tests" client="_y3pEOACLEeWudc8agGQ04Q" supplier="_y3pENgCLEeWudc8agGQ04Q"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_nKpIAALwEeW1-e4oerqxMg" client="_FNBpcALkEeWy2L7kEYTJVw" supplier="_H3xwAP_lEeScYo8tuJyy0A"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_LFAN0AMCEeW1-e4oerqxMg" client="_FNBpcALkEeWy2L7kEYTJVw" supplier="_BwcAgP_0EeScYo8tuJyy0A"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_6GeUgAMfEeWWbMjTqzYc1A" client="_nvdy4AMdEeWWbMjTqzYc1A" supplier="_e-QjYP_lEeScYo8tuJyy0A"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_JseZAAMgEeWWbMjTqzYc1A" client="_nvdy4AMdEeWWbMjTqzYc1A" supplier="_zJRGUP_0EeScYo8tuJyy0A"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_3uMpAAM0EeWWbMjTqzYc1A" client="_3_HiEAMBEeW1-e4oerqxMg" supplier="__JdhwP_0EeScYo8tuJyy0A"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_OLiYwAM1EeWWbMjTqzYc1A" client="_3_HiEAMBEeW1-e4oerqxMg" supplier="_NlpXIP_4EeScYo8tuJyy0A"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_etPloAM3EeWWbMjTqzYc1A" client="_XpZaUAM1EeWWbMjTqzYc1A" supplier="__JdhwP_0EeScYo8tuJyy0A"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_kY4SwAM3EeWWbMjTqzYc1A" client="_XpZaUAM1EeWWbMjTqzYc1A" supplier="_lWa_UP_lEeScYo8tuJyy0A"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_EtQuMAM6EeWWbMjTqzYc1A" client="_jt_QwAM5EeWWbMjTqzYc1A" supplier="_H3xwAP_lEeScYo8tuJyy0A _e-QjYP_lEeScYo8tuJyy0A _NlpXIP_4EeScYo8tuJyy0A"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_4X_lMAM6EeWWbMjTqzYc1A" client="_lhLFoAM5EeWWbMjTqzYc1A" supplier="_lWa_UP_lEeScYo8tuJyy0A _e-QjYP_lEeScYo8tuJyy0A"/>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_y3pEOwCLEeWudc8agGQ04Q">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_y3pEPACLEeWudc8agGQ04Q" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEPQCLEeWudc8agGQ04Q" key="Version" value="0.0.7"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEPgCLEeWudc8agGQ04Q" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEPwCLEeWudc8agGQ04Q" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEQACLEeWudc8agGQ04Q" key="Date" value="2014-11-26"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEQQCLEeWudc8agGQ04Q" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_y3pEQgCLEeWudc8agGQ04Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://DEVELOPER_PROFILES/developerprocess.profile.uml#_rplkQXVxEeSZ-fQGFkyJeQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://DEVELOPER_PROFILES/developerprocess.profile.uml#_kWqjAMbXEeO09JBvNFZRNw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_y3pEQwCLEeWudc8agGQ04Q">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_y3pERACLEeWudc8agGQ04Q" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pERQCLEeWudc8agGQ04Q" key="Version" value="0.0.7"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pERgCLEeWudc8agGQ04Q" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pERwCLEeWudc8agGQ04Q" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pESACLEeWudc8agGQ04Q" key="Date" value="2014-11-26"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pESQCLEeWudc8agGQ04Q" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_y3pESgCLEeWudc8agGQ04Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://DEVELOPER_PROFILES/developerprocess.profile.uml#_rpmyYHVxEeSZ-fQGFkyJeQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://DEVELOPER_PROFILES/developerprocess.profile.uml#_qCT3MMbXEeO09JBvNFZRNw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_y3pESwCLEeWudc8agGQ04Q">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_y3pETACLEeWudc8agGQ04Q" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pETQCLEeWudc8agGQ04Q" key="Version" value="0.0.7"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pETgCLEeWudc8agGQ04Q" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pETwCLEeWudc8agGQ04Q" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEUACLEeWudc8agGQ04Q" key="Date" value="2014-11-26"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEUQCLEeWudc8agGQ04Q" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_y3pEUgCLEeWudc8agGQ04Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://DEVELOPER_PROFILES/developerprocess.profile.uml#_rpnZcXVxEeSZ-fQGFkyJeQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://DEVELOPER_PROFILES/developerprocess.profile.uml#_2LNtQMbYEeO09JBvNFZRNw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_y3pEUwCLEeWudc8agGQ04Q">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_y3pEVACLEeWudc8agGQ04Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/0.7.0/SysML#//requirements"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML_PROFILES/SysML.profile.uml#_OOJC4LX8EduFmqQsrNB9lw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_y3pEVQCLEeWudc8agGQ04Q">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_y3pEVgCLEeWudc8agGQ04Q" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEVwCLEeWudc8agGQ04Q" key="Version" value="0.0.11"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEWACLEeWudc8agGQ04Q" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEWQCLEeWudc8agGQ04Q" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEWgCLEeWudc8agGQ04Q" key="Date" value="2014-11-14"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y3pEWwCLEeWudc8agGQ04Q" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_y3pEXACLEeWudc8agGQ04Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://DEVELOPER_PROFILES/Document.profile.uml#_RQrLoWwBEeSIYu1Ih2FYyQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://DEVELOPER_PROFILES/Document.profile.uml#_D0JcUMnzEeO9CYUoXDRplw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w2fvAACPEeWudc8agGQ04Q">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w2gWEACPEeWudc8agGQ04Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_aR0Q4ALvEeW1-e4oerqxMg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_aR1fAALvEeW1-e4oerqxMg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
+  </uml:Model>
+  <structure:Project xmi:id="_y3pEXQCLEeWudc8agGQ04Q" author="Christian W. Damus" version="1.1" base_Model="_y3pEMACLEeWudc8agGQ04Q" title="Generic Model Synchronization Framework"/>
+  <structure:Requirements xmi:id="_y3pEXgCLEeWudc8agGQ04Q" base_Model="_y3pEMgCLEeWudc8agGQ04Q"/>
+  <structure:UseCases xmi:id="_y3pEXwCLEeWudc8agGQ04Q" base_Model="_y3pEMwCLEeWudc8agGQ04Q"/>
+  <structure:Design xmi:id="_y3pEYACLEeWudc8agGQ04Q" base_Model="_y3pENgCLEeWudc8agGQ04Q"/>
+  <structure:Tests xmi:id="_y3pEYQCLEeWudc8agGQ04Q" base_Model="_y3pEOACLEeWudc8agGQ04Q"/>
+  <Requirements:Requirement xmi:id="_H33PkP_lEeScYo8tuJyy0A" text="The framework SHALL support the automatic synchronization of model semantics. For example, a state machine in a subclass that redefines a state machine in a superclass must always define regions, vertices, and transitions corresponding to and redefining the regions, vertices, and transitions of the superclass state machine." id="R1" base_Class="_H3xwAP_lEeScYo8tuJyy0A"/>
+  <Requirements:Requirement xmi:id="_e-RxgP_lEeScYo8tuJyy0A" text="The framework SHALL support automatic synchronization of the layout of diagrams. For example, a state machine diagram in a subclass that redefines a state machine in a superclass initially presents the same layout as the superclass state machine and changes in the superclass state machine diagram layout are reflected in the subclass." id="R2" base_Class="_e-QjYP_lEeScYo8tuJyy0A"/>
+  <Requirements:Requirement xmi:id="_lWbmYP_lEeScYo8tuJyy0A" text="Synchronization of diagram layout SHALL be optional. Initially, a diagram is synchronized with the diagram that it redefines, but as needed to effect a sensible layout of the redefining diagram, this synchronization may be broken by the user. The semantics remain synchronized, and some graphical views may remain synchronized, but the user may freely rearrange other views as required by the redefining context." id="R2.1" base_Class="_lWa_UP_lEeScYo8tuJyy0A"/>
+  <Requirements:Requirement xmi:id="_NlqlQP_4EeScYo8tuJyy0A" text="The framework SHALL support the creation of additional elements in the target of a model-to-model synchronization.  For example, the state machine of a UML-RT Capsule may add vertices, transitions, and regions in addition to those that are synchronized from (and redefined) the vertices, transitions, and regions of the parent Capsule.  Moreover, transitions that redefine transitions in the parent Capsule may be re-targeted to (or re-sourced from) vertices that are added by the redefining state machine." id="R1.1" base_Class="_NlpXIP_4EeScYo8tuJyy0A"/>
+  <standard:Refine xmi:id="_vaOv4ACQEeWudc8agGQ04Q" base_Abstraction="_obO-sP_mEeScYo8tuJyy0A"/>
+  <standard:Trace xmi:id="_zvkN4ACPEeWudc8agGQ04Q" base_Abstraction="_ZPkSgP_2EeScYo8tuJyy0A"/>
+  <standard:Trace xmi:id="_0ntW0ACPEeWudc8agGQ04Q" base_Abstraction="_PQN4AP_3EeScYo8tuJyy0A"/>
+  <standard:Trace xmi:id="_1crP8ACPEeWudc8agGQ04Q" base_Abstraction="_vHLCgP_3EeScYo8tuJyy0A"/>
+  <standard:Trace xmi:id="_2JZMAACPEeWudc8agGQ04Q" base_Abstraction="_1OBsAP_3EeScYo8tuJyy0A"/>
+  <standard:Trace xmi:id="_239iMACPEeWudc8agGQ04Q" base_Abstraction="_8iwBYP_4EeScYo8tuJyy0A"/>
+  <standard:Trace xmi:id="_3pwLgACPEeWudc8agGQ04Q" base_Abstraction="_-hv6IP_3EeScYo8tuJyy0A"/>
+  <standard:Refine xmi:id="_h2XFwACREeWudc8agGQ04Q" base_Abstraction="_h2TbYACREeWudc8agGQ04Q"/>
+  <Requirements:Satisfy xmi:id="_pdy2YALwEeW1-e4oerqxMg" base_Abstraction="_nKpIAALwEeW1-e4oerqxMg"/>
+  <standard:Trace xmi:id="_PzZ2oAMCEeW1-e4oerqxMg" base_Abstraction="_LFAN0AMCEeW1-e4oerqxMg"/>
+  <standard:Trace xmi:id="_MlxhYAMgEeWWbMjTqzYc1A" base_Abstraction="_JseZAAMgEeWWbMjTqzYc1A"/>
+  <Requirements:Satisfy xmi:id="_R-KiYAMgEeWWbMjTqzYc1A" base_Abstraction="_6GeUgAMfEeWWbMjTqzYc1A"/>
+  <standard:Trace xmi:id="_6RtuoAM0EeWWbMjTqzYc1A" base_Abstraction="_3uMpAAM0EeWWbMjTqzYc1A"/>
+  <Requirements:Satisfy xmi:id="_RtbLIAM1EeWWbMjTqzYc1A" base_Abstraction="_OLiYwAM1EeWWbMjTqzYc1A"/>
+  <standard:Trace xmi:id="_hhyJ0AM3EeWWbMjTqzYc1A" base_Abstraction="_etPloAM3EeWWbMjTqzYc1A"/>
+  <Requirements:Satisfy xmi:id="_la5wcAM3EeWWbMjTqzYc1A" base_Abstraction="_kY4SwAM3EeWWbMjTqzYc1A"/>
+  <Requirements:Verify xmi:id="_K9D4UAM6EeWWbMjTqzYc1A" base_Abstraction="_EtQuMAM6EeWWbMjTqzYc1A"/>
+  <Requirements:Verify xmi:id="_5zUTsAM6EeWWbMjTqzYc1A" base_Abstraction="_4X_lMAM6EeWWbMjTqzYc1A"/>
+</xmi:XMI>

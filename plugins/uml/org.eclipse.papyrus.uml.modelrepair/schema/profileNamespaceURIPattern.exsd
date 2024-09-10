@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.papyrus.uml.modelrepair" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.eclipse.papyrus.uml.modelrepair" id="profileNamespaceURIPattern" name="Profile Namespace URI Pattern"/>
+      </appinfo>
+      <documentation>
+         This extension point is for supporting the profile migration mechanism in Papyrus.
+It provides a regex pattern that identifies the namespace URIs of a profile and enables to extract version information from the URI through pattern groups.
+During the migration, only the namespace URIs minus the version information is used to identify profiles.
+Even if no version information is encoded in the URI, profile providers may use this extension point to enable the automatic migration of their profiles within Papyrus.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="profileNamespaceURIPattern"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="profileNamespaceURIPattern">
+      <complexType>
+         <attribute name="uriPattern" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Regex pattern identifying profile namespace URIs during the profile migration. Groups in the pattern are used to extract versioning information.
+Backslashes (&apos;\&apos;) should not be escaped.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="versionFormat" type="string">
+            <annotation>
+               <documentation>
+                  MessageFormat string to produce the versioning string from the groups extracted by the uriPattern. Indices in the format correspond to the indices of the groups matched by the pattern, e.g., {0} refers to group zero holding the entire matched namespace URI and {1} refers to the first matched group. If no format is provided, a comma-separated version string is produced.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         1.2.1
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="examples"/>
+      </appinfo>
+      <documentation>
+         &lt;p&gt;&lt;strong&gt;Namespace URI Matching&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;Example&quot;&gt;
+&lt;span class=&quot;code SchemaTag&quot;&gt;&amp;lt;extension point=&lt;/span&gt;&lt;span class=&quot;code SchemaCstring&quot;&gt;&quot;org.eclipse.papyrus.uml.modelrepair.profileNamespaceURIPattern&quot;&lt;/span&gt;&lt;span class=&quot;code SchemaTag&quot;&gt;&amp;gt;&lt;/span&gt; 
+   &lt;span class=&quot;code SchemaTag&quot;&gt;&amp;lt;profileNamespaceURIPattern&lt;/span&gt; &lt;span class=&quot;code SchemaTag&quot;&gt;uriPattern=&lt;/span&gt;&lt;span class=&quot;code SchemaCstring&quot;&gt;&quot;^http://www\.eclipse\.org/my/profile/version/([^/]+)/Language/([^/]+)/.*$&quot;&lt;/span&gt; &lt;span class=&quot;code SchemaTag&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;code SchemaTag&quot;&gt;&amp;lt;/extension&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Input URI A: http://www.eclipse.org/my/profile/version/7/Language/7.0.1/PackageA&lt;/p&gt;
+&lt;ul&gt;
+   &lt;li&gt;Matched Namespace URI: &quot;http://www.eclipse.org/my/profile/version/7/Language/7.0.1/PackageA&quot;&lt;/li&gt;
+   &lt;li&gt;Versionless Namespace URI: &quot;http://www.eclipse.org/my/profile/version//Language//PackageA&quot;&lt;/li&gt;
+   &lt;li&gt;Version: &quot;7,7.0.1&quot; (default format)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Input URI B: http://www.eclipse.org/my/profile/version/7/Language/7.0.1/PackageB&lt;/p&gt;
+&lt;ul&gt;
+   &lt;li&gt;Matched Namespace URI: &quot;http://www.eclipse.org/my/profile/version/7/Language/7.0.1/PackageA&quot;&lt;/li&gt;
+   &lt;li&gt;Versionless Namespace URI: &quot;http://www.eclipse.org/my/profile/version//Language//PackageB&quot;&lt;/li&gt;
+   &lt;li&gt;Version: &quot;7,7.0.1&quot; (default format)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Input URI C: http://www.eclipse.org/my/profile/version/6/Language/6.0/PackageB&lt;/p&gt;
+&lt;ul&gt;
+   &lt;li&gt;Matched Namespace URI: &quot;http://www.eclipse.org/my/profile/version/6/Language/6.0/PackageB&quot;&lt;/li&gt;
+   &lt;li&gt;Versionless Namespace URI: &quot;http://www.eclipse.org/my/profile/version//Language//PackageB&quot;&lt;/li&gt;
+   &lt;li&gt;Version: &quot;6,6.0&quot; (default format)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;During the migration, input B and C are treated as the same profile, just with a different version, whereas input A is considered as a different profile.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Version Formatting&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;Example&quot;&gt;
+&lt;span class=&quot;code SchemaTag&quot;&gt;&amp;lt;profileNamespaceURIPattern ... &lt;/span&gt;&lt;span class=&quot;code SchemaTag&quot;&gt;versionFormat=&lt;/span&gt;&lt;span class=&quot;code SchemaCstring&quot;&gt;&quot;-{1}-&quot;&lt;/span&gt;&lt;span class=&quot;code SchemaTag&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Input URI A: http://www.eclipse.org/my/profile/version/7/Language/PackageA&lt;/p&gt;
+&lt;ul&gt;
+   &lt;li&gt;Version: &quot;-7-&quot;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre class=&quot;Example&quot;&gt;
+&lt;span class=&quot;code SchemaTag&quot;&gt;&amp;lt;profileNamespaceURIPattern ... &lt;/span&gt;&lt;span class=&quot;code SchemaTag&quot;&gt;versionFormat=&lt;/span&gt;&lt;span class=&quot;code SchemaCstring&quot;&gt;&quot;{1} - {2}&quot;&lt;/span&gt;&lt;span class=&quot;code SchemaTag&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Input URI A: http://www.eclipse.org/my/profile/version/7/Language/7.0.1/PackageA&lt;/p&gt;
+&lt;ul&gt;
+   &lt;li&gt;Version: &quot;7 - 7.0.1&quot;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre class=&quot;Example&quot;&gt;
+&lt;span class=&quot;code SchemaTag&quot;&gt;&amp;lt;profileNamespaceURIPattern ... &lt;/span&gt;&lt;span class=&quot;code SchemaTag&quot;&gt;versionFormat=&lt;/span&gt;&lt;span class=&quot;code SchemaCstring&quot;&gt;&quot;{0} | {1}&quot;&lt;/span&gt;&lt;span class=&quot;code SchemaTag&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Input URI A: http://www.eclipse.org/my/profile/version/7/Language/7.0.1/PackageA&lt;/p&gt;
+&lt;ul&gt;
+   &lt;li&gt;Version: &quot;http://www.eclipse.org/my/profile/version/7/Language/7.0.1/PackageA | 7&quot;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Special index zero conforms to group zero of the pattern match, which is the entire matched namespace URI.&lt;/p&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="apiinfo"/>
+      </appinfo>
+      <documentation>
+         An internal registry (ProfileNamespaceURIPatternRegistry) is used to control the registering and unregistering of the profile namespace URI patterns.
+This registry is initialized with all extension points, but a programatical removal of provided patterns is possible.
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="copyright"/>
+      </appinfo>
+      <documentation>
+         /*****************************************************************************
+         * Copyright (c) 2016 EclipseSource and others.
+         *
+         *    
+         * All rights reserved. This program and the accompanying materials
+         * are made available under the terms of the Eclipse Public License 2.0
+         * which accompanies this distribution, and is available at
+         * https://www.eclipse.org/legal/epl-2.0/
+         *
+         * SPDX-License-Identifier: EPL-2.0
+         *
+         * Contributors:
+         * EclipseSource - Initial API and implementation
+         *
+         *****************************************************************************/
+      </documentation>
+   </annotation>
+
+</schema>

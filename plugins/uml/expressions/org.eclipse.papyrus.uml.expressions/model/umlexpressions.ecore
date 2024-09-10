@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="umlexpressions" nsURI="http://www.eclipse.org/papyrus/umlexpressions"
+    nsPrefix="umlexpressions">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+    <details key="documentation" value="A string representing the expected value."/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <details key="originalName" value="UMLExpressions"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="IsStereotypedWithExpression" eSuperTypes="#//AbstractStereotypeExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This expression to use to ckech if a UML object is stereotyped with the expected stereotype.&#xD;&#xA;The evaluate method returns TRUE when the object is stereotyped by the stereotype identified by its qualified and when the stereotype comes from a profile with the sasme URI profile has expected.&#xD;&#xA;URI profile field is not mandatory for the test."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractStereotypeExpression" abstract="true"
+      eSuperTypes="../../org.eclipse.papyrus.infra.emf.expressions/model/expressions.ecore#//booleanexpressions/IBooleanEObjectExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Abstract Expression working on stereotype. This expression allows to represent a stereotype using its qualified name."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stereotypeQualifiedName"
+        ordered="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The qualified name of the required stereotype."/>
+        <details key="propertyEditorFactory" value="http://www.eclipse.org/papyrus/umlExpressions/StereotypeExpression/StereotypeQualifiedName"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="profileURI" ordered="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The URI of the profile owning the stereotype.&#xD;&#xA;The URI can be null or empty. In this case, we don't check the URI of the profile providing the Stereotype."/>
+        <details key="propertyEditorFactory" value="http://www.eclipse.org/papyrus/umlExpressions/StereotypeExpression/ProfileURI"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HasAppliedStereotypesExpression" eSuperTypes="../../org.eclipse.papyrus.infra.emf.expressions/model/expressions.ecore#//booleanexpressions/IBooleanEObjectExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This expressions tests is stereotypes are applied on the object.&#xD;&#xA;The evaluate method returns TRUE if at least one Stereotype is applied on the object.&#xD;&#xA;The evaluate method returns FALSE if no Stereotype is applied on the object.&#xD;&#xA;The evaluate method returns FALSE when the argument is NULL.&#xD;&#xA;The evaluate method returns FALSE when the argument is not an instance of UML::Element"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IsTypeOfExpression" eSuperTypes="#//AbstractUMLEClassExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>The evaluate methods returns True if the argument&amp;nbsp;has the&amp;nbsp;same type thant the excepted metaclass.&lt;/p>&#xA;&#xA;&lt;p>If the metaclass is not defined, the evaluate method returns False.&lt;/p>&#xA;"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractUMLEClassExpression" abstract="true"
+      eSuperTypes="../../org.eclipse.papyrus.infra.emf.expressions/model/expressions.ecore#//booleanexpressions/IBooleanEObjectExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This expression allows to represent a UML Metaclass (Ecore EClass)."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="umlEClass" ordered="false"
+        eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="propertyEditorFactory" value="http://www.eclipse.org/papyrus/umlExpressions/UMLEClassExpression/UMLEClass"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IsKindOfExpression" eSuperTypes="#//AbstractUMLEClassExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>The evaluate methods returns True if the arguments is an instance of the expected metaclass.&lt;/p>&#xA;&#xA;&lt;p>If the metaclass is not defined, the evaluate method returns False.&lt;/p>&#xA;"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IsKindOfStereotypeExpression" eSuperTypes="#//AbstractStereotypeExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This expression is used to ckech if a UML object is stereotyped with the expected stereotype.&#xD;&#xA;The evaluate method returns TRUE when the object is stereotyped by the stereotype identified by its qualified name&#xD;&#xA;"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IsTypeOfStereotypeExpression" eSuperTypes="#//AbstractStereotypeExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This expression is used to ckech if a UML object is stereotyped with the expected stereotype or with a stereotype instance of the expected stereotype.&#xD;&#xA;The evaluate method returns TRUE when the object is stereotyped by the stereotype identified by its qualified name or by a stereotype instanceof the identified stereotype&#xD;&#xA;"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SingleStereotypeAttributeEqualityExpression"
+      eSuperTypes="#//AbstractStereotypeExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This expression allows to check equality between the current property value of the context object and the expected value. &#xD;&#xA;The evaluate method returns true, in case of equality and false otherwise.&#xD;&#xA;If the propertyName or the stereotypeQualifiedName are not defined, the evalute methods retuns false."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expectedValue" ordered="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertyName" ordered="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The name of the stereotype property. &#xD;&#xA;The property must be single valued and typde with a PrimitiveTypes"/>
+        <details key="propertyEditorFactory" value="http://www.eclipse.org/papyrus/umlExpressions/StereotypeAttributeEqualityExpression/AttributeName"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>

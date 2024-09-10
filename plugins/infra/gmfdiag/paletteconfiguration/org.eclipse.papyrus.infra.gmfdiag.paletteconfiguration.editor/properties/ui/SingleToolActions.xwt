@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite xmlns="http://www.eclipse.org/xwt/presentation"
+	xmlns:edt="clr-namespace:org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.widgets.editors"
+	xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns:x="http://www.eclipse.org/xwt">
+	<Composite.layout>
+		<ppel:PropertiesLayout></ppel:PropertiesLayout>
+	</Composite.layout>
+	<edt:PaletteToolActionsPropertyEditor
+		input="{Binding}" property="paletteconfiguration:DrawerConfiguration:ownedConfigurations"></edt:PaletteToolActionsPropertyEditor>
+</Composite>

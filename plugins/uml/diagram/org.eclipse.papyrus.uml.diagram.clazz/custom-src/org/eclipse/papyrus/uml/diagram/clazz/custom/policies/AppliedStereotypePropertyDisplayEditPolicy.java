@@ -1,0 +1,51 @@
+/*****************************************************************************
+ * Copyright (c) 2009 CEA LIST.
+ *
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *  Remi Schnekenburger (CEA LIST) remi.schnekenburger@cea.fr - Initial API and implementation
+ *   Nizar GUEDIDI (CEA LIST) - Update getUMLElement()
+ *
+ *****************************************************************************/
+package org.eclipse.papyrus.uml.diagram.clazz.custom.policies;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.papyrus.uml.diagram.common.editpolicies.AbstractAppliedStereotypeDisplayEditPolicy;
+import org.eclipse.papyrus.uml.diagram.common.helper.PropertyLabelHelper;
+import org.eclipse.uml2.uml.Property;
+
+/**
+ * Specific edit policy for label displaying stereotypes and their properties for edges representing
+ * UML elements.
+ */
+public class AppliedStereotypePropertyDisplayEditPolicy extends AbstractAppliedStereotypeDisplayEditPolicy {
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected Property getUMLElement() {
+		EObject element = super.getUMLElement();
+		if (element instanceof Property) {
+			return (Property) element;
+		}
+		return null;
+	};
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void refreshDisplay() {
+		// calls the helper for this edit Part
+		PropertyLabelHelper.getInstance().refreshEditPartDisplay((GraphicalEditPart) getHost());
+	}
+}

@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Require-Bundle: org.eclipse.emf.databinding;bundle-version="[1.5.0,2.0.0)",
+ org.eclipse.papyrus.infra.tools;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.junit.framework;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.junit.utils;bundle-version="[7.0.0,8.0.0)",
+ org.junit;bundle-version="[4.13.0,5.0.0)",
+ org.eclipse.core.resources;bundle-version="[3.13.900,4.0.0)",
+ org.eclipse.core.runtime;bundle-version="[3.20.0,4.0.0)",
+ org.eclipse.jdt.core;bundle-version="[3.24.0,4.0.0)",
+ org.eclipse.core.databinding.beans;bundle-version="[1.9.0,2.0.0)",
+ org.eclipse.core.databinding.property;bundle-version="[1.9.0,2.0.0)"
+Export-Package: org.eclipse.papyrus.infra.tools.databinding,
+ org.eclipse.papyrus.infra.tools.tests,
+ org.eclipse.papyrus.infra.tools.util
+Bundle-Vendor: Eclipse Modeling Project
+Bundle-Version: 7.0.0.qualifier
+Bundle-Name: Papyrus Infrastructure Tools Tests
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.eclipse.papyrus.infra.tools.tests;singleton:=true
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Import-Package: com.google.common.collect;version="[33.2.0,33.3.0)"
+Automatic-Module-Name: org.eclipse.papyrus.infra.tools.tests
+Eclipse-BundleShape: dir

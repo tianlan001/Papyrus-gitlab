@@ -1,0 +1,58 @@
+/**
+ * Test various operator expressions.
+ **/
+active class Expressions_Operator {
+
+	class Monitor {
+
+		public getActiveSensor(): Sensor;
+		@Create
+		public Monitor();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Sensor {
+
+		public getReading(): Integer;
+		@Create
+		public Sensor();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Person {
+
+		@Create
+		public Person();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Employee specializes Person {
+
+		public id: Integer;
+		public name: String;
+		@Create
+		public Employee();
+		@Destroy
+		public destroy();
+
+	}
+
+	test(out i: Integer, out j: Integer, out bs: BitString, out h: Integer,
+		out a: Boolean, out b: Boolean, out c: Boolean, out d: Boolean,
+		out e: Boolean, out e1: Boolean, out e2: Boolean, out e3: Boolean,
+		out e4: Boolean, out e5: Boolean, out e6: Boolean, out e7: Boolean,
+		out e8: Boolean, out e9: Boolean, out f: Boolean, out f1: Boolean,
+		out f2: Boolean, out x: any, out y: any[0..*] sequence, out z: Integer[0..*],
+		out r: Integer);
+	@Create
+	public Expressions_Operator();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Operator$behavior$1'

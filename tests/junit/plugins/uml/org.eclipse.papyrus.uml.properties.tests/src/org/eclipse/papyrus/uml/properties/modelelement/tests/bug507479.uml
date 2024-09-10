@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Sot0IHi_EeizYruIlswaLQ" name="model">
+  <packagedElement xmi:type="uml:Class" xmi:id="_V4QSQHi_EeizYruIlswaLQ" name="Foo" classifierBehavior="_aYuMwHi_EeizYruIlswaLQ" isActive="true">
+    <ownedBehavior xmi:type="uml:Interaction" xmi:id="_aYuMwHi_EeizYruIlswaLQ" name="doIt">
+      <lifeline xmi:id="_b8u9MHi_EeizYruIlswaLQ" name="a" coveredBy="_i6VBcHi_EeizYruIlswaLQ _6u_wgHi_EeizYruIlswaLQ _4Ax2wHi_EeizYruIlswaLQ"/>
+      <lifeline xmi:id="_c2R0UHi_EeizYruIlswaLQ" name="b" coveredBy="_kj188Hi_EeizYruIlswaLQ _6u_wgHi_EeizYruIlswaLQ _4Ax2wHi_EeizYruIlswaLQ"/>
+      <lifeline xmi:id="_dAHs0Hi_EeizYruIlswaLQ" name="c"/>
+      <fragment xmi:type="uml:CombinedFragment" xmi:id="_4Ax2wHi_EeizYruIlswaLQ" name="cfrag" covered="_b8u9MHi_EeizYruIlswaLQ _c2R0UHi_EeizYruIlswaLQ" interactionOperator="opt">
+        <operand xmi:id="_6u_wgHi_EeizYruIlswaLQ" name="opt" covered="_b8u9MHi_EeizYruIlswaLQ _c2R0UHi_EeizYruIlswaLQ">
+          <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_i6VBcHi_EeizYruIlswaLQ" name="send" covered="_b8u9MHi_EeizYruIlswaLQ" message="_mgSbgHi_EeizYruIlswaLQ"/>
+          <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_kj188Hi_EeizYruIlswaLQ" name="recv" covered="_c2R0UHi_EeizYruIlswaLQ" message="_mgSbgHi_EeizYruIlswaLQ"/>
+          <guard xmi:id="_CU38wHjAEeizYruIlswaLQ">
+            <specification xmi:type="uml:LiteralBoolean" xmi:id="_E0eLsHjAEeizYruIlswaLQ" value="true"/>
+          </guard>
+        </operand>
+      </fragment>
+      <message xmi:id="_mgSbgHi_EeizYruIlswaLQ" name="hello" messageSort="asynchSignal" receiveEvent="_kj188Hi_EeizYruIlswaLQ" sendEvent="_i6VBcHi_EeizYruIlswaLQ"/>
+    </ownedBehavior>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_HBI3kHjAEeizYruIlswaLQ" name="Bar" classifierBehavior="_HBI3kXjAEeizYruIlswaLQ" isActive="true">
+    <ownedBehavior xmi:type="uml:Interaction" xmi:id="_HBI3kXjAEeizYruIlswaLQ" name="forbidden">
+      <lifeline xmi:id="_HBI3knjAEeizYruIlswaLQ" name="a" coveredBy="_HBI3l3jAEeizYruIlswaLQ _HBI3lnjAEeizYruIlswaLQ _HBI3lXjAEeizYruIlswaLQ"/>
+      <lifeline xmi:id="_HBI3k3jAEeizYruIlswaLQ" name="b" coveredBy="_HBI3mHjAEeizYruIlswaLQ _HBI3lnjAEeizYruIlswaLQ _HBI3lXjAEeizYruIlswaLQ"/>
+      <lifeline xmi:id="_HBI3lHjAEeizYruIlswaLQ" name="c"/>
+      <fragment xmi:type="uml:CombinedFragment" xmi:id="_HBI3lXjAEeizYruIlswaLQ" name="cfrag" covered="_HBI3knjAEeizYruIlswaLQ _HBI3k3jAEeizYruIlswaLQ" interactionOperator="opt">
+        <operand xmi:id="_HBI3lnjAEeizYruIlswaLQ" name="opt" covered="_HBI3knjAEeizYruIlswaLQ _HBI3k3jAEeizYruIlswaLQ">
+          <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_HBI3l3jAEeizYruIlswaLQ" name="send" covered="_HBI3knjAEeizYruIlswaLQ" message="_HBI3m3jAEeizYruIlswaLQ"/>
+          <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_HBI3mHjAEeizYruIlswaLQ" name="recv" covered="_HBI3k3jAEeizYruIlswaLQ" message="_HBI3m3jAEeizYruIlswaLQ"/>
+          <guard xmi:id="_HBI3mXjAEeizYruIlswaLQ">
+            <specification xmi:type="uml:LiteralBoolean" xmi:id="_HBI3mnjAEeizYruIlswaLQ" value="true"/>
+          </guard>
+        </operand>
+      </fragment>
+      <message xmi:id="_HBI3m3jAEeizYruIlswaLQ" name="greet" messageSort="asynchSignal" receiveEvent="_HBI3mHjAEeizYruIlswaLQ" sendEvent="_HBI3l3jAEeizYruIlswaLQ"/>
+    </ownedBehavior>
+  </packagedElement>
+</uml:Model>

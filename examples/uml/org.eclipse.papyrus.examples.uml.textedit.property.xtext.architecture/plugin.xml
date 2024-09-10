@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.architecture.models">
+      <model
+            path="model/umlXtextProperty.architecture">
+      </model>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.ui.papyrusDiagram">
+      <editorDiagram
+            actionBarContributorId="org.eclipse.papyrus.infra.textedit.xtext.PapyrusXTextActionBarContributor"
+            factoryClass="org.eclipse.papyrus.examples.uml.textedit.property.xtext.architecture.internal.factory.UMLPropertyXTextEditorFactory"
+            icon="icons/XTextUMLPropertyEditor.gif"
+            order="50">
+      </editorDiagram>
+   </extension>
+
+</plugin>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.configuration">
+      <configuration
+            file="configs/allocation.nattableconfiguration"
+            type="PapyrusDynamicAllocationTable">
+      </configuration>
+      <configuration
+            file="configs/requirement.nattableconfiguration"
+            type="PapyrusDynamicRequirementTable">
+      </configuration>
+   </extension>
+   
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.axismanager">
+      <axisManager
+            id="org.eclipse.papyrus.uml.nattable.dyanmic.requirement.axis.manager"
+            manager="org.eclipse.papyrus.uml.nattable.stereotyped.elements.tests.manager.axis.RequirementAxisManager">
+      </axisManager>
+      <axisManager
+            id="org.eclipse.papyrus.uml.nattable.dyanmic.allocate.axis.manager"
+            manager="org.eclipse.papyrus.uml.nattable.stereotyped.elements.tests.manager.axis.AllocateAxisManager">
+      </axisManager>
+   </extension>
+   
+
+</plugin>

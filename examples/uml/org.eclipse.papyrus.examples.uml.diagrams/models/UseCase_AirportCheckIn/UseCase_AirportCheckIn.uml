@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_kU-9oPSqEeiVfMSkLGiNpg" name="UseCase_AirportCheckIn">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_7wdJkPSqEeiVfMSkLGiNpg">
+    <body>https://www.uml-diagrams.org/airport-checkin-uml-use-case-diagram-example.html</body>
+  </ownedComment>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_kyCtEPSqEeiVfMSkLGiNpg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_qLCyEPSqEeiVfMSkLGiNpg" name="Minor Passenger">
+    <generalization xmi:type="uml:Generalization" xmi:id="_LqpVYPSrEeiVfMSkLGiNpg" general="_5w_zQPSqEeiVfMSkLGiNpg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_u3Ki8PSqEeiVfMSkLGiNpg" name="Passenger With Special Needs">
+    <generalization xmi:type="uml:Generalization" xmi:id="_MYmnkPSrEeiVfMSkLGiNpg" general="_5w_zQPSqEeiVfMSkLGiNpg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_4hCnQPSqEeiVfMSkLGiNpg" name="Tour Guide">
+    <generalization xmi:type="uml:Generalization" xmi:id="_NBE80PSrEeiVfMSkLGiNpg" general="_5w_zQPSqEeiVfMSkLGiNpg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_5w_zQPSqEeiVfMSkLGiNpg" name="Passenger"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_SPN1oPSrEeiVfMSkLGiNpg" name="Airport" useCase="_g7n_sPSrEeiVfMSkLGiNpg _k4ePwPSrEeiVfMSkLGiNpg _pjB6YPSrEeiVfMSkLGiNpg _syoC4PSrEeiVfMSkLGiNpg _zkW1YPSrEeiVfMSkLGiNpg _1mMxUPSrEeiVfMSkLGiNpg _5ZvUYPSrEeiVfMSkLGiNpg">
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_g7n_sPSrEeiVfMSkLGiNpg" name="Group Check-In" subject="_SPN1oPSrEeiVfMSkLGiNpg">
+      <include xmi:type="uml:Include" xmi:id="_HjQMwPSsEeiVfMSkLGiNpg" addition="_k4ePwPSrEeiVfMSkLGiNpg"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_k4ePwPSrEeiVfMSkLGiNpg" name="Individual Check-In" subject="_SPN1oPSrEeiVfMSkLGiNpg">
+      <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_Iy7E4PSsEeiVfMSkLGiNpg" name="ExtensionPoint1"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_pjB6YPSrEeiVfMSkLGiNpg" name="Baggage Check-In" subject="_SPN1oPSrEeiVfMSkLGiNpg">
+      <extend xmi:type="uml:Extend" xmi:id="_Iy6d0PSsEeiVfMSkLGiNpg" extendedCase="_k4ePwPSrEeiVfMSkLGiNpg" extensionLocation="_Iy7E4PSsEeiVfMSkLGiNpg"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_syoC4PSrEeiVfMSkLGiNpg" name="Security Screening" subject="_SPN1oPSrEeiVfMSkLGiNpg"/>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_zkW1YPSrEeiVfMSkLGiNpg" name="Kiosk Check-In" subject="_SPN1oPSrEeiVfMSkLGiNpg">
+      <generalization xmi:type="uml:Generalization" xmi:id="_MX3yUPSsEeiVfMSkLGiNpg" general="_k4ePwPSrEeiVfMSkLGiNpg"/>
+      <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_KW280PSsEeiVfMSkLGiNpg" name="ExtensionPoint1"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_1mMxUPSrEeiVfMSkLGiNpg" name="Counter Check-In" subject="_SPN1oPSrEeiVfMSkLGiNpg">
+      <generalization xmi:type="uml:Generalization" xmi:id="_L2kcEPSsEeiVfMSkLGiNpg" general="_k4ePwPSrEeiVfMSkLGiNpg"/>
+      <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_Jvy80PSsEeiVfMSkLGiNpg" name="ExtensionPoint1"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_5ZvUYPSrEeiVfMSkLGiNpg" name="Bandage handling" subject="_SPN1oPSrEeiVfMSkLGiNpg">
+      <extend xmi:type="uml:Extend" xmi:id="_JvyVwPSsEeiVfMSkLGiNpg" extendedCase="_1mMxUPSrEeiVfMSkLGiNpg" extensionLocation="_Jvy80PSsEeiVfMSkLGiNpg"/>
+      <extend xmi:type="uml:Extend" xmi:id="_KW2VwPSsEeiVfMSkLGiNpg" extendedCase="_zkW1YPSrEeiVfMSkLGiNpg" extensionLocation="_KW280PSsEeiVfMSkLGiNpg"/>
+    </ownedUseCase>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_AQM14PSsEeiVfMSkLGiNpg" memberEnd="_AQQgQPSsEeiVfMSkLGiNpg _AQSVcPSsEeiVfMSkLGiNpg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_AQPSIPSsEeiVfMSkLGiNpg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_AQPSIfSsEeiVfMSkLGiNpg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_AQQgQPSsEeiVfMSkLGiNpg" name="group check-in" type="_g7n_sPSrEeiVfMSkLGiNpg" association="_AQM14PSsEeiVfMSkLGiNpg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_AQSVcPSsEeiVfMSkLGiNpg" name="tour guide" type="_4hCnQPSqEeiVfMSkLGiNpg" association="_AQM14PSsEeiVfMSkLGiNpg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_BQIo4PSsEeiVfMSkLGiNpg" memberEnd="_BQJ3AfSsEeiVfMSkLGiNpg _BQKeEPSsEeiVfMSkLGiNpg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BQJP8PSsEeiVfMSkLGiNpg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BQJ3APSsEeiVfMSkLGiNpg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_BQJ3AfSsEeiVfMSkLGiNpg" name="individual check-in" type="_k4ePwPSrEeiVfMSkLGiNpg" association="_BQIo4PSsEeiVfMSkLGiNpg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_BQKeEPSsEeiVfMSkLGiNpg" name="passenger" type="_5w_zQPSqEeiVfMSkLGiNpg" association="_BQIo4PSsEeiVfMSkLGiNpg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_CqZncPSsEeiVfMSkLGiNpg" memberEnd="_CqbcovSsEeiVfMSkLGiNpg _Cqbco_SsEeiVfMSkLGiNpg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CqbcoPSsEeiVfMSkLGiNpg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CqbcofSsEeiVfMSkLGiNpg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_CqbcovSsEeiVfMSkLGiNpg" name="security screening" type="_syoC4PSrEeiVfMSkLGiNpg" association="_CqZncPSsEeiVfMSkLGiNpg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Cqbco_SsEeiVfMSkLGiNpg" name="passenger" type="_5w_zQPSqEeiVfMSkLGiNpg" association="_CqZncPSsEeiVfMSkLGiNpg"/>
+  </packagedElement>
+</uml:Model>

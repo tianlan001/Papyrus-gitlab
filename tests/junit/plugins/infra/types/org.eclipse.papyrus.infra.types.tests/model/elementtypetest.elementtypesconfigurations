@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<elementtypesconfigurations:ElementTypeSetConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:applystereotypeadvice="http://www.eclipse.org/papyrus/uml/types/applystereotypeadvice/1.1" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2" xmlns:invariantcontainerrule="http://www.eclipse.org/papyrus/emf/types/invariantcontainerrule/1.1" xmlns:invariantstereotyperule="http://www.eclipse.org/papyrus/uml/types/invariantstereotyperule/1.1" xmlns:rulebased="http://www.eclipse.org/papyrus/infra/types/rulebased/1.1" xmlns:setvaluesadvice="http://www.eclipse.org/papyrus/emf/types/setvaluesadvice/1.1" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_ScP1oFYCEeS0WsAAtVmToA" identifier="org.eclipse.papyrus.infra.types.tests.tests" name="Test element types" metamodelNsURI="http://www.eclipse.org/uml2/5.0.0/UML">
+  <elementTypeConfigurations xmi:type="rulebased:RuleBasedTypeConfiguration" xmi:id="org.eclipse.papyrus.infra.types.tests.specificcomponent" description="" identifier="org.eclipse.papyrus.infra.types.tests.specificcomponent" name="Component in specific package only" hint="ElementTypes" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+    <iconEntry xmi:type="elementtypesconfigurations:IconEntry" xmi:id="_FW5wwLg-EeS0cu6lbJ9jDQ" iconPath="icons/full/obj16/add_obj.gif" bundleId="org.eclipse.ui"/>
+    <specializedTypes xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Component"/>
+    <ruleConfiguration xmi:type="invariantcontainerrule:InvariantContainerRuleConfiguration" xmi:id="_N9YeYLg-EeS0cu6lbJ9jDQ">
+      <permissions xmi:type="invariantcontainerrule:HierarchyPermission" xmi:id="_Ow-egLg-EeS0cu6lbJ9jDQ" containerType="org.eclipse.papyrus.uml.Package"/>
+      <permissions xmi:type="invariantcontainerrule:HierarchyPermission" xmi:id="_QsZCULg-EeS0cu6lbJ9jDQ" containerType="org.eclipse.papyrus.infra.types.tests.packagewithcomponentsonly" permitted="true" strict="true"/>
+    </ruleConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xmi:type="rulebased:RuleBasedTypeConfiguration" xmi:id="org.eclipse.papyrus.infra.types.tests.packagewithcomponentsonly" description="Package that can contain only components" identifier="org.eclipse.papyrus.infra.types.tests.packagewithcomponentsonly" name="PackageWithComponentsOnly" hint="ElementTypes" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+    <specializedTypes xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Package"/>
+    <ruleConfiguration xmi:type="invariantstereotyperule:InvariantStereotypeRuleConfiguration" xmi:id="_mzVEQLg-EeS0cu6lbJ9jDQ" stereotypeQualifiedName="ElementTypesTestsProfile::PackageWithComponents" requiredProfile=""/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.infra.types.tests.aspectabstractclass" description="Semantic element type to create abstract classes" identifier="org.eclipse.papyrus.infra.types.tests.aspectabstractclass" name="Abstract Class Creation Action" hint="Abstract Class Creation Action" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+    <ownedAdvice xmi:type="setvaluesadvice:SetValuesAdviceConfiguration" xmi:id="_6Zq8QLg_EeS0cu6lbJ9jDQ" description="Aspect Semantic element type to create abstract classes" identifier="org.eclipse.papyrus.infra.types.tests.aspectabstractclass.advice" target="org.eclipse.papyrus.infra.types.tests.aspectabstractclass">
+      <featuresToSet xmi:type="setvaluesadvice:FeatureToSet" xmi:id="_7FIUELg_EeS0cu6lbJ9jDQ" featureName="isAbstract">
+        <value xmi:type="setvaluesadvice:ConstantValue" xmi:id="_-d4_oLg_EeS0cu6lbJ9jDQ">
+          <valueInstance xmi:type="uml:LiteralBoolean" xmi:id="__mUnULg_EeS0cu6lbJ9jDQ" value="true"/>
+        </value>
+      </featuresToSet>
+    </ownedAdvice>
+    <matcherConfiguration xmi:type="elementtypesconfigurations:MatcherConfiguration" xmi:id="_qI4JwNLXEeSAkKOodzTEYg" matcherClassName="org.eclipse.gmf.runtime.emf.type.core.NullElementMatcher"/>
+    <specializedTypes xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Class"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.infra.types.tests.classSimpleStereotype" description="Test elementTypeConfigurations" identifier="org.eclipse.papyrus.infra.types.tests.classSimpleStereotype" name="Class With Stereotype" hint="ElementElementTypeConfigurations" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+    <ownedAdvice xmi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_NEmxYLhAEeS0cu6lbJ9jDQ" identifier="org.eclipse.papyrus.infra.types.tests.classSimpleStereotype.advice" target="org.eclipse.papyrus.infra.types.tests.classSimpleStereotype">
+      <stereotypesToApply xmi:type="applystereotypeadvice:StereotypeToApply" xmi:id="_PuEG8LhAEeS0cu6lbJ9jDQ" stereotypeQualifiedName="ElementTypesTestsProfile::StereotypeWithFeaturesToSet">
+        <requiredProfiles>ElementTypesTestProfile</requiredProfiles>
+      </stereotypesToApply>
+    </ownedAdvice>
+    <matcherConfiguration xmi:type="elementtypesconfigurations:MatcherConfiguration" xmi:id="_8kqIkNLXEeSAkKOodzTEYg" matcherClassName="org.eclipse.gmf.runtime.emf.type.core.NullElementMatcher"/>
+    <specializedTypes xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Class"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.infra.types.tests.classSimpleStereotypeRename" description="Test elementTypeConfigurations" identifier="org.eclipse.papyrus.infra.types.tests.classSimpleStereotypeRename" name="Package With Stereotype And Renamed" hint="ElementElementTypeConfigurations" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+    <ownedAdvice xmi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_Z3bfkMy4EeS2aYvfnAB4ZA" identifier="org.eclipse.papyrus.infra.types.tests.classSimpleStereotypeRename.advice" target="org.eclipse.papyrus.infra.types.tests.classSimpleStereotypeRename">
+      <stereotypesToApply xmi:type="applystereotypeadvice:StereotypeToApply" xmi:id="_Z3bfkcy4EeS2aYvfnAB4ZA" stereotypeQualifiedName="ElementTypesTestsProfile::StereotypeWithFeaturesToSet" updateName="true">
+        <requiredProfiles>ElementTypesTestProfile</requiredProfiles>
+      </stereotypesToApply>
+    </ownedAdvice>
+    <matcherConfiguration xmi:type="elementtypesconfigurations:MatcherConfiguration" xmi:id="_8yABANLXEeSAkKOodzTEYg" matcherClassName="org.eclipse.gmf.runtime.emf.type.core.NullElementMatcher"/>
+    <specializedTypes xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Class"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.infra.types.tests.classSimpleStereotypeSetValues" description="Test elementTypeConfigurations" identifier="org.eclipse.papyrus.infra.types.tests.classSimpleStereotypeSetValues" name="Package With Stereotype And Renamed" hint="ElementElementTypeConfigurations" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+    <ownedAdvice xmi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_havkELhAEeS0cu6lbJ9jDQ" identifier="org.eclipse.papyrus.infra.types.tests.classSimpleStereotypeSetValues.advice" target="org.eclipse.papyrus.infra.types.tests.classSimpleStereotypeSetValues">
+      <stereotypesToApply xmi:type="applystereotypeadvice:StereotypeToApply" xmi:id="_vA53wLhAEeS0cu6lbJ9jDQ" stereotypeQualifiedName="ElementTypesTestsProfile::StereotypeWithFeaturesToSet" updateName="true">
+        <requiredProfiles>ElementTypesTestsProfile</requiredProfiles>
+        <featuresToSet xmi:type="applystereotypeadvice:FeatureToSet" xmi:id="__E3qoLhAEeS0cu6lbJ9jDQ" featureName="stringFeature">
+          <value xmi:type="applystereotypeadvice:ConstantValue" xmi:id="_DFSzILhBEeS0cu6lbJ9jDQ">
+            <valueInstance xmi:type="uml:LiteralString" xmi:id="_MDKGALhBEeS0cu6lbJ9jDQ" value="MyStringValue"/>
+          </value>
+        </featuresToSet>
+        <featuresToSet xmi:type="applystereotypeadvice:FeatureToSet" xmi:id="_A8odgLhBEeS0cu6lbJ9jDQ" featureName="value">
+          <value xmi:type="applystereotypeadvice:ConstantValue" xmi:id="_Eb_gULhBEeS0cu6lbJ9jDQ">
+            <valueInstance xmi:type="uml:LiteralInteger" xmi:id="_Gt4qcLhBEeS0cu6lbJ9jDQ" value="3"/>
+          </value>
+        </featuresToSet>
+        <featuresToSet xmi:type="applystereotypeadvice:FeatureToSet" xmi:id="_BSTykLhBEeS0cu6lbJ9jDQ" featureName="boolean">
+          <value xmi:type="applystereotypeadvice:ConstantValue" xmi:id="_ExAHALhBEeS0cu6lbJ9jDQ">
+            <valueInstance xmi:type="uml:LiteralBoolean" xmi:id="_QFRQkLhBEeS0cu6lbJ9jDQ" value="true"/>
+          </value>
+        </featuresToSet>
+        <featuresToSet xmi:type="applystereotypeadvice:FeatureToSet" xmi:id="_Bm_pILhBEeS0cu6lbJ9jDQ" featureName="enumeration">
+          <value xmi:type="applystereotypeadvice:ConstantValue" xmi:id="_FFqIYLhBEeS0cu6lbJ9jDQ">
+            <valueInstance xmi:type="uml:InstanceValue" xmi:id="_VToy4LhBEeS0cu6lbJ9jDQ">
+              <instance xmi:type="uml:EnumerationLiteral" href="platform:/plugin/org.eclipse.papyrus.infra.types.tests/model/ElementTypesTestsProfile.profile.uml#_T4hRALhHEeS0cu6lbJ9jDQ"/>
+            </valueInstance>
+          </value>
+        </featuresToSet>
+        <featuresToSet xmi:type="applystereotypeadvice:FeatureToSet" xmi:id="_B7jj4LhBEeS0cu6lbJ9jDQ" featureName="multiStrings">
+          <value xmi:type="applystereotypeadvice:ListValue" xmi:id="_rQRXYLhDEeS0cu6lbJ9jDQ"/>
+        </featuresToSet>
+      </stereotypesToApply>
+    </ownedAdvice>
+    <matcherConfiguration xmi:type="elementtypesconfigurations:MatcherConfiguration" xmi:id="_8-EHENLXEeSAkKOodzTEYg" matcherClassName="org.eclipse.gmf.runtime.emf.type.core.NullElementMatcher"/>
+    <specializedTypes xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Class"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.infra.types.tests.abstractclassSimpleStereotype" description="Test elementTypeConfigurations" identifier="org.eclipse.papyrus.infra.types.tests.abstractclassSimpleStereotype" name="Package With Stereotype And Renamed" hint="ElementElementTypeConfigurations" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType" specializedTypes="org.eclipse.papyrus.infra.types.tests.aspectabstractclass">
+    <ownedAdvice xmi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_ls9AILhAEeS0cu6lbJ9jDQ" identifier="org.eclipse.papyrus.infra.types.tests.abstractclassSimpleStereotype.advice" target="org.eclipse.papyrus.infra.types.tests.abstractclassSimpleStereotype">
+      <stereotypesToApply xmi:type="applystereotypeadvice:StereotypeToApply" xmi:id="_u0-NMLhDEeS0cu6lbJ9jDQ" stereotypeQualifiedName="ElementTypesTestsProfile::StereotypeWithFeatureToSet">
+        <requiredProfiles>ElementTypesTestsProfile</requiredProfiles>
+        <featuresToSet xmi:type="applystereotypeadvice:FeatureToSet" xmi:id="_6XspgLhDEeS0cu6lbJ9jDQ" featureName="stringFeature">
+          <value xmi:type="applystereotypeadvice:ConstantValue" xmi:id="_7YVAELhDEeS0cu6lbJ9jDQ">
+            <valueInstance xmi:type="uml:LiteralString" xmi:id="_-BmvcLhDEeS0cu6lbJ9jDQ" name="" value="MyOtherValue"/>
+          </value>
+        </featuresToSet>
+        <featuresToSet xmi:type="applystereotypeadvice:FeatureToSet" xmi:id="_Bj7msLhEEeS0cu6lbJ9jDQ" featureName="value">
+          <value xmi:type="applystereotypeadvice:ConstantValue" xmi:id="_Dd4x8LhEEeS0cu6lbJ9jDQ">
+            <valueInstance xmi:type="uml:LiteralInteger" xmi:id="_HdrBQLhEEeS0cu6lbJ9jDQ" value="18"/>
+          </value>
+        </featuresToSet>
+        <featuresToSet xmi:type="applystereotypeadvice:FeatureToSet" xmi:id="_CKkv8LhEEeS0cu6lbJ9jDQ" featureName="boolean">
+          <value xmi:type="applystereotypeadvice:ConstantValue" xmi:id="_It5TALhEEeS0cu6lbJ9jDQ">
+            <valueInstance xmi:type="uml:LiteralBoolean" xmi:id="_JxtgcLhEEeS0cu6lbJ9jDQ" value="true"/>
+          </value>
+        </featuresToSet>
+        <featuresToSet xmi:type="applystereotypeadvice:FeatureToSet" xmi:id="_CqCTILhEEeS0cu6lbJ9jDQ" featureName="enumeration">
+          <value xmi:type="applystereotypeadvice:ConstantValue" xmi:id="_LYi7YLhEEeS0cu6lbJ9jDQ">
+            <valueInstance xmi:type="uml:InstanceValue" xmi:id="_NPf18LhEEeS0cu6lbJ9jDQ" name="">
+              <instance xmi:type="uml:EnumerationLiteral" href="platform:/plugin/org.eclipse.papyrus.infra.types.tests/model/ElementTypesTestsProfile.profile.uml#_T4hRALhHEeS0cu6lbJ9jDQ"/>
+            </valueInstance>
+          </value>
+        </featuresToSet>
+      </stereotypesToApply>
+    </ownedAdvice>
+    <matcherConfiguration xmi:type="elementtypesconfigurations:MatcherConfiguration" xmi:id="_9KgAkNLXEeSAkKOodzTEYg" matcherClassName="org.eclipse.gmf.runtime.emf.type.core.NullElementMatcher"/>
+  </elementTypeConfigurations>
+</elementtypesconfigurations:ElementTypeSetConfiguration>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+	<extension
+         point="org.eclipse.ui.newWizards">
+    <category
+          id="org.eclipse.papyrus.examples"
+          name="%wizardCategoryExamples"
+          parentCategory="org.eclipse.papyrus.examples">
+    </category>
+      <wizard
+      		canFinishEarly="false"
+            category="org.eclipse.ui.Examples/org.eclipse.papyrus.examples"
+            class="org.eclipse.emf.common.ui.wizard.ExampleInstallerWizard"
+            icon="resources/icons/papyrus.png"
+            id="org.eclipse.papyrus.example.decoration.wizard"
+            finalPerspective="org.eclipse.papyrus.infra.core.perspective"
+            preferredPerspectives="org.eclipse.papyrus.infra.core.perspective"
+            name="Decoration Services Examples"
+            project="true">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.emf.common.ui.examples">
+      <example
+            id="org.eclipse.papyrus.example.decoration.example"
+            pageImage="resources/icons/papyrus.png"
+            wizardID="org.eclipse.papyrus.example.decoration.wizard">
+         <projectDescriptor
+               contentURI="resources/models/org.eclipse.papyrus.example.decoration.zip"
+               description="Imports examples of use to deploy decoration on Elements of Papyrus diagrams. The GMF decoration service, the Papyrus decoration service and the shape povider. These framework have been describe on help: &quot;Manage Decorators On Papyrus&quot; "
+               name="org.eclipse.papyrus.example.decoration">
+         </projectDescriptor>
+      </example>
+   </extension>
+
+</plugin>

@@ -1,0 +1,14 @@
+active class AcceptStatementTest {
+
+	public receive signal S1 {
+	}
+
+	public receive signal S2 {
+	}
+
+	@Create
+	public AcceptStatementTest();
+	@Destroy
+	public destroy();
+
+} do 'AcceptStatementTest$behavior$1'

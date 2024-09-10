@@ -1,0 +1,15 @@
+/**
+ * Test increment and decrement expressions.
+ **/
+active class Expressions_Increment_Decrement {
+
+	private x: Integer;
+	private list: Integer[0..*] sequence;
+	public test(out s: Integer[0..*] sequence, out i: Integer, out x: Integer,
+		out list: Integer[0..*] sequence, out j: Integer, out k: Integer);
+	@Create
+	public Expressions_Increment_Decrement();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Increment_Decrement$behavior$1'

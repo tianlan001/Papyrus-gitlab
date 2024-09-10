@@ -1,0 +1,168 @@
+=About Diagram Assistants for UML Profiles=
+
+Papyrus UML diagrams provide a feature called ''Diagram Assistants'' that offer context-sensitive tools directly in the diagram.  These are manifest in two forms:
+
+* pop-up bar:  an orange rounded rectangle containing a variety of tools for creation of new model elements
+* connection handles:  a pair of arrows handles, one incoming and outgoing, appearing at the border of a shape from which new connections can be dragged to other shapes in the diagram
+
+The diagram assistants provided out-of-the-box by Papyrus support creation of the basic UML elements.  However, you can extend the capabilities of the diagram assistants to create elements from your profile-based DSL, by creating new UML elements having your stereotypes applied.
+
+=Diagram Assistant Models=
+
+Papyrus uses EMF-based models to describe the diagram assistants that can be presented in UML diagrams.  The core UML assistants are described by these models, and so are the assistants for your DSLs.
+
+Consider a trivial example of a profile for design of use cases in a J2EE-based system: 
+
+[[image:images/usecase-stereotypes.png]] 
+
+This profile has several stereotypes:
+
+* «webScenario» extending UseCase
+* «branchPoint» extending ExtensionPoint
+* «user» and «browser» extending Actor
+* «web» extending Association
+
+Diagram assistants that might be provided for such a profile should offer to create «branchPoint» ExtensionPoints in «webScenario» use cases:
+
+[[image:images/popup-bar.png]]
+
+and «web» Associations between «webScenario» UseCases and «user» or «browser» Actors, thus:
+
+[[image:images/connection-assistant.png]]
+
+The model is described by a '''ModelingAssistantProvider''' in a <code>*.assistants</code> resource.  The ModelingAssistantProvider captures essentially the same information as is provided by implementations of the <code>org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.IModelingAssistantProvider</code> interface, with the exception of "show related elements" queries.  In particular, it provides:
+
+* a list of element types (by ID) for which the provider offers diagram assistants
+* a list of '''PopupAssistant'''s describing creation tools presented in the pop-up bar. Each of these specifies:
+** the element type (by ID) of the model element that the tool creates
+** a '''Filter''' matching model elements on which the popup assistant should be shown
+* a list of '''ConnectionAssistant'''s describing relationships (elements and references) that should be presented by the connection handles. Each of these specifies:
+** the element type (by ID) of the model element or reference that the tool creates
+** a '''Filter''' matching source model elements on which the popup assistant should be shown
+** a '''Filter''' matching target model elements on which the popup assistant should be shown
+
+The filters specified by the different kinds of assistants may be owned by the assistants that require them (private one-offs) or may be shared for re-use by any number of assistants.  The latter are commonly stored in the root '''ModelingAssistantProvider''' element, which just serves as a container.  Several different kinds of filter are provided by Papyrus:
+
+* '''ElementTypeFilter''':  matches the element type of any <code>EObject</code> or <code>IAdaptable</code> (such as a diagram <code>EditPart</code>) by ID.  The match is a subtype match:  any object that matches the given element type or any specialization of that element type is accepted by the filter.  This is particularly useful with the visual-ID hinted types that distinguish different visualizations of UML elements in the different diagrams.
+* '''Equals''':  matches an element that is equal to (the same as) the element referenced by the filter
+* '''ProfileApplied''':  matches an element that is in the context of a UML Package that has a particular profile applied.  The profile may be specified by URI (preferred) or by qualified name (which is susceptible to shadowing by name conflicts)
+* '''AssistedElementTypeFilter''': a special filter that matches any object of an element type that is referenced as one of the element types for which the containing ModelAssistantProvider provides assistants
+* '''CompoundFilter''':  groups filters with boolean expressions.  Filters in an expression may be owned or referenced by the compound.  Supported operators are:
+** '''and''': matches objects for which all filters matches. An empty compound matches no objects
+** '''or''':  matches objects for which at least one filter matches. An empty compound matches no objects
+** '''xor''': matches objects for which exactly one filter matches. An empty compound matches no objects
+** '''not''': matches objects for which none of the filters match (more than one filter may be referenced). An empty compound matches any object
+
+Extenders can define custom filters by extending the filter model defined in the <code>org.eclipse.papyrus.infra.filters</code> plug-in.  The editor makes use of EMF's "child creation extenders" facility to integrate your custom filters with the core set.
+
+[[image:images/assistant-filter.png]]
+
+The image above shows a detail of the filter generated by Papyrus for a «branchPoint» ExtensionPoint pop-up tool in the example J2EE profile in Use Case diagrams.  The filter is an '''and''' combination of
+
+* the "pertains to Profile1" filter (which is based on a ProfileApplied filter referencing the J2EE profile)
+* an '''or''' combination of the various visualizations of UseCase supported by the diagram, including UseCases visualized as ellipse or as classifier shapes.  To restrict the pop-up assistant to only «webScenario» UseCases from this DSL, one would replace the generic UseCase element type filters with filters selecting the more specific <code>org.eclipse.papyrus.example.j2ee.WebScenario</code> element type that specializes UseCase for the stereotype extension
+
+=Generating Diagram Assistants=
+
+Building a diagram assistant model by hand is a tedious undertaking.  To ease this process, Papyrus provides a wizard that generates an assistants model from a Profile selected in the '''Model Explorer''' view:
+
+[[image:images/generate-assistants-menu.png]]
+
+Because the diagram assistants model specifies the element types that are created by the assistant tools, the wizard also generates the element types for your DSL as an <code>*.elementtypesconfigurations</code> model.  If you only need to generate this latter model, that option is also available in the menu.
+
+The diagram assistants wizard dialog requires several pieces of information as inputs (as identified in the image below):
+
+# An unique identifier for the assistants model. This is used as a prefix for element types that are generated for your DSL
+# The element types set model on which to base the element types generated for your DSL.  This has important consequences discussed below
+# Whether to suppress the reference to a semantic supertype distinct from the diagram-specific ("visual") element type in the list of specialized types for generated element types.  This option is only applicable when generating a diagram-specific diagram assistants model
+# The workspace folder or project in which to create the model
+# The name of the <code>*.assistants</code> model file to create.  The element types model will use the same name, except with the <code>*.elementtypesconfigurations</code> extension
+
+[[image:images/generate-assistants-wizard.png]]
+
+Upon completion of the wizard, element types and modeling assistants are generated as follows:
+
+* for each metaclass extension of a stereotype in the profile, '''SpecializationTypeConfiguration'''s are generated that specialize each of the element types in the base element types set that are based on the same UML metaclass.  So, in our trivial J2EE profile example, the «branchPoint» stereotype generates two element types: one for each of the 3007 and 3008 visualizations of the ExtensionPoint metaclass in the Use Case diagram
+** if your assistants model is based on a diagram-specific element types model, then the visualization-specific element types that are generated will specialize the visual UML element types of the diagram and also semantic element types representing the stereotyped element in the model (unless the option to suppress the semantic supertype was selected)
+** if your stereotypes include Image specifications that reference an icon by a <code>profile:/plugin/...</code> URI, then that is used to generate an equivalent '''IconEntry''' in the element type configuration
+* for each profile-specific element type, a diagram assistant is generated, either
+** a '''ConnectionAssistant''' if the element type is not a relationship or reference type, or
+** a '''PopupAssistant''' otherwise
+* for each pop-up assistant, a filter is generated that is an '''or''' combination of '''ElementTypeFilter'''s for each of the element types in the base set that can contain an instance of the profile element type
+* for each connection assistant, filters are generated that are '''or''' combinations of '''ElementTypeFilter'''s for each of the element types in the base set that can be sources and targets, respectively, of the profile element type
+* a few common filters are generated for use by all of the assistants, including:
+** an '''AssistedElementTypeFilter''' matching objects of an element type that is provided by the model as an assistant
+** a '''ProfileApplied''' filter that matches objects in the context of some package that has the source profile applied
+** a "pertains to ''profile name''" filter that is an '''or''' combination of the previous two
+* the generated '''ModelingAssistantProvider''' lists the element types generated in the accompanying <code>*.elementtypesconfigurations</code> model as the element types that it provides as assistants.  This restricts the sources and targets of connections from/to new elements to only element types specific to your profile.  You can edit this list as necessary to further restrict or widen the end types created by the connection assistants
+
+==Choosing a Base Element Types Set==
+
+As mentioned above, the decision of which element types set model to base the generated assistants on is crucial in determining the shape of the result.  There are essentially two choices to be made:
+
+* generate assistants based on the core UML element types, describing the unprofiled UML metamodel without reference to any particular visualizations of elements in any diagram
+* generate assistants based on the visual-ID hinted element types of a specific UML diagram
+
+===Generating Generic UML-based Assistants===
+
+To generate modeling assistants that will be applicable to any diagram in which the elements of your DSL can be visualized, choose the '''uml''' element types set from the <code>org.eclipse.papyrus.uml.service.types</code> plug-in.  This option has the advantage that if your profile has stereotypes extending metaclasses in several different diagrams, you will need only the one assistants model to cover all of those diagrams.
+
+However, there are some drawbacks that you will have to account for.  The most important of these is that, as generated, the assistants model has to infer on-the-fly specializations of your profile element types for the various visual ID hinted types supported by the different specific diagrams.  This inference is automatic and can result in
+
+* repetition of the same element type (for different visual IDs) on some selections
+* presentation of element types in contexts that actually are inappropriate (such as N-ary association branch in a use case diagram) if the diagram's view provider is not sufficiently specific about the visualizations that it supports
+
+These problems can usually be remedied by careful crafting of filters to restrict the applicability of each assistant.  It may be necessary in some cases to resort to custom filters.
+
+===Generating Diagram-specific Assistants===
+
+To generate modeling assistants that are applicable only to a particular diagram in which the elements of your DSL can be visualized, choose that diagram's element types set from the list (the example screen shot above shows the Use Case Diagram selected).  This option has the advantage of giving the most accurate/appropriate assistants out of the box but it does require a separate model for each diagram that your DSL covers.
+
+In this case, the element types generated for your assistants are specializations of the particular visual-ID hinted types supported by the diagram for the different visualizations, in that diagram context, of the base UML metaclass.  The most significant customization that you would do after generating the assistants model is to delete assistants that are not required.
+
+By default, the wizard will also reference a second supertype in each generated specialization element type:  an element type representing the
+stereotyped element in the model, irrespective of any visualization in the diagram.  This is effectively referencing the element type that would be
+generated in the "Generic UML-based Assistants" case, asdescribed above.  At run-time, these "semantic element types" will be expected to be
+available, so it is necessary to generate them using the '''Generate Tooling Model &rarr; Element Types...''' action in the context menu and
+selecting the generic UML element types as the base model.  However, the reference to the semantic super-types may be ommitted, if desired, by
+checking the '''Suppress semantic parent in diagram-specific element types''' box in the wizard.
+
+==Considerations for Designing Assistants Models==
+
+The most important considerations in designing assistant models are appropriateness of the element types suggested to the user and the number of element types suggested to the user.
+
+As discussed above, the generation of the assistants model just provides a starting point that needs to be fine-tuned.  The generator outputs every combination that seems to be valid; these need to be culled in practice.  Some assistants are not valid in every context where they may be shown (which requires customization of their filters) whereas many assistants just may not be necessary because they are element types that are rarely used, or only in advanced use cases.
+
+Of particular concern is the scaling of the diagram assistants user interface:  it is important not to overwhelm users with too many options.  There is a practical limit to how large the pop-up bar can be before its usability degrades; likewise the menus that are popped up for completion of connections.  When designing the assistants model for your profile, keep in mind that the diagram assistants will include proposals from five sources:
+
+* the base UML assistants models deployed by Papyrus for each of the diagrams
+* the assistant models deployed by Papyrus for first-party profiles such as SysML and UML-RT
+* assistant models deployed from the workspace or in third-party plug-ins for other profiles
+* the assistant model that you are designing for your profile
+* the pop-up bar shows hyperlinks created by the user, in addition to the green "plus" button for creation of new hyperlinks
+
+The number of assistants presented on any given selection in a diagram can add up rather quickly.  Precise filtering of assistants is critical and restricting the overall number of assistants that are defined to only the most commonly used elements is highly recommended.
+
+=Deploying a Diagram Assistants Model=
+
+There are two ways to deploy diagram assistants. The assistants in a <code>*.assistants</code> resource can be hot-deployed directly from the workspace or they may be statically deployed in a plug-in installed in the Papyrus workbench.
+
+==Deploying Models in the Host Workbench==
+
+The simplest method, which is best for testing during development of the assistants model, is to deploy the assistants model in your workspace directly into the running Papyrus workbench.  In the '''Project Explorer''', select your assistants model and choose the '''Deploy Modeling Assistants''' action in the context menu:
+
+[[image:images/deploy.png]]
+
+Note that you may first need to deploy the element types configuration model if you have not already done so.
+
+From this point, the assistants described in your model are active in the system.  Whenever you save changes, the model is "hot re-deployed" to update the diagrams in real time.  Papyrus remembers which assistant models in the workspace are deployed so that you don't have to deploy them again the next time you open that workspace.
+
+To remove the assistants in a model from the Papyrus run-time, just select the '''Deactivate Modeling Assistants''' action in the context menu:
+
+[[image:images/undeploy.png]]
+
+==Deploying Models in Plug-ins==
+
+When your assistants model is ready to ship, together with your profile and other DSL tooling, you should deploy it statically in the plug-in that installs your profile into your users' Papyrus workbenches.  Simply bundle the <code>*.assistants</code> resource in your plug-in and register it on the <code>org.eclipse.papyrus.infra.gmfdiag.assistants.modelProviders</code> extension point just as Papyrus, itself, does for the core UML diagram assistants:
+
+[[image:images/providers-extpt.png]]

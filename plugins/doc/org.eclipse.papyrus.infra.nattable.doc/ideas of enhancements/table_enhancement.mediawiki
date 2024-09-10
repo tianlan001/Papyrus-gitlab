@@ -1,0 +1,30 @@
+=Enhancements to plan for a next table version=
+*allow to a user/developper to add a new AxisManager to an existing table. Currently it is not possible, because the java AxisManager are represented in the nattableconfiguration file by an AxisManagerRepresentation. This one provides several configuration to the AxisManager, like LabelProvider to use
+
+*remove the paste with detached mode
+*store all axis for synchronized table too or provide an easy way for the user to define if the contents must be stored or not
+**all tables must be able to be stored
+**some user actions could required a full storage of the table
+**wrap all rows/columns in IAxis
+*nattableConfiguration should be a table
+*store all customization information in the table just after its creation. Currently, when a table is created, we continue to look for these information in the tableconfiguration until the user modifies the default configuration
+*add supports for queries in table, queries could be used for several features in the table:
+*#specific columns
+*#specific categories
+*#could be used in the JavaTester class (allow to know if the table can be created on not for a given context)
+*#used as configuration for AxisManager to filter the elements
+*#used as configuration for AxisManager to get the element to display (like cateegories)
+*#the possible queries would be ocl queries, java queries, others ? We could start this feature integrating Papyrus Facet which already provides OCL and java queries.
+*hierarchical rows for all tables
+*hierarchical columns too (need to develop our own layer!
+*filter on rows to filter column (specific layer too)
+*invert layer (already exist in NatTable, but static and not dynamic (need a boolean)
+*feature "Rows Connect/Disconnect Columns Axis" must be reimplemented. Currently, this feature is linked to the composte Axis Manager, we should move it to each sub-axis manager. Moreover, this property must be a part of the Table metamodel.
+**an other possibility, all axis should be notified when one of the axis (opposite or same side) add/remove/move/... elements and must be able to chain a command if required.
+**this possibility is not incompatible with the connect/disconnect feature
+**master and slave should be a removed concept with this kind of solution
+*property master/slave of the axis must be a property of the metamodel and not a java implementation
+*property table about cell editor declaration must be improved. If we use "Cell" instead of "Column", we lose the possibility to add columns and declaring cell editor by columns for them. Maybe this property should be managed by the axis manager and not by the table.
+*cell configruation, axis manager, filter, ... and so on, shoudl be represented as EMF object in separate file, in order to be easily referenced by table. It will be more efficient than using String as id to identify them. Moreover dependency problem will be the same. We will get unresolved proxy instead of contribution to extension point unknown.
+*table must allow to use as TreeContentProvider the tree of the ModelExplorer, in order to be able to get the same hierarchy provided by Facet (+ custom ???)
+*table framework should allow to load axis/cell/labelprovider/celleditors... in the user workspace without launch a runtime

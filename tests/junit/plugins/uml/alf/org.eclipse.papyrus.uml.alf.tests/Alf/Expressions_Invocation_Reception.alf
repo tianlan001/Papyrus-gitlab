@@ -1,0 +1,53 @@
+/**
+ * Test reception invocation expressions.
+ */
+active class Expressions_Invocation_Reception {
+
+	public active class Receiver {
+
+		public receive signal A {
+		}
+
+		public receive signal B {
+			x: Integer;
+		}
+
+		public receive signal C {
+			x: Integer[0..1];
+			y: Integer[0..1];
+		}
+
+		public activity 'a$defaultValue$1'(): Integer;
+		public a: Integer = 'a$defaultValue$1'();
+		public x: Integer[0..*] sequence;
+		public y: Integer[0..*] sequence;
+		public tester: TestRunner;
+		@Create
+		public Receiver(in tester: TestRunner);
+		@Destroy
+		public destroy();
+
+	} do 'Receiver$behavior$1'
+
+	public active class TestRunner {
+
+		public receive signal Start {
+		}
+
+		public receive signal SignalLoop {
+		}
+
+		public test(out receiver: Receiver, out n: Integer);
+		@Create
+		public TestRunner();
+		@Destroy
+		public destroy();
+
+	} do 'TestRunner$behavior$1'
+
+	@Create
+	public Expressions_Invocation_Reception();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Invocation_Reception$behavior$1'

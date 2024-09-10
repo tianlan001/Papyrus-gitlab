@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.eclipse.papyrus.infra.services.resourceloading.internal.ui.preferences.CorePreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+      		category="org.eclipse.papyrus.infra.core.sasheditor.preferences.generalcategory"
+            class="org.eclipse.papyrus.infra.services.resourceloading.internal.ui.preferences.LoadingStrategyPreferencePage"
+            id="org.eclipse.papyrus.infra.services.resourceloading.ui.ModelLoadingPreferencePage"
+            name="Model loading">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">   
+      <page
+            category="org.eclipse.papyrus.infra.gmfdiag.preferences.properties.generalcategory"
+            class="org.eclipse.papyrus.infra.services.resourceloading.internal.ui.preferences.LoadingStrategyPreferencePage"
+            id="org.eclipse.papyrus.infra.services.resourceloading.properties.ModelLoadingPreferencePage2"
+            name="Model loading">
+         <enabledWhen>
+            <adapt
+                  type="org.eclipse.core.resources.IProject">
+            </adapt>
+         </enabledWhen>
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.services.resourceloading.currentStrategyChooser">
+      <CurrentStrategyChooser
+            chooser="org.eclipse.papyrus.infra.services.resourceloading.internal.ui.strategy.StrategyChooser">
+      </CurrentStrategyChooser>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.services.resourceloading.loadingStrategyExtender">
+      <strategyExtender
+            description="User preference resource loading strategy extender"
+            strategyExtension="org.eclipse.papyrus.infra.services.resourceloading.internal.ui.strategy.PreferenceLoadingStrategyExtension">
+      </strategyExtender>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.ui.papyrusDiagram">
+      <editorDiagram
+            factoryClass="org.eclipse.papyrus.infra.services.resourceloading.internal.ui.editor.UnloadResourcesEditorFactory">
+      </editorDiagram>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.services.resourceloading.loadingStrategy">
+      <loadingStrategy
+            description="Ask the user if a resource has to be loaded"
+            id="3"
+            strategy="org.eclipse.papyrus.infra.services.resourceloading.internal.ui.strategy.AskUserStrategy">
+      </loadingStrategy>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+         <!-- the property tester is used to enable/disable handlers for loading/unloading a resource -->
+      <propertyTester
+            class="org.eclipse.papyrus.infra.services.resourceloading.internal.ui.expressions.LoadingTester"
+            id="org.eclipse.papyrus.infra.core.resourceloading.tester"
+            namespace="org.eclipse.papyrus.infra.core.resourceloading.tester"
+            properties="isAllLoaded, isAllNotLoaded"
+            type="org.eclipse.jface.viewers.IStructuredSelection">
+      </propertyTester>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.core.model">
+      <modelSetSnippet
+            classname="org.eclipse.papyrus.infra.services.resourceloading.internal.ui.editor.LoadResourceSnippet"
+            description="Snippet handling unresolved editor pages when resources are loaded.">
+      </modelSetSnippet>
+   </extension>
+</plugin>

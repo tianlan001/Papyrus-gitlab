@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+ Copyright (c) 2010, 2014 CEA and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   CEA - Initial API and implementation
+   Christian W. Damus (CEA) - bug 323802
+   
+-->
+<plugin>
+
+<extension
+      point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+   <clientContext
+         id="org.eclipse.papyrus.infra.services.edit.TypeContext">
+      <matcher
+            class="org.eclipse.papyrus.infra.services.edit.internal.matcher.NoContextEnablementMatcher">
+      </matcher>
+   </clientContext>
+</extension>
+
+
+<extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+
+	<!-- 
+	     In the default context, we also want to remove Papyrus Markers from deleted elements.
+	     This is necessarily especially to ensure the advice is used in the deletion of dependent
+	     elements (such as associations of which a member end is being deleted).
+	-->
+    <binding context="org.eclipse.gmf.runtime.emf.type.core.defaultContext">
+        <!-- Delete markers attached to objects being deleted. -->
+        <advice ref="org.eclipse.papyrus.infra.services.edit.markerDeletionAdvice" />
+    </binding>
+
+</extension>
+
+<!-- Declaration of the IElementEditServiceProvider (Papyrus wrapper to the Extensible type framework) -->
+<extension point="org.eclipse.papyrus.infra.core.service">
+
+	<serviceFactory
+		id="org.eclipse.papyrus.infra.services.edit.service.IElementEditServiceProvider"
+		classname="org.eclipse.papyrus.infra.services.edit.internal.ElementEditServiceProviderFactory" 
+		priority="1" startKind="startup">
+ 	</serviceFactory>
+
+</extension>   
+   
+</plugin>

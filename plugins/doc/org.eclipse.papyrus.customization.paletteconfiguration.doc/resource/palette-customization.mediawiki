@@ -1,0 +1,132 @@
+= Palette Configuration Editor =
+== Introduction ==
+Since Oxygen(3.0), customization of palette in Papyrus used PaletteConfiguration model. A specific editor is available. It replaces the old editor which was used for palette.xml definition.
+
+== Create a new palette ==
+Editor of palette configuration model is available at: RightClick in palette > Customize…
+
+[[Image:images/paletteConfiguration01.PNG|Palette Customize dialog.]]
+
+It contains two pages, the information page and the content page.
+
+The new created palette will be deployed on the current diagram only.
+
+=== Palette information page ===
+
+This information page permits to define information of the palette, such as: name, identifier, description.
+Required profiles permits to load this palette only if profiles are loaded in the model.
+
+[[Image:images/paletteConfiguration02.PNG|Palette information page.]]
+
+=== Edit Content Page ===
+Content page permits to edit the palette.
+
+[[Image:images/paletteConfiguration03.PNG|Palette edition page.]]
+
+Three main parts compose this page:
+ ====Available tools part====
+There is here all available tools for the context of the diagram.
+A combo box permits to selected between UML tools and each loaded Profiles in your model.
+
+ ====Palette preview part====
+Use drag and drop or array from available tools to fill the palette. 
+Buttons are available to add folder, separator, empty tool or stack.
+
+====Entry information part====
+When you select an entry at the preview part, this part permits to edit the related information.
+Two tabulations are available to edit information: Configuration and Actions. 
+*Configuration permits to edit main information of the entry, as name or icon. 
+*Actions will permit to add action for your tool. 
+
+====Applied Action====
+You can add action associated to the selected tool. Actions are Advice Helper defined in an Element type model. When you add action, associated element type models will be created.
+[[Image:images/paletteConfiguration04.PNG|Applied action.]]
+
+All actions defined with <code>org.eclipse.papyrus.infra.types.core.adviceConfigurationKind</code> can be add here.
+
+Here are the default actions available:
+=====Set Value=====
+This action permits to set a feature of the semantic object of the selected tool.
+
+[[Image:images/paletteConfiguration05.PNG|Set value properties view.]]
+
+=====Set Stereotype to Apply=====
+This action permits to set a stereotype to apply to the object. Features of the stereotype can also be set.
+When you add a stereotype, the corresponding profile will be added to the palette required profiles list if it is not already contained.
+
+ Tip: Id ''update name''  attribute is set to true, the create element's name with this tool will take the name of the stereotype.
+
+[[Image:images/paletteConfiguration06.PNG|Set stereotype properties view.]]
+
+=====Runtime values=====
+
+This action will permit to create a popup containing the selected view at the creation of the element. This can be useful to set values before the creation of the element.
+
+[[Image:images/paletteConfiguration07.PNG|Set runtime values properties view.]]
+
+== Export model ==
+You can export associated palette configuration and element type models:
+
+[[Image:images/paletteConfiguration08.PNG|Export Palette Configuration.]]
+
+Exported files:
+
+[[Image:images/paletteConfiguration09.PNG|Exported Files.]]
+
+Exported files can be used in the plugin to define new palette and associated element types.
+
+==Migration==
+
+There is no automatic way to pass from the old framework to the new one.
+Here's a manual way to pass from old to new framwork.
+
+#Create new palette using palette configuration editor.
+#Export files and place them in your plugin.
+#In the''org.eclipse.papyrus.uml.diagram.common.paletteDefinition'' extension point, replace the path of the old palette by the path of the new file of the palette configuration.
+#Replace the provider from ''org.eclipse.papyrus.uml.diagram.common.service.PluginPaletteProvider'' to ''org.eclipse.papyrus.uml.diagram.common.service.ExtendedPluginPaletteProvider''.
+#Declare Element type model with ''org.eclipse.papyrus.infra.types.core.elementTypeSetConfiguration''  extension point. (by default use ''org.eclipse.papyrus.infra.services.edit.TypeContext as context'')
+
+=== Comparison between old and new palette customization===
+
+Here is the list of post actions that were available in the old version. For each post action, a solution to replace it is proposed. Overall, all semantic actions can be reproduced but not visual actions.
+
+====Post Actions====
+
+=====Set List of stereotype=====
+Set a stereotype to the created element.
+
+======replaced with======
+<code>Set stereotype to apply Action</code>. It also permits to set features.
+
+=====Applied CSS style=====
+Apply a CSS style to the created element.
+
+======replaced with======
+Since palette configuration is based on element type and only set semantic part, Applied CSS Style is not take into account. There is no way to replace it for the moment.
+
+=====Set applied stereotype appearance=====
+Set the appearance of the applied stereotype of the Element.
+
+======replaced with======
+This can be set with CSS for all objects with the same semantic.
+See CSS stereotype help for available properties.
+
+=====Set List of displayed stereotype properties in compartment=====
+Set the list of displayed stereotype properties in compartment.
+
+======replaced with======
+This can be set with CSS for all object with the same semantic.
+See CSS stereotype help for available properties.
+
+=====Set meta-element properties=====
+Permits to set meta-element properties.
+
+======replaced with======
+<code>Set Value</code> has the behavior.
+
+=====Set list of displayed stereotypes=====
+Set the list of stereotype which has to be displayed.
+
+======replaced with======
+As others stereotype display actions use CSS to customize display. See CSS stereotype help for available properties.
+

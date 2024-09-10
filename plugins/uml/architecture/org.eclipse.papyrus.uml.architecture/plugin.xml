@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+ 
+	<extension
+	      point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+		<clientContext
+	         id="org.eclipse.papyrus.uml.architecture.Profile">
+	      <matcher
+	            class="org.eclipse.papyrus.uml.architecture.internal.NoContextEnablementMatcher">
+	      </matcher>
+	   	</clientContext>
+	</extension>
+	
+	 <extension point="org.eclipse.papyrus.infra.architecture.models">
+	    <model path="model/uml.architecture"/>
+	 </extension>
+ 
+	<extension
+	      point="org.eclipse.papyrus.infra.gmfdiag.common.diagramReconciler">
+	   <diagramReconciler
+	         diagramType="PapyrusUMLActivityDiagram"
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+	         source="1.2.0"
+	         target="1.4.0">
+	   </diagramReconciler>
+	   <diagramReconciler
+	         diagramType="PapyrusUMLClassDiagram"
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+	         source="1.2.0"
+	         target="1.4.0">
+	   </diagramReconciler>
+	   <diagramReconciler
+	         diagramType="PapyrusUMLCommunicationDiagram"
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+	         source="1.2.0"
+	         target="1.4.0">
+	   </diagramReconciler>
+	   <diagramReconciler
+	         diagramType="PapyrusUMLComponentDiagram"
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+	         source="1.2.0"
+	         target="1.4.0">
+	   </diagramReconciler>
+	   <diagramReconciler
+	         diagramType="CompositeStructure"
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+	         source="1.2.0"
+	         target="1.4.0">
+	   </diagramReconciler>
+	   <diagramReconciler
+	         diagramType="PapyrusUMLDeploymentDiagram"
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+	         source="1.2.0"
+	         target="1.4.0">
+	   </diagramReconciler>
+	   <diagramReconciler
+	         diagramType="PapyrusUMLInteractionOverviewDiagram"
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+	         source="1.2.0"
+	         target="1.4.0">
+	   </diagramReconciler>
+	   <diagramReconciler
+	         diagramType="PapyrusUMLProfileDiagram"
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+	         source="1.2.0"
+	         target="1.4.0">
+	   </diagramReconciler>
+       <diagramReconciler
+             diagramType="PapyrusUMLSequenceDiagram"
+             reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+             source="1.2.0"
+             target="1.4.0">
+   	   </diagramReconciler>
+	   <diagramReconciler
+	         diagramType="PapyrusUMLStateMachineDiagram"
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+	         source="1.2.0"
+	         target="1.4.0">
+	   </diagramReconciler>
+	   <diagramReconciler
+	         diagramType="PapyrusUMLTimingDiagram"
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+	         source="1.2.0"
+	         target="1.4.0">
+	   </diagramReconciler>
+	   <diagramReconciler
+	         diagramType="UseCase"
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLDiagramReconciler_1_3_0"
+	         source="1.2.0"
+	         target="1.4.0">
+	   </diagramReconciler>
+	</extension>
+
+	<extension
+	      point="org.eclipse.papyrus.infra.nattable.common.tableReconciler">
+	   <tableReconciler
+	         reconcilerClass="org.eclipse.papyrus.uml.architecture.migration.UMLTableReconciler_1_3_0"
+	         source="1.0.0"
+	         target="1.3.0">
+	   </tableReconciler>
+	</extension>
+
+</plugin>
+

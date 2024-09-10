@@ -1,0 +1,2517 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse version="3.4"?>
+
+<plugin>
+
+<extension point="org.eclipse.papyrus.emf.facet.util.emf.core.modeldeclaration">
+  <modeldeclaration file="resource/SimpleUML.custom"/>
+</extension>
+
+   <!-- TODO: EMF-FACET update queries and custom
+   <extension point="org.eclipse.papyrus.emf.facet.infra.browser.custom.core.registration">
+      <browserCustomization file="resource/UMLPapyrusDefaultBrowserCustomization.uiCustom" loadByDefault="true"/>
+   </extension>
+   <extension point="org.eclipse.papyrus.emf.facet.infra.query.registration">
+      <modelqueryset file="resource/PapyrusBrowserQuery.querySet"/>
+   </extension-->
+   <extension point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="org.eclipse.papyrus.uml.tools.providers.SemanticUMLContentProvider"
+            icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Model.gif"
+            id="org.eclipse.papyrus.views.modelexplorer.UMLnavigatorContent"
+            labelProvider="org.eclipse.jface.viewers.LabelProvider"
+            name="UML Model Contents"
+            priority="lower">
+         <triggerPoints>
+            <or>
+               <adapt type="org.eclipse.emf.ecore.EObject">
+               </adapt>
+               <instanceof value="java.lang.Object">
+               </instanceof>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+               <instanceof value="org.eclipse.gmf.runtime.notation.Diagram">
+               </instanceof>
+               <adapt
+                     type="org.eclipse.emf.ecore.EObject">
+               </adapt>
+            </or>
+         </possibleChildren>
+         <actionProvider class="org.eclipse.papyrus.views.modelexplorer.actionprovider.GenericTransformActionProvider" id="org.eclipse.papyrus.views.modelexplorer.actionprovider.GenericTransformActionProvider">
+            <enablement>
+               <or>
+                  <adapt
+                        type="org.eclipse.emf.ecore.EObject">
+                  </adapt>
+               </or>
+            </enablement>
+         </actionProvider>
+         <actionProvider class="org.eclipse.papyrus.views.modelexplorer.actionprovider.EditingDomainActionProvider" id="org.eclipse.papyrus.views.modelexplorer.actionprovider.EditingDomainActionProvider">
+            <enablement>
+               <and>
+                  <not>
+                     <instanceof value="org.eclipse.gmf.runtime.notation.Diagram">
+                     </instanceof>
+                  </not>
+                  <adapt
+                        type="org.eclipse.emf.ecore.EObject">
+                  </adapt>
+               </and>
+            </enablement>
+         </actionProvider>
+         <dropAssistant class="org.eclipse.papyrus.views.modelexplorer.dnd.CommonDropAdapterAssistant" id="org.eclipse.papyrus.views.modelexplorer.dnd.CommonDropAdapterAssistant">
+            <possibleDropTargets>
+               <or>
+                  <instanceof value="org.eclipse.gmf.runtime.notation.Diagram">
+                  </instanceof>
+                  <adapt
+                        type="org.eclipse.emf.ecore.EObject">
+                  </adapt>
+               </or>
+            </possibleDropTargets>
+         </dropAssistant>
+      </navigatorContent>
+   </extension>
+   
+
+<!-- Creation command declarations -->
+
+	
+<!-- UI Menu declaration for creation commands -->
+<extension point="org.eclipse.ui.menus">
+
+ <menuContribution
+       allPopups="false"
+       locationURI="toolbar:org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+    <command
+          commandId="org.eclipse.papyrus.uml.modelexplorer.customization.advanced"
+          icon="icons/advanced.gif"
+          style="toggle">
+    </command>
+ </menuContribution>
+ <menuContribution
+       allPopups="false"
+       locationURI="menu:org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+    <command
+          commandId="org.eclipse.papyrus.uml.modelexplorer.customization.customizeUMLLabel"
+          icon="icons/labelCustom.gif"
+          label="Customize UML Label..."
+          style="push">
+       <visibleWhen
+             checkEnabled="false">
+          <test
+                property="org.eclipse.papyrus.uml.modelexplorer.testUMLLabelCustomized.isUMLLabelCustomizable"
+                value="true">
+          </test>
+       </visibleWhen>
+    </command>
+ </menuContribution>
+</extension>
+
+<!-- This declaration is added in order command (DeleteCommandHandler) status to be
+     verified (isVisible and isEnabled) before any attempt to execute the command, 
+     and to mask the command in case it is not supported or executable.
+  -->
+<extension point="org.eclipse.core.runtime.adapters">
+   <factory adaptableType="org.eclipse.papyrus.emf.facet.infra.browser.uicore.internal.model.ModelElementItem" class="org.eclipse.papyrus.uml.modelexplorer.factory.ModelElementItemFactory">
+      <adapter type="org.eclipse.uml2.uml.NamedElement">
+      </adapter>
+   </factory>
+</extension>
+
+   <!--extension point="org.eclipse.papyrus.emf.facet.infra.facet.registration">
+      <facetset file="resource/PapyrusUMLFacet.facetSet">
+      </facetset>
+   </extension>
+   <extension point="org.eclipse.papyrus.emf.facet.infra.browser.custom.core.registration">
+      <browserCustomization file="resource/UMLFacetDefaultBrowserCustomization.uiCustom" loadByDefault="true"/>
+      <browserCustomization file="resource/NotationCustomization.uiCustom" loadByDefault="true">
+      </browserCustomization>
+      <browserCustomization
+            file="resource/SimpleUML.uiCustom"
+            loadByDefault="true">
+      </browserCustomization>
+   </extension-->
+   <!--
+   <extension point= "org.eclipse.ui.handlers">
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.AbstractionHandler" commandId="org.eclipse.papyrus.uml.service.types.AbstractionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.AcceptCallActionHandler" commandId="org.eclipse.papyrus.uml.service.types.AcceptCallActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.AcceptEventActionHandler" commandId="org.eclipse.papyrus.uml.service.types.AcceptEventActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ActionExecutionSpecificationHandler" commandId="org.eclipse.papyrus.uml.service.types.ActionExecutionSpecificationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ActionInputPinHandler" commandId="org.eclipse.papyrus.uml.service.types.ActionInputPinCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ActivityEdgeHandler" commandId="org.eclipse.papyrus.uml.service.types.ActivityEdgeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ActivityFinalNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.ActivityFinalNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ActivityGroupHandler" commandId="org.eclipse.papyrus.uml.service.types.ActivityGroupCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ActivityHandler" commandId="org.eclipse.papyrus.uml.service.types.ActivityCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ActivityNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.ActivityNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ActivityParameterNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.ActivityParameterNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ActivityPartitionHandler" commandId="org.eclipse.papyrus.uml.service.types.ActivityPartitionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ActorHandler" commandId="org.eclipse.papyrus.uml.service.types.ActorCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.AddStructuralFeatureValueActionHandler" commandId="org.eclipse.papyrus.uml.service.types.AddStructuralFeatureValueActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.AddVariableValueActionHandler" commandId="org.eclipse.papyrus.uml.service.types.AddVariableValueActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.AnyReceiveEventHandler" commandId="org.eclipse.papyrus.uml.service.types.AnyReceiveEventCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ArtifactHandler" commandId="org.eclipse.papyrus.uml.service.types.ArtifactCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.AssociationBaseHandler" commandId="org.eclipse.papyrus.uml.service.types.AssociationBaseCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.AssociationClassHandler" commandId="org.eclipse.papyrus.uml.service.types.AssociationClassCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.AssociationHandler" commandId="org.eclipse.papyrus.uml.service.types.AssociationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.BehavioralFeatureHandler" commandId="org.eclipse.papyrus.uml.service.types.BehavioralFeatureCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.BehavioredClassifierHandler" commandId="org.eclipse.papyrus.uml.service.types.BehavioredClassifierCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.BehaviorExecutionSpecificationHandler" commandId="org.eclipse.papyrus.uml.service.types.BehaviorExecutionSpecificationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.BehaviorHandler" commandId="org.eclipse.papyrus.uml.service.types.BehaviorCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.BroadcastSignalActionHandler" commandId="org.eclipse.papyrus.uml.service.types.BroadcastSignalActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CallActionHandler" commandId="org.eclipse.papyrus.uml.service.types.CallActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CallBehaviorActionHandler" commandId="org.eclipse.papyrus.uml.service.types.CallBehaviorActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CallEventHandler" commandId="org.eclipse.papyrus.uml.service.types.CallEventCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CallOperationActionHandler" commandId="org.eclipse.papyrus.uml.service.types.CallOperationActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CentralBufferNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.CentralBufferNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ChangeEventHandler" commandId="org.eclipse.papyrus.uml.service.types.ChangeEventCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ClassHandler" commandId="org.eclipse.papyrus.uml.service.types.ClassCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ClassifierHandler" commandId="org.eclipse.papyrus.uml.service.types.ClassifierCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ClassifierTemplateParameterHandler" commandId="org.eclipse.papyrus.uml.service.types.ClassifierTemplateParameterCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ClauseHandler" commandId="org.eclipse.papyrus.uml.service.types.ClauseCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ClearAssociationActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ClearAssociationActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ClearStructuralFeatureActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ClearStructuralFeatureActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ClearVariableActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ClearVariableActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CollaborationHandler" commandId="org.eclipse.papyrus.uml.service.types.CollaborationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CollaborationUseHandler" commandId="org.eclipse.papyrus.uml.service.types.CollaborationUseCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CombinedFragmentHandler" commandId="org.eclipse.papyrus.uml.service.types.CombinedFragmentCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CommentHandler" commandId="org.eclipse.papyrus.uml.service.types.CommentCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CommunicationPathHandler" commandId="org.eclipse.papyrus.uml.service.types.CommunicationPathCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ComponentHandler" commandId="org.eclipse.papyrus.uml.service.types.ComponentCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ComponentRealizationHandler" commandId="org.eclipse.papyrus.uml.service.types.ComponentRealizationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ConditionalNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.ConditionalNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ConnectableElementHandler" commandId="org.eclipse.papyrus.uml.service.types.ConnectableElementCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ConnectableElementTemplateParameterHandler" commandId="org.eclipse.papyrus.uml.service.types.ConnectableElementTemplateParameterCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ConnectionPointReferenceHandler" commandId="org.eclipse.papyrus.uml.service.types.ConnectionPointReferenceCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ConnectorEndHandler" commandId="org.eclipse.papyrus.uml.service.types.ConnectorEndCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ConnectorHandler" commandId="org.eclipse.papyrus.uml.service.types.ConnectorCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ConsiderIgnoreFragmentHandler" commandId="org.eclipse.papyrus.uml.service.types.ConsiderIgnoreFragmentCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ConstraintHandler" commandId="org.eclipse.papyrus.uml.service.types.ConstraintCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ContinuationHandler" commandId="org.eclipse.papyrus.uml.service.types.ContinuationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ControlFlowHandler" commandId="org.eclipse.papyrus.uml.service.types.ControlFlowCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ControlNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.ControlNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CreateLinkActionHandler" commandId="org.eclipse.papyrus.uml.service.types.CreateLinkActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CreateLinkObjectActionHandler" commandId="org.eclipse.papyrus.uml.service.types.CreateLinkObjectActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.CreateObjectActionHandler" commandId="org.eclipse.papyrus.uml.service.types.CreateObjectActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DataStoreNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.DataStoreNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DataTypeHandler" commandId="org.eclipse.papyrus.uml.service.types.DataTypeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DecisionNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.DecisionNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DependencyHandler" commandId="org.eclipse.papyrus.uml.service.types.DependencyCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DeployedArtifactHandler" commandId="org.eclipse.papyrus.uml.service.types.DeployedArtifactCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DeploymentHandler" commandId="org.eclipse.papyrus.uml.service.types.DeploymentCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DeploymentSpecificationHandler" commandId="org.eclipse.papyrus.uml.service.types.DeploymentSpecificationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DeploymentTargetHandler" commandId="org.eclipse.papyrus.uml.service.types.DeploymentTargetCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DestroyLinkActionHandler" commandId="org.eclipse.papyrus.uml.service.types.DestroyLinkActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DestroyObjectActionHandler" commandId="org.eclipse.papyrus.uml.service.types.DestroyObjectActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DestructionOccurrenceSpecificationHandler" commandId="org.eclipse.papyrus.uml.service.types.DestructionOccurrenceSpecificationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DeviceHandler" commandId="org.eclipse.papyrus.uml.service.types.DeviceCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DirectedRelationshipHandler" commandId="org.eclipse.papyrus.uml.service.types.DirectedRelationshipCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DurationConstraintHandler" commandId="org.eclipse.papyrus.uml.service.types.DurationConstraintCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DurationHandler" commandId="org.eclipse.papyrus.uml.service.types.DurationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DurationIntervalHandler" commandId="org.eclipse.papyrus.uml.service.types.DurationIntervalCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.DurationObservationHandler" commandId="org.eclipse.papyrus.uml.service.types.DurationObservationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ElementHandler" commandId="org.eclipse.papyrus.uml.service.types.ElementCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ElementImportHandler" commandId="org.eclipse.papyrus.uml.service.types.ElementImportCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.EncapsulatedClassifierHandler" commandId="org.eclipse.papyrus.uml.service.types.EncapsulatedClassifierCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.EnumerationHandler" commandId="org.eclipse.papyrus.uml.service.types.EnumerationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.EnumerationLiteralHandler" commandId="org.eclipse.papyrus.uml.service.types.EnumerationLiteralCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.EventHandler" commandId="org.eclipse.papyrus.uml.service.types.EventCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExceptionHandlerHandler" commandId="org.eclipse.papyrus.uml.service.types.ExceptionHandlerCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExecutableNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.ExecutableNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExecutionEnvironmentHandler" commandId="org.eclipse.papyrus.uml.service.types.ExecutionEnvironmentCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExecutionOccurrenceSpecificationHandler" commandId="org.eclipse.papyrus.uml.service.types.ExecutionOccurrenceSpecificationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExecutionSpecificationHandler" commandId="org.eclipse.papyrus.uml.service.types.ExecutionSpecificationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExpansionNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.ExpansionNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExpansionRegionHandler" commandId="org.eclipse.papyrus.uml.service.types.ExpansionRegionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExpressionHandler" commandId="org.eclipse.papyrus.uml.service.types.ExpressionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExtendHandler" commandId="org.eclipse.papyrus.uml.service.types.ExtendCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExtensionEndHandler" commandId="org.eclipse.papyrus.uml.service.types.ExtensionEndCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExtensionHandler" commandId="org.eclipse.papyrus.uml.service.types.ExtensionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ExtensionPointHandler" commandId="org.eclipse.papyrus.uml.service.types.ExtensionPointCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.FeatureHandler" commandId="org.eclipse.papyrus.uml.service.types.FeatureCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.FinalNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.FinalNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.FinalStateHandler" commandId="org.eclipse.papyrus.uml.service.types.FinalStateCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.FlowFinalNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.FlowFinalNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ForkNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.ForkNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.FunctionBehaviorHandler" commandId="org.eclipse.papyrus.uml.service.types.FunctionBehaviorCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.GateHandler" commandId="org.eclipse.papyrus.uml.service.types.GateCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.GeneralizationHandler" commandId="org.eclipse.papyrus.uml.service.types.GeneralizationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.GeneralizationSetHandler" commandId="org.eclipse.papyrus.uml.service.types.GeneralizationSetCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.GeneralOrderingHandler" commandId="org.eclipse.papyrus.uml.service.types.GeneralOrderingCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ImageHandler" commandId="org.eclipse.papyrus.uml.service.types.ImageCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.IncludeHandler" commandId="org.eclipse.papyrus.uml.service.types.IncludeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InformationFlowHandler" commandId="org.eclipse.papyrus.uml.service.types.InformationFlowCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InformationItemHandler" commandId="org.eclipse.papyrus.uml.service.types.InformationItemCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InitialNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.InitialNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InputPinHandler" commandId="org.eclipse.papyrus.uml.service.types.InputPinCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InstanceSpecificationHandler" commandId="org.eclipse.papyrus.uml.service.types.InstanceSpecificationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InstanceValueHandler" commandId="org.eclipse.papyrus.uml.service.types.InstanceValueCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InteractionConstraintHandler" commandId="org.eclipse.papyrus.uml.service.types.InteractionConstraintCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InteractionFragmentHandler" commandId="org.eclipse.papyrus.uml.service.types.InteractionFragmentCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InteractionHandler" commandId="org.eclipse.papyrus.uml.service.types.InteractionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InteractionOperandHandler" commandId="org.eclipse.papyrus.uml.service.types.InteractionOperandCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InteractionUseHandler" commandId="org.eclipse.papyrus.uml.service.types.InteractionUseCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InterfaceHandler" commandId="org.eclipse.papyrus.uml.service.types.InterfaceCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InterfaceRealizationHandler" commandId="org.eclipse.papyrus.uml.service.types.InterfaceRealizationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InterruptibleActivityRegionHandler" commandId="org.eclipse.papyrus.uml.service.types.InterruptibleActivityRegionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.IntervalConstraintHandler" commandId="org.eclipse.papyrus.uml.service.types.IntervalConstraintCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.IntervalHandler" commandId="org.eclipse.papyrus.uml.service.types.IntervalCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.InvocationActionHandler" commandId="org.eclipse.papyrus.uml.service.types.InvocationActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.JoinNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.JoinNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LifelineHandler" commandId="org.eclipse.papyrus.uml.service.types.LifelineCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LinkActionHandler" commandId="org.eclipse.papyrus.uml.service.types.LinkActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LinkEndCreationDataHandler" commandId="org.eclipse.papyrus.uml.service.types.LinkEndCreationDataCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LinkEndDataHandler" commandId="org.eclipse.papyrus.uml.service.types.LinkEndDataCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LinkEndDestructionDataHandler" commandId="org.eclipse.papyrus.uml.service.types.LinkEndDestructionDataCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LiteralBooleanHandler" commandId="org.eclipse.papyrus.uml.service.types.LiteralBooleanCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LiteralIntegerHandler" commandId="org.eclipse.papyrus.uml.service.types.LiteralIntegerCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LiteralNullHandler" commandId="org.eclipse.papyrus.uml.service.types.LiteralNullCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LiteralRealHandler" commandId="org.eclipse.papyrus.uml.service.types.LiteralRealCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LiteralSpecificationHandler" commandId="org.eclipse.papyrus.uml.service.types.LiteralSpecificationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LiteralStringHandler" commandId="org.eclipse.papyrus.uml.service.types.LiteralStringCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LiteralUnlimitedNaturalHandler" commandId="org.eclipse.papyrus.uml.service.types.LiteralUnlimitedNaturalCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.LoopNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.LoopNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ManifestationHandler" commandId="org.eclipse.papyrus.uml.service.types.ManifestationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.MergeNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.MergeNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.MessageEndHandler" commandId="org.eclipse.papyrus.uml.service.types.MessageEndCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.MessageEventHandler" commandId="org.eclipse.papyrus.uml.service.types.MessageEventCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.MessageHandler" commandId="org.eclipse.papyrus.uml.service.types.MessageCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.MessageOccurrenceSpecificationHandler" commandId="org.eclipse.papyrus.uml.service.types.MessageOccurrenceSpecificationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ModelHandler" commandId="org.eclipse.papyrus.uml.service.types.ModelCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.MultiplicityElementHandler" commandId="org.eclipse.papyrus.uml.service.types.MultiplicityElementCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.NamedElementHandler" commandId="org.eclipse.papyrus.uml.service.types.NamedElementCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.NamespaceHandler" commandId="org.eclipse.papyrus.uml.service.types.NamespaceCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.NodeHandler" commandId="org.eclipse.papyrus.uml.service.types.NodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ObjectFlowHandler" commandId="org.eclipse.papyrus.uml.service.types.ObjectFlowCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ObjectNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.ObjectNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ObservationHandler" commandId="org.eclipse.papyrus.uml.service.types.ObservationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.OccurrenceSpecificationHandler" commandId="org.eclipse.papyrus.uml.service.types.OccurrenceSpecificationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.OpaqueActionHandler" commandId="org.eclipse.papyrus.uml.service.types.OpaqueActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.OpaqueBehaviorHandler" commandId="org.eclipse.papyrus.uml.service.types.OpaqueBehaviorCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.OpaqueExpressionHandler" commandId="org.eclipse.papyrus.uml.service.types.OpaqueExpressionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.OperationHandler" commandId="org.eclipse.papyrus.uml.service.types.OperationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.OperationTemplateParameterHandler" commandId="org.eclipse.papyrus.uml.service.types.OperationTemplateParameterCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.OutputPinHandler" commandId="org.eclipse.papyrus.uml.service.types.OutputPinCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.PackageableElementHandler" commandId="org.eclipse.papyrus.uml.service.types.PackageableElementCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.PackageHandler" commandId="org.eclipse.papyrus.uml.service.types.PackageCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.PackageImportHandler" commandId="org.eclipse.papyrus.uml.service.types.PackageImportCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.PackageMergeHandler" commandId="org.eclipse.papyrus.uml.service.types.PackageMergeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ParameterableElementHandler" commandId="org.eclipse.papyrus.uml.service.types.ParameterableElementCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ParameterHandler" commandId="org.eclipse.papyrus.uml.service.types.ParameterCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ParameterSetHandler" commandId="org.eclipse.papyrus.uml.service.types.ParameterSetCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.PartDecompositionHandler" commandId="org.eclipse.papyrus.uml.service.types.PartDecompositionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.PinHandler" commandId="org.eclipse.papyrus.uml.service.types.PinCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.PortHandler" commandId="org.eclipse.papyrus.uml.service.types.PortCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.PrimitiveTypeHandler" commandId="org.eclipse.papyrus.uml.service.types.PrimitiveTypeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ProfileApplicationHandler" commandId="org.eclipse.papyrus.uml.service.types.ProfileApplicationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ProfileHandler" commandId="org.eclipse.papyrus.uml.service.types.ProfileCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.PropertyHandler" commandId="org.eclipse.papyrus.uml.service.types.PropertyCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ProtocolConformanceHandler" commandId="org.eclipse.papyrus.uml.service.types.ProtocolConformanceCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ProtocolStateMachineHandler" commandId="org.eclipse.papyrus.uml.service.types.ProtocolStateMachineCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ProtocolTransitionHandler" commandId="org.eclipse.papyrus.uml.service.types.ProtocolTransitionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.PseudostateHandler" commandId="org.eclipse.papyrus.uml.service.types.PseudostateCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.QualifierValueHandler" commandId="org.eclipse.papyrus.uml.service.types.QualifierValueCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.RaiseExceptionActionHandler" commandId="org.eclipse.papyrus.uml.service.types.RaiseExceptionActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReadExtentActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReadExtentActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReadIsClassifiedObjectActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReadIsClassifiedObjectActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReadLinkActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReadLinkActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReadLinkObjectEndActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReadLinkObjectEndActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReadLinkObjectEndQualifierActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReadLinkObjectEndQualifierActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReadSelfActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReadSelfActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReadStructuralFeatureActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReadStructuralFeatureActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReadVariableActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReadVariableActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.RealizationHandler" commandId="org.eclipse.papyrus.uml.service.types.RealizationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReceptionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReceptionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReclassifyObjectActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReclassifyObjectActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.RedefinableElementHandler" commandId="org.eclipse.papyrus.uml.service.types.RedefinableElementCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.RedefinableTemplateSignatureHandler" commandId="org.eclipse.papyrus.uml.service.types.RedefinableTemplateSignatureCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReduceActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReduceActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.RefineHandler" commandId="org.eclipse.papyrus.uml.service.types.RefineCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.RegionHandler" commandId="org.eclipse.papyrus.uml.service.types.RegionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.RelationshipHandler" commandId="org.eclipse.papyrus.uml.service.types.RelationshipCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.RemoveStructuralFeatureValueActionHandler" commandId="org.eclipse.papyrus.uml.service.types.RemoveStructuralFeatureValueActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.RemoveVariableValueActionHandler" commandId="org.eclipse.papyrus.uml.service.types.RemoveVariableValueActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ReplyActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ReplyActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.SendObjectActionHandler" commandId="org.eclipse.papyrus.uml.service.types.SendObjectActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.SendSignalActionHandler" commandId="org.eclipse.papyrus.uml.service.types.SendSignalActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.SequenceNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.SequenceNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.SignalEventHandler" commandId="org.eclipse.papyrus.uml.service.types.SignalEventCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.SignalHandler" commandId="org.eclipse.papyrus.uml.service.types.SignalCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.SlotHandler" commandId="org.eclipse.papyrus.uml.service.types.SlotCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.StartClassifierBehaviorActionHandler" commandId="org.eclipse.papyrus.uml.service.types.StartClassifierBehaviorActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.StartObjectBehaviorActionHandler" commandId="org.eclipse.papyrus.uml.service.types.StartObjectBehaviorActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.StateHandler" commandId="org.eclipse.papyrus.uml.service.types.StateCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.StateInvariantHandler" commandId="org.eclipse.papyrus.uml.service.types.StateInvariantCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.StateMachineHandler" commandId="org.eclipse.papyrus.uml.service.types.StateMachineCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.StereotypeHandler" commandId="org.eclipse.papyrus.uml.service.types.StereotypeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.StringExpressionHandler" commandId="org.eclipse.papyrus.uml.service.types.StringExpressionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.StructuralFeatureActionHandler" commandId="org.eclipse.papyrus.uml.service.types.StructuralFeatureActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.StructuralFeatureHandler" commandId="org.eclipse.papyrus.uml.service.types.StructuralFeatureCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.StructuredActivityNodeHandler" commandId="org.eclipse.papyrus.uml.service.types.StructuredActivityNodeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.StructuredClassifierHandler" commandId="org.eclipse.papyrus.uml.service.types.StructuredClassifierCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.SubstitutionHandler" commandId="org.eclipse.papyrus.uml.service.types.SubstitutionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TemplateableElementHandler" commandId="org.eclipse.papyrus.uml.service.types.TemplateableElementCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TemplateBindingHandler" commandId="org.eclipse.papyrus.uml.service.types.TemplateBindingCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TemplateParameterHandler" commandId="org.eclipse.papyrus.uml.service.types.TemplateParameterCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TemplateParameterSubstitutionHandler" commandId="org.eclipse.papyrus.uml.service.types.TemplateParameterSubstitutionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TemplateSignatureHandler" commandId="org.eclipse.papyrus.uml.service.types.TemplateSignatureCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TestIdentityActionHandler" commandId="org.eclipse.papyrus.uml.service.types.TestIdentityActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TimeConstraintHandler" commandId="org.eclipse.papyrus.uml.service.types.TimeConstraintCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TimeEventHandler" commandId="org.eclipse.papyrus.uml.service.types.TimeEventCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TimeExpressionHandler" commandId="org.eclipse.papyrus.uml.service.types.TimeExpressionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TimeIntervalHandler" commandId="org.eclipse.papyrus.uml.service.types.TimeIntervalCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TimeObservationHandler" commandId="org.eclipse.papyrus.uml.service.types.TimeObservationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TraceHandler" commandId="org.eclipse.papyrus.uml.service.types.TraceCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TransitionHandler" commandId="org.eclipse.papyrus.uml.service.types.TransitionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TriggerHandler" commandId="org.eclipse.papyrus.uml.service.types.TriggerCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TypedElementHandler" commandId="org.eclipse.papyrus.uml.service.types.TypedElementCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.TypeHandler" commandId="org.eclipse.papyrus.uml.service.types.TypeCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.UnmarshallActionHandler" commandId="org.eclipse.papyrus.uml.service.types.UnmarshallActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.UsageHandler" commandId="org.eclipse.papyrus.uml.service.types.UsageCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.UseCaseHandler" commandId="org.eclipse.papyrus.uml.service.types.UseCaseCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ValuePinHandler" commandId="org.eclipse.papyrus.uml.service.types.ValuePinCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ValueSpecificationActionHandler" commandId="org.eclipse.papyrus.uml.service.types.ValueSpecificationActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.ValueSpecificationHandler" commandId="org.eclipse.papyrus.uml.service.types.ValueSpecificationCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.VariableActionHandler" commandId="org.eclipse.papyrus.uml.service.types.VariableActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.VariableHandler" commandId="org.eclipse.papyrus.uml.service.types.VariableCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.VertexHandler" commandId="org.eclipse.papyrus.uml.service.types.VertexCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.WriteLinkActionHandler" commandId="org.eclipse.papyrus.uml.service.types.WriteLinkActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.WriteStructuralFeatureActionHandler" commandId="org.eclipse.papyrus.uml.service.types.WriteStructuralFeatureActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+<handler class= "org.eclipse.papyrus.uml.modelexplorer.handler.WriteVariableActionHandler" commandId="org.eclipse.papyrus.uml.service.types.WriteVariableActionCreateCommand">
+   <activeWhen>
+      <with
+            variable="activePartId">
+         <equals
+               value="org.eclipse.papyrus.views.modelexplorer.modelexplorer">
+         </equals>
+      </with>
+   </activeWhen></handler>
+</extension>
+-->
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.eclipse.papyrus.uml.modelexplorer.handler.ToggleAdvancedModelExplorerHandler"
+            description="Toggle the advanced ModelExplorer view"
+            id="org.eclipse.papyrus.uml.modelexplorer.customization.advanced"
+            name="Toggle advanced ModelExplorer">
+         <state
+               class="org.eclipse.papyrus.uml.modelexplorer.handler.ToggleAdvancedModelExplorerState"
+               id="org.eclipse.ui.commands.toggleState">
+         </state>
+      </command>
+      <command
+            description="Customize the UML Label in Model Explorer"
+            id="org.eclipse.papyrus.uml.modelexplorer.customization.customizeUMLLabel"
+            name="Customize UML Label">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.emf.facet.util.emf.core.modeldeclaration">
+      <modeldeclaration
+            file="resource/StereotypeDisplay.custom">
+      </modeldeclaration>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.newchild">
+      <menuCreationModel
+            model="resource/UML.creationmenumodel">
+      </menuCreationModel>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.newchild">
+      <menuCreationModel
+            model="resource/UMLEdges.creationmenumodel">
+      </menuCreationModel>
+   </extension>
+   <extension
+      id="PapyrusQuickFormatHandler"
+      name="QuickFormatHandler"
+      point="org.eclipse.ui.handlers">
+   <handler
+         class="org.eclipse.papyrus.uml.modelexplorer.handler.UmlQuickFormatHandler"
+         commandId="org.eclipse.papyrus.infra.ui.menu.commands.QuickFormattingUpperCaseCommand">
+       <activeWhen>
+         <and>
+            <with
+                  variable="selection">
+               <test
+                     property="org.eclipse.papyrus.uml.modelexplorer.menu.quickformatpropertytester.isNameChangeable"
+                     value="true">
+               </test>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+   <handler 
+         class="org.eclipse.papyrus.uml.modelexplorer.handler.UmlQuickFormatHandler"
+         commandId="org.eclipse.papyrus.infra.ui.menu.commands.QuickFormattingLowerCaseCommand">
+       <activeWhen>
+         <and>
+            <with
+                  variable="selection">
+               <test
+                     property="org.eclipse.papyrus.uml.modelexplorer.menu.quickformatpropertytester.isNameChangeable"
+                     value="true">
+               </test>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+   <handler 
+         class="org.eclipse.papyrus.uml.modelexplorer.handler.UmlQuickFormatHandler"
+         commandId="org.eclipse.papyrus.infra.ui.menu.commands.QuickFormattingSwitchSpace2UnderscoreCommand">
+       <activeWhen>
+         <and>
+            <with
+                  variable="selection">
+               <test
+                     property="org.eclipse.papyrus.uml.modelexplorer.menu.quickformatpropertytester.isNameChangeable"
+                     value="true">
+               </test>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+   <handler 
+         class="org.eclipse.papyrus.uml.modelexplorer.handler.UmlQuickFormatHandler"
+         commandId="org.eclipse.papyrus.infra.ui.menu.commands.QuickFormattingCapitalizeFirstLetterCommand">
+       <activeWhen>
+         <and>
+            <with
+                  variable="selection">
+               <test
+                     property="org.eclipse.papyrus.uml.modelexplorer.menu.quickformatpropertytester.isNameChangeable"
+                     value="true">
+               </test>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+   <handler 
+         class="org.eclipse.papyrus.uml.modelexplorer.handler.UmlQuickFormatHandler"
+         commandId="org.eclipse.papyrus.infra.ui.menu.commands.QuickFormattingRemoveSpaceCommand">
+       <activeWhen>
+         <and>
+            <with
+                  variable="selection">
+               <test
+                     property="org.eclipse.papyrus.uml.modelexplorer.menu.quickformatpropertytester.isNameChangeable"
+                     value="true">
+               </test>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+</extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.papyrus.uml.modelexplorer.handler.CustomizeUMLLabelHandler"
+            commandId="org.eclipse.papyrus.uml.modelexplorer.customization.customizeUMLLabel">
+      </handler>
+   </extension>
+      <extension
+            point="org.eclipse.core.expressions.propertyTesters">
+         <propertyTester
+               class="org.eclipse.papyrus.uml.modelexplorer.handler.UmlNamePropertyTester"
+               id="org.eclipse.papyrus.uml.modelexplorer.menu.quickformatpropertytester"
+               namespace="org.eclipse.papyrus.uml.modelexplorer.menu.quickformatpropertytester"
+               properties="isNameChangeable"
+               type="org.eclipse.jface.viewers.IStructuredSelection">
+         </propertyTester>
+         <propertyTester
+               class="org.eclipse.papyrus.uml.modelexplorer.handler.UMLLabelCustomizableTester"
+               id="org.eclipse.papyrus.uml.modelexplorer.testUMLLabelCustomized"
+               namespace="org.eclipse.papyrus.uml.modelexplorer.testUMLLabelCustomized"
+               properties="isUMLLabelCustomizable"
+               type="java.lang.Object">
+         </propertyTester>
+      </extension>
+      <extension
+         point="org.eclipse.papyrus.infra.gmfdiag.extensionpoints.editors.DirectEditor">
+      <DirectEditor
+            contributor="CEA LIST"
+            language="Named Element Direct Editor"
+            objectToEdit="org.eclipse.uml2.uml.NamedElement"
+            superType="true">
+         <popupeditor
+               editorConfiguration="org.eclipse.papyrus.uml.modelexplorer.directeditor.NamedElementDirectEditorConfiguration">
+         </popupeditor>
+         <Priority
+               name="Medium">
+         </Priority>
+      </DirectEditor>
+   </extension>
+      <extension
+            point="org.eclipse.papyrus.emf.facet.util.emf.core.modeldeclaration">
+         <modeldeclaration
+               file="resource/CustomizableUMLLabel.custom">
+         </modeldeclaration>
+      </extension>
+      <extension
+            point="org.eclipse.core.runtime.preferences">
+         <initializer
+               class="org.eclipse.papyrus.uml.modelexplorer.preferences.CustomizableLabelPreferenceInitializer">
+         </initializer>
+         <initializer
+               class="org.eclipse.papyrus.uml.modelexplorer.preferences.NamedElementDirectEditorPreferenceInitializer">
+         </initializer>
+      </extension>
+</plugin>

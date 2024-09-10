@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Profile xmi:id="_wLLQsNNUEeuOA7yBuZ0R9w" name="soft" metaclassReference="_Ir-F8NNVEeuOA7yBuZ0R9w _IsDlgNNVEeuOA7yBuZ0R9w _IsJsINNVEeuOA7yBuZ0R9w">
+    <elementImport xmi:type="uml:ElementImport" xmi:id="_Ir-F8NNVEeuOA7yBuZ0R9w" alias="Class">
+      <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </elementImport>
+    <elementImport xmi:type="uml:ElementImport" xmi:id="_IsDlgNNVEeuOA7yBuZ0R9w" alias="Property">
+      <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+    </elementImport>
+    <elementImport xmi:type="uml:ElementImport" xmi:id="_IsJsINNVEeuOA7yBuZ0R9w" alias="Connector">
+      <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Connector"/>
+    </elementImport>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_wq_ZMNNUEeuOA7yBuZ0R9w">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_wrE4wNNUEeuOA7yBuZ0R9w">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_1GU8ENNUEeuOA7yBuZ0R9w" name="SoftLayer">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_MeqUcNNVEeuOA7yBuZ0R9w" name="base_Class" association="_MeofQNNVEeuOA7yBuZ0R9w">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MeqUcdNVEeuOA7yBuZ0R9w"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_3cErcNNUEeuOA7yBuZ0R9w" name="Soft">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_L3IaYNNVEeuOA7yBuZ0R9w" name="base_Property" association="_L3HMQNNVEeuOA7yBuZ0R9w">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_L3IaYdNVEeuOA7yBuZ0R9w"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_OBs0gNNVEeuOA7yBuZ0R9w" name="version">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_5bC5kNNUEeuOA7yBuZ0R9w" name="Communication">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_LVXxINNVEeuOA7yBuZ0R9w" name="base_Connector" association="_LVUt0NNVEeuOA7yBuZ0R9w">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Connector"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LVXxIdNVEeuOA7yBuZ0R9w"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_LVUt0NNVEeuOA7yBuZ0R9w" name="E_Communication_Connector9" memberEnd="_LVXKENNVEeuOA7yBuZ0R9w _LVXxINNVEeuOA7yBuZ0R9w">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_LVXKENNVEeuOA7yBuZ0R9w" name="extension_Communication" type="_5bC5kNNUEeuOA7yBuZ0R9w" aggregation="composite" association="_LVUt0NNVEeuOA7yBuZ0R9w"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_L3HMQNNVEeuOA7yBuZ0R9w" name="E_Soft_Property10" memberEnd="_L3HzUNNVEeuOA7yBuZ0R9w _L3IaYNNVEeuOA7yBuZ0R9w">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_L3HzUNNVEeuOA7yBuZ0R9w" name="extension_Soft" type="_3cErcNNUEeuOA7yBuZ0R9w" aggregation="composite" association="_L3HMQNNVEeuOA7yBuZ0R9w"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_MeofQNNVEeuOA7yBuZ0R9w" name="E_SoftLayer_Class11" memberEnd="_MeptYNNVEeuOA7yBuZ0R9w _MeqUcNNVEeuOA7yBuZ0R9w">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_MeptYNNVEeuOA7yBuZ0R9w" name="extension_SoftLayer" type="_1GU8ENNUEeuOA7yBuZ0R9w" aggregation="composite" association="_MeofQNNVEeuOA7yBuZ0R9w"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_WBiY4NNVEeuOA7yBuZ0R9w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_WBk1INNVEeuOA7yBuZ0R9w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Profile>
+  <Ecore:EPackage xmi:id="_Ye4lENNVEeuOA7yBuZ0R9w" base_Package="_wLLQsNNUEeuOA7yBuZ0R9w" nsURI="http://soft_papyrus"/>
+</xmi:XMI>

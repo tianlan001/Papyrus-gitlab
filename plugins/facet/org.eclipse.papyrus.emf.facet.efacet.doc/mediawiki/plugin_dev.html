@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8' ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/></head><body><p><h1>Table of Contents</h1></p><ol style="list-style: none;"><li><a href="#Adding_query_types">Adding query types</a></li><li><a href="#Adding_result_displayers">Adding result displayers</a></li><li><a href="#ETypedElement_selection_dialog">ETypedElement selection dialog</a><ol style="list-style: none;"><li><a href="#Hierarchical_FacetSets">Hierarchical FacetSets</a></li><li><a href="#Aggregates">Aggregates</a></li></ol></li><li><a href="#FacetSet_selection_dialog">FacetSet selection dialog</a><ol style="list-style: none;"><li><a href="#Hierarchical_FacetSets_2">Hierarchical FacetSets</a></li></ol></li></ol><h2 id="Adding_query_types">Adding query types</h2><p>The EMF Facet query mechanism is generic: new query types can be added through extension point <b>org.eclipse.papyrus.emf.facet.efacet.core.queryImplementationRegistration</b> by implementing IQueryImplementationFactory. For example:</p><pre>
+&lt;extension point="org.eclipse.papyrus.emf.facet.efacet.core.queryImplementationRegistration"&gt;
+  &lt;queryImplementationRegistration class="com.example.MyQueryImplementationFactory"/&gt;
+&lt;/extension&gt;
+</pre><h2 id="Adding_result_displayers">Adding result displayers</h2><p>You can add new result displayers by implementing IETypedElementResultDisplayer. This can be useful if you want to add a new type of visualization: table, tree, html page, diagram, ...</p><p>You will need to register your result displayer implementation with extension point <b>org.eclipse.papyrus.emf.facet.efacet.ui.eTypedElementResultDisplay</b>. For example:</p><pre>
+&lt;extension point="org.eclipse.papyrus.emf.facet.efacet.ui.eTypedElementResultDisplay"&gt;
+  &lt;displayer class="com.example.MyDisplayer"/&gt;
+&lt;/extension&gt;
+</pre><h2 id="ETypedElement_selection_dialog">ETypedElement selection dialog</h2><p><b>note: the dialog is internal, so there is no API guarantee</b></p><p>EMF Facet provides an ETypedElement selection dialog:</p><p><img border="0" src="../img/Select_ETypedElements.png"/></p><p>To open this dialog to let the user select ETypedElements, use <code>IETypedElementSelectionDialogFactory#openETypedElementSelectionDialog</code> from the plug-in <b>org.eclipse.papyrus.emf.facet.efacet.ui</b>. For example:</p><pre>
+IDialogCallbackWithPreCommit&lt;List&lt;ETypedElement&gt;, Object, Object&gt; callback = new 
+IDialogCallbackWithPreCommit&lt;List&lt;ETypedElement&gt;, Object, Object&gt;() {
+  public void committed(List&lt;ETypedElement&gt; result, Object precommitResult) {
+    // do something with the result
+  }
+
+  public Object openPrecommitDialog(List&lt;ETypedElement&gt; result, IDialogCallback&lt;Object&gt; precommitCallback) {
+    return null
+  }
+};
+final IETypedElementSelectionDialog&lt;Object&gt; dialog = IETypedElementSelectionDialogFactory.DEFAULT
+    .openETypedElementSelectionDialog(eTypedElements, Integer.MAX_VALUE, false,
+        callback, getShell(), getCustomizationManager(), getKnownFacetSets());
+</pre><p>You can also add a <b>pre-commit dialog</b>, i.e. a dialog that will open after the user clicked OK in the ETypedElement selection dialog, but before the dialog closes. This "pre-commit dialog" can be used as a confirmation dialog. You must return you pre-commit dialog in the callback's <code>openPrecommitDialog</code>. For example:</p><pre>
+IDialogCallbackWithPreCommit&lt;List&lt;ETypedElement&gt;, Boolean, MyPreCommitDialog&gt; callback = 
+    new IDialogCallbackWithPreCommit&lt;List&lt;ETypedElement&gt;, Boolean, MyPreCommitDialog&gt;() {
+  public void committed(List&lt;ETypedElement&gt; result, Boolean precommitResult) {
+    // do something with the result
+    
+  }
+  public MyPreCommitDialog openPrecommitDialog(List&lt;ETypedElement&gt; result, IDialogCallback&lt;Boolean&gt; precommitCallback) {
+    return new MyPreCommitDialog(result, precommitCallback);
+  }
+};
+</pre><p>If the user confirms their choice in your pre-commit dialog, then you must call <code>IDialogCallback#committed</code> on the callback that you received in <code>IDialogCallbackWithPreCommit#openPrecommitDialog</code>.</p><h3 id="Hierarchical_FacetSets">Hierarchical FacetSets</h3><p>This screenshot shows how hierarchical FacetSets are represented: the <b>org.eclipse.papyrus.emf.facet.efacet.examples.library.core.facet</b> FacetSet contains two FacetSets: <b>writer</b> and <b>book</b>:</p><p><img border="0" src="../img/SelectETypedElements_withHierarchicalFacetSets.png"/></p><p>This dialog uses the method <b>org.eclipse.papyrus.emf.facet.efacet.metamodel.v0_2_0.efacet.FacetSet.getFacetSets()</b> to get the "subFacetSets". This method can be overridden to tune the behavior of the facet set containment. The aggregate's implementation is based on the override of <b>FacetSet.getFacetSets()</b>.</p><h3 id="Aggregates">Aggregates</h3><p>This screenshot shows how aggregates are represented in this dialog: the <b>org.eclipse.papyrus.emf.facet.efacet.examples.library.core.aggregate</b> FacetSet is an Aggregate that aggregates <b>org.eclipse.papyrus.emf.facet.efacet.examples.library.core.facet</b> and <b>org.eclipse.papyrus.emf.facet.efacet.examples.library.core.custom</b>:</p><p><img border="0" src="../img/SelectETypedElements_withAggregates.png"/></p><h2 id="FacetSet_selection_dialog">FacetSet selection dialog</h2><p><b>note: the dialog is internal, so there is no API guarantee</b></p><p>EMF Facet provides a FacetSet selection dialog:</p><p><img border="0" src="../img/SelectFacetSetsDialog.png"/></p><p>To open this dialog to let the user select FacetSets, use <code>IFacetSetSelectionDialogFactoryopenFacetSetSelectionDialog</code> from the plug-in <b>org.eclipse.papyrus.emf.facet.efacet.ui</b>. For example:</p><pre>
+final Collection&lt;FacetSet&gt; registeredFacetSets = IFacetSetCatalogManagerFactory.DEFAULT
+    .getOrCreateFacetSetCatalogManager(new ResourceSetImpl())
+    .getRegisteredFacetSets();
+
+IDialogCallback&lt;List&lt;FacetSet&gt;&gt; callback = new IDialogCallback&lt;List&lt;FacetSet&gt;&gt;() {
+  public void committed(List&lt;FacetSet&gt; selection) {
+    // do something with the result
+  }
+};
+IFacetSetSelectionDialogFactory.DEFAULT.openFacetSetSelectionDialog(registeredFacetSets, 1, false, callback, getShell());
+</pre><p>You can also add a <b>pre-commit dialog</b>, i.e. a dialog that will open after the user clicked OK in the ETypedElement selection dialog, but before the dialog closes. This "pre-commit dialog" can be used as a confirmation dialog. You must return your pre-commit dialog in the callback's <code>openPrecommitDialog</code>. For example:</p><pre>
+final IDialogCallbackWithPreCommit&lt;List&lt;FacetSet&gt;, Boolean, MyPrecommitDialog&gt; dialogCallbackWithPreCommit =
+    new IDialogCallbackWithPreCommit&lt;List&lt;FacetSet&gt;, Boolean, MyPrecommitDialog&gt;() {
+      public void committed(List&lt;FacetSet&gt; result, Boolean precommitResult) {
+        // do something with the result
+
+      }
+
+      public MyPrecommitDialog openPrecommitDialog(List&lt;FacetSet&gt; result, IDialogCallback&lt;Boolean&gt; precommitCallback) {
+        return new MyPrecommitDialog(result, precommitCallback);
+      }
+    };
+Collection&lt;FacetSet&gt; registeredFacetSets = IFacetSetCatalogManagerFactory.DEFAULT
+    .getOrCreateFacetSetCatalogManager(new ResourceSetImpl())
+    .getRegisteredFacetSets();
+IFacetSetSelectionDialogFactory.DEFAULT.openFacetSetSelectionDialog(registeredFacetSets, 1, false, callback, getShell());
+</pre><p>If the user confirms their choice in your pre-commit dialog, then you must call <code>IDialogCallback#committed</code> on the callback that you received in <code>IDialogCallbackWithPreCommit#openPrecommitDialog</code>.</p><h3 id="Hierarchical_FacetSets_2">Hierarchical FacetSets</h3><p>This screenshot shows how hierarchical FacetSets are represented: the <b>org.eclipse.papyrus.emf.facet.efacet.examples.library.core.facet</b> FacetSet contains two FacetSets: <b>writer</b> and <b>book</b>:</p><p><img border="0" src="../img/SelectFacetSetsDialog_withHierarchicalFacetSets.png"/></p><p>This dialog uses the method <b>org.eclipse.papyrus.emf.facet.efacet.metamodel.v0_2_0.efacet.FacetSet.getFacetSets()</b> to get the "subFacetSets". This method can be overridden to tune the behavior of the facet set containment. The aggregate's implementation is based on the override of <b>FacetSet.getFacetSets()</b>.</p><p><font size="-2">
+Copyright &#169; 2012 Mia-Software.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License 2.0
+which accompanies this distribution, and is available at
+<a href="https://www.eclipse.org/legal/epl-2.0/">https://www.eclipse.org/legal/epl-2.0/</a>.
+Contributors: Nicolas Bros (Mia-Software)
+</font></p></body></html>

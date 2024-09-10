@@ -1,0 +1,67 @@
+=Prerequisites=
+To benefit from these features, you must install the '''Papyrus Toolsmiths''' called '''Papyrus Toolsmiths tools''' as shown on this snapshot
+
+[[File:images/ToolsmithsInstallation.png|frame|none]]
+
+
+=How To Create a TableConfiguration From a Table?=
+#Create a new Papyrus Project
+#Create a new Table
+##To create a configuration for a flat or a tree table, we recommend to create a '''Generic Tree Table'''.
+##To create a configuration for a matrix table, we recommend to create a '''Relationship Generic Matrix'''.
+#Configure your table.
+#Export your table '''Right-Click > Export As Table Configuration''' or in Eclipse Menu '''File > Export > Papyrus > Export As Table Configuration''', then follow the wizard.
+
+==Description of the Wizard==
+*''Optional page'':
+**If your configured table is not a '''Generic Tree Table''' or a '''Relationship Generic Matrix''', a warning page will be displayed
+[[File:images/CreateTableConfigurationFromTable_WarningWizard.png|frame|none]]
+
+You can cancel or continue after this page.
+*''First page'':
+**you must select an existing '''plugin''' as output of the table configuration file
+[[File:images/CreateTableConfigurationFromTable_OutputPage.png|frame|none]]
+*''Second page'':
+**You must define the name and the type of your new table configuration. The description is not mandatory. 
+[[File:images/CreateTableConfigurationFromTable_TableDataPage.png|frame|none]]
+
+
+After clicking on '''Finish''', in some case, we open a dialog, when we think the created TableConfiguration references others files which are not expected. In this case, we advice you to check them manually
+and fill us a bug if required. 
+[[File:images/CreateTableConfigurationFromTable_CheckDependecyDialog.png|frame|none]]
+
+==Description of the result==
+*a new '''nattableconfiguration''' file has been created in the new folder '''tableConfiguration''',
+*the extension point '''org.eclipse.papyrus.infra.nattable.configuration''' in the '''plugin.xml''' file has been filled,
+*a folder '''icons''' has been created. It owns the icon to use for the new table,
+*the following dependencies have been added in the '''MANIFEST.MF''' file:
+**'''org.eclipse.papyrus.infra.nattable'''
+**If you use your new configuration in a RCP, don't forget, to include these plugins to your table feature:
+***'''org.eclipse.papyrus.infra.nattable.common''' (required to get the table editor),
+***'''org.eclipse.papyrus.infra.nattable.properties''' (to get Table Properties View),
+***'''org.eclipse.papyrus.uml.nattable''' (required for UML table),
+***'''org.eclipse.papyrus.uml.nattable.matrix''' (required for Matrix),
+***'''org.eclipse.papyrus.uml.nattable.properties''' (required for Matrix Properties View).
+*the files and folders to include to the binary build have been added to the '''build.properties''' file.
+
+=How to contribute easily a table configuration into an existing Architecture Framework file?=
+*Import your plugin owning the Architecture Framework file to contribute in your current workspace (we use it at the end),
+*Launch a new Eclipse Runtime (required to avoid '''../../''' in the file),
+*Import in this runtime (without making a copy) your plugin owning your '''nattableconfiguration''' file,
+*Import in this runtime (without making a copy) your plugin owning the '''architecture''' file to edit,
+*Open the '''architecture''' file,
+*Select a '''Description Language''' element, then '''Right Click > New Child > Register Exiting Table Configuration''',
+[[File:images/RegistrationInArchitectureFile_MenuToRegisterTableConfiguration.png|frame|none]]
+*Select the '''nattableconfiguration''' file to register using the open Dialog
+[[File:images/RegistrationInArchitectureFile_SelectTableConfiguration.png|frame|none]]
+*If several viewpoints are declared for your '''Description Language''', a second dialog is open. You must select the viewpoint(s) to contribute,
+[[File:images/RegistrationInArchitectureFile_ViewpointSelection.png|frame|none]]
+*If several Concerns are declared for your '''Architecture Domain''', a third dialog is open. You must select the concern(s) to contribute,
+[[File:images/RegistrationInArchitectureFile_ConcernsSelection.png|frame|none]]
+*You must add rules to the created table configuration (define the type of allowed '''owner''' and '''root''' for the table creation),
+[[File:images/RegistrationInArchitectureFile_DefineOwnerAndRoot.png|frame|none]]
+*Save the architecture file,
+*Close your Eclipse Runtime,
+*Update the Architecture Framework project in the first Eclipse instance,
+*Relaunch the Eclipse Runtime,
+*Enjoy! Your new table is now registered in your viewpoint.

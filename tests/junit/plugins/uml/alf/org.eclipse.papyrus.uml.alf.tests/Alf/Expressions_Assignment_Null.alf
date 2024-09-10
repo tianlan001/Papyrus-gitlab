@@ -1,0 +1,26 @@
+/**
+ * Test non-literal assignment of null.
+ **/
+active class Expressions_Assignment_Null {
+
+	datatype D {
+		public k: Integer[0..1];
+	}
+
+	public activity 'd$defaultValue$1'(): D;
+	private i: Integer[0..1];
+	private j: Integer[0..*] sequence;
+	private d: D = 'd$defaultValue$1'();
+	public set(in i: Integer[0..1]);
+	public get(): Integer[0..1];
+	public setAt(in j: Integer[0..1], in index: Integer);
+	public getAt(in index: Integer): Integer[0..1];
+	public setData(in k: Integer[0..1]);
+	public getData(): Integer;
+	public test(out i: Integer[0..1], out j: Integer[0..1], out k: Integer[0..1]);
+	@Create
+	public Expressions_Assignment_Null();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Assignment_Null$behavior$1'

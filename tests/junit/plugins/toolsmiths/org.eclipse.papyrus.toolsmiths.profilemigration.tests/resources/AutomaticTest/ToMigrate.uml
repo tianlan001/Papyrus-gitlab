@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Profile_Profile="http://Test.Profile/schemas/Profile_Profile/_u8SZ4PRZEeeGSbiEjSc0pg/27" xmlns:Test.Generalization="http:///Test/Generalization.ecore" xmlns:Test.Package.Package1="http:///Test/Package/Package1.ecore" xmlns:Test.Property="http:///Test/Property.ecore" xmlns:Test.Stereotype="http:///Test/Stereotype.ecore" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://Test.Profile/schemas/Profile_Profile/_u8SZ4PRZEeeGSbiEjSc0pg/27 Test.profile.uml#_u8SZ4fRZEeeGSbiEjSc0pg http:///Test/Generalization.ecore Test.profile.uml#_u8OvufRZEeeGSbiEjSc0pg http:///Test/Package/Package1.ecore Test.profile.uml#_u8OIdPRZEeeGSbiEjSc0pg http:///Test/Property.ecore Test.profile.uml#_u8Ovn_RZEeeGSbiEjSc0pg http:///Test/Stereotype.ecore Test.profile.uml#_u8OIhvRZEeeGSbiEjSc0pg">
+  <uml:Model xmi:id="_yHROgK2UEeeWzbvclvEimw" name="Test">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_yMiwEK2UEeeWzbvclvEimw">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_zx_D4K2UEeeWzbvclvEimw" name="Package">
+      <packagedElement xmi:type="uml:Class" xmi:id="_3Mv6kK2UEeeWzbvclvEimw" name="Package_delete_Stereotype"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_-1bjMK2UEeeWzbvclvEimw" name="Package_delete_Extension"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Af12kK2VEeeWzbvclvEimw" name="Package_move_into_profileAlreadyApply"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_MBe4UK2WEeeWzbvclvEimw" name="Profile">
+      <packagedElement xmi:type="uml:Class" xmi:id="_PPV7cK2WEeeWzbvclvEimw" name="Profile_delete_Stereotype"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_PmtSkK2WEeeWzbvclvEimw" name="Profile_delete_Extension"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_P2KD0K2WEeeWzbvclvEimw" name="Profile_move_into_profileAlreadyApply"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_lYkm8K2XEeeWzbvclvEimw" name="Stereotype">
+      <packagedElement xmi:type="uml:Class" xmi:id="_3BEusK2XEeeWzbvclvEimw" name="Stereotype_add_Property_default_value"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_44dHEK2XEeeWzbvclvEimw" name="Stereotype_add_Property_noDefaultValue_optionalValue"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_5GoF8K2XEeeWzbvclvEimw" name="Stereotype_add_Generalization"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_5TMiUK2XEeeWzbvclvEimw" name="Stereotype_delete_Property"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_5fWH8K2XEeeWzbvclvEimw" name="Stereotype_delete_Generalization"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_5sZFcK2XEeeWzbvclvEimw" name="Stereotype_move_into_profileNotApplyYet"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_hZrgwK2dEeeWzbvclvEimw" name="Property">
+      <packagedElement xmi:type="uml:Class" xmi:id="_InXBMK2eEeeWzbvclvEimw" name="Property_modify_isDerived_falseToTrue"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Kxt_8K2eEeeWzbvclvEimw" name="Property_modify_isUnique_falseToTrue"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_MwFxIK2eEeeWzbvclvEimw" name="Property_modify_type_isConvertible">
+        <ownedAttribute xmi:type="uml:Port" xmi:id="_5qx84PRZEeeGSbiEjSc0pg" name="Port1" visibility="public" aggregation="composite">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_PnomAK2eEeeWzbvclvEimw" name="Property_modify_type_isNotConvertible"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_wICtcK2vEeeWzbvclvEimw" name="Generalization">
+      <packagedElement xmi:type="uml:Class" xmi:id="_0AFWAK2vEeeWzbvclvEimw" name="Generalization_modify_general_olt.isKingOf(new)"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_6wVh0K2vEeeWzbvclvEimw" name="Generalization_modify_general_new.isKingOf(old)"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="__x2T4K2vEeeWzbvclvEimw" name="Generalization_modify_general_noHierarchicalLink"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_EV1ccK2wEeeWzbvclvEimw" name="Generalization_modify_specialization1"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_MIrtsK2wEeeWzbvclvEimw" name="Generalization_modify_specialization2"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_v7zy0K2wEeeWzbvclvEimw" name="Generalization_move1"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_z3Y3kK2wEeeWzbvclvEimw" name="Generalization_move2"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_RrDH8fE5EeeDKs6i1tC0-Q">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_wT6UIPRZEeeGSbiEjSc0pg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wT6UIfRZEeeGSbiEjSc0pg" key="Version" value="0.0.30"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wT6UIvRZEeeGSbiEjSc0pg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wT6UI_RZEeeGSbiEjSc0pg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wT6UJPRZEeeGSbiEjSc0pg" key="Date" value="2018-01-08"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wT6UJfRZEeeGSbiEjSc0pg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_RrQjUPE5EeeDKs6i1tC0-Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Test.profile.uml#_u8OIcPRZEeeGSbiEjSc0pg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="Test.profile.uml#_qdU3EK2TEeeWzbvclvEimw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_ZCoZgfE5EeeDKs6i1tC0-Q">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_wT9-gPRZEeeGSbiEjSc0pg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wT9-gfRZEeeGSbiEjSc0pg" key="Version" value="0.0.30"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wT9-gvRZEeeGSbiEjSc0pg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wT9-g_RZEeeGSbiEjSc0pg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wT9-hPRZEeeGSbiEjSc0pg" key="Date" value="2018-01-08"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wT9-hfRZEeeGSbiEjSc0pg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ZDeHAPE5EeeDKs6i1tC0-Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Test.profile.uml#_u8SZ4fRZEeeGSbiEjSc0pg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="Test.profile.uml#_V3qIsK2VEeeWzbvclvEimw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_CJzE8PFXEee6FaZQ5zi5zw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_wUAawPRZEeeGSbiEjSc0pg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wUAawfRZEeeGSbiEjSc0pg" key="Version" value="0.0.30"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wUAawvRZEeeGSbiEjSc0pg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wUAaw_RZEeeGSbiEjSc0pg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wUAaxPRZEeeGSbiEjSc0pg" key="Date" value="2018-01-08"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wUAaxfRZEeeGSbiEjSc0pg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CJ1hMPFXEee6FaZQ5zi5zw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Test.profile.uml#_u8TA8fRZEeeGSbiEjSc0pg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="Test.profile.uml#_ADMhYK2WEeeWzbvclvEimw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_CJ3WYPFXEee6FaZQ5zi5zw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_wUCP8PRZEeeGSbiEjSc0pg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wUCP8fRZEeeGSbiEjSc0pg" key="Version" value="0.0.30"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wUCP8vRZEeeGSbiEjSc0pg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wUCP8_RZEeeGSbiEjSc0pg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wUCP9PRZEeeGSbiEjSc0pg" key="Date" value="2018-01-08"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wUCP9fRZEeeGSbiEjSc0pg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CJ4kgPFXEee6FaZQ5zi5zw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="Test.profile.uml#_u8Ry0PRZEeeGSbiEjSc0pg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="Test.profile.uml#_pn5OcK2UEeeWzbvclvEimw"/>
+    </profileApplication>
+  </uml:Model>
+  <Test.Package.Package1:Package_delete_Stereotype xmi:id="_8fe_gK2UEeeWzbvclvEimw" base_Class="_3Mv6kK2UEeeWzbvclvEimw"/>
+  <Test.Package.Package1:Package_delete_Extension xmi:id="__zfG4K2UEeeWzbvclvEimw" base_Class="_-1bjMK2UEeeWzbvclvEimw"/>
+  <Test.Package.Package1:Package_move_into_profileAlreadyApply xmi:id="_BNb8YK2VEeeWzbvclvEimw" base_Class="_Af12kK2VEeeWzbvclvEimw"/>
+  <Profile_Profile:Profile_delete_Stereotype xmi:id="_SjNf8K2WEeeWzbvclvEimw" base_Class="_PPV7cK2WEeeWzbvclvEimw"/>
+  <Profile_Profile:Profile_delete_Extension xmi:id="_TRLZMK2WEeeWzbvclvEimw" base_Class="_PmtSkK2WEeeWzbvclvEimw"/>
+  <Profile_Profile:Profile_move_into_profileAlreadyApply xmi:id="_T9GrEK2WEeeWzbvclvEimw" base_Class="_P2KD0K2WEeeWzbvclvEimw"/>
+  <Test.Stereotype:Stereotype_add_Property_default_value xmi:id="_9AHgAK2XEeeWzbvclvEimw" base_Class="_3BEusK2XEeeWzbvclvEimw"/>
+  <Test.Stereotype:Stereotype_add_Property_noDefaultValue_optionalValue xmi:id="_-G_ogK2XEeeWzbvclvEimw" base_Class="_44dHEK2XEeeWzbvclvEimw"/>
+  <Test.Stereotype:Stereotype_add_Generalization xmi:id="_FsLRMK2YEeeWzbvclvEimw" base_Class="_5GoF8K2XEeeWzbvclvEimw"/>
+  <Test.Stereotype:Stereotype_delete_Property xmi:id="_HOjp8K2YEeeWzbvclvEimw" base_Class="_5TMiUK2XEeeWzbvclvEimw" p="5"/>
+  <Test.Stereotype:Stereotype_delete_Generalization xmi:id="_JBMsQK2YEeeWzbvclvEimw" base_Class="_5fWH8K2XEeeWzbvclvEimw" generalp="5"/>
+  <Test.Stereotype:Stereotype_move_into_profileNotApplyYet xmi:id="_KqiooK2YEeeWzbvclvEimw" base_Class="_5sZFcK2XEeeWzbvclvEimw"/>
+  <Test.Property:Property_modify_isDerived_falseToTrue xmi:id="_KEgUoK2eEeeWzbvclvEimw" becommingDerived="5" base_Class="_InXBMK2eEeeWzbvclvEimw"/>
+  <Test.Property:Property_modify_isUnique_falseToTrue xmi:id="_L_A5gK2eEeeWzbvclvEimw" base_Class="_Kxt_8K2eEeeWzbvclvEimw">
+    <becommingUnique>1</becommingUnique>
+    <becommingUnique>2</becommingUnique>
+    <becommingUnique>3</becommingUnique>
+    <becommingUnique>2</becommingUnique>
+    <becommingUnique>1</becommingUnique>
+  </Test.Property:Property_modify_isUnique_falseToTrue>
+  <Test.Property:Property_modify_type_isConvertible xmi:id="_PHdRIK2eEeeWzbvclvEimw" changingType="_5qx84PRZEeeGSbiEjSc0pg" base_Class="_MwFxIK2eEeeWzbvclvEimw"/>
+  <Test.Property:Property_modify_type_isNotConvertible xmi:id="_Q3VTUK2eEeeWzbvclvEimw" changingType="_5qx84PRZEeeGSbiEjSc0pg" base_Class="_PnomAK2eEeeWzbvclvEimw"/>
+  <Test.Generalization:Generalization_modify_general_oltisKingOfnew xmi:id="_3W2dgK2vEeeWzbvclvEimw" base_Class="_0AFWAK2vEeeWzbvclvEimw" type1p="3" subtype1p="2" p="1"/>
+  <Test.Generalization:Generalization_modify_general_newisKingOfold xmi:id="_8lRDIK2vEeeWzbvclvEimw" base_Class="_6wVh0K2vEeeWzbvclvEimw" type1p="2" p="1"/>
+  <Test.Generalization:Generalization_modify_general_noHierarchicalLink xmi:id="_CBdmEK2wEeeWzbvclvEimw" base_Class="__x2T4K2vEeeWzbvclvEimw" type1p="2" p="1"/>
+  <Test.Generalization:Generalization_modify_specialization1 xmi:id="_KAWvQK2wEeeWzbvclvEimw" base_Class="_EV1ccK2wEeeWzbvclvEimw" type1p="2" p1="1"/>
+  <Test.Generalization:Generalization_modify_specialization2 xmi:id="_bJ0xoK2wEeeWzbvclvEimw" p2="2" base_Class="_MIrtsK2wEeeWzbvclvEimw"/>
+  <Test.Generalization:Generalization_move1 xmi:id="_xKSYIK2wEeeWzbvclvEimw" base_Class="_v7zy0K2wEeeWzbvclvEimw" type1p="2" p="1"/>
+  <Test.Generalization:Generalization_move2 xmi:id="_1ir7wK2wEeeWzbvclvEimw" p="1" base_Class="_z3Y3kK2wEeeWzbvclvEimw"/>
+</xmi:XMI>

@@ -1,0 +1,120 @@
+=Introduction=
+Since Papyrus 3.0 (Eclipse Oxygen), Papyrus provides the Expressions Framework.
+This framework provides one basis interface <code>IExpression<CONTEXT_TYPE, RETURN_TYPE></code>. This interface provides the method <code>evaluate(CONTEXT_TYPE):RETURN_TYPE</code>. 
+This framework has been developed to be hightly extensible, in order to be able to evaluate all object kinds and returning all possible values. This extensibility requires for the developer to extends the basic IExpression in its framework.
+
+The expressions can be grouped in an <code>ExpressionCatalog</code>, in order to provide predefined expressions to the user.
+Each expression must have a name and can have a description.
+
+==Why this framework?==
+The Expressions have initially been developed for Papyrus Matrices Table. Developing the matrices, we need to provide a way to easily filter the rows and the columns to show. That's the reason for which the first expressions available in Papyrus are the boolean expressions to evaluate EObject. 
+
+==Initial requirements==
+*the framework must be extensible for the developer
+*the framework must be easy to configure for the user
+*the framework must allow to get a strong typing for the parameters (other frameworks, like Papyrus EMF Facet requires to check the type of the parameters before evaluating the object, the types are not verified during the build of the model using them)
+**we required to be able to type filters used in the matrices by an expression working on EObject and returning Boolean values.
+*no 'hidden' parameter (Papyrus Constraints framework is limited to boolean, and required parameters of the constraint are not obvious to find.
+*must allow to wrap pre-existing contraints mechanism (OCL, EMF-Facet, and others).
+
+=How the Expressions Framework has been built?=
+*The description of the framework has been done using Papyrus. We created 2 models to describe the expressions. The first one define the bases of the framework and provides the boolean expressions for eobjects. The second one specialize the previous model for UML. Here, you have three snapshots of these models:
+
+[[File:images/BasicExpressionClassDiagram.PNG|frame|The basis of the Expression Framework]] <br>
+
+[[File:images/BooleanExpressionClassDiagram.PNG|frame|The boolean operators expressions]] <br>
+
+[[File:images/UMLExpressionsClassDiagram.PNG|frame|The expressions for UML.]] <br>
+
+
+
+*these uml models has been converted into EMF models using the UMLToEcore tool provided by UML. Unfortunately, this framework doesn't manage the Templates defined in our model. So we patched the uml plugin '''org.eclipse.uml2.uml.util.UMLUtil''' to be able to generate the expected EMF model. This patch is available in the plugin '''org.eclipse.papyrus.infra.emf.expression''', in the '''patch''' folder. 
+*the previous step gave us the file ''*.ecore'' and ''*.genmodel''. Before generating the source code, we configure the ''*.genmodel'' as described here:
+
+#Selecting the root of the genmodel:
+##all folders for generated code are set to ''src-gen'' instead of ''src''
+##In the ''All'' group
+###'''NON-NLS markers''': <code>true</code>
+###'''Copyright Text''': we set the Papyrus header
+###''''OSGI Compatible''': <code>true</code>
+##In the ''Edit'' group
+###'''Creation Icon''': <code>false</code> (to avoid to have one icon by feature)
+##In the ''Editor'' group
+###'''Creation Sub Menus''': <code>true</code> (we no idea about the real need of this feature)
+#Selecting each EPackage of the EMF Model
+##In the ''Edit'' Group
+###'''Child Creation Extender''': set to <code>true</code>, to get creation menu coming from the other models extending expressions
+###'''Extensible Provider Factory''': set to <code>true</code>
+##In the ''Editor'' Group
+###'''Generated Model Wizard''': set to <code>false</code>, <u>excepted for the Expressions EPackage itself</u>
+###'''Multiple Editor Page''': set to <code>false</code>, <u>excepted for the Expressions EPackage itself</u>
+
+
+
+After this configuration, we generate the java code for the model, in order to get the EMF edit plugins for each expression model, and the editor. This last one is mandatory only for the basis of the expression framework. The extension, like UML Expressions, doesn't require it.
+
+We completed the generated code declaring a custom factory for the package to implement the <code>evaluate</code> methods for each expression. In the future, we probably look for including the body of the method in the UML model, using the OCL language.
+
+We declare our own ''ResourceFactory'' and ''Resource'', in order to control the format options for all editors able to manage an EMF resource. By this way, we ensure that the format of the files never changes regardless the used EMF editor. Our new files are: '''org.eclipse.papyrus.infra.emf.expressions.util.custom.ExpressionsResourceFactory''' and '''org.eclipse.papyrus.infra.emf.expressions.util.custom.ExpressionsResource'''. 
+
+The options currenlty set for the format are:
+
+<code> Map<Object, Object> options = super.getDefaultSaveOptions();</code><br>
+<code>// idem in Papyrus ModelSet</code><br>
+<code>options.put(XMLResource.OPTION_URI_HANDLER, new URIHandlerImpl.PlatformSchemeAware());</code><br>
+<code>// idem in MultiDiagramUtil</code><br>
+<code>options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$</code><br>
+<code>options.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);</code><br>
+<code>// formating option about the size of the line in the file</code><br>
+<code>// options.put(XMLResource.OPTION_LINE_WIDTH, 10);</code><br>
+<code>options.put(Resource.OPTION_LINE_DELIMITER, Resource.OPTION_LINE_DELIMITER_UNSPECIFIED);</code><br>
+ 
+
+We registered the '''ExpressionsResourceFactory''' throw the extension point <code>org.eclipse.emf.ecore.extension_parser</code>. 
+
+We commented a part of the generated code to avoid to get an NPE at runtime. In the method <code>org.eclipse.papyrus.infra.emf.expressions.booleanexpressionspackage.impl.EObjectBooleanExpressionsPackageImpl.createUMLAnnotations</code>, the second call to <code>addAnnotation</code> is trying to add an annotation on the <code>null</code>.
+
+=The Expression plugins=
+The plugins available in Papyrus for the user: 
+*'''org.eclipse.papyrus.infra.emf.expressions'''
+**the UML model describing the framework,
+**the equivalent EMF model,
+**the generated code from EMF,
+**custom factory and others classes developed for this framework.
+*'''org.eclipse.papyrus.infra.emf.expressions.edit'''
+**provides the label provider as usual with EMF.
+*'''org.eclipse.papyrus.infra.emf.expressions.editor'''
+**provides the editor as usual with EMF.
+*'''org.eclipse.papyrus.infra.emf.expressions.properties'''
+**provides the properties view, based on XWT, for the expressions.
+*'''org.eclipse.papyrus.uml.expressions'''
+**the UML model describing the extension for UML,
+**the equivalent EMF mode,
+**the generated code from EMF, 
+**custom factory and others classes developed for this framework.
+*'''org.eclipse.papyrus.uml.expressions'''
+**provides the label provider as usual with EMF.
+*'''org.eclipse.papyrus.uml.expressions.properties'''
+**provides the properties view, based on XWT, for the UML expressions
+
+In addition, we have a toolsmiths plugin: 
+*'''org.eclipse.papyrus.toolsmiths.expressions'''
+**allows to generate an ExpressionCatalog owning all required UML Expressions <code>IsStereotypedWithExpression</code> required to manipulate a given profile.
+
+
+=How to register a new ExpressionCatalog?=
+Your expression catalog file should have the ''expression'' extension.
+You must register it using the extension point called '''org.eclipse.papyrus.infra.emf.expressions.expressionCatalog'''.
+
+=How to create a CatalogExpression for a UML Profile?=
+Installaing the Papyrus Toolsmiths feature, you get an Expressions Generator. This one is able to generate all expressions '''IsStereotypedWithExpression''' to test application of your stereotypes defined in your profile.
+
+[[File:images/CreateAnExpressionCatalogForTheProfile.png|frame| The menu to create an expression catalog.]] <br>
+#Open your profile
+#Select the root profile
+#'''Right-Click'''->'''Generate Tooling Model'''->'''Create an ExpressionCatalog for the Profile'''
+#The created catalog is stored as the same location than your profile. You can move it to the wanted location
+#In the plugin.xml of the project providing the catalog, you must register it throw the extension point '''org.eclipse.papyrus.infra.emf.expressions.expressionCatalog'''.
+
+=How to get all registered CatalogExpression?=
+You must call the method <code>org.eclipse.papyrus.infra.emf.expressions.catalog.ExpressionCatalogRegistry.getAllRegisteredCatalog()</code>.

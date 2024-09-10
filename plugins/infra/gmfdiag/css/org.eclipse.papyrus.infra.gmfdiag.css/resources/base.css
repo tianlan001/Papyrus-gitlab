@@ -1,0 +1,73 @@
+/*****************************************************************************
+ * Copyright (c) 2012, 2017 CEA LIST.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *  Camille Letavernier (CEA LIST) camille.letavernier@cea.fr
+ *  Mickaël ADAM (ALL4TEC) mickael.adam@all4tec.net - Generic shape default value implementation. Default symbol implementation.
+ *  Thanh Liem PHAN (ALL4TEC) thanhliem.phan@all4tec.net - Bug 507488
+ *****************************************************************************/
+
+/**
+
+This stylesheets declares the default style options for Papyrus. It mostly contains hacks to avoid
+unwished behaviors, related to the base implementation (GMF, Papyrus...)
+
+*/
+
+Compartment[kind=symbol]{
+	visible:false;
+}
+
+* {
+ 	lineColor:black; /* Avoid the gray line-colors from default GMF connectors */
+ 	fontName:"Segoe UI"; /* Default font used in Papyrus. It is different from the GMF default */
+ 	fontColor:black;
+ 	transparency:0; /* Default transparency in GMF Notation is -1. -1 is recognized as "Unchanged" by the GMF NodeFigure. e.g. changing from 50 to -1 ("reset") does nothing */
+ 	showTitle:false;
+ 	textAlignment:"center";
+ 	isOval:false;
+ 	shadowWidth:5;
+ 	borderStyle:"solid";
+ 	customDash:5 5;
+ 	useOriginalColors:true;
+ 	nameBackgroundColor:"-1";
+ }
+
+Model,
+Package,
+Profile{
+	textAlignment:"left";
+}
+
+Label{
+	position:"left";
+}
+
+Label[kind="FloatingLabel"]{
+	maskLabel:"name";
+	textAlignment:"left";
+}
+
+Port{
+	portPosition:"onLine";
+}
+
+Model,
+Package,
+Profile{
+	isPackage:true;
+}
+
+Compartment{
+	linePosition:"center";
+	lineLengthRatio:"1.0";
+	lineLength:-1;
+}
+

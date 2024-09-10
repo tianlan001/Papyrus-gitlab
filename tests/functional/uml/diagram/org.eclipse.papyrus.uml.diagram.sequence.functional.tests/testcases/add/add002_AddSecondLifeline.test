@@ -1,0 +1,94 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: add002_AddSecondLifeline
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _V0U8gAgZEeiHkPkpSqDhSg
+Runtime-Version: 2.3.0.201806122315
+Save-Time: 6/27/18 9:38 AM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+/* Automatically create a behaviour execution with reply message for synchronous messages. */
+auto-syncmsg-execspec br
+
+with [get-editor "SequenceDiagramTest.di"] {
+    get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part -text Interaction1 | get-edit-part 
+        -className CInteractionInteractionCompartmentEditPart | mouse-move 811 16 -height 738 -width 857
+    with [get-palette | get-palette-entry Lifeline] {
+        mouse-move 35 6 button1 -height 23 -width 125
+        mouse-press 35 6 button1 -height 23 -width 125
+        mouse-release 35 6 button1 524288 -height 23 -width 125
+    }
+    with [get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part -text Interaction1 | get-edit-part 
+        -className CInteractionInteractionCompartmentEditPart] {
+        mouse-move 163 56 button1 -height 738 -width 857
+        mouse-press 163 56 button1 -height 738 -width 857
+        mouse-release 163 56 button1 524288 -height 738 -width 857
+    }
+    with [get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part -text Interaction1] {
+        with [get-edit-part -className CInteractionInteractionCompartmentEditPart | get-edit-part -name Lifeline1] {
+            mouse-hover 4 41 -height 700 -width 100
+            get-edit-part -name Lifeline1 | activate-direct-edit
+        }
+        mouse-move 3 53 -height 757 -width 857
+    }
+}
+
+// [ASSERT] Verify position of the first created lifeline.
+with [get-editor "SequenceDiagramTest.di" | get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part 
+    -text Interaction1 | get-edit-part -className CInteractionInteractionCompartmentEditPart | get-edit-part 
+    -name Lifeline1 | get-figure -path "0/0"] {
+    get-property x | equals 154 | verify-true
+    get-property y | equals 10 | verify-true
+}
+
+with [get-editor "SequenceDiagramTest.di"] {
+    with [get-palette | get-palette-entry Lifeline] {
+        mouse-move 48 10 button1 -height 23 -width 125
+        mouse-press 48 10 button1 -height 23 -width 125
+        mouse-release 48 10 button1 524288 -height 23 -width 125
+        mouse-hover 48 10 -height 23 -width 125
+        mouse-move 13 11 -height 23 -width 125
+    }
+    with [get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part -text Interaction1 | get-edit-part 
+        -className CInteractionInteractionCompartmentEditPart] {
+        mouse-move 497 30 button1 -height 738 -width 857
+        mouse-press 497 30 button1 -height 738 -width 857
+        mouse-release 497 30 button1 524288 -height 738 -width 857
+    }
+    with [get-diagram -index 1] {
+        with [get-edit-part -name Interaction1 | get-edit-part -text Interaction1 | get-edit-part 
+            -className CInteractionInteractionCompartmentEditPart] {
+            get-edit-part -name Lifeline2 | get-edit-part -name Lifeline2 | activate-direct-edit
+            mouse-hover 497 30 -height 738 -width 857
+            with [get-edit-part -name Lifeline2] {
+                mouse-move 11 12 button1 -height 700 -width 100
+                mouse-press 11 12 button1 -height 700 -width 100
+            }
+        }
+        commit-direct-edit
+        with [get-edit-part -name Interaction1 | get-edit-part -text Interaction1 | get-edit-part 
+            -className CInteractionInteractionCompartmentEditPart | get-edit-part -name Lifeline2] {
+            mouse-release 11 12 button1 524288 -height 700 -width 100
+            mouse-move 8 15 button1 -height 700 -width 100
+            mouse-press 8 15 button1 -height 700 -width 100
+            mouse-release 8 15 button1 524288 -height 700 -width 100
+            mouse-move 10 17 -height 700 -width 100
+            get-edit-part -name Lifeline2 | activate-direct-edit
+        }
+    }
+}
+
+// [ASSERT] Verify position of the second created lifeline.
+with [get-editor "SequenceDiagramTest.di" | get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part 
+    -text Interaction1 | get-edit-part -className CInteractionInteractionCompartmentEditPart | get-edit-part 
+    -name Lifeline2 | get-figure -path "0/0"] {
+    get-property x | equals 494 | verify-true
+    get-property y | equals 10 | verify-true
+}
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--

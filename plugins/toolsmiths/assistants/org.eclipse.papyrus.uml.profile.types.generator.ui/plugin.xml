@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.papyrus.custo.framework">
+            <command
+                  commandId="org.eclipse.papyrus.uml.profile.types.generator.ui.generateElementTypes"
+                  id="org.eclipse.papyrus.uml.profile.types.generator.ui.generateElementTypes"
+                  label="Generate Element Types..."
+                  style="push">
+               <visibleWhen
+                      checkEnabled="false">
+                   <with
+                         variable="selection">
+                      <test
+                            property="org.eclipse.papyrus.views.modelexplorer.tester.eClass"
+                            value="uml::Profile">
+                      </test>
+                      <iterate
+                            operator="and"
+                            ifEmpty="false">
+                         <test
+                               property="org.eclipse.papyrus.uml.tools.isRoot">
+                         </test>
+                      </iterate>
+                   </with>
+                </visibleWhen>
+            </command>
+            <separator
+                  name="additions"
+                  visible="false">
+            </separator>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.eclipse.papyrus.uml.profile.types.generator.ui.internal.handlers.GenerateElementTypesHandler"
+            description="Launch a wizard for generation of an Element Type Configurations model for the selected UML profile"
+            id="org.eclipse.papyrus.uml.profile.types.generator.ui.generateElementTypes"
+            name="Generate Element Types Model">
+      </command>
+   </extension>
+
+</plugin>

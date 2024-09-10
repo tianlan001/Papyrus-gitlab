@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2017 CEA LIST.
+ 
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+ 	Vincent Lorenzo (CEA LIST) vincent.lorenzo@cea.fr - Initial API and implementation
+-->
+
+<plugin>
+
+
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated expressions -->
+      <factory
+            uri="http://www.eclipse.org/papyrus/expressions"
+            class="org.eclipse.papyrus.infra.emf.expressions.provider.ExpressionsItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated expressions -->
+      <factory
+            uri="http://www.eclipse.org/papyrus/expressions/booleanexpressions"
+            class="org.eclipse.papyrus.infra.emf.expressions.booleanexpressions.provider.BooleanExpressionsItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+     <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="TreeOutlinePage">
+         <propertySection
+               class="org.eclipse.papyrus.infra.emf.expressions.edit.internal.properties.EMFExpressionPropertySection"
+               filter="org.eclipse.papyrus.infra.emf.expressions.edit.internal.properties.EMFExpressionSectionFilter"
+               id="org.eclipse.papyrus.infra.emf.expression.properties.propertySection"
+               tab="advanced">
+            <input
+                  type="java.lang.Object">
+            </input>
+         </propertySection>
+      </propertySections>
+   </extension>
+   <extension
+         point="org.eclipse.emf.edit.propertyEditorFactories">
+      <factory
+            class="org.eclipse.papyrus.infra.emf.expressions.edit.internal.editor.factories.SingleEAttributeReferenceExpressionEditorFactory"
+			uri="http://www.eclipse.org/papyrus/expressions/singleEAttributeReference">
+      </factory>
+      <factory
+            class="org.eclipse.papyrus.infra.emf.expressions.edit.internal.editor.factories.SingleBooleanEObjectExpressionReferenceEditorFactory"
+            uri="http://www.eclipse.org/papyrus/expressions/SingleBooleanEObjectExpressionReferenceExpression/referencedExpression">
+      </factory>
+      <factory
+            class="org.eclipse.papyrus.infra.emf.expressions.edit.internal.editor.factories.MultiBooleanEObjectExpressionsReferenceEditorFactory"
+            uri="http://www.eclipse.org/papyrus/expressions/MultiBooleanEObjectExpressionsReferenceExpression/referencedExpressions">
+      </factory>
+   </extension>
+
+</plugin>

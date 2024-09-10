@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse version="3.0"?>
+<plugin>
+	<extension point="org.eclipse.emf.ecore.generated_package">
+		<package
+		   uri="bogus://bug572865"
+		   genModel="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
+		   class="org.eclipse.emf.ecore.EcorePackage"/> <!-- Don't do this except in a test. -->
+	</extension>
+</plugin>

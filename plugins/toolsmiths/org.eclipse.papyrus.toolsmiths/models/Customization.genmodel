@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/uml2/2.2.0/GenModel"
+    copyrightText="Copyright (c) 2012 CEA LIST.&#xA;&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License 2.0&#xA; which accompanies this distribution, and is available at&#xA; https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA; SPDX-License-Identifier: EPL-2.0&#xA;&#xA; Contributors:&#xA; Camille Letavernier (CEA LIST) camille.letavernier@cea.fr - Initial API and implementation"
+    modelDirectory="/org.eclipse.papyrus.toolsmiths/src-gen" editDirectory="/org.eclipse.papyrus.toolsmiths.edit/src-gen"
+    editorDirectory="/org.eclipse.papyrus.toolsmiths.editor/src-gen" modelPluginID="org.eclipse.papyrus.toolsmiths"
+    modelName="Customization" editPluginClass="org.eclipse.papyrus.toolsmiths.model.customizationplugin.provider.CustomizationEditPlugin"
+    editorPluginClass="org.eclipse.papyrus.toolsmiths.model.customizationplugin.presentation.CustomizationEditorPlugin"
+    nonNLSMarkers="true" testsDirectory="/org.eclipse.papyrus.toolsmiths.tests/src-gen"
+    testSuiteClass="org.eclipse.papyrus.toolsmiths.model.customizationplugin.tests.CustomizationAllTests"
+    importerID="org.eclipse.uml2.uml.ecore.importer" complianceLevel="5.0" copyrightFields="false"
+    editPluginID="org.eclipse.papyrus.toolsmiths.edit" editorPluginID="org.eclipse.papyrus.toolsmiths.editor">
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/importer/org.eclipse.uml2.uml.ecore.importer">
+    <details key="OPPOSITE_ROLE_NAMES" value="IGNORE"/>
+    <details key="DUPLICATE_FEATURES" value="DISCARD"/>
+    <details key="ANNOTATION_DETAILS" value="PROCESS"/>
+    <details key="PROPERTY_DEFAULT_EXPRESSIONS" value="IGNORE"/>
+    <details key="DUPLICATE_FEATURE_INHERITANCE" value="DISCARD"/>
+    <details key="COMMENTS" value="PROCESS"/>
+    <details key="DERIVED_FEATURES" value="PROCESS"/>
+    <details key="SUPER_CLASS_ORDER" value="PROCESS"/>
+    <details key="DUPLICATE_OPERATION_INHERITANCE" value="DISCARD"/>
+    <details key="REDEFINING_OPERATIONS" value="REPORT"/>
+    <details key="INVARIANT_CONSTRAINTS" value="PROCESS"/>
+    <details key="UNION_PROPERTIES" value="REPORT"/>
+    <details key="DUPLICATE_OPERATIONS" value="DISCARD"/>
+    <details key="NON_API_INVARIANTS" value="IGNORE"/>
+    <details key="CAMEL_CASE_NAMES" value="IGNORE"/>
+    <details key="SUBSETTING_PROPERTIES" value="REPORT"/>
+    <details key="OPERATION_BODIES" value="IGNORE"/>
+    <details key="ECORE_TAGGED_VALUES" value="PROCESS"/>
+    <details key="UNTYPED_PROPERTIES" value="REPORT"/>
+    <details key="REDEFINING_PROPERTIES" value="REPORT"/>
+    <details key="INVOCATION_DELEGATES" value="IGNORE"/>
+    <details key="VALIDATION_DELEGATES" value="IGNORE"/>
+  </genAnnotations>
+  <foreignModel>Customization.uml</foreignModel>
+  <genPackages xsi:type="genmodel:GenPackage" prefix="CustomizationPlugin" basePackage="org.eclipse.papyrus.toolsmiths.model"
+      disposableProviderFactory="true" ecorePackage="Customization.ecore#/">
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="Customization.ecore#//CustomizationConfiguration">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//CustomizationConfiguration/plugin"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference Customization.ecore#//CustomizationConfiguration/elements"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="Customization.ecore#//CustomizableElement"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="Customization.ecore#//FileBasedCustomizableElement">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//FileBasedCustomizableElement/file"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="Customization.ecore#//PropertyView"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="Customization.ecore#//UICustom">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//UICustom/loadByDefault"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="Customization.ecore#//ModelTemplate">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//ModelTemplate/language"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//ModelTemplate/name"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//ModelTemplate/id"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//ModelTemplate/di_file"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//ModelTemplate/notation_file"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="Customization.ecore#//Palette">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//Palette/ID"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//Palette/clazz"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//Palette/name"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//Palette/provider"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//Palette/priorityName"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//Palette/editorId"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="Customization.ecore#//Profile">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//Profile/qualifiednames"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//Profile/iconpath"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//Profile/description"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//Profile/provider"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//Profile/name"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="Customization.ecore#//UMLModel">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//UMLModel/name"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//UMLModel/iconpath"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//UMLModel/description"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//UMLModel/provider"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="Customization.ecore#//ConstraintsEnvironment"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="Customization.ecore#//PropertyViewEnvironment"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="Customization.ecore#//TableConfiguration">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute Customization.ecore#//TableConfiguration/type"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

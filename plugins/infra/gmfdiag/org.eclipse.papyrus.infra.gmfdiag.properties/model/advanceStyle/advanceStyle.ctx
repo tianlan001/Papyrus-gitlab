@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_qahnQPNAEeSUy5qALahJGg" name="AdvanceStyle" label="Diagram Advanced Notation">
+  <tabs xmi:id="_qahnQfNAEeSUy5qALahJGg" label="Advanced" id="advanceAppearance" category="org.eclipse.papyrus" afterTab="_b0dE8AU3EeWyLrX3gM3cmQ" indented="true" priority="75">
+    <sections xmi:id="_LSzTgPP_EeSAco7o1Suyeg" name="GenericNodeShapeSection" sectionFile="ui/GenericNodeShapeSection.xwt">
+      <widget href="ui/GenericNodeShapeSection.xwt#/"/>
+    </sections>
+    <sections xmi:id="_7dELUP09EeSv6-u-klIJ1Q" name="FloatingLabelSection" sectionFile="ui/FloatingLabelSection.xwt">
+      <widget href="ui/FloatingLabelSection.xwt#/"/>
+    </sections>
+    <sections xmi:id="_W4rVoP1vEeSv6-u-klIJ1Q" name="PortStyleSection" sectionFile="ui/PortStyleSection.xwt">
+      <widget href="ui/PortStyleSection.xwt#/"/>
+    </sections>
+    <sections xmi:id="_aMIFIP34EeS0P8FocX2FTA" name="PapyrusLabelSection" sectionFile="ui/PapyrusLabelSection.xwt">
+      <widget href="ui/PapyrusLabelSection.xwt#/"/>
+    </sections>
+  </tabs>
+  <tabs xmi:id="_b0dE8AU3EeWyLrX3gM3cmQ" label="Appearance" id="appearance" category="org.eclipse.papyrus" priority="75"/>
+  <views xmi:id="_XRw1UPP-EeSAco7o1Suyeg" elementMultiplicity="-1" name="GenericNodeShape" sections="_LSzTgPP_EeSAco7o1Suyeg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_iKCmcPP-EeSAco7o1Suyeg" name="RoundedCompartmentEditPart">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.3"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_ZYvMEPQCEeSAco7o1Suyeg" name="class" value="org.eclipse.papyrus.uml.diagram.common.editparts.RoundedCompartmentEditPart"/>
+    </constraints>
+  </views>
+  <views xmi:id="_NwiHIP34EeS0P8FocX2FTA" elementMultiplicity="-1" name="PapyrusLabel" sections="_aMIFIP34EeS0P8FocX2FTA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_Ed_qIP4LEeS0P8FocX2FTA" name="isPapyrusLabel">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.4"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_bTGSQP4OEeS0P8FocX2FTA" name="className" value="org.eclipse.papyrus.infra.gmfdiag.properties.constraint.IsPortLabelConstraint"/>
+    </constraints>
+  </views>
+  <views xmi:id="_lYPpQP09EeSv6-u-klIJ1Q" elementMultiplicity="-1" name="FloatingLabel" sections="_7dELUP09EeSv6-u-klIJ1Q">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_MZzFUP1WEeSv6-u-klIJ1Q" name="isFloatingLabel">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.3"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_VjJtIP1vEeSv6-u-klIJ1Q" name="class" value="org.eclipse.papyrus.uml.diagram.common.editparts.FloatingLabelEditPart"/>
+    </constraints>
+  </views>
+  <views xmi:id="_JCvLcP1tEeSv6-u-klIJ1Q" elementMultiplicity="-1" name="PortStyle" sections="_W4rVoP1vEeSv6-u-klIJ1Q">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_Ab6NoP1vEeSv6-u-klIJ1Q" name="isPortEditPart">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.3"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_VjJtIf1vEeSv6-u-klIJ1Q" name="class" value="org.eclipse.papyrus.uml.diagram.common.editparts.RoundedBorderNamedElementEditPart"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_GyF5wPNBEeSUy5qALahJGg" name="GenericShape">
+    <elements xmi:id="_UQMdoPNBEeSUy5qALahJGg" name="ShapeCustomisation">
+      <properties xmi:id="_bM-pkPNBEeSUy5qALahJGg" name="isOval" type="Boolean" description="Set to true if you want to have an oval shape."/>
+      <properties xmi:id="_ilq_EPPpEeSAco7o1Suyeg" name="radiusWidth" type="Integer" description="Set the radius width of corners"/>
+      <properties xmi:id="_jNraQPPpEeSAco7o1Suyeg" name="radiusHeight" type="Integer" description="Set the radius height of corners"/>
+      <properties xmi:id="_4b4dYPPpEeSAco7o1Suyeg" name="borderStyle" description="Set the style of the border(dash, dashDot, dashDotDot, dot, solid, custom)."/>
+      <properties xmi:id="__g1G0PPpEeSAco7o1Suyeg" name="customDash" multiplicity="10" description="Set the custom dash style."/>
+      <properties xmi:id="_uvrBUPPqEeSAco7o1Suyeg" name="isPackage" type="Boolean" description="Set if the shape have to be displayed as a package."/>
+    </elements>
+    <elements xmi:id="_QQOcUPPqEeSAco7o1Suyeg" name="CompartmentCustomisation">
+      <properties xmi:id="_S46V0PPqEeSAco7o1Suyeg" name="lineLength" type="Integer" description="Set the top line length of the compartments. By default the length is set to the width of the parent."/>
+      <properties xmi:id="_YpLEQPPqEeSAco7o1Suyeg" name="lineLengthRatio" description="Set the top line length ratio of the compartments."/>
+      <properties xmi:id="_eQOMUPPqEeSAco7o1Suyeg" name="linePosition" description="Set the compartment top line position.Can be left, center, right."/>
+    </elements>
+    <elements xmi:id="_oc6p0PPqEeSAco7o1Suyeg" name="AffixedElementCustomisation">
+      <properties xmi:id="_sSl64PPqEeSAco7o1Suyeg" name="portPosition" description="Set the position of the port. Can be &#x201c;inside&#x201d;, &#x201c;ouside&#x201d; or &#x201c;onLine&#x201d;."/>
+    </elements>
+    <elements xmi:id="_zR5PUPPqEeSAco7o1Suyeg" name="ShadowCustomisation">
+      <properties xmi:id="_0LcGcPPqEeSAco7o1Suyeg" name="shadowWidth" type="Integer" description="Set the width of the shadow."/>
+      <properties xmi:id="_EmwpYPPrEeSAco7o1Suyeg" name="shadowColor" description="Set the color of the shadow. By default the shadow have the same color as the border."/>
+    </elements>
+    <elements xmi:id="_JUXcEPiNEeSxbtV5OLSDdQ" name="SVGCustomisation">
+      <properties xmi:id="_yETQQPPpEeSAco7o1Suyeg" name="useOriginalColors" type="Boolean" description="Set if the SVG image use original colors."/>
+      <properties xmi:id="__Yfo0PiMEeSxbtV5OLSDdQ" name="followSVGSymbol" type="Boolean"/>
+      <properties xmi:id="_XQagMPiNEeSxbtV5OLSDdQ" name="maintainSymbolRatio" type="Boolean" description=""/>
+    </elements>
+    <elements xmi:id="_xb_I8P0yEeSv6-u-klIJ1Q" name="FloatingLabelCustomisation">
+      <properties xmi:id="_HLspEPmCEeSxbtV5OLSDdQ" name="visible" label="displayFloatingLabel" type="Boolean" description="Set the floating label visibility."/>
+      <properties xmi:id="_JmC5MP0zEeSv6-u-klIJ1Q" name="isFloatingLabelConstrained" type="Boolean" description="Set to true if the floating label is constrained on eight position, you can move it manually."/>
+      <properties xmi:id="_OIOD4P0zEeSv6-u-klIJ1Q" name="labelConstrained" type="Boolean" description="Forced the label to one position, by default(for port) it will placed according to the parent position."/>
+      <properties xmi:id="_Oe4QYP0zEeSv6-u-klIJ1Q" name="position" label="" description="Set the forced position."/>
+      <properties xmi:id="_O4V5QP0zEeSv6-u-klIJ1Q" name="floatingLabelOffsetWidth" label="" type="Integer" description="Define the width offset of the label when it is not attached."/>
+      <properties xmi:id="_WhIPkP0zEeSv6-u-klIJ1Q" name="floatingLabelOffsetHeight" type="Integer" description="Define the height offset of the label when it is not attached."/>
+      <properties xmi:id="_byA6YP0zEeSv6-u-klIJ1Q" name="maskLabel" multiplicity="10" description="Set the mask of the floating label."/>
+      <properties xmi:id="_Nf6bwP35EeS0P8FocX2FTA" name="labelOffsetX" label="" type="Integer" description=""/>
+      <properties xmi:id="_Nf6bwf35EeS0P8FocX2FTA" name="labelOffsetY" type="Integer" description=""/>
+    </elements>
+    <elements xmi:id="_rLl1MP1vEeSv6-u-klIJ1Q" name="PortCustomisation">
+      <properties xmi:id="_tbh3gP1vEeSv6-u-klIJ1Q" name="portPosition" label="" description="Set the position of the port. Can be &#x201c;inside&#x201d;, &#x201c;ouside&#x201d; or &#x201c;onLine&#x201d;"/>
+    </elements>
+    <elements xmi:id="_fQV8YP45EeSDsJzvaQqgDg" name="LabelCustomisation">
+      <properties xmi:id="_hA9aYPNBEeSUy5qALahJGg" name="displayHeader" type="Boolean" description="Set to true to add a header."/>
+      <properties xmi:id="_hfp8wPPqEeSAco7o1Suyeg" name="textAlignment" label="" description="Set name the position of the name."/>
+      <properties xmi:id="_zTPxYP42EeSDsJzvaQqgDg" name="nameBackgroundColor" label=""/>
+      <properties xmi:id="_-pvBIP45EeSDsJzvaQqgDg" name="topMarginLabel" type="Integer"/>
+      <properties xmi:id="_BrKx0P46EeSDsJzvaQqgDg" name="bottomMarginLabel" type="Integer"/>
+      <properties xmi:id="_B6JpAP46EeSDsJzvaQqgDg" name="rightMarginLabel" type="Integer"/>
+      <properties xmi:id="_CCXw4P46EeSDsJzvaQqgDg" name="leftMarginLabel" type="Integer"/>
+      <properties xmi:id="_0VA7cJHmEeWp_v7KuSA-pQ" name="isNameWrap" label="" type="Boolean" description="Set to true to wrap the name label."/>
+      <properties xmi:id="_vxW0oNoUEeWvsbHqK-83Lw" name="nameBackgroundColor" label="backgroundColor" description="Set the background of the name header."/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.properties/model/Environment.xmi#//@modelElementFactories.6"/>
+  </dataContexts>
+  <dataContexts xmi:id="_A0SaUPQMEeSAco7o1Suyeg" name="UMLNotation">
+    <elements xmi:id="_FlRdEPQMEeSAco7o1Suyeg" name="Shadow">
+      <properties xmi:id="_IX25cPQMEeSAco7o1Suyeg" name="shadow" label="Shadow" type="Boolean"/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@modelElementFactories.4"/>
+  </dataContexts>
+</contexts:Context>

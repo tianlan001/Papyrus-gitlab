@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.papyrus.infra.core.sasheditor.preferences.generalcategory"
+            class="org.eclipse.papyrus.uml.tools.utils.internal.preferences.NamedElementNamingStrategyPreferencePage"
+            id="org.eclipse.papyrus.uml.tools.utils.NamedElementNamingStrategyPreferencePage"
+            name="UML Naming Strategy">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.eclipse.papyrus.uml.tools.utils.internal.preferences.NameElementNamingStrategyPreferenceInitializer">
+      </initializer>
+   </extension>
+
+</plugin>

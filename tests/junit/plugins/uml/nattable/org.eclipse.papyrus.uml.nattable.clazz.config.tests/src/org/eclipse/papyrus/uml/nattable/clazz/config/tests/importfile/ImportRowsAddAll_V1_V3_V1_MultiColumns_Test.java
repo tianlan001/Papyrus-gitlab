@@ -1,0 +1,70 @@
+/*****************************************************************************
+ * Copyright (c) 2015 CEA LIST and others.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *   Nicolas FAUVERGUE (ALL4TEC) nicolas.fauvergue@all4tec.net - Initial API and implementation
+ *   
+ *****************************************************************************/
+
+package org.eclipse.papyrus.uml.nattable.clazz.config.tests.importfile;
+
+import java.util.Map;
+
+import org.eclipse.nebula.widgets.nattable.selection.command.SelectRowsCommand;
+import org.eclipse.papyrus.infra.nattable.handler.ImportTableHandler;
+import org.eclipse.papyrus.infra.nattable.manager.table.INattableModelManager;
+import org.eclipse.papyrus.infra.nattable.manager.table.NattableModelManager;
+import org.eclipse.papyrus.infra.nattable.utils.UserActionConstants;
+
+/**
+ * Test import all of selection with hidden categories.
+ */
+public class ImportRowsAddAll_V1_V3_V1_MultiColumns_Test extends AbstractImportRowsTest {
+
+	/**
+	 * Constructor.
+	 */
+	public ImportRowsAddAll_V1_V3_V1_MultiColumns_Test() {
+		super();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.papyrus.uml.nattable.clazz.config.tests.paste.overwrite.AbstractPasteInsertTest#removeClassName(java.lang.String)
+	 */
+	@Override
+	public String removeClassName(final String className) throws Exception {
+		return className.replaceFirst("ImportRowsAddAll_", ""); //$NON-NLS-1$ //$NON-NLS-2$ k
+	}
+
+	/**
+	 * Manage the selection with the shift key.
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.papyrus.uml.nattable.clazz.config.tests.importfile.AbstractImportRowsTest#manageSelection(org.eclipse.papyrus.infra.nattable.manager.table.NattableModelManager)
+	 */
+	@Override
+	public void manageSelection(final NattableModelManager manager) throws Exception {
+		super.manageSelection(manager);
+		manager.getBodyLayerStack().getSelectionLayer().doCommand(new SelectRowsCommand(manager.getBodyLayerStack().getSelectionLayer(), 0, 50, true, false));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.eclipse.papyrus.uml.nattable.generic.tests.insert.AbstractInsertTest#manageParameters(java.util.Map)
+	 */
+	@Override
+	public void manageParameters(final Map<Object, Object> parameters, final INattableModelManager manager) {
+		super.manageParameters(parameters, manager);
+		parameters.put(ImportTableHandler.USER_ACTION__PREFERRED_USER_ACTION, UserActionConstants.ADD_USER_ACTION);
+	}
+}

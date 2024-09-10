@@ -1,0 +1,39 @@
+=Table of Contents=
+==Requirements==
+* Add Graphical Elements (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_010): 
+The system shall be able to add new graphical elements in new diagrams or existing diagrams
+* Add Graphical Compartments (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_011): 
+The developper can add new compartments from a existed graphical element.
+* Add new nodes (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_012): 
+A developper can add new nodes in the diagram that no exist in the existed diagram or  add element by reusing existed shape.
+* Add new child label  (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_013): 
+A developper can add new child labels ( element that can be contained in a list compartment) in the diagram that no exist in the existed diagram or  add element by reusing existed child label.
+* Add new border item (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_014): 
+A developper can add new border items ( element that can be installed around the  shape) in the diagram that no exist in the existed diagram or  add element by reusing existed border item.
+* Add new links  (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_015): 
+A developper can add new links in the diagram that no exist in the existed diagram or  add element by reuse existed links.
+* Reuse representations from diagram (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_016): 
+It must be able to reuse rperesentations from existed diagrams
+* Drop of new Elements (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_020): 
+New Elements can be dropped from the model explorer.
+* Assistant (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_030): 
+The new element must be created by using assistant mechanism
+* Creation from the palette (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_040): 
+Elements can be created fom the palette
+* Non impact on parent diagrams (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_050): 
+the inheridted diagram must not impact parent diagram by addin the new compartments.
+* ExpransionModel (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_060): 
+The expansion of diagram has to be a model and be interpreted
+* The model has to be well-built (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_061): 
+When the model is done, the ystem has to ensure that it can be correctly interpreted.
+* Expanded diagrams viewed with original editor (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_070): 
+The original diagram must be view in original diagram, exteernal element must have a predefined shape.
+It cannot be implemented for the version Mars
+* CSS driven (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_080): 
+The added element must be driven by CSS
+* View point relation (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_090): 
+The new specialization editor must benefit of all specializations.
+* Loading at runtime (id=org.eclipse.papyrus.infra.gmfdiag.expansion.Req_0100): 
+An expansion model must be able to load during runtime, not only with extension point.
+It allow to be tested by Junit Tests.
+

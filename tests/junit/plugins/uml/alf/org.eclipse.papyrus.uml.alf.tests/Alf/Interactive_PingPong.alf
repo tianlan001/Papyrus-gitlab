@@ -1,0 +1,41 @@
+active class Interactive_PingPong {
+
+	active class A {
+
+		receive signal Start {
+			public b: B;
+		}
+
+		receive signal Ping {
+		}
+
+		@Create
+		public A();
+		@Destroy
+		public destroy();
+
+	} do 'A$behavior$1'
+
+	active class B {
+
+		receive signal Start {
+			public a: A;
+			public n: Integer;
+		}
+
+		receive signal Pong {
+		}
+
+		@Create
+		public B();
+		@Destroy
+		public destroy();
+
+	} do 'B$behavior$1'
+
+	@Create
+	public Interactive_PingPong();
+	@Destroy
+	public destroy();
+
+} do 'Interactive_PingPong$behavior$1'

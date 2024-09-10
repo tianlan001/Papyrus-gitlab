@@ -1,0 +1,291 @@
+<html>
+<link rel="stylesheet" href="default.css" type="text/css">
+<H1>Generic Model Synchronization Framework</H1>
+<H2 id ="_uf_BAAO4EeW8nIkIujhtCA">Table of Contents</H2>
+<ul><a href="#_ugA2MAO4EeW8nIkIujhtCA">Requirements</a></ul>
+<ul><a href="#_ugHj4AO4EeW8nIkIujhtCA">Use Cases</a><li><a href="#_uhT2sAO4EeW8nIkIujhtCA"> UML-RT Capsule State Machine Diagram Synchronization</a></li>
+<ul><li><a href="#_uhUdwQO4EeW8nIkIujhtCA"> Add elements to general state machine</a></li>
+<ul></ul>
+<li><a href="#_uhYIIQO4EeW8nIkIujhtCA"> Delete elements from general state machine</a></li>
+<ul></ul>
+<li><a href="#_uhbygAO4EeW8nIkIujhtCA"> Lay out elements in general state machine</a></li>
+<ul></ul>
+<li><a href="#_uhe10QO4EeW8nIkIujhtCA"> Hide elements in general state machine</a></li>
+<ul></ul>
+<li><a href="#_uhigMAO4EeW8nIkIujhtCA"> Add elements to special state machine</a></li>
+<ul></ul>
+<li><a href="#_uhljgQO4EeW8nIkIujhtCA"> Lay out elements in special state machine</a></li>
+<ul></ul>
+<li><a href="#_uhpN4QO4EeW8nIkIujhtCA"> Synchronization Lifecycle</a></li>
+<ul></ul>
+</ul>
+</ul>
+<ul><a href="#_uhrqIAO4EeW8nIkIujhtCA">Design</a><li><a href="#_uijz4AO4EeW8nIkIujhtCA"> Component org.eclipse.papyrus.infra.sync</a></li>
+<ul></ul>
+<li><a href="#_uilpEQO4EeW8nIkIujhtCA"> Component org.eclipse.papyrus.infra.gmfdiag.common</a></li>
+<ul></ul>
+<li><a href="#_uioFUAO4EeW8nIkIujhtCA"> Component org.eclipse.papyrus.umlrt.ui</a></li>
+<ul></ul>
+<li><a href="#_uip6gAO4EeW8nIkIujhtCA"> Package org.eclipse.papyrus.infra.sync</a></li>
+<ul><li><a href="#_um5hUAO4EeW8nIkIujhtCA"> Class SyncFeature</a></li>
+<ul></ul>
+<li><a href="#_um7WgQO4EeW8nIkIujhtCA"> Class SyncBucket</a></li>
+<ul></ul>
+<li><a href="#_um9LsQO4EeW8nIkIujhtCA"> Class SyncItem</a></li>
+<ul></ul>
+<li><a href="#_um_n8QO4EeW8nIkIujhtCA"> Class SyncRegistry</a></li>
+<ul></ul>
+<li><a href="#_unBdIQO4EeW8nIkIujhtCA"> Class MasterSlaveSyncBucket</a></li>
+<ul></ul>
+<li><a href="#_unEgcQO4EeW8nIkIujhtCA"> Class EMFListener</a></li>
+<ul></ul>
+<li><a href="#_unGVoQO4EeW8nIkIujhtCA"> Class EMFDispatch</a></li>
+<ul></ul>
+<li><a href="#_unIx4AO4EeW8nIkIujhtCA"> Collaboration Synchronization</a></li>
+<ul><li><a href="#_upSG8QO4EeW8nIkIujhtCA"> Interaction Synchronize Model Elements</a></li>
+<ul></ul>
+</ul>
+</ul>
+<li><a href="#_urPOwQO4EeW8nIkIujhtCA"> Package org.eclipse.papyrus.infra.sync.service</a></li>
+<ul><li><a href="#_uuJY0QO4EeW8nIkIujhtCA"> Interface ISyncService</a></li>
+<ul></ul>
+<li><a href="#_uuLOAQO4EeW8nIkIujhtCA"> Interface ISyncTrigger</a></li>
+<ul></ul>
+<li><a href="#_uuNqQAO4EeW8nIkIujhtCA"> Interface ISyncAction</a></li>
+<ul></ul>
+<li><a href="#_uuPfcQO4EeW8nIkIujhtCA"> Class SyncServiceRunnable</a></li>
+<ul></ul>
+<li><a href="#_uuRUoQO4EeW8nIkIujhtCA"> Class CascadeTriggers</a></li>
+<ul></ul>
+</ul>
+<li><a href="#_uuUX8QO4EeW8nIkIujhtCA"> Package org.eclipse.papyrus.infra.sync.policy</a></li>
+<ul><li><a href="#_uw_RcAO4EeW8nIkIujhtCA"> Interface ISyncPolicy</a></li>
+<ul></ul>
+<li><a href="#_uxBGoQO4EeW8nIkIujhtCA"> Interface ISyncPolicyDelegate</a></li>
+<ul></ul>
+<li><a href="#_uxDi4QO4EeW8nIkIujhtCA"> Class SyncPolicyDelegate</a></li>
+<ul></ul>
+<li><a href="#_uxHNQAO4EeW8nIkIujhtCA"> Class DefaultSyncPolicy</a></li>
+<ul></ul>
+<li><a href="#_uxKQkQO4EeW8nIkIujhtCA"> Interface ISyncPolicyDelegate.Registry</a></li>
+<ul></ul>
+<li><a href="#_uxMFwQO4EeW8nIkIujhtCA"> Collaboration Synchronization Overrides</a></li>
+<ul><li><a href="#_u0EaoQO4EeW8nIkIujhtCA"> Interaction Override Diagram Synchronization</a></li>
+<ul></ul>
+</ul>
+</ul>
+<li><a href="#_u2vUIAO4EeW8nIkIujhtCA"> Package org.eclipse.papyrus.infra.gmfdiag.common.sync</a></li>
+<ul><li><a href="#_u7Hd0QO4EeW8nIkIujhtCA"> Class ContainerChildrenSyncFeature</a></li>
+<ul></ul>
+<li><a href="#_u7KhIQO4EeW8nIkIujhtCA"> Class DiagramEdgesSyncFeature</a></li>
+<ul></ul>
+<li><a href="#_u7NkcAO4EeW8nIkIujhtCA"> Class NodePositionSyncFeature</a></li>
+<ul></ul>
+<li><a href="#_u7QAsQO4EeW8nIkIujhtCA"> Class NodeSizeSyncFeature</a></li>
+<ul></ul>
+<li><a href="#_u7TEAQO4EeW8nIkIujhtCA"> Class EditPartSyncRegistry</a></li>
+<ul></ul>
+<li><a href="#_u7WHUQO4EeW8nIkIujhtCA"> Class EditPartSyncBucket</a></li>
+<ul></ul>
+<li><a href="#_u7ZKoQO4EeW8nIkIujhtCA"> Class EditPartSyncItem</a></li>
+<ul></ul>
+<li><a href="#_u7cN8QO4EeW8nIkIujhtCA"> Collaboration Notation Synchronization</a></li>
+<ul><li><a href="#_u-Bn4QO4EeW8nIkIujhtCA"> Interaction Synchronize Notation Views</a></li>
+<ul></ul>
+</ul>
+<li><a href="#_u_7sYAO4EeW8nIkIujhtCA"> Class NodePositionSyncDispatcher</a></li>
+<ul></ul>
+<li><a href="#_u_-vsQO4EeW8nIkIujhtCA"> Class NodeSizeSyncDispatcher</a></li>
+<ul></ul>
+<li><a href="#_vACaEAO4EeW8nIkIujhtCA"> Collaboration Synchronization Exclusions</a></li>
+<ul><li><a href="#_vCtTkAO4EeW8nIkIujhtCA"> Interaction Exclude Views from Synchronization</a></li>
+<ul></ul>
+</ul>
+<li><a href="#_vE4d0QO4EeW8nIkIujhtCA"> Class NotationSyncPolicyDelegate</a></li>
+<ul></ul>
+</ul>
+</ul>
+<ul><a href="#_vE7hIAO4EeW8nIkIujhtCA">Tests</a><li><a href="#_vFMm4QO4EeW8nIkIujhtCA"> Component org.eclipse.papyrus.infra.gmfdiag.common.tests</a></li>
+<ul></ul>
+<li><a href="#_vFPDIAO4EeW8nIkIujhtCA"> Package org.eclipse.papyrus.infra.gmfdiag.common.sync.tests</a></li>
+<ul><li><a href="#_vG6eIQO4EeW8nIkIujhtCA"> Class MasterSlaveNotationSyncTest</a></li>
+<ul></ul>
+<li><a href="#_vG86YQO4EeW8nIkIujhtCA"> Class NotationSyncOverrideTest</a></li>
+<ul></ul>
+<li><a href="#_vG-vkQO4EeW8nIkIujhtCA"> Class TestSyncFixture</a></li>
+<ul></ul>
+</ul>
+</ul>
+<ul><a href="#_vHBL0AO4EeW8nIkIujhtCA">Requirements Coverage</a></ul>
+<H2 id ="_ugA2MAO4EeW8nIkIujhtCA">Requirements</H2>
+<pre id ="_ugCEUQO4EeW8nIkIujhtCA">- Model-to-Model Sync (id=R1): <BR/> The framework SHALL support the automatic synchronization of model semantics. For example, a state machine in a subclass that redefines a state machine in a superclass must always define regions, vertices, and transitions corresponding to and redefining the regions, vertices, and transitions of the superclass state machine.</pre>
+<pre id ="_ugDScQO4EeW8nIkIujhtCA">- Additional Content (id=R1.1): <BR/> The framework SHALL support the creation of additional elements in the target of a model-to-model synchronization.  For example, the state machine of a UML-RT Capsule may add vertices, transitions, and regions in addition to those that are synchronized from (and redefined) the vertices, transitions, and regions of the parent Capsule.  Moreover, transitions that redefine transitions in the parent Capsule may be re-targeted to (or re-sourced from) vertices that are added by the redefining state machine.</pre>
+<pre id ="_ugEgkQO4EeW8nIkIujhtCA">- Diagram-to-Diagram Sync (id=R2): <BR/> The framework SHALL support automatic synchronization of the layout of diagrams. For example, a state machine diagram in a subclass that redefines a state machine in a superclass initially presents the same layout as the superclass state machine and changes in the superclass state machine diagram layout are reflected in the subclass.</pre>
+<pre id ="_ugFusAO4EeW8nIkIujhtCA">- Sync Override (id=R2.1): <BR/> Synchronization of diagram layout SHALL be optional. Initially, a diagram is synchronized with the diagram that it redefines, but as needed to effect a sensible layout of the redefining diagram, this synchronization may be broken by the user. The semantics remain synchronized, and some graphical views may remain synchronized, but the user may freely rearrange other views as required by the redefining context.</pre>
+<H2 id ="_ugHj4AO4EeW8nIkIujhtCA">Use Cases</H2>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Use_Cases.png alt=Use Cases ></P><P align="middle">Use Cases</P></BR>
+<H3 id ="_uhT2sAO4EeW8nIkIujhtCA">UML-RT Capsule State Machine Diagram Synchronization</H3>
+<H4 id ="_uhUdwQO4EeW8nIkIujhtCA">Add elements to general state machine</H4>
+<pre id ="_uhWS8AO4EeW8nIkIujhtCA">  - traces to <a href="#_ugCEUQO4EeW8nIkIujhtCA" title="Requirement Model-to-Model Sync">Model-to-Model Sync</a><BR/><BR/>  - traces from <a href="#_unIx4AO4EeW8nIkIujhtCA" title="Collaboration Synchronization">Synchronization</a></pre>
+<pre id ="_uhXhEAO4EeW8nIkIujhtCA">The UML-RT model has a Capsule that is specialized by some other Capsule<BR/>that has a state machine redefining the parent Capsule's state machine.<BR/><BR/>When the user adds states, transitions, regions, and other vertices to the<BR/>parent state machine, the system adds corresponding elements to the<BR/>child Capsule's state machine with appropriate redefinition associations.</pre>
+<H4 id ="_uhYIIQO4EeW8nIkIujhtCA">Delete elements from general state machine</H4>
+<pre id ="_uhZ9UAO4EeW8nIkIujhtCA">  - traces to <a href="#_ugCEUQO4EeW8nIkIujhtCA" title="Requirement Model-to-Model Sync">Model-to-Model Sync</a></pre>
+<pre id ="_uhakYQO4EeW8nIkIujhtCA">The UML-RT model has a Capsule that is specialized by some other Capsule<BR/>that has a state machine redefining the parent Capsule's state machine.<BR/><BR/>When the user deletes states, transitions, regions, and other vertices from<BR/>the parent state machine, the system deletes the corresponding redefining<BR/>elements from the child Capsule's state machine.</pre>
+<H4 id ="_uhbygAO4EeW8nIkIujhtCA">Lay out elements in general state machine</H4>
+<pre id ="_uhdAoAO4EeW8nIkIujhtCA">  - traces to <a href="#_ugEgkQO4EeW8nIkIujhtCA" title="Requirement Diagram-to-Diagram Sync">Diagram-to-Diagram Sync</a><BR/><BR/>  - traces from <a href="#_u7cN8QO4EeW8nIkIujhtCA" title="Collaboration Notation Synchronization">Notation Synchronization</a></pre>
+<pre id ="_uheOwQO4EeW8nIkIujhtCA">The UML-RT model has a Capsule that is specialized by some other Capsule<BR/>that has a state machine redefining the parent Capsule's state machine.<BR/><BR/>When the user moves and sizes states, regions, and other vertices in the<BR/>parent state machine diagram, the system moves and sizes the<BR/>corresponding redefining elements in the child Capsule's state machine<BR/>diagram to the redefined elements' locations and sizes, respectively.</pre>
+<H4 id ="_uhe10QO4EeW8nIkIujhtCA">Hide elements in general state machine</H4>
+<pre id ="_uhgrAAO4EeW8nIkIujhtCA">  - traces to <a href="#_ugEgkQO4EeW8nIkIujhtCA" title="Requirement Diagram-to-Diagram Sync">Diagram-to-Diagram Sync</a></pre>
+<pre id ="_uhhSEQO4EeW8nIkIujhtCA">The UML-RT model has a Capsule that is specialized by some other Capsule<BR/>that has a state machine redefining the parent Capsule's state machine.<BR/><BR/>When the user hides states, regions, and other vertices from the<BR/>parent state machine diagram (deleting the views but not the model<BR/>elements, themselves), the system removes the views of the<BR/>corresponding redefining elements from the child Capsule's state<BR/>machine diagram.</pre>
+<H4 id ="_uhigMAO4EeW8nIkIujhtCA">Add elements to special state machine</H4>
+<pre id ="_uhjuUAO4EeW8nIkIujhtCA">  - traces to <a href="#_ugDScQO4EeW8nIkIujhtCA" title="Requirement Additional Content">Additional Content</a></pre>
+<pre id ="_uhkVYQO4EeW8nIkIujhtCA">The UML-RT model has a Capsule that is specialized by some other Capsule<BR/>that has a state machine redefining the parent Capsule's state machine.<BR/><BR/>The user adds states, transitions, regions, and other vertices to the child<BR/>Capsule's state machine that are new in this context, not redefining any<BR/>elements from the parent state machine.  These may be positioned anywhere<BR/>in the child state machine diagram.<BR/><BR/>Also, transitions that redefine inherited transitions in the parent state machine<BR/>may be re-targeted and/or re-sourced as necessary in the child capsule.  This<BR/>includes re-connecting transitions to states and other vertices that exist only<BR/>in the child capsule's state machine (that do not redefine inherited vertices).</pre>
+<H4 id ="_uhljgQO4EeW8nIkIujhtCA">Lay out elements in special state machine</H4>
+<pre id ="_uhnYsAO4EeW8nIkIujhtCA">  - traces to <a href="#_ugFusAO4EeW8nIkIujhtCA" title="Requirement Sync Override">Sync Override</a><BR/><BR/>  - traces from <a href="#_uxMFwQO4EeW8nIkIujhtCA" title="Collaboration Synchronization Overrides">Synchronization Overrides</a>, <a href="#_vACaEAO4EeW8nIkIujhtCA" title="Collaboration Synchronization Exclusions">Synchronization Exclusions</a></pre>
+<pre id ="_uhn_wQO4EeW8nIkIujhtCA">The UML-RT model has a Capsule that is specialized by some other Capsule<BR/>that has a state machine redefining the parent Capsule's state machine.<BR/><BR/>When the user deliberately moves and sizes states, regions, and other<BR/>vertices in the child Capsule's state machine diagram, the system detects<BR/>this and exempts the affected views from subsequent synchronization<BR/>of the location and/or size (as appropriate) from the parent state machine<BR/>diagram.  Layout changes in the redefined elements in the parent state<BR/>machine diagram are no longer propagated to these views in the child<BR/>state machine diagram.<BR/></pre>
+<H4 id ="_uhpN4QO4EeW8nIkIujhtCA">Synchronization Lifecycle</H4>
+<pre id ="_uhp08QO4EeW8nIkIujhtCA">When an editor is opened, the system initializes synchronization of<BR/>model and diagram content according to the state machine<BR/>synchronization triggers defined by the UML-RT plug-in.<BR/>The synchronization system is destroyed when the editor is closed.</pre>
+<H2 id ="_uhrqIAO4EeW8nIkIujhtCA">Design</H2>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Plug-ins.png alt=Plug-ins ></P><P align="middle">Plug-ins</P></BR>
+<H3 id ="_uijz4AO4EeW8nIkIujhtCA">Component org.eclipse.papyrus.infra.sync</H3>
+<pre id ="_uika8QO4EeW8nIkIujhtCA">The core generic synchronization framework.  Provides the base abstractions and<BR/>support for synchronization of EMF-based model elements.</pre>
+<H3 id ="_uilpEQO4EeW8nIkIujhtCA">Component org.eclipse.papyrus.infra.gmfdiag.common</H3>
+<pre id ="_uim3MAO4EeW8nIkIujhtCA">An extension of the synchronization framework that provides support for<BR/>synchronization of GMF-based diagrams as implemented by EditParts.<BR/>Provides specific synchronization features for:<BR/><ul><BR/><li>nested node edit-parts</li><BR/><li>incoming and outgoing connection edit-parts on nodes</li><BR/><li>position of node edit-parts</li><BR/><li>size of node edit-parts</li><BR/></ul></pre>
+<H3 id ="_uioFUAO4EeW8nIkIujhtCA">Component org.eclipse.papyrus.umlrt.ui</H3>
+<pre id ="_uiosYQO4EeW8nIkIujhtCA">Specific implementations of synchronization triggers, registries, buckets, and features for<BR/>semantics of redefining Capsule state machines and visualization of redefining capsule<BR/>state machines in state machine diagrams.</pre>
+<H3 id ="_uip6gAO4EeW8nIkIujhtCA">Package org.eclipse.papyrus.infra.sync</H3>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Sync_Framework_Core_Classes.png alt=Sync Framework Core Classes ></P><P align="middle">Sync Framework Core Classes</P></BR>
+<pre id ="_um4TMAO4EeW8nIkIujhtCA">Core abstractions of the synchronization framework, including integration with<BR/>EMF Transactions for synchronization of EMF model elements using trigger<BR/>commands to implement follow-up changes to synchronized objects in reaction<BR/>to changes observed (as Notifications) in source objects.</pre>
+<H4 id ="_um5hUAO4EeW8nIkIujhtCA">Class SyncFeature</H4>
+<pre id ="_um6IYQO4EeW8nIkIujhtCA">A synchronization primitive representing a feature, possibly something<BR/>complex or derived, comprising any number of actual features in EMF<BR/>or Java terms, of the "back-end" object type T that is to be synchronized<BR/>from one or more other objects of the same kind matching the same<BR/>(or equivalent) "front-end" model M, on receipt from the source object<BR/>of some message of type X.</pre>
+<H4 id ="_um7WgQO4EeW8nIkIujhtCA">Class SyncBucket</H4>
+<pre id ="_um8koQO4EeW8nIkIujhtCA">A group of synchronization items that all match different "back-end" objects<BR/>of type T with the same (or logically equivalent; the matching is flexible)<BR/>"front-end" model element of type M.  A bucket coordinates synchronization<BR/>of any number of featuers from the back-end of a source item that has<BR/>changed to the back-ends of the other items in the bucket.</pre>
+<H4 id ="_um9LsQO4EeW8nIkIujhtCA">Class SyncItem</H4>
+<pre id ="_um-Z0QO4EeW8nIkIujhtCA">A pairing of a "front-end" model element (of type M) with a "back-end"<BR/>object (of type T) that is synchronized from some other back-end paired<BR/>with the same front-end.</pre>
+<H4 id ="_um_n8QO4EeW8nIkIujhtCA">Class SyncRegistry</H4>
+<pre id ="_unA2EAO4EeW8nIkIujhtCA">A registry of synchronization buckets of the same type.  All of the buckets in<BR/>a registry synchronize the same features of the back-ends of type T matching<BR/>front-ends of type M, on receipt of messages of type X.  An instance of the<BR/>synchronization service (which is unique in a Papyrus editor) has an unique<BR/>SyncRegistry for every combination of actual front-end, back-end, and message<BR/>types.</pre>
+<H4 id ="_unBdIQO4EeW8nIkIujhtCA">Class MasterSlaveSyncBucket</H4>
+<pre id ="_unCrQQO4EeW8nIkIujhtCA">  - specializes <a href="#_um7WgQO4EeW8nIkIujhtCA" title="Class SyncBucket">SyncBucket</a></pre>
+<pre id ="_unDSUQO4EeW8nIkIujhtCA">A specialized synchronization bucket that implements a master-slave<BR/>synchronization pattern.  A single SyncItem is identified as the master<BR/>and its back-end is observed for changes, which are pushed to the<BR/>back-ends of all other SyncItems in the bucket (the slaves).</pre>
+<H4 id ="_unEgcQO4EeW8nIkIujhtCA">Class EMFListener</H4>
+<pre id ="_unFukAO4EeW8nIkIujhtCA">A ResourceSetLIstener on the Papyrus editor's TransactionalEditingDomain<BR/>that observes, via EMFDispatch objects, changes in the "back-end" objects<BR/>of SyncItems in a bucket.  When changes are observed, they are dispatched<BR/>to the appropriate SyncFeatures to propagate them (as appropriate) to the<BR/>back-ends of other items in the bucket.</pre>
+<H4 id ="_unGVoQO4EeW8nIkIujhtCA">Class EMFDispatch</H4>
+<pre id ="_unHjwQO4EeW8nIkIujhtCA">A mediator of the propagation of synchronizable feature changes<BR/>from sources to targets when messages are received from the sources<BR/>that trigger synchronization.  In the EMF context, these messages are<BR/>Notifications.</pre>
+<H4 id ="_unIx4AO4EeW8nIkIujhtCA">Collaboration Synchronization</H4>
+<pre id ="_unKAAAO4EeW8nIkIujhtCA">  - traces to <a href="#_ugCEUQO4EeW8nIkIujhtCA" title="Requirement Model-to-Model Sync">Model-to-Model Sync</a>, <a href="#_BwcAgP_0EeScYo8tuJyy0A" title="Use Case Add elements to general state machine">Add elements to general state machine</a></pre>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Synchronization.png alt=Synchronization ></P><P align="middle">Synchronization</P></BR>
+<H5 id ="_upSG8QO4EeW8nIkIujhtCA">Interaction Synchronize Model Elements</H5>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Synchronize_Model_Elements.png alt=Synchronize Model Elements ></P><P align="middle">Synchronize Model Elements</P></BR>
+<H3 id ="_urPOwQO4EeW8nIkIujhtCA">Package org.eclipse.papyrus.infra.sync.service</H3>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Sync_Service_Classes.png alt=Sync Service Classes ></P><P align="middle">Sync Service Classes</P></BR>
+<pre id ="_uuIxwAO4EeW8nIkIujhtCA">A Papyrus registered Service that manages the lifecycle of synchronization,<BR/>including the EMF transaction listener that reacts to changes and the<BR/>application's synchronization triggers and registries.</pre>
+<H4 id ="_uuJY0QO4EeW8nIkIujhtCA">Interface ISyncService</H4>
+<pre id ="_uuKm8QO4EeW8nIkIujhtCA">The synchronization service is a registered Papyrus Service that<BR/>manages model-to-model and diagram-to-diagram synchronization<BR/>within the context of an editor.  It manages the EMF transaction<BR/>listener that triggers synchronization operations and it provides the<BR/>API for triggering the configuration of synchronization on objects<BR/>according to registered ISyncTriggers.</pre>
+<H4 id ="_uuLOAQO4EeW8nIkIujhtCA">Interface ISyncTrigger</H4>
+<pre id ="_uuMcIQO4EeW8nIkIujhtCA">Synchronization triggers are registered on an the org.eclipse.papyrus.infra.sync.triggers<BR/>extension point with enablement conditions that match objects on which they should fire. <BR/>When a trigger fires, it provides a sync action that the synchronization runs.  This sync<BR/>action is expected to configure synchronization of the triggering object and/or <em>cascade</em><BR/>the trigger to related objects.</pre>
+<H4 id ="_uuNqQAO4EeW8nIkIujhtCA">Interface ISyncAction</H4>
+<pre id ="_uuORUQO4EeW8nIkIujhtCA">An action provided by a synchronization trigger that usually either<BR/>configures synchronization of the triggering object and/or cascade<BR/>the trigger to related objects.</pre>
+<H4 id ="_uuPfcQO4EeW8nIkIujhtCA">Class SyncServiceRunnable</H4>
+<pre id ="_uuQtkAO4EeW8nIkIujhtCA">An executable operation that is run in the context of an ISyncService.</pre>
+<H4 id ="_uuRUoQO4EeW8nIkIujhtCA">Class CascadeTriggers</H4>
+<pre id ="_uuSiwAO4EeW8nIkIujhtCA">  - realizes <a href="#_uuNqQAO4EeW8nIkIujhtCA" title="Interface ISyncAction">ISyncAction</a></pre>
+<pre id ="_uuTJ0QO4EeW8nIkIujhtCA">A synchronization action that cascades the trigger to related objects.<BR/>This causes triggers to be matched on those objects, and any triggers<BR/>that do fire produce further actions that are evaluated to initialize<BR/>synchronization (or induce more triggers).</pre>
+<H3 id ="_uuUX8QO4EeW8nIkIujhtCA">Package org.eclipse.papyrus.infra.sync.policy</H3>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Sync_Policy_Classes.png alt=Sync Policy Classes ></P><P align="middle">Sync Policy Classes</P></BR>
+<pre id ="_uw-DUAO4EeW8nIkIujhtCA">API for definition of sync policies providing for synchronization override.</pre>
+<H4 id ="_uw_RcAO4EeW8nIkIujhtCA">Interface ISyncPolicy</H4>
+<pre id ="_uxAfkAO4EeW8nIkIujhtCA">A policy determining whether objects are excluded from synchronization of<BR/>certain features that otherwise would be propagated to them from source objects.</pre>
+<H4 id ="_uxBGoQO4EeW8nIkIujhtCA">Interface ISyncPolicyDelegate</H4>
+<pre id ="_uxCUwQO4EeW8nIkIujhtCA">A synchronization policy delegate for a specific synchronization feature.</pre>
+<H4 id ="_uxDi4QO4EeW8nIkIujhtCA">Class SyncPolicyDelegate</H4>
+<pre id ="_uxExAQO4EeW8nIkIujhtCA">  - realizes <a href="#_uxBGoQO4EeW8nIkIujhtCA" title="Interface ISyncPolicyDelegate">ISyncPolicyDelegate</a></pre>
+<pre id ="_uxF_IQO4EeW8nIkIujhtCA">Abstract implementation of a sync policy delegate for some feature.<BR/>Subclasses are required to determine whether the feature is<BR/>synchronized for some given target object and also to react to<BR/>changes introduced by the user in a target object to disable<BR/>synchronization of the feature (if appropriate).</pre>
+<H4 id ="_uxHNQAO4EeW8nIkIujhtCA">Class DefaultSyncPolicy</H4>
+<pre id ="_uxH0UQO4EeW8nIkIujhtCA">  - realizes <a href="#_uw_RcAO4EeW8nIkIujhtCA" title="Interface ISyncPolicy">ISyncPolicy</a></pre>
+<pre id ="_uxJCcQO4EeW8nIkIujhtCA">Default realization of the ISyncPolicy interface.  Clients of the synchronization<BR/>service may install a policy of their own to replace it.<BR/><BR/>This default sync policy delegates policy queries to registered policy delegates.</pre>
+<H4 id ="_uxKQkQO4EeW8nIkIujhtCA">Interface ISyncPolicyDelegate.Registry</H4>
+<pre id ="_uxLesAO4EeW8nIkIujhtCA">A registry of policy delegates by synchronization feature.</pre>
+<H4 id ="_uxMFwQO4EeW8nIkIujhtCA">Collaboration Synchronization Overrides</H4>
+<pre id ="_uxN68AO4EeW8nIkIujhtCA">  - traces to <a href="#__JdhwP_0EeScYo8tuJyy0A" title="Use Case Lay out elements in special state machine">Lay out elements in special state machine</a>, <a href="#_ugDScQO4EeW8nIkIujhtCA" title="Requirement Additional Content">Additional Content</a></pre>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Synchronization_Overrides.png alt=Synchronization Overrides ></P><P align="middle">Synchronization Overrides</P></BR>
+<H5 id ="_u0EaoQO4EeW8nIkIujhtCA">Interaction Override Diagram Synchronization</H5>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Synchronization_Overrides_1.png alt=Synchronization Overrides ></P><P align="middle">Synchronization Overrides</P></BR>
+<H3 id ="_u2vUIAO4EeW8nIkIujhtCA">Package org.eclipse.papyrus.infra.gmfdiag.common.sync</H3>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Notation_Sync_Classes.png alt=Notation Sync Classes ></P><P align="middle">Notation Sync Classes</P></BR>
+<pre id ="_u7GPsQO4EeW8nIkIujhtCA">Implementation of reusable synchronization primitives for GMF-based diagrams.</pre>
+<H4 id ="_u7Hd0QO4EeW8nIkIujhtCA">Class ContainerChildrenSyncFeature</H4>
+<pre id ="_u7Ir8AO4EeW8nIkIujhtCA">  - specializes <a href="#_um5hUAO4EeW8nIkIujhtCA" title="Class SyncFeature">SyncFeature</a></pre>
+<pre id ="_u7JTAQO4EeW8nIkIujhtCA">A specialized SyncFeature that manages synchronization of child<BR/>node EditParts for children of the front-end model element.</pre>
+<H4 id ="_u7KhIQO4EeW8nIkIujhtCA">Class DiagramEdgesSyncFeature</H4>
+<pre id ="_u7LIMQO4EeW8nIkIujhtCA">  - specializes <a href="#_um5hUAO4EeW8nIkIujhtCA" title="Class SyncFeature">SyncFeature</a></pre>
+<pre id ="_u7MWUQO4EeW8nIkIujhtCA">A specialized SyncFeature that manages synchronization of source<BR/>and target connection EditParts for relationships of the front-end<BR/>model element.</pre>
+<H4 id ="_u7NkcAO4EeW8nIkIujhtCA">Class NodePositionSyncFeature</H4>
+<pre id ="_u7OLgQO4EeW8nIkIujhtCA">  - specializes <a href="#_um5hUAO4EeW8nIkIujhtCA" title="Class SyncFeature">SyncFeature</a></pre>
+<pre id ="_u7PZoQO4EeW8nIkIujhtCA">A specialized SyncFeature that manages synchronization of the location<BR/>in the diagram of a node EditPart.</pre>
+<H4 id ="_u7QAsQO4EeW8nIkIujhtCA">Class NodeSizeSyncFeature</H4>
+<pre id ="_u7RO0QO4EeW8nIkIujhtCA">  - specializes <a href="#_um5hUAO4EeW8nIkIujhtCA" title="Class SyncFeature">SyncFeature</a></pre>
+<pre id ="_u7Sc8AO4EeW8nIkIujhtCA">A specialized SyncFeature that manages synchronization of the size<BR/>of a node EditPart.</pre>
+<H4 id ="_u7TEAQO4EeW8nIkIujhtCA">Class EditPartSyncRegistry</H4>
+<pre id ="_u7USIQO4EeW8nIkIujhtCA">  - specializes <a href="#_um_n8QO4EeW8nIkIujhtCA" title="Class SyncRegistry">SyncRegistry</a></pre>
+<pre id ="_u7VgQAO4EeW8nIkIujhtCA">A SyncRegistry that manages SyncBuckets for synchronization of diagram<BR/>EditParts that visualize EObjects in GMF-based diagrams.</pre>
+<H4 id ="_u7WHUQO4EeW8nIkIujhtCA">Class EditPartSyncBucket</H4>
+<pre id ="_u7XVcAO4EeW8nIkIujhtCA">  - specializes <a href="#_um7WgQO4EeW8nIkIujhtCA" title="Class SyncBucket">SyncBucket</a></pre>
+<pre id ="_u7X8gQO4EeW8nIkIujhtCA">A SyncBucket that manages the synchronization of diagram<BR/>EditParts that visualize EObjects in GMF-based diagrams.<BR/>By default, these buckets match edit-parts that all visualize<BR/>the same model element in different diagrams, but this is<BR/>customizable.  For example, in the UML-RT case edit-parts<BR/>are matched not with edit-parts visualizing the same model<BR/>element but with edit-parts visualizing the redefined model<BR/>element.</pre>
+<H4 id ="_u7ZKoQO4EeW8nIkIujhtCA">Class EditPartSyncItem</H4>
+<pre id ="_u7aYwAO4EeW8nIkIujhtCA">  - specializes <a href="#_um9LsQO4EeW8nIkIujhtCA" title="Class SyncItem">SyncItem</a></pre>
+<pre id ="_u7a_0QO4EeW8nIkIujhtCA">A SyncItem that manages synchronization of an EditPart<BR/>that visualizes an EObjects in a GMF-based diagram.</pre>
+<H4 id ="_u7cN8QO4EeW8nIkIujhtCA">Collaboration Notation Synchronization</H4>
+<pre id ="_u7dcEAO4EeW8nIkIujhtCA">  - traces to <a href="#_ugEgkQO4EeW8nIkIujhtCA" title="Requirement Diagram-to-Diagram Sync">Diagram-to-Diagram Sync</a>, <a href="#_zJRGUP_0EeScYo8tuJyy0A" title="Use Case Lay out elements in general state machine">Lay out elements in general state machine</a></pre>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Notation_Synchronization.png alt=Notation Synchronization ></P><P align="middle">Notation Synchronization</P></BR>
+<H5 id ="_u-Bn4QO4EeW8nIkIujhtCA">Interaction Synchronize Notation Views</H5>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Synchronize_Model_Elements_1.png alt=Synchronize Model Elements ></P><P align="middle">Synchronize Model Elements</P></BR>
+<H4 id ="_u_7sYAO4EeW8nIkIujhtCA">Class NodePositionSyncDispatcher</H4>
+<pre id ="_u_86gQO4EeW8nIkIujhtCA">  - specializes <a href="#_unGVoQO4EeW8nIkIujhtCA" title="Class EMFDispatch">EMFDispatch</a></pre>
+<pre id ="_u_-IoAO4EeW8nIkIujhtCA">A specialized dispatcher that listens to changes in the bounds of the notation view (Node)<BR/>managed by an EditPart.  It tracks the bounds of the shape, firing synchronization only<BR/>when node's position actually changes from the last known position.</pre>
+<H4 id ="_u_-vsQO4EeW8nIkIujhtCA">Class NodeSizeSyncDispatcher</H4>
+<pre id ="_u__90QO4EeW8nIkIujhtCA">  - specializes <a href="#_unGVoQO4EeW8nIkIujhtCA" title="Class EMFDispatch">EMFDispatch</a></pre>
+<pre id ="_vABL8QO4EeW8nIkIujhtCA">A specialized dispatcher that listens to changes in the bounds of the notation view (Node)<BR/>managed by an EditPart.  It tracks the bounds of the shape, firing synchronization only<BR/>when node's size actually changes from the last known position.</pre>
+<H4 id ="_vACaEAO4EeW8nIkIujhtCA">Collaboration Synchronization Exclusions</H4>
+<pre id ="_vADoMAO4EeW8nIkIujhtCA">  - traces to <a href="#__JdhwP_0EeScYo8tuJyy0A" title="Use Case Lay out elements in special state machine">Lay out elements in special state machine</a>, <a href="#_ugFusAO4EeW8nIkIujhtCA" title="Requirement Sync Override">Sync Override</a></pre>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Synchronization_Exclusions.png alt=Synchronization Exclusions ></P><P align="middle">Synchronization Exclusions</P></BR>
+<H5 id ="_vCtTkAO4EeW8nIkIujhtCA">Interaction Exclude Views from Synchronization</H5>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Exclude_Views_from_Synchronization.png alt=Exclude Views from Synchronization ></P><P align="middle">Exclude Views from Synchronization</P></BR>
+<H4 id ="_vE4d0QO4EeW8nIkIujhtCA">Class NotationSyncPolicyDelegate</H4>
+<pre id ="_vE5r8QO4EeW8nIkIujhtCA">  - specializes <a href="#_uxDi4QO4EeW8nIkIujhtCA" title="Class SyncPolicyDelegate">SyncPolicyDelegate</a></pre>
+<H2 id ="_vE7hIAO4EeW8nIkIujhtCA">Tests</H2>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Test_Plug-ins.png alt=Test Plug-ins ></P><P align="middle">Test Plug-ins</P></BR>
+<H3 id ="_vFMm4QO4EeW8nIkIujhtCA">Component org.eclipse.papyrus.infra.gmfdiag.common.tests</H3>
+<pre id ="_vFN1AQO4EeW8nIkIujhtCA">Test bundle for the Papyrus common diagram core plug-in.</pre>
+<H3 id ="_vFPDIAO4EeW8nIkIujhtCA">Package org.eclipse.papyrus.infra.gmfdiag.common.sync.tests</H3>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/org.eclipse.papyrus.infra.sync/doc/imgDOC/Test_Classes.png alt=Test Classes ></P><P align="middle">Test Classes</P></BR>
+<pre id ="_vG53EAO4EeW8nIkIujhtCA">Test suite for the synchronization framework, covering both model-to-model<BR/>and diagram-to-diagram synchronization use cases.</pre>
+<H4 id ="_vG6eIQO4EeW8nIkIujhtCA">Class MasterSlaveNotationSyncTest</H4>
+<pre id ="_vG7sQQO4EeW8nIkIujhtCA">Tests the synchronization framework basic synchronization use cases by way<BR/>of master/slave diagram-to-diagram synchronization.</pre>
+<H4 id ="_vG86YQO4EeW8nIkIujhtCA">Class NotationSyncOverrideTest</H4>
+<pre id ="_vG-IgAO4EeW8nIkIujhtCA">Tests the synchronization framework's support for synchronization overrides<BR/>by way of master/slave diagram-to-diagram synchronization.</pre>
+<H4 id ="_vG-vkQO4EeW8nIkIujhtCA">Class TestSyncFixture</H4>
+<pre id ="_vG_9sAO4EeW8nIkIujhtCA">A JUnit test-fixture rule that implements a synchronization registry for class<BR/>diagrams in the context of the test execution.</pre>
+<H2 id ="_vHBL0AO4EeW8nIkIujhtCA">Requirements Coverage</H2>
+<table style="border-collapse: collapse;"><caption style="caption-side: bottom;">RequirementsCoverageTable</caption><tr><th style="border: 1px solid black">Id</th><th style="border: 1px solid black">Satisfied by</th><th style="border: 1px solid black">Verified by</th></tr>
+<tr><td style="border : 1px solid black"><a href="#_ugCEUQO4EeW8nIkIujhtCA" title="Model-to-Model Sync">R1</a><BR/>
+</td><td style="border : 1px solid black"><a href="#_unIx4AO4EeW8nIkIujhtCA" title="Synchronization">Synchronization</a><BR/>
+</td><td style="border : 1px solid black"><a href="#_vG6eIQO4EeW8nIkIujhtCA" title="MasterSlaveNotationSyncTest">MasterSlaveNotationSyncTest</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_ugDScQO4EeW8nIkIujhtCA" title="Additional Content">R1.1</a><BR/>
+</td><td style="border : 1px solid black"><a href="#_uxMFwQO4EeW8nIkIujhtCA" title="Synchronization Overrides">Synchronization Overrides</a><BR/>
+</td><td style="border : 1px solid black"><a href="#_vG6eIQO4EeW8nIkIujhtCA" title="MasterSlaveNotationSyncTest">MasterSlaveNotationSyncTest</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_ugEgkQO4EeW8nIkIujhtCA" title="Diagram-to-Diagram Sync">R2</a><BR/>
+</td><td style="border : 1px solid black"><a href="#_u7cN8QO4EeW8nIkIujhtCA" title="Notation Synchronization">Notation Synchronization</a><BR/>
+</td><td style="border : 1px solid black"><a href="#_vG6eIQO4EeW8nIkIujhtCA" title="MasterSlaveNotationSyncTest">MasterSlaveNotationSyncTest, 
+</a><BR/>
+<a href="#_vG86YQO4EeW8nIkIujhtCA" title="NotationSyncOverrideTest">NotationSyncOverrideTest</a><BR/>
+</td></tr>
+<tr><td style="border : 1px solid black"><a href="#_ugFusAO4EeW8nIkIujhtCA" title="Sync Override">R2.1</a><BR/>
+</td><td style="border : 1px solid black"><a href="#_vACaEAO4EeW8nIkIujhtCA" title="Synchronization Exclusions">Synchronization Exclusions</a><BR/>
+</td><td style="border : 1px solid black"><a href="#_vG86YQO4EeW8nIkIujhtCA" title="NotationSyncOverrideTest">NotationSyncOverrideTest</a><BR/>
+</td></tr>
+</table>
+<pre id ="_vHCZ8gO4EeW8nIkIujhtCA">Unsatisfied requirements (0 out of 4) : </pre>
+<pre id ="_vHDoEQO4EeW8nIkIujhtCA">Unverified requirements (0 out of 4) : </pre>
+</html>

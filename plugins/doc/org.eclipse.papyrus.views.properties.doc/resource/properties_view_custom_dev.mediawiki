@@ -1,0 +1,124 @@
+=Pre-requisite=
+We define a static profile, to do so see As an example, we suppose that a static profile with 2 stereotyped classes named Stereotype_A and Stereotype_B has been defined. 
+
+[[File:images/properties_view_custom_dev/propertie_view01.png|frame|500px]]
+ 
+=How to generate a file.ctx  ?=
+The generator can create a property view configuration from either a UML Profile or an Ecore Meta-model. The wizard is available in the Papyrus category: File -> New -> Other' -> Papyrus/Property view configuration.
+The wizard provides two default generators:
+*Generate a property view from a UML Profile
+*Generate a property view from an Ecore Meta-model
+
+[[File:images/properties_view_custom_dev/propertie_view02.png|frame|800px]]
+ 
+The source file must be located in your workspace. A default target file named will be filled with the .ctx extension (This is the extension for a property view configuration).
+
+[[File:images/properties_view_custom_dev/propertie_view03.png|frame|800px]]
+ 
+We have to generate a property view from a UML Profile
+
+[[File:images/properties_view_custom_dev/propertie_view04.png|frame|800px]]
+ 
+All the elements from the profile or meta-model will be extracted, with no dependencies to other models. So we choose the strategy « don't generate dependencies ».
+
+[[File:images/properties_view_custom_dev/propertie_view05.png|frame|800px]]
+ 
+Press "next" a table with all the elements extracted from your profile or meta-model is displayed. 
+
+This table contains four columns:
+*Field: the name of the element or property
+*Display single: whether this property should be displayed when a single instance of this element is selected
+*Display multiple: whether this property should be displayed when more than one instance of this element is selected
+*Description: the description of the property (Most of the time, it will be N/A, as the default generators cannot extract the documentation from the source model).
+
+[[File:images/properties_view_custom_dev/propertie_view06.png|frame|800px]]
+ 
+The tree structure generated after the creation of the property view configuration.
+
+[[File:images/properties_view_custom_dev/propertie_view07.png|frame|800px]]
+ 
+=Modification of the .ctx=
+===A summary of the the property view elements===
+The editor contains a Tree, containing the following elements :
+*Context: it is a property view configuration. You will typically have one property view Context per Ecore Metamodel or UML Profile, but you can choose the granularity you want. A context has a list of tabs, and a list of views.
+
+*Tab: describes a tab in the property view. A tab has a label, an (optional) image, and can be indented. It also has a priority.
+
+*View: describes a property view associated to a selection. The view has a name, a constraint, a multiplicity and a list of sections. The constraint is used to determine for what kind of object the view should be displayed.
+
+*Constraint: a query that inputs a selection, and outputs a boolean (true if the constraint matches the input object, false otherwise). It is possible to implement your own constraint type (In Java).
+
+*Section: a section is a sub-part of a view. A view generally needs only one section, but there are cases where you need more than one section. A section is associated to a single tab, so, if you want to display more than one tab in a single view (For example, ' UML ' and ' Profile ' in the UML property view), you will need at least two sections in that view (One for each tab). Another (advanced) case is described in ' Dynamic sections '. A section has a name, a tab, and a Composite.
+
+*Composite: this is the actual presentation element. The composite is a widget which can contain other widgets. A composite has a type, and a list of widgets.
+
+*Layout: all composites need a layout. The default is ' PropertiesLayout ', which is a variant of the SWT standard GridLayout. A PropertiesLayout has a number of columns. The default is one column.
+
+*Property Editor: a property editor is a widget which is used to edit a single property of the selected object. You will typically have one Property editor for each property that you want to edit in the property view. The property editor has a property, and a widget to edit that property.
+
+*Standard Widget: a widget from the standard SWT Library. Few of them are currently available, because they are rarely needed.
+
+===Add a composite===
+To proceed with the customization it is necessary to add a composite associated to the target stereotype.
+
+Right click  on Single Stereotype_B->New child->Composite Constraint.
+
+[[File:images/properties_view_custom_dev/propertie_view08.png|frame|800px]]
+ 
+===Add a PropertiesLayout===
+Right click  on composite->New child ->Layout 
+ 
+[[File:images/properties_view_custom_dev/propertie_view09.png|frame|800px]]
+
+Right click  on composite->New child ->Property Editor.
+
+[[File:images/properties_view_custom_dev/propertie_view10.png|frame|800px]]
+
+For each property the Properties should be field so we can :
+*Specify the visibility.
+*Choose if it read only properties. 
+*Choose the property.
+*The widget type.
+*The custom Label.
+ 
+[[File:images/properties_view_custom_dev/propertie_view11.png|frame|800px]]
+
+For each property chosen, the type must be chosen on the widget type list.
+
+[[File:images/properties_view_custom_dev/propertie_view12.png|frame|800px]]
+
+
+After adding all the desired properties, my .ctx file is as follows.
+
+[[File:images/properties_view_custom_dev/propertie_view13.png|frame|800px]]
+ 
+Note: to display the Data contexts, you need to check the toggle button on top of the editor: 
+[[File:images/properties_view_custom_dev/propertie_view14.png|frame]] 
+
+==Interaction between Components and pushed customization with java code==
+
+Papyrus provides a way to synchronize several widgets between them. Indeed, this is possible by modifying the XWT files corresponding to the desired components.
+in this example we have chosen to add test property on all the SingleSteretype_B.xwt which contains the name ,label, qualifiedName as well as the multiplicity. 
+*listeningPropertyPaths: list of properties to listen, 
+*listenerClasses: list of classes used to define the behaviors to be adopted when modifying the values of the properties.
+
+[[File:images/properties_view_custom_dev/propertie_view15.png|frame|800px]]
+ 
+Create a class that inherits from "IPropertiesListener" or use an existing class such as "ReadOnlyStringPropertiesListener". The purpose of this class is to define the behavior of the chosen editor according to the associated input.
+It is at the ListenerClasses attribute that will be defined this class. The link will be made between the editor and the "PropertiesListener".
+
+[[File:images/properties_view_custom_dev/propertie_view16.png|frame|800px]]
+ 
+In our example :
+A condition is on the name to make the user notice that the name of the class must imperatively be different from the name of the stereotype.
+the label is the name chosen for the class.
+If the name is the same as "steretype_B" the label is read only.
+
+==visualization of the exemple on runtime==
+
+[[File:images/properties_view_custom_dev/propertie_view17.png|frame|800px]]
+ 
+
+
+
+

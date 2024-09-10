@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" name="PropertyViewEditorsExample">
+  <dependencies href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_69QJkKDJEeSZxfCXzZz3-w"/>
+  <tabs label="UML" id="uml" category="org.eclipse.papyrus" image="" priority="1">
+    <sections name="PropertyExample" sectionFile="ui/PropertyExample.xwt">
+      <widget href="ui/PropertyExample.xwt#/"/>
+    </sections>
+    <sections name="OperationExample" sectionFile="ui/OperationExample.xwt">
+      <widget href="ui/OperationExample.xwt#/"/>
+    </sections>
+  </tabs>
+  <views name="PropertyExample" sections="//@tabs.0/@sections.0">
+    <constraints xsi:type="constraints:SimpleConstraint" name="isSingleProperty">
+      <overriddenConstraints href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_69ieUqDJEeSZxfCXzZz3-w"/>
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_69ieU6DJEeSZxfCXzZz3-w" name="umlClassName" value="Property"/>
+    </constraints>
+  </views>
+  <views name="OperationExample" sections="//@tabs.0/@sections.1">
+    <constraints xsi:type="constraints:SimpleConstraint" name="isSingleOperation">
+      <overriddenConstraints href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_69iefKDJEeSZxfCXzZz3-w"/>
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" name="umlClassName" value="Operation"/>
+    </constraints>
+  </views>
+  <prototype href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_69QJkKDJEeSZxfCXzZz3-w"/>
+</contexts:Context>

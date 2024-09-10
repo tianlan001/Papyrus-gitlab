@@ -1,0 +1,107 @@
+
+
+= Import Export of ReqIF elements into Papyrus =
+This model explains the functionality in Papyrus Req in order to import or export ReqIF files into Papyrus (OMG Document Number: formal/2013-10-01 Standard document URL: http://www.omg.org/spec/ReqIF/1.1)
+
+
+==Requirements==
+- ReqIfImport (id=ReqIF_001): 
+ Darwin shall allow importation of Reqif elements to SysML Model
+- Import SpecObjects (id=ReqIF_001_001): 
+ The user shall be able to import spec object
+- Two  Kind of Users (id=ReqIF_001_002): 
+ The simple User can only import SpecObject by choosing domain. The AdvancedUser can import Types and DataTypes. 
+- Import DataType Enumeration (id=ReqIF_001_003): 
+ The advanced user shall be able to import DataType and enumeration
+- Import SpecObjectTypes (id=ReqIF_001_004): 
+ The advanced user shall be able to import specObjectType
+- Import SpecRelationType (id=ReqIF_001_005): 
+ The advanced user  shall be able to import SpecRelationType
+- Import SpecRelation (id=ReqIF_001_006): 
+ Papyrus Req shall import SpecRelation
+- ReqIFExport (id=ReqIF_002): 
+ Darwin shall enable export of SysML requirement to ReqIF Model
+- ControlMode (id=ReqIF_003): 
+ The managment with ReqIf must support Control Mode
+- WihtoutUI (id=ReqIF_004): 
+ The export can be done programmatically, without GUI, in order to test it, or to be enable to pilot it programmatically
+- Re-Export (id=ReqIF_005): 
+ Papyrus shall re-export requirements in existing reqIF file
+- Re-Import (id=ReqIF_006): 
+ Papyrus shall re-Import requirement from a ReqIF file
+==Use Cases==
+
+====Import ReqIF file====
+
+Before import requirement fro ReqIF file, the kinf of User has to be verified.
+
+There are two kind of users:
+
+	- Simple User: he can only import instance of requirements inside the Papyrus tool.
+
+	- Advancerd User: he can importe new types of requirements and instance of requirement inside  the Papyrus tool 
+
+To verify it, go to window--> preferences--> Papyrus--> ReqIF Import
+
+[[Image:./images/Userkind.png|Two kinds of user]]<br>
+
+First the User must have a SysML model. Select the package where ReqIF elements will be imported.
+
+
+[[Image:./images/import_1.png|Import SysMLModel]]<br>
+
+Select the menu Import  of Eclipse.
+
+[[Image:./images/import_2.png|Select import Menu of Eclipse]]<br>
+
+Select the menu Import ReqIF from Papyrus Categories
+
+[[Image:./images/import_3.png|Import ReqIF]]<br>
+
+Select the ReqIF file to import
+
+[[Image:./images/import_4.png|ReqIF file Selection]]<br>
+
+Select  Requirement types of ReqIF file that you want to import
+
+[[Image:./images/import_5.png|SpecObject Type selection]]<br>
+
+When the current user is an "Advanced User", he can import Requirement types and all requirements from ReqIF , if needed he can select or create the profile that will contain imported types
+
+[[Image:./images/import_6.png|Create or select Profile]]<br>
+
+When the current user is a "Simple User", he can only import instances of requirements by choosen predefined types contained in the profile.
+If the profile does not contain all needed types, the import is not done and a message is displayed on the screen. 
+
+[[Image:./images/Choose_Predefined_Profile.png|Choose predefined type contained in profile]]<br>
+
+[[Image:./images/CannotImport.png|The import cannot be done if the profile is not complete.]]<br>
+
+The model has now imported requirements with relations. Note that a comment explains the origin of the import.
+
+[[Image:./images/import7.png|Resulted model]]<br>
+
+
+====Export UML Model to ReqIF File====
+
+Select the SysML that you want to export
+
+
+[[Image:./images/export1.png|SysML Model]]<br>
+
+Select the export Menu from Eclipse menu.
+
+[[Image:./images/export2.png|Export Menu]]<br>
+
+Select the menu export ReqIF form the papyrus Category
+
+[[Image:./images/export3.png|Import ReqIF file]]<br>
+
+Choose the name of the reqif file.
+
+[[Image:./images/export5.png|Choose ReqIF File name]]<br>
+
+At the end, a reqFile is generated. The header has an information that explain that the result comes from UML file.
+
+
+[[Image:./images/Export4.png|Result in the ReqIf file]]<br>

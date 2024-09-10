@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_Kw6eoPBLEeWcaunQmQmPdQ" name="RuntimeValues" label="Runtime Values For Properties View">
+  <tabs xmi:id="_LuBnIPBLEeWcaunQmQmPdQ" label="RuntimeValues" id="RuntimeValues" priority="100">
+    <sections xmi:id="_LuCOMPBLEeWcaunQmQmPdQ" name="Single RuntimeValuesAdviceConfiguration" sectionFile="ui/SingleRuntimeValuesAdviceConfiguration.xwt">
+      <widget href="ui/SingleRuntimeValuesAdviceConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_LuC1QPBLEeWcaunQmQmPdQ" name="Single ViewToDisplay" sectionFile="ui/SingleViewToDisplay.xwt">
+      <widget href="ui/SingleViewToDisplay.xwt#/"/>
+    </sections>
+    <sections xmi:id="_LuC1QfBLEeWcaunQmQmPdQ" name="Multiple RuntimeValuesAdviceConfiguration" sectionFile="ui/MultipleRuntimeValuesAdviceConfiguration.xwt">
+      <widget href="ui/MultipleRuntimeValuesAdviceConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_LuC1QvBLEeWcaunQmQmPdQ" name="Multiple ViewToDisplay" sectionFile="ui/MultipleViewToDisplay.xwt">
+      <widget href="ui/MultipleViewToDisplay.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_Kw6eofBLEeWcaunQmQmPdQ" name="Single RuntimeValuesAdviceConfiguration" sections="_LuCOMPBLEeWcaunQmQmPdQ" automaticContext="true" datacontexts="_Kw6esvBLEeWcaunQmQmPdQ">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_Kw6eovBLEeWcaunQmQmPdQ" name="isSingleRuntimeValuesAdviceConfiguration">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_Kw6eo_BLEeWcaunQmQmPdQ" name="className" value="RuntimeValuesAdviceConfiguration"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_Kw6epPBLEeWcaunQmQmPdQ" name="nsUri" value="http://www.eclipse.org/papyrus/emf/types/runtimevaluesadvice/1.1"/>
+    </constraints>
+  </views>
+  <views xmi:id="_Kw6epfBLEeWcaunQmQmPdQ" name="Single ViewToDisplay" sections="_LuC1QPBLEeWcaunQmQmPdQ" automaticContext="true" datacontexts="_Kw6etPBLEeWcaunQmQmPdQ">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_Kw6epvBLEeWcaunQmQmPdQ" name="isSingleViewToDisplay">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_Kw6ep_BLEeWcaunQmQmPdQ" name="className" value="ViewToDisplay"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_Kw6eqPBLEeWcaunQmQmPdQ" name="nsUri" value="http://www.eclipse.org/papyrus/emf/types/runtimevaluesadvice/1.1"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_Kw6esfBLEeWcaunQmQmPdQ" name="RuntimeValues" label="Runtime Values">
+    <elements xmi:id="_Kw6esvBLEeWcaunQmQmPdQ" name="RuntimeValuesAdviceConfiguration">
+      <properties xmi:id="_Kw6es_BLEeWcaunQmQmPdQ" name="viewsToDisplay" type="Reference" multiplicity="-1"/>
+    </elements>
+    <elements xmi:id="_Kw6etPBLEeWcaunQmQmPdQ" name="ViewToDisplay">
+      <properties xmi:id="_Kw6etfBLEeWcaunQmQmPdQ" name="view" type="Reference"/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.emf.types.ui.properties/model/environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context>

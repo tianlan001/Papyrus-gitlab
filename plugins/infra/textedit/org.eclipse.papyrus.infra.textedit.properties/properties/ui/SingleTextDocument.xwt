@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><Composite xmlns="http://www.eclipse.org/xwt/presentation" xmlns:j="clr-namespace:java.lang" xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets" xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout" xmlns:x="http://www.eclipse.org/xwt">
+            <Composite.layout>
+                        <ppel:PropertiesLayout/>
+            </Composite.layout>
+            <Composite>
+                        <Composite.layout>
+                                    <ppel:PropertiesLayout numColumns="1"/>
+                        </Composite.layout>
+                        <ppe:StringEditor input="{Binding}" property="textdocument:TextDocument:name"/>
+                        <ppe:ReferenceLabel input="{Binding}" property="customtextdocument:TextDocument:customKindId" readOnly="true" customLabel="Kind Id"/>
+                        <ppe:StringEditor input="{Binding}" property="textdocument:TextDocument:type" readOnly="true"/>
+            </Composite>
+            <Composite>
+                        <Composite.layout>
+                                    <ppel:PropertiesLayout numColumns="1"/>
+                        </Composite.layout>
+                        <ppe:ReferenceDialog input="{Binding}" property="textdocument:TextDocument:semanticContext"/>
+                        <ppe:ReferenceDialog input="{Binding}" property="textdocument:TextDocument:graphicalContext"/>
+            </Composite>
+</Composite>

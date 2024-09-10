@@ -1,0 +1,9 @@
+active class AcceptStatementTest {
+  public receive signal S1 { }
+  public receive signal S2 { }
+} do {
+  accept(S1, S2);
+  
+  // accept(S1, S1); // Violates acceptStatementSignals constraint!
+  // accept(blah); // Violates acceptBlockSignalNames constraint!
+}

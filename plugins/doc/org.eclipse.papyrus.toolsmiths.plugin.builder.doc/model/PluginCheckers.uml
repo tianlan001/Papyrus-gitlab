@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_cRP8IDZUEeuN_qvmAm_sQA" name="PluginCheckers">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_cYRKIDZUEeuN_qvmAm_sQA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_s9Ve8DZUEeuN_qvmAm_sQA" name="toolsmiths.plugin.builder">
+      <packagedElement xmi:type="uml:Class" xmi:id="_naQ38DZUEeuN_qvmAm_sQA" name="AbstractPapyrusBuilder">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_27Cr8DZZEeuN_qvmAm_sQA" name="build">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_6TKeUDZZEeuN_qvmAm_sQA" name="project" type="_UthkoDZXEeuN_qvmAm_sQA"/>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_8G2CcDZZEeuN_qvmAm_sQA" name="clean">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_8G2CcTZZEeuN_qvmAm_sQA" name="project" type="_UthkoDZXEeuN_qvmAm_sQA"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_zSg4UDZUEeuN_qvmAm_sQA" name="PluginCheckerBuilder">
+        <generalization xmi:type="uml:Generalization" xmi:id="_1anNQDZUEeuN_qvmAm_sQA" general="_naQ38DZUEeuN_qvmAm_sQA"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_z6trUDZVEeuN_qvmAm_sQA" name="pluginChecker" type="_3QFEoDZVEeuN_qvmAm_sQA" association="_z6r2IDZVEeuN_qvmAm_sQA">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_z6u5cDZVEeuN_qvmAm_sQA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_z6u5cTZVEeuN_qvmAm_sQA" value="*"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_57A2UDZUEeuN_qvmAm_sQA" name="Activator"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_AJg_8DZVEeuN_qvmAm_sQA" client="_57A2UDZUEeuN_qvmAm_sQA" supplier="_naQ38DZUEeuN_qvmAm_sQA"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_GBijQDZVEeuN_qvmAm_sQA" client="_57A2UDZUEeuN_qvmAm_sQA" supplier="_zSg4UDZUEeuN_qvmAm_sQA"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_FV9dYDZaEeuN_qvmAm_sQA" name="PapyrusPluginBuilder">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Qzt6IjZaEeuN_qvmAm_sQA" name="papyrusBuilder" type="_naQ38DZUEeuN_qvmAm_sQA" aggregation="composite" association="_QztTEDZaEeuN_qvmAm_sQA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Qzt6JDZaEeuN_qvmAm_sQA" value="*"/>
+        </ownedAttribute>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_HgZ7sDZaEeuN_qvmAm_sQA" name="build">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_HgZ7sTZaEeuN_qvmAm_sQA" name="project" type="_UthkoDZXEeuN_qvmAm_sQA"/>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_Hgc_ADZaEeuN_qvmAm_sQA" name="clean">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_Hgc_ATZaEeuN_qvmAm_sQA" name="project" type="_UthkoDZXEeuN_qvmAm_sQA"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_Nzx-QDZaEeuN_qvmAm_sQA" client="_57A2UDZUEeuN_qvmAm_sQA" supplier="_FV9dYDZaEeuN_qvmAm_sQA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_TegesDZVEeuN_qvmAm_sQA" name="toolsmiths.validation.common.checkers">
+      <packagedElement xmi:type="uml:Class" xmi:id="_b3Mn8DZVEeuN_qvmAm_sQA" name="AbstractPluginChecker">
+        <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_R9jz4DZWEeuN_qvmAm_sQA" client="_b3Mn8DZVEeuN_qvmAm_sQA" supplier="_ecwU8DZVEeuN_qvmAm_sQA" contract="_ecwU8DZVEeuN_qvmAm_sQA"/>
+        <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_S1aB4DZWEeuN_qvmAm_sQA" client="_b3Mn8DZVEeuN_qvmAm_sQA" supplier="_eLWb4DZVEeuN_qvmAm_sQA" contract="_eLWb4DZVEeuN_qvmAm_sQA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Interface" xmi:id="_eLWb4DZVEeuN_qvmAm_sQA" name="IPluginChecker">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_2u1RYDZYEeuN_qvmAm_sQA" name="check">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_2u1RYjZYEeuN_qvmAm_sQA" name="monitor" type="_nNA0MDZWEeuN_qvmAm_sQA"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Interface" xmi:id="_ecwU8DZVEeuN_qvmAm_sQA" name="IPluginChecker2">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_poO5cDZWEeuN_qvmAm_sQA" name="check">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_v_o1gDZYEeuN_qvmAm_sQA" name="diagnostics" type="_YMKEIDZWEeuN_qvmAm_sQA"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_z-5gYDZYEeuN_qvmAm_sQA" name="monitor" type="_nNA0MDZWEeuN_qvmAm_sQA"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Interface" xmi:id="_3QFEoDZVEeuN_qvmAm_sQA" name="IPluginChecker2.Factory">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_h78RQDZYEeuN_qvmAm_sQA" name="createChecker">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_8-mmUDZYEeuN_qvmAm_sQA" name="project" type="_UthkoDZXEeuN_qvmAm_sQA"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="__l8cADZYEeuN_qvmAm_sQA" name="file" type="_VXDCwDZXEeuN_qvmAm_sQA"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_EZrQwDZZEeuN_qvmAm_sQA" name="model" type="_KUyPMDZXEeuN_qvmAm_sQA"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_HhUXIDZZEeuN_qvmAm_sQA" name="result" type="_ecwU8DZVEeuN_qvmAm_sQA" direction="return"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_AVTjwDZWEeuN_qvmAm_sQA" client="_3QFEoDZVEeuN_qvmAm_sQA" supplier="_ecwU8DZVEeuN_qvmAm_sQA"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Amu1gDZXEeuN_qvmAm_sQA" name="BuildPropertiesChecker">
+        <generalization xmi:type="uml:Generalization" xmi:id="_WJYzwDZZEeuN_qvmAm_sQA" general="_b3Mn8DZVEeuN_qvmAm_sQA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_B-c2YDZXEeuN_qvmAm_sQA" name="ExtensionsChecker">
+        <generalization xmi:type="uml:Generalization" xmi:id="_WjQsUDZZEeuN_qvmAm_sQA" general="_b3Mn8DZVEeuN_qvmAm_sQA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C3O4gDZXEeuN_qvmAm_sQA" name="ModelDependenciesChecker">
+        <generalization xmi:type="uml:Generalization" xmi:id="_W-vHYDZZEeuN_qvmAm_sQA" general="_b3Mn8DZVEeuN_qvmAm_sQA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_HDxKYDZXEeuN_qvmAm_sQA" name="ModelValidationChecker">
+        <generalization xmi:type="uml:Generalization" xmi:id="_XcKqQDZZEeuN_qvmAm_sQA" general="_b3Mn8DZVEeuN_qvmAm_sQA"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_z6r2IDZVEeuN_qvmAm_sQA" memberEnd="_z6trUDZVEeuN_qvmAm_sQA _z6u5cjZVEeuN_qvmAm_sQA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_z6tEQDZVEeuN_qvmAm_sQA" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_z6tEQTZVEeuN_qvmAm_sQA" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_z6u5cjZVEeuN_qvmAm_sQA" name="builder" type="_zSg4UDZUEeuN_qvmAm_sQA" association="_z6r2IDZVEeuN_qvmAm_sQA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_U3TBIDZWEeuN_qvmAm_sQA" name="Diagnostic"/>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_YMKEIDZWEeuN_qvmAm_sQA" name="DiagnosticChain">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_bWZykjZWEeuN_qvmAm_sQA" name="diagnostic" type="_U3TBIDZWEeuN_qvmAm_sQA" aggregation="shared" association="_bWZLgDZWEeuN_qvmAm_sQA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bWcO0DZWEeuN_qvmAm_sQA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bWhuYDZWEeuN_qvmAm_sQA" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_bWZLgDZWEeuN_qvmAm_sQA" memberEnd="_bWZykjZWEeuN_qvmAm_sQA _bWnN8DZWEeuN_qvmAm_sQA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bWZykDZWEeuN_qvmAm_sQA" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bWZykTZWEeuN_qvmAm_sQA" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_bWnN8DZWEeuN_qvmAm_sQA" name="chain" type="_YMKEIDZWEeuN_qvmAm_sQA" association="_bWZLgDZWEeuN_qvmAm_sQA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fEhqIDZWEeuN_qvmAm_sQA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fEmioDZWEeuN_qvmAm_sQA" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_nNA0MDZWEeuN_qvmAm_sQA" name="IProgressMonitor"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_KUyPMDZXEeuN_qvmAm_sQA" name="Resource"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Ts08oDZXEeuN_qvmAm_sQA" name="IResource"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_UthkoDZXEeuN_qvmAm_sQA" name="IProject">
+      <generalization xmi:type="uml:Generalization" xmi:id="_c--A8DZYEeuN_qvmAm_sQA" general="_Ts08oDZXEeuN_qvmAm_sQA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_VXDCwDZXEeuN_qvmAm_sQA" name="IFile">
+      <generalization xmi:type="uml:Generalization" xmi:id="_dcEzsDZYEeuN_qvmAm_sQA" general="_Ts08oDZXEeuN_qvmAm_sQA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_QztTEDZaEeuN_qvmAm_sQA" memberEnd="_Qzt6IjZaEeuN_qvmAm_sQA _Qzt6JTZaEeuN_qvmAm_sQA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Qzt6IDZaEeuN_qvmAm_sQA" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Qzt6ITZaEeuN_qvmAm_sQA" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_Qzt6JTZaEeuN_qvmAm_sQA" name="pluginBuilder" type="_FV9dYDZaEeuN_qvmAm_sQA" association="_QztTEDZaEeuN_qvmAm_sQA"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_-ugagDZUEeuN_qvmAm_sQA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-uhooDZUEeuN_qvmAm_sQA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <standard:Create xmi:id="_D4lSsDZVEeuN_qvmAm_sQA" base_Usage="_AJg_8DZVEeuN_qvmAm_sQA"/>
+  <standard:Create xmi:id="_H0txEDZVEeuN_qvmAm_sQA" base_Usage="_GBijQDZVEeuN_qvmAm_sQA"/>
+  <standard:Create xmi:id="_CCCyYDZWEeuN_qvmAm_sQA" base_Usage="_AVTjwDZWEeuN_qvmAm_sQA"/>
+</xmi:XMI>

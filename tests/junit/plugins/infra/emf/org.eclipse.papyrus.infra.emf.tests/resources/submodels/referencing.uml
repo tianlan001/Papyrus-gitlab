@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0S-gEEYMEeagQvw0AruCcg" name="referencing">
+  <packagedElement xmi:type="uml:Package" xmi:id="_wTjjMEd3Eeayp81rgar4Qw" name="package1">
+    <packagedElement xmi:type="uml:Package" xmi:id="_y4j2kEd3Eeayp81rgar4Qw" name="packageA">
+      <packagedElement xmi:type="uml:Class" xmi:id="_3QKC4EYMEeagQvw0AruCcg" name="Subclass">
+        <generalization xmi:id="_9sFkgEYMEeagQvw0AruCcg">
+          <general xmi:type="uml:Class" href="package2/packageB/bar.uml#_Yg658EYCEeagQvw0AruCcg"/>
+        </generalization>
+      </packagedElement>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_yLgjUEd3Eeayp81rgar4Qw" name="package2">
+    <packagedElement xmi:type="uml:Package" xmi:id="_0ZwjkEd3Eeayp81rgar4Qw" name="packageB">
+      <packagedElement xmi:type="uml:Class" xmi:id="_2f4ikEd3Eeayp81rgar4Qw" name="Quux">
+        <generalization xmi:id="_2f4ikUd3Eeayp81rgar4Qw">
+          <general xmi:type="uml:Class" href="package2/packageB/bar.uml#_Yg658EYCEeagQvw0AruCcg"/>
+        </generalization>
+      </packagedElement>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>

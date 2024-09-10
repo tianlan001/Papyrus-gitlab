@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="ruleKind" name="Rule Extension Point" schema="schema/ruleKind.exsd"/>
+
+
+   <extension point="org.eclipse.papyrus.infra.types.core.elementTypeConfigurationKind">
+      <elementTypeConfigurationKind
+            configurationClass="org.eclipse.papyrus.infra.types.rulebased.RuleBasedTypeConfiguration"
+            factoryClass="org.eclipse.papyrus.infra.types.rulebased.core.RuleElementTypeFactory">
+      </elementTypeConfigurationKind>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated RuleBased -->
+      <package
+            uri="http://www.eclipse.org/papyrus/infra/types/rulebased/1.1"
+            class="org.eclipse.papyrus.infra.types.rulebased.RuleBasedPackage"
+            genModel="model/RuleBased.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated RuleBased -->
+      <parser
+            type="rulebased"
+            class="org.eclipse.papyrus.infra.types.rulebased.util.RuleBasedResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated RuleBased -->
+      <factory
+            uri="http://www.eclipse.org/papyrus/infra/types/rulebased/1.1"
+            class="org.eclipse.papyrus.infra.types.rulebased.provider.RuleBasedItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.childCreationExtenders">
+      <!-- @generated RuleBased -->
+      <extender
+            uri="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2"
+            class="org.eclipse.papyrus.infra.types.rulebased.provider.RuleBasedItemProviderAdapterFactory$ElementTypesConfigurationsChildCreationExtender"/>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipse.papyrus.infra.types.rulebased.internal.expressions.RuleConfigurationPropertyTester"
+            id="org.eclipse.papyrus.infra.types.rulebased.propertyTester"
+            namespace="org.eclipse.papyrus.infra.types.rulebased"
+            properties="container,operandCount"
+            type="org.eclipse.papyrus.infra.types.rulebased.RuleConfiguration">
+      </propertyTester>
+   </extension>
+</plugin>

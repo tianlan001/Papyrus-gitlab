@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Profile xmi:id="_3SkxIDpJEeubmtHuaj6Y7A" name="BookStore" URI="http://www.eclipse.org/Papyrus/2020/Toolsmiths/test/builder/elementtypes/BookStore" metaclassReference="_RifaoDpKEeubmtHuaj6Y7A _aPhcMDpKEeubmtHuaj6Y7A">
+    <eAnnotations xmi:id="_pafKgDpKEeubmtHuaj6Y7A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_pafKgTpKEeubmtHuaj6Y7A" name="bookstore" nsURI="http://www.eclipse.org/Papyrus/2020/Toolsmiths/test/builder/elementtypes/BookStore" nsPrefix="bkst">
+        <eAnnotations xmi:id="_8t_toTptEeubmtHuaj6Y7A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+          <details xmi:id="_8t_tojptEeubmtHuaj6Y7A" key="originalName" value="BookStore"/>
+        </eAnnotations>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_8t_tozptEeubmtHuaj6Y7A" name="BookStore">
+          <eAnnotations xmi:id="_8t_tpDptEeubmtHuaj6Y7A" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_T-C3EDpKEeubmtHuaj6Y7A"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_8t_tpTptEeubmtHuaj6Y7A" name="base_Package" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_8t_tpzptEeubmtHuaj6Y7A" name="Book">
+          <eAnnotations xmi:id="_8t_tqDptEeubmtHuaj6Y7A" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_c17dwDpKEeubmtHuaj6Y7A"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_8t_tqTptEeubmtHuaj6Y7A" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_8t_tqzptEeubmtHuaj6Y7A" name="isbn" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_8t_trTptEeubmtHuaj6Y7A" name="author" ordered="false" lowerBound="1" upperBound="-1" eType="_8t_trzptEeubmtHuaj6Y7A"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_8t_trzptEeubmtHuaj6Y7A" name="Author" eSuperTypes="_8t_tsjptEeubmtHuaj6Y7A">
+          <eAnnotations xmi:id="_8t_tsDptEeubmtHuaj6Y7A" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_fIc6ADpKEeubmtHuaj6Y7A"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_8t_tsjptEeubmtHuaj6Y7A" name="Person">
+          <eAnnotations xmi:id="_8t_tszptEeubmtHuaj6Y7A" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_e3vkgDpKEeubmtHuaj6Y7A"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_8t_ttDptEeubmtHuaj6Y7A" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_8t_ttjptEeubmtHuaj6Y7A" name="Editor" eSuperTypes="_8t_tsjptEeubmtHuaj6Y7A">
+          <eAnnotations xmi:id="_8t_ttzptEeubmtHuaj6Y7A" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_fQATgDpKEeubmtHuaj6Y7A"/>
+        </eClassifiers>
+      </contents>
+    </eAnnotations>
+    <elementImport xmi:id="_RifaoDpKEeubmtHuaj6Y7A">
+      <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </elementImport>
+    <elementImport xmi:id="_aPhcMDpKEeubmtHuaj6Y7A">
+      <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Package"/>
+    </elementImport>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_T-C3EDpKEeubmtHuaj6Y7A" name="BookStore">
+      <ownedAttribute xmi:id="_b3uJEDpKEeubmtHuaj6Y7A" name="base_Package" association="_b3tiADpKEeubmtHuaj6Y7A">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Package"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_b3tiADpKEeubmtHuaj6Y7A" name="Package_BookStore" memberEnd="_b3tiATpKEeubmtHuaj6Y7A _b3uJEDpKEeubmtHuaj6Y7A">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_b3tiATpKEeubmtHuaj6Y7A" name="extension_BookStore" type="_T-C3EDpKEeubmtHuaj6Y7A" aggregation="composite" association="_b3tiADpKEeubmtHuaj6Y7A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_c17dwDpKEeubmtHuaj6Y7A" name="Book">
+      <ownedAttribute xmi:id="_ko2ngjpKEeubmtHuaj6Y7A" name="base_Class" association="_ko2ngDpKEeubmtHuaj6Y7A">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_PEAFUDpSEeubmtHuaj6Y7A" name="isbn">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_TXii0DptEeubmtHuaj6Y7A" name="author" type="_fIc6ADpKEeubmtHuaj6Y7A" association="_a6ORIDptEeubmtHuaj6Y7A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VQ_-0DptEeubmtHuaj6Y7A" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_e3vkgDpKEeubmtHuaj6Y7A" name="Person">
+      <ownedAttribute xmi:id="_lwpWAjpKEeubmtHuaj6Y7A" name="base_Class" association="_lwpWADpKEeubmtHuaj6Y7A">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_fIc6ADpKEeubmtHuaj6Y7A" name="Author">
+      <generalization xmi:id="_N_kYkDptEeubmtHuaj6Y7A" general="_e3vkgDpKEeubmtHuaj6Y7A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_fQATgDpKEeubmtHuaj6Y7A" name="Editor">
+      <generalization xmi:id="_Pbs_YDptEeubmtHuaj6Y7A" general="_e3vkgDpKEeubmtHuaj6Y7A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_ko2ngDpKEeubmtHuaj6Y7A" name="Class_Book" memberEnd="_ko2ngTpKEeubmtHuaj6Y7A _ko2ngjpKEeubmtHuaj6Y7A">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ko2ngTpKEeubmtHuaj6Y7A" name="extension_Book" type="_c17dwDpKEeubmtHuaj6Y7A" aggregation="composite" association="_ko2ngDpKEeubmtHuaj6Y7A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_lwpWADpKEeubmtHuaj6Y7A" name="Class_Person" memberEnd="_lwpWATpKEeubmtHuaj6Y7A _lwpWAjpKEeubmtHuaj6Y7A">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_lwpWATpKEeubmtHuaj6Y7A" name="extension_Person" type="_e3vkgDpKEeubmtHuaj6Y7A" aggregation="composite" association="_lwpWADpKEeubmtHuaj6Y7A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_a6ORIDptEeubmtHuaj6Y7A" memberEnd="_TXii0DptEeubmtHuaj6Y7A _eBI-wDptEeubmtHuaj6Y7A">
+      <ownedEnd xmi:id="_eBI-wDptEeubmtHuaj6Y7A" name="book" association="_a6ORIDptEeubmtHuaj6Y7A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mRN-kDptEeubmtHuaj6Y7A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lva5EDptEeubmtHuaj6Y7A" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <profileApplication xmi:id="_GB33IDpKEeubmtHuaj6Y7A">
+      <eAnnotations xmi:id="_GB7hgDpKEeubmtHuaj6Y7A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Profile>
+  <Ecore:EPackage xmi:id="_JbI5ADpKEeubmtHuaj6Y7A" base_Package="_3SkxIDpJEeubmtHuaj6Y7A" packageName="bookstore" nsPrefix="bkst"/>
+</xmi:XMI>

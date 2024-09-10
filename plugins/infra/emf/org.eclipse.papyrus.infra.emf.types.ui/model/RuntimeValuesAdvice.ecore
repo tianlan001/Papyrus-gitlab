@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="values" nsURI="http://www.eclipse.org/papyrus/emf/types/runtimevaluesadvice/1.1"
+    nsPrefix="runtimevaluesadvice">
+  <eClassifiers xsi:type="ecore:EClass" name="RuntimeValuesAdviceConfiguration" eSuperTypes="../../org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.ecore#//AbstractAdviceBindingConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="viewsToDisplay" upperBound="-1"
+        eType="#//ViewToDisplay" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ViewToDisplay">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="view" lowerBound="1" eType="ecore:EClass ../../org.eclipse.papyrus.infra.properties/Model/Properties.ecore#//contexts/View"/>
+  </eClassifiers>
+</ecore:EPackage>

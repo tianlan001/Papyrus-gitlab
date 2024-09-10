@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2015 CEA LIST and others.&#xA;&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License 2.0&#xA; which accompanies this distribution, and is available at&#xA; https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA; SPDX-License-Identifier: EPL-2.0&#xA;&#xA; Contributors:&#xA; CEA LIST - Initial API and implementation"
+    modelDirectory="/org.eclipse.papyrus.infra.viewpoints.policy/src-gen" creationIcons="false"
+    editDirectory="/org.eclipse.papyrus.infra.viewpoints.policy.edit/src-gen" editorDirectory="/org.eclipse.papyrus.infra.viewpoints.policy.editor/src-gen"
+    modelPluginID="org.eclipse.papyrus.infra.viewpoints.policy" modelName="Configuration"
+    editPluginClass="org.eclipse.papyrus.infra.viewpoints.style.provider.StyleEditPlugin"
+    editorPluginClass="org.eclipse.papyrus.infra.viewpoints.style.presentation.StyleEditorPlugin"
+    nonNLSMarkers="true" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" testsDirectory="/org.eclipse.papyrus.infra.viewpoints.policy.tests/src-gen"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    editPluginID="org.eclipse.papyrus.infra.viewpoints.policy.edit" editorPluginID="org.eclipse.papyrus.infra.viewpoints.policy.editor"
+    operationReflection="true" importOrganizing="true" cleanup="true">
+  <foreignModel>configuration.ecore</foreignModel>
+  <genPackages prefix="Configuration" basePackage="org.eclipse.papyrus.infra.viewpoints"
+      disposableProviderFactory="true" generateExampleClass="false" extensibleProviderFactory="true"
+      childCreationExtenders="true" ecorePackage="configuration.ecore#/">
+    <genClasses ecoreClass="configuration.ecore#//PapyrusView">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute configuration.ecore#//PapyrusView/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute configuration.ecore#//PapyrusView/icon"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute configuration.ecore#//PapyrusView/implementationID"/>
+    </genClasses>
+    <genClasses ecoreClass="configuration.ecore#//PapyrusDiagram"/>
+    <genClasses ecoreClass="configuration.ecore#//PapyrusSyncTable"/>
+    <genClasses ecoreClass="configuration.ecore#//PapyrusTable"/>
+  </genPackages>
+</genmodel:GenModel>

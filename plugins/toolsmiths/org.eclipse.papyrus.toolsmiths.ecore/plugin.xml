@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.emf.facet.util.emf.core.modeldeclaration">
+      <modeldeclaration
+            file="resources/EAnnotationCustom.custom">
+      </modeldeclaration>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="TreeOutlinePage">
+         <propertySection
+               class="org.eclipse.papyrus.toolsmiths.ecore.internal.properties.EcorePropertySection"
+               filter="org.eclipse.papyrus.toolsmiths.ecore.internal.properties.EcorePropertySectionFilter"
+               id="org.eclipse.papyrus.toolsmiths.ecore.properties.section"
+               tab="advanced">
+            <input
+                  type="java.lang.Object">
+            </input>
+         </propertySection>
+      </propertySections>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.papyrus.views.modelexplorer.modelexplorer.popup?after=newelements">
+         <command
+               commandId="org.eclipse.papyrus.toolsmiths.ecore.createEAnnotation"
+               icon="icons/EAnnotation.gif"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.papyrus.views.modelexplorer.modelexplorer.popup?after=newelements">
+         <command
+               commandId="org.eclipse.papyrus.toolsmiths.ecore.createEAnnotationDetailsEntry"
+               icon="icons/EStringToStringMapEntry.gif"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.eclipse.papyrus.toolsmiths.ecore.internal.handlers.CreateEAnnotationHandler"
+            id="org.eclipse.papyrus.toolsmiths.ecore.createEAnnotation"
+            name="Create EAnnotation">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.toolsmiths.ecore.internal.handlers.CreateEAnnotationDetailsEntryHandler"
+            id="org.eclipse.papyrus.toolsmiths.ecore.createEAnnotationDetailsEntry"
+            name="Create Details Entry">
+      </command>
+   </extension>
+
+</plugin>

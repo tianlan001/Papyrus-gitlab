@@ -1,0 +1,89 @@
+/*****************************************************************************
+ * Copyright (c) 2013, 2014 CEA LIST and others.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *  Juan Cadavid (CEA LIST) juan.cadavid@cea.fr - Initial API and implementation
+ *  Christian W. Damus (CEA) - bug 413703
+ *
+ *****************************************************************************/
+package org.eclipse.papyrus.uml.modelexplorer.util;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.papyrus.emf.facet.custom.metamodel.v0_2_0.internal.treeproxy.EReferenceTreeElement;
+import org.eclipse.papyrus.infra.emf.utils.EMFHelper;
+import org.eclipse.papyrus.uml.service.types.utils.CommandContext;
+import org.eclipse.papyrus.uml.service.types.utils.ICommandContext;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+
+/**
+ * Utilities for capturing elements in the model explorer.
+ */
+public class ModelExplorerUtils {
+
+	/**
+	 * <pre>
+	 * Parse current selection and extract the command context (can be null).
+	 *
+	 * @return the command context based on current selection
+	 * </pre>
+	 */
+	public static ICommandContext getSelectionCommandContext() {
+		// Get current selection from workbench
+		IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		Object selection = (activeWorkbenchWindow != null) ? activeWorkbenchWindow.getSelectionService().getSelection() : null;
+
+		// If the selection is null, return null command context.
+		if (selection == null) {
+			return null;
+		}
+
+		// Get first element if the selection is an IStructuredSelection
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			selection = structuredSelection.getFirstElement();
+		}
+
+		// Treat non-null selected object (try to adapt and return EObject or EReference)
+		EObject container = null;
+		EReference reference = null;
+
+
+		container = EMFHelper.getEObject(selection);
+
+		if (container instanceof EReference) {
+			reference = (EReference) container;
+			container = null;
+
+			// The following part introduce a dependency to EMF Facet.
+			// Although the selection can be adapted to EReference, the link parent is required but
+			// no API allows to get this element except LinkItem or ITreeElement.
+			if (selection instanceof EReferenceTreeElement) {
+				container = ((EReferenceTreeElement) selection).getParent().getEObject();
+			}
+		}
+
+		// Prepare the command context
+		ICommandContext context = null;
+		if (container != null) {
+			if (reference != null) {
+				context = new CommandContext(container, reference);
+			} else {
+				context = new CommandContext(container);
+			}
+		}
+
+		// Return the context
+		return context;
+	}
+
+}

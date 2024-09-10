@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.eclipse.papyrus.uml.profile.drafter.createprofile"
+            name="Create Profile">
+      </command>
+      <command
+            id="org.eclipse.papyrus.uml.profile.drafter.addprofile"
+            name="Add Profile">
+      </command>
+      <command
+            id="org.eclipse.papyrus.uml.profile.drafter.checkselection"
+            name="Check Selection Type">
+      </command>
+      <command
+            id="org.eclipse.papyrus.uml.profile.drafter.updateprofile"
+            name="Update Profile">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.papyrus.uml.profile.drafter.ui.handler.CreateProfileHandler"
+            commandId="org.eclipse.papyrus.uml.profile.drafter.createprofile">
+      </handler>
+      <handler
+            class="org.eclipse.papyrus.uml.profile.drafter.ui.handler.AddProfileHandler"
+            commandId="org.eclipse.papyrus.uml.profile.drafter.addprofile">
+      </handler>
+      <handler
+            class="org.eclipse.papyrus.uml.profile.drafter.ui.handler.CheckSelectionHandler"
+            commandId="org.eclipse.papyrus.uml.profile.drafter.checkselection">
+      </handler>
+      <handler
+            class="org.eclipse.papyrus.uml.profile.drafter.ui.handler.UpdateProfileHandler"
+            commandId="org.eclipse.papyrus.uml.profile.drafter.updateprofile">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.papyrus.ui.menu">
+         <menu
+               label="Profiles">
+            <command
+                  commandId="org.eclipse.papyrus.uml.profile.drafter.updateprofile"
+                  label="Update Profile..."
+                  style="push"
+                  tooltip="Create, update or/and Add a UML Profile to selected element">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <menu
+               label="Profiles">
+            <command
+                  commandId="org.eclipse.papyrus.uml.profile.drafter.updateprofile"
+                  label="Update Profile..."
+                  style="push"
+                  tooltip="Create, update or/and Add a UML Profile to selected element">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.papyrus.views.modelexplorer.modelexplorer.popup?after=tools">
+         <menu
+               id="org.eclipse.papyrus.uml.profile.drafter.contextmenu"
+               label="Profiles">
+            <command
+                  commandId="org.eclipse.papyrus.uml.profile.drafter.updateprofile"
+                  label="Update Profile..."
+                  style="push"
+                  tooltip="Create, update or/and Add a UML Profile to selected element">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.core.service">
+      <service
+            classname="org.eclipse.papyrus.uml.profile.drafter.services.ProfileCatalogService"
+            description="Service used to initialize and access the ProfileCatalog."
+            id="org.eclipse.papyrus.uml.profile.drafter.services.ProfileCatalogService"
+            priority="1"
+            startKind="lazy">
+         <dependsOn
+               serviceKeyRef="org.eclipse.emf.transaction.TransactionalEditingDomain">
+         </dependsOn>
+         <dependsOn
+               serviceKeyRef="org.eclipse.papyrus.infra.core.resource.ModelSet">
+         </dependsOn>
+      </service>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.emf.readonly.readOnlyHandler">
+      <readOnlyHandler
+            class="org.eclipse.papyrus.uml.profile.drafter.AppliedProfileReadOptionalyWriteHandler"
+            id="org.eclipse.papyrus.uml.profile.readonly.AppliedProfileReadOnlyHandler"
+            priority="20">
+         <affinity
+               axis="discretion">
+         </affinity>
+      </readOnlyHandler>
+   </extension>
+
+</plugin>

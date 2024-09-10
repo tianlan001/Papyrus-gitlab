@@ -1,0 +1,1697 @@
+/*******************************************************************************
+ * Copyright (c) 2005, 2020 Borland Software Corporation, CEA LIST, Artal and others
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/ 
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors: 
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+
+@namespace(uri="http://www.eclipse.org/papyrus/gmf/2020/GenModel", prefix="gmfgen")
+@EmfaticAnnotationMap(
+	constraints="http://www.eclipse.org/gmf/2005/constraints",
+	meta="http://www.eclipse.org/gmf/2005/constraints/meta",
+	deprecated="http://www.eclipse.org/gmf/2006/deprecated"
+)
+@constraints("import"="http://www.eclipse.org/gmf/runtime/1.0.0/notation")
+package gmfgen;
+
+import "http://www.eclipse.org/emf/2002/Ecore";
+import "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore";
+
+// TODO introduce sourceRoot argument (or few of them?) to allow targets other than /src/
+// TODO Move childNodes, topLevelNodes, links and compartments from GenDiagram here.
+class GenEditorGenerator {
+	val GenAuditRoot#editorGen audits;
+	val GenMetricContainer#editorGen metrics;
+	val GenDiagram[1]#editorGen diagram;
+	val GenPlugin[1]#editorGen plugin;
+	val GenEditorView[1]#editorGen editor;
+	val GenNavigator#editorGen navigator;
+	val GenDiagramUpdater[1]#editorGen diagramUpdater;
+	val GenPropertySheet[?]#editorGen propertySheet;
+	@genmodel(documentation="If application is defined within the model then generator should target RCP")
+	val GenApplication[?]#editorGen application;
+	@genmodel(documentation="This is primary EMF genmodel for user's domain model")
+	ref genmodel.GenModel[?] domainGenModel;
+	@genmodel(documentation="Returns all genpackages from domain genmodel")
+	op genmodel.GenPackage[*] getAllDomainGenPackages(boolean withUsed);
+	@genmodel(documentation="Derived from genModel.genPackage[0].getBasePackage() by default")
+	attr String packageNamePrefix;
+	id attr String[1] modelID;
+	@genmodel(documentation="Specified whether editor should create separate file for domain elements if diagram file references no domain model")
+	attr boolean sameFileForDiagramAndModel;
+	@genmodel(documentation="Distinct even when sameFileForDiagramAndModel is true. On init diagram, we just copy domain model element to new file with that extension. I won't try to set this equal to domainFileExtension")
+	attr String diagramFileExtension;
+	@genmodel(documentation="By default, genModel.genPackage[0].getPrefix().toLowerCase(), as in emf/templates/editor/pluign.xmljet")
+	attr String domainFileExtension;
+	attr boolean dynamicTemplates = false;
+	attr String templateDirectory;
+	attr String copyrightText;
+  	val GenExpressionProviderContainer#editorGen expressionProviders;
+  	@genmodel(documentation="If present, specifies dynamic access to domain model(s), without using generated Java code")
+  	val DynamicModelAccess[?]#editorGen modelAccess;
+  	@genmodel(documentation="If present, describes access to and types of parser implementations")
+  	@constraints(ocl="labelParsers.oclIsUndefined() implies (diagram.getAllNodes()->forAll(labels->size()=0) and diagram.links->forAll(labels->size()=0) and not diagram.childNodes->exists(oclIsKindOf(GenChildLabelNode)))", description="No label may be declared without a parser")
+	val GenParsers[?]#editorGen labelParsers; // labelParser is permitted to be null only when there are basic nodes and links only, no labels
+	val GenContextMenu[*] contextMenus; // XXX perhaps, as GenPlugin attribute instead?
+	@genmodel(documentation="The target directory for generated editor code. Similar to EMF's GenModel#editorDirectory")
+	attr String pluginDirectory; 
+	
+	@genmodel(documentation="Custom extensions for this generator")
+	val GenCustomGeneratorExtension[*]#generator extensions; 
+	
+}
+
+@constraints(ocl="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Diagram')", description="'Diagram Runtime Class' must be a notation::Diagram or sub-class")
+class GenDiagram extends GenContainerBase, PackageNames, ProviderClassNames, LinkConstraints, EditPartCandies, EditorCandies, Shortcuts, BatchValidation, MeasurementUnit {
+	readonly !resolve ref GenEditorGenerator#diagram editorGen;
+	ref genmodel.GenClass[?] domainDiagramElement;
+	val GenChildNode[*]#diagram childNodes; // to GenEditorGenerator?
+	val GenTopLevelNode[*]#diagram topLevelNodes;
+	val GenLink[*]#diagram links;
+	val GenCompartment[*]#diagram compartments;
+	val Palette[?]#diagram palette;
+	attr boolean synchronized = true;
+	@genmodel(documentation="Handy operation to get top and child nodes")
+	op GenNode[*] getAllNodes();
+	@genmodel(documentation="All nodes (top and child) and compartments")
+	op GenChildContainer[*] getAllChildContainers();
+	@genmodel(documentation="All nodes, compartments and diagram itself")
+	op GenContainerBase[*] getAllContainers();
+	@genmodel(documentation="Gets the name of the class to hold the initializer methods for domain elements")
+	op String getElementInitializersClassName(); // XXX WTF? why not a field?
+	@genmodel(documentation="Gets the name of the package to hold the element initializers class")
+	op String getElementInitializersPackageName();
+	val GenDiagramPreferences[?] preferences;
+	val GenPreferencePage[*] preferencePages;
+}
+
+class GenEditorView {
+	readonly !resolve ref GenEditorGenerator#editor editorGen;
+	attr String packageName;
+	op String getActionBarContributorQualifiedClassName();
+	attr String actionBarContributorClassName; // XXX move to InternalEditorView, inherit? Or GenEditorView4GEF extends this?
+	op String getQualifiedClassName();
+	attr String className;
+	attr String[1] iconPath;
+	readonly transient derived volatile attr String[1] iconPathX;
+	attr String iD;
+	attr boolean eclipseEditor = true;
+	attr String contextID;
+}
+
+abstract class GenPreferencePage {
+	attr String[1] iD;
+	attr String[1] name;
+	val GenPreferencePage[*]#parent children;
+	readonly !resolve ref GenPreferencePage[?]#children parent;
+	@genmodel(documentation="For a page that doesn't have another GenPreferencePage set as its parent, id of any other preference page to use as parent page may be set with this attribute")
+	attr String[?] parentCategory;
+	op GenDiagram getDiagram();
+	op String getQualifiedClassName();
+	op String getClassName();
+}
+// XXX existing page or parentCategory to insert into?
+
+class GenCustomPreferencePage extends GenPreferencePage {
+	attr String[1] qualifiedClassName;
+	attr boolean generateBoilerplate = false;
+	val GenPreference[*]#page preferences;
+}
+
+class GenStandardPreferencePage extends GenPreferencePage {
+	attr StandardPreferencePages[1] kind;
+	attr String[?] className;
+}
+
+enum StandardPreferencePages {
+	General;
+	Appearance;
+	Connections;
+	Printing;
+	RulersAndGrid;
+	Pathmaps;
+}
+
+class GenDiagramPreferences {
+	attr Routing lineStyle;
+	val GenFont defaultFont;
+	val GenColor fontColor;
+	val GenColor fillColor;
+	val GenColor lineColor;
+	val GenColor noteFillColor;
+	val GenColor noteLineColor;
+	attr boolean showConnectionHandles = true;
+	attr boolean showPopupBars = true;
+	attr boolean promptOnDelFromModel;
+	attr boolean promptOnDelFromDiagram;
+	attr boolean enableAnimatedLayout = true;
+	attr boolean enableAnimatedZoom = true;
+	attr boolean enableAntiAlias = true;
+	attr boolean showGrid = false;
+	attr boolean showRulers = false;
+	attr boolean snapToGrid = true;
+	attr boolean snapToGeometry = false;
+	attr boolean gridInFront = true;
+	attr RulerUnits rulerUnits;
+	attr double gridSpacing;
+	val GenColor gridLineColor;
+	attr LineStyle gridLineStyle;
+}
+
+enum RulerUnits {
+	INCHES;
+	CENTIMETERS;
+	PIXELS;
+}
+
+enum Routing {
+	MANUAL;
+	RECTILINEAR;
+	TREE;
+}
+
+enum LineStyle {
+	SOLID;
+	DASH;
+	DOT;
+	DASHDOT;
+	DASHDOTDOT;
+	CUSTOM;
+}
+
+abstract interface GenFont {
+}
+
+class GenStandardFont extends GenFont {
+	attr JFaceFont name;
+}
+
+enum JFaceFont {
+	Default;
+	Text;
+	Banner;
+	Dialog;
+	Header;
+}
+
+class GenCustomFont extends GenFont {
+	attr String name;
+	attr int height;
+	attr FontStyle style;
+}
+
+enum FontStyle {
+	NORMAL;
+	BOLD;
+	ITALIC;
+}
+
+abstract interface GenColor {
+}
+
+class GenRGBColor extends GenColor {
+	attr int[1] red;
+	attr int[1] green;
+	attr int[1] blue;
+}
+
+class GenConstantColor extends GenColor {
+	attr DiagramColors name;
+}
+
+enum DiagramColors {
+	buttonLightest;
+	button;
+	buttonDarker;
+	buttonDarkest;
+	listBackground;
+	listForeground;
+	menuBackground;
+	menuForeground;
+	menuBackgroundSelected;
+	menuForegroundSelected;
+	titleBackground;
+	titleGradient;
+	titleForeground;
+	titleInactiveForeground;
+	titleInactiveBackground;
+	titleInactiveGradient;
+	tooltipForeground;
+	tooltipBackground;
+	white;
+	lightGray;
+	gray;
+	darkGray;
+	black;
+	red;
+	orange;
+	yellow;
+	green;
+	lightGreen;
+	darkGreen;
+	cyan;
+	lightBlue;
+	blue;
+	darkBlue;
+	diagramGreen;
+	diagramLightRed;
+	diagramRed;
+	diagramLightBlue;
+	diagramBlue;
+	diagramLightGray;
+	diagramGray;
+	diagramDarkGray;
+	diagramLightYellow;
+	diagramDarkYellow;
+	diagramLightGoldYellow;
+	diagramBurgundyRed;
+}
+
+class GenPreference {
+	readonly !resolve ref GenCustomPreferencePage[1]#preferences page;
+	@genmodel(documentation="Java constant name")
+	attr String[1] name;
+	@genmodel(documentation="Preference key, derived from constant name if not set")
+	attr String[?] key;
+	attr String defaultValue;
+}
+
+////////////////////////
+// Aspects of GenDiagram
+//
+
+abstract interface BatchValidation {
+ 	op String getValidationProviderQualifiedClassName();
+	attr String validationProviderClassName;
+	@deprecated(documentation="Validation action is no longer contributed via contributionItemProvider")
+	attr ProviderPriority validationProviderPriority;
+	@genmodel(documentation="Gets diagnostic marker type ID local to the editor plugin. The editor pluginID should be used to fully-qualify this ID.")
+	op String getValidationDiagnosticMarkerType();
+	op String getMarkerNavigationProviderQualifiedClassName();
+	attr String markerNavigationProviderClassName;
+	attr ProviderPriority markerNavigationProviderPriority;
+	@genmodel(documentation="If enabled, ValidationAction is contributed by the editor plugin")
+	attr boolean validationEnabled;
+	op String getMetricProviderQualifiedClassName();
+	attr String metricProviderClassName;
+	@deprecated(documentation="Metrics action is no longer contributed via contributionItemProvider")
+	attr ProviderPriority metricProviderPriority;	
+	op String getMetricViewID();
+	op String getValidationDecoratorProviderQualifiedClassName();  
+	attr String validationDecoratorProviderClassName;
+	attr boolean validationDecorators;
+	attr ProviderPriority validationDecoratorProviderPriority;	
+	attr boolean liveValidationUIFeedback;
+}
+
+abstract interface ProviderClassNames {
+	// providers package class names
+	op String getElementTypesQualifiedClassName();
+	attr String elementTypesClassName;
+	op String getNotationViewProviderQualifiedClassName();
+	attr String notationViewProviderClassName;
+	attr ProviderPriority notationViewProviderPriority;
+	op String getEditPartProviderQualifiedClassName();
+	attr String editPartProviderClassName;
+	attr ProviderPriority editPartProviderPriority;
+	op String getModelingAssistantProviderQualifiedClassName();
+	attr String modelingAssistantProviderClassName;
+	attr ProviderPriority modelingAssistantProviderPriority;
+	op String getIconProviderQualifiedClassName();
+	attr String iconProviderClassName;
+	attr ProviderPriority iconProviderPriority;
+	@deprecated(documentation="Replaced with GenParsers")
+	op String getParserProviderQualifiedClassName();
+	@deprecated(documentation="Replaced with GenParsers")
+	attr String parserProviderClassName;
+	@deprecated(documentation="Replaced with GenParsers")
+	attr ProviderPriority parserProviderPriority;
+	@deprecated(documentation="Actions are no longer contributed using ContributionItemService")
+	op String getContributionItemProviderQualifiedClassName();
+	@deprecated(documentation="Actions are no longer contributed using ContributionItemService")
+	attr String contributionItemProviderClassName;
+}
+
+enum ProviderPriority {
+	Lowest;
+	Low;
+	Medium;
+	High;
+	Highest;
+}
+
+abstract interface Shortcuts {
+	op String getShortcutsDecoratorProviderQualifiedClassName();
+	attr String shortcutsDecoratorProviderClassName;
+	attr ProviderPriority shortcutsDecoratorProviderPriority;
+	@deprecated(documentation="Use CreateShortcutAction instead")
+	op String getCreateShortcutActionQualifiedClassName();
+	@deprecated(documentation="Use CreateShortcutAction instead")
+	attr String createShortcutActionClassName;
+	op String getCreateShortcutDecorationsCommandQualifiedClassName();
+	// XXX move and deprecate?
+	attr String createShortcutDecorationsCommandClassName;
+	op String getShortcutPropertyTesterQualifiedClassName();
+	attr String shortcutPropertyTesterClassName;
+	@genmodel(documentation="Set of domain meta-model file extensions. Elements of the corresponding models could be added as a shortcut on this diagram.")
+	attr String[*] containsShortcutsTo;
+	@genmodel(documentation="Set of domain meta-model names. Elements of this diagram domain model could be added as a shortcuts to the diagrams of the specified domains.")
+	attr String[*] shortcutsProvidedFor;
+	@deprecated(documentation="Use CreateShortcutAction instead")
+	op boolean generateCreateShortcutAction();
+	op boolean generateShortcutIcon();
+}
+
+abstract interface PackageNames {
+	attr String editCommandsPackageName;
+	attr String editHelpersPackageName;
+	attr String editPartsPackageName;
+	attr String editPoliciesPackageName;
+	attr String preferencesPackageName;
+	attr String	providersPackageName;
+	@deprecated(documentation="Replaced with GenParsers")
+	attr String	parsersPackageName;
+	@deprecated(documentation="ViewFactories are no longer generated")
+	attr String	notationViewFactoriesPackageName;
+}
+
+// FIXME introduce a separate entity to generate single class that keeps link constraints, model element selectors and initializers
+// Do not use inner class in BaseItemSemanticEditPolicy
+@deprecated(documentation="Operations supplied by this interface are hardly useful and will be removed soon")
+abstract interface LinkConstraints {
+	@genmodel(documentation="Indicates whether this diagram contains link creation constraints or not")
+	@deprecated(documentation="LinkCreationConstants should be generated if diagram has any links")
+	op boolean[1] hasLinkCreationConstraints();
+	@genmodel(documentation="Gets the name of the constraints holder class")
+	op String[1] getLinkCreationConstraintsClassName(); // FIXME rather, implementation detail? We may want to keep constraints not necessarily inside a class
+	// and they are operations, anyway, can't modify the value.
+	@genmodel(documentation="Gets the qualified name of the constraints holder class")
+	op String[1] getLinkCreationConstraintsQualifiedClassName();	
+}
+
+abstract interface EditorCandies {
+	// editor package class names
+	op String getCreationWizardQualifiedClassName();
+	attr String creationWizardClassName;
+	op String getCreationWizardPageQualifiedClassName();
+	attr String creationWizardPageClassName;
+	attr String[1] creationWizardIconPath;
+	readonly transient derived volatile attr String[1] creationWizardIconPathX;
+	attr String creationWizardCategoryID;
+	op String getDiagramEditorUtilQualifiedClassName();
+	attr String diagramEditorUtilClassName;
+	op String getDocumentProviderQualifiedClassName();
+	attr String documentProviderClassName;
+	@deprecated(documentation="Use InitDiagramAction instead")
+	op String getInitDiagramFileActionQualifiedClassName();
+	@deprecated(documentation="Use InitDiagramAction instead")
+	attr String initDiagramFileActionClassName;
+	op String getNewDiagramFileWizardQualifiedClassName(); // XXX move to initDiagramAction?
+	attr String newDiagramFileWizardClassName;
+	op String getDiagramContentInitializerQualifiedClassName();
+	attr String diagramContentInitializerClassName;
+	op String getMatchingStrategyQualifiedClassName(); // FIXME move to GenEditorView?
+	attr String matchingStrategyClassName;
+	op String getVisualIDRegistryQualifiedClassName();
+	attr String visualIDRegistryClassName;
+	op String getElementChooserQualifiedClassName();
+	attr String elementChooserClassName;
+	@deprecated(documentation="Use LoadResourceAction instead")
+	op String getLoadResourceActionQualifiedClassName();
+	@deprecated(documentation="Use LoadResourceAction instead")
+	attr String loadResourceActionClassName;
+	attr String editingDomainID;
+	@deprecated(documentation="Use InitDiagramAction instead")
+	op boolean generateInitDiagramAction();
+}
+
+abstract interface EditPartCandies {
+	// edit commands package class names
+	op String getReorientConnectionViewCommandQualifiedClassName();
+	attr String reorientConnectionViewCommandClassName;
+	// edit helpers package class names
+	op String getBaseEditHelperQualifiedClassName();
+	attr String baseEditHelperClassName;
+	// edit parts package class names
+	op String getEditPartFactoryQualifiedClassName();
+	attr String editPartFactoryClassName;
+	op String getBaseExternalNodeLabelEditPartQualifiedClassName();
+	attr String baseExternalNodeLabelEditPartClassName;
+	// edit policies package class names
+	op String getBaseItemSemanticEditPolicyQualifiedClassName();
+	attr String baseItemSemanticEditPolicyClassName;
+	@deprecated(documentation="Not in use")
+	op String getBaseGraphicalNodeEditPolicyQualifiedClassName();
+	@deprecated(documentation="Not in use")
+	attr String baseGraphicalNodeEditPolicyClassName; // FIXME delete and safely ignore on load
+	op String getTextSelectionEditPolicyQualifiedClassName();
+	attr String textSelectionEditPolicyClassName;
+	op String getTextNonResizableEditPolicyQualifiedClassName();
+	attr String textNonResizableEditPolicyClassName;
+}
+
+abstract interface MeasurementUnit {
+	attr String units = "Pixel";
+}
+
+class GenDiagramUpdater {
+	readonly !resolve ref GenEditorGenerator#diagramUpdater editorGen;
+	op String getDiagramUpdaterQualifiedClassName();
+	attr String diagramUpdaterClassName;
+	op String getNodeDescriptorQualifiedClassName();
+	attr String nodeDescriptorClassName;
+	op String getLinkDescriptorQualifiedClassName();
+	attr String linkDescriptorClassName;
+	op String getUpdateCommandQualifiedClassName();
+	attr String updateCommandClassName; // XXX isn't this is implementation detail and can be generated as a part of updater itself?
+	attr String updateCommandID;
+}
+
+class GenPlugin {
+	readonly !resolve ref GenEditorGenerator#plugin editorGen;
+	attr String iD;
+	attr String name;
+	attr String provider = "Sample Plugin Provider, Inc";
+	attr String version = "1.0.0.qualifier";
+	attr boolean printingEnabled;
+	@genmodel(documentation="Computed additional dependencies (in form of plug-in identifiers), including those explicitly specified by user and those derived from referenced genmodels")
+	op String[*] getAllRequiredPlugins();
+	unique attr String[*] requiredPlugins;
+	// TODO getActivatorPackageName()
+	op String getActivatorQualifiedClassName();
+	attr String activatorClassName;
+	// FIXME introduce JavaComplianceLevel
+}
+
+class DynamicModelAccess {
+	readonly !resolve ref GenEditorGenerator#modelAccess editorGen;
+	attr String packageName;
+	attr String className = "MetaModelFacility";
+	op String getQualifiedClassName();
+}
+/////////
+// 
+
+@genmodel(documentation = "One that combines attributes that are essential for diagram elements")
+@constraints(
+	ocl="styles->forAll(style|style.ecoreClass.eAllSuperTypes->including(style.ecoreClass)->one(ePackage.name = 'notation' and name = 'Style'))",
+	description="Each style must be a notation::Style or sub-class")
+abstract class GenCommonBase {
+	ref genmodel.GenClass[1] diagramRunTimeClass;
+	@genmodel(documentation="way to decide which editpart to use for specific diagram element. Maps to attribute in DRT.")
+	@constraints(ocl="visualID >= 0", description="Visual ID must be a non-negative integer")
+	attr int[1] visualID;
+	val ElementType[?]#diagramElement elementType; // must be defined for diagram, nodes and links; must not be defined for other descendants
+	attr String editPartClassName;
+	op String getEditPartQualifiedClassName();
+	attr String itemSemanticEditPolicyClassName;
+	op String getItemSemanticEditPolicyQualifiedClassName();
+	@deprecated(documentation="ViewFactories are no longer generated")
+	attr String notationViewFactoryClassName;
+	@deprecated(documentation="ViewFactories are no longer generated")
+	op String getNotationViewFactoryQualifiedClassName();
+	op GenDiagram getDiagram();
+	op String getClassNamePrefix();
+	@deprecated(documentation="No longer in use")
+	op String getClassNameSuffux();
+	@genmodel(documentation="This unique string identifier could be used to construct unique identifiers in generated java code")
+	op String getUniqueIdentifier();
+	val Viewmap[1] viewmap;
+	op ViewmapLayoutType getLayoutType();
+	ref genmodel.GenClass[*] styles;
+	ordered val Behaviour[*]#subject behaviour;
+	@genmodel(documentation="Indicates this element has no associated domain model. IOW, pure design element.")
+	readonly derived volatile transient attr boolean sansDomain;
+}
+
+// TODO documentation=GEF's EditPolicy notion
+abstract interface Behaviour {
+	readonly !resolve ref GenCommonBase#behaviour subject; // TODO add documentation=subject is the way for generator to know policy's context. note, shared editpolicies are assumed to be ignorant of exact context.
+	op String getEditPolicyQualifiedClassName();
+}
+
+@genmodel(documentation = "Custom user behaviour")
+class CustomBehaviour extends Behaviour {
+	@genmodel(documentation = "Key used to register edit policy in host edit part")
+	attr String[1] key;
+	// perhaps, add field to hold plugin id to import as dependency?
+	attr String[1] editPolicyQualifiedClassName;
+}
+
+class SharedBehaviour extends Behaviour {
+	// ? NOT (delegate instanceof CustomBehaviour) - no sense to reuse, unless to avoid fqn spreading around...
+	// NOT (delegate instanceof SharedBehavior)
+	ref Behaviour[1] delegate;
+}
+
+class OpenDiagramBehaviour extends Behaviour {
+	attr String[1] editPolicyClassName;
+	// attributes not set are assumed to point to owning GenDiagram.
+	attr String[?] diagramKind;
+	attr String[?] editorID;
+	attr boolean openAsEclipseEditor = true;
+}
+
+// XXX add this class along with support in templates. Desperately need better name
+//@genmodel(documentation="Allows to remove one of predefined edit policies") 
+//class CancelBehaviour extends Behaviour {
+//	attr String[1] key;
+//}
+
+abstract interface GenContainerBase extends GenCommonBase {
+	readonly transient derived volatile ref GenNode[*] containedNodes;
+	@genmodel(documentation="Returns child nodes that may be created in this container")
+	op GenNode[*] getAssistantNodes();
+	op boolean needsCanonicalEditPolicy(); // FIXME attribute with overridable value or anything else when switched to behaviour?
+	op String getCanonicalEditPolicyQualifiedClassName();
+	attr String canonicalEditPolicyClassName; // FIXME use behaviours instead and stop CenContainerBase extending GenCommonBase
+}
+
+@genmodel(documentation = "Base class for all ChildNode containers")
+abstract class GenChildContainer extends GenContainerBase {
+	ref GenChildNode[*]#containers childNodes;
+}
+
+@genmodel(documentation = "EClass mapped to Node")
+@constraints(
+	ocl="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Node')", description="Node 'Diagram Runtime Class' must be a notation::Node or sub-class", 
+	description="Node 'Diagram Runtime Class' must be a notation::Node or sub-class")
+//@constraints(
+//	ocl="childNodes->forAll(n|n.modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(self.getDomainMetaClass().ecoreClass))",
+//	description="Node contains child nodes with 'Containment Feature' not available in the node 'Domain Element'"
+//)
+abstract class GenNode extends GenChildContainer, GenLinkEnd {
+	val TypeModelFacet[?] modelFacet;
+	@genmodel(documentation="Delegates to modelFacet")
+	op genmodel.GenClass[1] getDomainMetaClass();
+	val GenNodeLabel[*]#node labels;
+	ref GenCompartment[*]#node compartments;
+	@genmodel(documentation = "Custom primary drag edit policy")
+	attr String primaryDragEditPolicyQualifiedClassName;
+	@genmodel(documentation = "valid only when there are compartments")
+	op String getGraphicalNodeEditPolicyQualifiedClassName();
+	attr String graphicalNodeEditPolicyClassName;
+	op String getCreateCommandQualifiedClassName();
+	attr String createCommandClassName;
+	readonly transient derived volatile ref GenLink[*] reorientedIncomingLinks;
+}
+
+
+// XXX GenTopNode, not GenTopLevelNode?
+@constraints(
+	ocl="not modelFacet.containmentMetaFeature.oclIsUndefined() implies modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(diagram.domainDiagramElement.ecoreClass)",
+	description="Top level node 'Containment Feature' must be available in the diagram 'Domain Element' or its super-class"
+)
+class GenTopLevelNode extends GenNode {
+	readonly !resolve ref GenDiagram[1]#topLevelNodes diagram;
+}
+
+@constraints(ocl="not modelFacet.oclIsUndefined() implies not modelFacet.containmentMetaFeature.oclIsUndefined()", description="Child node must specify 'Containment Meta Feature'")
+class GenChildNode extends GenNode {
+	readonly !resolve ref GenDiagram[1]#childNodes diagram;
+	@constraints(ocl="let cmps:OrderedSet(GenChildContainer)=containers->select(oclIsKindOf(GenCompartment)) in cmps->exists(oclAsType(GenCompartment).listLayout) implies not cmps->exists(not oclAsType(GenCompartment).listLayout)", description="Node is referenced from multiple containers with different 'List Layout' value")
+	readonly ref GenChildContainer[*]#childNodes containers;
+}
+
+class GenChildSideAffixedNode extends GenChildNode {
+	attr String preferredSideName = "NONE";
+}
+
+@genmodel(documentation="Child node represented by label; typically hosted by list compartment")
+class GenChildLabelNode extends GenChildNode {
+	attr boolean labelReadOnly;
+	attr boolean labelElementIcon;
+	@genmodel(documentation="If model facet is not specified then custom parser should be provided for the label")
+	val LabelModelFacet[?] labelModelFacet;
+	@genmodel(documentation="Returns structural features that provide label content")
+	op genmodel.GenFeature[*] getLabelMetaFeatures();
+}
+
+@genmodel(documentation = "Child container within node. Compartment, iow.")
+//@constraints(
+//	ocl="childNodes->forAll(n|n.modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass))",
+//	description="Compartment contains child nodes with 'Containment Feature' not available in the compartment containing node 'Domain Element'"
+//)
+class GenCompartment extends GenChildContainer {
+	attr String title;
+	attr boolean canCollapse = true;
+	attr boolean hideIfEmpty = true;
+	attr boolean needsTitle = true;
+	readonly !resolve ref GenDiagram[1]#compartments diagram;
+	ref GenNode[1]#compartments node;
+	attr boolean listLayout = true;
+}
+
+@constraints(ocl="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Edge')", description="Link 'Diagram Runtime Class' must be a notation::Edge or sub-class")
+class GenLink extends GenCommonBase, GenLinkEnd {
+	readonly !resolve ref GenDiagram[1]#links diagram;
+	val LinkModelFacet[?] modelFacet;
+	val GenLinkLabel[*]#link labels;
+	@genmodel(documentation = "Support link creation from source to target")
+	attr boolean outgoingCreationAllowed = true;
+	@genmodel(documentation = "Support link creation from target to source")
+	attr boolean incomingCreationAllowed = false;
+	@genmodel(documentation = "View (Edge) will always be directed from model source to model target")
+	attr boolean viewDirectionAlignedWithModel = true;
+	@genmodel(documentation="Specifies additional restrictions on link creation")
+	val GenLinkConstraints#link creationConstraints;	
+	@genmodel(documentation = "Support link target reorienting")
+	attr boolean targetReorientingAllowed = true;
+	@genmodel(documentation = "Support link source reorienting")
+	attr boolean sourceReorientingAllowed = true;
+	@genmodel(documentation="Returns link sources in this genmodel")
+	op GenCommonBase[*] getAssistantSources();
+	@genmodel(documentation="Returns link targets in this genmodel")
+	op GenCommonBase[*] getAssistantTargets();
+	op String getCreateCommandQualifiedClassName();
+	attr String createCommandClassName;
+	op String getReorientCommandQualifiedClassName();
+	attr String reorientCommandClassName;
+	attr boolean treeBranch = true;
+
+	// FIXME Implementation of sources and targets now give empty result if link has no modelFacet. 
+	// HOWEVER, before addition of GenLinkEnd, we seemed to assume that link without model facet can be 
+	// drawn to any node on the diagram (e.g. see NavigatorHandler#getSourceGenNodes()). Would be great to
+	// make that consistent.
+	readonly volatile transient derived ref GenLinkEnd[*] sources;
+	readonly volatile transient derived ref GenLinkEnd[*] targets;
+}
+
+// DON'T forget about same op name bug in emfatic->ecore - arg types are lost
+
+// perhaps, we need some kind of item provider for labels
+// which is capable of returing 'design', 'full', 'short' kinds of name?
+@genmodel(documentation = "Label on diagram")
+abstract class GenLabel extends GenCommonBase {
+	attr boolean readOnly;
+	attr boolean elementIcon;
+	@genmodel(documentation="If model facet is not specified then custom parser should be provided for the label")
+	val LabelModelFacet[?] modelFacet;
+	@genmodel(documentation="Returns structural features that provide label content")
+	op genmodel.GenFeature[*] getMetaFeatures();
+}
+
+@genmodel(documentation = "Label within node")
+@constraints(
+	ocl="getMetaFeatures()->forAll(f|f.ecoreFeature.eContainingClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass))",
+	description="Node label meta features must be owned by the node 'Meta Class' or its super-classes"	
+)
+class GenNodeLabel extends GenLabel {
+	readonly !resolve ref GenNode[1]#labels node;
+}
+
+@genmodel(documentation = "Label attached to node")
+class GenExternalNodeLabel extends GenNodeLabel {
+}
+
+@genmodel(documentation = "Label attached to link")
+@constraints(
+	ocl="modelFacet.oclIsTypeOf(FeatureLabelModelFacet)=true implies link.modelFacet.oclIsTypeOf(TypeLinkModelFacet)", 
+	description="Feature based link labels can only be used on link with class (TypeLinkModelFacet)"
+)
+@constraints(
+	ocl="let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in not tl.oclIsUndefined() implies self.getMetaFeatures()->forAll(f|f.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass))",
+	description="Link label meta features must be owned by the node 'Meta Class' or its super-classes"
+)
+class GenLinkLabel extends GenLabel {
+	ref GenLink[1]#labels link;
+	attr LinkLabelAlignment alignment = "MIDDLE";
+}
+
+@genmodel(documentation="Constants from {@link org.eclipse.draw2d.ConnectionLocator}")
+enum LinkLabelAlignment {MIDDLE = 4; TARGET = 3; SOURCE = 2;}
+
+@genmodel(documentation="Base element type")
+abstract class ElementType {
+	ref GenCommonBase[1]#elementType diagramElement;
+	attr String[1] uniqueIdentifier;
+	@genmodel(documentation="When there's palette, defaults to title of first tool that uses element with this type")
+	attr String displayName;
+	attr boolean definedExternally;
+}
+
+@genmodel(documentation="Element type based on ecore type")
+class MetamodelType extends ElementType {
+	attr String editHelperClassName;
+	op String getEditHelperQualifiedClassName();
+	op genmodel.GenClass getMetaClass();
+}
+
+@genmodel(documentation="Specialization of metamodel type")
+class SpecializationType extends ElementType {
+	ref MetamodelType metamodelType; // specializes org.eclipse.gmf.runtime.emf.type.core.null if not set
+	op genmodel.GenClass getMetamodelClass();
+	attr String editHelperAdviceClassName;
+	op String getEditHelperAdviceQualifiedClassName();
+}
+
+@genmodel(documentation="Pure design element")
+class NotationType extends ElementType {
+}
+
+//////////////
+// Model Facet
+//////////////
+
+@genmodel(documentation="Marker interface for the particular model facets")
+abstract interface ModelFacet {
+}
+
+@genmodel(documentation="Model facet of links")
+abstract interface LinkModelFacet extends ModelFacet {
+	op genmodel.GenClass getSourceType();
+	op genmodel.GenClass getTargetType();
+	op genmodel.GenClass[*] getAssistantSourceTypes();
+	op genmodel.GenClass[*] getAssistantTargetTypes();
+}
+
+// FIXME As long it's not longer an interface but a class with Parser reference,
+// update old convention of null LabelModelFacet to get replaced with bare LabelModelFacet
+// pointing to an ExternalParser instance.
+@genmodel(documentation="Model facet of labels")
+class LabelModelFacet extends ModelFacet {
+	ref GenParserImplementation[1]#uses parser;
+}
+
+// 'semantic' model facets
+
+@genmodel(documentation="Model facet of an EClass")
+class TypeModelFacet extends ModelFacet {
+	ref genmodel.GenClass[1] metaClass; // FIXME obsolete comment: not ecore.Classifier because neither datatypes not enums from domain metamodel won't appear as diagram nodes
+	@constraints(
+		ocl="let r: ecore::EReference=containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference) in not containmentMetaFeature.oclIsUndefined() implies r.containment or r.eReferenceType.isSuperTypeOf(metaClass.ecoreClass)",
+		description="'Containment Meta Feature' must reference 'Meta Class' or its super-classes"
+	)
+	ref genmodel.GenFeature[?] containmentMetaFeature;
+	@genmodel(documentation="Usually the same as containmentMetaFeature, unless you need to distinguish where to put and where to get from")
+	@constraints(
+		ocl="not childMetaFeature.oclIsUndefined() implies childMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)",
+		description="'Child Meta Feature' must reference 'Meta Class' or its sub-classes"
+	)
+	ref genmodel.GenFeature[?] childMetaFeature;
+	op boolean isPhantomElement();
+	@genmodel(documentation="Selection criterion for domain model elements associated with this type model facet")
+	@meta(def="context", ocl="metaClass.ecoreClass")	
+	ref GenConstraint[?] modelElementSelector;
+	@genmodel(documentation="State initializer for domain model elements associated with this type model facet")	
+	val GenElementInitializer modelElementInitializer;
+}
+
+// 'combined' model facets
+
+@genmodel(documentation="Model facet of an EClass that associates two EClasses")
+@constraints(ocl="not containmentMetaFeature.oclIsUndefined()", description="Link 'Containment Meta Feature' must be specified")
+class TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet {
+	@genmodel(documentation="If source feature is not specified then link container is a link source")
+	@constraints(
+		ocl="not sourceMetaFeature.oclIsUndefined() implies sourceMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)", 
+		description="Link 'Source Meta Feature' must be owned by link 'Meta Class' or its super-class"
+	)
+	ref genmodel.GenFeature sourceMetaFeature;
+	@constraints(
+		ocl="not targetMetaFeature.oclIsUndefined() implies targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)",
+		description="Link 'Target Meta Feature' must be owned by link 'Meta Class' or its super-class"
+	)
+	ref genmodel.GenFeature[1] targetMetaFeature;
+}
+
+@genmodel(documentation="Model facet of a feature-based link")
+class FeatureLinkModelFacet extends LinkModelFacet {
+	@constraints(
+		ocl="metaFeature.ecoreFeature.unique", 
+		description="All references are unique in EMF due to the current code generation"
+	)
+	ref genmodel.GenFeature[1] metaFeature;
+}
+
+@genmodel(documentation="Model facet of label based on domain model attribute(s)")
+class FeatureLabelModelFacet extends LabelModelFacet {
+	ref genmodel.GenFeature[1..*] metaFeatures;
+	ref genmodel.GenFeature[*] editableMetaFeatures;
+	@genmodel(documentation="Pattern to produce label on diagram, depends on view method")
+	attr String viewPattern;
+	@genmodel(documentation="Pattern to produce text for inplace editor, depends on view method; if not specified then viewPattern should be used")
+	attr String editorPattern;
+	@genmodel(documentation="Pattern to extract values from input text, depends on edit method; if not specified then viewPattern should be used")
+	attr String editPattern;
+	@deprecated(documentation="Replaced with GenParsers and PredefinedParser")
+	attr LabelTextAccessMethod viewMethod;
+	@deprecated(documentation="Replaced with GenParsers and PredefinedParser")
+	attr LabelTextAccessMethod editMethod;
+}
+
+enum LabelTextAccessMethod {
+	MESSAGE_FORMAT; // java.text.MessageFormat
+	NATIVE; // EcoreUtil.convertToString(...) / EcoreUtil.createFromString(...)
+	REGEXP; // String.split(...)
+	PRINTF; // String.format(...)
+}
+
+@genmodel(documentation="Model facet of a label with DescriptionStyle")
+class DesignLabelModelFacet extends LabelModelFacet {
+}
+
+@genmodel(documentation="Model facet of a label calculated with an expression")
+class ExpressionLabelModelFacet extends LabelModelFacet {
+	// right now it is just a marker, in case we need extra information in future 
+	// ExpressionLabelParser doesn't rely on any specific kind of model facet.
+	// XXX perhaps, we may try to use other LabelModelFacets (e.g. FeatureLabelModelFacet) to generate 
+	// extra support (i.e. handle notification changes based on #features)
+}
+
+/////////////
+// View Facet
+/////////////
+
+@genmodel(documentation = "Captures aspects of variuos draw2d classes")
+abstract interface Attributes {
+}
+
+@genmodel(documentation = "Deprecated, use StyleAttributes instead")
+class ColorAttributes extends Attributes {
+	attr String foregroundColor;
+	attr String backgroundColor;
+}
+
+class StyleAttributes extends Attributes {
+	attr boolean fixedFont = false;
+	attr boolean fixedForeground = false;
+	attr boolean fixedBackground = false;
+}
+
+@genmodel(documentation="Bit-wise OR of any {@link org.eclipse.draw2d.PositionConstants#NORTH}, {@link org.eclipse.draw2d.PositionConstants#SOUTH}, {@link org.eclipse.draw2d.PositionConstants#EAST} or {@link org.eclipse.draw2d.PositionConstants#WEST}")
+class ResizeConstraints extends Attributes {
+	@genmodel(documentation="Any direction mentioned here (and combination thereof, like e.g. NORTH_WEST) is added as resizable handle")
+	attr int resizeHandles = 0;
+	@genmodel(documentation="Directions mentioned with this attribute are explicitly denoted as non-resizable (i.e. with 'move' cursor). If you'd like to omit handle {@link org.eclipse.gef.editpolicies.ResizableEditPolicy#createSelectionHandles} completely, just don't list it here")
+	attr int nonResizeHandles = 0;
+	@genmodel(documentation="Convenient method to get {@link org.eclipse.draw2d.PositionConstants} names from resizeHandle attribute")
+	readonly volatile transient derived attr String[*] resizeHandleNames;
+	@genmodel(documentation="Same as {@link #getResizeHandleNames()}, for nonResizeHandle attribute")
+	readonly volatile transient derived attr String[*] nonResizeHandleNames;
+}
+
+class DefaultSizeAttributes extends Attributes {
+	attr int width = 40;
+	attr int height = 30;
+}
+
+class LabelOffsetAttributes extends Attributes {
+	attr int x;
+	attr int y;
+}
+
+abstract class Viewmap {
+	val Attributes[*] attributes;
+	@genmodel(documentation = "Returns first attributes instance of specified class, if any")
+	op Attributes find(Class attributesClass); // didn't like EClass.isInstance, when there's easy Java way
+	// besides, with j.l.Class we could eventualy use Class<T> mechanism from Java5 to avoid casts
+	attr String[*] requiredPluginIDs;
+	attr ViewmapLayoutType layoutType = "UNKNOWN";
+}
+
+enum ViewmapLayoutType {
+	UNKNOWN;
+	XY_LAYOUT;
+	FLOW_LAYOUT;
+	TOOLBAR_LAYOUT;
+}
+
+class FigureViewmap extends Viewmap {
+	@genmodel(documentation="Name of GEF Figure class")
+	attr String[1] figureQualifiedClassName;
+}
+
+// XXX for NodeEditPart#getPrimaryShape() I need figure's FQN. 
+// Full RT doesn't generate this method, although makes no precautions not to use it from outside
+// Lite RT generates (null) in this case.
+class SnippetViewmap extends Viewmap {
+	attr String body;
+}
+
+class InnerClassViewmap extends Viewmap {
+	attr String className;
+	attr String classBody;
+}
+
+@genmodel(documentation="Figure (with specified class name, if any) will be assigned by (or should be taken from) parent")
+class ParentAssignedViewmap extends Viewmap {
+	@genmodel(documentation="Access figure from parent's figure")
+	attr String[1] getterName;
+	@genmodel(documentation="Child could provide typed alternative to setFigure() method")
+	attr String[?] setterName;
+	@genmodel(documentation="When specified, type of child's figure")
+	attr String[?] figureQualifiedClassName;
+}
+
+@genmodel(documentation="NOTE: Provisional API. Allows to use arbitrary model element to keep information about a figure. May (but not necessarily will) point to e.g. GMFGraph model elements. It's up to template author to handle specific kinds of figure models")
+class ModeledViewmap extends Viewmap {
+	ref EObject[1] figureModel;
+}
+
+@genmodel(documentation="Expression as a is textual statement which results in a value when evaluated in a context")
+@meta(def="ValueSpec")
+class ValueExpression {
+	@genmodel(documentation="The text of the expression")
+	@meta(def="body")
+	attr String[1] body;
+	@genmodel(documentation="Returns valid String literal for the given <code>String</code> as it should appear in java source code.")
+	op String getBodyString();
+	@meta(def="lang")
+	readonly volatile transient derived attr String langName; // XXX what's this for?
+	readonly !resolve ref GenExpressionProviderBase[1]#expressions provider;
+}
+
+@genmodel(documentation="Boolean type value expression which is to be evaluated in a context")
+@meta(def="Constraint")
+class GenConstraint extends ValueExpression {
+}
+
+//////////
+// Palette
+//////////
+
+class Palette {
+	readonly !resolve ref GenDiagram[1]#palette diagram;
+	attr boolean flyout = true;
+	@genmodel(documentation="GEF allows only containers as palette immediate children")
+	ordered val ToolGroup[+]#palette groups;
+	attr String packageName;
+	attr String factoryClassName;
+	op String getFactoryQualifiedClassName();
+	op boolean definesStandardTools();
+}
+
+abstract class EntryBase {
+	attr String title;
+	attr String description;
+	attr String largeIconPath;
+	attr String smallIconPath;
+	attr String createMethodName;
+	@genmodel(documentation="Non-mandatory string identification of the entry. Defaults to the quoted value of createMethodName, clients may override. Set to blank string if don't need the identity")
+	attr String ~id;
+}
+
+abstract class AbstractToolEntry extends EntryBase, ToolGroupItem {
+	attr boolean default = false;
+	@genmodel(documentation="Optional")
+	attr String qualifiedToolName;
+	val ecore.EStringToStringMapEntry[*] properties;
+}
+
+class ToolEntry extends AbstractToolEntry {
+	// FIXME: constraint="only one of these lists may contain elements"
+	ref GenNode[*] genNodes;
+	ref GenLink[*] genLinks;
+	@genmodel(documentation="Enforces 'tool for either node or link' - if there are values in genNodes list, returns it (no respect to values in genLinks); returns value of genLinks otherwise")
+	readonly derived transient volatile ref GenCommonBase[*] elements;
+}
+
+class StandardEntry extends AbstractToolEntry {
+	attr StandardEntryKind[1] kind;
+}
+
+enum StandardEntryKind {
+	SELECT; MARQUEE; ZOOM; 
+}
+
+abstract interface ToolGroupItem {
+	readonly !resolve ref ToolGroup[?]#entries group; // optional because of groups contained in Palette
+}
+
+class Separator extends ToolGroupItem {
+}
+
+class ToolGroup extends EntryBase, ToolGroupItem {
+	readonly !readonly ref Palette[1]#groups palette;
+	attr boolean stack;
+	attr boolean collapse;
+	ordered val ToolGroupItem[+]#group entries;
+	readonly derived transient volatile attr boolean toolsOnly;
+}
+
+@genmodel(documentation="Base class for initializers of domain model elements")
+abstract interface GenElementInitializer {
+	@genmodel(documentation="The type model facet whose domain model element is to be intialized by this initializer")
+	readonly volatile transient ref TypeModelFacet[1] typeModelFacet;
+}
+
+@genmodel(documentation="Feature sequence initializer")
+class GenFeatureSeqInitializer extends GenElementInitializer {
+	@genmodel(documentation="Value specifications as initializers for individual features which should be initialized in the order given by this list")
+	val GenFeatureInitializer[+]#featureSeqInitializer initializers;
+	@constraints(ocl="not creatingInitializer.feature.oclIsUndefined() implies creatingInitializer.feature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(elementClass.ecoreClass)", description="'elementClass' must be the same as or sub-type of the containing 'GenReferenceNewElementSpec' reference type")
+	@constraints(ocl="not creatingInitializer.feature.oclIsUndefined() implies not (elementClass.ecoreClass.interface or elementClass.ecoreClass.abstract)", description="'elementClass' must be a concrete EClass which is the same or sub-type of the containing 'GenReferenceNewElementSpec' reference type")
+	ref genmodel.GenClass elementClass;
+	readonly !resolve ref GenReferenceNewElementSpec#newElementInitializers creatingInitializer;	
+}
+
+@genmodel(documentation="Value specification associated with a specific feature")
+class GenFeatureValueSpec extends GenFeatureInitializer {
+	// next meta is pure guess
+	@meta(def="context", ocl="featureSeqInitializer.elementClass")
+	ref ValueExpression[1] value;
+}
+
+@constraints(ocl="feature <> null implies feature.ecoreFeature.oclIsKindOf(ecore::EReference)", description="'feature' of 'GenReferenceNewElementSpec' must refer to ecore::EReference")
+class GenReferenceNewElementSpec extends GenFeatureInitializer {
+	val GenFeatureSeqInitializer[+]#creatingInitializer newElementInitializers;
+}
+
+abstract interface GenFeatureInitializer {
+	@GenModel(documentation="The feature for which is to be initialized by this initializer")
+	@constraints(ocl="feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and i.feature = self.feature)", description="The feature is already initialized by another 'GenFeatureInitializer' in the sequence")
+	@constraints(ocl="feature <> null implies feature.ecoreFeature.eContainingClass.isSuperTypeOf(featureSeqInitializer.elementClass.ecoreClass)", description="The 'feature' of 'GenFeatureInitializer' must be available in 'Meta Class' of the initialized element")
+	ref genmodel.GenFeature[1] feature;
+	readonly !resolve ref GenFeatureSeqInitializer[1]#initializers featureSeqInitializer;
+}
+
+@genmodel(documentation="Groups constraints on the link source and target end")
+@constraints(ocl="not sourceEnd.oclIsUndefined() or not targetEnd.oclIsUndefined()", description="Either 'sourceEnd' or 'targetEnd' constraint must be specified")
+class GenLinkConstraints {
+
+	@genmodel(documentation="The domain meta element class of the link restricted by this constraints")
+	op genmodel.GenClass getLinkClass();
+
+	@genmodel(documentation="The context class for the source end constraint evaluation")
+	op genmodel.GenClass getSourceEndContextClass();
+
+	@genmodel(documentation="The context class for the target end constraint evaluation")
+	op genmodel.GenClass getTargetEndContextClass();
+
+	@genmodel(documentation="Returns the name of the field holding Link Constraints instance")
+	op String[1] getConstraintsInstanceFieldName();
+
+	@genmodel(documentation="References the owning link of this constraints")
+	ref GenLink[1]#creationConstraints link;
+
+	@genmodel(documentation="Restriction enforced by the the source end, may reference variables 'oppositeEnd' pointing to targetEnd and 'link' denoting the link domainmetaElement instance if available.")
+	@meta(def="context", ocl="getSourceEndContextClass().ecoreClass")
+	@meta(def="variable", name="oppositeEnd", type.ocl="getTargetEndContextClass().ecoreClass")
+	ref GenConstraint[?] sourceEnd;
+
+	@genmodel(documentation="Restriction enforced by the the target end, may reference variables 'oppositeEnd' pointing to sourceEnd and 'link' denoting the link domainmetaElement instance if available.")
+	@meta(def="context", ocl="getTargetEndContextClass().ecoreClass")
+	@meta(def="variable", name="oppositeEnd", type.ocl="getSourceEndContextClass().ecoreClass")
+	ref GenConstraint[?] targetEnd;
+	
+	op boolean isValid();
+}
+
+class GenAuditRoot {
+	readonly !resolve ref GenEditorGenerator[1]#audits editorGen;
+	val GenAuditContainer[*]#root categories;
+	val GenAuditRule[*]#root rules;
+	val GenAuditContext[*]#root clientContexts;
+	// getAllTargetedModelPackages: rules.select(r | r.target != null && r.target.targetClass != null).collect(r | r.target.targetClass.genPackage)
+	// hasDiagramElementRule: rules.target.typeSelect(GenDiagramElementTarget).size > 0 || rules.target.typeSelect(GenNotationElementTarget).size() > 0
+}
+
+@genmodel(documentation="Represents constraint category of emft.validation framework")
+class GenAuditContainer {
+	readonly !resolve ref GenAuditRoot[1]#categories root;
+
+	@genmodel(documentation="Identifier which is unique within the scope of its parent container.")
+	attr String[1] ~id;
+
+	@genmodel(documentation="A human readable name for the category of audits organized in this container")
+	attr String name;
+
+	@genmodel(documentation="The detailed description of this audit container")
+	attr String description;
+
+	@genmodel(documentation="Hierarchical path of this audit container as ordered list of containers beginning with the root and ended with this container")
+	ordered ref GenAuditContainer[+] path;
+
+	ref GenAuditRule[*]#category audits;
+}
+
+@genmodel(documentation="Base class for rule like audit, metric rules...")
+abstract class GenRuleBase {
+	@genmodel(documentation="A human readable name of this rule")
+	attr String name;
+
+	@genmodel(documentation="The detailed description of this rule semantics")
+	attr String description;
+}
+
+@genmodel(documentation="Auditing rule in the form of a constraint evaluated against its target")
+class GenAuditRule extends GenRuleBase {
+	readonly !resolve ref GenAuditRoot[1]#rules root;
+
+	op String getConstraintAdapterQualifiedClassName();
+
+	@genmodel(documentation="Unique identifier of this audit rule")
+	@constraints(ocl="not id.oclIsUndefined() implies root.rules->one(i | i.id = self.id)", description="Audit rule with the same ID already exists")		
+	attr String[1] ~id;
+
+	@genmodel(documentation="A boolean type condition which if not satisfied indicates this audit rule violation. It is evaluated in the context of the target")
+	@meta(def="context", ocl="target.getContext()")
+	ref GenConstraint[1] rule;
+	
+	@genmodel(documentation="The target representing the context this audit is evaluated in")
+	val GenAuditable[1] target;	
+
+	@genmodel(documentation="The text message to be reported in case of this audit violation")
+	attr String message;
+	
+	@genmodel(documentation="Describes the severity of this audit rule violation")
+	attr GenSeverity severity = "ERROR"; // XXX String? if xml is the only use
+
+	@genmodel(documentation="Indicates if this audit should be evaluated also in Live mode. If 'false', only Batch mode is applicable")
+	attr boolean useInLiveMode = false;
+
+	readonly derived transient volatile attr boolean requiresConstraintAdapter;
+
+	ref GenAuditContainer[1]#audits category;
+	op String[1] getConstraintAdapterLocalClassName();
+}
+
+enum GenSeverity {
+	INFO;
+	WARNING;
+	ERROR;
+}
+
+@genmodel(documentation="The target against which a rule can be evaluated")
+abstract interface GenRuleTarget {
+
+	@genmodel(documentation="Gets the classifier to be used as this rule target evaluation context")
+	op genmodel.GenClassifier[1] getContext();
+}
+
+@genmodel(documentation="Target for rules applied on domain model elements")
+class GenDomainElementTarget extends GenAuditable, GenMeasurable {
+
+	@genmodel(documentation="Targeted domain model element")
+	ref genmodel.GenClass[1] element;
+}
+
+@genmodel(documentation="Target for rules applied on diagram notation model selectively, for specific visualized element")
+class GenDiagramElementTarget extends GenAuditable, GenMeasurable {
+
+	// XXX Radek? unclear why only GenNodes are allowed?
+	@genmodel(documentation="Targeted visualized element")
+	@constraints(ocl="element <> null and element->size() > 1 implies element->forAll(oclIsKindOf(GenNode))", description="Multiple diagram elements must be GenNode type conformant")
+	ref GenCommonBase[+] element;
+}
+
+@GenModel(documentation="Represents value based target, useful for audit rules expression not capable of ecore meta-model access")
+class GenDomainAttributeTarget extends GenAuditable {
+	@constraints(ocl="attribute.ecoreFeature.oclIsKindOf(ecore::EAttribute)", description="EAttribute element required for auditable domain attribute")
+	ref genmodel.GenFeature[1] attribute;
+	@GenModel(documentation="Indicates whether null value of the attribute is reported as audit failure or success")
+	attr boolean nullAsError; // XXX null for EAttribute is rather odd expectation, perhaps, better check defaultValueIsError?
+}
+
+@genmodel(documentation="Target for rules applied on diagram notation model elements")
+class GenNotationElementTarget extends GenAuditable, GenMeasurable {
+
+	@genmodel(documentation="Targeted diagram notation model element")
+	@constraints(ocl="element.ecoreClass.eAllSuperTypes->including(element.ecoreClass)->one(ePackage.name = 'notation' and name = 'View')", description="'notation::View' or its sub-class must be set to NotationElement target")
+	ref genmodel.GenClass[1] element;
+}
+
+class GenMetricContainer {
+	readonly !resolve ref GenEditorGenerator[1]#metrics editorGen;
+	val GenMetricRule[+]#container metrics;
+}
+
+@constraints(ocl="not lowLimit.oclIsUndefined() and not highLimit.oclIsUndefined()  implies lowLimit < highLimit", description="Metric value 'lowLimit' must be smaller then 'highLimit'")
+class GenMetricRule extends GenRuleBase {
+
+	@genmodel(documentation="Unique key identifying this metric an abbreviation for this metric")
+	@constraints(ocl="not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)", description="Metric rule with the same 'key' already exists")		
+	attr String[1] key;
+
+	@genmodel(documentation="Expression that calculates the value of this metric which is of EDataType that encapsulates java.lang.Number subclasses or their primitives")
+	@meta(def="context", ocl="target.getContext()")
+	@meta(def="type", ocl="'ecore::EDoubleObject'")
+	ref ValueExpression[1] rule;
+
+	@genmodel(documentation="The target representing the context this metric is evaluated in")
+	val GenMeasurable[1] target;
+
+	attr Double lowLimit;
+	attr Double highLimit;
+
+	@genmodel(documentation="The containing metric container of this metric rule")
+	ref GenMetricContainer[1]#metrics container;
+}
+
+@genmodel(documentation="Target metric which can be evaluated by audit rule. The target context here is the metric rule resulting type classifier")
+class GenAuditedMetricTarget extends GenAuditable {
+
+	@genmodel(documentation="Metric wich can be involved in audit")
+	ref GenMetricRule[1] metric;
+	ref genmodel.GenDataType[1] metricValueContext; // XXX seems this value is not in use
+}
+
+// FIXME: perhaps, GenAuditContext should be referenced from another place than GenAuditable - as it effectively
+// makes all metric targets aware of auditContext which is useless for them
+@genmodel(documentation="Target suitable for auditing")
+abstract class GenAuditable extends GenRuleTarget {
+	@genmodel(documentation="To apply audit to this target, we need to select appropriate input, and here's selector that helps with that")
+	ref GenAuditContext[?]#ruleTargets contextSelector;
+  @genmodel(documentation="Gets the validation target class in terms of EMFT validation framework.")
+  op genmodel.GenClass getTargetClass();
+  @genmodel(documentation="Consists of ecore meta-model only package names and target class simple name")
+  op String getTargetClassModelQualifiedName();
+}
+
+@genmodel(documentation="")
+class GenAuditContext {
+	!resolve ref GenAuditRoot[1]#clientContexts root;
+	@genmodel(documentation="Identifier of the validation client context for this target. Should be a valid java identifier. Identifier will be qualified automatically (i.e. should be unique within this editor only).")
+	attr String[1] ~id = "DefaultCtx"; // former GenAuditable#getClientContextID()
+	@genmodel(documentation="Unless explicitly set, equals to 'id'. Note, this class may get generated as inner class.")
+	attr String[1] className;
+	op String[1] getQualifiedClassName();
+	ref GenAuditable[*]#contextSelector ruleTargets;
+	// TODO may add isDefault attribute to generate extpoint completely
+}
+
+@genmodel(documentation="Marker interface for anything that can be subject to metrics")
+abstract interface GenMeasurable extends GenRuleTarget {
+}
+
+class GenExpressionProviderContainer {
+	op String[1] getAbstractExpressionQualifiedClassName();
+	attr String expressionsPackageName;
+	attr String abstractExpressionClassName;
+	val GenExpressionProviderBase[*]#container providers;
+	readonly !resolve ref GenEditorGenerator[1]#expressionProviders editorGen;
+}
+
+abstract class GenExpressionProviderBase {
+	op GenLanguage[1] getLanguage();
+	val ValueExpression[+]#provider expressions;
+	readonly !resolve ref GenExpressionProviderContainer[1]#providers container;
+}
+
+class GenJavaExpressionProvider extends GenExpressionProviderBase {
+	@genmodel(documentaion="Whether to generate default implementation that rises RuntimeException to signal unimplemented method")
+	attr boolean throwException = true;
+	@genmodel(documentaion="When 'true', body of associated ValueExpression would get injected into Java code as-is, thus allowing to provide method implementations right within the model. Note, if body is empty, default implementation would be generated instead.")
+	attr boolean injectExpressionBody = false;
+	// NOTE, both throwException and injectExpressionBody are placed here
+	// intentionally. Though it's possible to specify them on per-expression
+	// basis, it doesn't sound reasonable and handy (usable).
+}
+
+class GenExpressionInterpreter extends GenExpressionProviderBase {
+	op String[1] getQualifiedClassName();
+	op String getExpressionAccessor(ValueExpression[1] expression); // TODO move to .ext
+	attr GenLanguage[1] language;
+	attr String className;
+}
+
+@genmodel(documentation="GenLiteralExpressionProvider#getLanguage() == GenLanguage.LITERAL")
+class GenLiteralExpressionProvider extends GenExpressionProviderBase {
+}
+
+// XXX perhaps, there's no much value in this enum. Some expressionproviders has fixed language, 
+// and some (especially, regex and nregex), might be better to solve with boolean attr
+enum GenLanguage {
+	ocl = 0;
+	java = 1;
+	regexp = 2;
+	nregexp = 3;
+	literal = 4;
+}
+
+////////////
+// Navigator
+////////////
+
+abstract interface GenDomainModelNavigator {
+	attr boolean generateDomainModelNavigator = true;
+	attr String domainContentExtensionID;
+	attr String domainContentExtensionName;
+	attr String domainContentExtensionPriority;
+	op String getDomainContentProviderQualifiedClassName();
+	attr String domainContentProviderClassName;
+	op String getDomainLabelProviderQualifiedClassName();
+	attr String domainLabelProviderClassName;
+	@deprecated(documentation="DomainModelElementTester class will not be generated annymore")
+	op String getDomainModelElementTesterQualifiedClassName();
+	@deprecated(documentation="DomainModelElementTester class will not be generated annymore")
+	attr String domainModelElementTesterClassName;
+	op String getDomainNavigatorItemQualifiedClassName();
+	attr String domainNavigatorItemClassName;
+}
+
+class GenNavigator  extends GenDomainModelNavigator {
+	readonly !resolve ref GenEditorGenerator#navigator editorGen;
+	attr String contentExtensionID;
+	attr String contentExtensionName;
+	attr String contentExtensionPriority;
+	attr String linkHelperExtensionID;
+	attr String sorterExtensionID;
+	attr String actionProviderID;
+	op String getContentProviderQualifiedClassName();
+	attr String contentProviderClassName;
+	op String getLabelProviderQualifiedClassName();
+	attr String labelProviderClassName;
+	op String getLinkHelperQualifiedClassName();
+	attr String linkHelperClassName;
+	op String getSorterQualifiedClassName();
+	attr String sorterClassName;
+	op String getActionProviderQualifiedClassName();
+	attr String actionProviderClassName;
+	op String getAbstractNavigatorItemQualifiedClassName();
+	attr String abstractNavigatorItemClassName;
+	op String getNavigatorGroupQualifiedClassName();
+	attr String navigatorGroupClassName;
+	op String getNavigatorItemQualifiedClassName();
+	attr String navigatorItemClassName;
+	op String getUriInputTesterQualifiedClassName();
+	attr String uriInputTesterClassName;
+	attr String packageName;
+	
+	val GenNavigatorChildReference[*]#navigator childReferences;
+}
+
+enum GenNavigatorReferenceType {
+	children = 0;
+	out_target = 1;
+	in_source = 2;
+}
+
+class GenNavigatorChildReference {
+	readonly !resolve ref GenNavigator#childReferences navigator;
+// Top-level references has no parent
+	ref GenCommonBase parent;
+	ref GenCommonBase[1] child;
+	attr GenNavigatorReferenceType[1] referenceType;
+	
+	attr String groupName;
+	attr String groupIcon;
+	attr boolean hideIfEmpty = true;
+	op boolean isInsideGroup();
+	op GenNavigatorPath[*] findConnectionPaths();
+}
+
+class GenNavigatorPath {
+	val GenNavigatorPathSegment[*]#path segments;
+}
+
+class GenNavigatorPathSegment {
+	readonly !resolve ref GenNavigatorPath#segments path;
+	ref GenCommonBase[1] from;
+	ref GenCommonBase[1] to;
+}
+
+/////////////////
+// Property Sheet
+//
+
+@genmodel(documentation="Sheet consists of few categories (aka tabs)")
+class GenPropertySheet {
+	readonly !resolve ref GenEditorGenerator[1]#propertySheet editorGen;
+	val GenPropertyTab[+]#sheet tabs;
+	attr String packageName;
+	attr boolean readOnly = false;
+	attr boolean needsCaption = true;
+	attr String labelProviderClassName;
+	op String getLabelProviderQualifiedClassName();
+}
+
+abstract class GenPropertyTab {
+	readonly !resolve ref GenPropertySheet[1]#tabs sheet;
+	attr String[1] ~iD;
+	attr String label;
+}
+
+@genmodel(documentation="Standard property category plugs in predefined sets of properties (provided by runtime). Identifiers 'appearance', 'diagram' and 'advanced' are known at the moment")
+class GenStandardPropertyTab extends GenPropertyTab {
+}
+
+class GenCustomPropertyTab extends GenPropertyTab {
+	@genmodel(documentation="For custom tabs without generated boilerplate code should be qualified class name. If not, property sheet's package name will be used for qualified names")
+	attr String[1] className;
+	op String getQualifiedClassName();
+	val GenPropertyTabFilter[?]#tab filter;
+	attr boolean generateBoilerplate = true; // unlike other similar attributes, true as default to respect legacy models
+}
+
+abstract interface GenPropertyTabFilter {
+	readonly !resolve ref GenCustomPropertyTab[1]#filter tab;
+}
+
+class TypeTabFilter extends GenPropertyTabFilter {
+	@genmodel(documentation="Fully-qualified class names for selection to match")
+	attr String[+] types;
+	unique attr GeneratedType[*] generatedTypes;
+	op String[+] getAllTypes();
+}
+
+enum GeneratedType {
+	abstractNavigatorItem = 0;
+}
+
+class CustomTabFilter extends GenPropertyTabFilter {
+	@genmodel(documentation="Qualified class name of a tab filter, implementation of org.eclipse.jface.viewers.IFilter. If class name is not qualified, it's prefixed with editor's package name for legacy reasons")
+	attr String[1] className;
+	op String getQualifiedClassName();
+}
+
+//////////////////////
+// UI Contributions //
+//////////////////////
+
+@genmodel(documentation="Element of UI contribution")
+abstract interface GenContributionItem {
+	readonly !resolve ref GenContributionManager[?]#items owner;
+}
+
+@genmodel(documentation="Reference to the shared contribution item")
+class GenSharedContributionItem extends GenContributionItem {
+	@constraints(ocl="not actualItem.oclIsKindOf(gmfgen::GenSharedContributionItem)", description="Actual contribution item can't be a reference")
+	ref GenContributionItem[1] actualItem;
+}
+
+class GenGroupMarker extends GenContributionItem {
+	attr String[1] groupName;
+}
+
+class GenSeparator extends GenContributionItem {
+	attr String[?] groupName;
+	// combine with GenGroupMarker and add attr boolean isVisible?
+}
+
+@genmodel(documentation="Action from org.eclipse.ui.actions.ActionFactory")
+class GenCustomAction extends GenContributionItem {
+	attr String[1] qualifiedClassName;
+	attr boolean generateBoilerplate = false;
+	attr String[?] name;
+}
+
+class GenCommandAction extends GenContributionItem {
+	attr String[1] commandIdentifier;
+	attr String[?] name;
+}
+
+@genmodel(documentation="Action that is generated along with diagram action, i.e. there's a template that provides its implementation")
+abstract class GenAction extends GenContributionItem {
+	attr String qualifiedClassName;
+	@genmodel(documentation="Human-readble name")
+	attr String name;
+}
+// XXX it's not completely obvious to me if enum PredefinedActionKind is better than a distinct subclass per action type
+class LoadResourceAction extends GenAction {
+}
+class InitDiagramAction extends GenAction {
+}
+class CreateShortcutAction extends GenAction {
+}
+
+@genmodel(documentation="Action from org.eclipse.ui.actions.ActionFactory")
+class GenActionFactoryContributionItem extends GenContributionItem {
+	@genmodel(documentation="ActionFactory field name such as 'ABOUT'")
+	attr String[1] name;
+}
+
+@genmodel(documentation="Group of UI contribution items")
+abstract class GenContributionManager {
+	attr String[?] iD;
+	val GenContributionItem[*]#owner items;
+	readonly transient derived volatile !resolve ref GenEditorGenerator[1] editorGen;
+}
+
+class GenMenuManager extends GenContributionManager, GenContributionItem {
+	attr String[?] name;
+}
+
+class GenToolBarManager extends GenContributionManager, GenContributionItem {
+}
+
+// XXX GenContextContribution? - as it's no difference if it's toolbar or menu contrib
+class GenContextMenu extends GenContributionManager {
+	ref GenCommonBase[+] context;
+}
+
+/////////////////////
+// RCP Application //
+/////////////////////
+
+class GenApplication {
+	readonly !resolve ref GenEditorGenerator[1]#application editorGen;
+	@genmodel(documentation="RCP Application ID for plugin.xml")
+	attr String iD;
+	attr String title;
+	attr String packageName;
+	attr String className;
+	op String getQualifiedClassName();
+	readonly derived transient volatile attr String workbenchAdvisorClassName;
+	op String getWorkbenchAdvisorQualifiedClassName();
+	readonly derived transient volatile attr String workbenchWindowAdvisorClassName;
+	op String getWorkbenchWindowAdvisorQualifiedClassName();
+	readonly derived transient volatile attr String actionBarAdvisorClassName;
+	op String getActionBarAdvisorQualifiedClassName();
+	readonly derived transient volatile attr String perspectiveClassName;
+	op String getPerspectiveQualifiedClassName();
+	attr String perspectiveId;
+	@genmodel(documentation="Option to create/save/open diagrams in/from java files")
+	attr boolean supportFiles;
+	val GenContributionItem[*] sharedContributionItems;
+	val GenMenuManager[?] mainMenu;
+	val GenToolBarManager[?] mainToolBar;
+}
+
+abstract interface GenLinkEnd extends GenCommonBase {
+  readonly volatile transient derived ref GenLink[*] genOutgoingLinks;
+  readonly volatile transient derived ref GenLink[*] genIncomingLinks;
+}
+
+class GenParsers {
+	readonly !resolve ref GenEditorGenerator[1]#labelParsers editorGen; 
+	attr String[1] packageName;
+	attr String[1] className;
+	@genmodel(documentation="Class with parser access methods. In case of using extensible ParserService, that would be provider implementation class.")
+	op String getQualifiedClassName();
+	// XXX if need mechanism(s) other than direct use and ParserService 
+	// (e.g. consult ParserService first, if none, use predefined),
+	// might change into enum
+	attr boolean extensibleViaService = false;
+	attr ProviderPriority providerPriority = "Lowest";
+	val GenParserImplementation[+]#holder implementations;
+	@genmodel(documentation="Package with parser implementations, same as packageName unless set")
+	attr String implPackageName; 
+}
+
+abstract class GenParserImplementation {
+	readonly !resolve ref GenParsers[1]#implementations holder;
+	ref LabelModelFacet[+]#parser uses;
+}
+
+@genmodel(documentation="Use one of GMF-provided parser implementations")
+class PredefinedParser extends GenParserImplementation {
+	// XXX describe contract (i.e. presense of setViewPattern/setEditPattern methods, constructors)
+	attr LabelTextAccessMethod viewMethod;
+	attr LabelTextAccessMethod editMethod;
+	@genmodel(documentation="Provides means to alter name of parser implementation class")
+	attr String[?] className;
+	op String getQualifiedClassName();
+}
+
+class PredefinedEnumParser extends GenParserImplementation {
+    op String getQualifiedClassName();
+}
+
+class OclChoiceParser extends GenParserImplementation {
+    op String getQualifiedClassName();
+
+    ref ValueExpression[?] itemsExpression; 
+    ref ValueExpression[?] showExpression;   
+}
+
+@genmodel(documentation="Parser implementation that uses expressions to produce string values")
+class ExpressionLabelParser extends GenParserImplementation {
+	@genmodel(documentation="Provides means to alter name of parser implementation class")
+	attr String[?] className;
+	op String getQualifiedClassName();
+	ref genmodel.GenClass[1] expressionContext;
+	//
+	@genmodel(documentation="Expression to calculate user-readable label value; facet's owner type is evaluation context.")
+	ref ValueExpression[1] viewExpression;
+	@genmodel(documentation="Optional expression to represent value for editing")
+	ref ValueExpression[?] editExpression;
+	@genmodel(documentation="Optional expression to answer whether user input is ok for further parsing. Note, context here is string, not facet's owner type")
+	ref GenConstraint[?] validateExpression;
+}
+
+@genmodel(documentation="Handwritten or otherwise available IParser implementation")
+class CustomParser extends GenParserImplementation {
+	attr String[1] qualifiedName;
+	@genmodel(documentation="When true, GMF generates empty implementation class suitable for further customizations")
+	attr boolean generateBoilerplate = false;
+}
+
+// XXX MIGRATION NOTE: null LabelModelFacets that were used to indicate ParserService, should get transformed into
+// ExternalParser
+@genmodel(documentation="Delegate to ParserService to find out")
+class ExternalParser extends GenParserImplementation {
+	@genmodel(documentation="Optionally, override hint value")
+	attr String[?] hint;
+}
+
+class GenVisualEffect extends CustomBehaviour {
+	attr String name; 
+	attr String pinKind; // TODO: remove when graphdef will be accessible
+	attr String operationName; // TODO: remove when graphdef will be accessible
+	attr String operationType; // TODO: remove when graphdef will be accessible
+  	attr String oclExpression;
+  	op String getOclExpressionString();
+  	op ecore.EClassifier getOperationRuntimeType(); 
+}
+
+class GenCustomGeneratorExtension extends GenCustomTemplateInput {
+	readonly !resolve ref GenEditorGenerator[1]#extensions generator;
+
+	@genmodel(documentation="User friendly name for this extension, used only in UI")
+	attr String name; 
+	@genmodel(documentation="Reconciler should try to preserve the contents if set to true")
+	attr boolean fromCustomBridge = false;
+	
+	@genmodel(documentation="Root input element for custom template invocations. GenEditorGenerator single instance will be assumed if not set")
+	ref ecore.EObject[?] rootInput; 
+	
+	val GenTemplateInvocationBase[*]#extension invocations;
+}
+
+abstract interface GenCustomTemplateInput {
+	@genmodel(documentation="OCL Type for this input, if not set generator will try to compute it")
+    attr String oclType;
+}
+
+abstract class GenTemplateInvocationBase {
+	readonly !resolve ref GenCustomGeneratorExtension[1]#invocations extension;
+
+	@genmodel(documentation="User friendly description for this invocation, used only in UI")
+	attr String description;
+	@genmodel(documentation="FQN of xPand template to invoke in the standard form of abc::def::TemplateName#rootExpand")
+	attr String templateFqn;
+}  
+
+class GenTemplateInvocation extends GenTemplateInvocationBase {
+	@genmodel(documentation="Set of referenced inputs for this invocation, ")
+	ref GenCustomTemplateInput[*] inputs;
+	@genmodel(documentation="OCL expression to be executed against the set of other inputs to compute the inputs for template")
+	attr String oclExpression;
+}
+
+class GenFixedInputsTemplateInvocation extends GenTemplateInvocationBase, GenCustomTemplateInput {
+	@genmodel(documentation="Predefined set of input elements for template. 
+		Due to reconciling it normally makes sense only for local links inside the same extension or 
+		for extensions created by custom bridge extension (self.extension.fromCustomBridge = true)")
+	ref ecore.EObject[*] fixedInputs;
+}
+

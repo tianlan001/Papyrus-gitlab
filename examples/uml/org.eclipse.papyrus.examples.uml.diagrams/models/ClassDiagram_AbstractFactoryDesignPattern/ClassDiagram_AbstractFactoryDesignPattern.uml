@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_rdsiMPSpEeijnplL5ni1LA" name="ClassDiagram_AbstractFactoryDesignPattern">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_7Uvd8PSqEeijnplL5ni1LA" annotatedElement="_rdsiMPSpEeijnplL5ni1LA">
+    <body>https://www.uml-diagrams.org/design-pattern-abstract-factory-uml-class-diagram-example.html</body>
+  </ownedComment>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_rmM98PSpEeijnplL5ni1LA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_wmbWkPSpEeijnplL5ni1LA" name="Client"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_y_ZZEPSpEeijnplL5ni1LA" name="AbstractFactory">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_2jkN8PSqEeijnplL5ni1LA" name="createProductA">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_9mlkwPSqEeijnplL5ni1LA" name="ret" visibility="public" type="_8nTHcPSpEeijnplL5ni1LA" direction="return" effect="create"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_B0l2QPSrEeijnplL5ni1LA" name="createProductB">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_E6vu4PSrEeijnplL5ni1LA" name="ret" visibility="public" type="_9ykAsPSpEeijnplL5ni1LA" direction="return" effect="create"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_8nTHcPSpEeijnplL5ni1LA" name="ProductA"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_9ykAsPSpEeijnplL5ni1LA" name="ProductB"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="__xUzcPSpEeijnplL5ni1LA" name="ConcreteFactoryX">
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_wt73UPSqEeijnplL5ni1LA" client="__xUzcPSpEeijnplL5ni1LA" supplier="_y_ZZEPSpEeijnplL5ni1LA" contract="_y_ZZEPSpEeijnplL5ni1LA"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_KNzj8PSrEeijnplL5ni1LA" name="createProductA">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_KNzj8fSrEeijnplL5ni1LA" name="ret" visibility="public" type="_8nTHcPSpEeijnplL5ni1LA" direction="return" effect="create"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_KN2AMPSrEeijnplL5ni1LA" name="createProductB">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_KN2AMfSrEeijnplL5ni1LA" name="ret" visibility="public" type="_9ykAsPSpEeijnplL5ni1LA" direction="return" effect="create"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_B--WwPSqEeijnplL5ni1LA" name="ConcreteFactoryY">
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_wQgUcPSqEeijnplL5ni1LA" client="_B--WwPSqEeijnplL5ni1LA" supplier="_y_ZZEPSpEeijnplL5ni1LA" contract="_y_ZZEPSpEeijnplL5ni1LA"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_KlymIPSrEeijnplL5ni1LA" name="createProductA">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_KlymIfSrEeijnplL5ni1LA" name="ret" visibility="public" type="_8nTHcPSpEeijnplL5ni1LA" direction="return" effect="create"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Klz0QPSrEeijnplL5ni1LA" name="createProductB">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Klz0QfSrEeijnplL5ni1LA" name="ret" visibility="public" type="_9ykAsPSpEeijnplL5ni1LA" direction="return" effect="create"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Eh2jMPSqEeijnplL5ni1LA" name="ProductAX">
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_uZr8wPSqEeijnplL5ni1LA" client="_Eh2jMPSqEeijnplL5ni1LA" supplier="_8nTHcPSpEeijnplL5ni1LA" contract="_8nTHcPSpEeijnplL5ni1LA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_FySQUPSqEeijnplL5ni1LA" name="ProductAY">
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_t8DlkPSqEeijnplL5ni1LA" client="_FySQUPSqEeijnplL5ni1LA" supplier="_8nTHcPSpEeijnplL5ni1LA" contract="_8nTHcPSpEeijnplL5ni1LA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_HxiyUPSqEeijnplL5ni1LA" name="ProductBX">
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_tFUx4PSqEeijnplL5ni1LA" client="_HxiyUPSqEeijnplL5ni1LA" supplier="_9ykAsPSpEeijnplL5ni1LA" contract="_9ykAsPSpEeijnplL5ni1LA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_iZNNcPSqEeijnplL5ni1LA" name="ProductBY">
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_sa1qcPSqEeijnplL5ni1LA" client="_iZNNcPSqEeijnplL5ni1LA" supplier="_9ykAsPSpEeijnplL5ni1LA" contract="_9ykAsPSpEeijnplL5ni1LA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_mhBh8PSrEeijnplL5ni1LA" client="_wmbWkPSpEeijnplL5ni1LA" supplier="_y_ZZEPSpEeijnplL5ni1LA"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_nTmOYPSrEeijnplL5ni1LA" client="_wmbWkPSpEeijnplL5ni1LA" supplier="_8nTHcPSpEeijnplL5ni1LA"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_n3zusPSrEeijnplL5ni1LA" client="_wmbWkPSpEeijnplL5ni1LA" supplier="_9ykAsPSpEeijnplL5ni1LA"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_6JXvoPStEeijnplL5ni1LA" client="__xUzcPSpEeijnplL5ni1LA" supplier="_Eh2jMPSqEeijnplL5ni1LA"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_9Nx70PStEeijnplL5ni1LA" client="__xUzcPSpEeijnplL5ni1LA" supplier="_HxiyUPSqEeijnplL5ni1LA"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="__C1Y8PStEeijnplL5ni1LA" client="_B--WwPSqEeijnplL5ni1LA" supplier="_FySQUPSqEeijnplL5ni1LA"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_BIwjoPSuEeijnplL5ni1LA" client="_B--WwPSqEeijnplL5ni1LA" supplier="_iZNNcPSqEeijnplL5ni1LA"/>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_hW0cAPStEeijnplL5ni1LA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_hW24QPStEeijnplL5ni1LA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+  </profileApplication>
+</uml:Model>

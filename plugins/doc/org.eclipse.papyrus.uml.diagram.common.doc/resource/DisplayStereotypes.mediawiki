@@ -1,0 +1,217 @@
+=Papyrus stereotype display=
+__TOC__
+
+==Display applied stereotype name==
+====Display applied stereotype name====
+The diagram contains a shape. When you applied a stereotype on the element, the applied stereotype name is displayed on the shape below the name of the element.
+When an element is dropped form the model explorer to the diagram, the applied stereotype named is displayed on the shape.
+This is the same behavior for links.
+===How to===
+Inside  papyrus, it is possible to display the name of applied stereotype. 
+To do that:
+# Apply the profile  that contains the stereotype on your model.
+# Apply the wanted stereotype on the element.
+
+[[Image:images/ApplyProfile.png|Apply a profile]]
+
+''Apply a profile''
+
+
+[[Image:images/applyStereotype.png|Apply the stereotype]]
+
+''Apply the stereotype''
+
+
+[[Image:images/AppliedStereotype.png|Resulted applied stereotype]]
+
+''Resulted applied stereotype''
+
+==Display stereotype properties==
+====Display stereotype properties====
+It is possible to display properties of stereotypes as "comment", as "compartment", as "brace"
+==As "brace"==
+====As "brace"====
+Properties of applied stereotype can be displayed as "brace". This is label that is set below the name, and contains a sequence of properties name with their values.
+===How to===
+To do that:
+# Select your Element
+# Select the Appearance Tab in the property view
+# Select "In braces" for the line of your applied stereotype
+[[Image:images/DisplayInBrace.png|Sequence of actions to display in brace]]
+
+''Sequence of actions to display in brace''
+
+
+[[Image:images/ResultDisplayInBrace.png|Properties of stereotypes displayed in brace]]
+
+''Properties of stereotypes displayed in brace''
+
+==As "compartment"==
+====As "compartment"====
+Properties of applied stereotype can be displayed as a compartment. This compartment contains all labels that are properties of the applied stereotype.
+===How to===
+To do that:
+# Select your Element
+# Select the Appearance Tab in the property view
+# Select "In Compartment" for the line of your applied stereotype
+
+[[Image:images/DisplayInCompartment.png|Sequence of actions to display in compartment]]
+
+''Sequence of actions to display in compartment''
+
+
+[[Image:images/ResultDisplayInCompartment.png|Properties of stereotypes displayed in compartment]]
+
+''Properties of stereotypes displayed in compartment''
+
+==As "Comment"==
+====As "Comment"====
+Properties of applied stereotype can be displayed as a comment. This comment representation that contains all labels that are properties of the applied stereotype.
+To do that:
+# Select your Element
+# Select the Appearance Tab in the property view
+# Select "In Comment" for the line of your applied stereotype
+
+[[Image:images/DisplayInComment.png|Sequence of actions to display in comment]]
+
+''Sequence of actions to display in comment''
+
+
+[[Image:images/ResultDisplayInComment.png|Properties of stereotype displayed in comment]]
+
+''Properties of stereotype displayed in comment''
+
+==Choose properties to display==
+====Choose properties to display====
+The list of properties of stereotypes can be chosen by the user by using the property view or by writing a css.
+This choice runs for the 3 representations of applied stereotypes: brace, compartment, comment.
+===How to===
+By using the property view, it is possible to select the list of property of stereotype.
+To do that:
+# Select your element.
+# Check that the applied stereotype has been displayed as brace, compartment or comment
+# Select lines that correspond to wanted properties of stereotype.
+
+[[Image:images/ChooseProperties_PV.png|Select properties by using the property view]]
+
+''Select properties by using the property view''
+
+By using CSS file:
+<source lang="css">
+Compartment[type=StereotypeCompartment]{
+ 	visible:true;
+ }
+ Compartment[type=StereotypeCompartment]>[property="derived"]{
+ 	visible:false;
+ }
+ Compartment[type=StereotypeCompartment]>[property="derivedFrom"]{
+ 	visible:false;
+ }
+</source>
+The compartment is displayed and the property derived and derivedFrom are not displayed
+
+
+[[Image:images/ChooseProperties_CSS.png|Result by using the selection by CSS]]
+''Result by using the selection by CSS''
+
+
+The following CSS rules are implemented by default for all the Diagrams:
+<source lang="css">
+Shape[type=StereotypeComment]{
+ 	visible:false;
+ }
+ 
+ StereotypeComment Compartment[type=StereotypeBrace]{
+ 	visible:false;
+ }
+ 
+ Compartment[type=StereotypeCompartment]{
+ 	visible:false;
+ }
+ 
+ Compartment[type=StereotypeBrace]{
+ 	visible:false;
+ }
+ 
+ Label[type=StereotypeLabel]{
+ 	depth:"none";
+ }
+ 
+ Here is some example of CSS to display the Stereotype:
+ /* To modify the depth */
+ Label[type=StereotypeLabel]{
+ 	depth:"-1";
+ }
+ 
+ /* To make the properties visible into compartment */
+ Compartment[type=StereotypeCompartment]{
+ 	visible:true;
+ }
+ 
+ /* Hide the property "allocatedTo" into the compartment */
+ Compartment[type=StereotypeCompartment]>[property="allocatedTo"]{
+ 	visible:false;
+ }
+ 
+ /* Hide all the properties into the Compartment of the stereotype Block */
+ Compartment[stereotype="SysML::Blocks::Block"]{
+ 	visible:false;
+ }
+ 
+ /* Display the Comment shape */
+ StereotypeComment{
+ 	visible:true;
+ }
+ /* Display the properties in Brace into the Comment*/
+ StereotypeComment Compartment[type=StereotypeBrace]{
+ 	visible:true;
+ }
+</source>
+
+==Choose QN depth==
+====Choose QN depth====
+The stereotype name can be displayed by choosing the depth. I consists on choosing the size of the qualified name of the stereotype.
+full = all the qualified name
+0= only the name of stereotype
+-1= the name of its parent + the name of the stereotype
+-2=the name of its great-parent+ the name of its parent + the name of the stereotype
+Using CSS:
+<source lang="css">
+ Label[type=StereotypeLabel]{
+ 	depth:"-1";
+ }
+</source>
+By using the property view:
+# Select the element.
+# Select the appearance Tab
+# Select the name depth and choose the size
+
+[[Image:images/depth.png|Select the depth the applied stereotype name]]
+
+''Select the depth the applied stereotype name''
+
+==Remove display of stereotype properties==
+====Remove display of stereotype properties====
+The display of stereotype can be removed by selection or by unapply stereotype or profile container
+==Update the display of applied stereotype properties==
+====Update the display of applied stereotype properties====
+When the value associated to the property of stereotype has been modified, the display must be modified.
+It is possible to edit value of stereotype property by double click on the property in the diagram.
+Important: the property must be writable and Real are not yet editable. 
+
+[[Image:images/PropertyEdition.png|Property of applied stereotype edition]]
+
+''Property of applied stereotype edition''
+
+===How to===
+It is possible to edit property of applied stereotype by using the property view:
+# Select your element
+# Select the Profile tab
+# Expand the stereotype
+# Select the property
+# Edit at right the property of the stereotype
+
+[[Image:images/PropertyEdition_PV.png|Property edition for applied stereotypes in the property view]]
+
+''Property edition for applied stereotypes in the property view''
+

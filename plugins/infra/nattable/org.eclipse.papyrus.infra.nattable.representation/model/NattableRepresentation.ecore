@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="representation" nsURI="http://www.eclipse.org/papyrus/infra/nattable/representation"
+    nsPrefix="nattablerepresentation">
+  <eClassifiers xsi:type="ecore:EClass" name="PapyrusTable" eSuperTypes="../../org.eclipse.papyrus.infra.architecture.representation/model/Representation.ecore#//PapyrusRepresentationKind">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A representation kind that depicts elements form a UML model as a table"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="configuration" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.papyrus.infra.nattable.model/model/nattable.ecore#//nattableconfiguration/TableConfiguration">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The configuration of the table"/>
+        <details key="propertyDescription" value="The configuration of the table"/>
+        <details key="propertyCategory" value="Table"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationCommand" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The fully qualified name of a command that creates the table. The command must implement the org.eclipse.papyrus.infra.nattable.representation.ITableCreationCommand inteface"/>
+        <details key="propertyDescription" value="The configuration of the table"/>
+        <details key="propertyCategory" value="Table"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/papyrus/infra/core/architecture">
+        <details key="classConstraint" value="bundleclass://org.eclipse.papyrus.infra.nattable.common/org.eclipse.papyrus.infra.nattable.common.internal.command.ITableCreationCommand"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>

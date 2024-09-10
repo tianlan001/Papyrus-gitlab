@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.m2m.qvt.oml.javaBlackboxUnits">
+      <library
+            class="org.eclipse.papyrus.uml.alf.to.fuml.qvt.QVTLibrary"
+            name="QVTLibrary">
+         <metamodel
+               nsURI="http://www.eclipse.org/uml2/4.0.0/UML">
+         </metamodel>
+         <metamodel
+               nsURI="http://www.omg.org/spec/ALF/20120827">
+         </metamodel>
+      </library>
+   </extension>
+
+</plugin>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<expansionmodel:DiagramExpansion
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:expansionmodel="http:///expansionmodel.ecore"
+    xmi:id="_BOX98NnkEeSFtu511b-yaw"
+    ID="Add CompartmentText">
+  <usages diagramType="Class Diagram"
+      representations="//@usages.0/@gmftRepresentations.0"
+      name="Add a compartment on class of Papyrus">
+    <gmftRepresentations
+        editPartQualifiedName="org.eclipse.papyrus.uml.diagram.clazz.edit.parts.ClassEditPart"
+        name="Reuse representation of class of the class diagram"
+        viewFactory="org.eclipse.papyrus.infra.gmfdiag.common.utils.ClassifierViewFactory"
+        inducedRepresentations="//@libraries.0/@representations.0"
+        reusedID="Class_Shape"/>
+  </usages>
+  <libraries
+      name="compartmentlibrary">
+    <representations
+        xsi:type="expansionmodel:InducedRepresentation"
+        editPartQualifiedName="org.eclipse.papyrus.uml.diagram.common.editparts.ListCompartmentEditPart"
+        name="Compartment to implement interfaces"
+        viewFactory="org.eclipse.gmf.runtime.diagram.ui.view.factories.optimal.CompartmentViewFactory"
+        hint="Implemented Interfaces"/>
+  </libraries>
+</expansionmodel:DiagramExpansion>

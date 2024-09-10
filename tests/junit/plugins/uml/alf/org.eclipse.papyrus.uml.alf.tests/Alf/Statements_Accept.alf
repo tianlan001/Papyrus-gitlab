@@ -1,0 +1,63 @@
+/**
+ * Test accept statements.
+ **/
+active class Statements_Accept {
+
+	private abstract active class Super {
+
+		public signal SignalNewArrival {
+			public name: String;
+		}
+
+		public receive signal SignalTermination {
+		}
+
+		@Create
+		public Super();
+		@Destroy
+		public destroy();
+
+	}
+
+	private active class Test specializes Super {
+
+		public activity 'count$defaultValue$1'(): Integer;
+		public sig: any;
+		public sig1: any;
+		public name: String;
+		public terminate: Boolean;
+		public arrival: SignalNewArrival;
+		public count: Integer = 'count$defaultValue$1'();
+		public signals: any[0..*] sequence;
+		public flag: Boolean;
+		public tester: TestRunner;
+		@Create
+		public Test(in tester: TestRunner);
+		@Destroy
+		public destroy();
+		public receive SignalNewArrival;
+
+	} do 'Test$behavior$1'
+
+	public active class TestRunner {
+
+		public receive signal Start {
+		}
+
+		public receive signal Continue {
+		}
+
+		private run(out test: Test);
+		@Create
+		public TestRunner();
+		@Destroy
+		public destroy();
+
+	} do 'TestRunner$behavior$1'
+
+	@Create
+	public Statements_Accept();
+	@Destroy
+	public destroy();
+
+} do 'Statements_Accept$behavior$1'

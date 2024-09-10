@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="paletteconfiguration" nsURI="http://www.eclipse.org/papyrus/diagram/paletteconfiguration/0.8"
+    nsPrefix="paletteconfiguration">
+  <eClassifiers xsi:type="ecore:EClass" name="PaletteConfiguration" eSuperTypes="#//Configuration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="drawerConfigurations" lowerBound="1"
+        upperBound="-1" eType="#//DrawerConfiguration" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requiredProfiles" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Configuration" abstract="true" eSuperTypes="../../org.eclipse.papyrus.infra.filters/model/filters.ecore#//FilteredElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="unique identifier of the configuration, used by the tool to retrieve the configuration&#xA;unique identifier of the configuration, used by the tool to retrieve the configuration"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="label of the configuration, used only for display&#xA;label of the configuration, used only for display"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Description of the configuration.&#xA;Description of the configuration."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="icon" eType="#//IconDescriptor"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IconDescriptor">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Descriptor for icons, constituted from the bundle ID and the path in the bundle.&#xA;Descriptor for icons, constituted from the bundle ID and the path in the bundle."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pluginID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="ID of the plugin where the icon is located. If not set, the tool will look in the bundle defining the palette.&#xA;ID of the plugin where the icon is located. If not set, the tool will look in the bundle defining the palette."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconPath" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Path of the icon in the bundle. &#xA;Path of the icon in the bundle. "/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DrawerConfiguration" eSuperTypes="#//Configuration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedConfigurations" lowerBound="1"
+        upperBound="-1" eType="#//ChildConfiguration" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ChildConfiguration" abstract="true"
+      eSuperTypes="#//Configuration"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ToolConfiguration" eSuperTypes="#//LeafConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//ToolKind"
+        defaultValueLiteral="CreationTool"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elementDescriptors" upperBound="-1"
+        eType="#//ElementDescriptor" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="toolClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LeafConfiguration" abstract="true" eSuperTypes="#//ChildConfiguration"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="ToolKind">
+    <eLiterals name="CreationTool" literal="CreationTool"/>
+    <eLiterals name="ConnectionTool" value="1" literal="ConnectionTool"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementDescriptor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="graphicalHints" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elementType" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.ecore#//ElementTypeConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StackConfiguration" eSuperTypes="#//ChildConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedConfigurations" lowerBound="1"
+        upperBound="-1" eType="#//LeafConfiguration" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SeparatorConfiguration" eSuperTypes="#//LeafConfiguration"/>
+</ecore:EPackage>

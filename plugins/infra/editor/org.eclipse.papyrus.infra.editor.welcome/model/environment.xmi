@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ASCII"?>
+<environment:Environment
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:environment="http://www.eclipse.org/papyrus/properties/environment/0.9">
+  <constraintTypes
+      label="IsWelcomeElement"
+      constraintClass="org.eclipse.papyrus.infra.editor.welcome.internal.constraints.IsWelcomeElement"/>
+  <modelElementFactories
+      name="Welcome Factory"
+      factoryClass="org.eclipse.papyrus.infra.editor.welcome.internal.modelelements.WelcomeModelElementFactory"/>
+  <widgetTypes
+      label="Open View"
+      widgetClass="OpenViewLink"
+      namespace="//@namespaces.0"/>
+  <namespaces
+      name="ppew"
+      value="org.eclipse.papyrus.infra.editor.welcome.internal.widgets"/>
+</environment:Environment>

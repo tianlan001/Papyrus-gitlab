@@ -1,0 +1,36 @@
+package Redefinitions {
+
+	public abstract class B {
+
+		abstract p(in x: Integer);
+		@Create
+		public B();
+		@Destroy
+		public destroy();
+
+	}
+
+	public class Redefinitions specializes A, B {
+
+		p(in x: Integer);
+		renamed1(in x: Integer);
+		q(in y: Boolean);
+		@Create
+		public Redefinitions();
+		@Destroy
+		public destroy();
+
+	}
+
+	public abstract class A {
+
+		abstract p(in x: Integer);
+		abstract q(in y: Boolean);
+		@Create
+		public A();
+		@Destroy
+		public destroy();
+
+	}
+
+}

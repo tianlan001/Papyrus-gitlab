@@ -1,0 +1,342 @@
+=General Presentation=
+The Value Specification XText editor uses the [https://wiki.eclipse.org/XText XText] technology.
+
+The textual editor allow to create/edit some types of Value Specification:
+* <code>org.eclipse.uml2.uml.LiteralBoolean</code>
+* <code>org.eclipse.uml2.uml.LiteralUnlimitedNatural</code>
+* <code>org.eclipse.uml2.uml.LiteralInteger</code>
+* <code>org.eclipse.uml2.uml.LiteralReal</code>
+* <code>org.eclipse.uml2.uml.LiteralNull</code>
+* <code>org.eclipse.uml2.uml.LiteralString</code>
+* <code>org.eclipse.uml2.uml.InstanceValue</code>
+* <code>org.eclipse.uml2.uml.OpaqueExpression</code>
+
+
+This fonctionnality is implemented through several plugins:
+* '''org.eclipse.papyrus.uml.textedit.valuespecification.XText''' which contains the grammar of the Value Specification, the generated XText classes and the created class <code>UmlValueSpecificationScopeProvider</code> for the custom scoping of <code>org.eclipse.uml2.uml.InstanceValue</code> displaying the <code>org.eclipse.uml2.uml.InstanceSpecification</code> available in the model.
+* '''org.eclipse.papyrus.uml.textedit.valuespecification.XText.ui''' which contains the generated XText ui classes and the implementation of <code>DefaultXTextDirectEditorConfiguration</code> for the Value Specification edition.
+* '''org.eclipse.papyrus.uml.textedit.valuespecification.XText.utils''' which contains the utils classes for the XText edition of Value Specification and especially the <code>SetCommand</code> of the Value Specification in its container.
+* '''org.eclipse.papyrus.uml.nattable.XText.valuespecification''' which contains the cell editor, the default cell editor configuration and the default cell manager for editing the Value Specification with the XText parser.
+* '''org.eclipse.papyrus.infra.widgets''' which contains the created class <code>StyledTextReferenceDialog</code> that allows do define the component to edit the Value Specification in a widget in the properties view.
+* '''org.eclipse.papyrus.uml.properties.XText''' which allow to define the editor for the XText parser in the properties view.
+* '''org.eclipse.papyrus.uml.textedit.valuespecification.tests''' which contains all the JUnit tests for the XText parser.
+
+=Parser definition=
+The default grammar of the XText parser for the Value Specification is the following:
+
+<code><nowiki>(visibility)? (name'=')? value</nowiki></code>
+
+The values accepted for the differents attributes are the following:
+{| class="wikitable" border="1" cellspacing="0"
+! style="width:20%" | Attribute
+! style="width:10%" | Required
+! style="width:60%" | Values accepted
+|-
+| '''visibility'''
+| align="center" | No
+| 
+* <code>+</code> (public)
+* <code>#</code> (protected)
+* <code>~</code> (package)
+* <code>-</code> (private)
+|-
+| '''name'''
+| align="center" | No
+| String representing an ID (i.e. XText grammar: <code>'^'?('a'..'z'&#124;'A'..'Z'&#124;'_') ('a'..'z'&#124;'A'..'Z'&#124;'_'&#124;'0'..'9')*</code>)
+|-
+| '''value'''
+| align="center" | Yes
+| 
+* <code>true</code> or <code>false</code> (<code>LiteralBoolean</code>)
+* positive integer or <code>*</code>(<code>LiteralUnlimitedNatural</code>)
+* negative integer (<code>LiteralInteger</code>)
+* double (<code>LiteralReal</code>)
+* <code>null</code> (<code>LiteralNull</code>)
+* String with quote (<code>LiteralSting</code>). The quote (') is essential for 2 reasons:
+** The XText parser cannot define the difference between the name representing an <code>InstanceSpecification</code> and a simple string value
+** A Non-valid value won't be defined as an <code>OpaqueExpression</code> without quote but always as a <code>LiteralString</code> value
+* Instance Specification name (<code>InstanceValue</code>)
+* <code><Undefined></code> or empty (<code>null</code>)
+|}
+
+If the text filled is not compatible with the grammar of XText parser, an <code>OpaqueExpression</code> will be created.
+
+
+The XText parser for Value Specification is not restrictive with the text filled, i.e. the different features setted on an existing Value Specification will be kept if possible.
+
+For example: If an existing Value Specification is a <code>LiteralBoolean</code> named 'testBoolean' with the visibility 'public' and the value setted to <code>true</code>, the text <code>+testBoolean=false</code> and <code>false</code> have the same result: the value of <code>LiteralBoolean</code> existing will pass to <code>false</code> (the name and the visilibity don't change).
+
+
+The XText parser reacts differently instead of the type of the Value Specification's container:
+
+==Without defined type on Value Specification's container==
+
+If the type of Value Specification's container is not defined, the default behaviour will be applied.
+
+Here, some examples:
+{| class="wikitable" border="1" cellspacing="0"
+! style="width:15%" rowspan="2" | Text filled
+! style="width:20%" rowspan="2" | Namely
+! style="width:65%" rowspan="1" colspan="4" | Created ValueSpecification
+|-
+! style="width:15%" rowspan="1" colspan="1" | Type
+! style="width:8%" rowspan="1" colspan="1" | Visibility
+! style="width:15%" rowspan="1" colspan="1" | Name
+! style="width:27%" rowspan="1" colspan="1" | Value
+|-
+| rowspan="2" | +testInstanceValue=InstanceSpec1
+| 'InstanceSpec1' is an <code>InstanceSpecification</code> existing in the model
+| <code>InstanceValue</code>
+| public
+| testInstanceValue
+| 'instance' attribute of <code>InstanceValue</code> is a reference to the existing <code>InstanceSpecification</code> named 'InstanceSpec1'
+|-
+| No <code>InstanceSpecification</code> exist in the model
+| <code>OpaqueExpression</code>
+| public
+| +testInstanceValue=InstanceSpec1
+| 
+|-
+| +testBoolean=true
+| 
+| <code>LiteralBoolean</code>
+| public
+| testBoolean
+| <code>true</code>
+|-
+| #testUnlimitedNatural=5
+| 
+| <code>LiteralUnlimitedNatural</code>
+| protected
+| testUnlimitedNatural
+| 5
+|-
+| ~testInteger=-8
+| 
+| <code>LiteralInteger</code>
+| package
+| testInteger
+| -8
+|-
+| -testReal=12.34
+| 
+| <code>LiteralReal</code>
+| private
+| testReal
+| 12.34
+|-
+| ~testNull=null
+| 
+| <code>LiteralNull</code>
+| package
+| testNull
+| <code>null</code>
+|-
+| -testString="foo"
+| 
+| <code>LiteralString</code>
+| private
+| testString
+| foo
+|-
+| ##testString="foo"
+| 
+| <code>OpaqueExpression</code>
+| public
+| ##testString="foo"
+| 
+|}
+
+==With defined type on Value Specification's container==
+
+If the type of Value Specification's container is setted, the same text filled will be have different behaviour depending to the type. In fact, the value filled must be consistent to the type, otherwise an <code>OpaqueExpression</code> will be created.
+
+The different types corresponding to <code>LiteralSpecification</code> are the following:
+{| class="wikitable" border="1" cellspacing="0"
+! style="width:50%" | LiteralSpecification
+! style="width:50%" | Types corresponding
+|-
+| <code>LiteralBoolean</code>
+| 
+* JavaPrimitiveTypes::boolean
+* EcorePrimitiveTypes::EBoolean
+* EcorePrimitiveTypes::EBooleanObject
+* PrimitiveTypes::Boolean
+* XMLPrimitiveTypes::Boolean
+* XMLPrimitiveTypes::BooleanObject
+|-
+| <code>LiteralUnlimitedNatural</code>
+| 
+* PrimitiveTypes::UnlimitedNatural
+|-
+| <code>LiteralInteger</code>
+| 
+* JavaPrimitiveTypes::int
+* EcorePrimitiveTypes::EInt
+* EcorePrimitiveTypes::EIntegerObject
+* PrimitiveTypes::Integer
+* XMLPrimitiveTypes::Int
+* XMLPrimitiveTypes::Integer
+* XMLPrimitiveTypes::IntObject
+|-
+| <code>LiteralReal</code>
+| 
+* JavaPrimitiveTypes::double
+* EcorePrimitiveTypes::EDouble
+* EcorePrimitiveTypes::EDoubleObject
+* PrimitiveTypes::Real
+* XMLPrimitiveTypes::Double
+* XMLPrimitiveTypes::DoubleObject
+|-
+| <code>LiteralString</code>
+| 
+* EcorePrimitiveTypes::EString
+* PrimitiveTypes::String
+* XMLPrimitiveTypes::String
+|}
+
+Here, some examples:
+{| class="wikitable" border="1" cellspacing="0"
+! style="width:15%" rowspan="2" | Text filled
+! style="width:20%" rowspan="2" | Value Specification's container type
+! style="width:65%" rowspan="1" colspan="4" | Created ValueSpecification
+|-
+! style="width:15%" rowspan="1" colspan="1" | Type
+! style="width:8%" rowspan="1" colspan="1" | Visibility
+! style="width:15%" rowspan="1" colspan="1" | Name
+! style="width:27%" rowspan="1" colspan="1" | Value
+|-
+| rowspan="2" | +testBoolean=true
+| PrimitiveTypes::Boolean
+| <code>LiteralBoolean</code>
+| public
+| testBoolean
+| <code>true</code>
+|-
+| PrimitiveTypes::Integer
+| <code>OpaqueExpression</code>
+| public
+| +testBoolean=true
+|
+|-
+| rowspan="4" | -testUnlimitedNatural=8
+| PrimitiveTypes::UnlimitedNatural
+| <code>LiteralUnlimitedNatural</code>
+| private
+| testUnlimitedNatural
+| 8
+|-
+| PrimitiveTypes::Integer
+| <code>LiteralInteger</code>
+| private
+| testUnlimitedNatural
+| 8
+|-
+| PrimitiveTypes::Real
+| <code>LiteralReal</code>
+| private
+| testUnlimitedNatural
+| 8.0
+|-
+| PrimitiveTypes::Boolean
+| <code>OpaqueExpression</code>
+| public
+| -testUnlimitedNatural=8
+| 
+|-
+| rowspan="4" | #testInteger=-6
+| PrimitiveTypes::UnlimitedNatural
+| <code>OpaqueExpression</code>
+| public
+| #testInteger=6
+| 
+|-
+| PrimitiveTypes::Integer
+| <code>LiteralInteger</code>
+| protected
+| testInteger
+| 6
+|-
+| PrimitiveTypes::Real
+| <code>LiteralReal</code>
+| protected
+| testInteger
+| 6.0
+|-
+| PrimitiveTypes::Boolean
+| <code>OpaqueExpression</code>
+| public
+| #testInteger=6
+| 
+|-
+| rowspan="3" | -testReal=4.5
+| PrimitiveTypes::Integer
+| <code>OpaqueExpression</code>
+| public
+| -testReal=4.5
+| 
+|-
+| PrimitiveTypes::Real
+| <code>LiteralReal</code>
+| private
+| testReal
+| 4.5 
+|}
+
+=Papyrus integration=
+==Direct editor configuration==
+The Direct Editor Condiguration allow to define a new cirect editor for Papyrus. This define the object type to edit and the editor configuration class used for the integration of editor.
+For the Value Specification XText editor, a default Direct Editor Configuration is already defined: <code>ValueSpecificationXTextDirectEditorConfiguration</code> which allow to manage the type <code>org.eclipse.uml2.uml.ValueSpecification</code>.
+
+[[File:images/ValueSpecificationXtextDirectEditorConfiguration.png]]
+
+===Manage the default languages of created OpaqueExpression===
+To redefine the default languages used by created <code>OpaqueExpression</code> by the properties widget, a class extending the <code>ValueSpecificationXTextDirectEditorConfiguration</code> must be created and the method <code>getDefaultLanguages()</code> must be override.
+
+[[File:images/getDefaultLanguages.png]]
+
+Then, this created direct editor configuration must be referenced in the <code>org.eclipse.papyrus.extensionpoints.editors.DirectEditor</code> extension point with a higher priority than the default (Lowest).
+
+==Properties integration==
+===Define the context and the xwt files===
+The context file allow to define the field available in the properties view. To define the field which will be displayed in the properties view with XText parser and completion, the <code>UMLStyledTextReferenceDialog</code> will be used.
+
+This class contains a <code>UMLXTextReferenceValueEditor</code> which contains a <code>StyledText</code> for the text fill and <code>StyledTextXTextAdapter</code> to manage the XText parser and completion.
+
+Here, an example of context and xwt file for the default value of property object:
+
+[[File:images/ContextAndXWTFiles.png]]
+
+In the PropertyEditor created, an attribute <code>directEditorConfiguration</code> will be implemented to define the direct editor configuration class to use for the edited object:
+
+[[File:images/XWTObjectInstance.png|1500px]]
+
+The context file must be referenced in the <code>org.eclipse.papyrus.views.properties.context</code> extension point:
+
+[[File:images/ContextExtensionPoint.png]]
+
+==Cell of NatTable integration==
+===Define the cell editor configuration===
+A default cell editor configuration already exists for the Value Specification: <code>ValueSpecificationCellEditorConfiguration</code>. But to get the possible XText parser and completion in cell of NatTable, the cell editor configuration must be extended and the created class must be referenced in the <code>org.eclipse.papyrus.infra.nattable.celleditor.configuration</code> extension point with an inferior order than the others.
+
+Here, an example:
+
+[[File:images/CellEditorConfigurationExtensionPoint.png]]
+
+===Define the cell manager===
+A default cell manager already exists for the Value Specification: <code>ValueSpecificationCellManager</code>. But to get the possible XText parser and completion in call of NatTable, the cell manager must be extended and the created class must be referenced in the <code>org.eclipse.papyrus.infra.nattable.cellmanager</code> extention point with an inferior order than the others.
+
+Here, an example:
+
+[[File:images/CellManagerExtensionPoint.png]]
+
+====Manage the default languages of created OpaqueExpression====
+To redefine the default languages used by created <code>OpaqueExpression</code> by the cell editor, the method <code>getDefaultLanguages()</code> must be overridden in the class extended from <code>ValueSpecificationCellManager</code>.
+
+[[File:images/getDefaultLanguages.png]]
+
+[[Category:Papyrus]]
+
+=Example=
+*The plugin <code>org.eclipse.papyrus.uml.textual.editors.example</code> provide an example of integration of this editor in the table and in the property view to edit the default value of a property.
+*A video is available here https://www.youtube.com/watch?v=OERg0BUZmyU&feature=youtu.be

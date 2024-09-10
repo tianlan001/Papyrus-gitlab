@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2014 CEA LIST.
+ 
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+  CEA LIST - Initial API and implementation
+-->
+
+<plugin>
+
+
+
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated RuntimeValuesAdvice -->
+      <package
+            uri="http://www.eclipse.org/papyrus/emf/types/runtimevaluesadvice/1.1"
+            class="org.eclipse.papyrus.infra.emf.types.ui.advices.values.RuntimeValuesAdvicePackage"
+            genModel="model/RuntimeValuesAdvice.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated RuntimeValuesAdvice -->
+      <parser
+            type="runtimevaluesadvice"
+            class="org.eclipse.papyrus.infra.emf.types.ui.advices.values.util.RuntimeValuesAdviceResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated RuntimeValuesAdvice -->
+      <factory
+            uri="http://www.eclipse.org/papyrus/emf/types/runtimevaluesadvice/1.1"
+            class="org.eclipse.papyrus.infra.emf.types.ui.advices.values.provider.RuntimeValuesAdviceItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.childCreationExtenders">
+      <!-- @generated RuntimeValuesAdvice -->
+      <extender
+            uri="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2"
+            class="org.eclipse.papyrus.infra.emf.types.ui.advices.values.provider.RuntimeValuesAdviceItemProviderAdapterFactory$ElementTypesConfigurationsChildCreationExtender"/>
+   </extension>
+
+   <extension
+         point="org.eclipse.papyrus.infra.types.core.adviceConfigurationKind">
+      <adviceConfigurationKind
+            configurationClass="org.eclipse.papyrus.infra.emf.types.ui.advices.values.RuntimeValuesAdviceConfiguration"
+            factoryClass="org.eclipse.papyrus.infra.emf.types.internal.ui.advice.RuntimeValuesAdviceEditHelperAdviceFactory"
+            icon="icons/full/obj16/RuntimeValuesAdviceConfiguration.gif">
+      </adviceConfigurationKind>
+   </extension>
+
+</plugin>

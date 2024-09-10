@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.papyrus.infra.sync" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.eclipse.papyrus.infra.sync" id="org.eclipse.papyrus.infra.sync.triggers" name="Synchronization Triggers"/>
+      </appinfo>
+      <documentation>
+         Registration of model synchronization triggers
+      </documentation>
+   </annotation>
+
+   <include schemaLocation="schema://org.eclipse.core.expressions/schema/expressionLanguage.exsd"/>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="syncTrigger" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="syncTrigger">
+      <annotation>
+         <documentation>
+            Registration of a synchronization action to be performed on certain triggering objects (as determined by a matching condition, which may be implemented either with a nested &lt;tt&gt;&amp;lt;enablement&amp;gt;&lt;/tt&gt; expression or in code).
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="enablement" minOccurs="0" maxOccurs="1"/>
+         </sequence>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  A class implementing the &lt;tt&gt;ISyncTrigger&lt;/tt&gt; interface.  If an XML &lt;tt&gt;&amp;lt;enablement&amp;gt;&lt;/tt&gt; expression is supplied, it is recommended to extend the &lt;tt&gt;AbstractSyncTrigger&lt;/tt&gt; class.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.papyrus.infra.sync.service.ISyncTrigger"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         Papyrus 1.1
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="copyright"/>
+      </appinfo>
+      <documentation>
+         /*****************************************************************************
+         * Copyright (c) 2015 Christian W. Damus and othesr.
+         *
+         *    
+         * All rights reserved. This program and the accompanying materials
+         * are made available under the terms of the Eclipse Public License 2.0
+         * which accompanies this distribution, and is available at
+         * https://www.eclipse.org/legal/epl-2.0/
+         *
+         * SPDX-License-Identifier: EPL-2.0
+         *
+         * Contributors:
+         * Chrisian W. Damus - Initial API and implementation
+         *
+         *****************************************************************************/
+      </documentation>
+   </annotation>
+
+</schema>

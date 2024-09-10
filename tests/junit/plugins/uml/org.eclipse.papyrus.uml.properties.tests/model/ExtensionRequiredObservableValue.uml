@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_CwGjcKktEemnUaUTM2dhVQ" name="ExtensionRequiredObservableValue" metaclassReference="_EjXQ0KktEemnUaUTM2dhVQ">
+  <elementImport xmi:type="uml:ElementImport" xmi:id="_EjXQ0KktEemnUaUTM2dhVQ" alias="Class">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+  </elementImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_C0t9sKktEemnUaUTM2dhVQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_C0t9saktEemnUaUTM2dhVQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_E-EP0KktEemnUaUTM2dhVQ" name="Stereotype4">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Fe99cKktEemnUaUTM2dhVQ" name="base_Class" association="_Fe3PwKktEemnUaUTM2dhVQ">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Fe99caktEemnUaUTM2dhVQ"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_Fe3PwKktEemnUaUTM2dhVQ" name="Extension1" memberEnd="_Fe9WYKktEemnUaUTM2dhVQ _Fe99cKktEemnUaUTM2dhVQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_Fe9WYKktEemnUaUTM2dhVQ" name="extension_Stereotype4" type="_E-EP0KktEemnUaUTM2dhVQ" aggregation="composite" association="_Fe3PwKktEemnUaUTM2dhVQ"/>
+  </packagedElement>
+</uml:Profile>

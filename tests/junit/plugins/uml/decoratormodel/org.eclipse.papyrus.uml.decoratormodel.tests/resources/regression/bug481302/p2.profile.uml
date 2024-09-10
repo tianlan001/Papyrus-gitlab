@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_7LcWMIOMEeW6odZslpwYig" name="p2" URI="http://www.eclipse.org/papyrus/2015/test/p2">
+  <eAnnotations xmi:id="_mFvSUIONEeW6odZslpwYig" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_BEbtYIOOEeW6odZslpwYig" name="p2" nsURI="http://www.eclipse.org/papyrus/2015/test/p2" nsPrefix="p2">
+      <eAnnotations xmi:id="_BEbtYYOOEeW6odZslpwYig" source="http://www.eclipse.org/uml2/4.1.0/UML">
+        <references xmi:type="ecore:EPackage" href="p1.profile.uml#_MxK2wYONEeW6odZslpwYig"/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_BEbtYoOOEeW6odZslpwYig" name="MyRequirement">
+        <eAnnotations xmi:id="_BEbtY4OOEeW6odZslpwYig" source="http://www.eclipse.org/uml2/2.0.0/UML" references="__yTMkIOMEeW6odZslpwYig"/>
+        <eSuperTypes href="p1.profile.uml#_MxK2woONEeW6odZslpwYig"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_BEbtZIOOEeW6odZslpwYig" name="tag" ordered="false" upperBound="-1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//String"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_mFvSUYONEeW6odZslpwYig" name="p2" nsURI="http://www.eclipse.org/papyrus/2015/test/p2" nsPrefix="p2">
+      <eAnnotations xmi:id="_mFvSUoONEeW6odZslpwYig" source="http://www.eclipse.org/uml2/4.1.0/UML">
+        <references xmi:type="ecore:EPackage" href="p1.profile.uml#_MxK2wYONEeW6odZslpwYig"/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_mFvSU4ONEeW6odZslpwYig" name="MyRequirement">
+        <eAnnotations xmi:id="_mFvSVIONEeW6odZslpwYig" source="http://www.eclipse.org/uml2/2.0.0/UML" references="__yTMkIOMEeW6odZslpwYig"/>
+        <eSuperTypes href="p1.profile.uml#_MxK2woONEeW6odZslpwYig"/>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="__yTMkIOMEeW6odZslpwYig" name="MyRequirement">
+    <generalization xmi:id="_YVcLMIONEeW6odZslpwYig">
+      <general xmi:type="uml:Stereotype" href="p1.profile.uml#__yTMkIOMEeW6odZslpwYig"/>
+    </generalization>
+    <ownedAttribute xmi:id="_7E8QIIONEeW6odZslpwYig" name="tag">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8kuA0IONEeW6odZslpwYig"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9Xh90IONEeW6odZslpwYig" value="*"/>
+    </ownedAttribute>
+  </packagedElement>
+</uml:Profile>

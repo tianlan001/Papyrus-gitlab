@@ -1,0 +1,7 @@
+package AssertList {
+
+	public activity AssertList(in label: String, in list: any[0..*] sequence,
+		in expected: any[0..*] sequence);
+	public activity AssertEqual(in label: String, in value1: any, in value2: any);
+
+}

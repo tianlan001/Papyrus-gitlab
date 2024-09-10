@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?><!--
+    Copyright (c) 2011, 2016 Mia-Software, CEA LIST and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License 2.0
+    which accompanies this distribution, and is available at
+    https://www.eclipse.org/legal/epl-2.0/
+
+    SPDX-License-Identifier: EPL-2.0
+   
+    Contributors:
+        Nicolas Bros (Mia-Software) - initial API and implementation
+        Camille Letavernier (CEA LIST) - Reimplement with Eclipse Menu/Handlers
+        Christian W. Damus (CEA) - Add support for updating Oomph setup models
+ -->
+
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="org.eclipse.papyrus.releng.tools.updateDependencies"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <adapt
+                        type="org.eclipse.core.resources.IFile">
+                     <or>
+                        <test
+                              property="org.eclipse.core.resources.extension"
+                              value="rmap">
+                        </test>
+                        <test
+                              property="org.eclipse.core.resources.name"
+                              value="*pom*.xml">
+                        </test>
+                        <test
+                              property="org.eclipse.core.resources.extension"
+                              value="setup">
+                        </test>
+                        <test
+                              property="org.eclipse.core.resources.extension"
+                              value="tpd">
+                        </test>
+                     </or>
+                  </adapt>
+               </iterate>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.papyrus.releng.tools.addSetupRepositoryUpdateAnnotation"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+               <iterate
+                     operator="or">
+                  <instanceof
+                        value="org.eclipse.oomph.p2.Repository"/>
+               </iterate>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.papyrus.releng.tools.generateTargets"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+                  <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <adapt
+                        type="org.eclipse.core.resources.IResource">
+                     <or>
+                        <test
+                              property="org.eclipse.core.resources.extension"
+                              value="tpd">
+                        </test>
+                        <test
+                              property="org.eclipse.core.resources.name"
+                              value="*releng*">
+                        </test>
+                     </or>
+                  </adapt>
+               </iterate>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.eclipse.papyrus.releng.tools.internal.handler.UpdateDependenciesHandler"
+            id="org.eclipse.papyrus.releng.tools.updateDependencies"
+            name="Update Dependencies from Aggregation Build Model">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.releng.tools.internal.handler.AddSetupRepositoryUpdateAnnotationHandler"
+            id="org.eclipse.papyrus.releng.tools.addSetupRepositoryUpdateAnnotation"
+            name="Configure Update from Aggregation Build Model">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.releng.tools.internal.popup.actions.GenerateTargetsHandler"
+            id="org.eclipse.papyrus.releng.tools.generateTargets"
+            name="Generate all Target files">
+      </command>
+   </extension>
+
+</plugin>

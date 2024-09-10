@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2017 CEA LIST.
+ 
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+ 	Vincent Lorenzo (CEA LIST) vincent.lorenzo@cea.fr - Initial API and implementation
+-->
+
+<plugin>
+   <extension-point id="expressionCatalog" name="expressionCatalog" schema="schema/org.eclipse.papyrus.infra.emf.expressions.expressionCatalog.exsd"/>
+
+   <extension
+         point="org.eclipse.emf.ecore.factory_override">
+      <factory
+            class="org.eclipse.papyrus.infra.emf.expressions.booleanexpressions.custom.CustomBooleanExpressionsFactory"
+            uri="http://www.eclipse.org/papyrus/expressions/booleanexpressions">
+      </factory>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated expressions -->
+      <package
+            uri="http://www.eclipse.org/papyrus/expressions"
+            class="org.eclipse.papyrus.infra.emf.expressions.ExpressionsPackage"
+            genModel="model/expressions.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated expressions -->
+      <package
+            uri="http://www.eclipse.org/papyrus/expressions/booleanexpressions"
+            class="org.eclipse.papyrus.infra.emf.expressions.booleanexpressions.BooleanExpressionsPackage"
+            genModel="model/expressions.genmodel"/>
+   </extension>
+
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            class="org.eclipse.papyrus.infra.emf.expressions.util.custom.ExpressionsResourceFactory"
+            type="expressions">
+      </parser>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="pathmap://EXPRESSIONS/"
+            target="platform:/plugin/org.eclipse.papyrus.infra.emf.expressions/model/">
+      </mapping>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.uml.extensionpoints.UMLLibrary">
+      <library
+            description="The basic uml model for expression"
+            iconpath="icons/Expressions.gif"
+            name="Papyrus-EMFExpressions (Internal)"
+            path="pathmap://EXPRESSIONS//expressions.uml">
+      </library>
+   </extension>
+
+
+</plugin>

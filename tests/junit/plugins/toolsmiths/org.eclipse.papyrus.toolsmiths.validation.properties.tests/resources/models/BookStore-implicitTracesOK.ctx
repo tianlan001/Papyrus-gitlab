@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9"
+    xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9"
+    xmi:id="_SVQc4Mf7EeuIwKU8xdbBsg"
+    name="BookStore"
+    label="Book Store">
+  <dependencies
+      href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_69QJkKDJEeSZxfCXzZz3-w"/>
+  <tabs xmi:id="_SVQc4cf7EeuIwKU8xdbBsg"
+      label="BookStore"
+      id="bookstore"
+      priority="100">
+    <allSections
+        xsi:type="contexts:Section"
+        xmi:id="_SVQc4sf7EeuIwKU8xdbBsg"
+        name="Single Book"
+        sectionFile="ui/SingleBook.xwt">
+      <widget
+          href="ui/SingleBook.xwt#/"/>
+    </allSections>
+    <allSections
+        xsi:type="contexts:Section"
+        xmi:id="_SVQc5Mf7EeuIwKU8xdbBsg"
+        name="Multiple Book"
+        sectionFile="ui/MultipleBook.xwt">
+      <widget
+          href="ui/MultipleBook.xwt#/"/>
+    </allSections>
+    <allSections
+        xsi:type="contexts:Section"
+        xmi:id="_SVQc5sf7EeuIwKU8xdbBsg"
+        name="Single BookStore"
+        sectionFile="ui/SingleBookStore.xwt">
+      <widget
+          href="ui/SingleBookStore.xwt#/"/>
+    </allSections>
+    <allSections
+        xsi:type="contexts:Section"
+        xmi:id="_SVQc6Mf7EeuIwKU8xdbBsg"
+        name="Multiple BookStore"
+        sectionFile="ui/MultipleBookStore.xwt">
+      <widget
+          href="ui/MultipleBookStore.xwt#/"/>
+    </allSections>
+    <allSections
+        xsi:type="contexts:Section"
+        xmi:id="_SVQc6sf7EeuIwKU8xdbBsg"
+        name="Single Vendor"
+        sectionFile="ui/SingleVendor.xwt">
+      <widget
+          href="ui/SingleVendor.xwt#/"/>
+    </allSections>
+    <allSections
+        xsi:type="contexts:Section"
+        xmi:id="_SVQc7Mf7EeuIwKU8xdbBsg"
+        name="Multiple Vendor"
+        sectionFile="ui/MultipleVendor.xwt">
+      <widget
+          href="ui/MultipleVendor.xwt#/"/>
+    </allSections>
+  </tabs>
+  <views xmi:id="_SVQc7sf7EeuIwKU8xdbBsg"
+      name="Single Book"
+      sections="_SVQc4sf7EeuIwKU8xdbBsg"
+      automaticContext="true"
+      datacontexts="_SVQdDMf7EeuIwKU8xdbBsg">
+    <constraints
+        xsi:type="constraints:SimpleConstraint"
+        xmi:id="_SVQc78f7EeuIwKU8xdbBsg"
+        name="isSingleBook">
+      <constraintType
+          href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties
+          xsi:type="constraints:ValueProperty"
+          xmi:id="_SVQc8Mf7EeuIwKU8xdbBsg"
+          name="stereotypeName"
+          value="BookStore::Book"/>
+    </constraints>
+  </views>
+  <views xmi:id="_SVQc8sf7EeuIwKU8xdbBsg"
+      elementMultiplicity="-1"
+      name="Multiple Book"
+      sections="_SVQc5Mf7EeuIwKU8xdbBsg"
+      automaticContext="true"
+      datacontexts="_SVQdDMf7EeuIwKU8xdbBsg">
+    <constraints
+        xsi:type="constraints:SimpleConstraint"
+        xmi:id="_SVQc88f7EeuIwKU8xdbBsg"
+        name="isMultipleBook">
+      <constraintType
+          href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties
+          xsi:type="constraints:ValueProperty"
+          xmi:id="_SVQc9Mf7EeuIwKU8xdbBsg"
+          name="stereotypeName"
+          value="BookStore::Book"/>
+    </constraints>
+  </views>
+  <views xmi:id="_SVQc9sf7EeuIwKU8xdbBsg"
+      name="Single BookStore"
+      sections="_SVQc5sf7EeuIwKU8xdbBsg"
+      automaticContext="true"
+      datacontexts="_SVQdCMf7EeuIwKU8xdbBsg">
+    <constraints
+        xsi:type="constraints:SimpleConstraint"
+        xmi:id="_SVQc98f7EeuIwKU8xdbBsg"
+        name="isSingleBookStore">
+      <constraintType
+          href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties
+          xsi:type="constraints:ValueProperty"
+          xmi:id="_SVQc-Mf7EeuIwKU8xdbBsg"
+          name="stereotypeName"
+          value="BookStore::BookStore"/>
+    </constraints>
+  </views>
+  <views xmi:id="_SVQc-sf7EeuIwKU8xdbBsg"
+      elementMultiplicity="-1"
+      name="Multiple BookStore"
+      sections="_SVQc6Mf7EeuIwKU8xdbBsg"
+      automaticContext="true"
+      datacontexts="_SVQdCMf7EeuIwKU8xdbBsg">
+    <constraints
+        xsi:type="constraints:SimpleConstraint"
+        xmi:id="_SVQc-8f7EeuIwKU8xdbBsg"
+        name="isMultipleBookStore">
+      <constraintType
+          href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties
+          xsi:type="constraints:ValueProperty"
+          xmi:id="_SVQc_Mf7EeuIwKU8xdbBsg"
+          name="stereotypeName"
+          value="BookStore::BookStore"/>
+    </constraints>
+  </views>
+  <views xmi:id="_SVQc_sf7EeuIwKU8xdbBsg"
+      name="Single Vendor"
+      sections="_SVQc6sf7EeuIwKU8xdbBsg"
+      automaticContext="true"
+      datacontexts="_SVQdDsf7EeuIwKU8xdbBsg">
+    <constraints
+        xsi:type="constraints:SimpleConstraint"
+        xmi:id="_SVQc_8f7EeuIwKU8xdbBsg"
+        name="isSingleVendor">
+      <constraintType
+          href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties
+          xsi:type="constraints:ValueProperty"
+          xmi:id="_SVQdAMf7EeuIwKU8xdbBsg"
+          name="stereotypeName"
+          value="BookStore::Vendor"/>
+    </constraints>
+  </views>
+  <views xmi:id="_SVQdAsf7EeuIwKU8xdbBsg"
+      elementMultiplicity="-1"
+      name="Multiple Vendor"
+      sections="_SVQc7Mf7EeuIwKU8xdbBsg"
+      automaticContext="true"
+      datacontexts="_SVQdDsf7EeuIwKU8xdbBsg">
+    <constraints
+        xsi:type="constraints:SimpleConstraint"
+        xmi:id="_SVQdA8f7EeuIwKU8xdbBsg"
+        name="isMultipleVendor">
+      <constraintType
+          href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties
+          xsi:type="constraints:ValueProperty"
+          xmi:id="_SVQdBMf7EeuIwKU8xdbBsg"
+          name="stereotypeName"
+          value="BookStore::Vendor"/>
+    </constraints>
+  </views>
+  <dataContexts
+      xmi:id="_SVQdBsf7EeuIwKU8xdbBsg"
+      name="BookStore"
+      label="Book Store">
+    <elements
+        xmi:id="_SVQdCMf7EeuIwKU8xdbBsg"
+        name="BookStore">
+      <supertypes
+          href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690xiaDJEeSZxfCXzZz3-w"/>
+      <properties
+          xmi:id="_SVQdCsf7EeuIwKU8xdbBsg"
+          name="bookDispositions"
+          type="Enumeration"
+          multiplicity="-1"/>
+    </elements>
+    <elements
+        xmi:id="_SVQdDMf7EeuIwKU8xdbBsg"
+        name="Book">
+      <supertypes
+          href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690yXqDJEeSZxfCXzZz3-w"/>
+    </elements>
+    <elements
+        xmi:id="_SVQdDsf7EeuIwKU8xdbBsg"
+        name="Vendor">
+      <supertypes
+          href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690yXqDJEeSZxfCXzZz3-w"/>
+      <properties
+          xmi:id="_SVQdEMf7EeuIwKU8xdbBsg"
+          name="licenseNumber"/>
+    </elements>
+    <modelElementFactory
+        href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@modelElementFactories.2"/>
+  </dataContexts>
+</contexts:Context>

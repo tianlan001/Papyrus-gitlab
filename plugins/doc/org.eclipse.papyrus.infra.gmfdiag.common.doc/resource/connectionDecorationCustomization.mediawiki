@@ -1,0 +1,41 @@
+=Connection decoration customization=
+
+==Abstract==
+There is the possibility to display a direction (plain arrow for example) on connectors. 
+This information is only graphical and not semantic. This capability can be driven by a dedicated CSS syntax or through properties view.
+
+==Requirement==
+#The graphical representation can be set on source.
+#The graphical representation can be set on target.
+#Available decoration must be extensible through extension point.
+#The source and target representation can be set with CSS.
+#The list of available decoration types is in CSS autocompletion.
+#The source and target representation can be set with properties view.
+#The width of the decoration line is the same as the width of edge line.
+
+==Usage==
+There are two possibities to set connection decoration on existing link, with properties view or with CSS.
+Available decorations are added through extension point, except for two which are:
+
+*''none'': No decoration will be displayed on the source or target connection.
+*''default'': The default decoration of the connection will be displayed.
+
+===With properties view===
+To use it activate the ''Advance Tabulation'': In Window > Preferences > Papyrus > Property views > ''Select Diagram Advanced Notation (plugin)'', Apply and close.
+Select the edge to customize, 'Advance Tabulation'' is now visible under ''Appearance''. You can set source and target decoration.
+
+===With CSS===
+Attributes ''sourceDecoration'' and ''targetDecoration'' permit to set source and target decoration on link. The list of available decoration values is accessible with the autocompletion (Ctrl+Space).
+
+==Extensibility==
+New decoration can be added through extension point:<br>
+''org.eclipse.papyrus.infra.gmfdiag.common.connectionDecoration''<br><br>
+Attributes:
+*''name'':  The name of the decoration, used for the decoration values.
+*''label'':  The label of the decoration, used for the user interface (ie Properties view).
+*''class'': The class of the decoration to instanciate. Must implement ''org.eclipse.draw2d.RotatableDecoration''.
+
+Added decorations will be available in advance properties tab and in the CSS autocompletion.
+
+===Restriction===
+The full compliance is guaranteed for ''Stereotype Property Reference Link'' and for ''Connector Link''.

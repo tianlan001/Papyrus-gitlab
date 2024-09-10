@@ -1,0 +1,27 @@
+/**
+ * Test sequence construction expressions.
+ **/
+active class Expressions_Sequence_Construction {
+
+	class Customer {
+
+		public name: String;
+		@Create Customer(in name: String);
+		@Destroy
+		public destroy();
+
+	}
+
+	getList(): Integer[1..*];
+	test(out seq1: String[0..*] sequence, out seq2: String[0..*] sequence,
+		out seq3: any[0..*] sequence, out seq4: Integer[0..*] sequence,
+		out seq5: Integer[0..*] sequence, out seq6: Integer[0..*] sequence,
+		out seq7: Integer[0..*] sequence, out x: Integer,
+		out customers: Customer[0..*] sequence, out set1: Set< Integer >,
+		out set2: Set< Integer >, out list: List< List< String > >);
+	@Create
+	public Expressions_Sequence_Construction();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Sequence_Construction$behavior$1'

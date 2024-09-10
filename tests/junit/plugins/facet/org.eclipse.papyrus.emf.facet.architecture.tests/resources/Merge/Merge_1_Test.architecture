@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architecture:ArchitectureDomain xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture" xmlns:custom="http://www.eclipse.org/papyrus/emf/facet/custom/0.2.incubation/custom" xmlns:customizationconfiguration="http://www.eclipse.org/papyrus/emf/facet/architecture/configuration" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmi:id="_-p-2MNGTEeqXo4ZkJUodlw" id="org.eclipse.papyrus.emf.facet.architecture.tests_Domain_MergeADL0" name="Domain for MergeADL0">
+  <contexts xmi:type="architecture:ArchitectureDescriptionLanguage" xmi:id="__fzq8NGTEeqXo4ZkJUodlw" id="org.eclipse.papyrus.emf.facet.architecture.tests_ADL0" name="ADL0">
+    <metamodel xmi:type="ecore:EPackage" href="http://www.eclipse.org/emf/2002/Ecore#/"/>
+    <treeViewerConfigurations xmi:type="customizationconfiguration:EMFFacetTreeViewerConfiguration" xmi:id="__5adwNGTEeqXo4ZkJUodlw" description="ROOT  (level 0)">
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_6kivINJ1EeqmXYQuNWi2jQ" description="Customization1  order 30">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom1.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:AbsoluteOrder" xmi:id="_FFLcUNJ2EeqmXYQuNWi2jQ" order="30"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_AlPGQNJ2EeqmXYQuNWi2jQ" description="Customization2  order 10">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom2.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:AbsoluteOrder" xmi:id="_XnP7cNKZEeq_qYUW78fzRA" order="10"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_9oOVkNMEEeqEG_oOnnx6bg" description="Customization3  order 50">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom3.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:AbsoluteOrder" xmi:id="_9oO8oNMEEeqEG_oOnnx6bg" order="50"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_aZM7sNMHEeqEG_oOnnx6bg" description="Customization4 order 15">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom4.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:AbsoluteOrder" xmi:id="_aZNiwNMHEeqEG_oOnnx6bg" order="15"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_a2oekNMHEeqEG_oOnnx6bg" description="Customization5  order 60">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom5.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:AbsoluteOrder" xmi:id="_a2oekdMHEeqEG_oOnnx6bg" order="60"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_a9QrANMHEeqEG_oOnnx6bg" description="Customization6 order -10">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom6.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:AbsoluteOrder" xmi:id="_a9QrAdMHEeqEG_oOnnx6bg" order="-10"/>
+      </customizationReferences>
+    </treeViewerConfigurations>
+    <treeViewerConfigurations xmi:type="customizationconfiguration:EMFFacetTreeViewerConfiguration" xmi:id="_Y2kOQNKZEeq_qYUW78fzRA" description="ROOT EXTENSION 1 (level 1)" extends="__5adwNGTEeqXo4ZkJUodlw">
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_Y2kOQdKZEeq_qYUW78fzRA" description="Customization7   redefines Customization2">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom7.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:Redefinition" xmi:id="_mFGn8NKgEeq_qYUW78fzRA" redefinedCustomizationReference="_AlPGQNJ2EeqmXYQuNWi2jQ"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_BuaH0NMFEeqEG_oOnnx6bg" description="Customization8  after Customization7">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom8.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:RelativeOrder" xmi:id="_t6vosNMHEeqEG_oOnnx6bg" location="AFTER" relativeCustomizationReference="_Y2kOQdKZEeq_qYUW78fzRA"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_2joKENMHEeqEG_oOnnx6bg" description="Customization9  order -20">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom9.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:AbsoluteOrder" xmi:id="_5MBIoNMHEeqEG_oOnnx6bg" order="-20"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_KifsQNMIEeqEG_oOnnx6bg" description="Customization10  before Customization7">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom10.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:RelativeOrder" xmi:id="_PQMxgNMIEeqEG_oOnnx6bg" location="BEFORE" relativeCustomizationReference="_Y2kOQdKZEeq_qYUW78fzRA"/>
+      </customizationReferences>
+    </treeViewerConfigurations>
+    <treeViewerConfigurations xmi:type="customizationconfiguration:EMFFacetTreeViewerConfiguration" xmi:id="_jTUhANKZEeq_qYUW78fzRA" description="ROOT EXTENSION 2 (level 1)" extends="__5adwNGTEeqXo4ZkJUodlw">
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_pr_TQNKZEeq_qYUW78fzRA" description="Customization11  before Customization3">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom11.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:RelativeOrder" xmi:id="_fAs4cNKdEeq_qYUW78fzRA" location="BEFORE" relativeCustomizationReference="_9oOVkNMEEeqEG_oOnnx6bg"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_fB6WwNMIEeqEG_oOnnx6bg" description="Customization12  redefines Customization6">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom12.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:Redefinition" xmi:id="_mU9toNMIEeqEG_oOnnx6bg" redefinedCustomizationReference="_a9QrANMHEeqEG_oOnnx6bg"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_of2Q0NMIEeqEG_oOnnx6bg" description="Customization13  after Customization9">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom13.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:RelativeOrder" xmi:id="_uOFmANMIEeqEG_oOnnx6bg" location="AFTER" relativeCustomizationReference="_2joKENMHEeqEG_oOnnx6bg"/>
+      </customizationReferences>
+    </treeViewerConfigurations>
+    <treeViewerConfigurations xmi:type="customizationconfiguration:EMFFacetTreeViewerConfiguration" xmi:id="_8Rz_cNMIEeqEG_oOnnx6bg" description="EXTENDS ROOT EXTENSION 1 (level 2)" extends="_Y2kOQNKZEeq_qYUW78fzRA">
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="__UNZcNMIEeqEG_oOnnx6bg" description="Customization14  redefines Customization7">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom14.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:Redefinition" xmi:id="_EnkJcNMJEeqEG_oOnnx6bg" redefinedCustomizationReference="_Y2kOQdKZEeq_qYUW78fzRA"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="__nb3cNMIEeqEG_oOnnx6bg" description="Customization15  redefines Customization11  (this one seems strange, but it works)">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom15.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:Redefinition" xmi:id="_J6-j0NMJEeqEG_oOnnx6bg" redefinedCustomizationReference="_pr_TQNKZEeq_qYUW78fzRA"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="__3P1ENMIEeqEG_oOnnx6bg" description="Customization16  before Customization8">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom16.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:RelativeOrder" xmi:id="_lDuSwNMJEeqEG_oOnnx6bg" location="BEFORE" relativeCustomizationReference="_BuaH0NMFEeqEG_oOnnx6bg"/>
+      </customizationReferences>
+    </treeViewerConfigurations>
+    <treeViewerConfigurations xmi:type="customizationconfiguration:EMFFacetTreeViewerConfiguration" xmi:id="_rW8kUNMJEeqEG_oOnnx6bg" description="EXTENDS ROOT EXTENSION2 (level 2)" extends="_jTUhANKZEeq_qYUW78fzRA">
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_uSoSUNMJEeqEG_oOnnx6bg" description="Customization17  redefines Customization12">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom17.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:Redefinition" xmi:id="_16ATYNMJEeqEG_oOnnx6bg" redefinedCustomizationReference="_fB6WwNMIEeqEG_oOnnx6bg"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_30ylENMJEeqEG_oOnnx6bg" description="Customization18 order -30">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom18.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:AbsoluteOrder" xmi:id="_5nbAUNMJEeqEG_oOnnx6bg" order="-30"/>
+      </customizationReferences>
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_72VH4NMJEeqEG_oOnnx6bg" description="Customization19  before Customization13">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.emf.facet.architecture.tests/customizations/Custom19.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:RelativeOrder" xmi:id="_HoOooNMKEeqEG_oOnnx6bg" location="BEFORE" relativeCustomizationReference="_of2Q0NMIEeqEG_oOnnx6bg"/>
+      </customizationReferences>
+    </treeViewerConfigurations>
+  </contexts>
+</architecture:ArchitectureDomain>

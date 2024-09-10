@@ -1,0 +1,25 @@
+=Papyrus Ecore Toolsmiths=
+This plugin has been developed to improve the developer experience for UML2Ecore user.
+The Ecore models allows to add EAnnotation to EObject to define more precisely the expected generation. 
+This plugin provides ModelExplorer customization to display the EAnnotation and their Details Entries (custom file EAnnotationCustom, not loaded by default).
+This plugin provides the basic EMF property view to edit EAnnotation and Detail Entry elements.
+The ModelExplorer View provides command to create EAnnotation and Detail Entry objects.
+
+==Example of usage==
+*generate the java body of a UML Operation
+** Create an EAnnotation owned by the UML Operation and edit its features
+***''source:'' '''http://www.eclipse.org/emf/2002/GenModel'''
+***''reference:'' nothing to do
+**Create a Detail Entry
+***''key'': '''body'''
+***''value'': '''your java code'''
+
+*define a specific editor for the EMF property view to edit a given feature
+** Create an EAnnotation owned by the UML Property
+***''source:'' '''http://www.eclipse.org/emf/2002/GenModel'''
+***''reference:'' nothing to do
+**Create a Detail Entry
+***''key'': '''propertyEditorFactory'''
+***''value'': your own unique String '''editor://documentstructuretemplate/EReferenceBodySectionPartTemplate/EReference/'''
+**In the generated edit plugin, contribute to the extension point '''org.eclipse.emf.edit.propertyEditorFactories''', registering your own factory, associated to the string defined as value of the key '''propertyEditorFactory''' in the EAnnotation
+ 

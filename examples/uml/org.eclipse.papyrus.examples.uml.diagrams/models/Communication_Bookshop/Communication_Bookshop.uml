@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_tKg6QPSyEeiVfMSkLGiNpg" name="Communication_Examples">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_tXeYMPSyEeiVfMSkLGiNpg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_tLWnwPSyEeiVfMSkLGiNpg" name="Bookshop">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_1BlkMPSyEeiVfMSkLGiNpg">
+      <body>https://www.uml-diagrams.org/examples/online-shopping-uml-communication-diagram-example.html?context=cmm-examples&#xD;
+</body>
+    </ownedComment>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_XqR2gPSzEeiVfMSkLGiNpg" name="" type="_WY5uMPSzEeiVfMSkLGiNpg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_DegrUPS0EeiVfMSkLGiNpg" type="_vEceEPS3EeiQctwtyMHZLg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="__ORvwPS0EeiVfMSkLGiNpg" type="_1JYcAPS3EeiQctwtyMHZLg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_9EZcsPS1EeiVfMSkLGiNpg" type="_23sX8PS3EeiQctwtyMHZLg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_DlAC8PS2EeiVfMSkLGiNpg" name="b" type="_5NcHUPS3EeiQctwtyMHZLg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_K2su8PS2EeiVfMSkLGiNpg" name="sc" visibility="public" type="_6ibkUPS3EeiQctwtyMHZLg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_kdqL8PS_EeiQctwtyMHZLg" name="" type="_tLWnwPSyEeiVfMSkLGiNpg"/>
+    <nestedClassifier xmi:type="uml:Actor" xmi:id="_WY5uMPSzEeiVfMSkLGiNpg" name="Customer"/>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_vEceEPS3EeiQctwtyMHZLg" name="Bookshop">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_XdrWMPS5EeiQctwtyMHZLg" name="find_books"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_IjH7EPS8EeiQctwtyMHZLg" name="checkout"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_1JYcAPS3EeiQctwtyMHZLg" name="Inventory">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_R0PhIPS8EeiQctwtyMHZLg" name="search"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Ucze0PS8EeiQctwtyMHZLg" name="update_inventory"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_23sX8PS3EeiQctwtyMHZLg" name="Order">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_4RAskPS9EeiQctwtyMHZLg" name="make_order"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_5NcHUPS3EeiQctwtyMHZLg" name="Book">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_eXEdoPS-EeiQctwtyMHZLg" name="view_book"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_6ibkUPS3EeiQctwtyMHZLg" name="Shopping Cart">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_WsTm0PS9EeiQctwtyMHZLg" name="add_to_cart"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_e9wfoPS9EeiQctwtyMHZLg" name="get_books"/>
+    </nestedClassifier>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_XqRPcPSzEeiVfMSkLGiNpg" name="" represents="_XqR2gPSzEeiVfMSkLGiNpg" coveredBy="_kn-xIPS1EeiVfMSkLGiNpg _Z2e5QPS8EeiQctwtyMHZLg"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_DegEQPS0EeiVfMSkLGiNpg" name="" represents="_DegrUPS0EeiVfMSkLGiNpg" coveredBy="_kn__QPS1EeiVfMSkLGiNpg _lf5QkPS1EeiVfMSkLGiNpg _-zD98PS1EeiVfMSkLGiNpg _QBpw4PS2EeiVfMSkLGiNpg _RqIKkPS2EeiVfMSkLGiNpg _Z2fgUPS8EeiQctwtyMHZLg _7x4nwPS8EeiQctwtyMHZLg _EBtv8PS9EeiQctwtyMHZLg"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_KZMlgPS0EeiVfMSkLGiNpg" represents="__ORvwPS0EeiVfMSkLGiNpg" coveredBy="_lf5QkfS1EeiVfMSkLGiNpg _7x5O0PS8EeiQctwtyMHZLg"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_44bLgPS1EeiVfMSkLGiNpg" represents="_9EZcsPS1EeiVfMSkLGiNpg" coveredBy="_-zD98fS1EeiVfMSkLGiNpg"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_A2OvkPS2EeiVfMSkLGiNpg" represents="_DlAC8PS2EeiVfMSkLGiNpg" coveredBy="_QBqX8PS2EeiVfMSkLGiNpg"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_HoXKsPS2EeiVfMSkLGiNpg" represents="_K2su8PS2EeiVfMSkLGiNpg" coveredBy="_RqHjgPS2EeiVfMSkLGiNpg _EBtv8fS9EeiQctwtyMHZLg"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_kdpk4PS_EeiQctwtyMHZLg" name="" represents="_kdqL8PS_EeiQctwtyMHZLg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_kn-xIPS1EeiVfMSkLGiNpg" name="Message9SendEvent" covered="_XqRPcPSzEeiVfMSkLGiNpg" message="_kn3cYPS1EeiVfMSkLGiNpg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_kn__QPS1EeiVfMSkLGiNpg" name="Message9ReceiveEvent" covered="_DegEQPS0EeiVfMSkLGiNpg" message="_kn3cYPS1EeiVfMSkLGiNpg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_lf5QkPS1EeiVfMSkLGiNpg" name="Message12SendEvent" covered="_DegEQPS0EeiVfMSkLGiNpg" message="_lf4pgPS1EeiVfMSkLGiNpg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_lf5QkfS1EeiVfMSkLGiNpg" name="Message12ReceiveEvent" covered="_KZMlgPS0EeiVfMSkLGiNpg" message="_lf4pgPS1EeiVfMSkLGiNpg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_-zD98PS1EeiVfMSkLGiNpg" name="Message17SendEvent" covered="_DegEQPS0EeiVfMSkLGiNpg" message="_-zDW4PS1EeiVfMSkLGiNpg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_-zD98fS1EeiVfMSkLGiNpg" name="Message17ReceiveEvent" covered="_44bLgPS1EeiVfMSkLGiNpg" message="_-zDW4PS1EeiVfMSkLGiNpg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_QBpw4PS2EeiVfMSkLGiNpg" name="Message24SendEvent" covered="_DegEQPS0EeiVfMSkLGiNpg" message="_QBpJ0PS2EeiVfMSkLGiNpg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_QBqX8PS2EeiVfMSkLGiNpg" name="Message24ReceiveEvent" covered="_A2OvkPS2EeiVfMSkLGiNpg" message="_QBpJ0PS2EeiVfMSkLGiNpg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_RqHjgPS2EeiVfMSkLGiNpg" name="Message28SendEvent" covered="_HoXKsPS2EeiVfMSkLGiNpg" message="_RqG8cPS2EeiVfMSkLGiNpg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_RqIKkPS2EeiVfMSkLGiNpg" name="Message28ReceiveEvent" covered="_DegEQPS0EeiVfMSkLGiNpg" message="_RqG8cPS2EeiVfMSkLGiNpg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_Z2e5QPS8EeiQctwtyMHZLg" name="Message35SendEvent" covered="_XqRPcPSzEeiVfMSkLGiNpg" message="_Z2YyoPS8EeiQctwtyMHZLg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_Z2fgUPS8EeiQctwtyMHZLg" name="Message35ReceiveEvent" covered="_DegEQPS0EeiVfMSkLGiNpg" message="_Z2YyoPS8EeiQctwtyMHZLg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_7x4nwPS8EeiQctwtyMHZLg" name="Message38SendEvent" covered="_DegEQPS0EeiVfMSkLGiNpg" message="_7x3ZoPS8EeiQctwtyMHZLg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_7x5O0PS8EeiQctwtyMHZLg" name="Message38ReceiveEvent" covered="_KZMlgPS0EeiVfMSkLGiNpg" message="_7x3ZoPS8EeiQctwtyMHZLg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_EBtv8PS9EeiQctwtyMHZLg" name="Message41SendEvent" covered="_DegEQPS0EeiVfMSkLGiNpg" message="_EBr6wPS9EeiQctwtyMHZLg"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_EBtv8fS9EeiQctwtyMHZLg" name="Message41ReceiveEvent" covered="_HoXKsPS2EeiVfMSkLGiNpg" message="_EBr6wPS9EeiQctwtyMHZLg"/>
+    <message xmi:type="uml:Message" xmi:id="_kn3cYPS1EeiVfMSkLGiNpg" name="checkout()" messageSort="asynchCall" receiveEvent="_kn__QPS1EeiVfMSkLGiNpg" sendEvent="_kn-xIPS1EeiVfMSkLGiNpg" signature="_IjH7EPS8EeiQctwtyMHZLg"/>
+    <message xmi:type="uml:Message" xmi:id="_lf4pgPS1EeiVfMSkLGiNpg" name="update_inventory()" messageSort="asynchCall" receiveEvent="_lf5QkfS1EeiVfMSkLGiNpg" sendEvent="_lf5QkPS1EeiVfMSkLGiNpg" signature="_Ucze0PS8EeiQctwtyMHZLg"/>
+    <message xmi:type="uml:Message" xmi:id="_-zDW4PS1EeiVfMSkLGiNpg" name="make_order()" messageSort="asynchCall" receiveEvent="_-zD98fS1EeiVfMSkLGiNpg" sendEvent="_-zD98PS1EeiVfMSkLGiNpg" signature="_4RAskPS9EeiQctwtyMHZLg"/>
+    <message xmi:type="uml:Message" xmi:id="_QBpJ0PS2EeiVfMSkLGiNpg" name="view_book()" messageSort="asynchCall" receiveEvent="_QBqX8PS2EeiVfMSkLGiNpg" sendEvent="_QBpw4PS2EeiVfMSkLGiNpg" signature="_eXEdoPS-EeiQctwtyMHZLg"/>
+    <message xmi:type="uml:Message" xmi:id="_RqG8cPS2EeiVfMSkLGiNpg" name="add_to_cart()" messageSort="asynchCall" receiveEvent="_RqIKkPS2EeiVfMSkLGiNpg" sendEvent="_RqHjgPS2EeiVfMSkLGiNpg" signature="_WsTm0PS9EeiQctwtyMHZLg"/>
+    <message xmi:type="uml:Message" xmi:id="_Z2YyoPS8EeiQctwtyMHZLg" name="find_books()" messageSort="asynchCall" receiveEvent="_Z2fgUPS8EeiQctwtyMHZLg" sendEvent="_Z2e5QPS8EeiQctwtyMHZLg" signature="_XdrWMPS5EeiQctwtyMHZLg"/>
+    <message xmi:type="uml:Message" xmi:id="_7x3ZoPS8EeiQctwtyMHZLg" name="search()" messageSort="asynchCall" receiveEvent="_7x5O0PS8EeiQctwtyMHZLg" sendEvent="_7x4nwPS8EeiQctwtyMHZLg" signature="_R0PhIPS8EeiQctwtyMHZLg"/>
+    <message xmi:type="uml:Message" xmi:id="_EBr6wPS9EeiQctwtyMHZLg" name="get_books()" messageSort="asynchCall" receiveEvent="_EBtv8fS9EeiQctwtyMHZLg" sendEvent="_EBtv8PS9EeiQctwtyMHZLg" signature="_e9wfoPS9EeiQctwtyMHZLg"/>
+  </packagedElement>
+</uml:Model>

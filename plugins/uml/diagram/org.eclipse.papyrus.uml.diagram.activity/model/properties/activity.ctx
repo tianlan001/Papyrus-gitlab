@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_Lf718JLDEeWbp4A9_-WIrQ" name="activity" label="Activity Diagram Appearance">
+  <tabs xmi:id="_KNIYoG7fEeizb_hXYwUHaw" label="Appearance" id="appearance" category="org.eclipse.papyrus" priority="75">
+    <sections xmi:id="_LY07kG_jEeigTI7x32JvNg" name="Multiple ForkNode" sectionFile="ui/MultipleForkNode.xwt"/>
+    <sections xmi:id="_S5gewG_jEeigTI7x32JvNg" name="Multiple JoinNode" sectionFile="ui/MultipleJoinNode.xwt"/>
+  </tabs>
+  <views xmi:id="_WuQiwG_jEeigTI7x32JvNg" elementMultiplicity="-1" name="MultipleForkNode" sections="_LY07kG_jEeigTI7x32JvNg" automaticContext="true" datacontexts="_1FeasG7kEeizb_hXYwUHaw">
+    <constraints xsi:type="constraints:CompositeConstraint" xmi:id="_WuQiwW_jEeigTI7x32JvNg">
+      <constraints xmi:id="_WuQiwm_jEeigTI7x32JvNg" name="isMultipleView">
+        <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.properties/model/Environment.xmi#//@constraintTypes.0"/>
+        <properties xsi:type="constraints:ValueProperty" xmi:id="_WuQiw2_jEeigTI7x32JvNg" name="nsUri" value="http://www.eclipse.org/gmf/runtime/1.0.3/notation"/>
+        <properties xsi:type="constraints:ValueProperty" xmi:id="_WuQixG_jEeigTI7x32JvNg" name="className" value="View"/>
+      </constraints>
+      <constraints xmi:id="_WuQixW_jEeigTI7x32JvNg" name="isMultipleForkNode">
+        <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.0"/>
+        <properties xsi:type="constraints:ValueProperty" xmi:id="_WuQixm_jEeigTI7x32JvNg" name="umlClassName" value="ForkNode"/>
+      </constraints>
+    </constraints>
+  </views>
+  <views xmi:id="_aH-3oG_jEeigTI7x32JvNg" elementMultiplicity="-1" name="MultipleJoinNode" sections="_S5gewG_jEeigTI7x32JvNg" automaticContext="true" datacontexts="_1FeasG7kEeizb_hXYwUHaw">
+    <constraints xsi:type="constraints:CompositeConstraint" xmi:id="_aH-3oW_jEeigTI7x32JvNg">
+      <constraints xmi:id="_aH-3om_jEeigTI7x32JvNg" name="isMultipleView">
+        <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.properties/model/Environment.xmi#//@constraintTypes.0"/>
+        <properties xsi:type="constraints:ValueProperty" xmi:id="_aH-3o2_jEeigTI7x32JvNg" name="nsUri" value="http://www.eclipse.org/gmf/runtime/1.0.3/notation"/>
+        <properties xsi:type="constraints:ValueProperty" xmi:id="_aH-3pG_jEeigTI7x32JvNg" name="className" value="View"/>
+      </constraints>
+      <constraints xmi:id="_aH-3pW_jEeigTI7x32JvNg" name="isMultipleJoinNode">
+        <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.0"/>
+        <properties xsi:type="constraints:ValueProperty" xmi:id="_aH-3pm_jEeigTI7x32JvNg" name="umlClassName" value="JoinNode"/>
+      </constraints>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_wv0wcG7hEeizb_hXYwUHaw" name="ActivityNotation" label="Activity Notation">
+    <elements xmi:id="_1FeasG7kEeizb_hXYwUHaw" name="ActivityNode">
+      <properties xsi:type="contexts:UnknownProperty" xmi:id="_3F2-EG7kEeizb_hXYwUHaw" name="switchOrientation" label="Switch Orientation" type="Boolean" description="This allows to define if this is needed to switch the orientation of the figure."/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.uml.diagram.activity/model/Environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context> 

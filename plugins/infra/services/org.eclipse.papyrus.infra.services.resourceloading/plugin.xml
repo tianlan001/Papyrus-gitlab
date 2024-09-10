@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="loadingStrategy" name="loadingStrategy" schema="schema/loadingStrategy.exsd"/>
+   <extension-point id="loadingStrategyExtender" name="loadingStrategyExtender" schema="schema/loadingStrategyExtender.exsd"/>
+   <extension-point id="currentStrategyChooser" name="Current Strategy Chooser" schema="schema/currentStrategyChooser.exsd"/>
+   <extension-point id="loadedAuthorizedResource" name="loadedAuthorizedResource" schema="schema/loadedAuthorizedResource.exsd"/>
+   <extension
+         point="org.eclipse.papyrus.infra.core.service">
+      <serviceFactory
+            classname="org.eclipse.papyrus.infra.services.resourceloading.OnDemandLoadingModelSetServiceFactory"
+            description="The service loading Models - Overload the original service."
+            id="org.eclipse.papyrus.infra.core.resource.ModelSet"
+            priority="5"
+            startKind="startup">
+      </serviceFactory>
+      <serviceFactory
+            classname="org.eclipse.papyrus.infra.services.resourceloading.impl.StrategyChooserFactory"
+            description="On-demand resource loading strategy chooser."
+            id="org.eclipse.papyrus.infra.services.resourceloading.IStrategyChooser"
+            priority="50"
+            startKind="startup">
+      </serviceFactory>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.services.resourceloading.loadingStrategy">
+      <loadingStrategy
+            description="Load all the needed resources"
+            id="0"
+            strategy="org.eclipse.papyrus.infra.services.resourceloading.strategies.LoadAllResources">
+      </loadingStrategy>
+      <loadingStrategy
+            description="Load the additional resources (profile and pathmap). Submodels can be loaded manually by right-clicking in Model Explorer view."
+            id="1"
+            strategy="org.eclipse.papyrus.infra.services.resourceloading.strategies.LoadCurrentResource">
+      </loadingStrategy>
+      <loadingStrategy
+            description="Load the additional resources (profile and pathmap) and the needed submodels"
+            id="2"
+            strategy="org.eclipse.papyrus.infra.services.resourceloading.strategies.LoadControlledResources">
+      </loadingStrategy>
+   </extension>
+
+</plugin>

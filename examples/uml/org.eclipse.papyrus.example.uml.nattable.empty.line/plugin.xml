@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.axismanager">
+      <axisManager
+            id="org.eclipse.papyrus.example.uml.nattable.empty.line.managers.axis.CustomEmptyLineUMLElementTreeAxisManagerForEventList"
+            manager="org.eclipse.papyrus.example.uml.nattable.empty.line.managers.axis.CustomEmptyLineUMLElementTreeAxisManagerForEventList">
+      </axisManager>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.configuration">
+      <configuration
+            file="resources/emptyline.nattableconfiguration"
+            type="GenericTreeTableWithEmptyLine">
+      </configuration>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.architecture.models">
+      <model
+            path="resources/uml.architecture">
+      </model>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.services.labelprovider.labelProvider">
+      <labelProvider
+            priority="10"
+            provider="org.eclipse.papyrus.example.uml.nattable.empty.line.providers.CustomRowHeaderLabelProvider">
+         <labelProviderContext
+               context="org.eclipse.papyrus.infra.nattable.header.labelprovider">
+         </labelProviderContext>
+      </labelProvider>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.cellmanager">
+      <cellManager
+            id="org.eclipse.papyrus.example.uml.nattable.empty.line.managers.cell.CustomEmptyAxisCellManager"
+            manager="org.eclipse.papyrus.example.uml.nattable.empty.line.managers.cell.CustomEmptyAxisCellManager"
+            order="10">
+      </cellManager>
+   </extension>
+
+</plugin>

@@ -1,0 +1,9 @@
+class SelfReferenceTest {
+
+	public self: SelfReferenceTest;
+	@Create
+	public SelfReferenceTest();
+	@Destroy
+	public destroy();
+
+}

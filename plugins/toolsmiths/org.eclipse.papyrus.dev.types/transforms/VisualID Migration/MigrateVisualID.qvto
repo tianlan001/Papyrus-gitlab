@@ -1,0 +1,168 @@
+/**
+ * Copyright (c) 2016 CEA LIST.
+ *  
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *  
+ * Contributors:
+ *  CEA LIST - Initial API and implementation
+ */
+modeltype GMFGen uses 'http://www.eclipse.org/papyrus/gmf/2020/GenModel';
+modeltype PapyrusExtension uses 'http://www.eclipse.org/papyrus/gmf/2020/GenExtension';
+modeltype ElementTypes uses "http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1";
+modeltype Assistant uses "http://www.eclipse.org/Papyrus/2014/diagram/assistant";
+
+/**
+ * A transformation to migrate the VisualIDOverride in a GMFGen and Assistant models
+ */
+transformation MigrateVisualID(inout gmfGen : GMFGen, /*inout assistant:Assistant,*/ in umldi:ElementTypes);
+
+main() {
+	gmfGen.objectsOfKind(GMFGen::GenEditorGenerator).diagram.map toVisualIDOverride();
+	
+	/*assistant.objectsOfKind(Assistant::ModelingAssistantProvider)->forEach(e) { migrate(e); };
+	assistant.objectsOfKind(Assistant::ElementTypeFilter)->forEach(e) { migrate(e); };
+	assistant.objectsOfKind(Assistant::Assistant)->forEach(e) { migrate(e); };*/
+}
+
+mapping GMFGen::GenCommonBase::toVisualIDOverride() : PapyrusExtension::VisualIDOverride {
+	init {
+		result := gmfGen.objectsOfKind(PapyrusExtension::VisualIDOverride)->select(genView = self)->any(true);
+	}
+	self.migrateVisualID(result);
+}
+
+mapping GMFGen::GenDiagram::toVisualIDOverride() : PapyrusExtension::VisualIDOverride {
+	init {
+		result := gmfGen.objectsOfKind(PapyrusExtension::VisualIDOverride)->select(genView = self)->any(true);
+	}
+	self.migrateVisualID(result);
+	if not umldi.objectsOfKind(ElementTypes::SpecializationTypeConfiguration)->exists(hint = result.visualID) then
+		log (result.visualID)
+	endif;
+	
+	var children : OrderedSet(GMFGen::GenCommonBase);
+	children += self.childNodes[GenChildLabelNode];
+	children += self.childNodes[GenChildSideAffixedNode];
+	children += self.childNodes->select(oclIsTypeOf(GenChildNode));
+	children += self.compartments;
+	children += self.topLevelNodes;
+	children += self.links;
+	child := children->map toVisualIDOverride();
+}
+
+mapping GMFGen::GenNode::toVisualIDOverride() : PapyrusExtension::VisualIDOverride {
+	init {
+		result := gmfGen.objectsOfKind(PapyrusExtension::VisualIDOverride)->select(genView = self)->any(true);
+	}
+	self.migrateVisualID(result);
+	
+	child := self.labels->map toVisualIDOverride();
+}
+
+mapping GMFGen::GenTopLevelNode::toVisualIDOverride() : PapyrusExtension::VisualIDOverride 
+{
+	init {
+		result := gmfGen.objectsOfKind(PapyrusExtension::VisualIDOverride)->select(genView = self)->any(true);
+	}
+	self.migrateVisualID(result);
+	if not umldi.objectsOfKind(ElementTypes::SpecializationTypeConfiguration)->exists(hint = result.visualID) then
+		log (result.visualID)
+	endif;
+	
+	child := self.labels->map toVisualIDOverride();
+}
+
+mapping GMFGen::GenChildLabelNode::toVisualIDOverride() : PapyrusExtension::VisualIDOverride 
+{
+	init {
+		result := gmfGen.objectsOfKind(PapyrusExtension::VisualIDOverride)->select(genView = self)->any(true);
+	}
+	self.migrateVisualID(result);
+	if not umldi.objectsOfKind(ElementTypes::SpecializationTypeConfiguration)->exists(hint = result.visualID) then
+		log (result.visualID)
+	endif;
+	
+	child := self.labels->map toVisualIDOverride();
+}
+
+mapping GMFGen::GenLink::toVisualIDOverride() : PapyrusExtension::VisualIDOverride {
+	init {
+		result := gmfGen.objectsOfKind(PapyrusExtension::VisualIDOverride)->select(genView = self)->any(true);
+	}
+	self.migrateVisualID(result);
+	
+	child := self.labels->map toVisualIDOverride();
+}
+
+//-----------------
+
+helper GMFGen::GenCommonBase::migrateVisualID(inout r : PapyrusExtension::VisualIDOverride) {
+	r.genView := self;
+	if r.visualID.oclIsUndefined() then
+		log (r.genView.editPartClassName)
+	else
+		self.elementType.uniqueIdentifier := 'org.eclipse.papyrus.umldi.'+r.visualID
+		//self.elementType.uniqueIdentifier := 'org.eclipse.papyrus.uml.diagram.timing.'+r.visualID
+	endif;
+}
+
+helper migrate(inout e : Assistant::ModelingAssistantProvider) {
+	var newElementTypeID : OrderedSet(String);
+	var newExcludedElementTypeID : OrderedSet(String);
+	var newRelationshipTypeID : OrderedSet(String);
+	
+	e.elementTypeID->forEach(id) {
+		var v = id.substringAfter('_');
+		var genView = gmfGen.objectsOfKind(GMFGen::GenCommonBase)->select(visualID.toString() = v)->any(true);
+		if (genView.oclIsUndefined())
+			newElementTypeID += id
+		else
+			newElementTypeID += genView.elementType.uniqueIdentifier
+		endif;		
+	};
+	
+	e.excludedElementTypeID->forEach(id) {
+		var v = id.substringAfter('_');
+		var genView = gmfGen.objectsOfKind(GMFGen::GenCommonBase)->select(visualID.toString() = v)->any(true);
+		if (genView.oclIsUndefined())
+			newExcludedElementTypeID += id
+		else
+			newExcludedElementTypeID += genView.elementType.uniqueIdentifier
+		endif;		
+	};
+
+	e.relationshipTypeID->forEach(id) {
+		var v = id.substringAfter('_');
+		var genView = gmfGen.objectsOfKind(GMFGen::GenCommonBase)->select(visualID.toString() = v)->any(true);
+		if (genView.oclIsUndefined())
+			newRelationshipTypeID += id
+		else
+			newRelationshipTypeID += genView.elementType.uniqueIdentifier
+		endif;		
+	};
+
+	e.elementTypeID := newElementTypeID;
+	e.excludedElementTypeID := newExcludedElementTypeID;
+	e.relationshipTypeID := newRelationshipTypeID;
+}
+
+helper migrate(inout e : Assistant::ElementTypeFilter) {
+	var v = e.elementTypeID.substringAfter('_');
+	var genView = gmfGen.objectsOfKind(GMFGen::GenCommonBase)->select(visualID.toString() = v)->any(true);
+	if (not genView.oclIsUndefined()) {
+		e.elementTypeID := genView.elementType.uniqueIdentifier;
+	};
+}
+
+helper migrate(inout e : Assistant::Assistant) {
+	var v = e.elementTypeID.substringAfter('_');
+	var genView = gmfGen.objectsOfKind(GMFGen::GenCommonBase)->select(visualID.toString() = v)->any(true);
+	if (not genView.oclIsUndefined()) {
+		e.elementTypeID := genView.elementType.uniqueIdentifier;
+	};
+}

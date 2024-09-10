@@ -1,0 +1,1181 @@
+/*****************************************************************************
+ * Copyright (c) 2015 CEA LIST.
+ *    
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *   Ed Seidewitz
+ * 
+ *****************************************************************************/
+import AlfExpression2UML;
+
+modeltype Alf uses "http://www.omg.org/spec/ALF/20120827";
+modeltype UML uses "http://www.eclipse.org/uml2/5.0.0/UML";
+
+transformation AlfStatement2UML(in alf : Alf, inout uml : UML)
+	extends transformation AlfExpression2UML(in Alf, inout UML);
+	
+// ACTIVITY GRAPHS
+
+intermediate class StatementActivityGraph {
+	nodes : Set(ActivityNode);
+	edges : Set(ActivityEdge);
+	structuredNode : StructuredActivityNode;
+}
+
+constructor StatementActivityGraph::StatementActivityGraph() {
+}
+
+constructor StatementActivityGraph::StatementActivityGraph(node : StructuredActivityNode) {
+	structuredNode := node;
+	nodes += node;
+}
+
+constructor StatementActivityGraph::StatementActivityGraph(structuredNodeName : String) {
+	nodes += structuredNode := new StructuredActivityNode(structuredNodeName);
+}
+
+helper StatementActivityGraph::addTo(inout activity : Activity) {
+	activity.structuredNode += self.nodes[StructuredActivityNode];
+	activity.ownedNode += self.nodes[not oclIsKindOf(StructuredActivityNode)];
+	activity.edge += self.edges;
+}
+
+helper StatementActivityGraph::addTo(inout graph : StatementActivityGraph) {
+	graph.nodes += self.nodes;
+	graph.edges += self.edges;
+}
+
+helper StatementActivityGraph::addToStructuredNode(inout graph : StatementActivityGraph) {
+	addToStructuredNode(graph, self.nodes, self.edges);
+}
+
+helper StatementActivityGraph::addToLoopNode(inout graph : StatementActivityGraph) {
+	addToLoopNode(graph, self.nodes, self.edges);
+}
+
+helper StatementActivityGraph::addToExpansionRegion(inout graph : StatementActivityGraph) {
+	var edges := addToExpansionRegion(graph.structuredNode.oclAsType(ExpansionRegion), self.nodes, self.edges);
+	graph.edges += edges;
+	graph.nodes += edges.source[ExpansionNode];
+}
+
+helper createStructuredNode(inout graph : StatementActivityGraph, nodeName : String) {
+	graph.structuredNode := new StructuredActivityNode(nodeName);
+	graph.structuredNode.node := graph.nodes;
+	graph.nodes := Set{graph.structuredNode};
+	graph.edges := addEdgesToStructuredNode(graph.structuredNode, graph.edges);
+}
+
+helper addToStructuredNode(inout graph: StatementActivityGraph, in nodes : Set(ActivityNode), in edges : Set(ActivityEdge)) {
+	graph.edges += addToStructuredNode(graph.structuredNode, nodes, edges);
+}
+
+helper addToLoopNode(inout graph : StatementActivityGraph, nodes : Set(ActivityNode), edges : Set(ActivityEdge)) {
+	addToStructuredNode(graph, nodes, edges);
+	var loopNode = graph.structuredNode.oclAsType(LoopNode);
+	var allOwnedNodes = loopNode.allOwnedNodes();
+	
+	// Redirect flows into the loop node to use loop variables as sources.
+	edges[ObjectFlow]->forEach(flow) {
+		if allOwnedNodes->excludes(flow.source) and allOwnedNodes->includes(flow.target) then {
+			Sequence{1..loopNode.loopVariableInput->size()}[i |
+				loopNode.loopVariableInput->at(i).incoming.source->includes(flow.source)
+			]->forEach(i) {
+				// Redirect the flow to be from the fork node for the loop variable.
+				flow.source := loopNode.loopVariable->at(i).outgoing![true].target;
+				graph.edges := graph.edges->excluding(flow);
+				loopNode.edge += flow;
+			}
+		} endif;
+	};
+}
+	
+query ActivityNode::isContainedIn(elements : Set(Element)) : Boolean {
+	return elements[Action].allOwnedNodes()->includes(self)
+}
+
+// BLOCKS
+
+mapping Block::toActivity(inout activity : Activity) {
+  var graph := mapToActivityGraph(self.statement, false);
+  createStructuredNode(graph, "Body");
+  graph.addTo(activity);
+  
+  // Connect final output parameter assigned sources to corresponding 
+  // output parameter nodes.
+  // NOTE: A structured activity node is used here so that, if the
+  // activity is terminated by a return statement, the output parameters
+  // are set by the mapping of that statement, not by the final assigned
+  // sources here.
+  var allOwnedNodes := graph.structuredNode.allOwnedNodes();
+  activity.ownedParameter[direction = ParameterDirectionKind::_'out' or direction = ParameterDirectionKind::_'inout']->
+  	forEach(parameter) {
+  		var assignment := find(self.assignmentAfter, parameter.name);
+  		if (assignment <> null) {
+  			var source := assignment.map toActivityNode();
+  			var pin := new OutputPin(graph.structuredNode, "Output(" + assignment.name + ")", 
+  				assignment.type.toType(), assignment.lower, assignment.upper);
+  			if allOwnedNodes->includes(source) then {
+  				new ObjectFlow(graph.structuredNode, source, pin);
+  			} else {
+  				graph.structuredNode.node += var passthruNode ::= 
+  					createPassthruNode(nameOf(source), pin.type, pin.lower, pin.upper);
+  				new ObjectFlow(activity, source, passthruNode.structuredNodeInput![true]);
+  				new ObjectFlow(activity, 
+  					passthruNode.structuredNodeOutput![true], getOutputParameterNode(activity, parameter));
+  			} endif;
+  			new ObjectFlow(activity, pin, getOutputParameterNode(activity, parameter));
+  		} endif;
+  	};  
+}
+
+mapping Block::toActivityGraph(isParallel : Boolean) : StatementActivityGraph {
+init {
+	result := mapToActivityGraph(self.statement, isParallel);
+}
+}
+
+mapping Block::toActivityGraph(c : Integer, nc : Integer, isParallel : Boolean) : StatementActivityGraph {
+init {
+	result := mapToActivityGraph(c, nc, self.statement, isParallel);
+}
+}
+
+helper getOutputParameterNode(activity : Activity, outParameter : Parameter) : ActivityParameterNode {
+	return activity.node[ActivityParameterNode]->any(parameter = outParameter and outgoing->isEmpty());
+}
+
+/**
+ * A statement sequence maps to the union of the elements mapped from the statements in it.
+ * In addition, unless the statements are in a block statement annotated as being
+ * parallel, the structured node mapped from each statement other than the last has a
+ * control flow targeted to the structured node mapped from the next statement.
+ */
+helper mapToActivityGraph(statements : OrderedSet(AnnotatedStatement), isParallel : Boolean) : StatementActivityGraph {
+	return mapToActivityGraph(0, 0, statements, isParallel);
+}
+    
+helper mapToActivityGraph(ic : Integer, nc : Integer, // for clause numbering
+	statements : OrderedSet(AnnotatedStatement), isParallel : Boolean) : StatementActivityGraph {
+	var graph := new StatementActivityGraph();
+	var previousNode : ActivityNode := null;
+	var i := 1;
+	var n = statements->size();
+	statements->forEach(statement) {
+		var statementMapping := statement.map toActivityGraph();
+		graph.nodes += statementMapping.nodes;
+		graph.edges += statementMapping.edges;
+		var node := statementMapping.structuredNode;
+		node.name := padded(i, n) + ":" + node.name;
+		if ic > 0 then {
+			node.name := padded(ic, nc) + "." + node.name;
+		} endif;
+		if not isParallel and previousNode <> null then {
+			graph.edges += new ControlFlow(previousNode, node);
+	  } endif;
+	  previousNode := node;
+	  i := i + 1;
+	};
+	return graph;
+}
+
+query padded(i : Integer, n : Integer) : String {
+	var s = i.toString();
+	var l = s.length();
+	return
+		switch {
+			case(n < 10) s;
+			case(n < 100) ("0" + s).substring(l,l+1);
+			case(n < 1000) ("00" + s).substring(l,l+2);
+			case(n < 10000) ("000" + s).substring(l,l+3);
+			else s;
+		};
+}
+
+// STATEMENTS
+
+// Assigned Value Sources
+
+intermediate property Statement::assignedValueSourceMap : Dict(String, ActivityNode);
+
+query Statement::assignedValueSource(assignedName : String) : ActivityNode {
+	return self.Statement_assignedValueSource(assignedName);
+}
+
+query Statement::Statement_assignedValueSource(assignedName : String) : ActivityNode {
+	return self.assignedValueSourceMap->get(assignedName);
+}
+
+/*
+ * Create an output pin for each assignment for which this statement
+ * will be the assigned value source. Return the collection of names
+ * from those assignments. (If mapAll is true, then map all assignments after
+ * the statement, not just those with the statement as the source.)
+ */
+helper Statement::mapAssignedValueSources(inout graph : StatementActivityGraph, mapAll : Boolean) : List(String) {
+	var assignedNames : List(String) := List{};
+	self.assignmentAfter->forEach(assignment) {
+		var statementIsSource := assignment.source = self;
+		if (mapAll or statementIsSource) then {
+			assignedNames->add(assignment.name);
+		  var outputPin := self.mapAssignment(graph, assignment.name,
+		  	toType(assignment.type), assignment.lower, assignment. upper);
+		  if statementIsSource then {
+		  	graph.nodes += var forkNode ::= new ForkNode(assignment.name);
+		  	graph.edges += new ObjectFlow(outputPin, forkNode);
+		  	self.assignedValueSourceMap->put(assignment.name, forkNode);
+		  } endif;
+		} endif;
+	};
+	return assignedNames;
+}
+
+// NOTE: This function is overridden by some Statement subclasses.
+helper Statement::mapAssignment(inout graph : StatementActivityGraph, 
+	assignedName : String, assignedType : Type, lowerValue : Integer, upperValue : Integer) : OutputPin {
+	return new OutputPin(
+		graph.structuredNode, graph.structuredNode.name + ".output(" + assignedName + ")", 
+		assignedType, lowerValue, upperValue);
+}
+
+// General
+
+mapping AnnotatedStatement::toActivityGraph() : StatementActivityGraph {
+init {
+	result := self.statement.map toActivityGraph();
+}
+}
+
+abstract mapping Statement::toActivityGraph() : StatementActivityGraph {
+	nodes += structuredNode := self.createStructuredNode();
+};
+
+helper Statement::createStructuredNode() : StructuredActivityNode {
+	return new StructuredActivityNode("");
+}
+
+// In-line Statements
+
+mapping InLineStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::toActivityGraph {
+	structuredNode.name := "InLineStatement";
+}
+
+// Block Statements
+
+mapping BlockStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::toActivityGraph {
+	structuredNode.name := "BlockStatement";
+	self.block.map toActivityGraph(self.isParallel).addToStructuredNode(result);
+}
+
+// Empty Statements
+
+mapping EmptyStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::toActivityGraph {
+	structuredNode.name := "EmptyStatement";
+}
+
+// Local Name Declaration Statements
+
+mapping LocalNameDeclarationStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::toActivityGraph {
+	structuredNode.name := "LocalNameDeclarationStatement";
+	
+	var graph = self.expression.map toActivityGraph();
+	graph.nodes += var forkNode ::= new ForkNode(self.name);
+	graph.edges += new ObjectFlow(graph.resultSource, forkNode);
+	addToStructuredNode(result, graph.nodes, graph.edges);
+	
+	self.assignedValueSourceMap->put(self.name, forkNode);
+}
+
+// Expression Statements
+		
+mapping ExpressionStatement::toActivityGraph() : StatementActivityGraph
+	inherits Statement::toActivityGraph {
+	var resultSource : ActivityNode;
+	var graph := self.expression.map toActivityGraph();
+  structuredNode.name := "Expression Statement";
+  addToStructuredNode(result, graph.nodes, graph.edges);
+}
+
+// Common helpers for while and do statements
+
+helper Statement::ConditionalStatement_mapAssignment(inout graph : StatementActivityGraph,
+	assignedName : String, assignedType : Type, lowerValue : Integer, upperValue : Integer) : OutputPin {
+	var conditionalNode := graph.structuredNode.oclAsType(ConditionalNode);
+	var outputPin = new OutputPin(conditionalNode.name + ".result(" + assignedName + ")",
+		assignedType, lowerValue, upperValue);
+	conditionalNode.result += outputPin;
+	return outputPin;
+}
+
+helper Statement::mapFinalClause(i : Integer, n : Integer, inout graph : StatementActivityGraph, body : Block,
+	assignedNames : Sequence(String), predecessorClauses : Set(Clause)) {
+	var valueAction := new ValueSpecificationAction(self.literalBoolean(true));
+	var clause := self.createClause(graph, Set{valueAction}, Set{}, valueAction._'result', 
+		if body = null then new StatementActivityGraph() else body.map toActivityGraph(i, n, false) endif,
+		if body = null then self.assignmentBefore else body.assignmentAfter endif, 
+		assignedNames, predecessorClauses);
+  graph.structuredNode.oclAsType(ConditionalNode).clause += clause;
+}
+
+helper SyntaxElement::createClause(inout graph : StatementActivityGraph, 
+	inout testNodes : Set(ActivityNode), inout testEdges : Set(ActivityEdge), decider : ActivityNode,
+	bodyGraph : StatementActivityGraph, 
+	assignments : Set(AssignedSource), assignedNames : Sequence(String),
+	predecessorClauses : Set(Clause)) : Clause {
+	var bodyOutputs := mapBodyOutputs(bodyGraph, assignments, assignedNames);
+	var clause := new Clause(testNodes[ExecutableNode], bodyGraph.nodes[ExecutableNode], bodyOutputs, predecessorClauses);
+	if (testNodes->notEmpty() and decider.oclIsKindOf(OutputPin)) then {
+	  clause.decider := decider.oclAsType(OutputPin);
+	} else {
+		var passthruNode := createPassthruNode(nameOf(decider), self.booleanType().toUml().oclAsType(Type), 1, 1);
+		clause.test += passthruNode;
+		clause.decider := passthruNode.structuredNodeOutput![true];
+		testNodes += passthruNode;
+		testEdges += new ObjectFlow(decider, passthruNode.structuredNodeInput![true]);
+	} endif;
+	addToStructuredNode(graph, testNodes, testEdges);
+	bodyGraph.addToStructuredNode(graph);
+	return clause;
+}
+
+// Also  used for while, do and for statements.
+helper mapBodyOutputs(inout bodyGraph : StatementActivityGraph, assignments : Set(AssignedSource), assignedNames : Sequence(String)) : OrderedSet(OutputPin) {
+	var bodyOutputs : OrderedSet(OutputPin) := OrderedSet{};
+	assignedNames->forEach(assignedName) {
+		var assignment = find(assignments, assignedName);
+		if assignment <> null then {
+			var bodyOutput := assignment.map toActivityNode();
+			if not (bodyOutput.oclIsKindOf(OutputPin) and bodyOutput.isContainedIn(bodyGraph.nodes)) then {
+				var type := 
+					if assignment.type = null then null
+					else assignment.type.map toUml().oclAsType(Type)
+					endif;
+				var passthruNode := createPassthruNode(nameOf(bodyOutput), type, assignment.lower, assignment.upper);
+				bodyGraph.nodes += passthruNode;
+				bodyGraph.edges += new ObjectFlow(bodyOutput, passthruNode.structuredNodeInput![true]);
+				bodyOutput := passthruNode.structuredNodeOutput![true];
+			} endif;
+			bodyOutputs += bodyOutput.oclAsType(OutputPin);
+		} endif;
+	};
+	return bodyOutputs;
+}
+
+// if Statements
+
+helper IfStatement::createStructuredNode() : StructuredActivityNode {
+	return new ConditionalNode("IfStatement", self.isAssured, self.isDeterminate);
+}
+
+mapping IfStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::toActivityGraph {
+	var conditionalNode := structuredNode.oclAsType(ConditionalNode);
+	var assignedNames := self.mapAssignedValueSources(result, false);
+	var clauses : Set(Clause) := Set{};
+	var i := 1;
+	var n := self.nonFinalClauses.clause->size() + self.finalClause->size();
+	self.nonFinalClauses->forEach(concurrentClauses) {
+		clauses := concurrentClauses.map toClauses(i, n, result, assignedNames, clauses);
+		conditionalNode.clause += clauses;
+		i := i + clauses->size();
+	};
+	var finalClause := self.finalClause;
+  // NOTE: Even if there is no finalClause block, a final clause is still needed if it is
+  // necessary to pass through values of any names that may be assigned in other clauses.
+	if finalClause <> null or assignedNames->notEmpty() then {
+		self.mapFinalClause(i, n, result, finalClause, assignedNames, clauses);
+	} endif;
+}
+
+mapping ConcurrentClauses::toClauses(i : Integer, n : Integer,
+	inout graph : StatementActivityGraph, assignedNames : Sequence(String), predecessorClauses : Set(Clause)) : Set(Clause) {
+init {
+  var j := i;
+	result := Set{};
+	self.clause->forEach(clause) {
+		result += clause->map toClause(j, n, graph, assignedNames, predecessorClauses)->asSet();
+		j := j + 1;
+	}
+}
+}
+
+mapping NonFinalClause::toClause(i : Integer, n : Integer, 
+	inout graph : StatementActivityGraph, assignedNames : Sequence(String), predecessorClauses : Set(Clause)) : Clause {
+init {
+	var testGraph := self.condition.map toActivityGraph();
+	var bodyGraph := self.body.map toActivityGraph(i, n, false);
+	result := self.createClause(graph, 
+		testGraph.nodes, testGraph.edges, testGraph.resultSource, 
+		bodyGraph, self.body.assignmentAfter, assignedNames, predecessorClauses);
+}
+}
+
+helper IfStatement::mapAssignment(inout graph : StatementActivityGraph,
+	assignedName : String, assignedType : Type, lowerValue : Integer, upperValue : Integer) : OutputPin {
+	return self.ConditionalStatement_mapAssignment(graph, assignedName, assignedType, lowerValue, upperValue);
+}
+
+// switch Statements
+
+mapping SwitchStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::toActivityGraph {
+	structuredNode.name := "SwitchStatement";
+	
+	var expressionGraph := self.expression.map toActivityGraph();
+	result.nodes += expressionGraph.nodes;
+	result.edges += expressionGraph.edges;
+	
+	var conditionalNode := new ConditionalNode("SwitchConditionalNode", self.isAssured, self.isDeterminate);
+	var graph := new StatementActivityGraph(conditionalNode);	
+	var forkNode := new ForkNode(graph.structuredNode, nameOf(expressionGraph.resultSource));
+	graph.edges += new ObjectFlow(expressionGraph.resultSource, forkNode);
+	
+	var assignedNames := self.mapAssignedValueSources(graph, false);
+	var i = 1;
+	var n = self.nonDefaultClause->size() + self.defaultClause->size();
+	self.nonDefaultClause->forEach(clause) {
+		conditionalNode.clause += clause.map toClause(i, n, graph, forkNode, assignedNames);
+		i := i + 1;
+	};
+	self.mapFinalClause(i, n, graph, self.defaultClause, assignedNames, conditionalNode.clause);
+	
+	graph.addToStructuredNode(result);
+}
+
+mapping SwitchClause::toClause(i : Integer, n : Integer, inout graph : StatementActivityGraph, 
+	switchSource : ActivityNode, assignedNames : Sequence(String)) : Clause {
+init {
+	var testNodes : Set(ActivityNode) := Set{};
+	var testEdges : Set(ActivityEdge) := Set{};
+	var testSource : OutputPin := null;
+	var booleanFunctionOr := self.functionOr();
+	var booleanType := self.booleanType().toType();
+	self._'case'->forEach(switchCase) {
+		var testGraph := switchCase.map toActivityGraph();
+		testNodes += testGraph.nodes;
+		testEdges += testGraph.edges;
+		var testActionName := "Case(" + nameOf(testGraph.resultSource) + ")";
+		testNodes += var testAction ::= new TestIdentityAction("Case(" + nameOf(testGraph.resultSource) + ")", booleanType);
+		testEdges += new ObjectFlow(switchSource, testAction.first);
+		testEdges += new ObjectFlow(testGraph.resultSource, testAction.second);
+		if testSource = null then {
+			testSource := testAction.result;
+		} else {
+			testNodes += var callAction ::= new CallBehaviorAction(booleanFunctionOr);
+			testEdges += new ObjectFlow(testSource, callAction.argument->at(1));
+			testEdges += new ObjectFlow(testAction.result, callAction.argument->at(2));
+			testSource := callAction.result->at(1);
+		} endif;
+	};
+	result := self.createClause(graph, testNodes, testEdges, testSource, 
+		self.block.map toActivityGraph(i, n, false), self.block.assignmentAfter, assignedNames, Set{});
+}
+}
+
+helper SwitchStatement::mapAssignment(inout graph : StatementActivityGraph,
+	assignedName : String, assignedType : Type, lowerValue : Integer, upperValue : Integer) : OutputPin {
+	return self.ConditionalStatement_mapAssignment(graph, assignedName, assignedType, lowerValue, upperValue);
+}
+
+// Common helpers for while, do and for statements
+
+helper addLoopVariable(inout graph : StatementActivityGraph, 
+	assignedName : String, assignedType : Type, lowerValue : Integer, upperValue : Integer, sourceNode : ActivityNode) : OutputPin {
+	var loopNode := graph.structuredNode.oclAsType(LoopNode);
+	loopNode.loopVariableInput += var inputPin ::= new InputPin(loopNode.name + ".loopVariableInput(" + assignedName + ")",
+		assignedType, lowerValue, upperValue);
+	if sourceNode <> null then {
+		graph.edges += new ObjectFlow(sourceNode, inputPin);
+	} endif;
+	
+	loopNode.loopVariable += var loopVariablePin ::= new OutputPin(loopNode.name + ".loopVariable(" + assignedName + ")",
+		assignedType, lowerValue, upperValue);
+	loopNode.node += var forkNode ::= new ForkNode(loopVariablePin.name);
+	loopNode.edge += new ObjectFlow(loopVariablePin, forkNode);
+	loopNode.result += var outputPin ::= new OutputPin(loopNode.name + ".result(" + assignedName + ")",
+		assignedType, lowerValue, upperValue);
+	return outputPin;
+}
+
+helper Statement::LoopStatement_mapAssignment(inout graph : StatementActivityGraph,
+	assignedName : String, assignedType : Type, lowerValue : Integer, upperValue : Integer) : OutputPin {
+	var assignment = find(self.assignmentBefore, assignedName);
+	return
+		if assignment = null then
+			addLoopVariable(graph, assignedName, assignedType, 0, upperValue, null)
+		else
+			addLoopVariable(graph, assignedName, assignedType, lowerValue, upperValue, assignment.map toActivityNode())
+		endif;
+}
+
+// Common mapping for while and do statements.
+
+mapping Statement::LoopStatement_toActivityGraph() : StatementActivityGraph
+	inherits Statement::toActivityGraph
+	when{ self.oclIsKindOf(WhileStatement) or self.oclIsKindOf(DoStatement) } {
+		var loopNode = structuredNode.oclAsType(LoopNode);
+		var assignedNames := self.mapAssignedValueSources(result, true);		
+		var subgraph := new StatementActivityGraph("BodyPart(" + loopNode.name + ")");
+		var bodyPart := subgraph.structuredNode;
+		
+    // NOTE: Making every body output an output pin of a single body
+    // part structured activity node is necessary for properly
+    // setting these outputs in the case of a break statement within
+    // the loop.
+    assignedNames->forEach(assignedName) {
+    	var assignment := self.assignmentAfter->any(name = assignedName);
+    	var outputPin := new OutputPin(assignedName, toType(assignment.type), assignment.lower, assignment.upper);
+    	bodyPart.structuredNodeOutput += outputPin;
+    	loopNode.bodyOutput += outputPin;
+    };
+    
+    var testGraph := if loopNode.isTestedFirst then self.condition().map toActivityGraph() else null endif;
+    var bodyGraph := self.body().map toActivityGraph(false);
+    
+    if loopNode.isTestedFirst then {
+    	addToLoopNode(result, testGraph.nodes, testGraph.edges);
+    	loopNode.test += testGraph.nodes[ExecutableNode];
+    } else {
+    	// In this case, make sure the body is mapped before the test, so assigned value sources
+    	// are set from the body.
+    	testGraph := self.condition().map toActivityGraph();
+    	if testGraph.nodes->notEmpty() then {
+	    	// Ensure that the body is executed before the condition expression.    	
+	    	createStructuredNode(bodyGraph, "Body(" + loopNode.name + ")");
+	    	var conditionGraph := new StatementActivityGraph("Condition(" + loopNode.name + ")");
+	    	addToStructuredNode(conditionGraph, testGraph.nodes, testGraph.edges);
+	    	conditionGraph.addTo(bodyGraph);
+	    	bodyGraph.edges += new ControlFlow(bodyGraph.structuredNode, conditionGraph.structuredNode);
+	    	testGraph.nodes := Set{};
+	    	testGraph.edges := Set{};
+	    } endif 
+    } endif;
+    
+    if testGraph.nodes->notEmpty() and testGraph.resultSource.oclIsKindOf(InputPin) then {
+    	loopNode.decider := testGraph.resultSource.oclAsType(OutputPin);
+    } else {
+    	var passthruNode := createPassthruNode(
+    		nameOf(testGraph.resultSource), self.booleanType().toUml().oclAsType(Type), 1, 1);
+    	object loopNode: {
+    		test += passthruNode;
+    		node += passthruNode;
+    		decider := passthruNode.structuredNodeOutput![true];
+    	};
+    	bodyGraph.edges += new ObjectFlow(testGraph.resultSource, passthruNode.structuredNodeInput![true]);
+    } endif;
+    
+    var bodyOutputs = mapBodyOutputs(bodyGraph, self.assignments(), assignedNames);
+    Sequence{1..bodyOutputs->size()}->forEach(i) {
+    	bodyPart.edge += new ObjectFlow(bodyOutputs->at(i), bodyPart.output->at(i));
+    };
+    bodyGraph.addToStructuredNode(subgraph);
+    subgraph.addToLoopNode(result);
+    loopNode.bodyPart += bodyPart;
+	}
+	
+query Statement::condition() : Expression {
+	return null;
+}
+
+query Statement::body() : Block {
+	return null;
+}
+
+query Statement::assignments() : Set(AssignedSource) {
+	return Set{};
+}
+
+// while Statements
+
+helper WhileStatement::createStructuredNode() : StructuredActivityNode {
+	return new LoopNode("WhileStatement", true);
+}
+
+helper WhileStatement::mapAssignment(inout graph : StatementActivityGraph,
+	assignedName : String, assignedType : Type, lowerValue : Integer, upperValue : Integer) : OutputPin {
+	return self.LoopStatement_mapAssignment(graph, assignedName, assignedType, lowerValue, upperValue);
+}
+
+mapping WhileStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::LoopStatement_toActivityGraph;
+
+query WhileStatement::condition() : Expression {
+	return self.condition;
+}
+
+query WhileStatement::body() : Block {
+	return self.body;
+}
+
+query WhileStatement::assignments() : Set(AssignedSource) {
+	return self.body.assignmentAfter;
+}
+
+// do Statements
+
+helper DoStatement::createStructuredNode() : StructuredActivityNode {
+	return new LoopNode("DoStatement", false);
+}
+
+helper DoStatement::mapAssignment(inout graph : StatementActivityGraph,
+	assignedName : String, assignedType : Type, lowerValue : Integer, upperValue : Integer) : OutputPin {
+	return self.LoopStatement_mapAssignment(graph, assignedName, assignedType, lowerValue, upperValue);
+}
+
+mapping DoStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::LoopStatement_toActivityGraph;
+
+query DoStatement::isTestedFirst() : Boolean {
+	return false;
+}
+
+query DoStatement::condition() : Expression {
+	return self.condition;
+}
+
+query DoStatement::body() : Block {
+	return self.body;
+}
+
+query DoStatement::assignments() : Set(AssignedSource) {
+	return self.condition.assignmentAfter;
+}
+
+// for Statements
+
+helper ForStatement::createStructuredNode() : StructuredActivityNode {
+	return 
+		if self.isParallel or 
+			 self.variableDefinition->at(1).expression2 = null and self.newAssignments()->isEmpty() then
+	    // If this is a parallel for statement, or the first loop variable
+	    // definition is not a sequence construction shortcut and there
+	    // are no new assignments in the body, map as an expansion region.
+	    new ExpansionRegion("ForStatement",
+				if self.isParallel then ExpansionKind::parallel else ExpansionKind::iterative endif)
+		else
+			// If not mapped as an expansion region, map as a loop node;
+			new LoopNode("ForStatement", true)
+		endif;
+}
+
+helper ForStatement::mapAssignment(inout graph : StatementActivityGraph,
+	assignedName : String, assignedType : Type, lowerValue : Integer, upperValue : Integer) : OutputPin {
+	return self.LoopStatement_mapAssignment(graph, assignedName, assignedType, lowerValue, upperValue);
+}
+
+mapping ForStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::toActivityGraph {
+
+	// Map loop variable definitions, but don't add to loop mapping yet.
+	var setupSubgraph = new StatementActivityGraph();
+	
+	var firstDefinition := self.variableDefinition->at(1);
+	firstDefinition.map toActivityGraph(self.isParallel, true).addTo(setupSubgraph);
+
+	var m = self.variableDefinition->size();
+	if m > 1 then {
+		self.variableDefinition->subOrderedSet(2, m)->
+			map toActivityGraph(self.isParallel, false)->addTo(setupSubgraph);
+	} endif;
+	
+	if structuredNode.oclIsKindOf(ExpansionRegion) then {
+		var region := structuredNode.oclAsType(ExpansionRegion);
+		
+	    // For each loop variable definition, create an input expansion
+	    // node with a corresponding fork node (that becomes the assigned
+	    // value source for the loop variable within the body).
+		self.variableDefinition->forEach(definition) {
+			var variable = definition.variable;
+			nodes += var inputNode ::= new ExpansionNode(variable, definition.type.toType(), region, true);
+			edges += new ObjectFlow(definition.resultSource1, inputNode);
+			region.node += var forkNode ::= new ForkNode(variable);
+			region.edge += new ObjectFlow(inputNode, forkNode);
+			definition.assignedValueSource := forkNode;
+		};
+		
+	    // For each @parallel name, create an output expansion node with
+	    // a corresponding fork node (that becomes the assigned value
+	    // source for the name after the for statement).
+	    // (Note: This must be done before mapping the body, so the output
+	    // expansion nodes are also available for mapping @parallel names
+	    // used as targets of add calls within the body.)
+		self.parallelNames()->forEach(parallelName) {
+			nodes += var outputNode ::= new ExpansionNode(parallelName, null, region, false);
+			nodes += var forkNode ::= new ForkNode(parallelName);
+			edges += new ObjectFlow(outputNode, forkNode);
+			self.assignedValueSourceMap->put(parallelName, forkNode);			
+		};
+		
+		// Map the for statement body within the expansion region.
+		self.body.map toActivityGraph(false).addToExpansionRegion(result);
+		
+	} else {
+		var loopNode := structuredNode.oclAsType(LoopNode);
+		
+	    // Create output pins for all names assigned after the for statement.
+	    // NOTE: Output pins are created even for names that are not
+	    // assigned within the for statement, so they can be made available
+	    // as loop variables for access within the body of the for statement.
+	    var assignedNames := self.mapAssignedValueSources(result, true);
+	    
+	    // Create a loop variable pin corresponding to each loop variable definition.
+		var resultSource1 := firstDefinition.resultSource1;
+		var resultSource2 := firstDefinition.resultSource2;
+	    var n = loopNode.loopVariable->size();
+	    setupSubgraph.nodes += var forkNode ::= new ForkNode(nameOf(resultSource1));
+	    self.variableDefinition->forEach(definition) {
+	    	addLoopVariable(result, 
+	    		definition.variable, 
+	    		definition.type.toType(), 
+	    		0, -1, 
+	    		null);
+	    	var inputPin = loopNode.loopVariableInput->last();
+	    	if definition.resultSource1 = resultSource1 then {
+	    		// Direct the flow for the the first variable through a fork node.
+			    setupSubgraph.edges += new ObjectFlow(resultSource1, forkNode);
+			    setupSubgraph.edges += new ObjectFlow(forkNode, inputPin);
+	    	} else {
+	    		setupSubgraph.edges += new ObjectFlow(definition.resultSource1, inputPin);
+	    	} endif;
+	    };
+    
+	    var callAction : CallBehaviorAction;
+	    if resultSource2 = null then {
+		    // Unless the first loop variable definition is a sequence
+		    // construction shortcut, the number of iterations of the
+		    // loop is determined by the list size of the first loop
+		    // variable input.
+		    setupSubgraph.nodes += callAction := new CallBehaviorAction(self.functionSize());
+		    setupSubgraph.edges += new ObjectFlow(forkNode, callAction.argument->at(1));
+	    } else {
+		    // If the first loop variable definition is a sequence
+		    // construction shortcut of the form m..n, then the number of
+		    // iterations of the loop is n-m+1.
+		    var inputPin := loopNode.loopVariableInput->at(n+1);
+	    	object inputPin: {
+	    		lower := 1;
+	    		upper := 1;
+	    	};
+	    	setupSubgraph.nodes += var minusAction ::= new CallBehaviorAction(self.functionMinus());
+	    	setupSubgraph.nodes += var valueAction ::= new ValueSpecificationAction(self.literalNatural(1));
+	    	setupSubgraph.nodes += callAction := new CallBehaviorAction(self.functionPlus());
+	    	setupSubgraph.edges += Set{
+	    		new ObjectFlow(resultSource2, minusAction.argument->at(1)),
+	    		new ObjectFlow(forkNode, minusAction.argument->at(2)),
+	    		new ObjectFlow(minusAction.result->at(1), callAction.argument->at(1)),
+	    		new ObjectFlow(valueAction.result, callAction.argument->at(2))
+	    	};
+	    } endif;
+    
+	    // Set up loop variables for counting loop iterations and for the
+	    // loop iteration count upper bound.
+	  	setupSubgraph.nodes += var valueAction ::= new ValueSpecificationAction(self.literalNatural(1));
+	  	addLoopVariable(result, "counter", self.integerType().toType(), 1, 1, valueAction.result);
+	  	var counterFork := loopNode.loopVariable->last().outgoing![true].target;
+	  	addLoopVariable(result, "upper", self.integerType().toType(), 1, 1, callAction.result->at(1));
+	  	var upperFork := loopNode.loopVariable->last().outgoing![true].target;
+	  	
+	  	// Map the test "count <= upper".
+	  	var testCall := new CallBehaviorAction(self.functionLessThanOrEqual());
+	  	addToLoopNode(result, Set{testCall}, Set{
+	  		new ObjectFlow(counterFork, testCall.argument->at(1)),
+	  		new ObjectFlow(upperFork, testCall.argument->at(2))
+	  	});
+	  	loopNode.test += testCall;
+	  	loopNode.decider := testCall.result->at(1);
+	  	
+	  	// Determine the assigned value source for each loop variable within the
+	  	// body of the for statement.
+	  	var i := n + 1;
+	  	var valueGraph := new StatementActivityGraph();
+	  	self.variableDefinition->forEach(definition) {
+	  		var loopVariable := loopNode.loopVariable->at(i);
+	  		var variableFork := loopVariable.outgoing![true].target;
+	  		if i = n + 1 and definition.resultSource2 <> null then {
+	        // If this is the first loop variable, and its definition
+	        // is a sequence construction shorthand, then its assigned
+	        // value is just the value of the loop variable pin.
+	        definition.assignedValueSource := variableFork;
+	  		} else {
+	        // Otherwise, the assigned value of the loop variable is
+	        // the value at the position in the loop variable input list
+	        // given by the current iteration count.
+	  			valueGraph.nodes += definition.assignedValueSource := new ForkNode(definition.variable);
+	  			valueGraph.nodes += callAction := new CallBehaviorAction(self.functionAt());
+	  			valueGraph.edges += Set{
+	  				new ObjectFlow(variableFork, callAction.argument->at(1)),
+	  				new ObjectFlow(counterFork, callAction.argument->at(2)),
+	  				new ObjectFlow(callAction.result->at(1), definition.assignedValueSource)
+	  			};
+	  		} endif;
+				i := i + 1;
+	  	};
+	  	
+	    // Map the body of the for statement.
+	    var bodyGraph := new StatementActivityGraph("Body(" + loopNode.name + ")");
+	    
+	    // NOTE: The loop variable value model elements and the body model
+	    // elements are mapped into separate structured activity nodes,
+	    // with the former having a control flow to the latter, to ensure
+	    // all the loop variables have the proper values before the main
+	    // body executes.
+	    if valueGraph.nodes->notEmpty() then {
+		  	createStructuredNode(valueGraph, "Values(" + loopNode.name + ")");
+		    valueGraph.addTo(bodyGraph);
+		    bodyGraph.edges += new ControlFlow(valueGraph.structuredNode, bodyGraph.structuredNode);
+	    } endif;
+	  	
+	    // NOTE: Making every body output (for an assigned name) an output 
+	    // pin of the single body node is necessary for properly setting
+	    // these outputs in the case of a break statement within the loop.
+	    // This must be done before the body is mapped.
+	    var assignmentsAfter := self.assignmentAfter;
+	    assignedNames->forEach(assignedName) {
+	     	var outputPin := assignmentsAfter->any(name = assignedName).toOutputPin();
+	      bodyGraph.structuredNode.structuredNodeOutput += outputPin;
+	      loopNode.bodyOutput += outputPin;
+	    };
+	    
+	    var subgraph := self.body.map toActivityGraph(false);    
+	    var bodyOutputs := mapBodyOutputs(subgraph, self.body.assignmentAfter, assignedNames);
+	    subgraph.addToStructuredNode(bodyGraph);
+	    Sequence{1..bodyOutputs->size()}->forEach(j) {
+	    	bodyGraph.structuredNode.edge += new ObjectFlow(
+	    		bodyOutputs->at(j), bodyGraph.structuredNode.output->at(j));
+	    };
+	
+	    // Identify the body output corresponding to each loop variable.
+	    i := n + 1;
+	    self.variableDefinition->forEach(definition) {
+	    	var loopVariable := loopNode.loopVariable->at(i);
+	    	var variableFork := loopVariable.outgoing![true].target;
+	    	if i = n + 1 and definition.resultSource2 <> null then {
+		      // If this is the first loop variable, and its
+		      // definition is a sequence construction shorthand, then
+		      // its value must be incremented for the next iteration.
+		      bodyGraph.nodes += callAction := new CallBehaviorAction(self.functionPlus());
+		      bodyGraph.nodes += valueAction := new ValueSpecificationAction(self.literalNatural(1));
+		      bodyGraph.edges += new ObjectFlow(variableFork, callAction.argument->at(1));
+		      bodyGraph.edges += new ObjectFlow(valueAction.result, callAction.argument->at(2));
+		      loopNode.bodyOutput += callAction.result->at(1);
+	    	} else {
+	    		// Otherwise, the loop variable input list must simply be passed through
+	    		// to the next iteration unchanged.
+	    		bodyGraph.nodes += var passthruNode ::= createPassthruNode(loopVariable.name, loopVariable.type, 0, -1);
+	    		bodyGraph.edges += new ObjectFlow(variableFork, passthruNode.structuredNodeInput![true]);
+	    		loopNode.bodyOutput += passthruNode.structuredNodeOutput![true];
+	    	} endif;
+	    	i := i + 1;
+	    };
+	    
+	    // Map the incrementing of the loop iteration count.
+	    bodyGraph.nodes += callAction := new CallBehaviorAction(self.functionPlus());
+	    bodyGraph.nodes += valueAction := new ValueSpecificationAction(self.literalNatural(1));
+	    bodyGraph.edges += new ObjectFlow(counterFork, callAction.argument->at(1));
+	    bodyGraph.edges += new ObjectFlow(valueAction.result, callAction.argument->at(2));
+	    loopNode.bodyOutput += callAction.result->at(1);
+	    
+	    // Map the passing through of the upper bound value.
+	    bodyGraph.nodes += var passthruNode ::= createPassthruNode("upper", self.typeInteger(), 1, 1);
+	    bodyGraph.edges += new ObjectFlow(upperFork, passthruNode.structuredNodeInput![true]);
+	    loopNode.bodyOutput += passthruNode.structuredNodeOutput![true];
+	    
+	    bodyGraph.addToLoopNode(result);
+	    loopNode.bodyPart += bodyGraph.nodes[ExecutableNode];    
+	} endif;
+	
+    if setupSubgraph.nodes->notEmpty() then {
+	    // Unless there are no setup model elements, map the setup elements
+	    // into their own structured activity node that must complete
+	    // before execution of the loop node/expansion region.
+	    var nodeName := result.structuredNode.name;
+	    result.structuredNode.name := "Loop(" + nodeName + ")";
+	    createStructuredNode(setupSubgraph, "LoopVariables(" + nodeName + ")");
+	    setupSubgraph.addTo(result);
+	    edges += new ControlFlow(setupSubgraph.structuredNode, result.structuredNode);
+	    createStructuredNode(result, nodeName);
+    } endif;
+}
+
+query ForStatement::assignments() : Set(AssignedSource) {
+	return self.body.assignmentAfter;
+}
+
+intermediate property LoopVariableDefinition::resultSource1 : ActivityNode;
+intermediate property LoopVariableDefinition::resultSource2 : ActivityNode;
+intermediate property LoopVariableDefinition::assignedValueSource : ActivityNode;
+
+mapping LoopVariableDefinition::toActivityGraph(isParallel : Boolean, isFirst : Boolean) : StatementActivityGraph {
+	var graph1 := self.expression1.map toActivityGraph();
+	nodes := graph1.nodes;
+	edges := graph1.edges;
+	if self.expression2 = null then {
+		self.mapConversions(graph1, self.expression1.type, self.isCollectionConversion, false);
+		self.resultSource1 := graph1.resultSource;
+	} else {
+		var graph2 := self.expression2.map toActivityGraph();
+		nodes += graph2.nodes;
+		edges += graph2.edges;
+		if not isParallel and self.isFirst then {
+			self.resultSource1 := graph1.resultSource;
+			self.resultSource2 := graph2.resultSource;
+		} else {
+			var loopGraph := self.mapSequenceRangeLoop(
+				graph1.resultSource, graph2.resultSource,
+				"SequenceRange(LoopVariable(" + self.variable + ")");
+			nodes += loopGraph.nodes;
+			edges += loopGraph.edges;
+			self.resultSource1 := loopGraph.resultSource;
+		} endif;
+	} endif;
+}
+
+query LoopVariableDefinition::assignedValueSource(assignedName : String) : ActivityNode {
+	return self.assignedValueSource;
+}
+
+// break Statements
+
+mapping BreakStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::toActivityGraph {
+	structuredNode.name := "BreakStatement";
+	var loopStatement := self.enclosingLoopStatement();
+	var loopMapping := loopStatement.map toActivityGraph();
+	if loopMapping.structuredNode.oclIsKindOf(LoopNode) then {
+		var loopNode := loopMapping.structuredNode.oclAsType(LoopNode);
+		var bodyAssignments := loopStatement.assignments();
+		var assignmentsBefore := self.assignmentBefore;
+		
+		// For each body output, ensure that the latest assigned source for the
+		// corresponding local name is connected to the output.
+		loopNode.bodyOutput[name <> null]->forEach(bodyOutput) {
+			var assignments := assignmentsBefore->select(name = bodyOutput.name);
+			if assignments->notEmpty() and 
+					// NOTE: This check ensures that the assigned source before the break is not
+					// already the final assigned source for the output.
+					assignments->excludesAll(bodyAssignments->select(name = bodyOutput.name)) then {
+				var assignment = assignments![true];
+				structuredNode.node += var passthruNode ::= 
+					createPassthruNode(bodyOutput.name, bodyOutput.type, 1, 1);
+				edges += new ObjectFlow(assignment.map toActivityNode(), passthruNode.structuredNodeInput![true]);
+				edges += new ObjectFlow(passthruNode.structuredNodeOutput![true], bodyOutput);
+			} endif;			
+		};
+	} endif;
+	edges += new ControlFlow(structuredNode, getFinalNode(loopMapping));
+}
+
+helper getFinalNode(inout graph : StatementActivityGraph) : ActivityFinalNode {
+	var finalNodes := graph.structuredNode.node[ActivityFinalNode];
+	return
+		if finalNodes->notEmpty() then finalNodes![true]
+		else new ActivityFinalNode(graph.structuredNode) endif;
+}
+
+// return Statements
+
+mapping ReturnStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::toActivityGraph {
+	structuredNode.name := "ReturnStatement";
+	
+	var behavior = self.behavior.toUml();
+  var activity =
+  	if behavior.oclIsKindOf(Activity) then behavior.oclAsType(Activity)
+  	else behavior.oclAsType(Operation).method![true].oclAsType(Activity) endif;
+  
+  edges += new ControlFlow(structuredNode, getFinalNode(activity));
+  
+  if self.expression <> null then {
+  	var expressionGraph := self.expression.map toActivityGraph();
+  	addToStructuredNode(result, expressionGraph.nodes, expressionGraph.edges);
+  	mapOutput(result, 
+  		expressionGraph.resultSource, self.expression.type.toType(), self.expression.lower, self.expression.upper, 
+  		activity, activity.ownedParameter->any(direction = ParameterDirectionKind::_'return'));
+  } endif;
+  
+  var assignmentsAfter = self.assignmentAfter;
+  activity.ownedParameter[direction = ParameterDirectionKind::_'out' or direction = ParameterDirectionKind::_'inout']->forEach(parameter) {
+		var assignment = find(assignmentsAfter, parameter.name);
+		if assignment <> null then {
+			mapOutput(result, 
+				assignment.map toActivityNode(), assignment.type.toType(), assignment.lower, assignment.upper, 
+				activity, parameter);
+		} endif;
+  } 
+}
+
+helper mapOutput(inout graph : StatementActivityGraph,
+	source : ActivityNode, type : Type, lower : Integer, upper : Integer,
+	activity : Activity, parameter : Parameter) {
+	var pin := new OutputPin(graph.structuredNode, graph.structuredNode.name + ".output(" + nameOf(source) + ")", type, lower, upper);
+	
+	if graph.structuredNode.allOwnedNodes()->includes(source) then {
+		graph.structuredNode.edge += new ObjectFlow(source, pin);
+	} else {
+		graph.structuredNode.node += var passthruNode ::= createPassthruNode(nameOf(source), type, lower, upper);
+		graph.edges += new ObjectFlow(source, passthruNode.structuredNodeInput![true]);
+		graph.structuredNode.edge += new ObjectFlow(passthruNode.structuredNodeOutput![true], pin);
+	} endif;
+	
+	var parameterNode := getOutputParameterNode(activity, parameter);
+	graph.edges += new ObjectFlow(pin, parameterNode);
+}
+
+helper getFinalNode(inout activity : Activity) : ActivityFinalNode {
+	var finalNodes := activity.node[ActivityFinalNode];
+	return
+		if finalNodes->notEmpty() then finalNodes![true]
+		else new ActivityFinalNode(activity) endif;
+}
+
+// accept Statements
+
+intermediate property AcceptStatement::signalSourceNode : ActivityNode;
+
+mapping AcceptStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::toActivityGraph {
+	structuredNode.name := "AcceptStatement";
+	
+	var hasOutput := not self.isSimple or self.acceptBlock![true].name <> null;
+	
+	// NOTE: This must be set before the mapping of the accept blocks;
+	if hasOutput then {
+		self.signalSourceNode := new ForkNode(structuredNode, structuredNode.name);
+	} endif;
+	
+	var assignedNames : List(String) := List{};
+	if not self.isSimple then {
+		assignedNames := self.mapAssignedValueSources(result, false) 
+	} else if hasOutput then {
+		self.assignedValueSourceMap->put(self.acceptBlock![true].name, self.signalSourceNode);
+	} endif endif;
+	
+	var signals : Set(Signal) := Set{};
+	var decisionNode : ActivityNode := null;
+	self.acceptBlock->forEach(acceptBlock) {
+		acceptBlock.map toActivityGraph(self, decisionNode, assignedNames).addToStructuredNode(result);
+		signals += acceptBlock.blockSignals;
+		decisionNode := acceptBlock.decisionNode;
+	};
+	var acceptAction := new AcceptEventAction(structuredNode, signals, hasOutput);
+	
+	// NOTE: Adding an initial node prevents the accept event action from re-registering itself
+	// after it has completed.
+	var initialNode := new InitialNode(structuredNode);
+	new ControlFlow(structuredNode, initialNode, acceptAction);
+	
+	if decisionNode <> null then {
+		new ControlFlow(structuredNode, acceptAction, decisionNode);
+	} endif;
+	
+	if hasOutput then {
+		var outputPin := acceptAction.result->at(1);
+		self.signalSourceNode.name := "Fork(" + outputPin.name + ")";
+		new ObjectFlow(structuredNode, outputPin, self.signalSourceNode);
+	} endif;
+}
+
+intermediate property AcceptBlock::decisionNode : ActivityNode;
+intermediate property AcceptBlock::blockSignals : Set(Signal);
+
+mapping AcceptBlock::toActivityGraph(parent : AcceptStatement, previousNode : ActivityNode, assignedNames : List(String)) : StatementActivityGraph {
+	self.blockSignals := self.signal->toUml().oclAsType(Signal)->asSet();
+	if self.block <> null then {
+		self.block.map toActivityGraph(false).addTo(result);
+		createStructuredNode(result, "");
+		
+		var signalNames := "";
+		self.blockSignals->forEach(signal) {
+			if signalNames.length() > 0 then {
+				signalNames := signalNames + ",";
+			} endif;
+			signalNames := signalNames + signal.name;
+			
+			nodes += var testAction ::= new ReadIsClassifiedObjectAction(signal, false, self.typeBoolean());
+			edges += new ObjectFlow(parent.signalSourceNode, testAction._'object');
+			
+			var decisionGraph := createControlDecisionGraph(
+				"Test(" + signal.name + ")", null, testAction.result, structuredNode, previousNode);
+		  nodes += decisionGraph.nodes;
+		  edges += decisionGraph.edges;
+		  
+			self.decisionNode := decisionGraph.nodes![DecisionNode];
+		};
+		
+		structuredNode.name := "AcceptBlock(" + signalNames + ")";
+		
+		var assignments := self.block.assignmentAfter;
+		var allOwnedNodes := structuredNode.allOwnedNodes();
+		assignedNames->forEach(assignedName) {
+			var assignment = find(assignments, assignedName);
+			if assignment <> null then {
+				var source := assignment.map toActivityNode();
+				if allOwnedNodes->includes(source) then {
+					edges += new ObjectFlow(source, parent.assignedValueSource(assignedName).incoming![true].source);
+				} else {
+					structuredNode.node += var passthruNode ::= 
+						createPassthruNode(assignedName, toType(assignment.type), assignment.lower, assignment.upper);
+					edges += new ObjectFlow(source, passthruNode.input->at(1));
+					edges += new ObjectFlow(passthruNode.output->at(1), 
+						parent.assignedValueSource(assignedName).incoming![true].source);
+				} endif;
+			} endif;
+		}
+	} endif;
+}
+
+query AcceptBlock::assignedValueSource(assignedName : String) : ActivityNode {
+	return self.owner().oclAsType(AcceptStatement).signalSourceNode;
+}
+
+// classify Statements
+
+mapping ClassifyStatement::toActivityGraph() : StatementActivityGraph 
+	inherits Statement::toActivityGraph {
+	structuredNode.name := "ClassifyStatement";
+	
+	var graph := new StatementActivityGraph();
+	
+	var expressionGraph := self.expression.map toActivityGraph();
+	graph.nodes += expressionGraph.nodes;
+	graph.edges += expressionGraph.edges;
+	
+	var type := self.expression.type.toType().oclAsType(Class);
+	graph.nodes += var reclassifyAction ::= new ReclassifyObjectAction(
+		type, 
+		mapClassifiers(self.fromClass),
+		mapClassifiers(self.toClass),
+		self.isReclassifyAll);
+		
+	graph.edges += new ObjectFlow(expressionGraph.resultSource, reclassifyAction._'object');
+	
+  // For each of the new classifiers that are active, add start behavior actions to
+  // start the classifier behavior for the new classifier and its parents.	
+  var activeClasses := reclassifyAction.newClassifier[Class][isActive];
+  if activeClasses->notEmpty() then {
+  	activeClasses += (activeClasses.allParents()->asSet()->excluding(type) - type.allParents())[Class][isActive];
+		graph.nodes += var fork ::= new ForkNode(nameOf(expressionGraph.resultSource));
+		graph.edges += new ObjectFlow(expressionGraph.resultSource, fork);			
+		activeClasses->forEach(activeClass) {
+			graph.nodes += var startAction ::= new StartObjectBehaviorAction(activeClass);
+			graph.edges += new ControlFlow(reclassifyAction, startAction);
+			graph.edges += new ObjectFlow(fork, startAction._'object');
+		};
+	} endif;
+	
+	graph.addToStructuredNode(result);
+}
+
+helper mapClassifiers(elementReferences : Set(ElementReference)) : Set(Classifier) {
+	return elementReferences.toType().oclAsType(Classifier)->asSet();
+}

@@ -1,0 +1,1096 @@
+__TOC__
+
+= Introduction  =
+
+The standard UML specification provides a few hints to represent graphical elements. However, it only focuses on the general representation of these elements (e.g. A Class is a rectangle, with optional compartments for its attributes and operations, and its name should be displayed in italic if the Class is abstract). 
+
+Nevertheless, for a better readability (and even esthetic), the user has a certain freedom for changing some graphical properties, such as an Element's color. Until now, in Papyrus, this customization could be done by two complement means: 
+
+*Appearance tab (Properties view): change the appearance of the selected element(s) 
+*Preferences page: change the initial appearance of all newly created element(s)
+
+While this allows defining a custom theme for our diagrams, this mechanism suffers from a few limitations: 
+
+*It is not possible to create different categories of appearance for the same semantic Element (e.g. "Blue Class" and "Green class"). We'd have to create "Blue classes" and change some of them to "Green"manually. 
+*If we wanted to change the current theme, we'd have either to change each object's appearance one by one, or to write an automatic transformation, which could be really complicated. 
+*It is not easy to export a Theme, as they are stored in the Eclipse preferences. It is almost impossible to ship a ready-to-use distribution of Papyrus with a custom theme.
+
+The Cascading StyleSheets (CSS) component adds the capacity to define some Stylesheets for your diagrams. Just like in web pages, the CSS format is used to separate the contents of our diagrams from their appearance. It becomes possible to change the appearance of a whole diagram, or even a set of diagrams, independently of the number of represented elements, in a single click.<br>
+
+= Installation  =
+The CSS Stylesheet support is now shipped in the base installation of Papyrus. It doesn't require any specific installation step anymore.
+
+Without the CSS component, or with the "Black & White" CSS Theme, your diagrams look like: 
+
+[[Image:images/Papyrus_CSS_no_theme.png|Papyrus diagram without CSS Theme]]<br>
+
+With the default "Papyrus" CSS Theme, your diagrams look like:
+
+[[Image:images/Papyrus_CSS_theme.png|Papyrus Diagram with CSS Theme]]<br>
+
+Note: If you opened a diagram which has been created without the CSS Support, it may still have a user-defined appearance, e.g. without Element icons. This might or might not be a problem, as this may conflict with the CSS Theme. You can reset all custom appearances by pressing the "Default style" button in the Style tab of the Diagram's properties view.
+
+= Using StyleSheets =
+To define a custom style, the first step is to create a Stylesheet. The creation is really straightforward: a Stylesheet is a text file with the .css extension. You can create such a file using the "New > File" wizard.<br> There are several options for using stylesheets.
+== Diagram Stylesheets ==
+You can define a particular style for a diagram.
+# Select a diagram
+# Go to the Style tab of the properties view
+# Add a new "Diagram style sheet". There isn't currently any style sheet available from the diagram, so you need to create a new "Stylesheet reference".<br/>[[Image:images/Papyrus_CSS_Import_stylesheet.png|Import stylesheet in Papyrus]] 
+# Browse your workspace to find your css file, and press OK. Your stylesheet is now associated to your diagram.
+== Model StyleSheet ==
+Similarily to "Diagram Stylesheet" you can define a particular style for a Model.
+# Select a model
+# Go to the Style tab of the properties view
+# Add a new "Model style sheet"
+# Browse your workspace to find your css file, and press OK. Your stylesheet is now associated to your Model.
+
+== Project Stylesheets ==
+You can associate to a project specific stylesheets.
+# Select a project in "Project Explorer" view
+# Open project preference properties: "Right click > properties"
+# Go to CSS stylesheets page: "Papyrus > Style sheets"
+# Add a new "Project style sheet". There isn't currently any style sheet available from project, so you need to create a new "Stylesheet reference".<br/>[[Image:images/Papyrus_CSS_project.png|Style sheets project properties in Papyrus]]
+# Browse your workspace to find your css file, and press OK. Now, your stylesheet is associated with the project.
+= Deploying a CSS Theme  =
+
+Once you have defined your style sheets, you may want to export it to create a new theme (Or to extend an existing theme). To do so, Papyrus provides two ways to define a theme.
+
+== With extension point == 
+Papyrus provides an extension point: org.eclipse.papyrus.infra.gmfdiag.css.theme. 
+
+This extension point needs two entries: a Theme Definition (ID, Label and icon of the Theme), and Theme contributions (A set of style sheets which will compose the Theme). More than one plug-in can contribute to the same Theme, which makes it possible to extend a Theme. 
+
+The Theme can be modified from the Papyrus preferences page "CSS Theme". Only one theme can be activated at the same time. A Theme applies to all Papyrus Diagrams from the workspace.<br> 
+== In workspace preference ==
+You can define theme in workspace preferences. A theme is defined by style sheets.
+# Go to the Papyrus preference: "Window > Preferences > Papyrus > CSS Theme"
+# Add a new theme. There are currently two existing themes: "Papyrus Theme" and "Black & White".<br/>[[Image:images/Papyrus_CSS_theme_creation.png|Creation of theme in Papyrus]]
+# Write a name for this new theme
+# (optional) Choose an icon
+# Associate one or more style sheets with this theme
+# Press OK to finish creation
+You can edit or create a theme with a selection of CSS files in Project Explorer view. For this, select the CSS files, right click and select "CSS Theme"
+
+= Editing a StyleSheet  =
+
+Papyrus Stylesheets are stored in text files with the ".css" extension (e.g. stylesheet.css).<br> 
+
+== Manually: The CSS Syntax  ==
+
+=== Syntax elements  ===
+
+The CSS syntax is a list of rules, which associates selectors and properties.<br> 
+
+*The selector: describes the condition which has to be fulfilled for a rule to be applied<br> 
+*The properties: describes the appearance of the elements matching the rule<br>
+
+Eclipse implements the 2.1 version of the CSS syntax. The available selectors are:<br> 
+
+*'''*''': Matches all elements<br> 
+*'''ElementType''': Matches the elements of type "ElementType"<br> 
+*'''.myStyle''': Matches the elements on which the style "myStyle" is applied<br> 
+*'''#myID''': Matches the element with the CSS ID "myID". The CSS ID must be unique among a diagram. To avoid confusing the users, and because this selector doesn't make much sense on diagrams, this selector has been disabled in Papyrus.<br> 
+*'''<nowiki>[property=value]</nowiki>''': Matches the elements which have a property "property" with the value "value". It can also match the properties of Stereotypes<br>
+*'''<nowiki>[appliedStereotypes~="MyStereotype"]</nowiki>''': Matches the elements on which the Stereotype "MyStereotype" is applied. You can use either the Stereotype's name or qualified name (MyProfile::MyPackage::MyStereotype). Note: always use the "~=" operator (Which means "contains"), because UML elements can have more than one applied stereotype.
+* ''':pseudo''': Matches the element on which the pseudo-selector "pseudo" is applied. Pseudo-selectors are typically used for dynamic events, and for filtering some non-semantic properties. In Papyrus, they are used for identifying more precisely the floating labels (When an element has more than one label: see the [#Mask_Label Mask Label] chapter below), and they are also used by the animation framework to specify events (See the Moka documentation)
+
+These selectors can be combined using one of the following combinators:<br> 
+
+*'''Selector1 Selector2''': Descendant selector. Matches the elements which match Selector2 and are contained in an element matching Selector1<br> 
+*'''Selector1 > Selector2''': Child selector. Matches the elements which match Selector2 and are directly contained in an element matching Selector2<br> 
+*'''Selector1 + Selector2''': Sibling selector. Matches the elements which match Selector2 and are immediately preceded by a Sibling element which match Selector1.<br> 
+*'''Selector1, Selector2''': Alternative selector. Matches elements matching either Selector1 or Selector2<br>
+
+A rule also contains a list of properties, in the form property:value; 
+
+In Papyrus, the selectors apply to semantic elements and properties (i.e. UML Elements), and the properties apply to the appearance properties (i.e. GMF Appearance properties). A few custom properties (Independent from the GMF Appearance model) are also available (See "Supported properties" below).<br> 
+
+=== Examples  ===
+
+<source lang="css">* {
+    fillColor: red;
+    fontColor: #0000FF;
+}</source> 
+
+Meaning: all elements should be filled in red, and all texts should be blue (RGB Color #0000FF)<br> 
+
+<source lang="css">Class {
+    gradient: white vertical;
+    elementIcon:true;
+    shadow:true;
+    qualifiedNameDepth:full;
+}</source> 
+
+Meaning: this style applies to all UML Classes. They will have a white and vertical gradient. The Element icon and the shadow will be displayed, as well as their fully qualified name.<br> 
+
+<source lang="css">ClassDiagram Class>Property {
+    fontColor: red;
+}</source> 
+
+Meaning: The properties directly contained in a Class, which is drawn on a ClassDiagram (Either as a root element of the diagram, or in a Package) will be displayed in red.<br> 
+
+<source lang="css">[appliedStereotypes~="Block"]{
+    bold:true;
+}
+
+/* Equivalent: qualified name */
+[appliedStereotypes~="SysML::Blocks::Block"]{
+    bold:true;
+}</source>
+
+Meaning: The elements with the "Block" stereotype must be displayed in bold.
+
+<source lang="css">[appliedStereotypes~=Block][isEncapsulated=true]{
+    fontColor:red;
+}</source>
+
+Meaning: The elements with the "Block" stereotype, and the stereotype property "isEncapsulated" set to true, must be displayed in red.
+
+All these rules can be combined:
+
+<source lang="css">Class[appliedStereotypes~=Block][appliedStereotypes~=MyCustomStereotype][isEncapsulated=true][myCustomProperty=SomeValue][isAbstract=false]{
+	/* A class on which the stereotypes "Block" and "MyCustomStereotype" are applied, 
+	*  and on which the stereotype property "isEncapsulated" is set to true, 
+	*  the stereotype property "myCustomProperty" is set to "SomeValue", and 
+	*  the UML Property "isAbstract" is set to false */
+	
+	fillColor:red;
+}</source>
+
+
+== With the Papyrus tooling  ==
+
+Papyrus also provides a tool to generate a CSS Rule from an element displayed in the diagram. You need to create a stylesheet before you can edit it with the Create style tool, and it is recommended (Although not required) to associate this style sheet with your current diagram. 
+
+To use it, create an element and change its appearance via the "Appearance" tab of the properties view. Then, right click on the element, and select "Format", "Create a new style". The dialog box contains three tabs:<br> 
+
+*Conditions: The conditions under which the style will be applied (Corresponds to the "CSS Selectors") 
+*Properties: The graphical properties to export to the style sheet 
+*Stylesheet: The style sheet to edit<br>
+
+[[Image:images/Papyrus_CSS_export_style.png|Create style dialog]]<br> 
+
+In the Stylesheet tab, select your stylesheet:<br> 
+
+*If you have already associated the style sheet to your diagram, you can use the "Applies stylesheet" button. 
+*Otherwise, you need to select "External stylesheet", and browse your workspace to retrieve the file. Note that in this case, as the edited stylesheet might not be applied to your diagram, you won't be able to see the changes in the current diagram.<br>
+
+In the conditions tab, there are three groups of options:<br> 
+
+*The kind of element to which the style applies (e.g. the style will be applied to "Class" elements, or to any kind of elements). It can be restricted to a specific diagram. 
+*You can add restrictions on the current value(s) of the element (e.g. the style will be applied to concrete classes). Only primitive type and enumerated attributes are supported here. 
+*The style name is used to apply a style manually.<br>
+
+The properties tab contains all the graphical properties that can be applied to the selected object. It is used to choose the graphical properties to apply on the objects matching the conditions.<br>
+
+= Supported properties =
+
+== Selector properties ==
+
+Selector properties are semantic element properties. They can be used with one of the following syntaxes:
+
+'''<nowiki>[isAbstract=true]</nowiki>'''
+
+'''<nowiki>Class[isAbstract=true]</nowiki>'''
+
+The supported semantic element properties are:
+
+* Strings: '''<nowiki>[name=MyName]</nowiki>''', '''<nowiki>[name="My name"]</nowiki>''' (Quotes are required for complex Strings)<br/>
+* Integers: '''<nowiki>[size="12"]</nowiki>''' (Quotes are required) <br/>
+* Booleans: '''<nowiki>[isAbstract=true]</nowiki>''' (Quotes are optional)<br/>
+* Enumerations: '''<nowiki>[visibility=visible]</nowiki>''' (Quotes are optional)<br/>
+* References to named elements (UML NamedElement or Ecore ENamedElement): '''[<nowiki>type=String</nowiki>]'''<br/>
+
+The supported properties are the semantic properties of the UML element (e.g. isAbstract, name, type, ...), as well as the semantic properties of the stereotypes applied to the UML element (e.g. isEncapsulated for a SysML Block)
+
+Some selectors can also be used to represent some specific parts of an element. For example, it is possible to hide a specific compartment:
+
+<source lang="css">Class > Compartment[kind="attributes"] {
+    visible:false;
+}
+
+Class > Compartment[kind="symbol"] {
+    visible:true;
+}
+
+Compartment[kind="internalstructure"]{
+    collapsed:true;
+}</source>
+
+
+To manage the name of the named element and its stereotype name, a specifier for the selector can be added :
+
+<source lang="css">Port > Label {
+    visible: false;
+}
+
+Port > Label:Stereotype {
+    visible: false;
+}</source>
+
+
+You can determine the "kind" of the Compartments by opening the "Filters > Show/Hide Compartments" context menu on a diagram element.
+
+== Style properties ==
+
+Style properties are graphical properties supported by the display. Note that some graphical elements may not support some specific properties (Either because they shouldn't support them, or because they are not yet implemented). For example, a UML::Class will not support the ''italic'' property, because in UML, ''italic'' means ''abstract''.
+
+The CSS Supports all GMF Notation properties, as well as a few Papyrus-specific properties. This chapter will only list all the Papyrus-specific properties.
+
+The simplest way to discover new style properties is to use the Appearance tab of the Properties view in Papyrus. When hovering one of the appearance properties, the tooltip indicates the name of the corresponding CSS property
+
+[[Image:images/Papyrus_CSS_tooltip.png|CSS Property in tooltip]]<br>
+
+This table lists the most common properties:
+
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Initial&nbsp;Value !! Applies&nbsp;to !! Comment
+|-
+| fillColor || Color || white || Shapes || In the default "Papyrus Theme", the fill color depends on the type of element. The used colors are #C3D1D5 (Light blue, Default), #C3D7DD (Lighter blue, Class), #FFFFCC (Yellow, Comment), #C8FFE6 (Teal, Constraints)
+|-
+| transparency || integer || 0 || Shapes || Value is a percentage: values in the range (0, 100) are supported. Transparency works only if the gradient is activated: [https://bugs.eclipse.org/bugs/show_bug.cgi?id=419320 Bug 419320]
+|-
+| gradient || <nowiki>[Color Color [ horizontal | vertical ] | none]</nowiki> || none || Shapes || Examples: "white blue horizontal" or "none"
+|-
+| fontColor || Color || black || Shapes, floating labels || Comments support HTML syntax. Most style-properties have no effect on comments
+|-
+| fontName || String || "Segoe UI" || Shapes, floating labels || Most fonts are platform-specific. The list of available Fonts can be found in the "Appearance" tab of the properties view
+|-
+| fontHeight || integer || 9 || Shapes, floating labels || 
+|-
+| bold || boolean || false || Shapes, floating labels ||  
+|-
+| italic || boolean || false || Shapes, floating labels || In UML, "italic" means "isAbstract=true". This property is disabled for all elements which can be abstract (e.g. Class)
+|-
+| underline || boolean || false || Shapes, floating labels || In UML, "underline" means "isStatic=true". This property is disabled for all elements which can be static (e.g. Property)
+|-
+| strikeThrough || boolean || false || Shapes, floating labels ||  
+|-
+| visible || boolean || true || All elements || Although this property will work for any diagram elements, it is probably a bad idea to use it with anything else than a Compartment or a Label 
+|-
+| collapsed || boolean || false || Compartments ||  
+|-
+| showTitle || boolean || false || Compartments ||  
+|-
+| lineColor || Color || black || Shapes, Connectors ||  
+|-
+| lineWidth || integer || -1 || Shapes, Connectors || -1 means "default", and typically corresponds to 1px
+|-
+| routing || <nowiki>[Manual | Rectilinear | Tree]</nowiki> || Manual || Connectors || The value is case-sensitive: don't forget the initial Capital
+|-
+| roundedBendpointsRadius || integer || 0 || Connectors || Applies to connectors with routingStyle = Rectilinear or Tree
+|-
+| smoothness || <nowiki>[None | Normal | Less | More]</nowiki> || None || Connectors ||   
+|-
+| avoidObstructions || boolean || false || Connectors ||  
+|-
+| closestDistance || boolean || false || Connectors ||  
+|-
+| jumpLinkStatus || <nowiki>[None | All | Below | Above]</nowiki> || None || Connectors || It is not recommended to use jump links via CSS, as it gives strange results for overlapping connectors
+|-
+| jumpLinkType || <nowiki>[Semicircle | Square | Chamfered]</nowiki> || Semicircle || Connectors ||  
+|-
+| jumpLinkReverse || boolean || false || Connectors ||  
+|-
+| leftMarginLabel || integer || 0 || Labels || Define the left margin of the label in pixel. This is the space between the text box and his container
+|-
+| topMarginLabel || integer || 0 || Labels || Define the top margin of the label in pixel. This is the space between the text box and his container
+|-
+| rightMarginLabel || integer || 0 || Labels || Define the right margin of the label in pixel. This is the space between the text box and his container
+|-
+| bottomMarginLabel || integer || 0 || Labels || Define the bottom margin of the label in pixel. This is the space between the text box and his container
+|-
+| bodyCutLength|| integer || 0 || Opaque behaviors (transition effect or state entry/exit/do actions) || Control length of shown code in case of an opaque behavior within a transition or an entry/exit/do action of a state (use Transition > Label for the former, State > OpaqueBehavior for the latter)
+|-
+| indicateParameters|| boolean || false || Labels of transition || if a behavior of a transition has parameters, show these instead of abbreviating with (..)
+|-
+| lineBreakBeforeEffect|| boolean || false || Labels of transition || add a linebreak between guards and transitions. May avoid large transition labels
+|-|}
+
+The following properties can be used to bypass the standard UML notation. They can typically be used for pure DSML notations:
+
+
+{| class="wikitable"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Initial&nbsp;Value !! Applies&nbsp;to !! Comment
+|-
+| isNameWrap || boolean || true || Shapes || If set to true, the name of the Shape will be wrapped.
+|-
+| displayBorder || boolean || true || Shapes || If set to false, the borders of the Shape will be hidden.
+|-
+| displayName || boolean || true || Shapes || If set to false, the name of the Shape will be hidden
+|-
+| displayTags || boolean || true || Shapes, connectors || If set to false, the tags (e.g. Â« component Â») of the element will be hidden 
+|-
+| maintainSymbolRatio || boolean || true || Shapes || If the shape is represented with a Symbol, specifies whether the ratio should be maintained or not. If the Symbol is displayed in a compartment, it is usually a good idea to maintain the ratio. If the symbol is the only representation (e.g. when the name, border and compartments are hidden), it is recommended to not maintain the ratio
+|-
+| elementIcon || boolean || false || Shapes, floating labels || Whether the icon should be displayed next to the label of the element. In the default "Papyrus Theme", the icon is displayed by default
+|-
+| shadow || boolean || false || Shapes || Display a shadow under the shape
+|-
+| qualifiedNameDepth || <nowiki>[full | none | integer]</nowiki> || none || Shapes, floating labels || The depth of the qualified name to display. Applies to UML::NamedElement
+|-
+| lineStyle || <nowiki>[solid | dashed | dotted | hidden | double]</nowiki> || N/A || Connectors || In UML, the line type depends on the semantic element (e.g. solid line for associations, dashed line for dependencies...). In most cases, you should avoid using this property, as this would change the well-known UML notation. However, it can be useful for creating pure DSML, where the UML notation should be hidden.
+|-
+| lineDashLength || integer || N/A || Connectors || When the lineStyle is set to "Dash", specifies the length of the dash
+|-
+| lineDashGap || integer || N/A || Connectors || When the lineStyle is set to "Dash", specifies the gap between the dashes
+|-
+| targetDecoration || <nowiki>[none]</nowiki> || N/A || Connectors || If "targetDecoration" is set to None, hides the target decoration of the Connector (e.g. the arrow)
+|-
+| sourceDecoration || <nowiki>[none]</nowiki> || N/A || Connectors || If "sourceDecoration" is set to None, hides the source decoration of the Connector (e.g. the arrow)
+|-
+| maskLabel || <nowiki>string[]</nowiki> || N/A || Labels, floating labels || This property can be used to configure the display of complex labels (e.g. properties). See examples in the [#Mask_Label Mask Label] chapter below
+|-
+| svgFile || path || N/A || Shapes || The path to an SVG file, which should be used as a symbol for the element. It will be displayed in the "symbol" compartment of the shape. In case of ports, the magic string "position" (if following a slash or dot) will be replaced by "north", "south", "east" or "west", depending on the location of the port.
+|-
+| shapeVisibility || boolean || N/A || Shapes || Show a configured symbol (e.g. an SVG file) as a decoration. Correspond to the "shape decoration" visibility button in the Appearance tab.
+|-
+| shapeDirection || integer || N/A || Shapes || The position of the shape decoration, the following values are valid: 0 = top-left, 1 = top, 2 = top-right, 3 = left, 4 = center, 5 = right, 6 = bottom-left, 7 = bottom, 8 = bottom-right.
+|-
+| imagePath || path || N/A || Shapes || The path to an image file, which should be used as a symbol for the element. It will be displayed in the "symbol" compartment of the shape. The format will be SVG, PNG, JPG, GIF, BMP, ...
+|-
+| followSVGSymbol || boolean || false || Shapes || If the SVG file has a path with the ID "PapyrusPath", this path will be used to connect edges
+|-
+| svgCssFile || path || N/A || Shapes || The path to a CSS file which will be applied to the SVG symbol (If an SVG symbol is used). Can be used to dynamically change the appearance of the SVG image (e.g. change color, ...)
+|-
+| svgCssClass || string || N/A || Shapes || The CSS Class to be applied at the root of the SVG document (If an SVG symbol is used). Can be used to dynamically change the appearance of the SVG image
+|-
+| textAlignment || string || left/center || Floating labels || Set the text alignment of the label. (left, center, right)
+|-
+| labelConstrained|| boolean || false || Labels of Port || Constraint the label, according to the position attribute. Left by default. position:AUTO; will be automatic positioned at the proper position according to the position of the Port on its parents. Text alignment will be forced according to the position of its parent. The label can't be moved.
+|-
+|position	||String	||EAST	||	||Set the forced position.
+|-
+| labelOffsetX|| integer || 0 || Labels of Port || Set the offset on X when label is constrained
+|-
+| labelOffsetY|| integer || 0 || Labels of Port || Set the offset on Y when label is constrained
+|-
+|radiusWidth ||	Integer||	0||Shapes	||Set the radius width of corners
+|-
+|radiusHeight ||	Integer||	0||Shapes	||Set the radius height of corners
+|-
+|isOval	||Boolean	||false	||Shapes	||Set to true if you want to have an oval shape
+|-
+|isFloatingLabelConstrained	||Boolean	||false 	||Shapes	||Set to true if the floating label is constrained on eight position, you can move it manually.
+|-
+|labelConstrained	||Boolean	||false	||Ports	||Forced the label to one position, by default(for port) it will placed according to the parent position.
+|-
+|position	||String	||EAST	||	||Set the forced position.
+|-
+|floatingLabelOffsetWidth||	Integer	||0	||Shapes	||Define the width offset of the label when it is not attached.
+|-
+|floatingLabelOffsetHeight	|| Integer	||0	||Shapes	||Define the height offset of the label when it is not attached.
+|-
+|maskLabel	||List of String|| name		||	||Set the mask of the floating label.
+|-
+|maxNumberOfSymbol||Integer	||10	||Shape ||Set the maximum number of of symbols to be displayed. 
+|-
+|useOriginalColors	||Boolean	||true	||Shapes	||Set if the SVG image use original colors.
+|-
+|borderStyle	||String	||solid	||Shapes	||Set the style of the border(dash, dashDot, dashDotDot, dot, solid, custom).
+|-
+|customDash	||Int[]	||[5,5]	||Shape	||Set the custom style.
+|-
+|lineLength	||int	||-1	||Compartment	||Set the top line length of the compartment. By default the length is set to the width of the compartment.
+|-
+|lineLengthRatio	||String	||â€œ1.0â€�	||Compartment	||Set the top line length ratio of the compartment.
+|-
+|linePosition	||String	||â€œcenterâ€�	||Compartment	||Set the compartment top line position.Can be left, center, right.
+|-
+|displayHeader	||Boolean	||true	||Shape	||Set to true to add a header.
+|-
+|portPosition	||String	||â€œonLineâ€�	||Affixed Shape	||Set the position of the port. Can be â€œinsideâ€�, â€œousideâ€� or â€œonLineâ€�.
+|-
+|isPackage	||Boolean	||false	||Shapes	||Set if the shape have to be displayed as a package.
+|-
+|shadowWidth ||Integer	||4	||Shapes	||Set the width of the shadow.
+|-
+|shadowColor ||String	||N/A	||Shapes	||Set the color of the shadow. By default the shadow have the same color as the border.
+|-
+|leftMarginLabel 	||integer 	||0 	||Labels 	||Define the left margin of the label in pixel. This is the space between the text box and his container
+|-
+|topMarginLabel 	||integer 	||0 	||Labels 	||Define the top margin of the label in pixel. This is the space between the text box and his container
+|-
+|rightMarginLabel 	||integer 	||0 	||Labels 	||Define the right margin of the label in pixel. This is the space between the text box and his container
+|-
+|bottomMarginLabel 	||integer 	||0 	||Labels 	||Define the bottom margin of the label in pixel. This is the space between the text box and his container 
+|-
+|shapeStereotype 	||boolean 	||true 	||Shapes	||true if shapes provided by stereotypes should be included in the list of visible shapes in the symbol compartment
+|-
+|shapeTypedElement 	||boolean 	||true 	||Shapes	||true if shapes provided by TypeSymbolDefinition stereotype should be included in the list of visible shapes in the symbol compartment
+|-
+|shapeStyle	    	||boolean 	||true 	||Shapes	||true if shapes provided by property svgFile should be included in the list of visible shapes in the symbol compartment
+|-
+|shapeDecorationStereotype 	||boolean 	||true 	||Shapes	||true if shapes provided by stereotypes should be included in the list of visible shapes as decorations
+|-
+|shapeDecorationTypedElement 	||boolean 	||true 	||Shapes	||true if shapes provided by TypeSymbolDefinition stereotype should be included in the list of visible shapes as decorations
+|-
+|shapeDecorationStyle	    	||boolean 	||true 	||Shapes	||true if shapes provided by property svgFile should be included in the list of visible shapes as decorations
+|-
+|}
+
+Other properties address presentation aspects that relate not so much to visual style as to content of the diagram:
+
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Initial&nbsp;Value !! Applies&nbsp;to !! Comment
+|-
+| canonical || boolean || false || Shapes, diagrams || Whether visually-contained elements (for shapes, diagrams) and connections (for shapes) are synchronized with the model.  For example, a canonical class shape always shows all of the class's owned operations, attributes, and nested classifiers as well as relationships such as generalizations and associations to other elements that are also shown in the diagram (although compartments may still be collapsed to hide their contents).
+|-
+|}
+
+===Value types===
+
+'''String:''' Simple (Ascii) strings can be written without quotes: ''property:value''. Complex strings must be written with quotes: ''property:&nbsp;"my value"''; ''path:&nbsp;"platform:/plugin/my.example.plugin/resources/myFile.ext";''<br/>
+'''Integer:''' Quotes are optional: ''size: 18''<br/>
+'''Boolean:''' Quotes are optional: ''bold: true''<br/>
+'''Color:''' There are three ways for using colors. The simplest one is to use the list of predefined [http://www.w3.org/TR/css3-color/#svg-color CSS Color names]: ''fillColor: teal''. It is also possible to use the Hexadecimal RGB notation: ''fillColor: #008080''. The last option is to use the rgb() function: ''fillColor: rgb(0, 128, 128)''
+
+===Mask Label===
+
+Some labels can be configured with a "Mask": in the appearance tab of the properties view, some elements have a list of checkboxes which are used to select which parts of the label should be displayed (e.g. visibility, type, name, multiplicity...)
+
+The CSS property "maskLabel" has the same purpose. The value of this property is the list of labels to display. For example, if you want to display only the name of the Ports, write:
+
+<source lang="css">/* Broken in Papyrus 1.0.0 (See Erratum below) */
+Port > Label { 
+	maskLabel: name;
+}</source>
+
+<source lang="css">/* Works in Papyrus 1.0.0 (See Erratum below) */
+Port { 
+	maskLabel: name;
+}</source>
+
+If you want to display the name, type and multiplicity of a Property, write:
+
+<source lang="css">Property {
+	maskLabel: name type multiplicity;
+}</source>
+
+Note that the order of the values doesn't matter. It is also important to understand the difference between the port and the property: the rule to match the port's label is different than the one for the property, because the Port is represented with two graphical elements: a square for the Port, and a floating text for its label. The Property is represented with a single text element. It is especially important for Associations, as Association have six different labels: one label for the Association itself, two labels for each association end (Source and target), and one label for the Association's stereotypes. The rules for configuring associations thus needs to be more precise. 
+
+<font color="red">Erratum:</font> Due to [https://bugs.eclipse.org/bugs/show_bug.cgi?id=437186 Bug 437186], in Papyrus 1.0.0 / Luna, the rule '''Port > Label''' doesn't work for maskLabel. You need to use '''Port'''. In Papyrus 1.0.1, both rules should be valid. The syntax '''Association > Label''' is still valid for Associations, because we still need to distinguish the different labels (Whereas the Port has a single Label and doesn't require the distinction)
+
+For example:
+
+<source lang="css">Association > Label:sourceMultiplicity {
+	visible:false;
+}
+
+Association > Label:targetMultiplicity {
+	visible:false;
+}
+
+Association > Label:sourceRole {
+	maskLabel: name multiplicity;
+}
+
+Association > Label:targetRole {
+	maskLabel: name multiplicity;
+}
+
+Association > Label:name {
+	visible:false;
+}</source>
+
+These rules result in:
+
+[[Image:images/Papyrus_CSS_maskLabel_association.png|Association labels result]]<br>
+
+
+The list of accepted values depends on the element. To find the list of values, select an element in a Diagram (e.g. a Property), go to the Appearance tab of the properties view, and find the list of checkboxes named "Label customization". Hover the checkboxes, and look at the tooltip to find the value:
+
+[[Image:images/Papyrus_CSS_maskLabel.png|Mask label]]<br>
+
+To obtain the result shown in this screenshot, write:
+
+<source lang="css">Property {
+	maskLabel: name type defaultValue;
+}</source>
+
+Which results in:
+
+[[Image:images/Papyrus_CSS_maskLabel_result.png|Mask label result]]<br>
+
+=== Stereotype Display ===
+Since Papyrus 1.1, the applied stereotypes display of an element can be managed via CSS. 
+In order to understand what those CSS represents, here is some pieces of information. 
+
+First of all the applied stereotypes can display their Name and / or their Properties.
+
+== Stereotype Name Display ==
+The Name of the Stereotype can be displayed with different depth.
+Full depth means that all the path of the stereotype is displayed.
+
+ <nowiki> Full depth  => "SysML::Blocks::Block"</nowiki>
+
+No depth means that just the last segment is displayed. 
+
+ <nowiki> No depth  => "Block"</nowiki>
+
+== Stereotype Properties Display ==
+The Properties of a stereotype can be displayed in 3 different locations:
+* In a '''compartment''' in case of node element (ex: a Class, a Block)
+* In '''braces''' into the header of the element
+* In an external figure as a '''comment'''
+
+[[File:images/PropertiesLocation.png]]
+
+== Default display settings ==
+By default, only the name of the Stereotypes with no depth are displayed.
+None of the properties are displayed. 
+
+[[File:images/DefaultStereotypeDisplay.JPG]]
+
+For your information, here is the default CSS implemented for the stereotype display.
+
+=== Default CSS ===
+The following CSS rules are implemented by default for all the Diagrams:
+
+<source lang="css">
+Shape[type=StereotypeComment]{
+	visible:false;
+}
+
+StereotypeComment Compartment[type=StereotypeBrace]{
+	visible:false;
+}
+
+Compartment[type=StereotypeCompartment]{
+	visible:false;
+}
+
+Compartment[type=StereotypeBrace]{
+	visible:false;
+}
+
+Label[type=StereotypeLabel]{
+	depth:"none";
+}
+
+</source>
+
+== Override the default settings ==
+To override the default settings, a new CSS has to be implemented.
+
+=== CSS Exemple ===
+Here is some exemple of CSS to display the Stereotype:
+
+<source lang="css">
+
+/* To modify the depth */
+Label[type=StereotypeLabel]{
+	depth:"-1";
+}
+
+/* To make the properties visible into compartment */
+Compartment[type=StereotypeCompartment]{
+	visible:true;
+}
+
+/* Hide the property "allocatedTo" into the compartment */
+Compartment[type=StereotypeCompartment]>[property="allocatedTo"]{
+	visible:false;
+}
+
+/* Hide all the properties into the Compartment of the stereotype Block */
+Compartment[stereotype="SysML::Blocks::Block"]{
+	visible:false;
+}
+
+/* Display the Comment shape */
+StereotypeComment{
+	visible:true;
+}
+
+/* Display the properties in Brace into the Comment*/
+StereotypeComment Compartment[type=StereotypeBrace]{
+	visible:true;
+}
+</source>
+
+=== Shape customization ===
+
+===== Introduction =====
+The idea of this feature is to create a generic compartment figure which have rounded corner. This figure can be used for most cases. 
+For specific cases an SVG symbol can be displayed. A floating label is created to be used with symbol. This label can be constrained or free, with feedback.
+
+This rounded compartment figure must implements a set of features. To permit the customization of the figure, it must be allowed to set it by CSS.
+
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Feature !! Description
+|-
+|Rounded corner	||It shall be possible to set rounded corners 
+|-
+|Shadow	||Shadow shall be compliant with rounded corner figure 
+|-
+|Vertical and horizontal radiant	||Radiant shall be compliant with rounded corner figure
+|-
+|Oval figure	||It shall be possible to force the figure to be oval
+|-
+|Floating label	||It shall be possible to add a floating label and customize it
+|-
+|CSS customization	||Each feature shall be customize thanks to CSS properties
+|-
+|SVG Color	||the Color of SVG figure shall be chosen
+|-
+|}
+
+===== Rounded Corner =====
+
+The radius of corners can be set throught CSS.
+
+====== CSS properties ======
+
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|radiusWidth ||	Integer||	0||	Set the radius width of corners
+|-
+|radiusHeight ||	Integer||	0||	Set the radius height of corners
+|-
+|}
+
+====== Result ======
+<source lang="css">Class {
+	radiusWidth:150;
+	radiusHeight:50;
+}</source>
+
+[[File:images/radiusResult.PNG]]
+
+===== Oval shape setting =====
+
+To force the figure to be an oval, even if it is resized, a specific CSS property has been added. The radius width and height will be not take into account anymore.
+
+====== CSS property ======
+
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|isOval	||Boolean	||false	||Set to true if you want to have an oval shape
+|-
+|}
+
+====== Result ======
+
+<source lang="css">
+Class {
+	isOval:true;
+}</source>
+ 
+[[File:images/ovalResult.PNG]]
+
+===== Floating Label =====
+
+A floating label is now available on most nodes.  It’s managed throws CSS properties, it can be specificly selected with: <source lang="css"> *>Label[kind="FloatingLabel"]</source>
+
+====== CSS properties ======
+
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|isFloatingLabelConstrained	||Boolean	||false 	||Set to true if the floating label is constrained on eight position, you can move it manually.
+|-
+|labelConstrained	||Boolean	||false	||Forced the label to one position, by default(for port) it will placed according to the parent position.
+|-
+|position	||String	||EAST	||Set the forced position.
+|-
+|floatingLabelOffsetWidth||	Integer	||0	||Define the width offset of the label when it is not attached.
+|-
+|floatingLabelOffsetHeight	|| Integer	||0	||Define the height offset of the label when it is not attached.
+|-
+|maskLabel	||List of String|| name		||Set the mask of the floating label.
+|-
+|}
+
+Attributes for the mask label:	
+
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Value !! Description!
+|-
+|stereotype ||Style constant for stereotype display in labels.
+|-
+|name	||Style constant for name display in labels.
+|-
+|visibility|| 	Style constant for visibility display in labels.
+|-
+|derived||	Style constant for isDerive display in labels.
+|-
+|type ||	Style constant for name display in labels.
+|-
+|multiplicity||	Style constant for multiplicity display in labels.
+|-
+|defaultValue||	Style constant for default value display in labels.
+|-
+|direction||	Style constant for direction display in labels.
+|-
+|returnType||	Style constant for return type display in labels.
+|-
+|returnMultiplicity||	Style constant for return multiplicity display in labels.
+|-
+|}
+
+====== Result ======
+<source lang="css">Class> Label[kind="FloatingLabel"] {
+	visible:true;
+}</source>
+
+[[File:images/FloatingLabelVisibleResult.PNG]]
+
+<source lang="css">Class {
+	isFloatingLabelConstrained:true
+}</source>
+ 
+[[File:images/FloatingLabelConstrained.PNG]]
+
+<source lang="css">Class{
+	floatingLabelOffsetWidth:10;
+	floatingLabelOffsetHeight:-30;	
+}</source>
+ 
+[[File:images/FloatingLabelOffset.png]]
+
+===== SVG symbol usage =====
+
+SVG is available on symbol compartment like before. The maximum number of displayed symbols can now be set by CSS.
+Note: SVG Symbol don’t work with affixed Node as Port.
+
+====== CSS property ======
+
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|maxNumberOfSymbol||Integer	||10	||Set the maximum number of of symbols to be displayed. 
+|-
+|}
+
+===== SVG color set =====
+
+The color of the SVG symbol can be chosen. For that, set the CSS properties “useOriginalColors” of the element to false. 
+The white color of the SVG image will be changed by the fill color of the element.  The black color of the SVG image will be changed by the line color of the element. 
+Gradient must be disabled.
+
+====== CSS property ======
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|useOriginalColors	||Boolean	||true	||Set if the SVG image use original colors.
+|-
+|}
+
+====== Result ======
+
+[[File:images/ColoredNodeExample.png]]
+
+===== Border style =====
+
+The border style can be customized through CSS. 
+Six styles are available: dash, dashDot, dashDotDot, dot, solid and custom.
+With custom style you can set the customDash.
+
+====== CSS properties ======
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|borderStyle	||String	||solid	||Set the style of the border(dash, dashDot, dashDotDot, dot, solid, custom).
+|-
+|customDash	||Int[]	||[5,5]	||Set the custom style.
+|-
+|}
+
+====== Result ======
+<source lang="css">
+Class {	
+	borderStyle:dash; /*dashDot; dashDotDot; dot; */
+	lineWidth:2;
+}</source>
+
+[[File:images/DashLineStyle.png]][[File:images/DashDotLineStyle.png]][[File:images/DashDotDotLineStyle.png]][[File:images/DotLineStyle.png]]
+
+<source lang="css">
+Class {	
+	borderStyle:custom;
+	customDash:10 10;
+	lineWidth:2;
+}</source>
+
+[[File:images/CustomLineStyle.png]]
+
+===== Compartment top line length =====
+
+The top line length of compartments can be setted. 
+
+====== CSS properties ======
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|lineLength	||int	||-1	||Set the top line length of the compartment. By default the length is set to the width of the compartment.
+|-
+|lineLengthRatio	||String	||“1.0”	||Set the top line length ratio of the compartment.
+|-
+|}
+
+====== Result ======
+
+Figure 15: Default compartment top line
+
+<source lang="css">Class > Compartment{
+	lineLength:40;
+}</source>
+ 
+[[File:images/LineLengthTo40.png]]
+ 
+<source lang="css">Class > Compartment{
+	lineLengthRatio:"0.80";
+}</source>
+ 
+[[File:images/LineLengthRatioTo08.png]]
+
+===== Compartment top line position =====
+
+The position of line can be setted, the default is center.
+
+====== CSS property ======
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|linePosition	||String	||“center”	||Set the compartment top line position.Can be left, center, right.
+|-
+|}
+
+====== Result ======
+
+<source lang="css">Class > Compartment{
+	lineLengthRatio:"0.50";
+	linePosition:"left"; /*center; right;*/
+}</source>
+
+[[File:images/LinePositionToLeft.png]][[File:images/LinePositionToCenter.png]][[File:images/LinePositionToRight.png]]
+
+===== Name position =====
+
+The name position (left, middle, right) of named nodes can be chosen with the CSS property “textAlignment”.
+
+====== CSS property ======
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|textAlignment	||String	||“center”	||Set name the position of the name.
+|-
+|}
+
+====== Result ======
+
+<source lang="css">Class{
+	textAlignment:"left"; /*center, right*/
+}</source>
+
+[[File:images/NamePositionToLeft.png]][[File:images/NamePositionToCenter.png]][[File:images/NamePositionToRight.png]]
+
+===== Add header =====
+
+A header can be added to the figure at the top-left corner with the CSS attribute “displayHeader”.
+
+====== CSS properties ======
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|displayHeader	||Boolean	||true	||Set to true to add a header.
+|-
+|}
+
+====== Result ======
+
+<source lang="css">Class{
+	textAlignment:"left";
+	displayHeader:true;
+}</source>
+ 
+[[File:images/DisplayHeader.png]]
+
+===== Port position =====
+
+The port position can be setted to inside, outside or on the line. The "onLine" option is the default value. The CSS property to applied on port is “portPosition”
+
+====== CSS Property ======
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|portPosition	||String	||“onLine”	||Set the position of the port. Can be “inside”, “ouside” or “onLine”.
+|-
+|}
+
+====== Result ======
+
+<source lang="css">Port{
+	portPosition:"inside"; /*onLine, outside*/
+}</source>
+
+[[File:images/PortInside.png]][[File:images/PortOnLine.png]][[File:images/PortOuside.png]]
+
+===== Display as a package =====
+
+Shape of elements can be displayed as a package through the CSS attribute "isPackage". This property has a higher priority than others customizations.
+
+====== CSS Property ======
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|isPackage	||Boolean	||false	||Set if the shape have to be displayed as a package.
+|-
+|}
+
+====== Result ======
+
+<source lang="css">Class{
+	isPackage:true;
+	textAlignment:"left";
+}</source>
+
+[[File:images/isPackageResult.png]]
+
+===== Shadow improvement =====
+
+The shadow width and color can now be chosen.
+
+====== CSS Property ======
+{| class="wikitable" border="1" cellspacing="0"
+|-
+! Property&nbsp;name !! Value&nbsp;type !! Default&nbsp;Value !! Comment
+|-
+|shadowWidth ||Integer	||4	||Set the width of the shadow.
+|-
+|shadowColor ||String	||"-1"	||Set the color of the shadow. By default the shadow have the same color as the border.
+|-
+|}
+
+====== Result ======
+
+<source lang="css">Class{
+	shadow:true;
+	shadowWidth:10;
+	shadowColor:"blue";
+}</source>
+
+[[File:images/shadowResult.png]]
+
+= Manipulating styles =
+
+The computed styles will be applied automatically. For example, if your stylesheet tells that all your abstract classes must be red, the classes color will change automatically according to the value of their "isAbstract" property. 
+
+In some other cases, however, you may want to specify manually the style that should be applied to your objects. For this case, you can use the "Applied styles" property in the "Style" tab of the properties view.<br> 
+
+<source lang="css">.myOwnStyle {
+    fillColor: #A6C198;
+    gradient:white horizontal;
+}</source> 
+
+[[Image:images/Papyrus_CSS_customStyle.png|Result]]<br> 
+
+Once a style is applied on an object, the object will be refreshed each time the style definition changes. For example, changing the style "myOwnStyle" to the following declaration:<br> 
+
+<source lang="css">.myOwnStyle {
+     fillColor: #E3A49C;
+     gradient: #FFFFFF horizontal;
+}</source> 
+
+All the green classes will become red.<br>
+
+= Themes and preferences =
+
+== CSS Support ==
+
+Papyrus should provide a CSS Engine for its diagrams. The stylesheets should be defined at three levels:
+
+* Workspace stylesheets: Applied on every elements
+* Model stylesheets: Applied on each element of the Model
+* Diagram Stylesheets: Applied on each element of the Diagram
+
+The CSS Engine should handle three kinds of properties:
+
+* GMF "Style" properties
+* Papyrus style properties (From Annotated Notation model)
+* User defined properties
+
+Regarding the CSS Selectors, they should be based on the Semantic model, plus the diagram type, i.e. :
+
+<source lang="css">
+Class { /* All GMF views representing a Class */
+   bold:true; /* This is a GMF property */
+}
+
+ClassDiagram Class { /* All classes in a ClassDiagram */
+   bold:false;
+}
+</source>
+
+The selectors should also be able to test semantic properties:
+
+<source lang="css">
+Class[isAbstract=true] {
+   italic:true;
+}
+</source>
+
+The CSS Engine should be generic enough to handle any kind of Semantic Model (i.e. it should not depend on UML).
+
+It should be possible to define local Style, CSS Classes and CSS ID on specific GMF Elements.
+
+==Extended CSS Support==
+
+Papyrus should provide an Extended CSS Syntax, allowing the user to define its own CSS Selectors through custom queries (OCL, EMF Facet, Java...)
+
+This extended CSS syntax is not compatible with the standard CSS parsers. Thus, we will need to define a custom parser for CSSX files. The CSSX parser should be able to handle standard CSS files, as well as custom queries.
+
+<source lang="css">
+Class[hasStereotype("SysML::Blocks::Block")] {
+   fillColor:#C3D1D5;
+   gradient:white vertical;
+}
+</source>
+
+==Editor & Preferences==
+
+The user should be able to edit the CSS/CSSX files either textually or graphically. The graphical editor should look like the current Papyrus preferences page, which it will replace.
+
+= Limitations and issues  =
+
+There are currently a few identified limitations to the Stylesheet framework, as well as a few minor bugs:<br> 
+
+== Selectors  ==
+
+Currently, some complex selectors are not supported in the Papyrus stylesheets. Especially, the following are not supported yet:<br> 
+
+;Selector inheritance
+:It is not possible to apply a style to all descendant of a given Metaclass. For example, a Behavior will not inherit styles from a Class, although a Behavior actually is a Class.<br>  
+;Events support
+:Selectors based on user events are not yet implemented. For example, the CSS specification defines the&nbsp;:hover pseudo-selector to represent an element hovered by the mouse, which is not yet supported in Papyrus.<br>
+
+== Known bugs  ==
+
+The following bugs have been identified:<br> 
+
+*[https://bugs.eclipse.org/bugs/show_bug.cgi?id=386574 Bug 386574]: <nowiki>[CSS - Refresh]  Only the active diagram is refresh when the stylesheets change</nowiki><br>
+*[https://bugs.eclipse.org/bugs/show_bug.cgi?id=436665 Bug 436665]: <nowiki>[CSS] Refresh issue when an element is moved to a different owner</nowiki>
+*[https://bugs.eclipse.org/bugs/show_bug.cgi?id=472167 Bug 472167]: <nowiki>lists some nodes that are currently not supported</nowiki>
+
+

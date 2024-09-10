@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="TreeOutlinePage">
+         <propertySection
+               class="org.eclipse.papyrus.infra.textedit.properties.internal.emf.TextDocumentSection"
+               filter="org.eclipse.papyrus.infra.textedit.properties.internal.emf.TextDocumentSectionFilter"
+               id="org.eclipse.papyrus.infra.textedit.properties.internal.emf.TextDocumentSection"
+               tab="advanced">
+            <input
+                  type="java.lang.Object">
+            </input>
+         </propertySection>
+      </propertySections>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.properties.contexts">
+      <context
+            contextModel="properties/TextDocument.ctx"
+            isCustomizable="true">
+      </context>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.properties.environments">
+      <environment
+            environmentModel="properties/Environment.xmi">
+      </environment>
+   </extension>
+
+</plugin>

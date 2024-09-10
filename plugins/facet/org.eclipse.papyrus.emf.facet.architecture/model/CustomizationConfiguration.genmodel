@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText=" Copyright (c) 2020 CEA LIST and others.&#xA;&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License 2.0&#xA; which accompanies this distribution, and is available at&#xA; https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA; SPDX-License-Identifier: EPL-2.0&#xA;&#xA; Contributors:&#xA; Vincent LORENZO - Initial API and implementation"
+    modelDirectory="/org.eclipse.papyrus.emf.facet.architecture/src-gen" creationIcons="false"
+    editDirectory="/org.eclipse.papyrus.emf.facet.architecture.edit/src-gen" editorDirectory="/org.eclipse.papyrus.emf.facet.architecture.editor/src-gen"
+    modelPluginID="org.eclipse.papyrus.emf.facet.architecture" modelName="CustomizationConfiguration"
+    nonNLSMarkers="true" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" commentFormatting="true" testsDirectory="/org.eclipse.papyrus.emf.facet.architecture.tests/src-gen"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    usedGenPackages="../../org.eclipse.papyrus.infra.core.architecture/model/Architecture.genmodel#//architecture ../../org.eclipse.papyrus.emf.facet.custom.metamodel/model/custom-0.2.0.genmodel#//custom ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipse.papyrus.emf.facet.efacet.metamodel/model/efacet-0.2.0.genmodel#//efacet ../../org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.genmodel#//types"
+    operationReflection="true" importOrganizing="true" cleanup="true" oSGiCompatible="true">
+  <foreignModel>CustomizationConfiguration.ecore</foreignModel>
+  <genPackages prefix="CustomizationConfiguration" basePackage="org.eclipse.papyrus.emf.facet.architecture"
+      disposableProviderFactory="true" childCreationExtenders="true" ecorePackage="CustomizationConfiguration.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="CustomizationConfiguration.ecore#//Location">
+      <genEnumLiterals ecoreEnumLiteral="CustomizationConfiguration.ecore#//Location/Before"/>
+      <genEnumLiterals ecoreEnumLiteral="CustomizationConfiguration.ecore#//Location/After"/>
+    </genEnums>
+    <genClasses ecoreClass="CustomizationConfiguration.ecore#//EMFFacetTreeViewerConfiguration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CustomizationConfiguration.ecore#//EMFFacetTreeViewerConfiguration/customizationReferences"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CustomizationConfiguration.ecore#//EMFFacetTreeViewerConfiguration/extends"/>
+    </genClasses>
+    <genClasses ecoreClass="CustomizationConfiguration.ecore#//CustomizationReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CustomizationConfiguration.ecore#//CustomizationReference/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CustomizationConfiguration.ecore#//CustomizationReference/referencedCustomization"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CustomizationConfiguration.ecore#//CustomizationReference/applicationRule"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="CustomizationConfiguration.ecore#//IApplicationRule"/>
+    <genClasses ecoreClass="CustomizationConfiguration.ecore#//AbsoluteOrder">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CustomizationConfiguration.ecore#//AbsoluteOrder/order"/>
+    </genClasses>
+    <genClasses ecoreClass="CustomizationConfiguration.ecore#//RelativeOrder">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CustomizationConfiguration.ecore#//RelativeOrder/location"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CustomizationConfiguration.ecore#//RelativeOrder/relativeCustomizationReference"/>
+    </genClasses>
+    <genClasses ecoreClass="CustomizationConfiguration.ecore#//Redefinition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CustomizationConfiguration.ecore#//Redefinition/redefinedCustomizationReference"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

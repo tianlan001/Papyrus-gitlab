@@ -1,0 +1,252 @@
+<!--
+ Copyright (c) 2020 CEA LIST
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+
+ Contributors:
+  Christophe Aussagues (christophe.aussagues@cea.fr) - Initial documentation
+-->
+== Pre-requisite ==
+Create a plug-in project and we define a static profile, to do so see 
+[https://help.eclipse.org/latest/index.jsp?nav=%2F73_0_1_8 Help>Help Contents>Papyrus Guide>User Guide>Using UML Profiles sub-menu].
+As an example, we suppose that a static profile with 2 stereotyped classes 
+named Stereotype_A , Stereotype_Band a "Metacalss" has been defined.
+We want to extend the Palette of a Class diagram to be able to create directly stereotyped elements from the Palette.
+
+[[File:images/Papyrus_diagcusto_00.png|400px|frame]]
+
+== Generating ElementTypes from the profile ==
+=== Creating ElementTypes ===
+'''ElementTypes''' are used to manage the lifecycle (creation, deletion, move, ...) 
+of an Element, see 
+[https://help.eclipse.org/latest/index.jsp?nav=%2F73_1_10 Help>Help Contents>Papyrus Guide>Papyrus Guide>Toolsmith Guide>ElementTypeConfigurations Framework sub-menu].
+
+If we want to create a stereotyped class named Stereotype_A in a class diagram, 
+there are two ways. Without any framework, we shall create manually a class 
+and then we shall manually apply the stereotype Stereotype_A on it. 
+With the ElementTypes Configuration framework, we will intercept the 
+creation of the class and we will apply automatically the stereotype.
+
+First, we need the Papyrus-development related software packages as shown 
+in Figure 1 (we suppose that Papyrus 2020-12 has been installed, for further 
+versions, see [https://www.eclipse.org/papyrus/download.html the list of update sites].
+
+[[File:images/Papyrus_diagcusto_01.png|1000px|frame|Figure 1. Needed Papyrus developer software]]
+
+We select the profile model’s root and right-click on it. We select the 
+"Generate Tooling Model">"Element Types..." sub-menu as shown in Figure 2.
+
+[[File:images/Papyrus_diagcusto_02.png|frame|Figure 2. Element Types menu selection]]
+
+The configuration menu pops up, as shown in Figure 3. We set the ''Identifier'' to 
+''org.eclipse.my_profile_test'' (i.e. the name of my profile) and let the other parts 
+of the window as shown.
+
+[[File:images/Papyrus_diagcusto_03.png|frame|Figure 3. Element Types Configuration Model filling]]
+
+A new file named ''my_profile_test.elementtypesconfigurations'' has been created and 
+looks like in Figure 4.
+
+[[File:images/Papyrus_diagcusto_04.png|frame|Figure 4. Element Types Configurations result]]
+
+An '''ElementTypeConfiguration''' (noted 1 in Figure 4) has been created per stereotype 
+of my profile. An '''ApplyStereotypeAdvice Configuration''' (noted 2 in Figure 4) has also 
+been created. This '''Advice''' aims at applying the referenced stereotype of the 
+'''ElementTypeConfiguration''' that has been created. 
+
+We add the following dependencies to the profile plugin (from 
+''org.eclipse.papyrus.infra.types'' core to ''org.eclipse.papyrus.uml.types.core''):
+
+[[File:images/Papyrus_diagcusto_05.png]]
+
+We add the extension point ''org.eclipse.papyrus.infra.types.core.elementTypeSetConfiguration''
+in the Extensions of the plugin:
+
+[[File:images/Papyrus_diagcusto_07.png]]
+
+Once installed, we setup the extension point’s clientContextID (Papyrus, i.e. 
+''org.eclipse.papyrus.infra.services.edit.TypeContext'') and its path (by browsing the file 
+named ''my_profile_test.elementtypesconfigurations'' that has been previously generated). 
+See Figure 5.
+
+[[File:images/Papyrus_diagcusto_08.png|frame|Figure 5. Extension point configuration]]
+
+=== Validating created ElementTypes ===
+We validate the Profile plug-in and the Element Types plugin by right-clicking on the 
+profile project and selecting "Papyrus Developer"/"Validate Element Types plug-in..." 
+as shown in Figure 6.
+
+[[File:images/Papyrus_diagcusto_09.png|frame|Figure 6. Validation menus]]
+
+We launch an Eclipse run-time. We setup a Papyrus model with a class diagram. 
+Via the sub-menu Window>Show View>Other, we select the Papyrus Dev/Registered Element Types 
+view as below:
+
+[[File:images/Papyrus_diagcusto_10.png]]
+
+In the associated tab that has appeared, we select ''org.eclipse.papyrus.infra.services.edit.TypeContext''
+and search for the Element Types (see 1 and 2 in the Figure 7) in the ''org.eclipse.papyrus.uml.Class'' 
+element.
+
+[[File:images/Papyrus_diagcusto_11.png|frame|Figure 7. Registered Element Types]]
+
+The fact that there are the two ElementTypes as expected 
+(org.eclipse.my_profile_test.Stereotype_A and org.eclipse.my_profile_test.Stereotype_B) 
+validates our configuration.
+
+== Generating ElementTypes for diagram customization ==
+
+We want to extend the Palette with the new stereotypes based on Class. To do so for this diagram, 
+we need to upload two plugins from the [https://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/ Papyrus git repository]:
+* ''org.eclipse.papyrus.uml.service.types''
+* ''org.eclipse.papyrus.uml.diagram.clazz''
+Do not forget to add ''org.eclipse.papyrus.uml.diagram.clazz'' to the dependencies of the profile 
+plugin to be able to extend the Class Diagram Palette.
+If we want to extend another diagram than the Palette, this must be adapted to the given diagram.
+
+=== Creating ElementTypes ===
+
+We open the Palette files that correspond to the diagram:
+* ''/org.eclipse.papyrus.uml.service.types/model/umldi.elementtypesconfigurations''
+* ''/org.eclipse.papyrus.uml.diagram.clazz/model/PapyrusUMLClassDiagram.paletteconfiguration''
+We can see in ''PapyrusUMLClassDiagram.paletteconfiguration'' the fields that correspond 
+to the Palette element ''Nodes/Class'' we want to “overload”, see Figure 8.
+
+[[File:images/Papyrus_diagcusto_12.png|frame|Figure 8. Graphical elements of the Palette/Class element to overload]]
+
+The element of the Palette named Class relies on 5 graphic ElementTypes 
+(from "Class Component Nested Classifier Label" to "Class Shape"). Indeed, the graphical 
+creation needs to be intercepted and it also needs to create UML elements. For example, 
+Class Shape is the representation of the Class in the foreground of the diagram and it 
+inherits from the ''ElementType UML::Class'' as shown in the file 
+''umldi.elementtypesconfiguration'' (Properties View, Specialized Types item), see below:
+
+[[File:images/Papyrus_diagcusto_13.png]]
+
+Now, we will create a new “graphical” ElementType that inherits from these “graphical” ElementTypes 
+(e.g. Class Shape) and from our previously created ElementType associated to Stereotype_A.
+We create a new elementtypesconfiguration file. For this, we right-click on the 
+my_profile_test/profile sub-folder, and we select the sub-menu 
+File>New>Other>ElementTypesConfiguration Model. 
+We name it ''my_profile_testdi.elementtypesconfiguration''.
+
+We select Element Type Set Configurations and its the Properties as shown in Figure 9. 
+We set the ''Identifier'' to ''org.eclipse.papyrus.my_profile_testdi.elementtypeset.extension'', 
+the ''Metamodel Ns Uri'' shall be ''http://www.eclipse.org/uml2/5.0.0/UML'' and we set the name to 
+'''my_profile_test_extension'''.
+
+[[File:images/Papyrus_diagcusto_14.png|frame|Figure 9. "Graphical" Element Type Set Configuration]]
+
+In this set, we create a new Child, by right clicking on Element Type Set Configuration 
+my_profile_test_extension and selecting New Child/ Specialization Type Configuration, 
+as shown in Figure 10.
+
+[[File:images/Papyrus_diagcusto_15.png|frame|Figure 10. Specialization Type Configuration menu]]
+
+Before filling the first "graphical" ElementType, we need to load 2 resources (right-click 
+on the Resource Set>Load Resource sub-menu, item Browse Workspace): 
+* The umldi.elementtypesconfigurations resource (for having access to the existing "graphical" 
+ElementTypes associated to Class here);
+* The my_profile_test.elementtypesconfigurations (for having access to the previously created 
+ElementTypes associated to the stereotypes Stereotype_A and Stereotype_B).
+We then fill the created "graphical" ElementType as shown in Figure 11.
+
+[[File:images/Papyrus_diagcusto_15b.png|frame|Figure 11. Properties of our "graphical" ElementType]]
+
+The Hint shall be Class_Shape and the Kind to ''org.eclipse.gmf.runtime.emf.type.core.IHintedType'', 
+as mentioned in the umldi.elementtypesconfigurations file/item Class Shape. 
+The Hint is a filter to know if this graphical shall or shall not be displayed.
+By convention, the Identifier shall be set to 
+"org.eclipse.papyrus.my_profile_test.Stereotype_A_Class_Shape" and the Name to 
+"Stereotype_A (Class_Shape)". It is important to have a name with Class Shape as it will be 
+what will appear on later selections. We then select the Specialized Type in this order: 
+previously created ElementType associated to Stereotype_A and the basic "graphical" ElementType next, 
+as shown in Figure 12. 
+
+[[File:images/Papyrus_diagcusto_16.png|frame|Figure 12. Specialized Type of our "graphical" ElementType]]
+
+We shall do so for each graphical element of the Palette, i.e. the 4 remaining ones as shown in 
+Figure 8. We finally obtain what is shown in Figure 13.
+
+[[File:images/Papyrus_diagcusto_16b.png|frame|Figure 13. Set of created "graphical" ElementTypes]]
+
+We add the following extension point in the Extensions of the plugin 
+(''org.eclipse.papyrus.infra.core.elementTypeSetConfiguration''):
+[[File:images/Papyrus_diagcusto_17.png]]
+
+=== Validating created ElementTypes ===
+
+We launch the Eclipse runtime and check in the Registered ElementTypes of a model if the 5 
+newly created ElementTypes exist in org.eclipse.my_profile_test_StereotypeA as shown in Figure 14.
+
+[[File:images/Papyrus_diagcusto_18.png|frame|Figure 14. Registered ElementTypes check]]
+
+We perform the same operations for the 5 “graphical” ElementTypes of Stereotype_B to be able to 
+reference all these elements in the Palette.
+
+== Customizing the Palette of a Class Diagram ==
+
+We launch the Eclipse runtime and right-click on the Palette banner. We select the Customize menu 
+as shown in Figure 15.
+
+[[File:images/Papyrus_diagcusto_19.png|frame|Figure 15. Palette customization menu]]
+
+In the Available Palette buttons, we click on the Create a new local palette one. 
+We set its name to an arbitrary one, like my_palette, and we add my_profile_test as Required 
+profiles:
+
+[[File:images/Papyrus_diagcusto_20.png|frame]]
+
+We click on Next and select Default in the Palette preview to rename it MyPalette. 
+From UML tools, we add Class to the Palette preview and modify it. We click on Class in the 
+Palette Preview and change its name to Stereotype_A. We select all associated ElementTypes, 
+remove them and add the my_profile_extensions/Stereotype_A (Class Shape) ElementType. We then 
+click on Finish.
+to create the 3 files:
+* my_palette_Semantic.elementtypesconfigurations
+* my_palette_UI.elementtypesconfigurations
+* my_palette.paletteconfiguration
+We have to specify the export file option when we create the new palette
+[[File:images/Papyrus_diagcusto_20b.png|frame]]
+
+We double-click on the last file, select the Stereotype_A element and add the 4 missing 
+ElementTypes shown in Figure 8 until obtaining Figure 16.
+
+[[File:images/Papyrus_diagcusto_21.png|frame|Figure 16. my_palette.paletteconfiguration content]]
+
+We finally copy the 3 files in the project my_profile/profile sub-folder.
+
+== Customizing the Architecture Framework ==
+
+First, we shall read and apply [https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.papyrus.infra.architecture.doc%2Ftarget%2Fgenerated-eclipse-help%2Farchitecture.html&cp%3D73_1_5_3&anchor=Definition_of_New_Architecture_Models this]
+to prepare an architecture framework that will host a new Class Diagram incorporating our Palette.
+
+We add the Palette resource to the resources of the Architecture Framework as shown below:
+
+[[File:images/Papyrus_diagcusto_22.png]]
+
+We then add the Class Diagram that will use this Palette as shown below:
+
+[[File:images/Papyrus_diagcusto_23.png]]
+
+We add the Architecture extension 'org.eclipse.papyrus.infra.architecture.models' and its path (by browsing the file 
+named 'my_test.architecture' that has been previously created).
+
+[[File:images/Papyrus_diagcusto_24.png|800px|frame]]
+
+In order to add the customized diagram in the "new diagram" list, a configuration of the architecture file is mandatory.
+to do this we can use the "org.eclipse.papyrus.infra.architecture" plug-in as a model.
+
+[[File:images/Papyrus_diagcusto_25.png|800px|frame]]
+
+We have also to add the profile to the diagram created on the the Eclipse runtime
+
+[[File:images/Papyrus_diagcusto_26.png|800px|frame]]
+
+After applying all the steps we have the following result
+
+[[File:images/Papyrus_diagcusto_27.png|800px|frame]]

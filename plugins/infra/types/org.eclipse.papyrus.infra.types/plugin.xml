@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2014 CEA LIST.
+ 
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+  CEA LIST - Initial API and implementation
+-->
+
+<plugin>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated ElementTypesConfigurations -->
+      <package
+            uri="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2"
+            class="org.eclipse.papyrus.infra.types.ElementTypesConfigurationsPackage"
+            genModel="model/ElementTypesConfigurations.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.content_parser">
+      <!-- @generated not ElementTypesConfigurations -->
+      <parser
+            contentTypeIdentifier="org.eclipse.papyrus.infra.types"
+            class="org.eclipse.papyrus.infra.types.resource.CustomElementTypesConfigurationsResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated not ElementTypesConfigurations -->
+      <parser
+            type="elementtypesconfigurations"
+            class="org.eclipse.papyrus.infra.types.resource.CustomElementTypesConfigurationsResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.core.contenttype.contentTypes">
+      <!-- @generated ElementTypesConfigurations -->
+      <content-type
+            base-type="org.eclipse.emf.ecore.xmi"
+            file-extensions="elementtypesconfigurations"
+            id="org.eclipse.papyrus.infra.types"
+            name="%_UI_ElementTypesConfigurations_content_type"
+            priority="normal">
+         <describer class="org.eclipse.emf.ecore.xmi.impl.RootXMLContentHandlerImpl$Describer">
+            <parameter name="namespace" value="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2"/>
+            <parameter name="kind" value="xmi"/>
+         </describer>
+      </content-type>
+   </extension>
+</plugin>

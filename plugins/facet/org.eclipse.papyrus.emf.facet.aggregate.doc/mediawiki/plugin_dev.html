@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8' ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/></head><body><h2 id="Aggregates_in_dialogs">Aggregates in dialogs</h2><p>JFace viewers don't work as expected when the same element appears several times in the same viewer.
+Since we want to be able to display the same elements under several Aggregates displayed in the same viewer, we need proxy elements to represent the multiple appearances of aggregated elements.</p><p>Here is the Aggregate metamodel:</p><p><img border="0" src="../img/aggregate-0.2.0.png"/></p><p>The package <b>aggregateProxy</b> contains the metaclasses that define the proxies for elements in a dialog. 
+An <b>Aggregate</b> references <b>AggregatedFacetSet</b> proxies, one for each FacetSet (including Customizations) it aggregates.
+An <b>AggregatedFacetSet</b> represents a FacetSet, which can itself be an Aggregate, so it can contain other AggregatedFacetSets through the <i>facetSetProxies</i> reference.
+FacetSets contain Facets, so AggregatedFacetSet contains proxies (<b>AggregatedFacet</b>) for these Facets through the <i>facetProxies</i> reference.
+Facets contain FacetElements, so AggregatedFacet contains proxies (<b>AggregatedFacetElement</b>) for these FacetElements through its <i>proxies</i> reference.</p><p>To use these proxies in a JFace dialog, the content provider must return proxies for aggregated FacetSets, Facets and FacetElements, instead of returning the original element.</p><p>This makes it possible to implement the <b>getParent</b> method of the content provider by following the proxy hierarchy upwards.</p><p><font size="-2">
+Copyright &#169; 2012 CEA LIST.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License 2.0
+which accompanies this distribution, and is available at
+<a href="https://www.eclipse.org/legal/epl-2.0/">https://www.eclipse.org/legal/epl-2.0/</a>.
+Contributors: Nicolas Bros (Mia-Software)
+</font></p></body></html>

@@ -1,0 +1,110 @@
+=Introduction=
+Since Papyrus 3.0 (Eclipse Oxygen), Papyrus provides the Expressions Framework.
+This framework provides one basis interface <code>IExpression<CONTEXT_TYPE, RETURN_TYPE></code>. This interface provides the method <code>evaluate(CONTEXT_TYPE):RETURN_TYPE</code>. This framework has been developed to be hightly extensible. Please read the expression developer documentation to go further.
+
+==Why this framework?==
+The Expressions have initially been developed for Papyrus Matrices Table. Developing the matrices, we need to provide a way to the user to easily filter the rows and the columns to show. That's the reason for which the first expressions available in Papyrus are the boolean expressions. 
+
+
+==General Presentation==
+Nowadays (Papyrus 3.0), for the users, the expressions are only used in the context of the Papyrus Matrices Table.
+Throw the Matrix Property View, the user can create its own expressions to use them as filter. It is also possible for him to reference existing expressions provides by Papyrus.
+
+===ExpressionCatalog===
+An ExpressionCatalog owns <code>IExpression<?,?></code>. It allows to provide predefined expressions to the user.
+
+===Existing IExpression<EObject,Boolean>===
+For these expressions, the evaluate method takes as argument an '''EObject''' and returns a '''Boolean''', so <code>true</code> or <code>false</code>.
+If you don't know what is an EObject, it is not matter. It is a detail of the implementation of UML in Eclipse. 
+The only thing to know for Papyrus user, it that all UML Elements are EObject. 
+
+Here, we present you the generic boolean expressions provided by Papyrus:
+*'''LiteralTrueExpression'''
+**parameters: no parameter
+** the evaluation returns always <code>true</code>
+*'''LiteralFalseExpression'''
+**parameters: no parameter
+**semantic:the evaluation returns always <code>false</code>
+*'''AndExpression'''
+**parameters:
+***''ownedExpressions'': other boolean expressions owned by the <code>AndExpresion</code>,
+***''referencedExpressions'': other boolean expressions referenced by the <code>AndExpresion</code>.
+**semantic:this expression allows to make a logical AND between all owned and referenced expressions.
+**default value: if these is no expression to evaluate, we return <code>true</code> by default.
+*'''OrExpression'''
+**parameters:
+***''ownedExpressions'': other boolean expressions owned by the <code>OrExpression</code>,
+***''referencedExpressions'': other boolean expressions referenced by the <code>OrExpression</code>.
+**semantic: this expression allows to make a logical OR between all owned and referenced expressions.
+**default value: if these is no expression to evaluate, we return <code>false</code> by default.
+*'''NotExpression'''
+**parameters:
+***''ownedExpression'': a boolean expression owned by the <code>NotExpression</code>,
+***''referencedExpression'': a boolean expression referenced by the <code>NotExpression</code>.
+**semantic: this expression allows get the negation of another boolean expression.
+***when ''ownedExpression'' is defined, we return the negation of the ownedExpression,
+***when ''ownedExpression'' is not defined and referenced expression is defined: we return the negation of the referencedExpression,
+***when ''ownedExpression'' and ''referencedExpression'' are not defined, we return <code>false</code> as default value.
+*'''ReferenceBooleanExpression'''
+**parameter:
+***''referencedExpression'': the referenced boolean expression.
+**semantic: this expression allows to reference an expression provided by the <code>ExpressionCatalog</code>.
+**defaultValue: if there is no referenced expression, the expression returns <code>true</code>.
+*'''SingleEAttributeValueEqualityExpression'''
+**parameters:
+***''eAttribute'': the EAttribute used on the evaluated element to get a value,
+***''expectedValue'': the expected value for the EAttribute, as string.
+**semantic: this expression allows to check the value of an EAttribtue is equals to the expected one. 
+**default value: we return <code>false</code> if the EAttribute is not defined. We only return <code>true</code> when the EAtribute value is eaquals to the expected one.
+
+After defining these main objects required to write boolean expression, we provided some expressions dedicated to UML:
+*'''IsStereotypedWithExpression'''
+**parameters:
+***''stereotype identifier'': the qualified name of the stereotype,
+***''profile URI'': the URI of the top profile owning the stereotype, not mandatory.
+**semantic: this expression returns <code>true</code> when the stereotype is applied on the element. If the ''profile URI'' is defined, we check that the stereotype comes from the expected profile.
+**default value:
+*** we return <code>false</code>, if the stereotype identifier is not defined.
+
+*'''HasAppliedStereotypesExpression'''
+**parameters: there is no parameter.
+**semantic: returns <code>true</code> when at least one stereotype is applied on the element.
+
+*'''IsTypeOfExpression'''
+**parameters:
+***''UML Metaclass'': the expected UML metaclass.
+**semantic: returns <code>true</code> when the evaluated element is strictly an instance of the excepted metaclass. So for subtypes, of the expected metaclass, we return <code>false</code>.
+**default value: we return <code>false</code> when the ''UML Metaclass'' is not defined.
+
+*'''IsKindOfExpression'''
+**parameters:
+***''UML Metaclass'': the expected UML metaclass.
+**semantic: returns <code>true</code> when the evaluated element is an instance of the excepted metaclass. So for subtypes, of the expected metaclass, we return <code>true</code> too.
+**default value: we return <code>false</code> when the ''UML Metaclass'' is not defined.
+
+*'''IsTypeOfStereotypeExpression'''
+**parameters:
+***''stereotype identifier'': the qualified name of the stereotype,
+***''profile URI'': the URI of the top profile owning the stereotype, not mandatory.
+**semantic: this expression returns <code>true</code> when the stereotype is applied on the element. If the ''profile URI'' is defined, we check that the stereotype comes from the expected profile.
+**default value:
+*** we return <code>false</code>, if the stereotype identifier is not defined.
+
+*'''IsKindOfStereotypeExpression'''
+**parameters:
+***''stereotype identifier'': the qualified name of the stereotype,
+***''profile URI'': the URI of the top profile owning the stereotype, not mandatory.
+**semantic: this expression returns <code>true</code> when the stereotype applied on the context element is a Kind of the identified stereotype. So for element stereotyped by a stereotype that generalize the expected stereotype, we return <code>true</code>. If the ''profile URI'' is defined, we check that the stereotype comes from the expected profile.
+**default value:
+*** we return <code>false</code>, if the stereotype identifier is not defined.
+
+*'''SingleStereotypeAttributeEqualityExpression'''
+**parameters:
+***''stereotype qualified name'': the qualified name of the stereotype,
+***''property name'': the name of a property of the stereotype,
+***''profile URI'': the uri of the profile (not mandatory),
+***''expected value'': the expected value for the stereotype's property as string.
+**semantic: this expression returns <code>true</code> when the required stereotype is applied on the context element and when its property value is equals to the expected one. If the ''profile URI'' is defined, we check that the stereotype comes from the expected profile.
+**default value:
+***we return <code>false</code>, when the qualified name, or the property, or the expected value, is not defined. 
+

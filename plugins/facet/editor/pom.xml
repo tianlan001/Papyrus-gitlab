@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.papyrus.facet-editor</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+	    <groupId>org.eclipse.papyrus</groupId>
+	    <artifactId>org.eclipse.papyrus.facet</artifactId>
+	    <version>7.0.0-SNAPSHOT</version>
+    </parent>
+	<name>Papyrus EMF Facet Editors</name>
+	<description>Documentation plug-ins for Papyrus EMF Facet.</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.emf.facet.custom.doc</module>
+		<module>org.eclipse.papyrus.emf.facet.custom.metamodel.editor</module>
+		<module>org.eclipse.papyrus.emf.facet.custom.metamodel.editor.doc</module>
+		<module>org.eclipse.papyrus.emf.facet.doc</module>
+	</modules>
+</project>

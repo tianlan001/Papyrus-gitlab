@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.papyrus.infra-services</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+	    <groupId>org.eclipse.papyrus</groupId>
+	    <artifactId>org.eclipse.papyrus.infra</artifactId>
+	    <version>7.0.0-SNAPSHOT</version>
+    </parent>
+	<name>Papyrus Infra Services</name>
+	<description>Core services provided by the Papyrus Editor's Service Registry.</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.infra.services.architecture</module>
+		<module>org.eclipse.papyrus.infra.services.controlmode</module>
+		<module>org.eclipse.papyrus.infra.services.controlmode.history</module>
+		<module>org.eclipse.papyrus.infra.services.decoration</module>
+		<module>org.eclipse.papyrus.infra.services.edit</module>
+		<module>org.eclipse.papyrus.infra.services.edit.ui</module>
+		<module>org.eclipse.papyrus.infra.services.labelprovider</module>
+		<module>org.eclipse.papyrus.infra.services.localizer</module>
+		<module>org.eclipse.papyrus.infra.services.markerlistener</module>
+		<module>org.eclipse.papyrus.infra.services.navigation</module>
+		<module>org.eclipse.papyrus.infra.services.openelement</module>
+		<module>org.eclipse.papyrus.infra.services.resourceloading</module>
+		<module>org.eclipse.papyrus.infra.services.resourceloading.ui</module>
+		<module>org.eclipse.papyrus.infra.services.semantic</module>
+		<module>org.eclipse.papyrus.infra.services.validation</module>
+		<module>org.eclipse.papyrus.infra.services.viewersearch</module>
+		<module>org.eclipse.papyrus.infra.services.viewlabelprovider</module>
+	</modules>
+</project>

@@ -1,0 +1,137 @@
+/**
+ * Test classify statements.
+ **/
+active class Statements_Classify {
+
+	class Monitor {
+
+		@Create
+		public Monitor();
+		@Destroy
+		public destroy();
+
+	}
+
+	class InActiveMonitor specializes Monitor {
+
+		@Create
+		public InActiveMonitor();
+		@Destroy
+		public destroy();
+
+	}
+
+	active class ActiveMonitor specializes Monitor {
+
+		public activity 'n$defaultValue$1'(): Integer;
+		public n: Integer = 'n$defaultValue$1'();
+		@Create
+		public ActiveMonitor();
+		@Destroy
+		public destroy();
+
+	} do 'ActiveMonitor$behavior$1'
+
+	class Employee {
+
+		@Create
+		public Employee();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Administrator specializes Employee {
+
+		@Create
+		public Administrator();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Staff specializes Employee {
+
+		@Create
+		public Staff();
+		@Destroy
+		public destroy();
+
+	}
+
+	class PartTime specializes Employee {
+
+		@Create
+		public PartTime();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Issue {
+
+		@Create
+		public Issue();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Pending specializes Issue {
+
+		@Create
+		public Pending();
+		@Destroy
+		public destroy();
+
+	}
+
+	class InProcess specializes Issue {
+
+		@Create
+		public InProcess();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Overdue specializes Issue {
+
+		@Create
+		public Overdue();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Resolved specializes Issue {
+
+		@Create
+		public Resolved();
+		@Destroy
+		public destroy();
+
+	}
+
+	active class TestRunner {
+
+		public receive signal Start {
+		}
+
+		public receive signal Continue {
+		}
+
+		public test(out employee: Employee, out monitor: Monitor, out issue: Issue);
+		@Create
+		public TestRunner();
+		@Destroy
+		public destroy();
+
+	} do 'TestRunner$behavior$1'
+
+	@Create
+	public Statements_Classify();
+	@Destroy
+	public destroy();
+
+} do 'Statements_Classify$behavior$1'

@@ -1,0 +1,38 @@
+/**
+ * Test indexed feature assignment expressions
+ **/
+active class Expressions_Assignment_Feature_Indexed {
+
+	private class C {
+
+		public y: Integer[0..*] sequence;
+		@Create
+		public C();
+		@Destroy
+		public destroy();
+
+	}
+
+	private datatype D {
+		public y: Integer[0..*] sequence;
+	}
+
+	private assoc A {
+		public c: C;
+		public n: Integer[0..*] sequence;
+	}
+
+	private assoc B {
+		public d: D;
+		public m: Integer[0..*] sequence;
+	}
+
+	private y: Integer[0..*] sequence;
+	public test(out c: C, out d: D, out n: Integer, out m: Integer,
+		out self: Expressions_Assignment_Feature_Indexed);
+	@Create
+	public Expressions_Assignment_Feature_Indexed();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Assignment_Feature_Indexed$behavior$1'

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2014 CEA LIST.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   Camille Letavernier (CEA LIST) camille.letavernier@cea.fr - Initial API and implementation
+   Vincent Lorenzo (CEA-LIST) vincent.lorenzo@cea.fr - bug 496176
+  *****************************************************************************/
+-->
+
+<plugin>
+
+   <extension
+         point="org.eclipse.papyrus.infra.properties.contexts">
+           <context
+            contextModel="dialog/MigrationParameters.ctx"
+            isCustomizable="false">
+      </context>
+   </extension>
+   <extension
+         point="org.eclipse.m2m.qvt.oml.runtime.qvtTransformation">
+      <library
+            file="libraries/EclipseUI.qvto"
+            id="libraries.EclipseUI">
+      </library>
+   </extension>
+   <extension
+         point="org.eclipse.m2m.qvt.oml.javaBlackboxUnits">
+      <unit
+            description="Provides an Eclipse UI/QVTo integration for transformations"
+            name="UI"
+            namespace="org.eclipse.papyrus.uml.m2m.qvto.common.utils">
+         <library
+               class="org.eclipse.papyrus.uml.m2m.qvto.common.utils.TransformationUI">
+            <metamodel
+                  nsURI="http://www.eclipse.org/emf/2002/Ecore">
+            </metamodel>
+         </library>
+      </unit>
+      <unit
+            description="Java helpers to manipulate Notation DataTypes (Gradient, Bendpoints...)"
+            name="NotationTypes"
+            namespace="org.eclipse.papyrus.uml.m2m.qvto.common.utils">
+         <library
+               class="org.eclipse.papyrus.uml.m2m.qvto.common.utils.NotationTypes">
+            <metamodel
+                  nsURI="http://www.eclipse.org/gmf/runtime/1.0.3/notation">
+            </metamodel>
+         </library>
+      </unit>
+      <unit
+            description="Provides access to the incremental trace model for ad hoc trace queries."
+            name="Traces"
+            namespace="org.eclipse.papyrus.uml.m2m.qvto.common.utils">
+         <library
+               class="org.eclipse.papyrus.uml.m2m.qvto.common.utils.TraceHelper">
+            <metamodel
+                  nsURI="http://www.eclipse.org/emf/2002/Ecore">
+            </metamodel>
+         </library>
+      </unit>
+   </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated migrationParameters -->
+      <package
+            uri="http:///MigrationParameters.ecore"
+            class="org.eclipse.papyrus.uml.m2m.qvto.common.MigrationParameters.MigrationParametersPackage"
+            genModel="ui/migrationParameters.genmodel"/>
+   </extension>
+
+</plugin>

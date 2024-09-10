@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ASCII"?>
+<environment:Environment
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:environment="http://www.eclipse.org/papyrus/properties/environment/0.9">
+  <modelElementFactories
+      name="Welcome Factory"
+      factoryClass="org.eclipse.papyrus.infra.gmfdiag.welcome.internal.modelelements.WelcomeModelElementFactory"/>
+  <widgetTypes
+      label="Create View"
+      widgetClass="CreateNewNotationButton"
+      namespace="//@namespaces.0"/>
+  <compositeWidgetTypes
+      label="Views"
+      widgetClass="NotationsTable"
+      namespace="//@namespaces.0"/>
+  <namespaces
+      name="ppew"
+      value="org.eclipse.papyrus.infra.gmfdiag.welcome.internal.widgets"/>
+</environment:Environment>

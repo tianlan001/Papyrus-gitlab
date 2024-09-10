@@ -1,0 +1,11 @@
+/** Comment */
+abstract class A {
+  /** Member Comment */
+  private x : Integer = 1;
+  private y : String;
+  private z : any[0..*];
+  /** Another comment */
+  activity R(in x: Integer);
+  public abstract p(in x : Integer, out y : Integer);
+  public q(in s : String[]) : Boolean { return s == ""; }
+}

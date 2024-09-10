@@ -1,0 +1,24 @@
+Abstraction > Label:name{
+	visible:false;
+}
+
+UseCaseDiagram Class[appliedStereotypes~="Requirement"] > Compartment[type=StereotypeCompartment] {
+    visible:true;
+    showTitle:false;
+}
+
+UseCaseDiagram Class[appliedStereotypes~="Requirement"] > Compartment[type=Classifier_UseCaseCompartment] {
+    visible:false;
+}
+
+UseCaseDiagram Class[appliedStereotypes~="Requirement"] > Compartment[type=StereotypeCompartment] > [property="id"],
+UseCaseDiagram Class[appliedStereotypes~="Requirement"] > Compartment[type=StereotypeCompartment] > [property="derived"],
+UseCaseDiagram Class[appliedStereotypes~="Requirement"] > Compartment[type=StereotypeCompartment] > [property="derivedFrom"],
+UseCaseDiagram Class[appliedStereotypes~="Requirement"] > Compartment[type=StereotypeCompartment] > [property="satisfiedBy"],
+UseCaseDiagram Class[appliedStereotypes~="Requirement"] > Compartment[type=StereotypeCompartment] > [property="refinedBy"],
+UseCaseDiagram Class[appliedStereotypes~="Requirement"] > Compartment[type=StereotypeCompartment] > [property="tracedTo"],
+UseCaseDiagram Class[appliedStereotypes~="Requirement"] > Compartment[type=StereotypeCompartment] > [property="verifiedBy"],
+UseCaseDiagram Class[appliedStereotypes~="Requirement"] > Compartment[type=StereotypeCompartment] > [property="master"],
+UseCaseDiagram Class[appliedStereotypes~="Requirement"] > Compartment[kind="operations"] {
+       visible:false;
+} 

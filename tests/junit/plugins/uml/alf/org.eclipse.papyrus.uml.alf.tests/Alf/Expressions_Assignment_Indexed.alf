@@ -1,0 +1,12 @@
+/**
+ * Test indexed assignment expressions.
+ **/
+active class Expressions_Assignment_Indexed {
+
+	public test(out i: Integer[0..*], out a: Integer[0..*]);
+	@Create
+	public Expressions_Assignment_Indexed();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Assignment_Indexed$behavior$1'

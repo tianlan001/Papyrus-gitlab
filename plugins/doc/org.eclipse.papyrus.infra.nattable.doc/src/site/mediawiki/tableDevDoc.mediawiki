@@ -1,0 +1,2523 @@
+=General Presentation=
+The Papyrus Table uses the NatTable widget. Its documentation is available [http://eclipse.org/nattable/documentation.php?page=getting_started http://eclipse.org/nattable/documentation.php?page=getting_started] and [http://eclipse.org/nattable/documentation.php?page=basics http://eclipse.org/nattable/documentation.php?page=basics]. This kind of table is available since the Papyrus Release 0.10 in June 2013. 
+The NatTable source code can be downloaded with git ([http://git.eclipse.org/gitroot/nattable/org.eclipse.nebula.widgets.nattable.git http://git.eclipse.org/gitroot/nattable/org.eclipse.nebula.widgets.nattable.git]).
+
+Before continuing reading this document, we advise you to read the Table User documentation.
+
+Papyrus provides tables to edit features of UML Elements. In general, UML Elements are displayed in rows and their features are displayed in columns.
+These tables can be flat or hierarchical, and they can be filled by the user or synchronized with the context of the table. 
+The Papyrus integration should allow creating a Matrix, but Papyrus does not provide Matrix editors yet.
+
+The Papyrus team created the nattable.ecore metamodel to describe the Tabular editor and to store it. This metamodel (also known as "the table metamodel") is provided by the plugin org.eclipse.papyrus.infra.nattable.model and declares all the elements used to manipulate the table concept. The next simplified diagram shows '''some''' key elements and relationships:
+
+[[File:images/PartOfPapyrusNattableMM.png|frame|none]]
+
+# NamedStyle
+#* Named object to store information. Implementations of this element allow you to store boolean, int, list, string, etc. It works is the same way than in the GMF notation metamodel used by the Papyrus Diagram. 
+#StyledElement
+#* Abstract element that allows to reference style NamedStyle. Each element provided by the table metamodel must inherit from this one, so developers can add easily information to element, without modifying the table metamodel.
+#TableConfiguration
+#* Element that contains all the information required to create a table. The user can't modify it.
+#Table
+#* Element that is created from a TableConfiguration. Users can modify it using the tabular editor. It always references a TableConfiguration.
+# IAxis
+#* Abstract object used to reference elements represented by columns and rows.
+
+=Table Editor API=
+In order to make easily the creation, destruction and search for table editors, Papyrus provides helpers to to that (since Papyrus 1.2/Eclispe Neon).
+==Table Creation==
+The class '''org.eclipse.papyrus.infra.nattable.common.api.TableEditorCreationHelper''' allows you to create a table editor easily, according to some required parameters:
+*mandatory parameters:
+**'''tableContext (EObject)''': the context used to create the new table,
+**'''tableType (String)''': the type of table (also called implementationID in the viewpoint framework),
+**'''tableName (String)''': the name for the created table,
+**'''openCreatedEditor (boolean)''': if <code>true</code>, the created editor will be opened,
+*additional parameters:
+**'''tableOwner (EObject)''': the owner of the table, if not defined, we will use the tableContext,
+**'''tableDescription (String''': the description of the created table.
+
+Methods provided by this class : 
+*<code>public IStatus canCreateTable()</code>
+**check all fields given by the class constructors or the setter methods,
+**from these fields, we determine others required properties to be able to create the table,
+**return a <code>IStatus</code>. the code of the  <code>IStatus</code> indicates if the table can be created or not and why. Possible code are defined in the class '''org.eclipse.papyrus.infra.nattable.common.api.ITableEditorStatusCode'''.
+
+*<code>public Table createTableEditor()</code>:
+**call <code>canCreateTable()</code> before to try to create the table,
+**create the table if possible and return it or <code>null</code> if a problem appears,
+*<code>public Command getCreateTableEditorCommand()</code>
+**call <code>canCreateTable()</code> before to try to build the table creation command,
+**create the command and return it or <code>null</code> if a problem appears,
+*all setter method for contructor parameters. These values are checked by each call to the previous method calling <code>canCreateTable()</code>.
+
+==Table destruction==
+The class '''org.eclipse.papyrus.infra.nattable.common.api.TableEditorDeleteHelper.TableEditorDeleteHelper(Table)''' allows you to create a table editor easily.
+*mandatory parameters:
+**'''tableToDestroy (Table)''': the table to destroy.
+
+Methods provides by this class: 
+*<code>public IStatus canDeleteTableEditor()</code>
+**check all fields given by the class constructors or the setter methods,
+**from these fields, we determine others required properties to be able to destroy the table,
+**return a <code>IStatus</code>. the code of the  <code>IStatus</code> indicates if the table can be destroyed or not and why. Possible code are defined in the class '''org.eclipse.papyrus.infra.nattable.common.api.ITableEditorStatusCode''',
+*<code>public void deleteTableEditor()</code>
+**call <code>canDeleteTableEditor()</code> before to try to create the table,
+**destroy the table if possible,
+*<code>public Command getDeleteTableEditorCommand()</code>
+**call <code>canDeleteTableEditor()</code> before to try to build the table deletion command,
+**create the command and return it or <code>null</code> if a problem appears,
+*all setter method for contructor parameters. These values are checked by each call to the previous method calling <code>canDeleteTableEditor()</code>.
+
+==Find existing tables==
+The class '''org.eclipse.papyrus.infra.nattable.common.api.TableEditorFinderHelper''' allows you to find existing table easily. Intanciation of this class requires an EObject of the edited model. Several methods are provides to find a table using one or several of these values:
+*the context of the table
+*the owner of the table
+*the type of the table
+*the name of the table
+
+==JUnits for this API==
+The facilities described previously are tested by the plugin '''org.eclipse.papyrus.infra.nattable.common.tests'''.
+
+=How to create your own table configuration to edit features of UML Elements=
+==Introduction==
+This section describes how to create types of tables. We assume that developers have already a good knowledge of the EMF framework.  During this tutorial the developer could use any of the two main editors:
+* The nattableconfiguration Model Editor (provided by Papyrus)
+* The Sample Reflective Model Editor, provided by EMF.
+
+We advice to use the Sample Reflective Model Editor because it allows you the load the UML Resource <code>http://www.eclipse.org/uml2/5.0.0/UML</code> which is required to create a new table configuration.
+However, there are two known problems with EMF editors that developers should keep in mind: 
+* Often, we don't have enough information in the Property View to edit reference, because the label doesn’t us give enough information to distinguish element. In the following tutorial you will need to create several instances of the same object. The only way to be sure of referencing the right one is to open the file with the text editor.
+* The path of referenced element coming from external resource is ugly, for example, the EMF Editor will serialize (<u>look at the href </u>):
+
+<source lang="xml">
+<ownedAxisConfigurations xsi:type="nattableaxisconfiguration:EStructuralFeatureValueFillingConfiguration">
+         <listenFeature xsi:type="ecore:EReference" href="../../plugin/org.eclipse.uml2.uml/model/UML.ecore#//Namespace/ownedMember"/>
+</ownedAxisConfigurations> 
+</source>
+
+
+instead of
+
+
+<source lang="xml">
+<ownedAxisConfigurations xsi:type="nattableaxisconfiguration:EStructuralFeatureValueFillingConfiguration">
+         <listenFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Namespace/ownedMember"/>
+</ownedAxisConfigurations>
+</source>
+
+so you should think about checking the file in a Text Editor.
+
+==Goal==
+The aim of this topic is to provide a tutorial for customizing a UML table within Papyrus. The Papyrus Table can be synchronized or not and can be flat or hierarchical. In this tutorial, we will describe the creation of these 3 kinds of tables to edit SysML Block: 
+* A not synchronized table, so filled by the user, called <span style="color:Brown">UMLDnDBlockTable</span> in this documentation
+** This table will only accept Class stereotyped by SysML Block
+** Its allowed context will be Package
+** 3 columns will be provided: name and visibility (UML features) and isEncapsulated (SysML feature)
+* A synchronized table, called <span style="color:Brown">UMLSynchronizedBlockTable</span> in this documentation
+** This table will only accept Class stereotype by Block
+** Its allowed context will be Package
+** 3 columns will be provided: name and visibility (UML features) and isEncapsulated (SysML feature)
+* A tree table, called  <span style="color:Brown">UMLSynchronizedBlockTreeTable</span> in this documentation
+** This table will only accepts Class as root elements
+** Its allowed context will be Package
+** 3 columns will be provided: name and visibility (UML features) and isEncapsulated (SysML feature)
+
+==Create a new Table Configuration==
+For this step, first of all, you must to create a new Eclipse Plugin Project, called '''org.eclipse.papyrus.sysml.nattable.block''' for this example. In this one, you have to create a new '''Nattableconfiguration Model''' file. 
+
+As this tutorial is done to create three kinds of tables, please, create three files:
+
+*<span style="color:Brown">UMLDnDBlockTable</span> : create the file '''UMLDnDBlockTable.nattableconfiguration''' 
+*<span style="color:Brown">UMLSynchronizedBlockTable</span> : create the file '''UMLSynchronizedBlockTable.nattableconfiguration''' 
+*<span style="color:Brown">UMLSynchronizedBlockTreeTable</span> : create the file '''UMLSynchronizedBlockTreeTable.nattableconfiguration''' 
+
+One way to create these files is to use a creation wizard. 
+* Select from the Eclipse menu: "File" > "New" > "Other..."
+* Select "Example EMF Model Creation Wizards" and "Nattableconfiguration Model". Click "Next".
+* Select your empty plugin "org.eclipse.papyrus.sysml.nattable.block" and write the name of the file that contains your new model. The file should must have the extension "nattableconfiguration" (e.g., you can write "UMLDnDBlockTable.nattableconfiguration"). Click "Finish".
+
+==Set the kind of table (Flat or Tree)==
+You must declare a '''Table Display Style''' as child of the Table Configuration.
+
+[[File:images/ChooseTableDisplayStyle.png|frame|none]]
+
+
+* <span style="color:Brown">UMLSynchronizedBlockTreeTable</span> : it is a tree table, so the value must be '''HIERARCHIC_SINGLE_TREE_COLUMN''' to display hierarchy on a single column or '''HIERARCHIC_MULTI_TREE_COLUMN''' to display the hierarchy on several columns
+
+* <span style="color:Brown">UMLSynchronizedBlockTable</span> and <span style="color:Brown">UMLDnDBlockTable </span> : they are Flat Table, so the value must be '''NORMAL''' (if no display style is defined, the configuration will be interpreted than a '''NORMAL''' table.
+
+
+==Define the allowed creation context of the table==
+
+* '''Step1''': You must declare a '''Java Table Tester''' as as child of the Table Configuration to filter the allowed context to create a table.
+
+<big>'''''Note:''' Since the implementation of the viewpoint, the tester is not yet called, but it could be better to continue to provide it!''</big>
+
+
+Click with the right mouse button on the Table Configuration item and create a New Child of type Java Table Tester.
+
+[[File:images/BlockNattableconfiguration.png|frame|none]]
+
+
+* '''Step2''': Once added, define its properties:
+
+[[File:images/JavaTableTester.png|frame|none]]
+
+** id : this is a string identifying your java tester. Here, we decided to call it '''org.eclipse.papyrus.sysml.nattable.block.tester'''.
+Do these two first steps for each table that we are creating: <span style="color:Brown">UMLDnDBlockTable</span>, <span style="color:Brown">UMLSynchronizedBlockTable</span> and <span style="color:Brown">UMLSynchronizedBlockTreeTable</span>.
+* '''Step3''': Create a java class named <code>BlockTableTester</code> implementing <code>org.eclipse.papyrus.infra.nattable.tester.ITableTester</code>. If you have an 'unresolvable reference' error, add 'org.eclipse.papyrus.infra.nattable' to the list of required JARs and class folders in the Java build path or your plugin.
+<source lang="java" collapse="true" first-line="2"> 
+
+/*****************************************************************************
+ * Copyright (c) 2013 CEA LIST.
+ *
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *  Vincent Lorenzo (CEA LIST) vincent.lorenzo@cea.fr - Initial API and implementation
+ *
+ *****************************************************************************/
+package org.eclipse.papyrus.sysml.nattable.block.tester;
+
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.papyrus.infra.nattable.tester.ITableTester;
+import org.eclipse.papyrus.sysml.blocks.BlocksPackage;
+import org.eclipse.papyrus.sysml.nattable.block.Activator;
+import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.util.UMLUtil;
+
+/**
+ * The tester used to know if we can create block table
+ *
+ * @author Vincent Lorenzo
+ *
+ */
+public class BlockTableTester implements ITableTester {
+
+	public IStatus isAllowed(Object context) {
+		if (context instanceof Element) {
+			Element el = (Element) context;
+			boolean result = context instanceof Package ;
+			if (result) {
+				final String packageQN = UMLUtil.getProfile(BlocksPackage.eINSTANCE, el).getQualifiedName();
+				result = result && el.getNearestPackage().getAppliedProfile(packageQN, true) != null;
+				if (result) {
+					return new Status(IStatus.OK, Activator.PLUGIN_ID, "The context allows to create a Block Table");
+				} else {
+					return new Status(IStatus.ERROR, Activator.PLUGIN_ID, String.format("The profile {0} is not applied on the model", packageQN));
+				}
+			}
+		}
+		return new Status(IStatus.ERROR, Activator.PLUGIN_ID, "The context is not an UML Element");
+	}
+
+}
+</source>
+
+* '''Step4''': Register this class in the file plugin.xml of your plugin project.
+
+[[File:images/declarePropertyTesterInPLuginXML.png|frame|none]]
+
+
+** id : the same id than you declared for the Java table Tester in the nattableconfiguration field.
+** class : the qualified name of your <code>BlockTableTester</code>
+
+
+
+==Define Row Header Axis Configuration==
+===Create Row Header Axis Configuration===
+This object allows to: 
+* define the row header appearance
+* store the configuration to use to manage rows
+
+Click with the right mouse button on the Table Configuration item and create a New Child of type Table Header Axis Configuration. Once added, define its properties:
+
+[[File:images/RowTableHeaderAxisConfiguration.png|frame|none]]
+* '''Display Filter''' : value ignored for rows.
+* '''Display Index''' : the Row Index Header will be hidden if <code>false</code>.
+* '''Display Label''' : the Row Label Header will be hidden if <code>false</code>.
+* '''Index Style''' : <code>ALPHABETIC</code> or <code>NUMERIC</code>. We often use Numeric for Rows (and Alphabetic for Columns).
+
+===Define Label Provider Configuration for Row Label===
+This object provides the configuration used to display Row Label in the Row Header Label Area. As the rows represent edited object, we will use an '''Object Label Provider Configuration'''.
+
+Click with the right mouse button on your new created Table Header Axis Configuration item and create a New Child of type '''Object Label Provider Configuration'''. Once added, define its properties:
+
+[[File:images/ObjectLabelProviderConfiguration.png|frame|none]]
+
+* '''Display Icon''' : it true, an icon will be displayed at the left of the label in the Row Label Header area
+* '''Display Label''' : if true, the label of the row will be displayed in the Row Label Header area
+
+===Add specific configurations===
+This is in this part than we will configure the paste and the synchronization of our tables.
+====Define the Paste Configuration====
+Create a new '''Paste EObject Configuration''' as children of your '''Table Header Axis Configuration'''. Once created define its properties
+[[File:images/PasteBlockConfiguration.png|frame|none|PasteBlockConfiguration.png ]]
+
+*'''Detached Mode''' : if <code>true</code> : 
+** the paste will be done ignoring the Papyrus Edit Service
+** less safe
+** quicker
+* '''Pasted Element Id''' : the Papyrus id used to described the pasted element, here to paste SysML Block: 
+** <code>org.eclipse.papyrus.sysml.Block</code> if detached mode=false (if true, in fact, we will paste org.eclipse.papyrus.uml.Class)
+** <code>org.eclipse.papyrus.uml.Class</code> if detached mode = true (in fact org.eclipse.papyrus.sysml.Block will be interpreted as org.eclipse.papyrus.uml.Class)
+
+These strings representing the element to paste do not come from the Eclipse UML2 Project. They are provided by Papyrus and used by the Papyrus Service Type. If you create your static profile, you can generate them and use them here. The generation of these elements is described in an other documentation page (TODO (not yet done)). 
+
+=====**********How to generate element id for a given profile**********=====
+* Open your profile model
+* In the ModelExplorer View, Right click on the Profile
+* Select '''Generating Tool Model''', then '''Element Type...''', a dialog will be opened, press OK. A new file called '''model.elementtypesconfigurations''' has been created in your project. 
+[[File:images/ElementTypeGeneration.png|frame|none]]
+* You should register this file in your plugin.xml file, using the extension point '''org.eclipse.papyrus.infra.elementtypesconfigurations.elementTypeSetConfiguration'''. 
+*Now you can use the generated id in the '''Pasted Element Id''' field of your paste configuration
+=====*******************************************************************=====
+* '''Paste Element Containment Feature''' : define the feature of the context of the table which will own the created element. Set it to <code>http://www.eclipse.org/uml2/4.0.0/UML#//Namespace/ownedMember</code>
+*'''Post Actions''' : actions to do after the paste, like applied required stereotypes
+** if detached mode=<code>false</code>, there is nothing to do
+** if detached mode=<code>true</code>, a post action is required to apply the stereotype Block on the created elements. Set the value to <code>applyStereotype:/SysML::Blocks::Block</code> to apply it. 
+=====<big>'''Paste Configuration for <span style="color:Brown">UMLDnDBlockTable</span> and <span style="color:Brown">UMLSynchronizedBlockTable</span>'''</big>=====
+There is nothing to add to the previous description. You should do it in the 2 nattableconfiguration file of these tables
+=====<big>'''Paste Configuration for <span style="color:Brown">UMLSynchronizedBlockTreeTable</span> '''</big>=====
+The previous description will works fine in a Tree Table but with 2 restrictions : 
+* It define the paste only for root element of the tree table
+* It will be used only if your table is filled by DnD by the User.
+
+So you need to complete the '''Table Header Axis Configuration''' in your file '''UMLSynchronizedBlockTreeTable.nattableconfiguration'''. You must create a new '''Paste Eobject Configuration''' for each category listen by the table. The configuration previously created to paste Block could be reused (but you can also duplicate it in your file), so you need to create 2 others '''Paste Eobject Configuration'''.
+
+
+
+Set these values to paste UML Operation: 
+* '''Detached Mode''' : <code>true</code> 
+* '''Pasted Element Id''' : <code>org.eclipse.papyrus.uml.Operation</code>
+* '''Paste Element Containment Feature''' : <code>http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature/ownedParameter</code>
+*'''Post Actions''' : nothing to do
+
+
+Set these values to paste UML Parameter: 
+* '''Detached Mode''' : <code>true</code> 
+* '''Pasted Element Id''' : <code>org.eclipse.papyrus.uml.Parameter</code>
+* '''Paste Element Containment Feature''' : <code>http://www.eclipse.org/uml2/5.0.0/UML#//Class/ownedOperation</code>
+*'''Post Actions''' : nothing to do
+
+
+====Synchronization====
+In this section, we will describe how to configure the synchronization of your table with the context of the table
+====='''<span style="color:Brown">UMLDnDBlockTable</span>'''=====
+There is nothing to do, it is not a synchronized table.
+
+====='''<span style="color:Brown">UMLSynchronizedBlockTable</span>'''=====
+We need to provide a FillingConfiguration to know which feature to listen to fill the table. 
+You must create an '''EStructural Feature Value Filling Configuration''' as child of the '''Table Header Axis Configuration'''
+
+[[File:images/EStructuralFeatureValueFillingConfiguration.PNG|frame|none]]
+
+* '''Listen Feature''': Set the value to <code>http://www.eclipse.org/uml2/5.0.0/UML#//Namespace/ownedMember</code>
+
+====='''<span style="color:Brown">UMLSynchronizedBlockTreeTable</span>'''=====
+The Tree table listen several features (at least one be depth). Here, we call these features ''categories''. 
+
+* '''Step1''': Firstly, you need to declare an additional label configuration to know how to display the categories in the table. Often, we create a '''Feature Label Configuration'''.
+
+
+
+If required, you could create an '''Object Label Configuration''' instead, but you get less possibilities of configuration (only '''Display Label''', restricited to the name of the object,  and '''Display Icon''') instead of the 6 degrees described below.
+
+Create a '''Feature Label provider Configuration''' as child of '''Table Header Axis Configuration''', then edit these properties:
+
+[[File:images/FeaturelabelconfigurationForCategories.PNG|frame|none]]
+
+** '''Display Icon''' : if <code>true</code>, an icon will be displayed at the left of the label for the category
+** '''Display Is Derived''' : if <code>true</code>a / will be displayed in the label if the represented feature is derived
+** '''Display Label''' : if <code>true</code>, the label will be displayed, with this format:''[isDerived][name]:[type][multiplicity]''
+** '''Display Multiplicity''', if <code>true</code>, the multiplicity will be displayed for the category in the label
+** '''Display Name''' : if <code>true</code>, the name of the category will be displayed in the label
+** '''Display Type''' : if <code>true</code>, the type of the category will be displayed in the label
+
+This '''Feature Label Configuration''' will be referenced by all '''Tree Filling Configuration''' created in the next steps.
+
+
+* '''Step2''': Now you need to create 3 '''Tree Filling Configuration''', one by categories. So you need to create one with depth=0, one with depth=1 and one with depth=2.
+
+[[File:images/TreeFillingConfiguration.PNG|frame|none]]
+
+**'''Depth'''
+***the depth on which the configuration is applied
+***starts to 0, if there is no configuration declared with depth=0, the root of the tree table will be filled by DnD by the user
+**'''Label provider''' : references a '''Label Provider Configuration''' declared as children of '''Row Header Axis Configuration'''. This label provider will be used to display the categories. Here, you must reference the '''Feature Label Provider Configuration''' that you came to define in the previous step.
+**'''Label provider context''' : <code>org.eclipse.papyrus.infra.nattable.header.treefilling.feature.labelprovider</code>
+** '''Paste Configuration''' : references the paste configuration to use to paste element in this category
+
+* '''Step3''': Now you need to define the category (the feature) which is listen by each of these '''Tree Filling Configurations'''. 
+You must create an IAxis as child of each configuration. For this example, the '''IAxis''' must be an '''EStructural Feature Axis'''.
+
+[[File:images/TreeFillingConfigurationIAxis.PNG|frame|none]]
+
+** '''Alias''' : a string which will be displayed instead of the name of the referenced feature in the label of the categories
+** '''Element''' : the feature to listen
+** '''Manager''' : keep null for this usage
+
+You should create one '''EStructural Feature Axis'' as child of each '''Tree Filling Configuration''' Once the Axis has been created, set these properties:
+
+** For depth=0
+*** the feature to listen is <code>http://www.eclipse.org/uml2/5.0.0/UML#//Namespace/ownedMember</code>. This feature provides <code>NamedElement</code>, but we will filter its contains in the java class which will manages the rows
+*** set the alias to Blocks
+** For depth=1
+*** the feature to listen is <code>http://www.eclipse.org/uml2/5.0.0/UML#//Class/ownedOperation</code>
+** For depth=2
+*** the feature to listen is <code>http://www.eclipse.org/uml2/5.0.0/UML#//BehavioralFeature/ownedParameter</code>
+
+
+===Define the Row Manager===
+Now you need to create an '''Axis Manager Representation''' for Rows. You can declare one or several axis manager representation. This element allows to declare the java class to used to manage rows in the table. Moreover, it references the configuration to use for the rows and declare the context of the label provider. 
+Created an '''Axis Manager Representation''' item as child of your '''Table Header Axis Configuration'''. Once added, define its properties:
+
+[[File:images/RowAxisManagerRepresentation.PNG|frame|none]]
+
+* '''Axis Manager Id''':''' define the id of the java class which will manage your rows
+* '''Header Label Configuration''' : the label configuration to use in the  Row header Label area.
+* '''Label Provider context''' : the id of the label provider context to use
+* '''Specific Axis Configuration''' : Here, you should references all the '''Tree Filling Configuration''' previously created. '''Paste EObject Configuration''' are required too in only one usecase: if your Tree Table is filled by the user (DnD) (so you do not have '''Tree Filling Configuration''' on depth==0), you should reference the '''Paste EObject Configuration''' to use to create root elements. In others cases, it is not mandatory, because the '''Paste EObject Configuration''' are already referenced by the the '''Tree Filling Configuration'''.
+
+
+====<big><span style="color:Brown">UMLDnDBlockTable</span></big>====
+
+
+# '''Axis Manager Id''': <code>org.eclipse.papyrus.sysml.nattable.BlockAxisManager</code>
+# '''Header Label Configuration''': Your must reference your '''Object Label Configuration'''
+# '''Label Provider context''': <code>org.eclipse.papyrus.infra.nattable.header.labelprovider</code>
+# '''Specific Axis Configuration''': you must reference your '''Paste EObject Configuration'''
+
+
+
+Now, you need to create a java class called for example <code>BlockAxisManager</code>. This axis manager must implement  <code>org.eclipse.papyrus.infra.nattable.manager.axis.IAxisManager</code>, but we advice you to extends <code>org.eclipse.papyrus.uml.nattable.manager.axis.UMLElementAxisManager</code>.
+<source lang="java" collapse="true" first-line="2">
+/*****************************************************************************
+ * Copyright (c) 2013 CEA LIST.
+ *
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *  Vincent Lorenzo (CEA LIST) vincent.lorenzo@cea.fr - Initial API and implementation
+ *
+ *****************************************************************************/
+package org.eclipse.papyrus.sysml.nattable.block.manager.axis;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.gmf.runtime.emf.type.core.IElementMatcher;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.ISpecializationType;
+import org.eclipse.papyrus.uml.nattable.manager.axis.UMLElementAxisManager;
+import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.UMLPackage;
+import org.eclipse.papyrus.sysml.service.types.element.SysMLElementTypes;
+import org.eclipse.papyrus.sysml.service.types.matcher.BlockMatcher;
+
+public class BlockAxisManager extends UMLElementAxisManager{
+
+	private static final IElementMatcher matcher = new BlockMatcher();
+	
+	/**
+	 *
+	 * @see org.eclipse.papyrus.infra.emf.nattable.manager.axis.EObjectAxisManager#isAllowedContents(java.lang.Object)
+	 *
+	 * @param object
+	 * @return
+	 */
+	@Override
+	public boolean isAllowedContents(Object object) {
+		
+		boolean res = super.isAllowedContents(object);//check if object is UML Element
+		if(res){
+			res = matcher.matches((Element)object);
+		}
+		return res;
+	}
+
+	/**
+	 *
+	 * @see org.eclipse.papyrus.infra.nattable.manager.axis.AbstractAxisManager#canCreateAxisElement(java.lang.String)
+	 *
+	 * @param elementId
+	 * @return
+	 */
+	@Override
+	public boolean canCreateAxisElement(String elementId) {
+		return ((ISpecializationType) SysMLElementTypes.BLOCK).getId().equals(elementId);//only blocks can be created in this table
+	}
+
+}
+</source>
+Then you should register this class in your plugin.xml file using the extension point : <code>org.eclipse.papyrus.infra.nattable.axismanager</code>.
+
+[[File:images/RegisterAxisManager.PNG|frame|none]]
+
+* '''id''' :  <code>org.eclipse.papyrus.sysml.nattable.BlockAxisManager</code> . It must be the same id than in the '''Axis Manager Representation'''
+* '''manager''' : The qualified Name of your created class
+
+====<big><span style="color:Brown">UMLSynchronizedBlockTable</span></big>====
+
+
+# '''Axis Manager Id''': <code>org.eclipse.papyrus.sysml.nattable.BlockSynchronizedAxisManager</code>
+# '''Header Label Configuration''': Your must reference your '''Object Label Configuration'''
+# '''Label Provider context''': <code>org.eclipse.papyrus.infra.nattable.header.labelprovider</code>
+# '''Specific Axis Configuration''': You must reference your '''EStructural Feature value Configuration''' and your '''Paste EObject Configuration'''.
+
+
+Now, you need to create a java class, but before, you should add the following dependencies to your plugin (addapt bundle-version to your Papyrus version):
+
+
+
+<code> org.eclipse.emf.transaction;bundle-version="1.9.0",</code>
+<code> org.eclipse.nebula.widgets.nattable.core;bundle-version="1.3.0",</code>
+<code> org.eclipse.papyrus.infra.emf.nattable;bundle-version="1.1.3",</code>
+<code> org.eclipse.papyrus.infra.nattable;bundle-version="1.1.3",</code>
+<code> org.eclipse.papyrus.infra.nattable.model;bundle-version="1.1.3",</code>
+<code> org.eclipse.papyrus.infra.widgets;bundle-version="1.1.3",</code>
+<code> org.eclipse.papyrus.uml.nattable;bundle-version="1.1.3",</code>
+<code> ca.odell.glazedlists;bundle-version="1.9.0"</code>
+
+
+Now, you can create a java class,  called for example <code>BlockSynchronizedAxisManager</code>. This axis manager must implement  <code>org.eclipse.papyrus.infra.nattable.manager.axis.IAxisManager</code>, but we advice you to extends <code>org.eclipse.papyrus.uml.nattable.manager.axis.AbstractStereotypedElementUMLSynchronizedOnFeatureAxisManager<T_StereotypeApplication></code>.
+<source lang="java" collapse="true" first-line="2">
+
+/*****************************************************************************
+ * Copyright (c) 2013 CEA LIST.
+ *
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *  Vincent Lorenzo (CEA LIST) vincent.lorenzo@cea.fr - Initial API and implementation
+ *
+ *****************************************************************************/
+package org.eclipse.papyrus.sysml.nattable.block.manager.axis;
+
+import org.eclipse.gmf.runtime.emf.type.core.ISpecializationType;
+import org.eclipse.papyrus.sysml.blocks.Block;
+import org.eclipse.papyrus.sysml.blocks.BlocksPackage;
+import org.eclipse.papyrus.sysml.service.types.element.SysMLElementTypes;
+import org.eclipse.papyrus.uml.nattable.manager.axis.AbstractStereotypedElementUMLSynchronizedOnFeatureAxisManager;
+import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.util.UMLUtil;
+
+public class BlockSynchronizedAxisManager extends
+		AbstractStereotypedElementUMLSynchronizedOnFeatureAxisManager<Block> {
+
+	/**
+	 *
+	 * @see org.eclipse.papyrus.infra.nattable.manager.axis.AbstractAxisManager#canCreateAxisElement(java.lang.String)
+	 *
+	 * @param elementId
+	 * @return
+	 */
+	@Override
+	public boolean canCreateAxisElement(String elementId) {
+		return ((ISpecializationType) SysMLElementTypes.BLOCK).getId().equals(elementId);
+	}
+
+
+	/**
+	 *
+	 * @see org.eclipse.papyrus.uml.nattable.manager.axis.AbstractStereotypedElementUMLSynchronizedOnFeatureAxisManager#getStereotypeApplication(org.eclipse.uml2.uml.Element)
+	 *
+	 * @param el
+	 * @return
+	 */
+	@Override
+	protected Block getStereotypeApplication(Element el) {
+		return UMLUtil.getStereotypeApplication(el, Block.class);
+	}
+
+	/**
+	 *
+	 * @see org.eclipse.papyrus.uml.nattable.manager.axis.AbstractStereotypedElementUMLSynchronizedOnFeatureAxisManager#isInstanceOfRequiredStereotypeApplication(java.lang.Object)
+	 *
+	 * @param object
+	 * @return
+	 */
+	@Override
+	protected boolean isInstanceOfRequiredStereotypeApplication(final Object object) {
+		return object instanceof Block;
+	}
+
+	/**
+	 *
+	 * @see org.eclipse.papyrus.uml.nattable.manager.axis.AbstractStereotypedElementUMLSynchronizedOnFeatureAxisManager#getStereotypeBaseElement(org.eclipse.emf.ecore.EObject)
+	 *
+	 * @param stereotypeApplication
+	 * @return
+	 */
+	@Override
+	protected Element getStereotypeBaseElement(final Block stereotypeApplication) {
+		return stereotypeApplication.getBase_Class();
+	}
+
+	/**
+	 *
+	 * @see org.eclipse.papyrus.uml.nattable.manager.axis.AbstractStereotypedElementUMLSynchronizedOnFeatureAxisManager#isAllowedAsBaseElement(org.eclipse.uml2.uml.Element)
+	 *
+	 * @param element
+	 * @return
+	 */
+	@Override
+	protected boolean isAllowedAsBaseElement(final Element element) {
+		return element instanceof  org.eclipse.uml2.uml.Class;
+	}
+
+
+	/**
+	 *
+	 * @see org.eclipse.papyrus.uml.nattable.manager.axis.AbstractStereotypedElementUMLSynchronizedOnFeatureAxisManager#getStereotypeApplicationBasePropertyName()
+	 *
+	 * @return
+	 */
+	@Override
+	protected String getStereotypeApplicationBasePropertyName() {
+		return BlocksPackage.eINSTANCE.getBlock_Base_Class().getName();
+	}
+}
+
+</source>
+Then you should register this class in your plugin.xml file using the extension point : <code>org.eclipse.papyrus.infra.nattable.axismanager</code>. See the description done for <span style="color:Brown">UMLDnDBlockTable</span>
+
+* '''id''' :  <code>org.eclipse.papyrus.sysml.nattable.BlockSynchronizedAxisManager</code> . It must be the same id than in the '''Axis Manager Representation'''
+* '''manager''' : The qualified Name of your created class
+
+====<big><span style="color:Brown">UMLSynchronizedBlockTreeTable</span></big>====
+
+
+# '''Axis Manager Id''': <code>org.eclipse.papyrus.sysml.nattable.BlockTreeAxisManager</code>
+# '''Header Label Configuration''': Your must reference your '''Object Label Configuration'''
+# '''Label Provider context''': <code>org.eclipse.papyrus.infra.nattable.header.labelprovider</code>
+# '''Specific Axis Configuration''' : you must reference your '''Paste EObject Configuration''' allowing to paste Block and all your '''Tree Filling Configuration'''.
+
+
+
+
+Now, you need to create a java class called for example BlockSynchronizedTreeAxisManager. This axis manager must implement <code>org.eclipse.papyrus.infra.nattable.manager.axis.ITreeItemAxisManagerForEventList</code> but we advice you to extend <code>org.eclipse.papyrus.uml.nattable.manager.axis.UMLElementTreeAxisManagerForEventList</code>
+<source lang="java" collapse="true" first-line="2">
+/*****************************************************************************
+ * Copyright (c) 2013 CEA LIST.
+ *
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *  Vincent Lorenzo (CEA LIST) vincent.lorenzo@cea.fr - Initial API and implementation
+ *
+ *****************************************************************************/
+package org.eclipse.papyrus.sysml.nattable.block.manager.axis;
+
+import org.eclipse.gmf.runtime.emf.type.core.IElementMatcher;
+import org.eclipse.papyrus.sysml.service.types.matcher.BlockMatcher;
+import org.eclipse.papyrus.uml.nattable.manager.axis.UMLElementTreeAxisManagerForEventList;
+import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.Operation;
+import org.eclipse.uml2.uml.Parameter;
+import org.eclipse.uml2.uml.Property;
+import org.eclipse.papyrus.infra.nattable.model.nattable.nattableaxisconfiguration.TreeFillingConfiguration;
+
+public class BlockTreeAxisManagerForEventList extends
+		UMLElementTreeAxisManagerForEventList {
+
+	private static final IElementMatcher matcher = new BlockMatcher();
+
+	/**
+	 * 
+	 * @see org.eclipse.papyrus.uml.nattable.manager.axis.UMLElementTreeAxisManagerForEventList#isAllowedContents(java.lang.Object,
+	 *      java.lang.Object,
+	 *      org.eclipse.papyrus.infra.nattable.model.nattable.nattableaxisconfiguration.TreeFillingConfiguration,
+	 *      int)
+	 *
+	 * @param objectToTest
+	 * @param semanticParent
+	 * @param conf
+	 * @param depth
+	 * @return
+	 */
+	@Override
+	public boolean isAllowedContents(Object objectToTest,
+			Object semanticParent, TreeFillingConfiguration conf, int depth) {
+		if (!(objectToTest instanceof Element)) {
+			return false;
+		}
+
+		if (depth == 0) {
+			return matcher.matches((Element) objectToTest);
+		}
+		if (depth == 1) {
+			return objectToTest instanceof Operation;
+		}
+		if (depth == 2) {
+			return objectToTest instanceof Parameter;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean canCreateAxisElement(String elementId) {
+		// currently, we can't filter create by level in the table -> it is a
+		// bug...
+		return super.canCreateAxisElement(elementId);
+	}
+
+}
+
+</source>
+Then you should register this class in your plugin.xml file using the extension point : <code>org.eclipse.papyrus.infra.nattable.axismanager</code>. See the description done for <span style="color:Brown">UMLDnDBlockTable</span>
+
+* '''id''' :  <code>org.eclipse.papyrus.sysml.nattable.BlockTreeAxisManager</code> . It must be the same id than in the '''Axis Manager Representation'''.
+* '''manager''' : The qualified Name of your created class
+
+==Define Column Header Axis Configuration ==
+===Create Column Header Axis Configuration===
+This step is the same to build the 3 tables : <span style="color:Brown">UMLDnDBlockTable</span>, <span style="color:Brown">UMLSynchronizedBlockTable</span> and <span tyle="color:Brown">UMLSynchronizedBlockTreeTable</span>.
+
+This object allows to:
+* define the row header appearance
+* store the configuration to use to manage rows
+
+Click with the right mouse button on the '''Table Configuration''' item and create a New Child of type '''Column Header Axis Configuration Table Header Axis Configuration'''. Once added, define its properties:
+
+[[File:images/ColumnTableHeaderAxisConfiguration.png|frame|none]]
+* '''Display Filter''' : if <code>true</code> a row filter will be displayed at the bottom of the Column Header Area.
+* '''Display Index''' : the Column Index Header will be hidden if <code>false</code>.
+* '''Display Label''' : the Column Label Header will be hidden if <code>false</code>.
+* '''Index Style''' : <code>ALPHABETIC</code> or <code>NUMERIC</code>. We often use Alphabetic for Columns (and Numeric for Rows)
+
+===Define Label Provider Configuration for Column Label===
+This step is the same to build the 3 tables : <span style="color:Brown">UMLDnDBlockTable</span>, <span style="color:Brown">UMLSynchronizedBlockTable</span> and <span tyle="color:Brown">UMLSynchronizedBlockTreeTable</span>.
+
+
+This object provides the configuration used to display Column Label in the Column Header Label Area. As the rows represent edited object, we will use a '''Feature Label Provider Configuration'''. 
+Click with the right mouse button on your new created '''Table Header Axis Configuration''' item and create a New Child of type '''Feature Label Provider Configuration'''.  Once added, define its properties:
+
+[[File:images/FeatureLabelProviderConfigurationForColumn.png|frame|none]]
+* '''Display Icon''' : if <code>true</code>, an icon will be displayed at the left of the label for the category
+* '''Display Is Derived''' : if <code>true</code>a / will be displayed in the label if the represented feature is derived
+* '''Display Label''' : if <code>true</code>, the label will be displayed
+* '''Display Multiplicity''', if <code>true</code>, the multiplicity will be displayed for the category in the label
+* '''Display Name''' : if <code>true</code>, the name of the category will be displayed in the label
+* '''Display Type''' : if <code>true</code>, the type of the category will be display in the label
+
+===Define the Column Manager===
+This step is the same to build the 3 tables : <span style="color:Brown">UMLDnDBlockTable</span>, <span style="color:Brown">UMLSynchronizedBlockTable</span> and <span tyle="color:Brown">UMLSynchronizedBlockTreeTable</span>.
+
+This element allows to declare the java class to used to manage rows in the table. Moreover, it references the configuration to use for the columns and declare the context of the label provider.
+Here, you need to create two '''Axis Manager Representation''' to manage columns. The first one will be used to managed UML features and the second one will be used to manage properties of stereotypes applied on the row elements.
+Click with the right mouse button on your '''Table Header Axis Configuration''' item and create a New Child of type '''Axis Manager Representation'''.  Once added, define its properties:
+
+
+[[File:images/AxisManagerRepresentation01.PNG|frame|none]]
+
+* '''Axis Manager Id''': <code>org.eclipse.papyrus.uml.nattable.feature.axis.manager</code>. It is an axis manager already declared in Papyrus.
+* '''Header Label Configuration''': Your must reference your '''Feature Label Configuration'''
+** Warning in <span style="color:Brown">UMLSynchronizedBlockTreeTable</span>, there are now two '''Feature Label Configuration''', Select the right one.
+* '''Label Provider context''': <code>org.eclipse.papyrus.infra.nattable.header.labelprovider</code>
+* '''Specific Axis Configuration''': there is nothing to reference for columns
+
+And again, create a second New Child of type Axis Manager Representation.  Once added, define its properties:
+
+[[File:images/AxisManagerRepresentation02.PNG|frame|none]]
+
+* '''Axis Manager Id''': <code>org.eclipse.papyrus.uml.nattable.stereotype.property.axis.manager</code>. It is an axis manager already declared in Papyrus.
+* '''Header Label Configuration''': Your must reference your '''Feature Label Configuration'''
+** Warning in <span style="color:Brown">UMLSynchronizedBlockTreeTable</span>, there are now two '''Feature Label Configuration''', Select the right one.
+* '''Label Provider context''': <code>org.eclipse.papyrus.infra.nattable.header.labelprovider</code>
+* '''Specific Axis Configuration''': there is nothing to reference for columns
+
+==Define Row Provider==
+This step is the same to build the 3 tables : <span style="color:Brown">UMLDnDBlockTable</span>, <span style="color:Brown">UMLSynchronizedBlockTable</span> and <span tyle="color:Brown">UMLSynchronizedBlockTreeTable</span>.
+
+
+The row provider is the object used to store the axis (here the rows) visible in the table. In case of synchronized table. It always be empty. It exists 2 kinds of provider : Master and Slave.
+For rows, we must take a Master. Click with the right mouse button on the '''Table Configuration''' item and create a New Child of type '''Row Axis Providers Master Object Axis Provider'''. Once added, define its properties:
+
+[[File:images/MasterObjectAxisProvider.png|frame|none]]
+
+* Description : field used in user dialog. Allows to describe the behavior of the axis manager
+* Disconnect Slave : we advice to set it to <code>true</code>. 
+** <code>false</code> for each added row, the system will add columns axis for each features of the rows not yet represented by  a column axis.
+** <code>true</code> the behavior described previously will be stopped
+
+==Define Column Provider==
+This step is the same to build the 3 tables : <span style="color:Brown">UMLDnDBlockTable</span>, <span style="color:Brown">UMLSynchronizedBlockTable</span> and <span style="color:Brown">UMLSynchronizedBlockTreeTable</span>.
+
+The column provider is the object used to store the column axis visible in the table. Here, we will take a Slave Axis Provider. 
+Click with the right mouse button on the '''Table Configuration''' item and create a New Child of type '''Column Axis Providers Slave Object Axis Provider'''. Once added, define its properties:
+
+[[File:images/SlaveObjectAxisProvider.png|frame|none]]
+
+===Define the default columns for your table===
+Now you should declare here the default columns for your table.
+====Define the Name Column====
+Click with the right mouse button on your new created '''Slave Object Axis Provider''' item and create a New Child of type '''EStructural Feature Axis''' to define. Once added, define its properties:
+
+[[File:images/EStructuralFeatureAxis.png|frame|none]]
+
+
+* '''Alias''': this field allow to give an alias to the represented feature
+* '''Element''' : set the value to <code>http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name</code>
+* '''Manager:''' set the reference to the column axis manager created previously. Warning, you have now 3 Axis Manager Representation in the model. You should reference the Axis Manager which have this id : <code>org.eclipse.papyrus.uml.nattable.feature.axis.manager</code>
+
+====Define the IsEncapsulated Column====
+IsEncapsulated is a property of stereotype, so you can not reference directly it. The table framework allows you to reference it using its qualified name.
+Click with the right mouse button on your new created '''Slave Object Axis Provider''' item and create a New Child of type '''Feature Id Axis'''.  Once added, define its properties:
+
+[[File:images/FeatureIdAxis.png|frame|none]]
+
+* '''Alias''' : this field allows to define an alias for the represented feature.
+* '''Element:''' : the referenced element
+** Set it to <code>property_of_stereotype:/SysML::Blocks::Block::isEncapsulated</code>
+* '''Manager:''' set the reference to the column axis manager created previously. Warning, you have now 3 Axis Manager Representation in the model. You should reference the Axis Manager which have this id : <code>org.eclipse.papyrus.uml.nattable.stereotype.property.axis.manager</code>
+
+==Configure Table Configuration==
+This is the last step concerning the edition of the nattableconfiguration. Select the root of the model, that is to say the object '''Table Configuration''', to set its properties:
+
+[[File:images/EditingTableConfiguration.png|frame|none]]
+
+
+* '''Cell Editor Declaration''' : can be : 
+** COLUMN : all cells of the columns will use the same kind of editors (used here, because we have the feature in column, so the system needs to declare a Cell Editor by column.
+** ROW : all cells of the rows will use the same kind of editors
+** CELL : each cell uses a specific editor (provided, but not used)
+* '''Default Column Axis Provider''':
+** it is the default, because you could declare several axis provider for columns!
+** Here, you must reference the Column Axis Provider to use by default, ie just after the table creation
+* '''Default Row Axis Provider'''
+** it is the default, because you could declare several axis provider for rows!
+** Here, you must reference the Row Axis Provider to use by default, ie just after the table creation
+* '''Description''' : a small description of your table. This text will be displayed in user dialog
+* '''Icon path''' : an icon (16x16) used to represent this kind of table. This icon will be used in the Table Creation Menu, in the Model Explorer View, in the ShortCut displayed on the Diagram, ...
+* '''Name''' : the initial name proposed to the user when it will create a table from your table configuration
+* '''Type''' : the type of your table. It must be unique in Papyrus. It is used by the Papyrus Framework to identify each kind of editor for (save, open, create, ... actions)
+
+===<span style="color:Brown">UMLDnDBlockTable</span>===
+* '''Cell Editor Declaration''' : COLUMN
+* '''Default Column Axis Provider''': you must reference your <code>Slave Object Axis Provider</code>
+* '''Default Row Axis Provider''' : you must reference your <code>Master Object Axis Provider</code>
+* '''Description''' : This table allows to edit Block added by the user by DnD
+* '''Icon path''' : an icon (16x16) used to represent this kind of table.
+* '''Name''' : UMLDnDBlockTable
+* '''Type''' : PapyrusExampleUMLDnDBlockTable
+
+===<span style="color:Brown">UMLSynchronizedBlockTable</span>===
+* '''Cell Editor Declaration''' : COLUMN
+* '''Default Column Axis Provider''': you must reference your <code>Slave Object Axis Provider</code>
+* '''Default Row Axis Provider''' : you must reference your <code>Master Object Axis Provider</code>
+* '''Description''' : This table allows to show and edit all Block owned by a Package. It is a synchronized Table
+* '''Icon path''' : an icon (16x16) used to represent this kind of table.
+* '''Name''' : UMLSynchronizedBlockTable
+* '''Type''' : PapyrusExampleUMLSynchronizedBlockTable
+
+===<span style="color:Brown">UMLSynchronizedBlockTreeTable</span>===
+* '''Cell Editor Declaration''' : COLUMN
+* '''Default Column Axis Provider''': you must reference your <code>Slave Object Axis Provider</code>
+* '''Default Row Axis Provider''' : you must reference your <code>Master Object Axis Provider</code>
+* '''Description''' : This table allows to show and edit all Block owned by a Package. It is a tree synchronized Table. It allows to show the Block, with their Operations and them Parameters.
+* '''Icon path''' : an icon (16x16) used to represent this kind of table.
+* '''Name''' : UMLSynchronizedBlockTreeTable
+* '''Type''' : PapyrusExampleUMLSynchronizedBlockTable
+
+
+
+====How to hide categories in the TableConfiguration File====
+* Create a new '''IntListValueStyle''' as child of the '''TableConfiguration'''
+* Set it the name '''hiddenCategoriesByDepth'''
+* Set it the depths of the categories to hide
+
+==Register your new table configuration into Papyrus framework==
+===Register your nattable configuration file===
+Each Table Configuration File created previously must contribute to the Papyrus Extension Point <code>org.eclipse.papyrus.infra.nattable.configuration</code>. 
+This extension point allows to contribute to the Table Configuration Catalogue provided by the Papyrus Framework.
+
+[[File:images/ContributeToNattableConfigurationExtensionPoint.PNG|frame|none]]
+* '''file''': the path for the file configuration
+* '''type''': the type of the table, it must be the same string than the type field in the nattableconfiguration file.
+
+
+====<span style="color:Brown">UMLDnDBlockTable</span>====
+* '''file''': the path for the file configuration
+* '''type''': PapyrusExampleUMLDnDBlockTable
+
+====<span style="color:Brown">UMLSynchronizedBlockTable</span>====
+* '''file''': the path for the file configuration
+* '''type''': PapyrusExampleUMLSynchronizedBlockTable
+
+====<span style="color:Brown">UMLSynchronizedBlockTreeTable</span>====
+* '''file''': the path for the file configuration
+* '''type''': PapyrusExampleUMLSynchronizedBlockTreeTable
+
+===Contribute to Viewpoint Framework===
+
+Please, see Viewpoint documentation embedded in Eclipse.
+
+This part is the same for the 3 kind of tables previously created. Here we choose to explain the viewpoint configuration for the UMLDnDBlockTable table. You should adapt this documentation to your usecase.  
+
+For this step, first of all, you have to create a new Viewpoints configuration in your plugin. Create the file <code>UMLDnDBlockTableViewpoint.configuration</code>. 
+
+====Contribute to the Default Papyrus Viewpoint====
+Using this way, you will able to contribute to the default Papyrus Viewpoint.
+* Right Click in the Viewpoint editor, and select action '''Load Resource...''', paste this value <code>platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/builtin/default.configuration</code>
+[[File:images/ViewPointContribution_loadViewPointResource.png|frame|none]]
+* Select the Papyrus Configuration and in the Property View, edit the field '''Default Stakeholder'''. Set it the value '''Default Modeler'''
+[[File:images/ViewPointContribution_setDefaultStakeholder.png|frame|none]]
+* Right Click in the Viewpoint editor, and select action '''Load Resource...''', paste this value  <code>platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore</code>
+[[File:images/ViewPointContribution_loadUMLResource.png|frame|none]]
+* Select the Papyrus Configuration and in the Property View, edit the field '''Metamodel'''. Set it the value '''http://www.eclipse.org/uml2/5.0.0/UML'''
+[[File:images/ViewPointContribution_setMetamodel.png|frame|none]]
+* Create a new child, Papyrus ViewPoint, set it its name : <code>Default Papyrus Viewpoint</code>. You should not use an other name, because this name is used as id to contribute to an existing viewpoint (the Papyrus Default Viewpoint).  We don't edit others fields.
+[[File:images/ViewPointContribution_setName.png|frame|none]]
+* Create a new child to Papyrus Viewpoint. You can create a '''Papyrus Sync Table''' or a '''Papyrus Table'''. The only difference is in the declaration of the contribution
+**Creating a Papyrus Sync Table, you must fill: 
+***'''Categories''': the category of your contribution (UML, SysML, Profile, ...) It allows you to define in which context your contribution must be proposed in the creation menu.
+***'''Implementation ID''': must have the same value than the field type defined in your table configuration file
+***'''Icon''': the icon to display in the menu, it is a URL starting with '''platform:/plugin/PLUGIN_ID+PATH+ICON_NAME.EXT'''
+***'''Name''': the name displayed in the menu, it could be the same than default name defined in the table configuration file
+[[File:images/ViewPointConfiguration_setTableViewPointValues.png|frame|none]]
+**Creation a Papyrus Table, you must fill: 
+***'''Categories''': the category of your contribution (UML, SysML, Profile, ...) It allows you to define in which context your contribution must be proposed in the creation menu. Here, we set <code>SysML</code>.
+***'''Configuration''':the path to your nattable configuration file, it is a URL starting with '''platform:/plugin/PLUGIN_ID+PATH+FILE_NAME.nattableconfiguration'''
+***'''Icon''': the icon to display in the menu, it is a URL starting with '''platform:/plugin/PLUGIN_ID+PATH+ICON_NAME.EXT'''
+***'''Implementation ID''': not mandatory in this case, must have the same value than the field type defined in your table configuration file. Here we set <code>PapyrusUMLDnDBlockTableViewpoint</code> 
+***'''Name''': the default name of your table, it should be the same than default name defined in the table configuration file. here we set <code>UMLDnDBlockTable</code>
+***'''Profiles''': to indicate if your table requires some profile. Here we reference <code>http://www.eclipse.org/papyrus/0.7.0/SysML/Blocks</code>
+
+[[File:images/ViewPointContribution_setViewPointValues.PNG|frame|none]]
+
+*Now you can add '''Model Rule''' and '''Owning Rule''' as children of your Viewpoint. These properties define the allowed context of the table and its possible owner. The first one is the context used to create new items in the table, and the second to set the items below which we can view the table in the ModelExplorer. The multiplicities indicates how many table of this kind can references the root and the owner.
+**As SysML Block can be created inside a Package or inside a Block, we will create 2 '''Model Rule''' and set these values:
+***for the first '''Model Rule''', you must set the field '''Element''' to <code>Package</code> from UML Package
+
+[[File:images/viewPointContribution_firstModelRule.png|frame|none]]
+
+***for the second '''Model Rule''', you must set the field '''Element''' to Class and the field '''Stereotypes''' to <code>Blocks#Block</code>
+
+[[File:images/viewPointContribution_secondModelRule.png|frame|none]]
+
+**We decide than only package can be displayed as parent of the table in the ModelExplorer.
+***Create a new '''Owner Rule''' and set the field '''Element''' to <code>Package</code> from UML Package
+
+[[File:images/viewPointContribution_ownerRule.png|frame|none]]
+
+Once you have finish to edit the configuration, you must register it using the extension point '''org.eclipse.papyrus.infra.viewpoints.policy.custom'''.
+* In your plugin.xml file, contribute to the extension point '''org.eclipse.papyrus.infra.viewpoints.policy.custom'''. There are 2 possible children for this extension point. Take the '''contribution'''and edit the fields as described below: 
+**'''original''': <code>platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/builtin/default.configuration</code>
+**'''file''': references your file
+[[File:images/UMLDnDBlockTableViewpoint_contribution_plugin_contribution.png|frame|none]]
+
+====Contribute to a new Viewpoint for UML====
+Using this way, you will be able to create your own Viewpoint. This is basically the same things, excepted for these points: 
+#you must create your own stakeholder
+#you must contribute to the extension point using '''configuration''' instead of '''contribution'''
+
+* Right Click, and select action Load Resource, paste this value <code>platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore</code> to load UML metamodel
+* Create a new '''Stakeholder''' as child of the Papyrus Configuration and give it a name. Here, we call it <code>New SysML Block StakeHolder</code>
+[[File:images/ViewPointConfiguration_newStakeholder.png|frame|none]]
+* Select the viewpoint and in the Property View, edit the field : 
+**'''Default Stakeholder''', reference your stakeholder created in the previous step
+**'''Metamodel''', set it the value '''http://www.eclipse.org/uml2/5.0.0/UML'''
+[[File:images/ViewPointConfiguration_setViewPointValues.png|frame|none]]
+* Create a Papyrus View Point as child of the Papyrus Configuration, and give it a name. Here we call it <code>SysML Block ViewPoint</code>
+[[File:images/ViewPointConfiguration_createNewViewPoint.png|frame|none]]
+* Select your stakeholder and edit its field '''Viewpoints''' to reference the viewpoint created in the previous step.
+[[File:images/ViewPointConfiguration_referenceNewViewPoints.png|frame|none]]
+* From here, you can continue the edition of the configuration, as described previously for the contribution to the Default Papyrus Viewpoint Configuration.
+
+Once you have finish to edit the configuration, you must register it using the extension point '''org.eclipse.papyrus.infra.viewpoints.policy.custom'''.
+* In your plugin.xml file, contribute to the extension point '''org.eclipse.papyrus.infra.viewpoints.policy.custom'''. There are 2 possible children for this extension point. Take the configuration and edit the fields as described below: 
+**'''file''': references your file
+**'''priority''': set it a priority
+[[File:images/UMLDnDBlockTableViewpoint_configuration_plugin_contribution.png|frame|none]]
+
+Once your new plugin deployed, in your >Eclipse Runtime, you must go into The Eclipse Preferences -> Papyrus -> Viewpoints Configuration
+* Select '''Deployed through the extension point'''
+* Select your stakeholder
+* Select your viewpoint
+
+==Result==
+
+===Creating a new Block Table===
+
+[[File:images/CreateBlockTable03.png|frame|none]] 
+
+You can create the Block Table directly under a package:
+
+[[File:images/ExampleBlockTable.png|frame|none]]
+
+===Synchronization between table and model===
+The illustration of the table sychronization when a block is added or removed: 
+
+[[File:images/SynchroTable01.png|frame|none]] After added Block2
+
+[[File:images/SynchroTable02.png|frame|none]] Affter removed Block1
+
+=Contribute to creation menu with a new Papyrus Table (must be completed)=
+The contribution must be done using viewpoint with a file .configuration.
+The viewpoint metamodel provides 2 ways to register new tables. the first one used the Element Papyrus Sync Table. You must fill the field : 
+* Categories
+
+
+* Icon
+
+
+* ImplementationID : the type of the table, with the same value than in the field type declared in the file .nattableConfiguration of your table
+
+
+* Name : the name of the table 
+
+
+
+Then you can declare Rules to allow/forbid the creation of the table according to the selected element
+
+The second way with viewpoint using Papyrus Table element
+In this case you must fill the field configuration with the path of your table configuration file.
+
+== Label Providers  ==
+
+For the label provider, we divided the tables into 2 areas&nbsp;: 
+
+#Headers
+#Body
+
+for each areas we declared a label provider context (using the Papyrus Label Provider extension point):
+
+#org.eclipse.papyrus.infra.nattable.full.labelprovider&nbsp;: the context to use to find the label provider used in the table. This one calls the others label providers according to the region for which we are looking for the text/image to display.
+#org.eclipse.papyrus.infra.nattable.body.labelprovider&nbsp;: the context to use to find the label provider used to get the text in the body of the table
+#org.eclipse.papyrus.infra.nattable.header.labelprovider&nbsp;: the context to use to find the label provider used to get the text in the header of the table (display icon, display label) 
+#org.eclipse.papyrus.infra.nattable.header.feature.labelprovider&nbsp;: the context to use to find the label provider used to display feature in a header. This label provider allows to define the text to display according to the configuration of the axis ( display icon, display label, display multiciplicity, display type, display a "/" for the derived feature)
+
+These contexts are declared into the plugin org.eclipse.papyrus.infra.nattable.
+
+All label provider declared on these context must accept elements implementing ILabelProviderCellContextElement. This object encapsulate the cell for which we want display a text AND useful elements which can be used to define the text/image/color/... to display in the cell.
+
+
+
+Papyrus Extension Point For Table : 
+
+#Axis Manager
+#Cell Manager
+#Cell Editor Configuration
+
+== Selection synchronization ==
+
+Some changes have been applied to the code in order to allow a selection synchronization between the tables and the model explorer. The affected classes are the following :
+
+
+<I>In these changes, IRevealSemanticElement and its associated method revealSemanticElement is at the core of the modifications. </I>
+
+* '''Step1''': org/eclipse/papyrus/infra/nattable/common/editor/AbstractEMFNattableEditor.java
+**where we implement the interface and add the call for the newly created revealSemanticElement method in AbstractNattableWidgetManager and giving it the list of selected objects.
+
+
+* '''Step2''': org/eclipse/papyrus/infra/nattable/manager/table/AbstractNattableWidgetManager.java
+**the method goes through the lines and columns of the tables to find all the elements contained in the list and then proceed to select them graphically in the table. 
+**the method used for this is org.eclipse.nebula.widgets.nattable.selection.SelectionLayer.doCommand(ILayerCommand command)
+
+
+* '''Step3''': org/eclipse/papyrus/infra/gmfdiag/common/SynchronizableGmfDiagramEditor.java
+**in the original method the selection only allowed the first selected element found to show. we now collect all found IGraphicalEditParts and proceed to set the selection in the graphicalViewer.
+
+
+* '''Step4''': org/eclipse/papyrus/views/modelexplorer/ModelExplorerView.java
+**in the handleSelectionChangedFromDiagramEditor method the principal problem was that, if revealSemanticElement was called, it shunned the model explorer as it was not an IEditPart and the redundacy of the IAdaptable verification crashed the process.
+**when we are in an IIeditorPart, as we were interested in the Eobject for the contruction of the list of selected elements and that org.eclipse.papyrus.infra.emf.utils.EMFHelper.getEObject(Object source) already checked for the IAdaptability, the direct replacement of the verification was done. 
+**as for the selection in the model explorer, we went through org.eclipse.ui.navigator.LinkHelperService.getLinkHelpersFor(Object anObject) to get the list of LinkHelpers and used the LinkHelper in org.eclipse.papyrus.views.modelexplorer.LinkHelper.activateEditor(IWorkbenchPage aPage, IStructuredSelection aSelection) to handle the selection with revealSemantiElement.
+
+
+== Modifying the graphical representation of the tables ==
+
+=== Resizing Axis and Headers ===
+
+Three listeners have been added to the AbstractNattableWidgetManager class in order to capture the graphical changes and edit the model.
+#addAxisResizeListener(final BodyLayerStack bodyLayerStack) that listens to the BodyLayerStack
+#addColumnHeaderResizeListener(final ColumnHeaderLayerStack columnHeaderLayerStack) that listens to the ColumnHeaderLayerStack
+#addRowHeaderResizeListener(final RowHeaderLayerStack rowHeaderLayerStack) that listens to the RowHeaderLayerStack
+Those methods verify the model in order to know if the graphical values are already present and if not create them and write them using a CompositeCommand and executing it.
+
+
+The major change introduced in order to accomplish this is the modification of the table's model by adding new Styles, more particularly intValueStyles that are used to carry this specific information. These styles are introduced in the Axis elements, if the changes of size modify axis, or to a newly, or existing, LocalHeaderAxisConfiguration if the changes modify headers. Of course, both of them are now StyledElements and therefore can call on the method <I>getNamedStyle()</I>.
+*NamedStyle org.eclipse.papyrus.infra.nattable.model.nattable.nattablestyle.StyledElement.getNamedStyle(EClass eClass, String name)
+
+Two init methods will also be called when refreshing or opening the table in order to show the modified table.
+#initTableAxis() that gets the list of the displayed axis and check their styles
+#initTableHeaders() that gets the AbstractHeaderAxisConfigurationUsedInTable, allowing the method to get around the invertAxis configuration, and check their styles
+Both have a default behavior, in case no styles were attached to an element, to apply its default size to its graphical representation.
+
+
+=== Merging cells inside their Axis ===
+
+The merge is based on nebula's <I>AutomaticSpanningDataProvider</I> (org.eclipse.nebula.widgets.nattable.data.AutomaticSpanningDataProvider) allowing us to apply a spanProvider to the table's BodyLayerStack and, with minor modification of the method <I>valuesNotEqual()</I>, triggering the desired span (i.e. merge) throughout the layer. It is to be noted that the cells are merged using their values and not their types.
+
+
+To accomplish this four new merge handlers were created, piloted by a menu constituted of exclusive choices.
+#org.eclipse.papyrus.infra.nattable.handler.MergeColumnsHandler
+#org.eclipse.papyrus.infra.nattable.handler.MergeRowsHandler
+#org.eclipse.papyrus.infra.nattable.handler.MergeSelectedRowsHandler
+#org.eclipse.papyrus.infra.nattable.handler.MergeSelectedColumnsHandler
+The handlers' model modification behavior are similar to the resize listeners' one, where the style's value is researched in the model and created, or modified, depending on the case, set inside a CompositeCommand and executed inside the core AbstractMergeHandler. The merge boolean will then be carried by the LocalHeaderAxisConfiguration if the user chose to merge all the columns/rows inside the table or by the Axis if the user chose to merge only selected Axis.
+
+
+To access these handlers, new extensions have been added in the form of a new menu to call on the handlers and a property tester to check the availability of the menu's options or not depending on the merge state of the table; and to update the toggles of each menu, new <I>updateToggleCommandState()</I> have also been added to NattableModelManager, calling on the <I>getToggleState[...]()</I> methods in AbstractNattableManager.
+
+One init method and two Listeners, one for the resourceSet and another for the Layer, are used to update the graphical view throughout the changes.
+#initTableMerge() in wich the list of the displayed axis is obtained and their styles checked
+#resourceSetListener inside the <I>updateCellMap()</I> method in which the notifications due to the modification of the resourceSet are filtered to keep the styles we want to apply or unapply, depending on the user's choices, and enable the use of the undo/redo behavior
+
+
+=== Editing merged cells ===
+
+A PapyrusSpanningDataLayer has been added and @Overrides the setDataValue of nebula's <I>org.eclipse.nebula.widgets.nattable.layer.SpanningDataLayer#setDataValue(int, int, java.lang.Object)</I> to allow the edition of multiple cells inside a merged selection.
+
+
+The edition will then verify if the value to be inputted can indeed be, see <I>org.eclipse.papyrus.infra.nattable.manager.cell.AbstractCellManager.setValue()</I>, and edit the cell accordingly. Of course, the merge selection is updated after this so that, inside a previuosly merged selection, only the cells of equal values are still merged.
+
+= What is the difference between Slave and Master for AxisManager/AxisProvider=
+We decided to introduce a difference between the Axis Manager used in the Table. There is Slave and Master. 
+==Master/Slave configuration==
+For the tables which present an axis with Object (Rows) and an Axis with Features (Columns), like in UML Generic Table, the row axis provider is a Master and the Column axis provider is the slave.
+Its means that the the column axis manager provides elements which depends on the elements provided by the rows axis. For UML Table, the columns axis provides the features for the object displayed as rows in the table. 
+
+As you can declare several AxisManagers for rows and several AxisManager for columns, we store them in CompositeAxisManager. So you must have a CompositeAxisManager Master for rows and a CompositeAxisManager slave for columns. 
+You can mix Master and Slave Axis Manager in a CompositeAxisManager. 
+
+==Master/Master configuration==
+In case of Matrix, the Rows and the Columns Axis Manager must be master, because the twice provide Object.
+
+=What is the difference between AxisManagerRepresentation and AxisManagerConfiguration?=
+==AxisManagerRepresentation==
+The axis manager representation provide the default configuration for an axis manager in the TableConfiguration. 
+This object contains the following field: 
+*'''axisManagerId:String''' the if of the configured axis manager,
+*'''labelProviderContext:String''' the id of the context to use to find the label provider to use,
+*'''headerLabelConfiguration:ILabelProviderConfiguration''' the label configuration to use (read by the label provider, to know how the header must be displayed). We read it, only if there is no <code>AxisManagerConfiguration</code> referencing the <code>AxisManagerRepresentation</code> and providing a <code>localHeaderLabelConfiguration</code>,
+*'''specificAxisConfiguration:IAxisConfiguration''' the configuration to apply to the axis (synchronization, paste configuration, ...).
+
+==AxisManagerConfiguration==
+*'''localHeaderLabelConfiguration:ILabelProviderConfiguration''' the label configuration to use (read by the label provider, to know how the header must be displayed). if <code>null</code>, we read the field <code>headerLabelConfiguration</code> from the referenced <code>AxisManagerRepresentation</code>,
+*'''axisManager:AxisManagerRepresentation''' the axis manager on which this configuration must be applied,
+*'''localSpecificConfigurations''' the configurations to apply. it complete OR overrides <code>AxisManagerRepresentation#specificAxisConfiguration</code>,
+**override for configurations already existing in the AxisManagerRepresentation#specificAxisConfiguration,
+**complete for configurations which do not exist in the AxisManagerRepresentation#specificAxisConfiguration.
+
+=Filters=
+The filters are located at the bottom of the Column Header.
+
+In Papyrus, you can get cells displaying <code>N/A</code>, it means than the columns is not available for the row element owning this cell. That's why declaring your own filter, you must think to manage this specific value.
+Moreover, if you declare a specific comparator in your filter configuration, it should returns the value <code>org.eclipse.papyrus.infra.nattable.filter.FilterPreferences.INCONSISTENT_VALUE</code> when the value in the cell is inconsistent vs the filter value. This specific returns will be used, according to the preference obtained with <code>org.eclipse.papyrus.infra.nattable.filter.FilterPreferences.displayInconsistentValueWithFilter(Table)</code> to show/hide the rows with inconsistent values.
+
+==How to activate filters==
+To activate filter by default for your table, in your nattableconfiguration file, you must select your <code>Table Header Axis Configuration</code> used for columns and set the value '''Display Filter''' to <code>true</code>.
+
+[[File:images/ActivateFilterInTableConfiguration.png|frame|none]]
+
+==How to declare your own filter==
+In your plugin.xml file, you must contribute to the Papyrus Extension Point '''org.eclipse.papyrus.infra.nattable.filter.configuration'''. You must fill the 2 fields of the extension:
+*'''class''' : your java class implementing <code>org.eclipse.papyrus.infra.nattable.filter.configuration.IFilterConfiguration</code>
+*'''order''' : the order to use for your configuration (smaller are more priority). Papyrus default configuration uses value near to 8000.
+
+The interface <code>IFilterConfiguration</code> provides 4 methods:
+*<code>public boolean handles(IConfigRegistry registry, final Object axis)</code>: Your must return <code>true</code> if your configuration must be applied to the axis.
+*<code>public void configureFilter(IConfigRegistry configRegistry, final Object axis, final String configLabel)</code> here, you will configure nattable to use your filter configuration.
+*<code>public String getConfigurationId()</code>: You must return a unique id.
+*<code>public String getConfigurationDescription()</code>: You should return a description of your configuration. It will be use in user dialog to allow to the user to apply a specific configuration for a column.
+
+In the method <code>configureFilter</code> you can configure several elements, using these keys:
+*'''org.eclipse.nebula.widgets.nattable.edit.EditConfigAttributes.CELL_EDITOR'''
+**to declare the cell editor to use in the the filter cell for the column
+*'''org.eclipse.nebula.widgets.nattable.config.CellConfigAttributes.DISPLAY_CONVERTER'''
+**to declare the display converter to use (conversion between real element in the cell and the label to use for this element)
+*'''org.eclipse.papyrus.infra.nattable.utils.NattableConfigAttributes.MATCHER_EDITOR_FACTORY'''
+**to declare the matcher factory which will create the matcher to use to compare the filter value and the cell value
+*'''org.eclipse.papyrus.infra.nattable.filter.configuration.IFilterConfiguration.FILTER_VALUE_TO_MATCH_MANAGER'''
+**to declare the class which will save the filter state in the model and which will read/convert the saved value to the value to use.
+
+===Example to filter EEnumLiteral===
+This example will allow you to filter EEnumLiteral (<code>http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/visibility</code> for example)
+<source lang="java" collapse="true" first-line="2">
+/*****************************************************************************
+ * Copyright (c) 2015 CEA LIST and others.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *   CEA LIST - Initial API and implementation
+ *   
+ *****************************************************************************/
+
+package org.eclipse.papyrus.infra.emf.nattable.filter.configuration;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.command.CompoundCommand;
+import org.eclipse.emf.common.util.Enumerator;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.SetCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.nebula.widgets.nattable.config.IConfigRegistry;
+import org.eclipse.nebula.widgets.nattable.data.IColumnAccessor;
+import org.eclipse.nebula.widgets.nattable.edit.EditConfigAttributes;
+import org.eclipse.nebula.widgets.nattable.edit.editor.ICellEditor;
+import org.eclipse.nebula.widgets.nattable.filterrow.combobox.FilterRowComboBoxCellEditor;
+import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
+import org.eclipse.papyrus.infra.nattable.dataprovider.ListComboBoxDataProvider;
+import org.eclipse.papyrus.infra.nattable.filter.IFilterValueToMatchManager;
+import org.eclipse.papyrus.infra.nattable.filter.IPapyrusMatcherEditorFactory;
+import org.eclipse.papyrus.infra.nattable.filter.configuration.AbstractFilterValueToMatchManager;
+import org.eclipse.papyrus.infra.nattable.filter.configuration.IFilterConfiguration;
+import org.eclipse.papyrus.infra.nattable.manager.cell.ICellManager;
+import org.eclipse.papyrus.infra.nattable.model.nattable.nattableaxis.IAxis;
+import org.eclipse.papyrus.infra.nattable.model.nattable.nattablestyle.NamedStyle;
+import org.eclipse.papyrus.infra.nattable.model.nattable.nattablestyle.NattablestyleFactory;
+import org.eclipse.papyrus.infra.nattable.model.nattable.nattablestyle.NattablestylePackage;
+import org.eclipse.papyrus.infra.nattable.model.nattable.nattablestyle.StringListValueStyle;
+import org.eclipse.papyrus.infra.nattable.model.nattable.nattablestyle.StringValueStyle;
+import org.eclipse.papyrus.infra.nattable.utils.AxisUtils;
+import org.eclipse.papyrus.infra.nattable.utils.NattableConfigAttributes;
+
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.matchers.MatcherEditor;
+
+/**
+ * Filter configuration for eenum filter
+ *
+ */
+public class EEnumFilterCellEditorFilterConfiguration implements IFilterConfiguration {
+
+	/**
+	 * the id of this editor
+	 */
+	private static final String ID = "org.eclipse.papyrus.infra.emf.nattable.eenum.checkboxcombo.with.NA";//$NON-NLS-1$
+
+	/**
+	 * @see org.eclipse.papyrus.infra.nattable.filter.configuration.IFilterConfiguration#handles(org.eclipse.nebula.widgets.nattable.config.IConfigRegistry, java.lang.Object)
+	 *
+	 * @param registry
+	 * @param columnElement
+	 * @return
+	 */
+	@Override
+	public boolean handles(IConfigRegistry registry, Object columnElement) {
+		Object representedElement = AxisUtils.getRepresentedElement(columnElement);
+		if (representedElement instanceof EStructuralFeature) {
+			EClassifier eType = ((EStructuralFeature) representedElement).getEType();
+			return eType instanceof EEnum;
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param axis
+	 *            an axis
+	 * @return
+	 *         a list containing the possible Enumerator for the axis
+	 */
+	protected List<Enumerator> getLiteral(IConfigRegistry configRegistry, Object axis) {
+		Object representedElement = AxisUtils.getRepresentedElement(axis);
+		final List<Enumerator> literals = new ArrayList<Enumerator>();
+		if (representedElement instanceof EStructuralFeature) {
+			EClassifier eType = ((EStructuralFeature) representedElement).getEType();
+			Assert.isTrue(eType instanceof EEnum);
+			EEnum eenum = (EEnum) eType;
+			for (EEnumLiteral current : eenum.getELiterals()) {
+				literals.add(current.getInstance());
+			}
+		}
+		return literals;
+	}
+
+
+	/**
+	 * @see org.eclipse.papyrus.infra.nattable.filter.configuration.IFilterConfiguration#configureRegistry(org.eclipse.nebula.widgets.nattable.config.IConfigRegistry, java.lang.Object, java.lang.String)
+	 *
+	 * @param configRegistry
+	 * @param columnElement
+	 * @param configLabel
+	 */
+	@Override
+	public void configureFilter(IConfigRegistry configRegistry, final Object columnElement, String configLabel) {
+		List<Enumerator> literals = getLiteral(configRegistry, columnElement);
+		final List<Object> valuesToProposed = new ArrayList<Object>(literals);
+
+		valuesToProposed.add(0, ICellManager.NOT_AVALAIBLE);
+
+		ICellEditor editor = new FilterRowComboBoxCellEditor(new ListComboBoxDataProvider(valuesToProposed));
+		IPapyrusMatcherEditorFactory<Object> factory = new IPapyrusMatcherEditorFactory<Object>() {
+
+			@Override
+			public EventList<MatcherEditor<Object>> instantiateMatcherEditors(IColumnAccessor<Object> columnAccessor, Integer columnIndex, Object wantedValue, IConfigRegistry configRegistry) {
+				EventList<MatcherEditor<Object>> list = new BasicEventList<MatcherEditor<Object>>();
+				list.add(new EnumeratorMatcherEditor(columnAccessor, columnIndex, wantedValue, configRegistry));
+				return list;
+			}
+		};
+
+		configRegistry.registerConfigAttribute(NattableConfigAttributes.MATCHER_EDITOR_FACTORY, factory, DisplayMode.NORMAL, configLabel);
+		configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.NORMAL, configLabel);
+		configRegistry.registerConfigAttribute(NattableConfigAttributes.FILTER_VALUE_TO_MATCH_MANAGER, createFilterValueToMatchManager(getConfigurationId(), literals), DisplayMode.NORMAL, configLabel);
+
+	}
+
+	/**
+	 * 
+	 * @param filterConfiguration
+	 *            the id of the filter configuration used for the managed axis
+	 * @param literals
+	 *            the available literals
+	 * @return
+	 *         the filter value manager for the managed axis
+	 */
+	protected IFilterValueToMatchManager createFilterValueToMatchManager(String filterConfiguration, List<Enumerator> literals) {
+		return new EnumeratorFilterValueToMatchManager(filterConfiguration, literals);
+	}
+
+	/**
+	 * 
+	 * 
+	 * @see org.eclipse.papyrus.infra.nattable.filter.configuration.IFilterConfiguration#getConfigurationId()
+	 *
+	 * @return
+	 */
+	@Override
+	public String getConfigurationId() {
+		return ID;
+	}
+
+	/**
+	 * @see org.eclipse.papyrus.infra.nattable.filter.configuration.IFilterConfiguration#getConfigurationDescription()
+	 *
+	 * @return
+	 */
+	@Override
+	public String getConfigurationDescription() {
+		return "This configuration provides a combo with checkbox to filter EEnum, with N/A value"; //$NON-NLS-1$
+	}
+
+	/**
+	 * 
+	 * This class allows to save the state of the filter for column typed with enumeration
+	 *
+	 */
+	public static class EnumeratorFilterValueToMatchManager extends AbstractFilterValueToMatchManager {
+	
+		/**
+		 * a list with the available literal
+		 */
+		protected final List<Enumerator> literals;
+	
+		/**
+		 * Constructor.
+		 *
+		 * @param filterConfigurationId
+		 *            the id of the filter configuration used by the axis
+		 * @param literals
+		 *            the available literals
+		 */
+		public EnumeratorFilterValueToMatchManager(String filterConfigurationId, List<Enumerator> literals) {
+			super(filterConfigurationId);
+			this.literals = literals;
+		}
+	
+	
+		/**
+		 * @see org.eclipse.papyrus.infra.nattable.filter.IFilterValueToMatchManager#getValueToMatch(org.eclipse.nebula.widgets.nattable.config.IConfigRegistry, java.lang.Object)
+		 *
+		 * @param configRegistry
+		 * @param axis
+		 * @return
+		 */
+		@Override
+		public Object getValueToMatch(IConfigRegistry configRegistry, Object axis) {
+			if (!(axis instanceof IAxis)) {
+				return null;
+			}
+			IAxis iaxis = (IAxis) axis;
+			NamedStyle style = getValueToMatchStyle(iaxis);
+			if (style != null) {
+				if (style instanceof StringListValueStyle) {
+					List<Object> returnedValues = new ArrayList<Object>();
+					Collection<String> coll = ((StringListValueStyle) style).getStringListValue();
+					for (String string : coll) {
+						if (string.equals(ICellManager.NOT_AVALAIBLE)) {
+							returnedValues.add(ICellManager.NOT_AVALAIBLE);
+						} else {
+							for (Enumerator tmp : literals) {
+								if (tmp.getName().equals(string)) {
+									returnedValues.add(tmp);
+									continue;
+								}
+							}
+						}
+					}
+					return returnedValues;
+				}
+				if (style instanceof StringValueStyle) {
+					String val = ((StringValueStyle) style).getStringValue();
+					if (val.equals(ICellManager.NOT_AVALAIBLE)) {
+						return ICellManager.NOT_AVALAIBLE;
+					}
+					for (Enumerator tmp : literals) {
+						if (tmp.getName().equals(val)) {
+							return tmp;
+						}
+					}
+				}
+			}
+			return null;
+		}
+	
+		/**
+		 * @see org.eclipse.papyrus.infra.nattable.filter.configuration.AbstractFilterValueToMatchManager#getSaveValueToMatchCommand(org.eclipse.emf.transaction.TransactionalEditingDomain, org.eclipse.nebula.widgets.nattable.config.IConfigRegistry,
+		 *      java.lang.Object, java.lang.Object)
+		 *
+		 * @param domain
+		 * @param configRegistry
+		 * @param axis
+		 * @param newValue
+		 * @return
+		 */
+		@Override
+		protected Command getSaveValueToMatchCommand(TransactionalEditingDomain domain, IConfigRegistry configRegistry, Object axis, Object newValue) {
+			if (!(axis instanceof IAxis)) {
+				return null;
+			}
+			IAxis iaxis = (IAxis) axis;
+			CompoundCommand cc = new CompoundCommand("Save Value To Match Command"); //$NON-NLS-1$
+			NamedStyle keyStyle = getValueToMatchStyle(iaxis);
+			if (newValue instanceof Collection<?>) {
+				Collection<?> coll = (Collection<?>) newValue;
+				// we need to update the keystyle
+				if (keyStyle != null && !(keyStyle instanceof StringListValueStyle)) {
+					// we need to destroy the previous keystyle
+					Command cmd = getDestroyFilterValueToMatchCommand(domain, configRegistry, axis);
+					if (cmd != null && cmd.canExecute()) {
+						cc.append(cmd);
+					}
+				}
+				if (keyStyle == null) {
+					keyStyle = NattablestyleFactory.eINSTANCE.createStringListValueStyle();
+					keyStyle.setName(FILTER_VALUE_TO_MATCH);
+					cc.append(AddCommand.create(domain, iaxis, NattablestylePackage.eINSTANCE.getNamedStyle(), keyStyle));
+				}
+	
+				List<String> values = new ArrayList<String>();
+				for (Object tmp : coll) {
+					Assert.isTrue(tmp instanceof Enumerator || ICellManager.NOT_AVALAIBLE.equals(tmp));
+					if (tmp instanceof Enumerator) {
+						values.add(((Enumerator) tmp).getName());
+					} else {
+						values.add(ICellManager.NOT_AVALAIBLE);
+					}
+				}
+				cc.append(SetCommand.create(domain, keyStyle, NattablestylePackage.eINSTANCE.getStringListValueStyle_StringListValue(), values));
+			} else {
+				if (keyStyle != null && !(keyStyle instanceof StringValueStyle)) {
+					// we need to destroy the previous keystyle
+					Command cmd = getDestroyFilterValueToMatchCommand(domain, configRegistry, axis);
+					if (cmd != null && cmd.canExecute()) {
+						cc.append(cmd);
+					}
+				}
+				if (keyStyle == null) {
+					keyStyle = NattablestyleFactory.eINSTANCE.createEObjectValueStyle();
+					keyStyle.setName(FILTER_VALUE_TO_MATCH);
+					cc.append(AddCommand.create(domain, iaxis, NattablestylePackage.eINSTANCE.getNamedStyle(), keyStyle));
+				}
+				Assert.isTrue(newValue instanceof Enumerator || ICellManager.NOT_AVALAIBLE.equals(newValue));
+				// we store the name of the literal and a reference to the literal, for 2 reasons :
+				// - for static profile we get enumerator and not EEnumLiteral
+				// - in case of redefinition of the profile, the reference would be not correct
+				String name;
+				if (newValue instanceof Enumerator) {
+					name = ((Enumerator) newValue).getName();
+				} else {
+					name = ICellManager.NOT_AVALAIBLE;
+				}
+				cc.append(SetCommand.create(domain, keyStyle, NattablestylePackage.eINSTANCE.getStringValueStyle_StringValue(), name));
+			}
+			return cc;
+		}
+	
+	}
+}
+
+</source>
+In the previous class, we declare:
+*we declare a ComboBox with CheckBox as CellEditor for the filter
+*how to save and read the eenumliteral chosen by the user in the filter cell editor
+**You can see that we store their name in the model and a direct reference to its in the model.
+*how to display them in the filter area 
+*how to compare the eenum literal. The class doing the match follow
+
+<source lang="java" collapse="true" first-line="2">
+/*****************************************************************************
+ * Copyright (c) 2015 CEA LIST and others.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *   CEA LIST - Initial API and implementation
+ *   
+ *****************************************************************************/
+
+package org.eclipse.papyrus.infra.emf.nattable.filter.configuration;
+
+import java.util.Collection;
+
+import org.eclipse.emf.common.util.Enumerator;
+import org.eclipse.nebula.widgets.nattable.config.IConfigRegistry;
+import org.eclipse.nebula.widgets.nattable.data.IColumnAccessor;
+import org.eclipse.papyrus.infra.nattable.filter.AbstractPapyrusMatcherEditor;
+import org.eclipse.papyrus.infra.nattable.filter.AbstractSinglePapyrusMatcher;
+
+import ca.odell.glazedlists.matchers.Matcher;
+
+/**
+ * Matcher Editor for UML Enumeration
+ *
+ */
+public class EnumeratorMatcherEditor extends AbstractPapyrusMatcherEditor {
+
+	/**
+	 * 
+	 * Constructor.
+	 *
+	 * @param columnAccesor
+	 * @param columnIndex
+	 * @param matchOn
+	 * @param configRegistry
+	 */
+	public EnumeratorMatcherEditor(IColumnAccessor<Object> columnAccesor, int columnIndex, Object matchOn, IConfigRegistry configRegistry) {
+		super(columnAccesor, columnIndex, matchOn, configRegistry);
+	}
+
+	/**
+	 * @see org.eclipse.papyrus.infra.nattable.filter.AbstractPapyrusMatcherEditor#createMatcher(org.eclipse.nebula.widgets.nattable.data.IColumnAccessor, int, java.lang.Object, org.eclipse.nebula.widgets.nattable.config.IConfigRegistry)
+	 *
+	 * @param columnAccesor
+	 * @param columnIndex
+	 * @param matchOn
+	 * @param configRegistry
+	 * @return
+	 */
+	@Override
+	protected Matcher<Object> createMatcher(IColumnAccessor<Object> columnAccesor, int columnIndex, Object matchOn, IConfigRegistry configRegistry) {
+		return new EnumeratorMatcher(columnAccesor, matchOn, columnIndex, configRegistry);
+	}
+
+	/**
+	 * This Matcher allows to know is an object is displayed in a cell
+	 *
+	 */
+	public static class EnumeratorMatcher extends AbstractSinglePapyrusMatcher<Object> {
+
+		/**
+		 * Constructor.
+		 *
+		 * @param accessor
+		 * @param wantedObject
+		 * @param columnIndex
+		 * @param configRegistry
+		 */
+		public EnumeratorMatcher(IColumnAccessor<Object> accessor, Object wantedObject, int columnIndex, IConfigRegistry configRegistry) {
+			super(accessor, columnIndex, wantedObject, configRegistry);
+		}
+
+		/**
+		 * Constructor.
+		 *
+		 * @param accessor
+		 * @param wantedObject
+		 * @param columnIndex
+		 */
+		public EnumeratorMatcher(IColumnAccessor<Object> accessor, Object wantedObject, int columnIndex) {
+			super(accessor, columnIndex, wantedObject);
+		}
+
+		/**
+		 * @see ca.odell.glazedlists.matchers.Matcher#matches(java.lang.Object)
+		 *
+		 * @param item
+		 * @return
+		 */
+		@Override
+		public boolean matches(Object item) {
+			Object res = getColumnAccessor().getDataValue(item, getColumnIndex());
+			if (res != null) {
+				Object wantedObject = getObjectToMatch();
+				String stringToMatch = null;
+				if (wantedObject instanceof String) {
+					stringToMatch = (String) wantedObject;
+				} else {
+					stringToMatch = ((Enumerator) wantedObject).getName();
+				}
+				if (res instanceof Collection<?>) {
+					for (Object tmp : (Collection<?>) res) {
+						if (tmp instanceof Enumerator) {
+							Enumerator lit = (Enumerator) tmp;
+							if (stringToMatch.equals(lit.getName())) {
+								return true;
+							}
+						} else {
+							if (stringToMatch.equals(tmp)) {
+								return true;
+							}
+						}
+					}
+				}
+				if (res instanceof Enumerator) {
+					return stringToMatch.equals(((Enumerator) res).getName());
+				}
+				return stringToMatch.equals(res);
+			}
+			return false;
+		}
+	}
+
+}
+
+</source>
+
+==Available Filter cell Editors==
+You can declare several kinds of editors for filters:
+* a combo with checkbox for multi selection (class <code>org.eclipse.nebula.widgets.nattable.filterrow.combobox.FilterRowComboBoxCellEditor</code>), used in <code>org.eclipse.papyrus.infra.emf.nattable.filter.configuration.EBooleanComboBoxCellEditorFilterConfiguration</code>
+[[File:images/ComboWithCheckBox.png|frame|none]]
+* a combo without checkbox (class <code>org.eclipse.nebula.widgets.nattable.edit.editor.ComboBoxCellEditor</code>), used in <code>org.eclipse.papyrus.infra.emf.nattable.filter.configuration.EBooleanFilterRowComboBoxCellEditorFilterConfiguration</code>
+[[File:images/ComboWithoutCheckBox.png|frame|none]]
+* a string editor with several mode used in <code>org.eclipse.papyrus.infra.nattable.filter.PapyrusTextMatchingMode</code>:
+** contains: (case by default)
+** regex found: a substring of the text match the regex
+** regex match: the full text match the regex
+** start with: the text start with the wanted string
+** numeric mode: This mode allows you to use comparison operators : <code><</code>, <code>></code>, <code><=</code>, <code>>=</code>, <code>=</code> and <code><></code> for not equals.
+
+So, to configure filter using a text cell editor, you should extends the class <code>org.eclipse.papyrus.infra.nattable.filter.configuration.TextEditorFilterConfiguration</code>.
+To configure integer comparison, with a text editor, you should look the class <code>org.eclipse.papyrus.infra.nattable.filter.configuration.AbstractIntegerEditorFilterConfiguration</code>. In this class and its subclasses, in the method <code>org.eclipse.papyrus.infra.nattable.filter.configuration.TextEditorFilterConfiguration.configureFilter(IConfigRegistry, Object, String)</code>:
+* we declare a specific data validator: the user can only typed numerical values
+* we declare a specific Comparator to compare numerical values
+* we declare the matching mode to <code>org.eclipse.papyrus.infra.nattable.filter.PapyrusTextMatchingMode.NUM</code>: to get numeric comparison and use the comparator declared previously
+
+==Comparator used by filter==
+If you need to declare your own comparator and you extend <code>org.eclipse.papyrus.infra.nattable.filter.configuration.TextEditorFilterConfiguration.configureFilter(IConfigRegistry, Object, String)</code>, you should know these points.
+* Your comparator must always manage String comparison to manage cells with <code>N/A</code> value.
+* In the case where the value to compare is inconsistent (String value to match a numerical value for example), Your comparator must returns the value <code>org.eclipse.papyrus.infra.nattable.filter.FilterPreferences.INCONSISTENT_VALUE</code>. this value will be interpreted as an impossible comparison.
+* The method <code>org.eclipse.papyrus.infra.nattable.filter.FilterPreferences.displayInconsistentValueWithFilter(Table)</code> allow to know it the inconsistent row (impossible comparison) must be displayed or hidden. By default, Papyrus hides these rows.
+
+===Filter Strategy===
+* By default, the row with a cell contains is inconsistent with the column are hidden. There is 2 main cases in Papyrus:
+** the cell display N/A for a value which is not a string
+** the user uses <code>num:</code> (see below) in the string editor, all values which are not numerical values will be hidden
+* In case of filtering on several column in the same time, we will display only the rows matching all applied filters
+* In case of collection in a cell, the row matches if the collection contains the wanted element
+
+=How to define columns sorted by default=
+Since Papyrus 5.0, it is possible to define column which will be sorted by default.
+In order to do that, you must select the axis to sorted in your '''TableConfiguration''' file, then
+*add it a '''StringValueStyle'''
+*name this style '''sort'''
+*give it a string value with this format: <number>_<direction>, where
+**number is the column sort sequence. The biggest number is the first sorted column, then we decrease until 0 for the last sorted column. 
+**direction must be '''ASC''' (alphabetic order) or '''DESC''' (reverse alphabetic order). 
+
+==Example==
+To sort the rows by alphabetic order according to the value of 2 columns A and B. You want to start the sort with the values of column A, then continuing the sort with the values of column B when the values of A are equals. To obtain this behavior, you need to define: 
+*for A: 0_ASC - first sorted column
+*for B: 1_ASC - last sorted column
+
+[[File:images/SortStyleName_snapshot1.png|frame|none|Sort configuration for column A]]
+
+[[File:images/SortStyleName_snapshot2.png|frame|none|Sort configuration for column B]]
+
+==How does it works?==
+*The sorted columns are save with the command <code>org.eclipse.papyrus.infra.nattable.sort.SaveSortedColumnCommand</code>.
+*The apply/reapply (after a refresh/a reload or a table creation) is done by the class <code> org.eclipse.papyrus.infra.nattable.sort.PapyrusGlazedListsSortModel</code>.
+*The comparator chooser use a specific format to apply sort. This format is given by the method <code>org.eclipse.papyrus.infra.nattable.sort.ColumnSortUtils.buildComparatorValues(INattableModelManager)</code>
+
+=Cell Editor=
+Papyrus table provides several kinds of cell editors, for example, editors for ValueSpecification and UML NamedElement:
+*textual editor
+** textual editor for ValueSpecification
+***This editor allows to edit/create ValueSpecification using a text field.
+***The class of this cell editor is <code>org.eclipse.papyrus.uml.nattable.xtext.valuespecification.celleditor.ValueSpecificationCellEditor.ValueSpecificationCellEditor</code>
+***The plugin <code>org.eclipse.papyrus.uml.textual.editors.example</code> provide an example of integration in the table. Taking this plugin into your workspace will allow you to edit the column defaultValue using this editor.
+***a video is available here https://www.youtube.com/watch?v=OERg0BUZmyU&feature=youtu.be
+***for further information, please see the page [[Papyrus_Developer_Guide/Papyrus_Embedded_Editors_Documentation/Value_Specification_Xtext_editor]]
+** textual editor for NamedElement (to edit references which are not containment)
+*** This editor allows to edit references to named element.
+*** The plugin <code>org.eclipse.papyrus.uml.textual.editors.example</code> provides an example of integration in the table. Taking this plugin into your workspace will allow you to edit the precondition of an operation using a text field.
+*** The class of this cell editor is <code>org.eclipse.papyrus.uml.nattable.manager.cell.editor.UMLReferenceTextWithCompletionCellEditor</code>.
+*** for further information, please see the page [[Papyrus Developer Guide/Papyrus Embedded Editors Documentation/Textual Editor For NamedElement]]
+
+==How to declare a new Cell Editor==
+In your plugin.xml file, you must contribute to the extension point '''org.eclipse.papyrus.infra.nattable.celleditor.configuration''', providing a '''cellAxisConfiguration'''. 
+Note: '''configuration''' is deprecated and must not be used. 
+This extension point has two fields : 
+*'''class''': the java class providing your cell editor configuration and implementing <code>org.eclipse.papyrus.infra.nattable.celleditor.config.ICellAxisConfiguration</code>
+*'''order''': an integer value, more the order is small, more the contribution is prioritary (several cell editors can be declared to edit the same kind of value
+
+Now you should create the java class, 4 methods must be implemented : 
+*'''String getConfigurationId()''': a unique id for this cell editor configuration
+*'''String getConfigurationDescriptio()''': a description of the cell editor (will be used in dialog not yet implemented)
+*'''boolean handles(Table table, Object axisElement)''': In this method you will be able to restrict your contribution to a specific table kind and a specific axisElement (a row or a column)
+*'''void configureCellEditor(IConfigRegistry configRegistry, Object axisElement, String configLabel)''': here you register the cell editor to use for the axisElement and some others interesting things, like a value validator, a value convertor, a cell painter, ... 
+
+you should add these dependencies in your Manifest (adapt bundle-version to your Papyrus version): 
+
+<code> org.eclipse.papyrus.infra.nattable;bundle-version="1.2.0",</code>
+<code> org.eclipse.papyrus.infra.nattable.model;bundle-version="1.2.0",</code>
+<code> org.eclipse.nebula.widgets.nattable.core;bundle-version="1.3.0"</code>
+
+
+
+The only way to restrict your cell editor to a kind of table is your implementation of the method '''ICellAxisConfiguration#handles(Table table, Object axisElement)'''. 
+There is not yet a way to force the usage of given cell editor in a nattable configuration file. 
+
+Example of code used in Papyrus:
+
+<source lang="java" collapse=true>
+
+/*****************************************************************************
+ * Copyright (c) 2015 CEA LIST and others.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *   CEA LIST - Initial API and implementation
+ *   
+ *****************************************************************************/
+
+package org.eclipse.papyrus.infra.emf.nattable.celleditor.config;
+
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.nebula.widgets.nattable.config.CellConfigAttributes;
+import org.eclipse.nebula.widgets.nattable.config.IConfigRegistry;
+import org.eclipse.nebula.widgets.nattable.data.convert.DisplayConverter;
+import org.eclipse.nebula.widgets.nattable.data.convert.IDisplayConverter;
+import org.eclipse.nebula.widgets.nattable.edit.EditConfigAttributes;
+import org.eclipse.nebula.widgets.nattable.edit.editor.ComboBoxCellEditor;
+import org.eclipse.nebula.widgets.nattable.painter.cell.ComboBoxPainter;
+import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
+import org.eclipse.papyrus.infra.emf.nattable.dataprovider.EEnumComboBoxDataProvider;
+import org.eclipse.papyrus.infra.emf.providers.EMFLabelProvider;
+import org.eclipse.papyrus.infra.nattable.celleditor.config.ICellAxisConfiguration;
+import org.eclipse.papyrus.infra.nattable.model.nattable.Table;
+import org.eclipse.papyrus.infra.nattable.utils.AxisUtils;
+
+/**
+ * @author MA244259
+ *
+ */
+public class SingleEEnumTypeCellEditorConfiguration implements ICellAxisConfiguration {
+
+	/**
+	 * the id of this editor
+	 */
+	private static final String ID = "org.eclipse.papyrus.infra.emf.nattable.celleditor.configuration.SingleEEnumTypeCellEditorConfiguration.ComboBox";//$NON-NLS-1$
+
+	/**
+	 * @see org.eclipse.papyrus.infra.nattable.configuration.IPapyrusNatTableConfiguration#getConfigurationId()
+	 *
+	 * @return
+	 */
+	@Override
+	public String getConfigurationId() {
+		return ID;
+	}
+
+	/**
+	 * @see org.eclipse.papyrus.infra.nattable.configuration.IPapyrusNatTableConfiguration#getConfigurationDescription()
+	 *
+	 * @return
+	 */
+	@Override
+	public String getConfigurationDescription() {
+		return "This configuration provides a ComboBox editor for a single EEnum type"; //$NON-NLS-1$
+	}
+
+	/**
+	 * @see org.eclipse.papyrus.infra.emf.nattable.celleditor.configuration.ICellAxisEditorConfiguration#handles(org.eclipse.nebula.widgets.nattable.config.IConfigRegistry, java.lang.Object)
+	 *
+	 * @param table
+	 * @param axisElement
+	 * @return
+	 * 		<code>true</code> if axisElement is a {@link EEnum} {@link EStructuralFeature}
+	 */
+	@Override
+	public boolean handles(Table table, Object axisElement) {
+		Object representedElement = AxisUtils.getRepresentedElement(axisElement);
+		if (representedElement instanceof EStructuralFeature) {
+			EStructuralFeature feature = (EStructuralFeature) representedElement;
+			if (!feature.isMany()) {
+				EClassifier eType = feature.getEType();
+				return eType instanceof EEnum;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @see org.eclipse.papyrus.infra.emf.nattable.celleditor.configuration.ICellAxisEditorConfiguration#configureCellEditor(org.eclipse.nebula.widgets.nattable.config.IConfigRegistry, java.lang.Object, java.lang.String)
+	 *
+	 * @param configRegistry
+	 * @param axis
+	 * @param configLabel
+	 */
+	@Override
+	public void configureCellEditor(final IConfigRegistry configRegistry, Object axis, String configLabel) {
+		Object representedElement = AxisUtils.getRepresentedElement(axis);
+		EEnum eenum = (EEnum) ((EStructuralFeature) representedElement).getEType();
+
+		IDisplayConverter displayConverter = new DisplayConverter() {
+
+			@Override
+			public Object displayToCanonicalValue(Object displayValue) {
+				return null;
+			}
+
+			@Override
+			public Object canonicalToDisplayValue(Object canonicalValue) {
+				// for others case
+				// LabelProviderService service = configRegistry.getConfigAttribute(NattableConfigAttributes.LABEL_PROVIDER_SERVICE_CONFIG_ATTRIBUTE, DisplayMode.NORMAL, NattableConfigAttributes.LABEL_PROVIDER_SERVICE_ID);
+				// return service.getLabelProvider(canonicalValue).getText(canonicalValue);
+				//
+
+				return new EMFLabelProvider().getText(canonicalValue);
+			}
+		};
+
+		configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new ComboBoxPainter(), DisplayMode.EDIT, configLabel);
+		configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, new ComboBoxCellEditor(new EEnumComboBoxDataProvider(eenum)), DisplayMode.EDIT, configLabel);
+		configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER, displayConverter, DisplayMode.EDIT, configLabel);
+	}
+}
+
+</source>
+
+=Table Selection=
+==General presentation and TableSelectionProvider==
+The selection in table is managed by the <code>org.eclipse.papyrus.infra.nattable.provider.TableSelectionProvider</code> which manages the selection layer.
+
+The table selection provider manage the selection as following specified:
+{| class="wikitable" border="1"
+! style="text-align: center;" | Selection in table
+! style="text-align: center;" | Selection managed by provider
+|-
+! style="font-weight: bold;" | None
+| Table context (The selection must the the table context to manage the properties view)
+|-
+! style="font-weight: bold;" | Rows
+| The rows elements, features or operations
+|-
+! style="font-weight: bold;" | Columns
+| The columns elements, features or operations
+|-
+! style="font-weight: bold;" | Cells
+| The cells values
+|}
+
+This table selection provider manage the control and the shift mask and is managed by <code>CellSelectionEvent</code>, <code>RowSelectionEvent</code> or <code>ColumnSelectionEvent</code>.
+
+==TableStructuredSelection==
+The <code>getSelection()</code> managed in the <code>NattableModelManager</code> returns a <code>TableStructuredSelection</code>.
+This one contains a reference to the wrapper for the table selection: <code>TableSelectionWrapper</code>. To get this one: it is just needed to use the <code>getAdapter(TableSelectionWrapper.class)</code>.
+
+==TableSelectionWrapper==
+The TableSelectionWrapper can allow to determine the selected cells, the selected rows and the selected columns.
+The rows and the columns selected only contains the entire rows or columns selected, not partial.
+
+This can determine if the cells, rows or columns are continous or not.
+
+==Example of use==
+This is an example how to use the table selection (enable an action when only rows are selected:
+<source lang="java">
+
+ boolean canEnable = false;
+ final INattableModelManager currentNattableModelManager = getCurrentNattableModelManager();
+ if (null != currentNattableModelManager) {
+  final ISelection currentSelection = ((NattableModelManager) currentNattableModelManager).getSelectionInTable();
+  if (null == currentSelection) {
+   canEnable = true;
+  } else if (currentSelection instanceof TableStructuredSelection) {
+   TableSelectionWrapper tableSelectionWrapper = (TableSelectionWrapper) ((TableStructuredSelection) currentSelection).getAdapter(TableSelectionWrapper.class);
+   if (null != tableSelectionWrapper) {
+    if (!tableSelectionWrapper.getFullySelectedRows().isEmpty()
+     && tableSelectionWrapper.getFullySelectedCells().isEmpty() && tableSelectionWrapper.getFullySelectedColumns().isEmpty()) {
+     canEnable = true;
+    }
+   }
+  }
+ }
+ setEnable(canEnable);
+</source>
+
+
+=Existing NamedStyle used in the table=
+NamedStyles are properties that the users can add to table configurations to provide values to tables. For example, "expandAll" is a BooleanValueStyle (i.e., a boolean NamedStyle) that expands all the rows in a tree table when its value is 'true'.  
+
+{| class="wikitable" border="1"
+! style="text-align: center;" | Name
+! style="text-align: center;" | Type
+! style="text-align: center;" | Where
+! style="text-align: center;" | Usage
+|-
+| style="font-weight: bold;" | hiddenCategoriesByDepth
+| IntListValueStyle
+| child of Table or child of TableConfiguration
+| hide the categories for a given depth
+|-
+| style="font-weight: bold;" | rowIndexWidth
+| IntValueStyle
+| child of RowHeaderAxisConfiguration
+| determines the size of the row index
+|-
+| style="font-weight: bold;" | rowLabelWidth
+| IntValueStyle
+| child of RowHeaderAxisConfiguration
+| determines the size of the first row label
+|-
+| style="font-weight: bold;" | rowPosition''X''LabelWidth
+| IntValueStyle
+| child of RowHeaderAxisConfiguration
+| determines the size of the row label at position ''X''
+|-
+| style="font-weight: bold;" | columnIndexHeight
+| IntValueStyle
+| child of ColumnHeaderAxisConfiguration
+| determines the height of the column index
+|-
+| style="font-weight: bold;" | columnLabelHeight
+| IntValueStyle
+| child of ColumnHeaderAxisConfiguration
+| determines the height of the column label
+|-
+| style="font-weight: bold;" | rowHeaderWidth
+| IntValueStyle
+| child of Table
+| determines the width of the row header (for the slider composite)
+|-
+| style="font-weight: bold;" | expandAll
+| BooleanValueStyle
+| child of Tree Table Configuration
+| determines if the rows will be expanded automatically when opening the table
+|- 
+| style="font-weight: bold;" | fillColumnsSize ''(deprecated)''
+| BooleanValueStyle
+| child of Tree Table Configuration
+| determines if the columns must fill the parent composite space
+|- 
+| style="font-weight: bold;" | dragRegions
+| StringListValueStyle
+| child of Table or child of TableConfiguration
+| determines grid regions where the drag support is activate. Activate by default on row header. Can set with: "ROW_HEADER", "BODY", "COLUMN_HEADER". Limitations: when activate on column, reorder column dosn't work(see [https://bugs.eclipse.org/bugs/show_bug.cgi?id=508311 bug 508311] and [https://bugs.eclipse.org/bugs/show_bug.cgi?id=508313 bug 508313])
+|- 
+| style="font-weight: bold;" | columnsWidthAsPercentage
+| BooleanValueStyle
+| child of Tree Table Configuration
+| determines if the columns width are managed as percentage (in this case, all the possible width must be used)
+|- 
+| style="font-weight: bold;" | saveColumnsWidth
+| BooleanValueStyle
+| child of Tree Table Configuration
+| determines if the width must be saved (actually, the width are saved but just not used)
+|- 
+| style="font-weight: bold;" | wrapText
+| BooleanValueStyle
+| child of Table
+| determines if the text of cells will be wrapped when displaying the table
+|-
+| style="font-weight: bold;" | autoResizeCellHeight
+| BooleanValueStyle
+| child of Table
+| determines if the cell height will be resized automatically when displaying the table
+|-
+| style="font-weight: bold;" | displayListOnSeparatedRows
+| BooleanValueStyle
+| child of Axis
+| determines if the elements list of a fully selected column (or row in an invert table) is displayed on separated rows or single row
+|-
+| 
+| 
+| 
+|}
+
+=How many case should be managed to add/insert/paste (rows) axis in a table ?=
+The feature must be editable (not read-only). Moreover it will be better if the listen feature is not filtered (java class, queries (not yet implemented the 20th October 2015),...). 
+
+*Generic UML Table : the rows are always serialized in the model, so to add/insert/paste a new row, you should add the created Element to the UML Model AND create an EObjectAxis to display it into your table. The order displayed in the table is not the same than in the UML Model (order is choosen by the user)
+*Synchronized flat tables (id. Requirement and Allocation table) : The displayed rows are synchronized with the UML Model listening a feature. There is no IAxis wrapping the displayed rows. To Add/insert/paste rows you should edit the UML Model. The table will be updated. The order is given by the synchronization with the feature (java class of the AxisManager could changed it, but not the user and not the developper writing a add/insert/paste feature).
+*Tree Table : to add/insert/paste new rows in this kind of table you only should edit the UML model. Like for Synchronized flat table, the order is given by the synchronization with the feature (java class of the AxisManager could changed it, but not the user and not the developper writing a add/insert/paste feature).<span style="color:red"> Excepted in one case where you must managed yourself the order : when the tree table has no TreeFillingConfiguration on depth 0, so when the root of the table are filled by the user using drag and Drop.</span>
+
+=How to create your own label provider=
+//TODO
+
+=How to create your own cell manager=
+//TODO
+=How to create your own axis manager=
+
+Create a new axis manager will allow you to manipulate new kind of data.
+Create a new axis manager implies to create others objects too:
+* edit all existing table configurations in order to take in account the new axis manager (if required). 
+* create a new cell manager, to be able to display the contents of the cell
+* create a new cell editor configuration, to edit the cell
+* create a new label provider for the cell, to be able to display the cell content
+* create a new filter configuration, to be able to filter your element (not mandatory)
+*You need to think about the kind of data managed by our axis manager: 
+** EMF EObject
+** EMF EStructuralFeature
+** others kind of object or feature
+
+*You need to think about the behavior of your axis manager: 
+** synchronized (the axis provided by our axis manager are automatically displayed in the table)
+*** the axis are probably not serialized during the save operation
+** static (the axis provided by our axis manager are provided by the table configuration or a user choice.
+*** the displayed axis are serialized
+
+*You need to decide if your axis manager will provide flat elements or tree elements
+
+==Introduction to create a new Axis Manager==
+It exists several possible combination of feature : flat/tree*synchronized/not synchronized*EObject/EstructuralFeature. We not yet implements all the possible cases, so
+here we will describe the more relevant ones. In all cases, your class must implements <code>org.eclipse.papyrus.infra.nattable.manager.axis.IAxisManager</code>. Each Axis has a way to reference the managed object.
+
+===Create an Axis Manager for EObject===
+====Flat and not synchronized Axis Manager====
+*We advice you to extend <code>org.eclipse.papyrus.infra.emf.nattable.manager.axis.EObjectAxisManager</code>.
+*The Eobject axis element is wrapped in a EObjectAxis.
+====Flat and Synchronized on a EStructural Feature Axis Manager====
+*We advice you to extends <code>org.eclipse.papyrus.infra.emf.nattable.manager.axis.AbstractSynchronizedOnEStructuralFeatureAxisManager</code>.
+*The EObject axis element is directly managed by the axis manager and not wrapped in a EObjectAxis.
+
+===Create an Axis Manager for EStructuralFeature===
+====Flat and not synchronized Axis Manager====
+*for real EStructuralFeature: 
+**We advice you to extend <code>org.eclipse.papyrus.infra.emf.nattable.manager.axis.EStructuralFeatureAxisManager</code>.
+**The EStructuralFeature axis element are wrapped in a EStructuralFeatureAxis
+*for properties of stereotypes:
+**We advice you to extend <code>org.eclipse.papyrus.uml.nattable.manager.axis.UMLStereotypePropertyAxisManager</code>.
+**The stereotype properties are referenced in a FeatureIdAxis, using a string, starting by the string : <code>properties_of_stereotype:/</code> and suffixed with the qualified name of the property of stereotype.
+===Create Axis Manager for others kinds of objects/feature===
+*We advice you to extends AbstractAxisManager.
+*The best way to reference your object which is not a EObject, is to use an IdAxis to reference it using a string.
+* You can choose ObjectIdAxis, FeatureObjectAxis or OperationIdAxis for flat AxisManager
+* You can choose ObjectIdTreeItemAxis, FeatureIdObjectTreeItemAxis or OperationIdTreeItemAxis for tree AxisManager
+* The choice between object, operation and feature must be done looking the possible informations to display in the axis header for your table:
+** Object properties:
+*** display icon: true or false
+*** display label: true or false
+**Feature properties
+*** display icon: true or false
+*** display label: true or false
+*** display isDerived: true or false
+*** display type: true or false
+*** display multiplicity: true or false
+*** display name: true or false
+**Operation properties
+*** display icon: true or false
+*** display label: true or false
+*** display type: true or false
+*** display multiplicity: true or false
+*** display name: true or false
+
+==Create a new Axis Manager==
+Now, you should know which class to extend and which kind of IAxis used to store axis provided by the axis manager (if the storage is required)
+
+#Create a new plugin project with the required dependencies
+#Create a new java class extenting the good class, we will complete it later
+#Contribute to the papyrus extension point   <code>org.eclipse.papyrus.infra.nattable.axismanager</code>
+##'''id''': a unique id for the axis axis manager
+##''class''': the java class
+#Open a file *.nattableconfiguration
+##Modify existing table configuration in order to be able to get new axis in existing table. In general case, you will contribute to the column Axis Manager, where the index are displayed as Alphbetic. In the good one Table Header Axis Configuration (Numeric for rows and Alphabetic for Column)
+##Create a new Label Provider Configuration (Feature or Operation or Object)
+##Create a new Axis Manager Representation
+###'''Axis Manager Id''': the same value than in the plugin.xml
+###'''Header Label Configuration''': you must reference the Label Provider Configuration created previously.
+###'''Label Provider Context''': one of these three possibilities, according to your  Header Label Configuration kind
+####org.eclipse.papyrus.infra.nattable.header.feature.labelprovider
+####org.eclipse.papyrus.infra.nattable.header.operation.labelprovider
+####org.eclipse.papyrus.infra.nattable.header.object.labelprovider
+###'''Specific Axis Configurations''': nothing for this usecase
+##Add new default axis provided by our new Axis Manager
+###If you want that new table created by our user provides by default some columns managed by our Axis Manager, you must create new IAxis in one of the 2 Object Axis Provider. In the general case, there is a slave for columns and a master for rows, and the default axis are defined for columns. So probably in the Slave Object Axis Provider, you can create new IAxis, probably an IdAxis or a IdTreeItemAxis, for Object, Feature or Operation, then you must fill these fields:
+####'''Alias''': not mandatory, a name for the axis
+####'''Element''': the object referenced by the axis, probably a string if you use an IdAxis
+####'''Manager''': you must reference the Axis Manager Representation created previously
+
+==Create a new Cell Manager==
+It will allow you to get the contents of the cell and to save it after editing value.
+#Create a new java class implementing <code>org.eclipse.papyrus.infra.nattable.manager.cell.IUnsetValueCellManager</code> or extending <code>org.eclipse.papyrus.infra.nattable.manager.cell.AbstractCellManager</code> or one of these subclasses and complete it.
+#Register this class in the plugin.xml file, using the extension point <code>org.eclipse.papyrus.infra.nattable.cellmanager</code>.
+##'''id''': a unique id for your cell manager,
+##'''manager''': tha java class,
+##'''order''': an integer
+
+==Create a new CellEditor Configuration==
+It will allow you to edit the cell value.
+#Create a new class implementing <code>org.eclipse.papyrus.infra.nattable.celleditor.config.ICellAxisConfiguration</code> or one of these subclasses and complete it.
+#Register the class in the plugin.xml file, using the extension point <code>org.eclipse.papyrus.infra.nattable.celleditor.configuration</code> and the object <code>cellAxisConfiguration</code>. (FYI, <code>configuration</code> is deprecated since Eclipse Neon/Papyrus 1.2.0)
+##'''class''': the java class for the cell editor configuration,
+##'''order''': an integer.
+
+==Create a new Label Provider Configuration==
+It will allow you to display the contents of the cells returned by the CellManager. This steps is not mandatory, because it depends on the object displayed in our cells. Maybe your case is always managed by Papyrus, maybe not.
+#Create a new class extending <code>org.eclipse.papyrus.infra.nattable.provider.AbstractNattableCellLabelProvider</code> or one of these subclasses and complete it.
+##Warning, in the context of Papyrus table, you never receive directly the object displayed on the cell, but you will receive a wrapper implementing <code>org.eclipse.papyrus.infra.nattable.utils.ILabelProviderContextElementWrapper</code>
+#Register your class in the plugin.xml file, using the extension point <code>org.eclipse.papyrus.infra.services.labelprovider.labelProvider</code>
+##'''priority''': an integer
+##'''provider''': the java class
+#create a '''labelprovidercontext''' as child of the declared label provider. You must use one of these ones, depending on the table's region for which you want a custom label:
+##'''org.eclipse.papyrus.infra.nattable.full.labelprovider''': the labelprovider declared in this context dispatches to others labelproviders depending on the element's region for which we want a label,
+##'''org.eclipse.papyrus.infra.nattable.header.labelprovider''': the labelprovider declared in this context dispatches to others labelproviders declared on header, depending on the kind of the element (and sometimes of its place in the header (index layer, label layer, column/row, ...),
+##'''org.eclipse.papyrus.infra.nattable.header.feature.labelprovider''': this context is used to get the label for a feature displayed in the header of the table,
+##'''org.eclipse.papyrus.infra.nattable.header.operation.labelprovider''': this context is used to get the label for a feature displayed in the header of the table,
+##'''org.eclipse.papyrus.infra.nattable.header.treefilling.feature.labelprovider''': this context is used to get the label for a feature referenced by a TreeFillingConfiguration,
+##'''org.eclipse.papyrus.infra.nattable.header.treefilling.operation.labelprovider''': this context is used to get the label for an operation referenced by a TreeFillingConfiguration, 
+##'''org.eclipse.papyrus.infra.nattable.body.labelprovider''': this context is used to get the label of the elements in the body of the table. Most of the time, you will contribute to this one.
+
+
+==Create a new Filter Configuration==
+This step is not mandatory, by default, the string filter will be used.
+#Create a new class, implementing <code>org.eclipse.papyrus.infra.nattable.filter.configuration.IFilterConfiguration</code> or extending <code>org.eclipse.papyrus.infra.nattable.filter.configuration.AbstractFilterConfiguration</code> or one of these subclasses.
+#Register your class in the plugin.xml file, using the extension point <code>org.eclipse.papyrus.infra.nattable.filter.configuration</code>
+##'''class''': the java class
+##'''order''': an integer
+
+
+=How to create your own post action for paste=
+//TODO
+=How to declare several axis configuration in the same table=
+//TODO
+=How to declare new actions in the Papyrus Table Context Menu=
+==General Tricks about the menus in Eclipse ==
+You can call the Eclipse Menu Service to fill your own MenuManager with contributions declared with the eclipse extension point ''org.eclipse.ui.menus''. 
+Here it is a code example for the Papyrus Table. (The final implementation doesn't use the IMenuService in the table, because it is already done upper in Papyrus Infra Core).
+<source lang="java">
+	final MenuManager menuManager =new MenuManager(POPUP, TABLE_POPUP_MENU_ID);
+	menuManager.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+	menuManager.setRemoveAllWhenShown(true);
+	final Menu menu = menuManager.createContextMenu(this.natTable);
+	this.natTable.setMenu(menu);
+		/* This listener allows us to fill the popup menu using extension point contributing to the popup menu of the table */
+		IMenuListener l = null;
+		menuManager.addMenuListener(l=new IMenuListener() {
+
+				/**
+				 * 
+				 * @see org.eclipse.jface.action.IMenuListener#menuAboutToShow(org.eclipse.jface.action.IMenuManager)
+				 *
+				 * @param manager
+				 */
+				@Override
+				public void menuAboutToShow(IMenuManager manager) {
+					IMenuService menuService = site.getService(IMenuService.class);
+					if (menuService != null) {
+						menuService.populateContributionManager(menuManager, "popup:org.eclipse.papyrus.infra.nattable.widget.menu"); //$NON-NLS-1$
+					}
+				}
+			});
+
+</source>
+==Body Menu (Papyrus 1.2/Eclipse Neon)==
+* In your plugin.xml file, you should add a new extension ''org.eclipse.ui.menus'', with a new menu contribution. The field locationURI must be set to '''popup:org.eclipse.papyrus.infra.nattable.widget.menu''', in order to be able to contribute to the table body menu.
+* In order to allow to precise the location of your command in the menu, Papyrus provides several separators; here we give you there ids, from the top to the bottom of the menu: 
+**'''general.separator''': a hidden separator which starts the menu,
+**'''edit.separator''': a visible separator used for edit action, like paste or insert
+**'''tree.separator''': a visible separator, displayed before the actions for tree tables,
+**'''cells.separator''': a visible separator, displayed before the actions for cells,
+**'''rows.and.columns.separator''': a visible separator, displayed  before the actions for rows and columns
+**'''creations.separator''': a visible separator before the create actions
+**'''tools.separator''': a visible separator, before additional actions
+These separators are declared in the file '''org.eclipse.papyrus.infra.nattable.menu.MenuConstants'''.
+* Example of usage of the identifier, (see Eclipse Documentation for further information: http://help.eclipse.org/mars/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fworkbench_cmd_menus.htm)
+**<code>popup:org.eclipse.papyrus.infra.nattable.widget.menu?after=cell.separator</code>: insert your contribution after the separator called '''cell.separator'''
+**<code>popup:org.eclipse.papyrus.infra.nattable.widget.menu?before=cell.separator</code>: insert your contribution beforethe separator called '''cell.separator'''
+
+The menu displayed for Tree Table:
+
+[[File:images/TablehierarchiBodyMenu.png|frame|none|Body Popup Menu for the Tree Table]]
+
+==Body Menu (Papyrus 1.1/Eclipse Mars)==
+* In your plugin.xml file, you should add a new extension ''org.eclipse.ui.menus'', with a new menu contribution. The field '''locationURI''' must be set to '''popup:org.eclipse.ui.popup.any''' and the field '''allPopups''' should be set to <code>true</code>.
+* Doing this, your contributions will be displayed in all Eclipse Menus. To restrict is you must add a '''visibleWhen''' condition for each declared command. Here, we will restrict it using an existing PropertyTester (see this part of the documentation to create your own property tester:[[Table_Developer_Documentation#How_to_declare_a_menu_action_for_a_specific_kind_of_table.2C_using_PropertyTester | Table Developer Documentation/How to declare a menu action for a specific kind of table, using PropertyTester]]  ) 
+* In the '''visibleWhen''' condition, you must create a '''with''' child working on the Eclipse variable '''selection'''. 
+* In '''with''' condition, you must create a child '''test''', working on the property <code>"org.eclipse.papyrus.infra.nattable.tester.isNattableWidget</code> and comparing the result value to <code>true</code>. You should force the Plugin activation too. 
+
+The result in the xml file will be something like that : 
+<source lang="xml">
+ <extension
+       point="org.eclipse.ui.menus">
+    <menuContribution
+          allPopups="true"
+          locationURI="popup:org.eclipse.ui.popup.any">
+       <command
+             commandId="org.eclipse.papyrus.infra.nattable.import.command"
+             style="push">
+          <visibleWhen>
+                <with
+                      variable="selection">
+                   <test
+                         forcePluginActivation="true"
+                         property="org.eclipse.papyrus.infra.nattable.tester.isNattableWidget"
+                         value="true">
+                   </test>
+                </with>
+          </visibleWhen>
+       </command>
+    </menuContribution>
+  </extension>
+</source>
+
+==How to declare a menu action for a specific kind of table, using PropertyTester==
+We assume than you know how to declare a menu for all tables in Eclipse. 
+
+Here, we will give some explanations to create a property tester used to restrict actions in a menu, but the property tester can be used for handler enablement too, and in each expressions declared in a plugin.xml file
+
+For further informations about PropertyTester and Command Core Expression, you can read these documentations : 
+* [http://wiki.eclipse.org/Command_Core_Expressions http://wiki.eclipse.org/Command_Core_Expressions]
+* [http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fcore%2Fexpressions%2FPropertyTester.html http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fcore%2Fexpressions%2FPropertyTester.html]
+
+We take as example the PropertyTester used for Papyrus Table Menu.
+
+The PropertyTester can be used to define action visibility in the menu, handler enablement, handler activation, ... Your property tester can be used each time you wrote expressions in a plugin.xml file. 
+
+* In your table plugin.xml file. You should declare a new contribution to the Eclipse Extension Point '''org.eclipse.core.expressions.propertyTesters'''
+* you should fill these fields : 
+**'''class''': your java class to use for your tester, extending <code> org.eclipse.core.expressions.PropertyTester</code>
+**'''id''': the id of your tester. It must be unique and it will be used to declare the condition of activation of your action in the menu. 
+***'''namespace''': the namespace, you can use the same value than for id
+***'''properties''': the list of properties provided by your tester. Properties are strings, separated with comma.
+***'''type''': it is the type of the parameter used by your Property Tester. Often we use <code>org.eclipse.jface.viewers.IStructuredSelection</code>
+
+Here, it is the declaration of the property tester used to know is the current Papyrus Editor is a table editor. This property tester provides several properties: 
+*isNattableWidget,
+*hasFeatureRowHeaderConfiguration,
+*hasFeatureColumnHeaderConfiguration,
+*hasSlaveRowAxisProvider,
+*hasSlaveColumnAxisProvider,
+*canInvertAxis, 
+*isHierarchicTable
+<source lang="xml">
+<extension
+       point="org.eclipse.core.expressions.propertyTesters">
+    <propertyTester
+          class="org.eclipse.papyrus.infra.nattable.utils.NattableWidgetPropertyTester"
+          id="org.eclipse.papyrus.infra.nattable.tester"
+          namespace="org.eclipse.papyrus.infra.nattable.tester"
+          properties="isNattableWidget, hasFeatureRowHeaderConfiguration, hasFeatureColumnHeaderConfiguration, hasSlaveRowAxisProvider, hasSlaveColumnAxisProvider, canInvertAxis, isHierarchicTable"
+          type="org.eclipse.jface.viewers.IStructuredSelection">
+    </propertyTester>
+ </extension>
+</source>
+
+Now, the java class implementing this property tester: 
+
+<source lang="java" collapse="true" first-line="2"> 
+
+/*****************************************************************************
+ * Copyright (c) 2012 CEA LIST.
+ *
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *  Vincent Lorenzo (CEA LIST) vincent.lorenzo@cea.fr - Initial API and implementation
+ *
+ *****************************************************************************/
+package org.eclipse.papyrus.infra.nattable.utils;
+
+import org.eclipse.core.expressions.PropertyTester;
+import org.eclipse.papyrus.infra.nattable.manager.table.INattableModelManager;
+import org.eclipse.papyrus.infra.nattable.model.nattable.nattableaxisprovider.ISlaveAxisProvider;
+import org.eclipse.papyrus.infra.nattable.model.nattable.nattablestyle.DisplayStyle;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+
+
+public class NattableWidgetPropertyTester extends PropertyTester {
+
+	public static final String IS_NATTABLE_WIDGET = "isNattableWidget"; //$NON-NLS-1$
+
+	private static final String HAS_FEATURE_ROW_HEADER_CONFIGURATION = "hasFeatureRowHeaderConfiguration"; //$NON-NLS-1$
+
+	private static final String HAS_FEATURE_COLUMN_HEADER_CONFIGURATION = "hasFeatureColumnHeaderConfiguration"; //$NON-NLS-1$
+
+	private static final String HAS_SLAVE_ROWS_AXIS_PROVIDER = "hasSlaveRowAxisProvider"; //$NON-NLS-1$
+
+	private static final String HAS_SLAVE_COLUMNS_AXIS_PROVIDER = "hasSlaveColumnAxisProvider"; //$NON-NLS-1$
+
+	private static final String CAN_INVERT_AXIS = "canInvertAxis";//$NON-NLS-1$
+
+	private static final String IS_HIERARCHIC_TABLE = "isHierarchicTable"; //$NON-NLS-1$
+
+	@Override
+	public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {
+		final INattableModelManager manager = getNattableModelManager();
+		if (IS_NATTABLE_WIDGET.equals(property) && expectedValue instanceof Boolean) {
+			return expectedValue.equals(manager != null);
+		}
+		if (manager != null && expectedValue instanceof Boolean) {
+			if (HAS_FEATURE_ROW_HEADER_CONFIGURATION.equals(property)) {
+				LabelConfigurationManagementUtils.getRowFeatureLabelConfigurationInTable(manager.getTable());
+				return expectedValue.equals(LabelConfigurationManagementUtils.hasRowFeatureLabelConfiguration(manager.getTable()));
+			} else if (HAS_FEATURE_COLUMN_HEADER_CONFIGURATION.equals(property)) {
+				return expectedValue.equals(LabelConfigurationManagementUtils.hasColumnFeatureLabelConfiguration(manager.getTable()));
+			} else if (HAS_SLAVE_COLUMNS_AXIS_PROVIDER.equals(property)) {
+				return expectedValue.equals(AxisUtils.getAxisProviderUsedForColumns(manager) instanceof ISlaveAxisProvider);
+			} else if (HAS_SLAVE_ROWS_AXIS_PROVIDER.equals(property)) {
+				return expectedValue.equals(AxisUtils.getAxisProviderUsedForRows(manager) instanceof ISlaveAxisProvider);
+			} else if (CAN_INVERT_AXIS.equals(property)) {
+				return expectedValue.equals(manager.canInvertAxis());
+			} else if (IS_HIERARCHIC_TABLE.equals(property)) {
+				return expectedValue.equals(isHierarchicTable(manager));
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param table
+	 * @return
+	 */
+	public static final boolean isHierarchicTable(final INattableModelManager tableManager) {
+		final DisplayStyle style = TableHelper.getTableDisplayStyle(tableManager);
+		return (DisplayStyle.HIERARCHIC_SINGLE_TREE_COLUMN.equals(style) || DisplayStyle.HIERARCHIC_MULTI_TREE_COLUMN.equals(style));
+	}
+
+	/**
+	 *
+	 * @return
+	 *         the current nattable model manager or <code>null</code> if not found
+	 */
+	protected INattableModelManager getNattableModelManager() {
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		IWorkbenchPart current = null;
+		if (workbench != null) {
+			final IWorkbenchWindow activeWorkbench = workbench.getActiveWorkbenchWindow();
+			if (activeWorkbench != null) {
+				final IWorkbenchPage activePage = activeWorkbench.getActivePage();
+				if (activePage != null) {
+					current = activePage.getActivePart();
+				}
+			}
+		}
+
+		if (current != null) {
+			return (INattableModelManager) current.getAdapter(INattableModelManager.class);
+		}
+		return null;
+	}
+}
+</source>
+
+To use it, please read the example of the documentation [[Table_Developer_Documentation#Body_Menu_.28Papyrus_1.1.2FEclipse_Mars.29 | Table Developer Documentation/Body Menu (Papyrus1.1/Eclipse Mars)]].
+
+==Row Header Menu and Column Header Menu (Eclipse Mars/Papyrus 1.1)==
+*Developper can add their own commands to the row and column header region. The menu displayed on these regions is created dynamically, using the category of the command.
+*To add a command in the row header menu, declaring your own command using the extension point '''org.eclipse.ui.commands''', you should fill the field '''categoryId''', with the string '''org.eclipse.papyrus.infra.nattable.rows.command.category'''. 
+*It is the same thing for a column header menu, using this id : '''org.eclipse.papyrus.infra.nattable.columns.command.category'''
+
+Of course, you should provide a java handler for your commands using the extension point mechanism.
+
+=Validation Markers in the table=
+Validation markers are available in the rows and columns header of the table since Papyrus 1.2/Eclipse Neon. 
+It is an integration of the feature already existing in the Model Explorer View. For this integration, we changed these classes : 
+*<code>org.eclipse.papyrus.infra.nattable.provider.NattableTopLabelProvider</code>
+**method <code>getImage(Object)</code>: to be able to display the overlay in addition of the image
+*<code>org.eclipse.papyrus.infra.nattable.provider.PapyrusNatTableToolTipProvider</code>
+**allows to display validation messages in the tooltip
+**allows to display validation icons in the tooltip
+
+All these changes depends on the decoration service and not on the validation service because currently, validation marker are implemented as decorations.
+The validation menu is available in the table popup menu, but we do not provide specific handler for validation in table. We use the handlers defined by Papyrus in others plugins. 
+The validation menu provides these actions (the same than in others views):
+*Validate model
+*Validate subtree
+*Select constraints and Validate model
+*Select constraints and Validate subtree
+*Remove markers from model
+*Remove markers from subtree
+
+These actions works according to the table selection, with this behavior (Row, then Column, then Cell):
+*if there is at least one row is fully selected
+** we apply the chosen action on the object represented by this row (if the action is enabled)
+*if there is no row selected, we take the first fully selected columns
+** we apply the chosen action on the object represented by this column(if the action is enabled)
+*if there is no row and no column selected, we take the first object from the first selected cell
+** we apply the chosen action on the first object represented by this cell(if the action is enabled)
+
+This order is given by the method calculating the selection of the table: <code>org.eclipse.papyrus.infra.nattable.provider.TableSelectionProvider.calculateAndStoreNewSelection(ILayerEvent)</code>
+
+=Matrix=
+The Papyrus tabular editor should allow to the developper to create matrix, we doesn't really try to do that. Here, we give some points which should allow you to create matrix :
+# the column axis must manage object instead of manage features
+# you must declare a cell manager specific to your table to get and edit the values in the cell
+# you probably need to declare your own label provider
+# others things to do? 
+# to conclude, don't forget to implements required methods to allow (or forbid) all features already supported by the table framework. The list of the supported feature is available [[Table_Documentation#Table_Features|here]].
+
+=Which is the difference between TableHeaderAxisConfiguration and LocalTableHeaderAxisConfiguration=
+*'''TableHeaderAxisConfiguration''':
+**this object is a child of the '''TableConfiguration'''
+**it allows to define the initial configuration of the table for the rows and the columns.
+***display filter
+***display index
+***index style
+**it provides the configuration to use to get the axis displayed as rows or as columns with the field '''ownedAxisConfigurations'''.
+**it provides the configuration used by the label provider to display the label of the axis in the header, with the field '''ownedLabelConfigurations'''
+*'''LocalTableHeaderAxisConfiguration''':
+**This object looks like the previous one, but it is used in the '''Table'''. It is its equivalent at 'runtime'.
+**It is an override of the '''TableHeaderAxisConfiguration''' defined in the '''TableConfiguration''' 
+
+
+
+=Table embedded in the Property View=
+The classes managing the NatTable widget in the property view are: 
+*<code>org.eclipse.papyrus.uml.properties.widgets.NattablePropertyEditor</code>
+*<code>org.eclipse.papyrus.uml.properties.widgets.TreeNattablePropertyEditor</code>
+
+These tables have some custom behaviors: 
+* the tree table is always expand all ath the beginning
+* <pre style="color:red"> the table will use percentage sizing for the columns display, excepted if you set a BooleanNamedStyle columnsWidthAsPercentage to false has a child of your TableConfiguration.</pre>
+* the table are not really persisted, but we keep the user configuration for a given table opened on an object of a given EClass. See 
+<code>org.eclipse.papyrus.uml.properties.widgets.NattablePropertyEditor.createTableURI(EObject, TableConfiguration)</code> for further information. 
+* <pre style="color:red"> So during your table development, you need to clear your workspace each time to test your table configuration, or you need to remove your table instance from the location yourRuntimeWorkspace/.metadata.plugins/org.eclipse.papyrus.uml.properties/tables.</pre>
+
+=What are the existing axis manager ?=
+*Axis Managers for EMF
+**EObject management (used for rows, flat)
+***''description:'' allows to manage EObject as rows
+***''id:'' '''org.eclipse.papyrus.infra.emf.nattable.user.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.infra.emf.nattable.manager.axis.EObjectAxisManager</code>
+**EObject management (used for rows, tree)
+***''description:'' allows to manage EObject as rows in a tree
+***''id:'' '''org.eclipse.papyrus.infra.emf.nattable.tree.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.infra.emf.nattable.manager.axis.EObjectTreeAxisManagerForEventList</code>
+**EObject management (used for columns, in Matrix)
+***''description:'' allows to manage EObject as columns
+***''id:'' '''org.eclipse.papyrus.infra.emf.nattable.axis.column.eobject.matrix.manager'''
+***''java class:'' <code>org.eclipse.papyrus.infra.emf.nattable.manager.axis.EObjectColumnMatrixAxisManager</code>
+**EStructuralFeature management (used for columns)
+***''description:'' allows to manage EStructuralFeature as columns
+***''id:'' '''org.eclipse.papyrus.infra.emf.nattable.feature.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.infra.emf.nattable.manager.axis.EStructuralFeatureAxisManager</code>
+**EOperation management (used for columns)
+***''description:'' allows to manage EOperation as columns (operations with no parameters and a return value only)
+***''id:'' '''org.eclipse.papyrus.infra.emf.nattable.operation.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.infra.emf.nattable.manager.axis.EOperationAxisManager</code>
+*Axis Manager for UML
+**Element management (used for rows, flat)
+***''description:'' allows to manage UML Element as rows
+***''id:'' '''org.eclipse.papyrus.uml.nattable.element.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.uml.nattable.manager.axis.UMLElementAxisManager</code>
+**Element management (used for tree rows, tree)
+***''description:'' allows to manage UML Element as rows in a tree
+***''id:'' '''org.eclipse.papyrus.infra.uml.nattable.tree.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.uml.nattable.manager.axis.UMLElementTreeAxisManagerForEventList</code>
+**(deprecated) Class  managements (used for rows, tree)
+***''description:'' allows to manage UML Classes (with their Properties, Operation (and their Parameters), Nested Classes). Must not be used anymore, used '''org.eclipse.papyrus.infra.uml.nattable.tree.axis.manager''' instead.
+***''id:'' '''org.eclipse.papyrus.infra.uml.nattable.class.tree.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.uml.nattable.clazz.config.manager.axis.UMLClassTreeAxisManagerForEventList</code>
+**Element management with empty lines(used for tree rows, tree) - still experimental (see ''Experimental features'' chapter for further informations)
+***''description:'' allows to manage UML Element as rows in a tree, with an empty line at each level in addition
+***''id:'' '''org.eclipse.papyrus.uml.nattable.manager.axis.EmptyLineUMLElementTreeAxisManagerForEventList'''
+***''java class:'' <code>org.eclipse.papyrus.uml.nattable.manager.axis.EmptyLineUMLElementTreeAxisManagerForEventList</code>
+**Element properties management (used for columns, flat)
+***''description:'' allows to manage the properties of UML Element as columns
+***''id:'' '''org.eclipse.papyrus.uml.nattable.feature.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.uml.nattable.manager.axis.UMLFeatureAxisManager</code>
+**Element operations management (used for columns, flat)
+***''description:'' allows to manage the operations of UML Element as columns (operations with no parameters and a return value only)
+***''id:'' '''org.eclipse.papyrus.uml.nattable.operation.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.uml.nattable.manager.axis.UMLOperationAxisManager</code>
+**Stereotypes properties management (used for columns, flat)
+***''description:'' allows to manage the properties of Stereotype as columns
+***''id:'' '''org.eclipse.papyrus.uml.nattable.element.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.uml.nattable.manager.axis.UMLStereotypePropertyAxisManager</code>
+**Stereotypes operations management (used for columns, flat)
+***''description:'' allows to manage the operations of Stereotype as columns (operations with no parameters and a return value only)
+***''id:'' '''org.eclipse.papyrus.uml.nattable.stereotype.operation.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.uml.nattable.manager.axis.UMLStereotypeOperationAxisManager</code>
+*Axis Manager for Papyrus Editors (Table of Views)
+**Axis Manager to display Papyrus editors (used for row, flat)
+***''description:'' allows to display all diagrams/tables of the model as rows
+***''id:'' '''org.eclipse.papyrus.infra.nattable.pagelist.contents.axis.manager'''
+***''java class:''  <code>org.eclipse.papyrus.infra.nattable.views.config.manager.axis.EditorContextSynchronizerAxisManager</code>
+**Axis Manager for Papyrus editors properties (used for columns)     
+***''description:'' allows to display some properties of the editors in columns
+***''id:'' '''org.eclipse.papyrus.infra.nattable.page.view.feature.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.infra.nattable.views.config.manager.axis.EditorFeatureAxisManager</code>
+*Axis Manager to manage stereotypes from a selected GMF View (used in Appearance Tab of the properties View, to define how to display stereotype in GMF View)
+**Management of stereotypes applied on the selected views (used for rows, tree)
+***''description:'' allows to display applied stereotypes from a GMF View representing a UML Element (used by a Table embedded in Properties View, to define how applied stereotypes must be displayed in the GMF View)
+***''id:'' '''org.eclipse.papyrus.uml.nattable.stereotype.display.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.uml.nattable.stereotype.display.manager.axis.NotationTreeTableAxisManager</code>
+**Axis Manager managing the properties used for display on GMF View  
+***''description:'' manage soallows to display some properties of the editors in columns (used by a Table embedded in Properties View, to define how applied stereotypes must be displayed in the GMF View)
+***''id:'' '''org.eclipse.papyrus.uml.nattable.stereotype.display.properties.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.uml.nattable.stereotype.display.manager.axis.StereotypeDisplayPropertiesAxisManager</code>
+*Other Axis Manager
+**Axis Manager for actions (used for columns), still experimental (see ''Experimental features'' chapter for further information)
+***''description:'' allows to manage one action for all cells of the column (typically we display an icon in the cell, and register an action of single click on a cell of this column). The action is defined as a FeatureId, with this value: ''action:/myActionName''.
+***''id:'' '''org.eclipse.papyrus.infra.nattable.action.axis.manager'''
+***''java class:'' <code>org.eclipse.papyrus.infra.nattable.manager.axis.ActionAxisManager</code>
+

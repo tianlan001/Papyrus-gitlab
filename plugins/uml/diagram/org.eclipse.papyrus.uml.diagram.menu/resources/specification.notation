@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nattable:Table xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:configuration="http://www.eclipse.org/papyrus/infra/viewpoints/configuration" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:nattable="http://www.eclipse.org/papyrus/nattable/model" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisconfiguration="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:nattableconfiguration="http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration" xmlns:nattablestyle="http://www.eclipse.org/papyrus/nattable/model/table/nattablestyle" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis http://www.eclipse.org/papyrus/nattable/model#//nattableaxis http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration http://www.eclipse.org/papyrus/nattable/model#//nattableaxisconfiguration http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider http://www.eclipse.org/papyrus/nattable/model#//nattableaxisprovider http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration http://www.eclipse.org/papyrus/nattable/model#//nattableconfiguration http://www.eclipse.org/papyrus/nattable/model/table/nattablestyle http://www.eclipse.org/papyrus/nattable/model#//nattablestyle" xmi:id="_R7dZoN3yEeS_OMsNJfOjqg" name="Requirements" currentRowAxisProvider="_R7dZot3yEeS_OMsNJfOjqg" currentColumnAxisProvider="_R7dZod3yEeS_OMsNJfOjqg">
+  <context xmi:type="uml:Model" href="specification.uml#_4SbJ8N3xEeS_OMsNJfOjqg"/>
+  <owner xmi:type="uml:Model" href="specification.uml#_4SbJ8N3xEeS_OMsNJfOjqg"/>
+  <prototype xmi:type="configuration:PapyrusSyncTable" href="platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/builtin/default.configuration#_7wNb2NxhEeOqHvRyiN87hA"/>
+  <tableConfiguration xmi:type="nattableconfiguration:TableConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#/"/>
+  <columnAxisProvidersHistory xmi:type="nattableaxisprovider:SlaveObjectAxisProvider" xmi:id="_R7dZod3yEeS_OMsNJfOjqg" description="This axis provider provides available columns according to the rows of the table (features of the object displayed on the other axis)" name="UML Feature axis provider">
+    <axis xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_VzFyg93yEeS_OMsNJfOjqg">
+      <styles xmi:type="nattablestyle:IntValueStyle" xmi:id="_DvSZYN3zEeS_OMsNJfOjqg" name="axisWidth" intValue="670"/>
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@columnHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="ecore:EAttribute" href="http://www.eclipse.org/uml2/5.0.0/UML#//Comment/body"/>
+    </axis>
+  </columnAxisProvidersHistory>
+  <rowAxisProvidersHistory xmi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_R7dZot3yEeS_OMsNJfOjqg" description="This axis provider contains the object dropped by the user into the table" name="DroppedElementAxisProvider" disconnectSlave="true">
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_VzEkYN3yEeS_OMsNJfOjqg">
+      <styles xmi:type="nattablestyle:IntValueStyle" xmi:id="_DvaVMN3zEeS_OMsNJfOjqg" name="axisHeight" intValue="25"/>
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Comment" href="specification.uml#_7HWIoN3xEeS_OMsNJfOjqg"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_CmpWUN3zEeS_OMsNJfOjqg">
+      <styles xmi:type="nattablestyle:IntValueStyle" xmi:id="_Dva8QN3zEeS_OMsNJfOjqg" name="axisHeight" intValue="25"/>
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Comment" href="specification.uml#_-tQp8N3yEeS_OMsNJfOjqg"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_CmpWUd3zEeS_OMsNJfOjqg">
+      <styles xmi:type="nattablestyle:IntValueStyle" xmi:id="_DvbjUN3zEeS_OMsNJfOjqg" name="axisHeight" intValue="25"/>
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Comment" href="specification.uml#_-268QN3yEeS_OMsNJfOjqg"/>
+    </axis>
+    <axis xmi:type="nattableaxis:EObjectAxis" xmi:id="_CmpWUt3zEeS_OMsNJfOjqg">
+      <styles xmi:type="nattablestyle:IntValueStyle" xmi:id="_DvcKYN3zEeS_OMsNJfOjqg" name="axisHeight" intValue="25"/>
+      <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="platform:/plugin/org.eclipse.papyrus.uml.nattable.generic.config/configs/generic.nattableconfiguration#//@rowHeaderAxisConfiguration/@axisManagers.0"/>
+      <element xmi:type="uml:Comment" href="specification.uml#_-86PgN3yEeS_OMsNJfOjqg"/>
+    </axis>
+  </rowAxisProvidersHistory>
+  <localRowHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:LocalTableHeaderAxisConfiguration" xmi:id="_C3IpYN3zEeS_OMsNJfOjqg" indexStyle="NUMERIC">
+    <styles xmi:type="nattablestyle:IntValueStyle" xmi:id="_C3IpYd3zEeS_OMsNJfOjqg" name="rowLabelWidth" intValue="240"/>
+    <styles xmi:type="nattablestyle:IntValueStyle" xmi:id="_C3VdsN3zEeS_OMsNJfOjqg" name="rowIndexWidth" intValue="165"/>
+  </localRowHeaderAxisConfiguration>
+  <localColumnHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:LocalTableHeaderAxisConfiguration" xmi:id="_C3TogN3zEeS_OMsNJfOjqg">
+    <styles xmi:type="nattablestyle:IntValueStyle" xmi:id="_C3UPkN3zEeS_OMsNJfOjqg" name="columnIndexHeight" intValue="25"/>
+    <styles xmi:type="nattablestyle:IntValueStyle" xmi:id="_C3U2oN3zEeS_OMsNJfOjqg" name="columnLabelHeight" intValue="25"/>
+  </localColumnHeaderAxisConfiguration>
+</nattable:Table>

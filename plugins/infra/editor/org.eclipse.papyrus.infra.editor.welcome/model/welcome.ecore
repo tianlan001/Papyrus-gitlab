@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="welcome" nsURI="http://www.eclipse.org/Papyrus/2015/editor/welcome"
+    nsPrefix="welcome">
+  <eClassifiers xsi:type="ecore:EClass" name="Welcome">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="welcomePage" ordered="false"
+        eType="#//WelcomePage" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WelcomePage">
+    <eOperations name="getVisibleSections" ordered="false" upperBound="-1" eType="#//WelcomeSection">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="suppressedVisibility" value="true"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getSection" ordered="false" eType="#//WelcomeSection">
+      <eParameters name="identifier" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+    </eOperations>
+    <eOperations name="getSashColumn" ordered="false" lowerBound="1" eType="#//SashColumn">
+      <eParameters name="index" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+    </eOperations>
+    <eOperations name="getSashRow" ordered="false" lowerBound="1" eType="#//SashRow">
+      <eParameters name="column" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+      <eParameters name="row" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="section" upperBound="-1"
+        eType="#//WelcomeSection" containment="true" eOpposite="#//WelcomeSection/page"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="visibleSection" upperBound="-1"
+        eType="#//WelcomeSection" volatile="true" transient="true" derived="true">
+      <eAnnotations source="subsets" references="#//WelcomePage/section"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sashColumn" ordered="false"
+        upperBound="-1" eType="#//SashColumn" containment="true" eOpposite="#//SashColumn/page"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WelcomeSection">
+    <eOperations name="isIdentifiedBy" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean">
+      <eParameters name="identifier" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" ordered="false"
+        lowerBound="1" upperBound="-1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hidden" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="page" ordered="false" lowerBound="1"
+        eType="#//WelcomePage" eOpposite="#//WelcomePage/section"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SashColumn">
+    <eOperations name="getSashRow" ordered="false" lowerBound="1" eType="#//SashRow">
+      <eParameters name="index" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" ordered="false" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"
+        unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sashRow" ordered="false"
+        upperBound="-1" eType="#//SashRow" containment="true" eOpposite="#//SashRow/column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="page" ordered="false" lowerBound="1"
+        eType="#//WelcomePage" eOpposite="#//WelcomePage/sashColumn"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SashRow">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" ordered="false" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"
+        unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="page" ordered="false" lowerBound="1"
+        eType="#//WelcomePage"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" ordered="false"
+        lowerBound="1" eType="#//SashColumn" eOpposite="#//SashColumn/sashRow"/>
+  </eClassifiers>
+</ecore:EPackage>

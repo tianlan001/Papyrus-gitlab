@@ -1,0 +1,27 @@
+active class Units_Map {
+
+	public class Listener {
+
+		public activity 'notifications$defaultValue$1'(): Integer;
+		public name: String;
+		public notifications: Integer = 'notifications$defaultValue$1'();
+		@Create
+		public Listener(in name: String);
+		public notify();
+		@Destroy
+		public destroy();
+
+	}
+
+	public activity 'listeners$defaultValue$1'(): Map< Key=>Integer,
+		Value=>Listener >;
+	public listeners: Map< Key=>Integer, Value=>Listener > =
+		'listeners$defaultValue$1'();
+	public register(in listener: Listener, in id: Integer);
+	public test(out listener: Listener);
+	@Create
+	public Units_Map();
+	@Destroy
+	public destroy();
+
+} do 'Units_Map$behavior$1'

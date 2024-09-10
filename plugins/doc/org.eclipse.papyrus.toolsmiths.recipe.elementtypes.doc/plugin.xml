@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="target/generated-eclipse-help/recipeToolsmiths-devDoc-main-toc.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="target/generated-eclipse-help/recipeToolsmithsElementTypesDoc-toc.xml"
+            primary="false">
+      </toc>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <wizard
+            id="org.eclipse.papyrus.toolsmiths.recipe.elementtypes.doc.UMLForMetamodelsWizard"
+            name="%example.name"
+            class="org.eclipse.emf.common.ui.wizard.ExampleInstallerWizard"
+            category="org.eclipse.ui.Examples/org.eclipse.papyrus.developer.doc.examples"
+            project="true"
+            icon="icons/full/ctool16/new_example.gif">
+         <description>%example.description</description>
+         <selection class="org.eclipse.ui.IWorkingSet" />
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.emf.common.ui.examples">
+      <example
+            id="org.eclipse.papyrus.toolsmiths.recipe.elementtypes.doc.UMLForMetamodels"
+            wizardID="org.eclipse.papyrus.toolsmiths.recipe.elementtypes.doc.UMLForMetamodelsWizard"
+            pageImage="icons/full/wizban/new_example.png">
+         <fileToOpen
+               location="org.eclipse.papyrus.toolsmiths.example.umlformetamodels/model/uml4metamodels.elementtypesconfigurations"
+               editorID="org.eclipse.papyrus.infra.types.presentation.ElementTypesConfigurationsEditorID"/>
+         <projectDescriptor
+               name="org.eclipse.papyrus.toolsmiths.example.umlformetamodels"
+               contentURI="examples/org.eclipse.papyrus.toolsmiths.example.umlformetamodels/"
+               description="%example.project.description"/>
+      </example>
+   </extension>
+   
+</plugin>

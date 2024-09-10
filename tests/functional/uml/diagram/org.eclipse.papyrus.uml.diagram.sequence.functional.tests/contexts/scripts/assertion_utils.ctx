@@ -1,0 +1,152 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Context-Type: org.eclipse.rcptt.ctx.ecl
+Element-Name: assertion_utils
+Element-Type: context
+Element-Version: 2.0
+Id: _0rxqwHl4Eei64tmsM6ziaQ
+Runtime-Version: 2.3.0.201806122315
+Save-Time: 6/28/18 10:04 AM
+
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
+Content-Type: text/plain
+Entry-Name: .description
+
+Utilities procedures for assertions about edit parts, figures, anchors, and more in the diagram editor.
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa--
+------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998
+Content-Type: text/ecl
+Entry-Name: .ecl.context
+
+/**
+ * Fuzzy assertion of a numeric quantity.
+ *
+ * @param value the quantity to assert
+ * @param expected the expected value of the quantity
+ * @param tolerance the tolerance within which to consider the value matched with the expected
+ * @param name optional name of the quantity being asserted
+ */
+proc "assert-value" [val value -input] [val expected] [val tolerance] [val name "value"] {
+	let [val error [minus $expected $value | abs]] {
+		if [or [lt $error $tolerance] [eq $error $tolerance] | not] {
+			assert-true -input False -message [concat $name " was " $value " but expected " $expected " ±" $tolerance]
+		}
+	}
+}
+
+/**
+ * Assert the X- and Y-fractions of a message anchor.
+ *
+ * @param id the anchor ID (terminal)
+ * @param expectedX the expected X fraction
+ * @param expectedY the expected Y fraction
+ * @param tolerance the fuzzy comparison tolerance to allow for variability in
+ *          layout on different systems/displays/etc.
+ * @param name optional name of the anchor
+ */
+proc "assert-message-anchor" [val id -input] [val expectedX] [val expectedY] [val tolerance "0.02"] [val name "anchor"] {
+	let [val trimmed [str $id | invoke substring 1 [echo $id | invoke length | int | minus 1]]] {
+		echo $trimmed | split -sep "," | to-list | get 0 | float
+			| assert-value $expectedX [float $tolerance] [concat $name " x fraction"]
+		echo $trimmed | split -sep "," | to-list | get 1 | float
+			| assert-value $expectedY [float $tolerance] [concat $name " y fraction"]
+	}
+}
+
+/**
+ * Assert the source anchor of a message.
+ *
+ * @param object the message edit-part or figure
+ * @param expectedX the expected X fraction
+ * @param expectedY the expected Y fraction
+ * @param tolerance the fuzzy comparison tolerance to allow for variability in
+ *          layout on different systems/displays/etc.
+ */
+proc "assert-message-source" [val object -input] [val expectedX] [val expectedY] [val tolerance [float "0.02"]] {
+	get-property -object $object -name "sourceAnchor.id" -raw | assert-message-anchor $expectedX $expectedY $tolerance "sourceAnchor"
+}
+
+/**
+ * Assert the target anchor of a message.
+ *
+ * @param object the message edit-part or figure
+ * @param expectedX the expected X fraction
+ * @param expectedY the expected Y fraction
+ * @param tolerance the fuzzy comparison tolerance to allow for variability in
+ *          layout on different systems/displays/etc.
+ */
+proc "assert-message-target" [val object -input] [val expectedX] [val expectedY] [val tolerance [float "0.02"]] {
+	get-property -object $object -name "targetAnchor.id" -raw | assert-message-anchor $expectedX $expectedY $tolerance "targetAnchor"
+}
+
+/**
+ * Assert the source and target anchors of a message.
+ *
+ * @param object the message edit-part or figure
+ * @param sourceX the expected source X fraction
+ * @param sourceY the expected source Y fraction
+ * @param targetX the expected target X fraction
+ * @param targetY the expected target Y fraction
+ * @param tolerance the fuzzy comparison tolerance to allow for variability in
+ *          layout on different systems/displays/etc.
+ * 
+ * @see #assert-message-anchor
+ */
+proc "assert-message-anchors" [val object -input] [val sourceX] [val sourceY] [val targetX] [val targetY] [val tolerance [float "0.02"]] {
+	with $object {
+		assert-message-source $sourceX $sourceY $tolerance
+        assert-message-target $targetX $targetY $tolerance
+    }
+}
+
+/**
+ * Assert the location of an edit-part or figure.
+ *
+ * @param object the edit-part or figure
+ * @param expectedX the expected X coördinate
+ * @param expectedY the expected Y coördinate
+ * @param tolerance the fuzzy comparison tolerance to allow for variability in
+ *          layout on different systems/displays/etc.
+ */
+proc "assert-at" [val object -input] [val expectedX] [val expectedY] [val tolerance 5] {
+	with $object {
+ 		get-property x -raw | assert-value $expectedX $tolerance "x" 
+ 		get-property y -raw | assert-value $expectedY $tolerance "y" 
+    }
+}
+
+/**
+ * Assert the size of an edit-part or figure.
+ *
+ * @param object the edit-part or figure
+ * @param expectedWidth the expected width
+ * @param expectedHeight the expected height
+ * @param tolerance the fuzzy comparison tolerance to allow for variability in
+ *          layout on different systems/displays/etc.
+ */
+proc "assert-size" [val object -input] [val expectedWidth] [val expectedHeight] [val tolerance 5] {
+	with $object {
+  		get-property width -raw | assert-value $expectedWidth $tolerance "width" 
+ 		get-property height -raw | assert-value $expectedHeight $tolerance "height" 
+    }
+}
+
+/**
+ * Assert the bounds of an edit-part or figure.
+ *
+ * @param object the edit-part or figure
+ * @param expectedX the expected X coördinate
+ * @param expectedY the expected Y coördinate
+ * @param expectedWidth the expected width
+ * @param expectedHeight the expected height
+ * @param tolerance the fuzzy comparison tolerance to allow for variability in
+ *          layout on different systems/displays/etc.
+ */
+proc "assert-bounds" [val object -input] [val expectedX] [val expectedY] [val expectedWidth] [val expectedHeight] [val tolerance 5] {
+	with $object {
+        assert-at $expectedX $expectedY $tolerance
+        assert-size $expectedWidth $expectedHeight $tolerance
+    }
+}
+
+------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998--

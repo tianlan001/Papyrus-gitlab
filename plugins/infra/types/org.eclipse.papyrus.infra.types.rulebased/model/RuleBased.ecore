@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="rulebased" nsURI="http://www.eclipse.org/papyrus/infra/types/rulebased/1.1"
+    nsPrefix="rulebased">
+  <eClassifiers xsi:type="ecore:EClass" name="RuleBasedTypeConfiguration" eSuperTypes="../../org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.ecore#//SpecializationTypeConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ruleConfiguration" lowerBound="1"
+        eType="#//RuleConfiguration" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RuleConfiguration" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeRuleConfiguration" abstract="true"
+      eSuperTypes="#//RuleConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="composedRules" lowerBound="2"
+        upperBound="-1" eType="#//RuleConfiguration" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NotRuleConfiguration" eSuperTypes="#//RuleConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="composedRule" lowerBound="1"
+        eType="#//RuleConfiguration" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AndRuleConfiguration" eSuperTypes="#//CompositeRuleConfiguration"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OrRuleConfiguration" eSuperTypes="#//CompositeRuleConfiguration"/>
+</ecore:EPackage>

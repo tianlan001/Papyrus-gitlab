@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+ Copyright (c) 2013, 2014 CEA and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   CEA - Initial API and implementation
+   Christian W. Damus (CEA) - bug 323802
+   
+-->
+<plugin>
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+				      <?gmfgen generated="true"?>
+				      <context
+				         description="%context.description"
+				         id="org.eclipse.papyrus.uml.diagram.timing.ui.diagramContext"
+				         name="%context.name"
+				         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+				      </context>
+				   </extension>
+   
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+				      <?gmfgen generated="true"?>
+				      <MarkerNavigationProvider class="org.eclipse.papyrus.uml.diagram.timing.providers.UMLMarkerNavigationProvider">
+				         <MarkerType name="org.eclipse.papyrus.uml.diagram.timing.diagnostic"/>
+				         <Priority name="Lowest"/>
+				      </MarkerNavigationProvider>
+				   </extension>
+
+   <extension id="diagnostic" name="Papyrus Timing Diagram  problems" point="org.eclipse.core.resources.markers">
+				      <?gmfgen generated="true"?>
+				      <super type="org.eclipse.core.resources.problemmarker"/>
+				      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+				      <persistent value="true"/>
+				   </extension>   
+
+   <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+				      <?gmfgen generated="true"?>
+				      <decoratorProvider class="org.eclipse.papyrus.uml.diagram.timing.providers.UMLValidationDecoratorProvider">
+				         <Priority name="Lowest"/>
+				         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+				         <context decoratorTargets="PRIMARY_VIEW"/>
+				      </decoratorProvider>
+				   </extension>
+
+
+	<?gmfgen generated="true"?>
+
+	<?gmfgen generated="true"?>
+
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="org.eclipse.papyrus.uml.diagram.timing"
+            labelProvider="org.eclipse.papyrus.uml.diagram.timing.sheet.UMLSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.papyrus.uml.diagram.timing">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.papyrus.uml.diagram.timing">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.papyrus.uml.diagram.timing.sheet.UMLPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLAbstractNavigatorItem"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
+<extension point="org.eclipse.ui.preferencePages" id="prefpages">
+      <?gmfgen generated="true"?>
+<page
+      id="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLTimingDiagram"
+      name="PapyrusUMLTimingDiagram Diagram"
+      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams"
+      class="org.eclipse.papyrus.uml.diagram.timing.preferences.DiagramGeneralPreferencePage">
+</page>
+<page
+      id="org.eclipse.papyrus.uml.diagram.timing.preferences.DiagramPrintingPreferencePage"
+      name="%prefpage.org.eclipse.uml2.uml.diagram.printing"
+      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLTimingDiagram"
+      class="org.eclipse.papyrus.uml.diagram.timing.preferences.DiagramPrintingPreferencePage">
+</page>
+   </extension>
+   
+    <?gmfgen generated="true"?>
+    
+	<extension point="org.eclipse.core.runtime.preferences" id="prefs">
+      <?gmfgen generated="true"?>
+      <initializer class="org.eclipse.papyrus.uml.diagram.timing.preferences.DiagramPreferenceInitializer"/>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+      <?gmfgen generated="true"?>
+      <viewProvider class="org.eclipse.papyrus.uml.diagram.timing.providers.UMLViewProvider">
+         <Priority name="Lowest"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="PapyrusUMLTimingDiagram"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="Interaction_Shape,Lifeline_FullShape,Lifeline_CompactShape,StateInvariant_FullShape,StateInvariant_CompactShape,OccurrenceSpecification_Shape,MessageOccurrenceSpecification_Shape,Node_StateDefinitionShape,Node_StateInvariantTransitionShape,TimeConstraint_Shape,TimeObservation_Shape,DurationConstraint_Shape,DurationObservation_Shape,GeneralOrdering_Shape,Node_FreeTimeRulerShape,Node_LinearTimeRulerShape,Node_TickShape,DestructionOccurrenceSpecification_Shape,Lifeline_Shape,Gate_Shape"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="Message_SynchEdge,Message_AsynchEdge,Message_ReplyEdge,Message_CreateEdge,Message_DeleteEdge,Message_LostEdge,Message_FoundEdge"/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <?gmfgen generated="false"?>
+      <editpartProvider class="org.eclipse.papyrus.uml.diagram.timing.custom.providers.CustomUMLEditPartProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="PapyrusUMLTimingDiagram"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="Interaction_Shape,Lifeline_FullShape,Lifeline_CompactShape,StateInvariant_FullShape,StateInvariant_CompactShape,OccurrenceSpecification_Shape,MessageOccurrenceSpecification_Shape,Node_StateDefinitionShape,Node_StateInvariantTransitionShape,TimeConstraint_Shape,TimeObservation_Shape,DurationConstraint_Shape,DurationObservation_Shape,GeneralOrdering_Shape,Node_FreeTimeRulerShape,Node_LinearTimeRulerShape,Node_TickShape,DestructionOccurrenceSpecification_Shape,Lifeline_Shape,Gate_Shape"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="Message_SynchEdge,Message_AsynchEdge,Message_ReplyEdge,Message_CreateEdge,Message_DeleteEdge,Message_LostEdge,Message_FoundEdge"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="Interaction_NameLabel,Lifeline_FullNameLabel,Lifeline_CompactNameLabel,StateInvariant_FullStereotypeLabel,StateInvariant_CompactNameLabel,StateInvariant_CompactStereotypeLabel,OccurrenceSpecification_NameLabel,OccurrenceSpecification_StereotypeLabel,MessageOccurrenceSpecification_NameLabel,MessageOccurrenceSpecification_StereotypeLabel,Node_StateDefinitionNameLabel,TimeConstraint_BodyLabel,TimeConstraint_StereotypeLabel,TimeObservation_NameLabel,TimeObservation_StereotypeLabel,DurationConstraint_BodyLabel,DurationObservation_NameLabel,GeneralOrdering_NameLabel,Node_TickNameLabel,DestructionOccurrenceSpecification_NameLabel,DestructionOccurrenceSpecification_StereotypeLabel,Gate_NameLabel"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="Interaction_SubfragmentCompartment,Lifeline_FullStateDefinitionCompartment,Lifeline_FullSubfragmentCompartment,Lifeline_CompactSubfragmentCompartment,Interaction_TimeRulerCompartment,Lifeline_FullTimeRulerCompartment,Lifeline_CompactTimeRulerCompartment,Node_FreeTimeRulerCompartment,Node_LinearTimeRulerCompartment"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+   
+   
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+      <?gmfgen generated="true"?>
+      <IconProvider class="org.eclipse.papyrus.uml.diagram.timing.providers.UMLIconProvider">
+         <Priority name="Lowest"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+      <?gmfgen generated="true"?>
+      <ParserProvider class="org.eclipse.papyrus.uml.diagram.timing.providers.UMLParserProvider">
+         <Priority name="Lowest"/>
+      </ParserProvider>
+   </extension>
+
+   
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isURIEditorInput">
+      <?gmfgen generated="true"?>
+      <propertyTester
+            id="org.eclipse.papyrus.uml.diagram.timing.URIEditorInputPropertyTester"
+            type="org.eclipse.emf.common.ui.URIEditorInput"
+            namespace="org.eclipse.papyrus.uml.diagram.timing"
+            properties="isURIEditorInput"
+            class="org.eclipse.papyrus.uml.diagram.timing.part.UMLUriEditorInputTester">
+      </propertyTester>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
+      <?gmfgen generated="true"?>
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="org.eclipse.papyrus.uml.diagram.timing.resourceContent"/>
+            <contentExtension pattern="org.eclipse.papyrus.uml.diagram.timing.domainResourceContent"/>
+            <contentExtension pattern="org.eclipse.papyrus.uml.diagram.timing.navigatorLinkHelper"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="org.eclipse.papyrus.uml.diagram.timing.navigatorActionProvider"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
+      <?gmfgen generated="true"?>
+      <navigatorContent
+            id="org.eclipse.papyrus.uml.diagram.timing.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLNavigatorContentProvider" 
+            labelProvider="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLNavigatorLabelProvider"
+            icon="icons/obj16/UMLDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+               <and>
+                  <instanceof value="org.eclipse.core.resources.IFile"/>
+                  <test property="org.eclipse.core.resources.extension" value="PapyrusUMLTiming_diagram"/>
+               </and>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLAbstractNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLAbstractNavigatorItem"/>
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="org.eclipse.papyrus.uml.diagram.timing.navigatorSorter" 
+               class="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLNavigatorSorter">
+            <parentExpression>
+               <or>
+                  <and>
+                     <instanceof value="org.eclipse.core.resources.IFile"/>
+                     <test property="org.eclipse.core.resources.extension" value="PapyrusUMLTiming_diagram"/>
+                  </and>
+                  <instanceof value="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLAbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            id="org.eclipse.papyrus.uml.diagram.timing.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLDomainNavigatorContentProvider" 
+            labelProvider="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLDomainNavigatorLabelProvider"
+            icon="icons/obj16/UMLDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+               <and>
+                  <instanceof value="org.eclipse.core.resources.IFile"/>
+                  <test property="org.eclipse.core.resources.extension" value="PapyrusUMLTiming"/>
+               </and>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLDomainNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof value="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLDomainNavigatorItem"/>
+         </possibleChildren>
+      </navigatorContent>
+      <actionProvider
+            id="org.eclipse.papyrus.uml.diagram.timing.navigatorActionProvider"
+            class="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLNavigatorActionProvider">
+         <enablement>
+            <or>
+               <instanceof value="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLAbstractNavigatorItem"/>
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+   
+   <extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
+      <?gmfgen generated="true"?>
+      <linkHelper
+            id="org.eclipse.papyrus.uml.diagram.timing.navigatorLinkHelper"
+            class="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLNavigatorLinkHelper">
+         <editorInputEnablement>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="org.eclipse.papyrus.uml.diagram.timing.isURIEditorInput"/>
+            </and>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="org.eclipse.papyrus.uml.diagram.timing.navigator.UMLAbstractNavigatorItem"/>
+         </selectionEnablement>
+      </linkHelper>
+   </extension>
+   
+
+
+
+
+   <!-- optionally, specify keybindings -->
+
+
+  <!-- **************************************** non-generated extensions **************************************** -->
+
+    <extension point="org.eclipse.ui.commands">
+        <command
+            categoryId="org.eclipse.papyrus.editor.category"
+            description="Create a new Timing Diagram"
+            id="org.eclipse.papyrus.uml.diagram.timing.CreateTimingDiagramCommand"
+            name="Create a new Class Diagram">
+        </command>
+        <command
+            categoryId="org.eclipse.papyrus.editor.category"
+            defaultHandler="org.eclipse.papyrus.uml.diagram.timing.custom.edit.commands.SwitchLifelineCommand"
+            description="Switch Lifeline"
+            id="org.eclipse.papyrus.uml.diagram.timing.custom.switchLifeline"
+            name="Switch Lifeline"/>
+        <command
+            categoryId="org.eclipse.papyrus.editor.category"
+            defaultHandler="org.eclipse.papyrus.uml.diagram.timing.custom.edit.commands.CreateTickCommand"
+            description="Attach a tick to an Occurence Specification"
+            id="org.eclipse.papyrus.uml.diagram.timing.custom.createTick"
+            name="Attach Tick"/>
+        <command
+            categoryId="org.eclipse.papyrus.editor.category"
+            defaultHandler="org.eclipse.papyrus.uml.diagram.timing.custom.edit.commands.ToggleTimeRulerVisibility"
+            description="Toggle time ruler visibility"
+            id="org.eclipse.papyrus.uml.diagram.timing.custom.toggleTimeRulerVisibility"
+            name="Toggle Time Ruler Visibility"/>
+    </extension>
+
+
+    <extension
+        point="org.eclipse.ui.bindings"
+        id="update-cmd-binding">
+        <key
+            commandId="org.eclipse.papyrus.uml.diagram.timing.custom.switchLifeline"
+            contextId="org.eclipse.papyrus.uml.diagram.timing.ui.diagramContext"
+            sequence="M1+F9"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+    </extension>
+    <extension
+        point="org.eclipse.ui.bindings"
+        id="update-cmd-binding">
+        <key
+            commandId="org.eclipse.papyrus.uml.diagram.timing.custom.createTick"
+            contextId="org.eclipse.papyrus.uml.diagram.timing.ui.diagramContext"
+            sequence="M1+F10"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+    </extension>
+    <extension
+        point="org.eclipse.ui.bindings"
+        id="update-cmd-binding">
+        <key
+            commandId="org.eclipse.papyrus.uml.diagram.timing.custom.toggleTimeRulerVisibility"
+            contextId="org.eclipse.papyrus.uml.diagram.timing.ui.diagramContext"
+            sequence="M1+F11"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+    </extension>
+
+    <extension point="org.eclipse.ui.menus">
+
+
+
+        <menuContribution
+              allPopups="true"
+              locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu?after=additions">
+            <command
+                commandId="org.eclipse.papyrus.uml.diagram.timing.custom.switchLifeline"
+                label="Switch Lifeline to Compact"
+                style="push"
+                tooltip="Switch Lifeline to Compact">
+                <visibleWhen>
+	                <and>
+	                    <iterate>
+	                        <instanceof value="org.eclipse.papyrus.uml.diagram.timing.edit.parts.FullLifelineEditPartCN">
+	                        </instanceof>
+	                    </iterate>
+	                    <with
+	                          variable="selection">
+	                       <not>
+	                          <count
+	                                value="0">
+	                          </count>
+	                       </not>
+	                    </with>
+	                </and>
+                </visibleWhen>
+            </command>
+            <command
+                commandId="org.eclipse.papyrus.uml.diagram.timing.custom.toggleTimeRulerVisibility"
+                label="Toggle Time Ruler Visibility"
+                style="push"
+                tooltip="Toggle time ruler visibility">
+                <visibleWhen>
+                	<and>
+	                    <iterate>
+	                        <instanceof value="org.eclipse.papyrus.uml.diagram.timing.edit.parts.LifelineEditPart">
+	                        </instanceof>
+	                    </iterate>
+	                    <with
+	                          variable="selection">
+	                       <not>
+	                          <count
+	                                value="0">
+	                          </count>
+	                       </not>
+	                    </with>
+                    </and>
+                </visibleWhen>
+            </command>
+            <command
+                commandId="org.eclipse.papyrus.uml.diagram.timing.custom.switchLifeline"
+                label="Switch Lifeline to Full"
+                style="push"
+                tooltip="Switch Lifeline to Full">
+                <visibleWhen>
+                	<and>
+	                    <iterate>
+	                        <instanceof value="org.eclipse.papyrus.uml.diagram.timing.edit.parts.CompactLifelineEditPartCN">
+	                        </instanceof>
+	                    </iterate>
+	                    <with
+	                          variable="selection">
+	                       <not>
+	                          <count
+	                                value="0">
+	                          </count>
+	                       </not>
+	                    </with>
+                    </and>
+                </visibleWhen>
+            </command>
+            <command
+                commandId="org.eclipse.papyrus.uml.diagram.timing.custom.createTick"
+                label="Attach a tick"
+                style="push"
+                tooltip="Attach a tick">
+                <visibleWhen>
+                	<and>
+	                    <iterate>
+	                        <or>
+	                        <instanceof value="org.eclipse.papyrus.uml.diagram.timing.edit.parts.OccurrenceSpecificationEditPartCN">
+	                        </instanceof>
+	                        <instanceof value="org.eclipse.papyrus.uml.diagram.timing.edit.parts.MessageOccurrenceSpecificationEditPartCN">
+	                        </instanceof>
+	                        <instanceof value="org.eclipse.papyrus.uml.diagram.timing.edit.parts.DestructionOccurrenceSpecificationEditPartCN">
+	                        </instanceof>
+	                        </or>
+	                    </iterate>
+	                    <with
+		                          variable="selection">
+		                       <not>
+		                          <count
+		                                value="0">
+		                          </count>
+		                       </not>
+		                </with>
+	            	</and>
+                </visibleWhen>
+            </command>
+        </menuContribution>
+    </extension>
+
+    <!-- register editor in Papyrus -->
+    <extension point="org.eclipse.papyrus.infra.ui.papyrusDiagram">
+        <editorDiagram
+            actionBarContributorId="org.eclipse.papyrus.uml.diagram.common.part.UMLDiagramActionBarContributor"
+            factoryClass="org.eclipse.papyrus.uml.diagram.timing.custom.TimingDiagramEditorFactory"
+            icon="icons/obj16/Diagram_Timing.gif">
+        </editorDiagram>
+        <creationCommand
+            creationCommandClass="org.eclipse.papyrus.uml.diagram.timing.custom.CreateTimingDiagramCommand"
+            creationCondition="org.eclipse.papyrus.uml.diagram.timing.custom.TimingDiagramCreationCondition"
+            icon="icons/obj16/Diagram_Timing.gif"
+            id="org.eclipse.papyrus.uml.diagram.timing.CreateTimingDiagramCommand"
+            language="uml"
+            label="Timing Diagram">
+        </creationCommand>
+    </extension>
+
+	<!-- Diagram specific advices -->
+
+	<!-- Bindings to the shared Papyrus context -->
+
+
+
+<extension point="org.eclipse.papyrus.infra.gmfdiag.common.notationTypesMapping"> 
+   <?gmfgen generated="true"?>
+   <diagramMappings diagramID="PapyrusUMLTimingDiagram">
+   	<mapping type="PapyrusUMLTimingDiagram" humanReadableType="TimingDiagram"/>
+			<mapping
+				humanReadableType="Interaction"
+				type="Interaction_SubfragmentCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="FullLifelineStateDefinition"
+				type="Lifeline_FullStateDefinitionCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="FullLifelineTimeline"
+				type="Lifeline_FullSubfragmentCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="CompactLifeline"
+				type="Lifeline_CompactSubfragmentCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="TimeRuler"
+				type="Interaction_TimeRulerCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="FullLifelineTimeRuler"
+				type="Lifeline_FullTimeRulerCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="CompactLifelineTimeRuler"
+				type="Lifeline_CompactTimeRulerCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="FreeTimeRuler"
+				type="Node_FreeTimeRulerCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="LinearTimeRuler"
+				type="Node_LinearTimeRulerCompartment">
+			</mapping>
+   </diagramMappings>
+</extension>
+
+
+<extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+   </extension>
+<extension
+			id="Papyrus Timing Diagram .palettedefinition"
+			name="Papyrus Timing Diagram  Predefined Entries"
+			point="org.eclipse.gmf.runtime.diagram.ui.paletteProviders"> 
+			
+			<?gmfgen generated="false"?>	
+			<paletteProvider class="org.eclipse.gmf.runtime.diagram.ui.providers.DefaultPaletteProvider">
+				<Priority name="Lowest"/>
+				   		<contribution
+				   		    	factoryClass="org.eclipse.papyrus.uml.diagram.timing.custom.parts.CustomPaletteFactory">
+				   		<predefinedEntry id="standardGroup/noteStack/noteTool" remove="true"/> 
+				<predefinedEntry id="standardGroup/noteStack/textTool" remove="true"/> 
+				<predefinedEntry id="standardGroup/noteStack/noteattachmentTool" remove="true"/>
+				
+				<entry
+				      defineOnly="true"
+				      description="Interaction"
+				      id="createInteractionCreationTool"
+				      kind="tool"
+				      label="Interaction"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Interaction.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Interaction.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="Lifeline"
+				      id="createLifelineCreationTool"
+				      kind="tool"
+				      label="Lifeline"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Lifeline.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Lifeline.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="State Definition"
+				      id="createStateDefinitionCreationTool"
+				      kind="tool"
+				      label="State Definition"
+				      large_icon="platform:/plugin/org.eclipse.papyrus.uml.diagram.timing/icons/obj16/stateDefinition.png"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.papyrus.uml.diagram.timing/icons/obj16/stateDefinition.png">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="TimeObservation"
+				      id="createTimeObservationCreationTool"
+				      kind="tool"
+				      label="TimeObservation"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/TimeObservation.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/TimeObservation.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="TimeConstraint"
+				      id="createTimeConstraintCreationTool"
+				      kind="tool"
+				      label="TimeConstraint"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/TimeConstraint.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/TimeConstraint.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="DurationObservation"
+				      id="createDurationObservationCreationTool"
+				      kind="tool"
+				      label="DurationObservation"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/DurationObservation.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/DurationObservation.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="DurationConstraint"
+				      id="createDurationConstraintCreationTool"
+				      kind="tool"
+				      label="DurationConstraint"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/DurationConstraint.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/DurationConstraint.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="Event (OccurrenceSpecification)"
+				      id="createOccurrenceSpecificationCreationTool"
+				      kind="tool"
+				      label="Event (OccurrenceSpecification)"
+				      large_icon="platform:/plugin/org.eclipse.papyrus.uml.diagram.timing/icons/obj16/event.png"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.papyrus.uml.diagram.timing/icons/obj16/event.png">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="DestructionOccurrenceSpecification"
+				      id="createDestructionOccurrenceSpecificationCreationTool"
+				      kind="tool"
+				      label="DestructionOccurrenceSpecification"
+				      large_icon="platform:/plugin/org.eclipse.papyrus.uml.diagram.timing/icons/obj16/destruction.png"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.papyrus.uml.diagram.timing/icons/obj16/destruction.png">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="Gate"
+				      id="createGateCreationTool"
+				      kind="tool"
+				      label="Gate"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Gate.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Gate.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="GeneralOrdering"
+				      id="createGeneralOrderingCreationTool"
+				      kind="tool"
+				      label="GeneralOrdering"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/GeneralOrdering.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/GeneralOrdering.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="Sync Message"
+				      id="createMessageSyncCreationTool"
+				      kind="tool"
+				      label="Sync Message"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_synchCall.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_synchCall.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="Async Message"
+				      id="createMessageAsyncCreationTool"
+				      kind="tool"
+				      label="Async Message"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_asynchCall.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_asynchCall.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="Message Reply"
+				      id="createMessageReplyCreationTool"
+				      kind="tool"
+				      label="Message Reply"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_reply.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_reply.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="Create Message"
+				      id="createCreateMessageCreationTool"
+				      kind="tool"
+				      label="Create Message"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_createMessage.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_createMessage.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="Delete Message"
+				      id="createDeleteMessageCreationTool"
+				      kind="tool"
+				      label="Delete Message"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_deleteMessage.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_deleteMessage.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="Lost Message"
+				      id="createLostMessageCreationTool"
+				      kind="tool"
+				      label="Lost Message"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message.gif">
+					</entry>
+				<entry
+				      defineOnly="true"
+				      description="Found Message"
+				      id="createFoundMessageCreationTool"
+				      kind="tool"
+				      label="Found Message"
+				      large_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message.gif"
+				      path=""
+				      small_icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Message.gif">
+					</entry>
+				
+				</contribution>
+			</paletteProvider>	
+				
+		</extension>
+
+<extension
+	id="Papyrus Timing Diagram .standard"
+	name="Papyrus Timing Diagram  Standard Palette"
+	point="org.eclipse.gmf.runtime.diagram.ui.paletteProviders"> 
+	
+	<?gmfgen generated="false"?>	
+	<paletteProvider class="org.eclipse.gmf.runtime.diagram.ui.providers.DefaultPaletteProvider">
+		<Priority name="Low"/>
+		   		<contribution
+		   		    	factoryClass="org.eclipse.papyrus.uml.diagram.timing.custom.parts.CustomPaletteFactory">
+		   		<predefinedEntry id="standardGroup/noteStack/noteTool" remove="true"/> 
+		<predefinedEntry id="standardGroup/noteStack/textTool" remove="true"/> 
+		<predefinedEntry id="standardGroup/noteStack/noteattachmentTool" remove="true"/>
+		
+		<entry
+		      description=""
+		      id="createNodesGroup"
+		      kind="drawer"
+		      label="Nodes"
+		      large_icon="platform:/plugin/org.eclipse.gmf.runtime.diagram.ui/icons/group.gif"
+		      path="/"
+		      small_icon="platform:/plugin/org.eclipse.gmf.runtime.diagram.ui/icons/group.gif">
+		      <expand
+		             force="true">
+		      </expand>
+			</entry>
+		<predefinedEntry
+		        id="createInteractionCreationTool"
+		        path="/createNodesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createLifelineCreationTool"
+		        path="/createNodesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createStateDefinitionCreationTool"
+		        path="/createNodesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createTimeObservationCreationTool"
+		        path="/createNodesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createTimeConstraintCreationTool"
+		        path="/createNodesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createDurationObservationCreationTool"
+		        path="/createNodesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createDurationConstraintCreationTool"
+		        path="/createNodesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createOccurrenceSpecificationCreationTool"
+		        path="/createNodesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createDestructionOccurrenceSpecificationCreationTool"
+		        path="/createNodesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createGateCreationTool"
+		        path="/createNodesGroup">
+		  </predefinedEntry>
+		<entry
+		      description=""
+		      id="createEdgesGroup"
+		      kind="drawer"
+		      label="Edges"
+		      large_icon="platform:/plugin/org.eclipse.gmf.runtime.diagram.ui/icons/group.gif"
+		      path="/"
+		      small_icon="platform:/plugin/org.eclipse.gmf.runtime.diagram.ui/icons/group.gif">
+		      <expand
+		             force="true">
+		      </expand>
+			</entry>
+		<predefinedEntry
+		        id="createGeneralOrderingCreationTool"
+		        path="/createEdgesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createMessageSyncCreationTool"
+		        path="/createEdgesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createMessageAsyncCreationTool"
+		        path="/createEdgesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createMessageReplyCreationTool"
+		        path="/createEdgesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createCreateMessageCreationTool"
+		        path="/createEdgesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createDeleteMessageCreationTool"
+		        path="/createEdgesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createLostMessageCreationTool"
+		        path="/createEdgesGroup">
+		  </predefinedEntry>
+		<predefinedEntry
+		        id="createFoundMessageCreationTool"
+		        path="/createEdgesGroup">
+		  </predefinedEntry>
+		</contribution>
+		<editor id="org.eclipse.papyrus.uml.diagram.timing"/>
+	</paletteProvider>	
+		
+</extension>
+<extension
+      point="org.eclipse.papyrus.infra.gmfdiag.common.diagramReconciler">
+   <diagramReconciler
+         diagramType="PapyrusUMLTimingDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.timing.custom.migration.TimingReconcilerForCompartment_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="PapyrusUMLTimingDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.timing.custom.migration.TimingReconciler_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+</extension>
+   <extension point="org.eclipse.papyrus.infra.gmfdiag.common.visualTypeProviders">
+      <?gmfgen generated="true"?>
+      <visualTypeProvider
+            class="org.eclipse.papyrus.uml.diagram.timing.providers.UMLVisualTypeProvider"
+            diagramType="PapyrusUMLTimingDiagram">
+         </visualTypeProvider>
+   </extension>
+ 
+</plugin>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated profile -->
+      <package
+            uri="http://org.eclipse.papyrus/activetest/1"
+            class="profile.ProfilePackage"
+            genModel="model/profile.genmodel"/>
+   </extension>
+
+    <extension point="org.eclipse.emf.ecore.uri_mapping">
+     <mapping source="pathmap://ACTIVE_TEST_PROFILE/" target="platform:/plugin/org.eclipse.papyrus.uml.validation.tests.staticprofile/model/">
+     </mapping>
+   </extension>
+   
+	<extension point="org.eclipse.uml2.uml.generated_package">
+		<profile
+			uri="http://org.eclipse.papyrus/activetest/1"
+			location="pathmap://ACTIVE_TEST_PROFILE/active.rule-in-plugin.profile.uml#_GkQEIOGnEeO2stwZ2ZCXww"/>
+	</extension>
+	
+	<extension point="org.eclipse.papyrus.uml.extensionpoints.UMLProfile">
+		<profile
+			description="Active Test profile"
+			name="Active Test profile"
+			path="pathmap://ACTIVE_TEST_PROFILE/active.rule-in-plugin.profile.uml"
+			provider="CEA LIST"/>
+	</extension>
+  
+</plugin>

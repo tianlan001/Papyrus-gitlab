@@ -1,0 +1,15 @@
+/**
+ * Test non-indexed assignment expressions.
+ **/
+active class Expressions_Assignment {
+
+	public activity AssertEqual(in label: String, in value1: any, in value2: any);
+	public activity AssertFalse(in label: String, in value: Boolean);
+	public test(out i: Integer, out f: Boolean, out h: BitString,
+		out filename: String, out a: Integer);
+	@Create
+	public Expressions_Assignment();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Assignment$behavior$1'

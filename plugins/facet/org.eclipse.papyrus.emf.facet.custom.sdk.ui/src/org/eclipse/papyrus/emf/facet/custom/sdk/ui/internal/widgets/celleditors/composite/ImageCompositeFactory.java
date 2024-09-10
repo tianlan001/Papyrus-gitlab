@@ -1,0 +1,30 @@
+/*******************************************************************************
+ * Copyright (c) 2012 CEA LIST.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *    Nicolas Bros (Mia-Software) - Bug 375388 - Cell editor for IImage
+ *******************************************************************************/
+package org.eclipse.papyrus.emf.facet.custom.sdk.ui.internal.widgets.celleditors.composite;
+
+import org.eclipse.papyrus.emf.facet.custom.metamodel.custompt.IImage;
+import org.eclipse.papyrus.emf.facet.widgets.celleditors.AbstractCellEditorComposite;
+import org.eclipse.papyrus.emf.facet.widgets.celleditors.ICompositeEditorFactory;
+import org.eclipse.swt.widgets.Composite;
+
+/** Factory for {@link ImageComposite} */
+public class ImageCompositeFactory implements ICompositeEditorFactory<IImage> {
+
+	public AbstractCellEditorComposite<IImage> createCompositeEditor(final Composite parent, final int style) {
+		return new ImageComposite(parent);
+	}
+
+	public Class<IImage> getHandledType() {
+		return IImage.class;
+	}
+}

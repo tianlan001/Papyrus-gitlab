@@ -1,0 +1,1140 @@
+Since Papyrus 0.10 (Eclipse Kepler), Papyrus provides a new version of the tabular editors. This version replaces the previous version in Eclipse Luna. <br/>
+Since Papyrus 1.1.0 (Eclipse Mars), Papyrus provides hierarchical table too.<br/>
+
+=Glossary=
+*category : in tree table, a category is a feature to listen : ownedAttributes for example.
+*context : the element on which the table is created. Thhis word is used in this documentation and in the table metamodel
+**The context will often be used as parent element in case of creation of a new element inside a table.
+**The context is used in synchronized table to provide the rows, according to the implementation of the table
+*depth : word used for tree table, its means the distance between the context of the table and the showed element. It starts to 0 with direct children's context.
+*Drag and Drop (DnD) : the action to select an element with the mouse and to move it to another located, could be done in the same Eclipse View or from an Eclipse View to another one. Always inside the same instance of Eclipse
+*DnD : see Drag And Drop
+*owner : the graphical parent of the table. it is used in the Model Explorer View to display the table to the wanted location. After creating a new table, in the general case, the owner field has the same value than the root field. This word is used in the Property View of the table (see Viewpoint documentation for further information)
+*root : the same thing than the context. This word is used in the Property View of the Table (see Viewpoint documentation for further information)
+*type : the type of the table is given a a field string owned by the object TableConfiguration. This field is used by the Tabular editors to know how to open and manage the instance of the tables. The type of a table can't be changed by the user. Example of known types : 
+**PapyrusGenericTable : the type of UML Generic Table. This table is filled by DnD and accepts all UML Elements
+**PapyrusSysMLRequirementTable : the type of the Table used to edit Requirement. This table is synchronized and shows only Class stereotyped by Requirements directly owned by the context of the table.
+**PapyrusClassTreeTable : the type of the Class Tree Table. In this provided configuration, this table is fully synchronized. Its shows : 
+***on first level (depth=0), the classes directly owned by the context of the table
+***on the second level (depth=1), the owned attributes, the owned operations and the nested classes of the classes displayed on the first level.
+***on the third level (depth=2), the parameters of the operations dsiplay on the the second level
+
+=Table areas=
+A table can be divided in several areas
+* Corner : the top left corner. Clicking on this area provides the action "Select All" 
+* Row Header : 
+** Index Row Header
+*** It can be hidden
+*** The index style can be changed, we can use letters : A,B...Z, AA, AB ... ZZ or numbers : 1, 2, 3...
+** Label Row Header
+*** It can be hidden
+*** It is a single column in flat table
+*** It is composed by a single or by several columns in tree table
+*** The "name" shown in the label can be changed. The user can change the name of the element or create an alias in case of read-only element.
+*** The label's style can be changed by the user. The configuration feature depends on the kind of represented element. (name, icon, multiplicity, isDerived, type, ...)
+* Column Header
+** Index Column Header
+*** It can be hidden
+*** The index style can be changed, we can use letters : A,B...Z, AA, AB ... ZZ or numbers : 1, 2, 3...
+** Label Column Header
+*** It can be hidden
+*** The "name" shown in the label can be changed. The user can change the name of the element or create an alias in case of read-only element.
+*** The label's style can be changed by the user. The configuration feature depends on the kind of represented element. (name, icon, multiplicity, isDerived, type, ...)
+* Body
+** It contains the editable cells of the table
+** It can't be hidden
+[[File:images/TableAreas.png|frame|none|The areas in a tree table]]
+
+= General presentation=
+Papyrus provides tabular editors to allow to the user to edit their models with a new way as well than the Diagram editors and the Property View. 
+So, in the table, the user can create/destroy model's element and edit their features.
+
+Papyrus provides to main kinds of tabular editors : 
+#normal table (also called flat table)
+#tree table (also called hierarchical table)
+
+Moreover the contents (most often the rows) of the table, can be synchronized on the context of the table. 
+
+==Normal table and synchronization==
+#Normal table can be synchronized or not, it depends of the type of the table. The switch between synchronization and no synchronization is not allowed.
+#if the table is not synchronized, it is filled by the user using Drag and Drop. The user selects an element displayed in the Model Explorer and drop it into an opened table (in the row header area). 
+This action will create a new row, if the dropped element is allowed by the table implementation.
+#if the table is synchronized, the user can't drop element to add rows. The rows are calculated according to the table context and the table implementation. The user can't change the allowed context of the rows.
+
+==Tree Table and synchronization==
+The contents of the tree table is always synchronized, excepted for the first level (depth=0), which can be synchronized of filled by the user by Drag and Drop from the ModelExplorer, as for normal table. 
+The Tree Table provides a way to choose : 
+* the filling of the first level (DnD or synchronization)
+* the number of levels (depths) to listen and what to listen
+
+==Some table snapshots==
+[[File:images/Normal_table.PNG|frame|none| an example of normal table (UML Generic table)]] <br>
+[[File:images/Multi_tree_table.PNG|frame|none| an example of tree table, with the hierarchy displayed on several columns, and categories visible (UML Tree Class table)]]<br>
+[[File:images/Multi_hidden_categories_tree_table.PNG|frame|none| an example of tree table, with the hierarchy displayed on several columns, and categories hidden (UML Tree Class table)]]<br>
+[[File:images/Single_tree_table.PNG|frame|none|  an example of tree table, with the hierarchy displayed on one column, and categories visible (UML Tree Class table)]]<br>
+<br>
+
+= Existing Tables in small words =
+* UML Generic Table
+* SysML Allocation Table
+* SysML Requirement Table
+* Views Table
+* UML Class Tree Table
+
+
+
+== UML Generic Table  ==
+* This table is a flat table.
+* Elements Accepted&nbsp;: UML Element only (all of them)
+* Filling Way&nbsp;: User, by Drag&amp;Drop from the Model Explorer
+* Possible Context&nbsp;: all UML Element. 
+* Save&nbsp;: All rows displayed in the table are saved in the model
+* Element Creation&nbsp;: All UML Elements
+
+
+
+== SysML Allocation Table<br>  ==
+* This table is a flat table.
+* Elements Accepted&nbsp;: SysML Allocation only
+* Filling Way&nbsp;: Automatic, by Synchronization on the context of the model. Only the Allocation directly owned by the context of the table are displayed.
+* Possible Context&nbsp;: UML Package, with the SysML Profile Allocations applied.
+* Save&nbsp;: The Rows are not serialized in the model, because they are derived of the UML Model.
+* Element Creation&nbsp;: SysML Allocation
+
+== SysML Requirement Table  ==
+* This table is a flat table.
+* Elements Accepted&nbsp;: SysML Requirement only 
+* Filling Way&nbsp;: Automatic, by Synchronization on the context of the model. Only the Requirements directly owned by the context of the table are displayed.
+* Possible Context&nbsp;: UML Package, with the SysML Profile Requirement applied.
+* Save&nbsp;: The Rows are not serialized in the model, because they are derived of the UML Model. 
+* Element Creation&nbsp;: SysML Requirement
+
+== Views Table  ==
+*This table is a flat table.
+*Elements Accepted&nbsp;: Papyrus Views (Table/Diagram/...) only 
+*Filling Way&nbsp;: Automatic, by Synchronization on the context of the model. 
+*Possible Context&nbsp;: All UML Elements
+*Save&nbsp;: The Rows are not serialized in the model, because they are derived of the notation Model.
+*Element Creation : None 
+
+== UML Class Tree Table ==
+*This table is a tree table
+* Element accepted : Classes (depth=0 and depth=1), Properties (depth=1), Operations (depth=1), Parameters (depth=2)
+* Filling way : Automatic, synchronized on the context of the table
+* Possible context : Package or Class
+* Save : The rows are not serialized in the model, because they are derivied from the context of the classes
+*Element Creation : Classes (depth=0 and depth=1), Properties (depth=1), Operations (depth=1), Parameters (depth=2)
+
+= Table Features<br>  =
+
+The table framework provides a large number of features. Here we will describe all existing features supported by the framework, but not necessarily by all the tables. The main part of the features supported by flat tables are supported by tree table too. 
+Moreover Tree table provides some specific features
+
+==Flat Table Features==
+===Supported features===
+; Edit Cell Values
+: Double Click on a cell or selecting a cell then pressing F2, excepted for derived features. This action opens a specific editors for each kind of features, according to the table configuration. These editor are available
+::* Inline string editor for string, integer, real, .... with a specific validator according the type of the edited feature
+::* Combo box, for enumeration, boolean and single reference
+::* Dialog for single and multi references
+::*  Checkbox directly editable without double clicking or pressing F2
+::* XText editors
+; Change Axis (Columns/Rows) Order<br> 
+::* Click on the axis to move and drop it to its new location. 
+
+; Invert Axis (Exchange Columns And Rows)<br> 
+::*Select the action Invert Axis in the popup menu or change it into the Table Property View. 
+[[File:images/InvertAxisPropertyView.PNG|frame|none|Invert Axis in the Table Property View]]
+; Add Axis (Column/Row) Element by Drag&amp;Drop from another view (ModelExplorer)<br> 
+::* Select your element and drop it into the table, in the column region or in the row region to add it.<br>
+
+; Sort rows clicking on column header
+::* Row axis can be sorted by clicking on column header.
+::*# Press ALT
+::*##, then left click on the wanted column header : the rows are sorted ascending,
+::*## clicking a second time, the rows are sorted descending
+::*## clickling a third time, the rows return to the default sort
+::*# Pressing SHIFT + ALT allows to sort rows using several columns. The last selected column is the first one used to do the sort
+::* Update of the sorted state
+::*# new row added to the table will be sorted
+::*# modifying a value is a sorted column (from the table or another Papyrus View) doesn't change the sort of the rows for 2 reasons
+::*## performance: technically we probably need to redo the sort after each model modification
+::*## usability: the edited row will change of location, so the table will blink and scroll)
+::*# destroying a sorted column will not update the sort, to avoid to disturb the user
+::*# Invert Axis in a sorted state will clear the sort
+::* the sort status is saved in the table and it is undoable (this point has been added for Papyrus 5.0)
+
+; Remove Column/Row<br> 
+::* Select the header of the axis to remove then right click and select Remove Column/Row. The axis will be remove of the table, but the represented element will continue to be in the model.<br>
+
+; Destroy Column/Row Element<br> 
+::* Select the header of the axis element to destroy then right click and select Destroy Column/Row Element. The represented element will be destroyed and its axis will be removed from the table.<br>
+
+; Rename Column/Row Header<br> 
+: This function can do 2 things according to the usecase : <br>
+::* Rename the element represented by the axis, when the element is owned by your model<br>
+::* Define an alias to the axis, when the element is not owned by your model (UML Feature for example)<br>
+
+; Choose the Displayed Columns/Rows<br> 
+: Right click in the table (not in the header) and select Columns -&gt;&nbsp; Create/Destroy Columns. (the same thing for rows<br> 
+[[File:images/PopupCreateDestroyColumn.PNG|frame|none|Menu to Create/Destroy Columns]]
+[[File:images/PopupCreateDestroyColumnDialog.PNG|frame|none|Dialog to Create/Destroy Columns]]
+; Choose the Displayed Columns/Rows for Stereotype Property in the popup menu<br>
+: Right click in the table (not in the header) and select Select Stereotype Properties Columns (or Rows)<br>
+[[File:images/PopupStereotypeColumns.PNG|frame|none|Menu to Create/Destroy quickly stereotype properties]]
+; Paste Columns/Rows From External Spreadsheet<br> 
+[[#Paste From Spreadsheet in a Table]]<br/>
+
+; Display Index Column/Row Header<br> 
+[[File:images/PopupDisplayIndex.PNG|frame|none|Menu to Show/Hide Row Index]]
+; Display Label Column/Row Header<br> 
+[[File:images/PopupDisplaylabel.PNG|frame|none|Menu to Show/Hide Row Label]]
+; Configure Index Header Style (A, B, C...Z, AA, AB, ... or 0,1,2,3)<br> 
+[[File:images/PopupChooseRowIndexStyle.PNG|frame|none|Menu To Select Index Style]]
+
+
+; Configure Label Header Style&nbsp;: select the information to Display in the Header Label (Name, Multiplicity, Type, Icon, isDerived)<br> 
+[[File:images/PopupConfigureColumnLabelStyle.PNG|frame|none|Menu to configure label style]]
+; Export table into the Excel Format<br> 
+; Print table<br> 
+; Sort Column/Row Axis by Alphabetic order<br> 
+; Sort Rows selecting one or several column header<br> 
+; Save and restore Table Axis Configuration<br> 
+; Select All 
+: There are 3 ways to do this action
+:: CTRL+A
+:: Clicking on the top left corner of the table
+:: In the popup menu, action Select All
+; AutoResize axis
+; Merge Cell
+; Resize Axis
+; Unset cell value (reset to default value)
+: Selecting a cell in the table and doing "Delete" unset the cell value. That is to say, than the value is set to the default value (which is often null). It works only for editeable feature.
+; Wrap Text for String cell
+: Right click on the table body to show the context menu and select WrapText 
+; Auto Resize Cell Height for String cell
+: Right click on the table body to show the context menu and select Auto Resize Cell Height
+; Configure unsupported cell content
+: Go to Windows/Preferences/Papyrus/NatTable/Cell Preferences, then you can define the unsupported cell content. 
+[[File:images/ConfigureUnsupportedCellContent.PNG|frame|none|Preference to configure unsupported cell content]]
+:Then the content of all cells under unsupported columns will be updated immediately, as showed in the following figure:
+[[File:images/UnsupportedCellContentExample.PNG|frame|none|Unsupported cell content example]]
+; Display List on Separated Rows for fully selected columns/rows with multiple values<br> 
+[[File:images/DisplayListOnSeparatedRows.png|frame|none|Menu to Show/Hide Display List on Separated Rows]]
+: Select fully a column with multiple values (or a row in an invert table) then right click on the corresponding column header to show the context menu and select Display List On Separated Rows
+===The list of available features for tables===
+This table lists all feature available for Tabular editors provided by Papyrus (the 1st of September 2017). This list could be considered as representative of tables capabilities '''assuming 3 points''':
+# The table is not inverted
+# Elements are on rows
+# Features are on columns
+
+{| class="wikitable"  border="1"
+! 
+! style="text-align: center;" | UML
+Generic Table
+! style="text-align: center;" | SysML Allocation Table
+! style="text-align: center;" | SysML Requirement Table
+! style="text-align: center;" | Views Table
+! style="text-align: center;" | UML 
+Class Tree Table
+|-
+| Invert Axis (exchange Rows And Columns)
+| colspan="4" style="text-align: center;" | Yes
+| style="text-align: center;" | No
+|-
+| Content synchronized on table context
+| style="text-align: center;" | No, filled by DnD
+| style="text-align: center;" | Yes
+| style="text-align: center;" | Yes
+| style="text-align: center;" | Yes
+| style="text-align: center;" | No in provided configuration
+Yes for depth=0, if the user changed 
+the provided configuration
+|-
+| Edit Cell Values (excepted if cell read-only)
+| colspan="5" style="text-align: center;" | Yes (F2, or Double click on a cell)
+|-
+| Sort Row Axis clicking on column header
+| colspan="5" style="text-align: center;" | Yes (ALT-Click on column header, or SHIFT-ALT-Click to sort on several columns)
+|-
+| Change Columns Order
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Change Rows Order
+| colspan="5" style="text-align: center;" | No (not yet implemented)
+|-
+| Add Column Axis By Drag And Drop
+| colspan="5" style="text-align: center;" | No (Not yet implemented)
+|-
+| Add Row Axis By Drag And Drop
+| style="text-align: center;" | Yes (all UML Elements)
+| colspan="3" style="text-align: center;" | No (synchronized table)
+| style="text-align: center;" | No in provided configuration, 
+but possible (only classes for depth=0), 
+if the user changed the configuration
+|-
+| Remove Column Axis
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Remove Row Axis
+| style="text-align: center;" | Yes
+| colspan="3" style="text-align: center;" | No (synchronized table)
+| style="text-align: center;" | No in default configuration, Yes (only classes for depth=0), 
+if the user changed the configuration
+|-
+| Destroy Column Element
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Destroy Row Element
+| colspan="3" style="text-align: center;" | Yes
+| style="text-align: center;" | No, (too dangerous to remove an editor)
+| style="text-align: center;" | Yes
+|-
+| Rename column header
+| colspan="5" style="text-align: center;" | Yes, but we create a column alias, features are not editable
+|-
+| Resize Axis
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Rename row header
+| colspan="4" style="text-align: center;" | Yes, we change the name of the represented element (if it has a feature called "name")
+| style="text-align: center;" | Yes, UML Named Element are renamed, and an alias if created for categories
+|-
+| Choose the Displayed Columns (Dialog)
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Choose the Displayed Columns for Stereotype Property in the popup menu
+| colspan="3" style="text-align: center;" | Yes
+| style="text-align: center;" | No (not a UML Table)
+| style="text-align: center;" | Yes
+|-
+| Choose the Displayed Rows (Dialog)
+| colspan="4" style="text-align: center;" | No
+| style="text-align: center;" | Partially Yes, thanks to the Wizard to choose the listen categories
+|-
+| Choose the Displayed Rows for Stereotype Property in the popup menu
+| colspan="5" style="text-align: center;" | No (no sense in provided tables)
+|-
+| Paste Column From Spreadsheet
+| colspan="5" style="text-align: center;" | No (not yet implemented)
+|-
+| Export to Excel (in fact html)
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Paste Row From Spreadsheet
+| colspan="3" style="text-align: center;" | Yes
+| style="text-align: center;" | No
+| style="text-align: center;" | Yes
+|-
+| Display Index Column/Row Header
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Display Label Column/Row Header
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Configure Index Header Style
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Configure Label Header Style
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Print table
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Sort Column Axis By Name
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Sort Row Axis By Name
+| style="text-align: center;" | Yes
+| colspan="4" style="text-align: center;" | No (not yet implemented)
+|-
+| Save and Restore Several Columns Axis Configuration
+| colspan="5" style="text-align: center;" | Yes (but, this feature has not really been tested)
+|-
+| Save and Restore Several Columns Axis Configuration
+| colspan="5" style="text-align: center;" | No
+|-
+| Select All
+| colspan="5" style="text-align: center;" | Yes (CTRL + A or clicking on the corner)
+|-
+| AutoResize Row/Column axis
+| colspan="5" style="text-align: center;" | Yes (with an action in the popup menu of the header)
+|-
+| Merge Selected Body Cells 
+(cells must displayed the same values)
+| colspan="5" style="text-align: center;" | Not supported (and probably will never been supported)
+|-
+| Merged All Body Cells for a Column
+(cells must contains the same values)
+| colspan="5" style="text-align: center;" | Yes (action provided by a popup menu of the body)
+|-
+| Merged All Body Cells for a Row
+(cells must contains the same values)
+| colspan="5" style="text-align: center;" | Yes (action provided by a popup menu of the body)
+|-
+| Merge Column./Row Header Cells
+(cells must contains the same values)
+| colspan="5" style="text-align: center;" | No (not yet implemented)
+|-
+| Merge All Body Cells for Rows AND Columns
+| colspan="5" style="text-align: center;" | No (not yet supported), you only can merge on rows OR in columns, but not on rows and on columns inside the same table
+|-
+| Collapse/Expand
+| colspan="4" style="text-align: center;" | No
+| style="text-align: center;" | Yes
+|-
+| Choose the categories (features) to fill the table
+| style="text-align: center;" | No 
+(it is not a synchronized table)
+| colspan="2" style="text-align: center;" | No, but it could be interesting to allow it
+| style="text-align: center;" | No
+| style="text-align: center;" | Yes
+|-
+| Hide categories
+| colspan="4" style="text-align: center;" | No
+| style="text-align: center;" | Yes
+|-
+| Filter Rows
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Unset cell value
+| colspan="3" style="text-align: center;" | Yes
+| style="text-align: center;" | No
+| style="text-align: center;" | Yes
+|-
+| Display Validation Marker in Row and Column Label Header
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Display Validation Marker in Row and Column Label Header
+| colspan="5" style="text-align: center;" | Yes
+|-
+| Wrap Text for String cell
+| colspan="5" style="text-align: center;" | Yes (action provided by a popup menu of the body)
+|-
+| Automatic Resize Cell Height for String cell
+| colspan="5" style="text-align: center;" | Yes (action provided by a popup menu of the body)
+|-
+| Configure unsupported cell content
+| colspan="5" style="text-align: center;" | Yes (action provided by Preferences/Papyrus/NatTable/Cell Preferences)
+|-
+| Display List on Separated Rows for a fully selected column of multiple values
+| style="text-align: center;" | Yes
+| style="text-align: center;" | Yes
+| style="text-align: center;" | Yes
+| style="text-align: center;" | No
+| style="text-align: center;" | Yes
+|-
+|}
+
+== Fill cells ==
+
+The fill action is available in tables and can be used by clicking on the right bottom corner and drop until release. <br/>
+
+This action is available for 2 types:
+*numbers
+*string
+
+===Fill number values===
+It is possible to '''copy''' the initial value.
+[[File:images/FillCopyNumber.png|frame|none|Fill Copy Number]]
+
+When the initial selection before the fill is a single cell, it is possible to '''increment''' or '''decrement''' values from the initial value by adding or removing 1 to the initial value.
+[[File:images/FillIncrementNumberOneCellSelected.png|frame|none|Fill Increment Number when one selected cell]] <br/>
+
+When two cells are selected before filling the selection, it is possible to '''increment''' or '''decrement''' values from the initial value by adding or removing the initial values difference.
+[[File:images/FillIncrementNumberTwoCellsSelected.png|frame|none|Fill Increment Number when two selected cells]]
+
+===Fill string values===
+As number fill action, it is possible to '''copy''' the initial value.
+[[File:images/FillCopyString.png|frame|none|Fill Copy String]]
+
+When an integer is available at the beginning or at the ending of the value, it is possible to '''increment''' or '''decrement''' integer '''prefix''' or '''suffix''' values depending of the integer position.
+[[File:images/FillIncrementPrefixString.png|frame|none|Fill Increment prefix String]] <br/>
+[[File:images/FillIncrementSuffixString.png|frame|none|Fill Increment suffix String]] <br/>
+
+The filled integer values are calculated by the same way than the fill numbers.
+
+Warning: the minus sign is used as minus and not as a separator. So when you have Class-01 and you decide to Increment to name the next one, you get Class00, then Class01. In order to get Class-02 and Class-02, you must use Decrement.
+
+==Tree Table Features==
+The feature of the tree table are mostly the same than for the flat table.
+
+===Features not supported by Tree Table===
+* Invert Axis
+
+===Specific features for the Tree Table===
+* Expand/Collapse feature : These actions are available in the popup menu of the row header. Several expand/Collapse actions are provided:
+**Collapse All : collapse the whole Tree
+**Collapse All for selection : collapse all for selected rows
+**Expand All : expand the whole Tree
+**Expand All For Selection : expand all for selected rows
+**Expand Selection on 2 levels : expand the selected rows on 2 levels
+
+*Choose categories to listen : This action is available in the popup menu of the row header
+This action open a Wizard Dialog, when you can choose add/remove depth and edit the categories (features) to listen for each depth.
+[[File:images/Configure_categories_full_synchronization.PNG|frame|none|Default configuration used by the UML Class Tree Table]]<br/>
+[[File:images/Configure_categories_DnD.PNG|frame|none|Default configuration used by the UML Class Tree Table, modified in order to allow to the user to fill the first level by DnD]]<br/>
+[[File:images/Configure_categories_annotated.PNG|frame|none|Illustration used to explain the categories wizard]]<br/>
+** 1: Buttons to add/remove categories to/from the right side of the wizard. It work only if a depth is selected, or if the root of the model is selected. In this last case, the categories is added for all depths.
+** 2: Checkbox to display all possible values in the left part of the wizard. if it is unchecked, the displayed categories are deduce from the current context of the table.
+** 3: Checkbox to choose how to display the categories (flat or tree view)
+** 4: move up a selected category for a given depth. It doesn't allow to change the depth of the selected categories
+** 5: move down a selected category for a given depth. It doesn't allow to change the depth of the selected categories
+** 6: create a new depth (according to the snapshot, the next created depth will be depth 3.
+** 7: destroy a selected depth or remove a selected feature
+** 8: edit an alias for a category
+** A: the context of the table
+** B: a depth, here depth 0. Categories are not mandatory for depth 0. Categories are mandatory for others depth
+** C: the listen categories for depth 1
+* Show/Hide depth: These actions are available in the popup menu of the row header. you can choose to show/hide categories for a given depth, or hide categories for all the depths
+
+[[File:images/Popup_tree_row_header.PNG|frame|none|Popup menu available on the row header region]]
+
+===Generic feature with specific behavior===
+*Paste Rows
+
+
+
+== Paste From Spreadsheet in a Table == 
+=== General===
+*Tables support the paste from Spreadsheet (Excel for example).
+*This feature is already configured for SysML Requirements Table and SysML Allocations Table. 
+*For Generic Table, the user must configure the paste himself.
+*Stereotype application :
+**If your table displays columns representing stereotype's properties, the required stereotypes will be applied if there is a value to paste in the cell.
+**If you want force stereotype application on all pasted elements, you must use post-actions
+*Name Resolution
+***Papyrus table tries to resolve the text pasted from the external spreadsheet. That is to say if the text is pasted in a column representing a boolean, text will be converted in boolean value, if the text is pasted in a column representing a UML NamedElement, we try to find this NamedElement in the exising model to set the value. 
+***if the resolution of the pasted text failed, we create a CellProblem, to store the pasted value. This value is displayed in the table, underlined in red.
+*If the pasted spreadsheet as more columns than the current table, the too many columns will be ignored.
+*If the pasted spreadsheet as less columns than the current table there is no problem to do the paste.
+*In the mixed case, some rows have too many columns and others not enough, there is no problem to do the paste.
+
+===Steps to paste in a Generic Table===
+We assume that the user wants to paste rows (and not columns).
+*Create a new Generic table
+*Select the columns to display in your table.
+*Select the table in the ModelExplorer View in order to display its Property View
+*In the Property View goes into the Paste Tab. 4 informations must be completed by the user: 
+**Detached Mode (when <code>true</code>), paste is faster but actions done by service edit will be ignored.
+***if <code>false</code>, Paste action uses the service edit (initialize default values, apply stereotypes required by element id).
+***if <code>true</code>, stereotype required by the element id will be ignored.
+**Pasted Element Id : defines the pasted element: org.eclipse.papyrus.uml.Class will create a UML Class 
+***org.eclipse.papyrus.sysml.Requirement will create a uml.Class stereotyped Requirement, called Requirement0 if Detached mode=false.
+***org.eclipse.papyrus.sysml.Requirement will create a uml.Class the name will be initialized only if the user pastes a name value and the steroetype will be applied only if a column requires it or if it is defined by opst actions)
+**ContainementFeature : the feature owning the pasted elements
+**Post Actions : a way to define 2 kinds of actions:
+***actions done just after the element creation, using the paste action
+***actions done after have pasting all cell values
+***currently, Papyrus provides Post Action only for stereotype application
+***currently, Post Actions are ignored when detached mode=<code>false</code>
+
+[[File:images/PasteInTablePropertyView.jpg |Paste In Table Configuration Property View]]
+
+== Import From Spreadsheet in a Table (CSV File)== 
+The mecanism used for import in the same than for the Paste, so previous rules are always available.
+In the popup menu of the table, you will find a menu called "Import From File". This menu allows to import a CSV file, managing the columns separators and the text delimiter.
+[[File:images/ImportCSVDialog.jpg |Import Dialog - Configuring Import]]
+
+== Table Property View<br>  ==
+
+The Property View of the table is accessible selecting the table in the ModelExplorer.<br> 
+
+<br>
+
+== Filter ==
+Since Eclipse Mars, Papyrus Table provides a Filter Row in the Column Header. This row can be shown or hidden.
+
+===Filter Feature===
+*the filter row can be shown or hidden by the user
+*the contains of the filter cells is saved in the model, and the user can do Undo/Redo after a filter action
+*the filter action is a "one shot", so modifying cells values doesn't reapply the filter
+*for tree table
+**element which don't match the filter, but which have matching children are shown
+**only node already expanded are found by the filter
+
+===How to Show/Hide Filter Row===
+To Show/Hide the filter row, do a right click in the body of the table, then choose Select the Column Menu, then Display Row Filter.
+
+[[File:images/ShowHideFilterRow.png|Show Hide Filter Row Menu]]
+
+Now, the filter row is visible.
+
+[[File:images/FilterRowVisible.png|Filter Row Visible]]
+
+===Filter Strategy===
+* By default, the row with a cell contains is inconsistent with the column are hidden. There is 2 main cases in Papyrus:
+** the cell display N/A for a value which is not a string
+** the user uses <code>num:</code> (see below) in the string editor, all values which are not numerical values will be hidden
+* In case of filtering on several column in the same time, we will display only the rows matching all applied filters
+* In case of collection in a cell, the row matches if the collection contains the wanted element
+
+===Available Cell Editors for Filter Row===
+By default, Papyrus provides 2 kinds of editors for filters:
+*a combo with checkboxes allowing multi selection, that we use for
+**enumeration
+**boolean
+[[File:images/ComboWithCheckboxExample.png|frame|none]]
+*a string editor used to filter all others kinds of values.
+**string
+**references
+**numeric (integer, real, ...)
+
+====String editor usages====
+Filter String or references: Papyrus provides several keyword to define how to filter the rows. By default, we check than the text displayed in the cells of the column contains the string typed in the filter editor. 
+Some options are available:
+*<code>contains:</code>: it is the default behavior, you should not have to add this keyword before the type your text.
+*<code>num:</code>: This mode will allow you to use comparison operators : <code><</code>, <code>></code>, <code><=</code>, <code>>=</code>, <code>=</code> and <code><></code> for not equals.
+*<code>=</code>: This mode allow you to find only the cell with this value
+*<code>regex:</code>: This mode allow you to type a regex. The result will be all rows where we found a substring matching the regex
+*<code>regex_m:</code>: This mode allow you to type a regex. The result will be all rows where the regex match the full label
+*<code>start:</code>: This mode allow you to find all rows where the label displayed for the filter column start by your string
+
+'''''Regex'''''
+
+Starting with this initial state:
+
+[[File:images/Initial_State.png|Initial State]]
+
+<code>regex:.C</code> will give you this result: all strings owning a C in upper case, preceded by one other character have been found
+
+[[File:images/Regex_find.png|Regex find]]
+
+and <code>regex_m:.C</code> will give you this result: all string owning only 2 characters, where the second one in a C in upper case have been found
+
+[[File:images/Regex_match.png|Regex match]]
+
+'''''Numeric'''''
+
+For the column representing a numeric type, the string editor is already configured, so don't need (and you can't!) to prefix your search with <code>num:</code>
+
+== Synchronization between tables and model explorer ==
+ 
+=== Generalities ===
+ 
+As illustrated below this feature is enabled when the <I>Link With Editor</I> button is activated : <br/>
+
+[[File:images/ModelExplorerLinkWithEditor.png|center|ModelExplorerLinkWithEditor]] <br/>
+
+This link the active diagram, in the multi editor view, with the model explorer view. This link works bidirectionally. <br/>
+As shown below, more than one element can be selected in one view and their counterparts, if present in the other, will be automatically selected as well. <br/>
+
+[[File:images/SelectionWithDiagram.png|center|SelectionWithDiagram|]] <br/>
+
+<I>It is to be noted that, when changing pages, the selection for each of them remain in memory and handled by setInput in tabbedPropertySheetPage</I> <br/> <br/>
+
+=== Row selections ===
+
+The default behavior of the tables, and their representation, is to list the appropriate elements as rows with each property indicated by a column as illustrated below. <br/>
+[[File:images/GenericSelection.png|none| frame| GenericSelection]]
+
+
+[[File:images/RequirementSelection.png|none| frame |RequirementSelection]]
+
+
+[[File:images/AllocationSelection.png|none|frame| AllocationSelection]]
+
+
+[[File:images/ViewsSelection.png|none|frame| ViewsSelection]]
+
+=== Column selections ===
+
+The axis of the table can also be inverted and the elements represented as columns with their properties as rows : <br/>
+
+[[File:images/ColumnSelection.png|none | frame|ColumnSelection]]  <br/>
+
+Both those selections are achieved either by clicking on the element in the model explorer or the element's row or Column tag in the table. <br/>
+
+=== Cell selections ===
+
+Wether the axis of the table is inverted or not, the user can select elements represented as cells inside a row or column of the table and see its counterpart selected as well. <br/>
+It is important to remember that the cell selection is a one way behavior, from cell to model explorer, as the table cannot know what the user wants to select, row or cell, based on a selection in the model explorer.<br/ >
+
+[[File:images/CellSelection.png|none|frame|CellSelection]] <br/>
+[[File:images/CellSelectionInvertAxis.png|none|frame|CellSelectionInvertAxis]] <br/>
+
+=== Mixed Selections ===
+
+A behavior worthy of notice is that elements represented as cells, for example elements owned, if selected in conjunction with a row or a column, in the event of an inverted axis, produces a mixed selection of all the elements in the model explorer. <br/>
+
+[[File:images/MixedSelection.png|none|frame|MixedSelection]] <br/>
+[[File:images/MixedSelectionReq.png|none|frame|MixedSelectionReq]] <br/>
+
+=== From the model explorer ===
+
+As a reminder, selections initiated by the model explorer will only result in column or row selections as the table has no means of knowing what type of selection is required by the user. <br/>
+
+
+== Styles in Papyrus' tables ==
+
+It is important to note that the changes below are coming into eclipse Mars as they are dependant on a modification of the model. <br/>
+
+=== Styles in the resize of a table's components ===
+
+NamedStyles are used to introduce those changes and intValues ares used to mark the resizing of table elements. <br/>
+Below is the default model used for the table used to demonstrate the changes when styles are written and/or applied in a table. <br/>
+
+[[File:images/DefaultTable.png|none|frame|Default Table]] <br/>
+
+==== Resize of the Headers ====
+
+Sliding the header's cell frontier will result in the creation of a <I> localHeaderAxisConfiguration </I> and to it will be add the new values of the header's width and/or height. Both sets of headers can have stored values for heoght and width as the table can be inverted and if so the row and the column headers will be too. <br/>
+Below is the state of the model during the first change: resizing the row headers' index and label. <br/>
+
+In this case the local header created is the RowHeader but if the column headers are changed the model gets a ColumnHeader as illustrated by the image below. <br/>
+
+[[File:images/ResizeRowHeaders.png|none|frame|Mixed Selection Req]] <br/>
+[[File:images/ResizeAllHeaders.png|none|frame|Resize All Headers]] <br/>
+
+
+==== Resize of the Axis ====
+
+The values carried by the localHeaders only affect the headerLayer of the table and therefore the height or width of the Axis (columns and/or rows) will not be affected by them. For those to change, new values will be carried by the Axis themselves as can be seen in the following image. Of course, the method used to change the values is the same sliding of the frontier used when resizing the headers. <br/>
+
+[[File:images/ResizeAxis.png|center|Resize Axis]]  <br/>
+
+In this example one row and two columns were changed and they all bear the corresponding value in their Axis element. <br/> <br/>
+
+=== Styles in the merge of Axis elements ===
+
+For this type of change the NamedStyles used are booleanValues, indicating if the Axis are to be merged or not.  <br/>
+The behavior has been copied from the previous one and the booleans will be caried by the Axis, in case of a user selecting the axis to be merged, or the localHeaders if the user chooses to merge all the rows or columns of the table in one go. <br/>
+To initiate the merge, the user has access to a merge menu and chooses between the four types of merge the one best suited to the task (as illustrated below). The programm then proceeds to merge the cells of same value inside the selection. <br/>
+
+[[File:images/MergeOptions.png|center|Merge Options]] <br/>
+
+==== Merge selected Axis ====
+
+As mentionned above, in case of a merge of a selected axis, the boolean will be caried by the Axis element in the model. <br/>
+
+[[File:images/BooleanMergeSelectedColumn.png|center|Boolean Merge Selected Column]] <br/>
+
+The other choices will then be greyed-out and a toggle will be displayed on the selected option to notify the user that this is (or these are) the axis merge. <br/>
+
+[[File:images/MergeSelectedColumns2.png|center|Merge Selected Columns]] <br/>
+
+If the user selects a cell or an axis that has not been part of the previously merged selection, the toggle will not be displayed but the option will still be visible as the other will still be greyed-out. <br/>
+It is important to note that, if the user so chooses, the merge option can be reapplied to the new selection and the merge span will consist of the newly selected axis. A cautionary note however as only full rows or columns will be merged. <br/>
+
+ [[File:images/MergeSelectedColumns.png|none|frame|Merge Selected Columns]] <br/>
+ [[File:images/MergeSelectedRow.png|none|frame|Merge Selected Row]] <br/>
+ [[File:images/MergeSelectedRows2.png|none|frame|Merge Selected Rows]] <br/>
+ [[File:images/MergeSelectedRows3.png|none|frame|Merge Selected Rows]] <br/>
+
+
+==== Merge All row/column Axis ====
+
+The user can merge all the rows in the table and the result will look like this. <br/>
+ [[File:images/BooleanMergeAllRows.png|none|frame|booleanMergeAllRows]] <br/>
+
+ [[File:images/MergeAllRows2.png|none|frame|Merge All Rows]] <br/>
+
+== Edition of merged Cells ==
+
+Once the cells are merged, the user might want to edit them. This edition can be problematic as the merge only takes into account the values of the cells and not their types when applying the merge option. This is shown in the example below asa classifier can be an activity but not the other way around. <br/>
+The first image illustrates the model and the profile's stereotype, applied on both classes, containing the three attributes activity and classifiers. <br/>
+
+ [[File:images/TableProfileElements.png|center|Table Profile Elements|]] <br/>
+
+When the user clicks on the left most part of the merged area, under the activity label, the editing tool only shows activity1 as a possible choice. But if the user selects the right side, under the classifier label, then the choices are many. In this example the choice is to apply the interface type to the merged cells and handle the editing behavior as illustrated by the three next images. <br/>
+
+ [[File:images/ActivityEdition.png|none|frame|Activity edition]] <br/>
+
+ [[File:images/ClassifierEdition.png|none|frame|Classifier edition]] <br/>
+
+ [[File:images/EditedTable.png|none|frame|Edition's result]] <br/>
+
+
+The tool will then automatically detect the possibility, or impossibility, of the edition and split the merge accordingly. <br/>
+Please note that the merge selection will not be changed and the selected axis will still carry their merge booleans as other values might still be equal and therefore the user might still want those merged. <br/>
+
+=Existing Cell Editors=
+Several kind of cell editors are available in Papyrus Table. Currently, the user can't choose himself the cell editor to use for a cell/row/column.
+==DialogCellEditor==
+
+==TextualCellEditor==
+Several kind of cell editors are available:
+===String cell editor===
+===String with completion cell editor===
+*UML ValueSpecification Cell Editor: This editor allows to edit and create ValueSpecification from a text field. Description is available in the '''Papyrus Developer Guide > Embedded Editors > Value Specification Xtext editor''' topic
+*UML Reference Cell Editor: This editor allows to edit reference (single or multi valued) using a text field. This editor provides a completion mechanism (using CTRL+SPACE) and validate the string (the string is valid when we are able to find element from the text typed by the user). For further information, please see the page '''Papyrus Developer Guide > Embedded Editors > Textual Editor For NamedElement'''
+ but not the other way around. <br/>
+The first image illustrates the model and the profile's stereotype, applied on both classes, containing the three attributes activity and classifiers. <br/>
+
+ [[File:images/TableProfileElements.png|center|Table Profile Elements|]] <br/>
+
+When the user clicks on the left most part of the merged area, under the activity label, the editing tool only shows activity1 as a possible choice. But if the user selects the right side, under the classifier label, then the choices are many. In this example the choice is to apply the interface type to the merged cells and handle the editing behavior as illustrated by the three next images. <br/>
+
+ [[File:images/ActivityEdition.png|none|frame|Activity edition]] <br/>
+
+ [[File:images/ClassifierEdition.png|none|frame|Classifier edition]] <br/>
+
+ [[File:images/EditedTable.png|none|frame|Edition's result]] <br/>
+
+
+The tool will then automatically detect the possibility, or impossibility, of the edition and split the merge accordingly. <br/>
+Please note that the merge selection will not be changed and the selected axis will still carry their merge booleans as other values might still be equal and therefore the user might still want those merged. <br/>
+
+=Paste and insert=
+==Video==
+A video is available [[https://youtu.be/WGrr_LGy3sg  here]].
+
+==Description==
+
+The paste and the insert work differently (create new objects or update existing ones) depending on the selection in the table as following:
+
+{| class="wikitable"  border="1"
+! 
+! style="text-align: center;" | Paste ( 1 )
+! style="text-align: center;" | Insert ( 2 )
+|-
+| No selection ( A )
+| style="text-align: center;" | Create
+| style="text-align: center;" | Create
+|-
+| Cells ( B )
+| style="text-align: center;" | Update
+| style="text-align: center;" | X
+|-
+| Rows Header ( C )
+| style="text-align: center;" | Update
+| style="text-align: center;" | Create
+|-
+| Columns Header ( D )
+| style="text-align: center;" | Update
+| style="text-align: center;" | X
+|}
+
+Actions:
+*<u>'''Create'''</u>: It shall imply first the check of the elements' existence in the table (or selection), then eventual creation of new elements at a given position or at the end of the table
+*<u>'''Update'''</u>: It shall only imply the update of existing elements
+
+
+In details:
+*<u>'''A1'''</u>: Two differents possible "paste" types :
+**Number of columns pasted equals to the number of columns in table (including rows header): The objects pasted must be created according to the rows header in the clipboard.
+**Else (The result will be the same for '''A2'''): The existence of the pasted objects must be checked (depending on the axis identifier):
+***Object exists: The user can choose the action to do in this case:
+****<u>Replace</u>: The values must be overwritten 
+****<u>Add</u>: A row must be added at the end of the table (for the tree table, if this is a sub-element of the first row selected, the row will be added to the end of the sub category) corresponding to the created object
+****<u>Skip</u>: No modification for this object
+****<u>Cancel</u>: Cancel all the actions 
+***Object doesn't exist: A row must be added at the end of the table corresponding to the created object
+
+*<u>'''B1'''</u>: Only the update of the cells must be applied:
+**Depending on the selection, values must be overwritten (for the following table, selection must be represented as following: ''[NumberOfRows, NumberOfColumn]''):
+{| class="wikitable"  border="1"
+! style="text-align: center;" | Selection
+! style="text-align: center;" | Paste
+! style="text-align: center;" | Action
+|-
+| style="text-align: center;" | [X, Y]
+| style="text-align: center;" | [X, Y]
+| Values in the selection must be updated.
+|-
+| style="text-align: center;" | [X, Y]
+| style="text-align: center;" | [1, Y]
+| The values pasted must be updated for all selected rows (by repeat of the pasted row values).
+|-
+| style="text-align: center;" | |X, Y]
+| style="text-align: center;" | [Z, Y]
+| An error message will be displayed.
+|-
+| style="text-align: center;" | [X, Y]
+| style="text-align: center;" | [X, Z]
+| An error message will be displayed.
+|}
+
+*<u>'''C1'''</u>: The existence of the pasted objects must be checked into the selection (depending on the axis identifier):
+**Object exists: the values of the corresponding row must be updated
+**Object doesn't exist: No modification
+
+*<u>'''C2'''</u>: The existence of the pasted objects must be checked into the selection (depending on the axis identifier):
+**Object exists: The user can choose the action to add in this case:
+***<u>Replace</u>: The values must be overwritten 
+***<u>Add</u>: A row must be added before the selection (for the tree table, if this is a sub-element of the first row selected, the row will be added to the end of the sub category) of the table corresponding to the created object
+***<u>Skip</u>: No modification for this row
+***<u>Cancel</u>: Cancel all the action
+**Object doesn't exist: A row must be added before the selection (if the first element selected is a category, the row will be added as first child of this category) of the table corresponding to the created object
+
+*<u>'''D1'''</u>: Only the update of the columns must be applied:
+**Depending on the selection, values must be overwritten (for the following table, selection must be represented as following: ''[NumberOfRows, NumberOfColumn]''):
+{| class="wikitable"  border="1"
+! style="text-align: center;" | Selection
+! style="text-align: center;" | Paste
+! style="text-align: center;" | Action
+|-
+| style="text-align: center;" | [X, Y]
+| style="text-align: center;" | [X, Y]
+| Values in the selection must be updated.
+|-
+| style="text-align: center;" | [X, Y]
+| style="text-align: center;" | [X, 1]
+| The values pasted must be updated for all selected columns (by repeat of the pasted column values).
+|-
+| style="text-align: center;" | |X, Y]
+| style="text-align: center;" | [Z, Y]
+| An error message will be displayed.
+|-
+| style="text-align: center;" | [X, Y]
+| style="text-align: center;" | [X, Z]
+| An error message will be displayed.
+|}
+
+==How axis identifier comparison works==
+
+In some cases (A1, A2 and C2), the existence of the pasted or inserted objects must be checked. This is done by comparison between pasted object axis identifier and the existing axis identifier values.
+To define this axis identifier, just select the column (available in the table) from the paste configuration:
+ [[File:images/ManageAxisIdentifier.jpg|none|frame]]
+
+
+==Warnings and errors==
+===Warnings===
+Here, you will find the possible warning messages at the end of the paste/insert (if no modification is applied during the paste/insert and a warning message was caught, the warning message must be displayed as error):
+*When an identifier is not found in the selection:
+ [[File:images/WarningNotFound.jpg|none|frame]]
+*When an identifier is not found in the selection but is created:
+ [[File:images/WarningNotFoundButCreated.jpg|none|frame]]
+*When a non-editable value tried to be updated, this type of warning will appear:
+ [[File:images/WarningNonEditableValue.jpg|none|frame]]
+
+===Errors===
+Two types of error can be displayed while the paste/insert:
+*PasteConfiguration definition error
+*Error during the process of the paste/insert
+
+
+====PasteConfiguration errors====
+Here, you will find the possible paste configuration error messages at the end of the paste/insert:
+*When the element id is not defined:
+ [[File:images/ErrorPCElementIdNull.jpg|none|frame]]
+*When the containment feature is not defined:
+ [[File:images/ErrorPCContainmentFeatureNull.jpg|none|frame]]
+*When the axis identifier is not defined (and when it is necessary):
+ [[File:images/ErrorPCAxisIdentifierNull.jpg|none|frame]]
+*When the element type cannot be found:
+ [[File:images/ErrorPCElementTypeCantBeFound.jpg|none|frame]]
+*When the feature is not containment:
+ [[File:images/ErrorPCFeatureNotContainment.jpg|none|frame]]
+*When the feature is not compatible:
+ [[File:images/ErrorPCFeatureNotCompatible.jpg|none|frame]]
+*When the context of the table does not have the declared containment feature:
+ [[File:images/ErrorPCContextDoesNotHaveFeature.jpg|none|frame]]
+*When a TreeFillingConfiguration does not have paste configuration:
+ [[File:images/ErrorPCTreeFillingNoPasteConfiguration.jpg|none|frame]]
+*When more than 1 category is defined for a depth and when the table has hidden categories:
+ [[File:images/ErrorPCMoreThan1Category.jpg|none|frame]]
+
+ 
+====Errors during the process====
+Here, you will find the possible error messages at the end of the paste/insert:
+*When the axis identifier was not found in the table:
+ [[File:images/ErrorAxisIdentifierNotFound.jpg|none|frame]]
+*When the number of rows pasted is not equals to the number of rows in the table:
+ [[File:images/ErrorRowsNotEquals.jpg|none|frame]]
+*When the number of columns pasted is not equals to the number of columns in the table:
+ [[File:images/ErrorColumnsNotEquals.jpg|none|frame]]
+*When the 'Replace' action is wanted by the user but more than one object correspond to the identifier:
+ [[File:images/ErrorCorrespondingMultipleRows.jpg|none|frame]]
+*When an invalid value tried to be set in a new object in attached mode or during the update:
+ [[File:images/ErrorInvalidValueAttachedModeOrUpdate.jpg|none|frame]]
+*When an invalid value tried to be set in a new object in detached mode:
+ [[File:images/ErrorInvalidValueDetachedModeAndCreation.jpg|none|frame]]
+*When an unknown exception occured:
+ [[File:images/ErrorUnknownExceptionOccurred.jpg|none|frame]]
+
+==Details and Example==
+===Paste with rows header===
+The paste with rows header in the clipboard must respect the number of columns in the target table.
+The hierarchy of the rows header must be respected, i.e. when the categories are hidden or shown.
+
+When the categories are hidden, the number of defined categories by depth must be equals to 1 if you want to paste.
+
+<u>N.B:</u> The undo/redo is not implemented for this paste.
+
+====Examples====
+=====Visible categories=====
+Get the following current table:
+ [[File:images/PasteWithRowsHeaderVisibleCategoriesInitial.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/PasteWithRowsHeaderVisibleCategoriesToCopy.jpg|none|frame]]
+
+
+The objects are created with the correct values:
+ [[File:images/PasteWithRowsHeaderVisibleCategoriesResult.jpg|none|frame]]
+
+
+=====Hidden categories=====
+Get the following current table:
+ [[File:images/PasteWithRowsHeaderHiddenCategoriesInitial.jpg|none|frame]]
+
+With this following categories configuration:
+ [[File:images/PasteWithRowsHeaderHiddenCategoriesConfiguration.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/PasteWithRowsHeaderHiddenCategoriesToCopy.jpg|none|frame]]
+
+
+The objects are created with the correct values:
+ [[File:images/PasteWithRowsHeaderHiddenCategoriesResult.jpg|none|frame]]
+
+
+===Paste and insert without selection (A1 and A2)===
+This paste or insert allows to replace, add or skip the existing objects and allows to create the non-existing objects. The 'Replace' action allows to update the values of the existing object, the 'Skip' action does nothing on it and the 'Add' action allows to create an object on the same depth of the existing one.
+The created objects must be at the end of the table.
+
+For the TreeTable, some specifications exist:
+*if no object was found for the identifier, the created object must be a depth 0 object because we can't defined the depth of the paste object
+*if an existing object is found for the identifier and the user wants its creation, an object with the same depth will be created depending on the paste configuration of the existing object
+*the non first level created object won't be at the end of the table but at the end of the feature which it is associated
+
+====Example====
+Get the following current table:
+ [[File:images/PasteWithoutSelectionInitial.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/PasteWithoutSelectionToCopy.jpg|none|frame]]
+
+
+Depending on the previous specifications explained, the result is the following:
+ [[File:images/PasteWithoutSelectionResult.jpg|none|frame]]
+
+
+===Paste with cells selection (B1)===
+Depending on the selection and to the clipboard, differents actions are possible:
+*if only one cell is selected, the cells corresponding to rectangular width and height of clipboard must be overwritten
+*if some rows are selected and only one is available in the clipboard, the selected rows must be updated with the values of the single row of the clipboard
+*else the width and height of the selection must be equals respectively to the width and height from the clipboard, the selected cells will be modified
+
+====Examples====
+=====Cells with some rows and columns=====
+Get the following current table and selection:
+ [[File:images/PasteSomeRowsInitial.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/PasteCellsSelectedToCopy.jpg|none|frame]]
+
+
+The result of the paste is selected and is this following:
+ [[File:images/PasteCellsSelectedResult.jpg|none|frame]]
+
+
+=====One cell selected=====
+Get the following current table and selection:
+ [[File:images/PasteOneCellSelectedInitial.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/PasteCellsSelectedToCopy.jpg|none|frame]]
+
+
+The result of the paste is selected and is this following:
+ [[File:images/PasteCellsSelectedResult.jpg|none|frame]]
+
+
+=====One row in clipboard=====
+Get the following current table and selection:
+ [[File:images/PasteOneRowClipboardInitial.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/PasteOneRowClipboardToCopy.jpg|none|frame]]
+
+
+The result of the paste is selected and is this following:
+ [[File:images/PasteOneRowClipboardResult.jpg|none|frame]]
+
+
+===Paste with rows header selection (C1)===
+This paste allows to update the selected existing rows when the rows header height selected is equals to the height of rows in the clipboard.
+
+====Example====
+Get the following current table and selection:
+ [[File:images/PasteRowsSelectionInitial.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/PasteRowsSelectionToCopy.jpg|none|frame]]
+
+
+The result of the paste is selected and is like following (the first class is not modified because it does not exist):
+ [[File:images/PasteRowsSelectionResult.jpg|none|frame]]
+
+
+===Insert with rows header selection (C2)===
+This paste or insert allows to replace, add, skip the existing objects and allows to create the non-existing objects. The 'Replace' action allows to update the values of the existing object, the 'Skip' action does nothing on it and the 'Add' action allows to create an object on the same depth of the existing one.
+The created objects must be inserted before the selection.
+
+For the TreeTable, some specifications exist (in addition of specifications of the paste/insert without selection ([[#Paste and insert without selection (A1 and A2)|A1 and A2]]):
+*if a paste is realised with a selected category , an object will be created and added to this feature at the first position
+*the created objects must be inserted before the first selected row for the depth 0 but must be added at the last position for others depths because it is not possible to define the position to be used
+
+====Examples====
+=====Insert on object=====
+Get the following current table and selection:
+ [[File:images/InsertRowSelectionInitial.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/InsertRowSelectionToCopy.jpg|none|frame]]
+
+
+The result is the following:
+ [[File:images/InsertRowSelectionResult.jpg|none|frame]]
+
+
+=====Insert on category=====
+Get the following current table and selection:
+ [[File:images/InsertOnCategorySelectionInitial.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/InsertOnCategorySelectionToCopy.jpg|none|frame]]
+
+
+The result is the following:
+ [[File:images/InsertOnCategorySelectionResult.jpg|none|frame]]
+
+
+===Paste with columns header selection (D2)===
+Depending on the selection and to the clipboard, different actions are possible:
+*if some columns are selected and only one column is available in the clipboard, the selected columns must be updated with the values of the single column of the clipboard
+*if some columns are selected and only one row is available in the clipboard, the selected columns must be updated with the rows' values repeated for each rows
+*else the width of the selection must be equals to the width from the clipboard, the selected columns will be modified
+
+====Examples==== 
+=====Some column selected=====
+Get the following current table and selection:
+ [[File:images/PasteSomeColumnsSelectionInitial.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/PasteSomeColumnsSelectionToCopy.jpg|none|frame]]
+
+
+The result is the following:
+ [[File:images/PasteSomeColumnsSelectionResult.jpg|none|frame]]
+
+
+=====One column in clipboard=====
+Get the following current table and selection:
+ [[File:images/PasteOneColumnClipboardInitial.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/PasteOneColumnClipboardToCopy.jpg|none|frame]]
+
+
+The result is the following:
+ [[File:images/PasteOneColumnClipboardResult.jpg|none|frame]]
+
+
+=====One row in clipboard=====
+Get the following current table and selection:
+ [[File:images/PasteOneRowInColumnSelectionClipboardInitial.jpg|none|frame]]
+
+And this copied text:
+ [[File:images/PasteOneRowInColumnSelectionClipboardToCopy.jpg|none|frame]]
+
+
+The result is the following:
+ [[File:images/PasteOneRowInColumnSelectionClipboardResult.jpg|none|frame]]
+
+=Import from file (CSV)=
+The import from file (CSV) works like [[#Paste with rows header|paste with rows header]] when the rows header are available in the CSV.
+
+If the rows header are not available, the rows works like [[#Paste and insert without selection (A1 and A2)|insert without selection]] or [[#Insert with rows header selection (C2)|insert with rows header selection]] depending to the selection.

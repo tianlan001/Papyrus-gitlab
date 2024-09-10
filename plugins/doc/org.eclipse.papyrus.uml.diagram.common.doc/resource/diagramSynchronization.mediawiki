@@ -1,0 +1,103 @@
+This page describes the work that will be performed on Papyrus Mars to support synchronization.
+There are at least 2 kind of synchronization to implement in Papyrus: 
+* diagram content synchronized on semantic model content, called canonical mode
+* diagram content synchronized on another diagram. 
+
+= Canonical mode, a.k.a. diagram synchronized on semantic model =
+
+Bugzilla reference:
+
+* bug 433206 - the model/view synchronization enhancement request
+* bug 461629 - problematic interaction between canonical view creation, non-transactional diagram refresh enabling/disabling canonical edit policy by CSS, and undo/redo of semantic model element creation
+
+This mode has already been partially implemented in Papyrus Luna, but never deployed as there were not as many tests as expected to be sure the feature would not slow down or even corrupt the tool. The work on canonical model could be based on that first implementation. see org.eclipse.papyrus\plugins\uml\diagram\org.eclipse.papyrus.uml.diagram.synchronizeview for that initial implementation
+There is also an implementation of this framework in the tables, it could be interesting to see how it is implemented and how the 2 synchronizations mechanism could rely on the same framework.
+
+Here are some requirements, to be developed more extensively (taken from model in plugin org.eclipse.papyrus\plugins\uml\diagram\org.eclipse.papyrus.uml.diagram.synchronizeview)
+* The synchronization should be local to an element or for the whole diagram
+* The synchronization mechanism should alter the performances only in a reasonable way
+* The synchronization should take into account all features of Papyrus: drag'n'drop, copy and paste, 
+* The synchonization should be linked to CSS framework (reuse canonical style from GMF ?)
+* The synchronization should share its framework with the table framework
+
+Automated tests for view synchronization are added to the in-progress Papyrus Diagram Tests Generation Framework:
+* [https://git.eclipse.org/r/#/c/38587/ Gerrit change]
+
+== Demo Videos ==
+
+* Tech preview of canonical list and shape compartments: [http://youtu.be/NhdDWIlpXao YouTube]
+* Interaction of canonical edit policy with undo/redo: [http://youtu.be/qbLF_4l-SF4 YouTube]
+* Properties view support and drag-and-drop interaction: [http://youtu.be/aOcCthCuDBI YouTube]
+* Demonstration of a new CSS {{code|canonical}} attribute: [http://youtu.be/cfoQQKPlsxw YouTube]
+* A problem ({{bug|461629}}) in the interaction between canonical creation of views, non-transactional refresh triggered by CSS to activate/deactivate canonical synchronization, and undo/redo of edit commands: [http://youtu.be/bv2Gozopha0 YouTube]
+** And that problem, fixed: [http://youtu.be/XNyl6hlcs08 YouTube]
+* Canonical composite structure diagrams (incl. connector-end part-with-port): [http://youtu.be/uo2jpPd-n2s YouTube]
+* Improvements in the layout of canonical diagrams (esp. behaviours): [https://youtu.be/ydTiYbcJQss YouTube]
+* First phase of automated test generation: [http://youtu.be/ZIZPceUdvE8 YouTube]
+
+= Diagram synchronized on another diagram =
+
+Bugzilla reference:
+
+* bug 465416 - the diagram-to-diagram feature request
+
+== Requirements ==
+
+The requirements for diagram-to-diagram synchronization are primarily driven by UML-RT use cases such as state machine inheritance:
+
+* '''R1''' the sync framework shall support automatic synchronization of model semantics. For example, a state machine in a subclass that redefines a state machine in a superclass must always define regions, vertices, and transitions corresponding to and redefining the regions, vertices, and transitions of the superclass state machine
+* '''R2''' the sync framework shall support automatic synchronization of the layout of diagrams. For example, a state machine diagram in a subclass that redefines a state machine in a superclass initially presents the same layout as the superclass state machine and changes in the superclass state machine diagram layout are reflected in the subclass
+** '''R2.1''' synchronization of diagram layout shall be optional.  Initially, a diagram is synchronized with the diagram that it redefines, but as needed to effect a sensible layout of the redefining diagram, this synchronization may be broken by the user.  The semantics remain synchronized, and some graphical views may remain synchronized, but the user may freely rearrange other views as required by the redefining context
+
+== Demo Videos ==
+
+* Synchronization of redefining state machines in UML-RT Capsule inheritance: [https://youtu.be/BKYe8b84ywM YouTube]
+* Overriding synchronization by tweaking the layout of a synchronized diagram: [http://youtu.be/TwneFmoFmIw YouTube]
+
+== Prototype ==
+
+An initial prototype is posted to Gerrit:  [https://git.eclipse.org/r/#/c/36747/ Change 36747].  This comprises
+
+* a generic framework for synchronization of source objects to target objects, including
+** a model of source/target synchronization pairs
+** collection of synchronizations on the same source object
+** orchestration of synchronization updates based on an abstraction of change messages
+* an implementation of the framework in the Papyrus Diagram Common plug-in for common scenarios such as
+** synchronizing the children of a node in a diagram
+** synchronizing the location and size of a node in a diagram
+* an implementation of the framework for synchronization of the size and position of UML-RT Capsules in a Capsule Diagram of their package, re-using the common diagram sync pieces
+
+Basic use cases in the prototype work like so:
+
+# Create two Capsule Diagrams in a package
+# In each, right-click on the diagram surface and invoke the '''Synchronize''' context menu action
+# On one of the diagrams, right-click on the diagram surface and invoke the '''Setup as sync master''' context menu action
+#* ''This particular implementation denotes one diagram as the master, which pushes its changes to all others, a 1-to-N sync. The framework seems to allow also for N-M sync, in which all participants keep each other in sync''
+# In the master diagram, create a Capsule.
+#* ''See it appear in the same location and with the same size in the other diagram.''
+# In the master diagram, create another Capsule.
+#* ''See it also appear in the other diagram.''
+# In the master diagram, create an association between the two capsules.
+#* ''Nothing happens in the other diagram: no synchronization is registered for edge views, only child nodes that represent capsules.''
+# In the master diagram, move one of the capsules and resize it.
+#* ''See the same change for that capsule in the other diagram.''
+# Undo.
+#* ''See the same change undone in both diagrams. Synchronization processes changes in the diagrams in a transaction pre-commit listener and appends consequent updates to the transaction as trigger commands.''
+# In the other diagram (not master), move a capsule.
+#* ''See that the corresponding shape in the master diagram is not moved, because synchronization is one-way from the master to the others.''
+
+== To-do tasks ==
+
+* Custom notation styles for synchronization, capturing:
+** the <tt>SyncBucket</tt> in which to register the view
+** 'master' and 'slave' roles in the synchronization, or just all-party synchronization
+* Expression of the above details might benefit from a model of synchronizations:
+** Pluggable registry of synchronization models
+** Synchronization styles can reference <tt>SyncBucket</tt>s in these models
+** Buckets are created from the models:
+*** Either instantiating implementations of the API classes as currently, or
+*** (more elaborate) describing synchronization semantics in the model, so that generic bucket implementations can be used that interpret the synchronization specification
+* Currently, the framework supports synchronization of multiple diagram visualizations of the same model element. For UML-RT, it is necessary to support also synchronization of diagram visualizations of two related model elements (for example, a capsule showing inherited ports in the same location on its border as where those ports are on the general capsule in the same or different diagram)
+
+= Several instances of the same diagram =
+* Having several instances of the same diagram (Moka example)

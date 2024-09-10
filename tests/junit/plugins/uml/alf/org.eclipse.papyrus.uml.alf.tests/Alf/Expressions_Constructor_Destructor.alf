@@ -1,0 +1,87 @@
+/**
+ * Test constructor and destructor expressions.
+ **/
+active class Expressions_Constructor_Destructor {
+
+	class Initialization {
+
+		public activity 'b$defaultValue$1'(): Integer;
+		public activity 'a$defaultValue$1'(): Integer;
+		public a: Integer = 'a$defaultValue$1'();
+		public b: Integer = 'b$defaultValue$1'();
+		@Create
+		public Initialization();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Initialization2 specializes Initialization {
+
+		public activity 'c$defaultValue$1'(): Integer;
+		public c: Integer = 'c$defaultValue$1'();
+		@Create
+		public Initialization2();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Monitor {
+
+		@Destroy
+		public destroy(in recoveryLog: Log);
+		@Create
+		public Monitor();
+
+	}
+
+	class Log {
+
+		public activity 'name$defaultValue$1'(): String;
+		public activity 'logged$defaultValue$1'(): Boolean;
+		public name: String = 'name$defaultValue$1'();
+		public logged: Boolean = 'logged$defaultValue$1'();
+		@Create
+		public Log();
+		@Destroy
+		public destroy();
+
+	}
+
+	class Employee {
+
+		public activity 'transferred$defaultValue$1'(): Boolean;
+		public activity 'relocated$defaultValue$1'(): Boolean;
+		public id: Integer;
+		public name: String;
+		public transferred: Boolean = 'transferred$defaultValue$1'();
+		public relocated: Boolean = 'relocated$defaultValue$1'();
+		@Create
+		public Employee(in id: Integer, in name: String);
+		@Create
+		public transferred(in employeeInfo: Employee);
+		@Create
+		public relocated(in employeeInfo: Employee);
+		@Destroy
+		public destroy();
+
+	}
+
+	datatype D0 {
+		public y: Integer[0..*] sequence;
+	}
+
+	datatype D specializes D0 {
+		public x: String;
+	}
+
+	test(out employee1: Employee, out employee2: Employee,
+		out employee3: Employee, out init: Initialization, out log: Log,
+		out monitor1: Monitor, out monitor2: Monitor, out d: D);
+	@Create
+	public Expressions_Constructor_Destructor();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Constructor_Destructor$behavior$1'

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_hcC08Lr9EeapppGB0acXuA" name="MigrationParameters">
+  <tabs xmi:id="_uXpIsLr9EeapppGB0acXuA" label="MigrationParameters" id="migrationparameters" priority="100">
+    <sections xmi:id="_uXpvwLr9EeapppGB0acXuA" name="Single AdvancedConfig" sectionFile="ui/SingleAdvancedConfig.xwt">
+      <widget href="ui/SingleAdvancedConfig.xwt#/"/>
+    </sections>
+    <sections xmi:id="_uXqW0Lr9EeapppGB0acXuA" name="Single ThreadConfig" sectionFile="ui/SingleThreadConfig.xwt">
+      <widget href="ui/SingleThreadConfig.xwt#/"/>
+    </sections>
+    <sections xmi:id="_uXqW0br9EeapppGB0acXuA" name="Single MappingParameters" sectionFile="ui/SingleMappingParameters.xwt">
+      <widget href="ui/SingleMappingParameters.xwt#/"/>
+    </sections>
+    <sections xmi:id="_uXq94Lr9EeapppGB0acXuA" name="Single URIMapping" sectionFile="ui/SingleURIMapping.xwt">
+      <widget href="ui/SingleURIMapping.xwt#/"/>
+    </sections>
+    <sections xmi:id="_uXq94br9EeapppGB0acXuA" name="Multiple AdvancedConfig" sectionFile="ui/MultipleAdvancedConfig.xwt">
+      <widget href="ui/MultipleAdvancedConfig.xwt#/"/>
+    </sections>
+    <sections xmi:id="_uXrk8Lr9EeapppGB0acXuA" name="Multiple ThreadConfig" sectionFile="ui/MultipleThreadConfig.xwt">
+      <widget href="ui/MultipleThreadConfig.xwt#/"/>
+    </sections>
+    <sections xmi:id="_uXrk8br9EeapppGB0acXuA" name="Multiple MappingParameters" sectionFile="ui/MultipleMappingParameters.xwt">
+      <widget href="ui/MultipleMappingParameters.xwt#/"/>
+    </sections>
+    <sections xmi:id="_uXrk8rr9EeapppGB0acXuA" name="Multiple URIMapping" sectionFile="ui/MultipleURIMapping.xwt">
+      <widget href="ui/MultipleURIMapping.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_hcC08br9EeapppGB0acXuA" name="Single AdvancedConfig" sections="_uXpvwLr9EeapppGB0acXuA" automaticContext="true" datacontexts="_hcC1Err9EeapppGB0acXuA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_hcC08rr9EeapppGB0acXuA" name="isSingleAdvancedConfig">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC087r9EeapppGB0acXuA" name="nsUri" value="http:///MigrationParameters.ecore"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC09Lr9EeapppGB0acXuA" name="className" value="AdvancedConfig"/>
+    </constraints>
+  </views>
+  <views xmi:id="_hcC09br9EeapppGB0acXuA" name="Single ThreadConfig" sections="_uXqW0Lr9EeapppGB0acXuA" automaticContext="true" datacontexts="_hcC1Gbr9EeapppGB0acXuA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_hcC09rr9EeapppGB0acXuA" name="isSingleThreadConfig">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC097r9EeapppGB0acXuA" name="className" value="ThreadConfig"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC0-Lr9EeapppGB0acXuA" name="nsUri" value="http:///MigrationParameters.ecore"/>
+    </constraints>
+  </views>
+  <views xmi:id="_hcC0-br9EeapppGB0acXuA" name="Single MappingParameters" sections="_uXqW0br9EeapppGB0acXuA" automaticContext="true" datacontexts="_hcC1HLr9EeapppGB0acXuA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_hcC0-rr9EeapppGB0acXuA" name="isSingleMappingParameters">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC0-7r9EeapppGB0acXuA" name="className" value="MappingParameters"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC0_Lr9EeapppGB0acXuA" name="nsUri" value="http:///MigrationParameters.ecore"/>
+    </constraints>
+  </views>
+  <views xmi:id="_hcC0_br9EeapppGB0acXuA" name="Single URIMapping" sections="_uXq94Lr9EeapppGB0acXuA" automaticContext="true" datacontexts="_hcC1H7r9EeapppGB0acXuA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_hcC0_rr9EeapppGB0acXuA" name="isSingleURIMapping">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC0_7r9EeapppGB0acXuA" name="className" value="URIMapping"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC1ALr9EeapppGB0acXuA" name="nsUri" value="http:///MigrationParameters.ecore"/>
+    </constraints>
+  </views>
+  <views xmi:id="_hcC1Abr9EeapppGB0acXuA" elementMultiplicity="-1" name="Multiple AdvancedConfig" sections="_uXq94br9EeapppGB0acXuA" automaticContext="true" datacontexts="_hcC1Err9EeapppGB0acXuA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_hcC1Arr9EeapppGB0acXuA" name="isMultipleAdvancedConfig">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC1A7r9EeapppGB0acXuA" name="className" value="AdvancedConfig"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC1BLr9EeapppGB0acXuA" name="nsUri" value="http:///MigrationParameters.ecore"/>
+    </constraints>
+  </views>
+  <views xmi:id="_hcC1Bbr9EeapppGB0acXuA" elementMultiplicity="-1" name="Multiple ThreadConfig" sections="_uXrk8Lr9EeapppGB0acXuA" automaticContext="true" datacontexts="_hcC1Gbr9EeapppGB0acXuA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_hcC1Brr9EeapppGB0acXuA" name="isMultipleThreadConfig">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC1B7r9EeapppGB0acXuA" name="className" value="ThreadConfig"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC1CLr9EeapppGB0acXuA" name="nsUri" value="http:///MigrationParameters.ecore"/>
+    </constraints>
+  </views>
+  <views xmi:id="_hcC1Cbr9EeapppGB0acXuA" elementMultiplicity="-1" name="Multiple MappingParameters" sections="_uXrk8br9EeapppGB0acXuA" automaticContext="true" datacontexts="_hcC1HLr9EeapppGB0acXuA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_hcC1Crr9EeapppGB0acXuA" name="isMultipleMappingParameters">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC1C7r9EeapppGB0acXuA" name="nsUri" value="http:///MigrationParameters.ecore"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC1DLr9EeapppGB0acXuA" name="className" value="MappingParameters"/>
+    </constraints>
+  </views>
+  <views xmi:id="_hcC1Dbr9EeapppGB0acXuA" elementMultiplicity="-1" name="Multiple URIMapping" sections="_uXrk8rr9EeapppGB0acXuA" automaticContext="true" datacontexts="_hcC1H7r9EeapppGB0acXuA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_hcC1Drr9EeapppGB0acXuA" name="isMultipleURIMapping">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC1D7r9EeapppGB0acXuA" name="nsUri" value="http:///MigrationParameters.ecore"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_hcC1ELr9EeapppGB0acXuA" name="className" value="URIMapping"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_hcC1Ebr9EeapppGB0acXuA" name="MigrationParameters" label="MigrationParameters">
+    <elements xmi:id="_hcC1Err9EeapppGB0acXuA" name="AdvancedConfig" supertypes="_hcC1Gbr9EeapppGB0acXuA">
+      <properties xmi:id="_hcC1E7r9EeapppGB0acXuA" name="mappingParameters" type="Reference"/>
+      <properties xmi:id="_hcC1FLr9EeapppGB0acXuA" name="removeUnmappedDiagrams" description="If true, the diagrams which were not migrated will be removed. Otherwise, only the successfully imported diagrams will be removed"/>
+      <properties xmi:id="_hcC1Fbr9EeapppGB0acXuA" name="convertOpaqueExpressionToLiteralString" description="If true, the Opaque Expressions with a single body and no language (or a single empty language) will be converted to LiteralString"/>
+      <properties xmi:id="_hcC1Frr9EeapppGB0acXuA" name="removeUnmappedProfilesAndStereotypes" description="If true, all unsupported RSA profiles and stereotypes will be deleted at the end of the transformation"/>
+      <properties xmi:id="_hcC1F7r9EeapppGB0acXuA" name="removeUnmappedAnnotations" description="If true, the unmapped RSA EAnnotations will be deleted from the imported model"/>
+      <properties xmi:id="_hcC1GLr9EeapppGB0acXuA" name="alwaysAcceptSuggestedMappings" description="If true, the Transformation will not open a dialog to ask user-confirmation for the dependency mappings. The tool will automatically keep going by &quot;guessing&quot; the proper mapping"/>
+    </elements>
+    <elements xmi:id="_hcC1Gbr9EeapppGB0acXuA" name="ThreadConfig">
+      <properties xmi:id="_hcC1Grr9EeapppGB0acXuA" name="name"/>
+      <properties xmi:id="_hcC1G7r9EeapppGB0acXuA" name="maxThreads" description="The maximum number of threads to use during the migration.&#xD;&#xA;More threads will provide faster results, at the cost of memory consumption."/>
+    </elements>
+    <elements xmi:id="_hcC1HLr9EeapppGB0acXuA" name="MappingParameters">
+      <properties xmi:id="_hcC1Hbr9EeapppGB0acXuA" name="uriMappings" label="URI Mappings" type="Reference" multiplicity="-1" description="When models/libraries have been migrated separately, maps the libraries imported from RSA to their Papyrus equivalent"/>
+      <properties xmi:id="_hcC1Hrr9EeapppGB0acXuA" name="profileUriMappings" label="Profile URI Mappings" type="Reference" multiplicity="-1" description="When profiles have been migrated separately, maps the profiles imported from RSA to their Papyrus equivalent"/>
+    </elements>
+    <elements xmi:id="_hcC1H7r9EeapppGB0acXuA" name="URIMapping">
+      <properties xmi:id="_hcC1ILr9EeapppGB0acXuA" name="sourceURI"/>
+      <properties xmi:id="_hcC1Ibr9EeapppGB0acXuA" name="targetURI"/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context>

@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assistant:ModelingAssistantProvider xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:assistant="http://www.eclipse.org/Papyrus/2014/diagram/assistant" xmlns:filters="http://www.eclipse.org/Papyrus/2014/common/filters" name="PapyrusUMLClassDiagram">
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Package" elementTypeID="org.eclipse.papyrus.umldi.Package_ClassDiagram"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Class" elementTypeID="org.eclipse.papyrus.umldi.Class_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Class" elementTypeID="org.eclipse.papyrus.umldi.Class_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:AssistedElementTypeFilter"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="AssociationClass" elementTypeID="org.eclipse.papyrus.umldi.AssociationClass_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Component" elementTypeID="org.eclipse.papyrus.umldi.Component_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Component" elementTypeID="org.eclipse.papyrus.umldi.Component_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Signal" elementTypeID="org.eclipse.papyrus.umldi.Signal_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Signal" elementTypeID="org.eclipse.papyrus.umldi.Signal_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Interface" elementTypeID="org.eclipse.papyrus.umldi.Interface_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Interface" elementTypeID="org.eclipse.papyrus.umldi.Interface_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="PrimitiveType" elementTypeID="org.eclipse.papyrus.umldi.PrimitiveType_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="PrimitiveType" elementTypeID="org.eclipse.papyrus.umldi.PrimitiveType_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="DataType" elementTypeID="org.eclipse.papyrus.umldi.DataType_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="DataType" elementTypeID="org.eclipse.papyrus.umldi.DataType_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="RedefinableTemplateSignature" elementTypeID="org.eclipse.papyrus.umldi.RedefinableTemplateSignature_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="TemplateSignature" elementTypeID="org.eclipse.papyrus.umldi.TemplateSignature_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Enumeration" elementTypeID="org.eclipse.papyrus.umldi.Enumeration_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Enumeration" elementTypeID="org.eclipse.papyrus.umldi.Enumeration_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InstanceSpecification" elementTypeID="org.eclipse.papyrus.umldi.InstanceSpecification_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InstanceSpecification" elementTypeID="org.eclipse.papyrus.umldi.InstanceSpecification_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Model" elementTypeID="org.eclipse.papyrus.umldi.Model_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Package" elementTypeID="org.eclipse.papyrus.umldi.Package_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Model" elementTypeID="org.eclipse.papyrus.umldi.Model_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Package" elementTypeID="org.eclipse.papyrus.umldi.Package_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="AssociationNode" elementTypeID="org.eclipse.papyrus.umldi.Association_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InformationItem" elementTypeID="org.eclipse.papyrus.umldi.InformationItem_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InformationItem" elementTypeID="org.eclipse.papyrus.umldi.InformationItem_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="DependencyNode" elementTypeID="org.eclipse.papyrus.umldi.Dependency_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Constraint" elementTypeID="org.eclipse.papyrus.umldi.Constraint_PackagedElementShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="DurationObservation" elementTypeID="org.eclipse.papyrus.umldi.DurationObservation_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="TimeObservation" elementTypeID="org.eclipse.papyrus.umldi.TimeObservation_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="DefaultNamedElement" elementTypeID="org.eclipse.papyrus.umldi.NamedElement_DefaultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Constraint" elementTypeID="org.eclipse.papyrus.umldi.Constraint_PackagedElementShape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Comment" elementTypeID="org.eclipse.papyrus.umldi.Comment_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Comment" elementTypeID="org.eclipse.papyrus.umldi.Comment_Shape_CN"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.AssociationClass_Shape" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.InstanceSpecification_Shape" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Component_Shape" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Interface_Shape" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Enumeration_Shape" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Package_Shape" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Class_Shape" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.PrimitiveType_Shape" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.DataType_Shape" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Constraint_PackagedElementShape" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.NamedElement_DefaultShape" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Property_ClassAttributeLabel" filter="//@popupAssistant.11/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.11/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.1 //@ownedFilter.2" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Property_ComponentAttributeLabel" filter="//@popupAssistant.12/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.12/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.6" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Property_SignalAttributeLabel" filter="//@popupAssistant.13/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.13/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.7 //@ownedFilter.8" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Property_InterfaceAttributeLabel" filter="//@popupAssistant.14/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.14/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.9 //@ownedFilter.10" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Property_PrimitiveTypeAttributeLabel" filter="//@popupAssistant.15/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.15/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.11 //@ownedFilter.12" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Property_DataTypeAttributeLabel" filter="//@popupAssistant.16/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.16/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.13 //@ownedFilter.14" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Class_ClassNestedClassifierLabel" filter="//@popupAssistant.17/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.17/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.1 //@ownedFilter.2" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Class_ComponentNestedClassifierLabel" filter="//@popupAssistant.18/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.18/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.6" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Class_InterfaceNestedClassifierLabel" filter="//@popupAssistant.19/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.19/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.9 //@ownedFilter.10" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Operation_ClassOperationLabel" filter="//@popupAssistant.20/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.20/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.1 //@ownedFilter.2" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Operation_ComponentOperationLabel" filter="//@popupAssistant.21/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.21/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.6" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Operation_InterfaceOperationLabel" filter="//@popupAssistant.22/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.22/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.9 //@ownedFilter.10" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Operation_PrimitiveTypeOperationLabel" filter="//@popupAssistant.23/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.23/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.11 //@ownedFilter.12" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Operation_DataTypeOperationLabel" filter="//@popupAssistant.24/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.24/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.13 //@ownedFilter.14" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.ConnectableElementTemplateParameter_TemplateParameterLabel" filter="//@popupAssistant.25/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.15 //@ownedFilter.3"/>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.OperationTemplateParameter_TemplateParameterLabel" filter="//@popupAssistant.26/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.26/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.15 //@ownedFilter.16" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.ClassifierTemplateParameter_TemplateParameterLabel" filter="//@popupAssistant.27/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.27/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.15 //@ownedFilter.16" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.TemplateParameter_TemplateParameterLabel" filter="//@popupAssistant.28/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.28/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.15 //@ownedFilter.16" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.EnumerationLiteral_LiteralLabel" filter="//@popupAssistant.29/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.29/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.17 //@ownedFilter.18" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Reception_ReceptionLabel" filter="//@popupAssistant.30/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.30/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.5 //@ownedFilter.1 //@ownedFilter.6 //@ownedFilter.2" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Reception_InterfaceReceptionLabel" filter="//@popupAssistant.31/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.31/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.9 //@ownedFilter.10" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Slot_SlotLabel" filter="//@popupAssistant.32/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.32/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.19 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.RedefinableTemplateSignature_Shape" filter="//@ownedFilter.3"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.TemplateSignature_Shape" filter="//@ownedFilter.3"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.InstanceSpecification_Shape_CN" filter="//@popupAssistant.35/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.35/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Component_Shape_CN" filter="//@popupAssistant.36/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.36/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Interface_Shape_CN" filter="//@popupAssistant.37/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.37/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Enumeration_Shape_CN" filter="//@popupAssistant.38/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.38/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Package_Shape_CN" filter="//@popupAssistant.39/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.39/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Class_Shape_CN" filter="//@popupAssistant.40/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.40/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.PrimitiveType_Shape_CN" filter="//@popupAssistant.41/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.41/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.DataType_Shape_CN" filter="//@popupAssistant.42/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.42/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Constraint_PackagedElementShape_CN" filter="//@popupAssistant.43/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.43/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Interface_ClassNestedClassifierLabel" filter="//@popupAssistant.44/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.44/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.1 //@ownedFilter.2" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Interface_ComponentNestedClassifierLabel" filter="//@popupAssistant.45/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.45/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.5 //@ownedFilter.6" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Interface_InterfaceNestedClassifierLabel" filter="//@popupAssistant.46/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.46/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.9 //@ownedFilter.10" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Enumeration_ClassNestedClassifierLabel" filter="//@popupAssistant.47/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.47/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.1 //@ownedFilter.2" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Enumeration_ComponentNestedClassifierLabel" filter="//@popupAssistant.48/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.48/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.5 //@ownedFilter.6" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.Enumeration_InterfaceNestedClassifierLabel" filter="//@popupAssistant.49/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.49/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.9 //@ownedFilter.10" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.PrimitiveType_ClassNestedClassifierLabel" filter="//@popupAssistant.50/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.50/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.1 //@ownedFilter.2" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.PrimitiveType_ComponentNestedClassifierLabel" filter="//@popupAssistant.51/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.51/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.5 //@ownedFilter.6" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.PrimitiveType_InterfaceNestedClassifierLabel" filter="//@popupAssistant.52/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.52/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.9 //@ownedFilter.10" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.DataType_ClassNestedClassifierLabel" filter="//@popupAssistant.53/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.53/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.1 //@ownedFilter.2" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.DataType_ComponentNestedClassifierLabel" filter="//@popupAssistant.54/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.54/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.5 //@ownedFilter.6" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.umldi.DataType_InterfaceNestedClassifierLabel" filter="//@popupAssistant.55/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@popupAssistant.55/@ownedFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.9 //@ownedFilter.10" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Association_Edge" sourceFilter="//@connectionAssistant.0/@ownedSourceFilter" targetFilter="//@connectionAssistant.0/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.0/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.17 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.18 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.0/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.17 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.18 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Association_BranchEdge" sourceFilter="//@connectionAssistant.1/@ownedSourceFilter" targetFilter="//@connectionAssistant.1/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.25 //@ownedFilter.3"/>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.1/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.17 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.18 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Generalization_Edge" sourceFilter="//@connectionAssistant.2/@ownedSourceFilter" targetFilter="//@connectionAssistant.2/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.2/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.17 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.18 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.2/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.17 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.18 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.InterfaceRealization_Edge" sourceFilter="//@connectionAssistant.3/@ownedSourceFilter" targetFilter="//@connectionAssistant.3/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.3/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.1 //@ownedFilter.6 //@ownedFilter.2" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.3/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.9 //@ownedFilter.10" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Substitution_Edge" sourceFilter="//@connectionAssistant.4/@ownedSourceFilter" targetFilter="//@connectionAssistant.4/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.4/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.17 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.18 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.4/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.17 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.18 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Realization_Edge" sourceFilter="//@connectionAssistant.5/@ownedSourceFilter" targetFilter="//@connectionAssistant.5/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.5/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.5/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Abstraction_Edge" sourceFilter="//@connectionAssistant.6/@ownedSourceFilter" targetFilter="//@connectionAssistant.6/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.6/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.6/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Usage_Edge" sourceFilter="//@connectionAssistant.7/@ownedSourceFilter" targetFilter="//@connectionAssistant.7/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.7/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.7/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Dependency_Edge" sourceFilter="//@connectionAssistant.8/@ownedSourceFilter" targetFilter="//@connectionAssistant.8/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.8/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.8/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Dependency_BranchEdge" sourceFilter="//@connectionAssistant.9/@ownedSourceFilter" targetFilter="//@connectionAssistant.9/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.28 //@ownedFilter.3"/>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.9/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.25 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Dependency_BranchEdge" sourceFilter="//@connectionAssistant.10/@ownedSourceFilter" targetFilter="//@connectionAssistant.10/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.10/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.25 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.28 //@ownedFilter.3"/>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.ElementImport_Edge" sourceFilter="//@connectionAssistant.11/@ownedSourceFilter" targetFilter="//@connectionAssistant.11/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.11/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.11/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.PackageImport_Edge" sourceFilter="//@connectionAssistant.12/@ownedSourceFilter" targetFilter="//@connectionAssistant.12/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.12/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.12/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.PackageMerge_Edge" sourceFilter="//@connectionAssistant.13/@ownedSourceFilter" targetFilter="//@connectionAssistant.13/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.13/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.13/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.ProfileApplication_Edge" sourceFilter="//@connectionAssistant.14/@ownedSourceFilter" targetFilter="//@ownedFilter.3">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.14/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@ownedFilter.22 //@ownedFilter.23 //@ownedFilter.24" operator="or"/>
+    </ownedSourceFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Comment_AnnotatedElementEdge" sourceFilter="//@connectionAssistant.15/@ownedSourceFilter" targetFilter="//@connectionAssistant.15/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.15/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.34 //@ownedFilter.35" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.15/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.28 //@ownedFilter.4 //@ownedFilter.25 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.34 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.16 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.35 //@ownedFilter.33" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Constraint_ConstrainedElementEdge" sourceFilter="//@connectionAssistant.16/@ownedSourceFilter" targetFilter="//@connectionAssistant.16/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.16/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.29 //@ownedFilter.33" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.16/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.28 //@ownedFilter.4 //@ownedFilter.25 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.34 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.16 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.35 //@ownedFilter.33" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.TemplateBinding_Edge" sourceFilter="//@connectionAssistant.17/@ownedSourceFilter" targetFilter="//@connectionAssistant.17/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.17/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.17/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.InstanceSpecification_Edge" sourceFilter="//@connectionAssistant.18/@ownedSourceFilter" targetFilter="//@connectionAssistant.18/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" name="assisted instance specification" filter="//@ownedFilter.3 //@connectionAssistant.18/@ownedSourceFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.19 //@ownedFilter.20" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" name="assisted instance specification" filter="//@ownedFilter.3 //@connectionAssistant.18/@ownedTargetFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.19 //@ownedFilter.20" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.InformationFlow_Edge" sourceFilter="//@connectionAssistant.19/@ownedSourceFilter" targetFilter="//@connectionAssistant.19/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.19/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.19/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.19 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.29 //@ownedFilter.30 //@ownedFilter.31 //@ownedFilter.32 //@ownedFilter.15 //@ownedFilter.20 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14 //@ownedFilter.33" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.Constraint_ContextEdge" sourceFilter="//@connectionAssistant.20/@ownedSourceFilter" targetFilter="//@connectionAssistant.20/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.20/@ownedSourceFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.29 //@ownedFilter.33" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@connectionAssistant.20/@ownedTargetFilter/@ownedFilter.0 //@ownedFilter.3">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.9 //@ownedFilter.21 //@ownedFilter.17 //@ownedFilter.22 //@ownedFilter.26 //@ownedFilter.1 //@ownedFilter.11 //@ownedFilter.13 //@ownedFilter.6 //@ownedFilter.8 //@ownedFilter.10 //@ownedFilter.23 //@ownedFilter.18 //@ownedFilter.24 //@ownedFilter.27 //@ownedFilter.2 //@ownedFilter.12 //@ownedFilter.14" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <elementTypeID>org.eclipse.papyrus.umldi.Signal_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Package_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.PrimitiveType_ClassNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Component_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Interface_ClassNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.PrimitiveType_InterfaceNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.AssociationClass_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.PrimitiveType_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Signal_ClassNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Property_SignalAttributeLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Operation_DataTypeOperationLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Abstraction_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Constraint_PackagedElementShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InformationItem_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Generalization_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Operation_ClassOperationLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Constraint_ContextEdge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Component_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Enumeration_ClassNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.TimeObservation_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Comment_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.PrimitiveType_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.AssociationClass_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Enumeration_ComponentNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InstanceSpecification_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Dependency_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Realization_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ConnectableElementTemplateParameter_TemplateParameterLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Property_ComponentAttributeLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Slot_SlotLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Comment_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DataType_ClassNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InstanceSpecification_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Signal_InterfaceNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Model_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.EnumerationLiteral_LiteralLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Association_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Operation_InterfaceOperationLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Comment_AnnotatedElementEdge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Class_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Dependency_BranchEdge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DataType_InterfaceNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Usage_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.NamedElement_DefaultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Interface_ComponentNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OperationTemplateParameter_TemplateParameterLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.TemplateSignature_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DurationObservation_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Signal_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InformationFlow_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ClassifierTemplateParameter_TemplateParameterLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Package_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Reception_InterfaceReceptionLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Substitution_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Class_ClassNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Operation_PrimitiveTypeOperationLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InformationItem_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InstanceSpecification_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Model_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.TimeObservation_EventEdge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Enumeration_InterfaceNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Interface_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Dependency_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.PrimitiveType_ComponentNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ProfileApplication_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Association_BranchEdge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DataType_ComponentNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Reception_ReceptionLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Interface_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InterfaceRealization_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Property_InterfaceAttributeLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.GeneralizationSet_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Class_ComponentNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Property_PrimitiveTypeAttributeLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ElementImport_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.TemplateBinding_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Association_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Constraint_PackagedElementShape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Signal_ComponentNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.PackageImport_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DataType_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Operation_ComponentOperationLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.PackageMerge_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.TemplateParameter_TemplateParameterLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Class_InterfaceNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.RedefinableTemplateSignature_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Enumeration_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Enumeration_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Property_ClassAttributeLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Interface_InterfaceNestedClassifierLabel</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DurationObservation_EventEdge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DataType_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Constraint_ConstrainedElementEdge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Class_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Property_DataTypeAttributeLabel</elementTypeID>
+  <excludedElementTypeID>org.eclipse.papyrus.umldi.Dependency_Shape</excludedElementTypeID>
+  <excludedElementTypeID>org.eclipse.papyrus.umldi.Association_Shape</excludedElementTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.PackageImport_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Substitution_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.PackageMerge_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.TimeObservation_EventEdge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Abstraction_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.ProfileApplication_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Association_BranchEdge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Generalization_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Comment_AnnotatedElementEdge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Constraint_ContextEdge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Dependency_BranchEdge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Usage_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.InterfaceRealization_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.AssociationClass_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.GeneralizationSet_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Dependency_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Realization_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.InformationFlow_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.InstanceSpecification_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.TemplateBinding_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Association_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.ElementImport_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.DurationObservation_EventEdge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.Constraint_ConstrainedElementEdge</relationshipTypeID>
+</assistant:ModelingAssistantProvider>

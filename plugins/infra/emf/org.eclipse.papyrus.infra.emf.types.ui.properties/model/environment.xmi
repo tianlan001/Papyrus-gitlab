@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<environment:Environment
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:environment="http://www.eclipse.org/papyrus/properties/environment/0.9"
+    xmi:id="_mk1WwC7vEeaFXLbb4SDmyQ">
+  <modelElementFactories
+      name="Runtime Values Model Element Factory"
+      factoryClass="org.eclipse.papyrus.infra.emf.types.ui.properties.modelelements.RuntimeValuesModelElementFactory"/>
+  <modelElementFactories
+      name="Set Values Model Element Factory"
+      factoryClass="org.eclipse.papyrus.infra.emf.types.ui.properties.modelelements.SetValuesModelElementFactory"/>
+  <propertyEditorTypes
+      label="Feature name property editor"
+      widgetClass="FeatureNamePropertyEditor"
+      namespace="//@namespaces.0"/>
+  <propertyEditorTypes
+      label="Runtime values ViewToDisplay property editor"
+      widgetClass="ViewToDisplayPropertyEditor"
+      namespace="//@namespaces.0"
+      type="Reference"/>
+  <propertyEditorTypes
+      label="FeaturesToSet multiple property editor width property view"
+      widgetClass="FeaturesToSetPropertyEditorWithPropertyView"
+      namespace="//@namespaces.0"
+      type="Reference"
+      multiplicity="-1"/>
+  <propertyEditorTypes
+      label="Runtime values ViewsToDisplay Property Editor With Property View"
+      widgetClass="ViewsToDisplayPropertyEditorWithPropertyView"
+      namespace="//@namespaces.0"
+      type="Reference"
+      multiplicity="-1"/>
+  <namespaces
+      name="emfwid"
+      value="org.eclipse.papyrus.infra.emf.types.ui.properties.widgets"/>
+</environment:Environment>

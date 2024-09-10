@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.architecture.models">
+      <model
+            path="resources/uml.architecture">
+      </model>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.configuration">
+      <configuration
+            file="resources/tablewithactions.nattableconfiguration"
+            type="GenericTreeTableWithActions">
+      </configuration>
+   </extension>
+
+</plugin>

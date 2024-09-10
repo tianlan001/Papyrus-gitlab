@@ -1,0 +1,14 @@
+Class Compartment[type=StereotypeCompartment]{
+	visible:true;
+}
+
+Class > Compartment[kind="attributes"],
+Class > Compartment[kind="operations"],
+Class > Compartment[kind="nestedclassifiers"] {
+    visible:false;
+}
+
+* {
+	leftMarginLabel:5;
+	rightMarginLabel:5;
+}

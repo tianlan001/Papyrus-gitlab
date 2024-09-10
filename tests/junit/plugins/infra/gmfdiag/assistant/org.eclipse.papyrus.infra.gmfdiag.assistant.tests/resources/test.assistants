@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assistant:ModelingAssistantProvider xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:assistant="http://www.eclipse.org/Papyrus/2014/diagram/assistant" xmlns:filters="http://www.eclipse.org/Papyrus/2014/common/filters" name="Assistants for JUnit tests">
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="isPackage" elementTypeID="org.eclipse.papyrus.uml.Package"/>
+  <ownedFilter xsi:type="filters:CompoundFilter" name="isClassOrDataType" filter="//@ownedFilter.2 //@ownedFilter.3" operator="or"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="isClass" elementTypeID="org.eclipse.papyrus.uml.Class"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="isDataType" elementTypeID="org.eclipse.papyrus.uml.DataType"/>
+  <ownedFilter xsi:type="assistant:AssistedElementTypeFilter" name="isAssistedElementType"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.uml.Class" filter="//@ownedFilter.0"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.uml.DataType" filter="//@ownedFilter.0"/>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.uml.Usage" sourceFilter="//@ownedFilter.2" targetFilter="//@ownedFilter.1"/>
+  <elementTypeID>org.eclipse.papyrus.uml.Usage</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.uml.Class</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.uml.DataType</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.uml.Package</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.uml.Generalization</elementTypeID>
+  <excludedElementTypeID>org.eclipse.papyrus.uml.AssociationClass</excludedElementTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.uml.Usage</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.uml.Generalization</relationshipTypeID>
+</assistant:ModelingAssistantProvider>

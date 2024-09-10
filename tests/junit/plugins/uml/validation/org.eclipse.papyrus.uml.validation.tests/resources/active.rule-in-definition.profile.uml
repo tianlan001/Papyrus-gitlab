@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_GkQEIOGnEeO2stwZ2ZCXww" name="profile" metaclassReference="_sAN54OGoEeOLd684kqvD2g _JlLW0OV-EeOFd8atAXGFIA">
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_xI9JwOGyEeOvkKBujXdKCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_N8d5MDHHEeSIQaU3LZ0hmw" name="profile" nsURI="http:///schemas/profile/_N8bc8DHHEeSIQaU3LZ0hmw/6" nsPrefix="profile">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N8d5MTHHEeSIQaU3LZ0hmw" source="http://www.eclipse.org/emf/2002/Ecore">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8d5MjHHEeSIQaU3LZ0hmw" key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL"/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N8iKoDHHEeSIQaU3LZ0hmw" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8iKoTHHEeSIQaU3LZ0hmw" key="Version" value="0.0.7"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8iKojHHEeSIQaU3LZ0hmw" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8iKozHHEeSIQaU3LZ0hmw" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8iKpDHHEeSIQaU3LZ0hmw" key="Date" value="2014-09-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8iKpTHHEeSIQaU3LZ0hmw" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_N8d5MzHHEeSIQaU3LZ0hmw" name="AlwaysActive">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N8d5NDHHEeSIQaU3LZ0hmw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_pG-b4OGoEeOLd684kqvD2g"/>
+        <eOperations xmi:type="ecore:EOperation" xmi:id="_N8d5NTHHEeSIQaU3LZ0hmw" name="ConstraintAlwaysActive">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N8d5NjHHEeSIQaU3LZ0hmw" source="http://www.eclipse.org/emf/2002/Ecore/OCL">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8d5NzHHEeSIQaU3LZ0hmw" key="body" value="base_Class.isActive"/>
+          </eAnnotations>
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+          <eParameters xmi:type="ecore:EParameter" xmi:id="_N8d5OTHHEeSIQaU3LZ0hmw" name="diagnostics">
+            <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N8d5OjHHEeSIQaU3LZ0hmw" source="http://www.eclipse.org/emf/2002/GenModel">
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8d5OzHHEeSIQaU3LZ0hmw" key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+            </eAnnotations>
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>
+          </eParameters>
+          <eParameters xmi:type="ecore:EParameter" xmi:id="_N8d5PTHHEeSIQaU3LZ0hmw" name="context">
+            <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N8d5PjHHEeSIQaU3LZ0hmw" source="http://www.eclipse.org/emf/2002/GenModel">
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8d5PzHHEeSIQaU3LZ0hmw" key="documentation" value="The cache of context-specific information."/>
+            </eAnnotations>
+            <eGenericType xmi:type="ecore:EGenericType" xmi:id="_N8d5QDHHEeSIQaU3LZ0hmw">
+              <eTypeArguments xmi:type="ecore:EGenericType" xmi:id="_N8d5QTHHEeSIQaU3LZ0hmw">
+                <eClassifier xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+              </eTypeArguments>
+              <eTypeArguments xmi:type="ecore:EGenericType" xmi:id="_N8d5QjHHEeSIQaU3LZ0hmw">
+                <eClassifier xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+              </eTypeArguments>
+              <eClassifier xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EMap"/>
+            </eGenericType>
+          </eParameters>
+        </eOperations>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_N8d5QzHHEeSIQaU3LZ0hmw" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_N8d5RTHHEeSIQaU3LZ0hmw" name="Tst">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N8d5RjHHEeSIQaU3LZ0hmw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_CSo9UOV-EeOFd8atAXGFIA"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_N8d5RzHHEeSIQaU3LZ0hmw" name="base_Package" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_N8d5STHHEeSIQaU3LZ0hmw" name="AlwaysActiveMalformed">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N8d5SjHHEeSIQaU3LZ0hmw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_neZ30DHGEeSIQaU3LZ0hmw"/>
+        <eOperations xmi:type="ecore:EOperation" xmi:id="_N8d5SzHHEeSIQaU3LZ0hmw" name="ConstraintAlwaysActiveMF">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N8d5TDHHEeSIQaU3LZ0hmw" source="http://www.eclipse.org/emf/2002/Ecore/OCL">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8d5TTHHEeSIQaU3LZ0hmw" key="body" value="self.oclAsType(Class).isActive"/>
+          </eAnnotations>
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+          <eParameters xmi:type="ecore:EParameter" xmi:id="_N8d5TzHHEeSIQaU3LZ0hmw" name="diagnostics">
+            <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N8d5UDHHEeSIQaU3LZ0hmw" source="http://www.eclipse.org/emf/2002/GenModel">
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8d5UTHHEeSIQaU3LZ0hmw" key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+            </eAnnotations>
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>
+          </eParameters>
+          <eParameters xmi:type="ecore:EParameter" xmi:id="_N8d5UzHHEeSIQaU3LZ0hmw" name="context">
+            <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N8d5VDHHEeSIQaU3LZ0hmw" source="http://www.eclipse.org/emf/2002/GenModel">
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N8d5VTHHEeSIQaU3LZ0hmw" key="documentation" value="The cache of context-specific information."/>
+            </eAnnotations>
+            <eGenericType xmi:type="ecore:EGenericType" xmi:id="_N8d5VjHHEeSIQaU3LZ0hmw">
+              <eTypeArguments xmi:type="ecore:EGenericType" xmi:id="_N8d5VzHHEeSIQaU3LZ0hmw">
+                <eClassifier xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+              </eTypeArguments>
+              <eTypeArguments xmi:type="ecore:EGenericType" xmi:id="_N8d5WDHHEeSIQaU3LZ0hmw">
+                <eClassifier xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+              </eTypeArguments>
+              <eClassifier xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EMap"/>
+            </eGenericType>
+          </eParameters>
+        </eOperations>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_N8d5WTHHEeSIQaU3LZ0hmw" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <elementImport xmi:type="uml:ElementImport" xmi:id="_sAN54OGoEeOLd684kqvD2g" alias="Class">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+  </elementImport>
+  <elementImport xmi:type="uml:ElementImport" xmi:id="_JlLW0OV-EeOFd8atAXGFIA" alias="Package">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Package"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_pG-b4OGoEeOLd684kqvD2g" name="AlwaysActive">
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_uHg9kOGoEeOLd684kqvD2g" name="ConstraintAlwaysActive">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_xQ_P8OGoEeOLd684kqvD2g">
+        <language>OCL</language>
+        <body>base_Class.isActive</body>
+      </specification>
+    </ownedRule>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_tkXNMOGoEeOLd684kqvD2g" name="base_Class" association="_tkX0QOGoEeOLd684kqvD2g">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_tkX0QOGoEeOLd684kqvD2g" name="E_AlwaysActive_Class1" memberEnd="_tkX0QeGoEeOLd684kqvD2g _tkXNMOGoEeOLd684kqvD2g">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_tkX0QeGoEeOLd684kqvD2g" name="extension_AlwaysActive" type="_pG-b4OGoEeOLd684kqvD2g" aggregation="composite" association="_tkX0QOGoEeOLd684kqvD2g"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_CSo9UOV-EeOFd8atAXGFIA" name="Tst">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_KgaQAOV-EeOFd8atAXGFIA" name="base_Package" association="_Kga3EOV-EeOFd8atAXGFIA">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Package"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_Kga3EOV-EeOFd8atAXGFIA" name="E_Tst_Package1" memberEnd="_Kga3EeV-EeOFd8atAXGFIA _KgaQAOV-EeOFd8atAXGFIA">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_Kga3EeV-EeOFd8atAXGFIA" name="extension_Tst" type="_CSo9UOV-EeOFd8atAXGFIA" aggregation="composite" association="_Kga3EOV-EeOFd8atAXGFIA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_neZ30DHGEeSIQaU3LZ0hmw" name="AlwaysActiveMalformed">
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_xPHj8DHGEeSIQaU3LZ0hmw" name="ConstraintAlwaysActiveMF">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_02t8wDHGEeSIQaU3LZ0hmw">
+        <language>OCL</language>
+        <body>self.oclAsType(Class).isActive</body>
+      </specification>
+    </ownedRule>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_uGowEDHGEeSIQaU3LZ0hmw" name="base_Class" association="_uGpXIDHGEeSIQaU3LZ0hmw">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_uGpXIDHGEeSIQaU3LZ0hmw" name="E_AlwaysActiveMalformed_Class1" memberEnd="_uGpXITHGEeSIQaU3LZ0hmw _uGowEDHGEeSIQaU3LZ0hmw">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_uGpXITHGEeSIQaU3LZ0hmw" name="extension_AlwaysActiveMalformed" type="_neZ30DHGEeSIQaU3LZ0hmw" aggregation="composite" association="_uGpXIDHGEeSIQaU3LZ0hmw"/>
+  </packagedElement>
+</uml:Profile>

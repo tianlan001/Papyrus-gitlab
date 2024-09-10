@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.papyrus.tests</groupId>
+		<artifactId>org.eclipse.papyrus.plugins.tests.releng</artifactId>
+		<version>7.0.0-SNAPSHOT</version>
+	</parent>
+	<groupId>org.eclipse.papyrus.tests</groupId>
+	<artifactId>org.eclipse.papyrus.infra.tests.releng</artifactId>
+	<version>7.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<description>Tests for the infra functions of Papyrus.</description>
+
+	<modules>
+		<!-- Suites -->
+		<module>core</module>
+		<module>nattable</module>
+		<module>org.eclipse.papyrus.infra.suite.tests</module>
+
+		<!-- Children -->
+		<module>editor</module>
+		<module>emf</module>
+		<module>gmfdiag</module>
+		<module>internationalization</module>
+		<module>properties</module>
+		<module>services</module>
+		<module>types</module>
+		<module>viewpoints</module>
+
+		<!-- Standalone Plugins -->
+		<module>org.eclipse.papyrus.infra.architecture.tests</module>
+		<module>org.eclipse.papyrus.infra.ui.architecture.tests</module>
+		<module>org.eclipse.papyrus.infra.filters.tests</module>
+		<module>org.eclipse.papyrus.infra.newchild.tests</module>
+		<module>org.eclipse.papyrus.infra.tools.tests</module>
+		<module>org.eclipse.papyrus.infra.ui.tests</module>
+
+	</modules>
+
+</project>

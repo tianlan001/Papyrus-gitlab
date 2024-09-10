@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_UN9FQM0cEeu8U7nNo50eCA" name="bookstore">
+  <tabs xmi:id="_VF2WkM0cEeu8U7nNo50eCA" label="BookStore" id="bookstore" priority="100">
+    <allSections xsi:type="contexts:Section" xmi:id="_VF3ksM0cEeu8U7nNo50eCA" name="Single BookStore" sectionFile="ui/SingleBookStore.xwt">
+      <widget href="ui/SingleBookStore.xwt#/"/>
+    </allSections>
+    <allSections xsi:type="contexts:Section" xmi:id="_VF3kss0cEeu8U7nNo50eCA" name="Single Vendor" sectionFile="ui/SingleVendor.xwt">
+      <widget href="ui/SingleVendor.xwt#/"/>
+    </allSections>
+    <allSections xsi:type="contexts:Section" xmi:id="_VF3ktM0cEeu8U7nNo50eCA" name="Single Book" sectionFile="ui/SingleBook.xwt">
+      <widget href="ui/SingleBook.xwt#/"/>
+    </allSections>
+    <allSections xsi:type="contexts:Section" xmi:id="_VF3kts0cEeu8U7nNo50eCA" name="Multiple BookStore" sectionFile="ui/MultipleBookStore.xwt">
+      <widget href="ui/MultipleBookStore.xwt#/"/>
+    </allSections>
+    <allSections xsi:type="contexts:Section" xmi:id="_VF3kuM0cEeu8U7nNo50eCA" name="Multiple Vendor" sectionFile="ui/MultipleVendor.xwt">
+      <widget href="ui/MultipleVendor.xwt#/"/>
+    </allSections>
+    <allSections xsi:type="contexts:Section" xmi:id="_VF3kus0cEeu8U7nNo50eCA" name="Multiple Book" sectionFile="ui/MultipleBook.xwt">
+      <widget href="ui/MultipleBook.xwt#/"/>
+    </allSections>
+  </tabs>
+  <views xmi:id="_UN9FQc0cEeu8U7nNo50eCA" name="Single BookStore" sections="_VF3ksM0cEeu8U7nNo50eCA" automaticContext="true" datacontexts="_UN9FYM0cEeu8U7nNo50eCA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_UN9FQs0cEeu8U7nNo50eCA" name="isSingleBookStore">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FQ80cEeu8U7nNo50eCA" name="className" value="BookStore"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FRM0cEeu8U7nNo50eCA" name="nsUri" value="http://www.eclipse.org/Papyrus/test/toolsmiths/propertiesbuilder/BookStore"/>
+    </constraints>
+  </views>
+  <views xmi:id="_UN9FRs0cEeu8U7nNo50eCA" name="Single Vendor" sections="_VF3kss0cEeu8U7nNo50eCA" automaticContext="true" datacontexts="_UN9FZM0cEeu8U7nNo50eCA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_UN9FR80cEeu8U7nNo50eCA" name="isSingleVendor">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FSM0cEeu8U7nNo50eCA" name="nsUri" value="http://www.eclipse.org/Papyrus/test/toolsmiths/propertiesbuilder/BookStore"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FSc0cEeu8U7nNo50eCA" name="className" value="Vendor"/>
+    </constraints>
+  </views>
+  <views xmi:id="_UN9FS80cEeu8U7nNo50eCA" name="Single Book" sections="_VF3ktM0cEeu8U7nNo50eCA" automaticContext="true" datacontexts="_UN9FaM0cEeu8U7nNo50eCA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_UN9FTM0cEeu8U7nNo50eCA" name="isSingleBook">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FTc0cEeu8U7nNo50eCA" name="className" value="Book"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FTs0cEeu8U7nNo50eCA" name="nsUri" value="http://www.eclipse.org/Papyrus/test/toolsmiths/propertiesbuilder/BookStore"/>
+    </constraints>
+  </views>
+  <views xmi:id="_UN9FUM0cEeu8U7nNo50eCA" elementMultiplicity="-1" name="Multiple BookStore" sections="_VF3kts0cEeu8U7nNo50eCA" automaticContext="true" datacontexts="_UN9FYM0cEeu8U7nNo50eCA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_UN9FUc0cEeu8U7nNo50eCA" name="isMultipleBookStore">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FUs0cEeu8U7nNo50eCA" name="nsUri" value="http://www.eclipse.org/Papyrus/test/toolsmiths/propertiesbuilder/BookStore"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FU80cEeu8U7nNo50eCA" name="className" value="BookStore"/>
+    </constraints>
+  </views>
+  <views xmi:id="_UN9FVc0cEeu8U7nNo50eCA" elementMultiplicity="-1" name="Multiple Vendor" sections="_VF3kuM0cEeu8U7nNo50eCA" automaticContext="true" datacontexts="_UN9FZM0cEeu8U7nNo50eCA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_UN9FVs0cEeu8U7nNo50eCA" name="isMultipleVendor">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FV80cEeu8U7nNo50eCA" name="nsUri" value="http://www.eclipse.org/Papyrus/test/toolsmiths/propertiesbuilder/BookStore"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FWM0cEeu8U7nNo50eCA" name="className" value="Vendor"/>
+    </constraints>
+  </views>
+  <views xmi:id="_UN9FWs0cEeu8U7nNo50eCA" elementMultiplicity="-1" name="Multiple Book" sections="_VF3kus0cEeu8U7nNo50eCA" automaticContext="true" datacontexts="_UN9FaM0cEeu8U7nNo50eCA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_UN9FW80cEeu8U7nNo50eCA" name="isMultipleBook">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FXM0cEeu8U7nNo50eCA" name="className" value="Book"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_UN9FXc0cEeu8U7nNo50eCA" name="nsUri" value="http://www.eclipse.org/Papyrus/test/toolsmiths/propertiesbuilder/BookStore"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_UN9FX80cEeu8U7nNo50eCA" name="BookStore" label="Book Store">
+    <elements xmi:id="_UN9FYM0cEeu8U7nNo50eCA" name="BookStore">
+      <properties xmi:id="_UN9FYs0cEeu8U7nNo50eCA" name="bookDispositions" multiplicity="-1" type="Reference"/>
+    </elements>
+    <elements xmi:id="_UN9FZM0cEeu8U7nNo50eCA" name="Vendor">
+      <properties xmi:id="_UN9FZs0cEeu8U7nNo50eCA" name="licenseNumber"/>
+    </elements>
+    <elements xmi:id="_UN9FaM0cEeu8U7nNo50eCA" name="Book"/>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context>

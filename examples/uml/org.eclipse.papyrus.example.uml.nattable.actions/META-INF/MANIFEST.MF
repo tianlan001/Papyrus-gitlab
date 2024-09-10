@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name
+Bundle-SymbolicName: org.eclipse.papyrus.example.uml.nattable.actions;singleton:=true
+Bundle-Version: 7.0.0.qualifier
+Bundle-Activator: org.eclipse.papyrus.example.uml.nattable.actions.Activator
+Bundle-Vendor: %Bundle-Vendor
+Require-Bundle: org.eclipse.emf.edit.ui;bundle-version="[2.18.0,3.0.0)",
+ org.eclipse.gmf.runtime.common.ui;bundle-version="[1.8.0,2.0.0)",
+ org.eclipse.gmf.runtime.emf.type.core;bundle-version="[1.9.0,2.0.0)",
+ org.eclipse.papyrus.infra.core.log;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.ui.views.properties.tabbed;bundle-version="[3.8.0,4.0.0)"
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: org.eclipse.papyrus.example.uml.nattable.actions
+Bundle-ActivationPolicy: lazy

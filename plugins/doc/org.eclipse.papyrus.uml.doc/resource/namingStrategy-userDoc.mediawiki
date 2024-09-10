@@ -1,0 +1,13 @@
+=Naming Strategies=
+Until Papyrus Oxygen.3, the created NamedElement were automatically named. The name was found according to the element's UML Metaclass, suffixed by an index. This index was found crossing all the elements in the owner until to build a unique name (''Metaclass' name + index''). This strategy cost many time for huge model and most of the time, the found name is replaced by the user just after the element's creation. 
+
+Since Papyrus Oxygen.3, we implement new strategies, to reduce the time consumption.
+*'''no index''': the created element is named according to its Metaclass. We have no warranty about the uniqueness of its name.
+*'''quick index''': the created element is named according to its Metaclass. This name is suffixed by an index (typically, the number of the elements already contained by its parent +1). We don't check the unicity of the name.
+*'''unique index''': the initial Papyrus strategy
+
+
+Papyrus uses the '''quick index''' strategy by default.
+
+A preference has been created to allow to the user to choose the naming. To change it, go into '''Window > Preferences > Papyrus > UML Naming Strategy'''.
+[[Image:images/nameStrategy-userDoc/NamingStrategyPreferencePage.png]] 

@@ -1,0 +1,339 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.papyrus.infra.gmfdiag.canonical" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.eclipse.papyrus.infra.gmfdiag.canonical" id="org.eclipse.papyrus.infra.gmfdiag.canonical.strategies" name="Canonical Children Strategies"/>
+      </appinfo>
+      <documentation>
+         A registry of strategies for determining the semantic children of model elements that should canonically be represented as child views in the diagrams.  In this context the term &quot;children&quot; is used loosely as pertaining to the model semantics, because elements visualized as child views in the diagram can have any kind of relationship to the element visualized in the parent view.  For example, in composite structures, ports of the class that is the type of a part may be presented as child views on the border of the part&apos;s rectangle shape in the diagram, although they are in no way contained either directly or indirectly in the model.
+
+The semantic &quot;children&quot; also include relationships (generalizations, dependencies, associations, etc.) and relationship-like elements (connectors, state transitions, messages, etc.) that should visually connect to a &quot;parent&quot; view in the diagram.
+      </documentation>
+   </annotation>
+
+   <include schemaLocation="schema://org.eclipse.core.expressions/schema/expressionLanguage.exsd"/>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <choice minOccurs="1" maxOccurs="unbounded">
+            <element ref="semanticChildrenStrategy"/>
+            <element ref="defaultSemanticChildrenStrategy"/>
+            <element ref="creationTargetStrategy"/>
+            <element ref="visualChildrenStrategy"/>
+         </choice>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="semanticChildrenStrategy">
+      <annotation>
+         <documentation>
+            This is a pair (EditPart, ISemanticChildrenStrategy) used to describe the list of semantic elements that will represented as children of the current EditPart.
+&lt;p&gt;
+The nested &amp;lt;enablement&amp;gt; expression, if specified, is used to match edit parts that the strategy supports.  The expression has three variables available to it:
+&lt;/p&gt;
+&lt;table border=&quot;1&quot; align=&quot;center&quot;&gt;
+&lt;tr&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;editPart&lt;/td&gt;&lt;td&gt;the edit-part under consideration. This is also the default variable&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;view&lt;/td&gt;&lt;td&gt;the &lt;tt&gt;editPart&lt;/tt&gt;&apos;s notation view&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;element&lt;/td&gt;&lt;td&gt;the &lt;tt&gt;view&lt;/tt&gt;&apos;s semantic element&lt;/th&gt;&lt;/tr&gt;
+&lt;/table&gt;
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="enablement" minOccurs="0" maxOccurs="1"/>
+         </sequence>
+         <attribute name="editPart" type="string">
+            <annotation>
+               <documentation>
+                  A class implementing the EditPart interface whose instances will be synchronized. If both this attribute and an &amp;lt;enablement&amp;gt; expression are supplied, then strategies will only be used  that match both.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.gef.EditPart"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  A strategy computing the list of semantic elements that will be represented as children of the referenced EditPart.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.papyrus.infra.gmfdiag.canonical.strategy.ISemanticChildrenStrategy"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="priority" type="string">
+            <annotation>
+               <documentation>
+                  Semantic children strategies are matched in priority order, from highest priority first to lowest priority last.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="defaultSemanticChildrenStrategy">
+      <annotation>
+         <documentation>
+            An extension that provides a generic default implementation of the semantic children for edit parts on semantic objects that it recognizes.
+&lt;p&gt;
+The nested &amp;lt;enablement&amp;gt; expression, if specified, is used to match edit parts that the strategy supports.  The expression has three variables available to it:
+&lt;/p&gt;
+&lt;table border=&quot;1&quot; align=&quot;center&quot;&gt;
+&lt;tr&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;editPart&lt;/td&gt;&lt;td&gt;the edit-part under consideration. This is also the default variable&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;view&lt;/td&gt;&lt;td&gt;the &lt;tt&gt;editPart&lt;/tt&gt;&apos;s notation view&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;element&lt;/td&gt;&lt;td&gt;the &lt;tt&gt;view&lt;/tt&gt;&apos;s semantic element&lt;/th&gt;&lt;/tr&gt;
+&lt;/table&gt;
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="enablement" minOccurs="0" maxOccurs="1"/>
+         </sequence>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The class implementing the default semantic children strategy
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.papyrus.infra.gmfdiag.canonical.strategy.ISemanticChildrenStrategy"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="priority" type="string">
+            <annotation>
+               <documentation>
+                  Default semantic children strategies are consulted only if a specific registered strategy is not matched.  In this case, the first default that can provide any children is used, so the priority sorts defaults.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="creationTargetStrategy">
+      <annotation>
+         <appinfo>
+            <meta.element deprecated="true"/>
+         </appinfo>
+         <documentation>
+            As of Neon, this strategy is no longer needed because the PapyrusCanonicalEditPolicy no longer uses the drag-and-drop infrastructure to create views of existing elements in the diagram.
+&lt;p&gt;
+An extension that provides an alternative target edit part to which requests should be sent for canonical creation of child views.
+&lt;/p&gt;&lt;p&gt;
+The nested &amp;lt;enablement&amp;gt; expression, if specified, is used to match edit parts that the strategy supports.  The expression has three variables available to it:
+&lt;/p&gt;
+&lt;table border=&quot;1&quot; align=&quot;center&quot;&gt;
+&lt;tr&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;editPart&lt;/td&gt;&lt;td&gt;the edit-part under consideration. This is also the default variable&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;view&lt;/td&gt;&lt;td&gt;the &lt;tt&gt;editPart&lt;/tt&gt;&apos;s notation view&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;element&lt;/td&gt;&lt;td&gt;the &lt;tt&gt;view&lt;/tt&gt;&apos;s semantic element&lt;/th&gt;&lt;/tr&gt;
+&lt;/table&gt;
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="enablement" minOccurs="0" maxOccurs="1"/>
+         </sequence>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The class implementing the creation target edit-part strategy
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.papyrus.infra.gmfdiag.canonical.strategy.ICreationTargetStrategy"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="priority" type="string">
+            <annotation>
+               <documentation>
+                  Creation target edit-part strategies are matched in priority order, from highest priority first to lowest priority last.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="visualChildrenStrategy">
+      <annotation>
+         <documentation>
+            This is a pair (EditPart, IVisualChildrenStrategy) used to describe the list of visual notation elements that are canonical children and connections of the current EditPart.
+&lt;p&gt;
+The nested &amp;lt;enablement&amp;gt; expression, if specified, is used to match edit parts that the strategy supports.  The expression has three variables available to it:
+&lt;/p&gt;
+&lt;table border=&quot;1&quot; align=&quot;center&quot;&gt;
+&lt;tr&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;editPart&lt;/td&gt;&lt;td&gt;the edit-part under consideration. This is also the default variable&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;view&lt;/td&gt;&lt;td&gt;the &lt;tt&gt;editPart&lt;/tt&gt;&apos;s notation view&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;element&lt;/td&gt;&lt;td&gt;the &lt;tt&gt;view&lt;/tt&gt;&apos;s semantic element&lt;/th&gt;&lt;/tr&gt;
+&lt;/table&gt;
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="enablement" minOccurs="0" maxOccurs="1"/>
+         </sequence>
+         <attribute name="editPart" type="string">
+            <annotation>
+               <documentation>
+                  A class implementing the EditPart interface whose instances will be synchronized. If both this attribute and an &amp;lt;enablement&amp;gt; expression are supplied, then strategies will only be used  that match both.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.gef.EditPart"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  A strategy computing the list of visual notation elements that are canonical children and connections of the referenced EditPart.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.papyrus.infra.gmfdiag.canonical.strategy.IVisualChildrenStrategy"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="priority" type="string">
+            <annotation>
+               <documentation>
+                  Visual children strategies are matched in priority order, from highest priority first to lowest priority last.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         1.1.0
+      </documentation>
+   </annotation>
+
+
+
+   <annotation>
+      <appinfo>
+         <meta.section type="implementation"/>
+      </appinfo>
+      <documentation>
+         The Composite Structure Diagram provided by Papyrus supports the presentation of nested composite structure in a part rectangle&apos;s structure compartment and ports around its border, according to the structure of the part&apos;s type (if any):
+
+&lt;pre&gt;
+   &lt;extension
+         point=&quot;org.eclipse.papyrus.infra.gmfdiag.canonical.strategies&quot;&gt;
+      &lt;semanticChildrenStrategy
+            editPart=&quot;org.eclipse.papyrus.uml.diagram.composite.edit.parts.PropertyPartCompartmentEditPartCN&quot;
+            class=&quot;org.eclipse.papyrus.uml.diagram.composite.PropertyPartCompartmentSemanticChildrenStrategy&quot;&gt;
+      &lt;/semanticChildrenStrategy&gt;
+      &lt;semanticChildrenStrategy
+            editPart=&quot;org.eclipse.papyrus.uml.diagram.composite.edit.parts.PropertyPartEditPartCN&quot;
+            class=&quot;org.eclipse.papyrus.uml.diagram.composite.PropertyPartCompartmentSemanticChildrenStrategy&quot;&gt;
+      &lt;/semanticChildrenStrategy&gt;
+   &lt;/extension&gt;
+&lt;/pre&gt;
+
+And for diagrams that do not need any more specific strategies, Papyrus provides defaults for owned elements and relationships to be presented as child views and edges, respectively:
+
+&lt;pre&gt;
+   &lt;extension
+         point=&quot;org.eclipse.papyrus.infra.gmfdiag.canonical.strategies&quot;&gt;
+      &lt;defaultSemanticChildrenStrategy
+            class=&quot;org.eclipse.papyrus.uml.diagram.common.canonical.DefaultUMLSemanticChildrenStrategy&quot;
+            priority=&quot;10&quot;&gt;
+         &lt;enablement&gt;
+            &lt;with
+                  variable=&quot;element&quot;&gt;
+               &lt;instanceof
+                     value=&quot;org.eclipse.uml2.uml.Element&quot;&gt;
+               &lt;/instanceof&gt;
+            &lt;/with&gt;
+         &lt;/enablement&gt;
+      &lt;/defaultSemanticChildrenStrategy&gt;
+   &lt;/extension&gt;
+&lt;/pre&gt;
+
+The Activity diagram cusomizes the edit part from which canonical creation of activity edges incoming and outgoing pins and groups is requested:
+
+&lt;pre&gt;
+   &lt;extension
+         point=&quot;org.eclipse.papyrus.infra.gmfdiag.canonical.strategies&quot;&gt;
+      &lt;creationTargetStrategy
+            class=&quot;org.eclipse.papyrus.uml.diagram.activity.canonical.ActivityCanonicalCreationTargetStrategy&quot;&gt;
+         &lt;enablement&gt;
+            &lt;with
+                  variable=&quot;element&quot;&gt;
+               &lt;or&gt;
+                  &lt;instanceof
+                        value=&quot;org.eclipse.uml2.uml.Pin&quot;&gt;
+                  &lt;/instanceof&gt;
+                  &lt;instanceof
+                        value=&quot;org.eclipse.uml2.uml.ActivityGroup&quot;&gt;
+                  &lt;/instanceof&gt;
+               &lt;/or&gt;
+            &lt;/with&gt;
+         &lt;/enablement&gt;
+      &lt;/creationTargetStrategy&gt;
+   &lt;/extension&gt;
+&lt;/pre&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="copyright"/>
+      </appinfo>
+      <documentation>
+         /*****************************************************************************
+         * Copyright (c) 2014, 2015 CEA LIST, Christian W. Damus and others.
+         *
+         *    
+         * All rights reserved. This program and the accompanying materials
+         * are made available under the terms of the Eclipse Public License 2.0
+         * which accompanies this distribution, and is available at
+         * https://www.eclipse.org/legal/epl-2.0/
+         *
+         * SPDX-License-Identifier: EPL-2.0
+         *
+         * Contributors:
+         * CEA LIST - Initial API and implementation
+         *
+         *****************************************************************************/
+      </documentation>
+   </annotation>
+   
+</schema>

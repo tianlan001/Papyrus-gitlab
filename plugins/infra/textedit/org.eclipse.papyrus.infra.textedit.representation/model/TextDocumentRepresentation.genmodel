@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2021 CEA LIST.&#xA;&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License 2.0&#xA; which accompanies this distribution, and is available at&#xA; https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA; SPDX-License-Identifier: EPL-2.0&#xA;&#xA; Contributors:&#xA; Vincent Lorenzo (CEA LIST) vincent.lorenzo@cea.fr - Initial API and implementation"
+    modelDirectory="/org.eclipse.papyrus.infra.textedit.representation/src-gen" creationIcons="false"
+    editDirectory="/org.eclipse.papyrus.infra.textedit.representation.edit/src-gen"
+    editorDirectory="/org.eclipse.papyrus.infra.textedit.representation.editor/src-gen"
+    modelPluginID="org.eclipse.papyrus.infra.textedit.representation" modelName="TextDocumentRepresentation"
+    nonNLSMarkers="true" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" commentFormatting="true" testsDirectory="/org.eclipse.papyrus.infra.textedit.representation.tests/src-gen"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="11.0" copyrightFields="false"
+    usedGenPackages="../../org.eclipse.papyrus.infra.core.architecture/model/Architecture.genmodel#//architecture ../../org.eclipse.papyrus.infra.constraints/Model/Constraints.genmodel#//constraints ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.genmodel#//types ../../org.eclipse.papyrus.infra.architecture.representation/model/Representation.genmodel#//representation"
+    operationReflection="true" importOrganizing="true" cleanup="true" oSGiCompatible="true">
+  <foreignModel>TextDocumentRepresentation.ecore</foreignModel>
+  <genPackages prefix="Representation" basePackage="org.eclipse.papyrus.infra.textedit"
+      disposableProviderFactory="true" extensibleProviderFactory="true" childCreationExtenders="true"
+      ecorePackage="TextDocumentRepresentation.ecore#/">
+    <genClasses ecoreClass="TextDocumentRepresentation.ecore#//TextDocumentRepresentation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TextDocumentRepresentation.ecore#//TextDocumentRepresentation/creationCommandClass"/>
+      <genOperations ecoreOperation="TextDocumentRepresentation.ecore#//TextDocumentRepresentation/isValidClass">
+        <genParameters ecoreParameter="TextDocumentRepresentation.ecore#//TextDocumentRepresentation/isValidClass/chain"/>
+        <genParameters ecoreParameter="TextDocumentRepresentation.ecore#//TextDocumentRepresentation/isValidClass/context"/>
+      </genOperations>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

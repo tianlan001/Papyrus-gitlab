@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:nattable="http://www.eclipse.org/papyrus/nattable/model" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xsi:schemaLocation="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis http://www.eclipse.org/papyrus/nattable/model#//nattableaxis http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider http://www.eclipse.org/papyrus/nattable/model#//nattableaxisprovider">
+  <nattable:Table xmi:id="_6KNXUM5dEemmCI5rrjVnbw" name="Class Tree Table" currentRowAxisProvider="_6KNXU85dEemmCI5rrjVnbw" currentColumnAxisProvider="_6KNXUc5dEemmCI5rrjVnbw" tableKindId="org.eclipse.papyrus.uml.table.classTree">
+    <eAnnotations xmi:id="_6KUFAM5dEemmCI5rrjVnbw" source="http://www.eclipse.org/papyrus/infra/nattable/version">
+      <details xmi:id="_6KUFAc5dEemmCI5rrjVnbw" key="version" value="1.3.0"/>
+    </eAnnotations>
+    <context href="GrayedIcon.uml#_6IECQM5dEemmCI5rrjVnbw"/>
+    <owner href="GrayedIcon.uml#_6IECQM5dEemmCI5rrjVnbw"/>
+    <tableConfiguration href="platform:/resource/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#PapyrusClassTreeTable_XMI_ID"/>
+    <columnAxisProvidersHistory xsi:type="nattableaxisprovider:SlaveObjectAxisProvider" xmi:id="_6KNXUc5dEemmCI5rrjVnbw" description="This axis provider provides available columns according to the rows of the table (features of the object displayed on the other axis)" name="UML Feature axis provider">
+      <axis xsi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_6KNXUs5dEemmCI5rrjVnbw">
+        <manager href="platform:/resource/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#_UJa7yDzQEei_1txcmoHe_A"/>
+        <element xsi:type="ecore:EAttribute" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+      </axis>
+    </columnAxisProvidersHistory>
+    <rowAxisProvidersHistory xsi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_6KNXU85dEemmCI5rrjVnbw" description="This axis provider manages the rows, according to the wanted hierarchy" name="HierarchicalRowaAxisManager" disconnectSlave="true"/>
+  </nattable:Table>
+  <notation:Diagram xmi:id="_6NTHkM5dEemmCI5rrjVnbw" type="PapyrusUMLStateMachineDiagram" name="State Machine Diagram" measurementUnit="Pixel">
+    <children xsi:type="notation:Shape" xmi:id="_6NTHkc5dEemmCI5rrjVnbw" type="StateMachine_Shape">
+      <children xsi:type="notation:DecorationNode" xmi:id="_6NTHks5dEemmCI5rrjVnbw" type="StateMachine_NameLabel">
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6NTHk85dEemmCI5rrjVnbw" width="700" height="20"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_6NTHlM5dEemmCI5rrjVnbw" type="StateMachine_RegionCompartment">
+        <children xsi:type="notation:Shape" xmi:id="_6NTHlc5dEemmCI5rrjVnbw" type="Region_Shape">
+          <eAnnotations xmi:id="_6NTHls5dEemmCI5rrjVnbw" source="RegionAnnotationKey">
+            <details xmi:id="_6NTHl85dEemmCI5rrjVnbw" key="RegionZoneKey" value=""/>
+          </eAnnotations>
+          <children xsi:type="notation:BasicCompartment" xmi:id="_6NTHmM5dEemmCI5rrjVnbw" type="Region_SubvertexCompartment">
+            <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6NTHmc5dEemmCI5rrjVnbw"/>
+          </children>
+          <element href="GrayedIcon.uml#_6NMZ4M5dEemmCI5rrjVnbw"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6NTHms5dEemmCI5rrjVnbw" width="700" height="280"/>
+        </children>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6NTHm85dEemmCI5rrjVnbw" y="20" width="700" height="280"/>
+      </children>
+      <element href="GrayedIcon.uml#_6LOrAM5dEemmCI5rrjVnbw"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6NTHnM5dEemmCI5rrjVnbw" x="30" y="30" width="700" height="300"/>
+    </children>
+    <styles xsi:type="notation:StringValueStyle" xmi:id="_6NTHnc5dEemmCI5rrjVnbw" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xsi:type="notation:DiagramStyle" xmi:id="_6NTHns5dEemmCI5rrjVnbw"/>
+    <styles xsi:type="style:PapyrusDiagramStyle" xmi:id="_6NTHn85dEemmCI5rrjVnbw" diagramKindId="org.eclipse.papyrus.uml.diagram.stateMachine">
+      <owner href="GrayedIcon.uml#_6IECQM5dEemmCI5rrjVnbw"/>
+    </styles>
+    <element href="GrayedIcon.uml#_6LOrAM5dEemmCI5rrjVnbw"/>
+  </notation:Diagram>
+  <notation:Diagram xmi:id="_6NdfoM5dEemmCI5rrjVnbw" type="PapyrusUMLClassDiagram" name="Class Diagram" measurementUnit="Pixel">
+    <styles xsi:type="notation:StringValueStyle" xmi:id="_6Ndfoc5dEemmCI5rrjVnbw" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xsi:type="notation:DiagramStyle" xmi:id="_6Ndfos5dEemmCI5rrjVnbw"/>
+    <styles xsi:type="style:PapyrusDiagramStyle" xmi:id="_6Ndfo85dEemmCI5rrjVnbw" diagramKindId="org.eclipse.papyrus.uml.diagram.class">
+      <owner href="GrayedIcon.uml#_6IECQM5dEemmCI5rrjVnbw"/>
+    </styles>
+    <element href="GrayedIcon.uml#_6IECQM5dEemmCI5rrjVnbw"/>
+  </notation:Diagram>
+  <notation:Diagram xmi:id="_6NulYM5dEemmCI5rrjVnbw" type="PapyrusUMLActivityDiagram" name="Activity Diagram" measurementUnit="Pixel">
+    <children xsi:type="notation:Shape" xmi:id="_6NulYc5dEemmCI5rrjVnbw" type="Activity_Shape">
+      <children xsi:type="notation:DecorationNode" xmi:id="_6NulYs5dEemmCI5rrjVnbw" type="Activity_NameLabel"/>
+      <children xsi:type="notation:DecorationNode" xmi:id="_6NulY85dEemmCI5rrjVnbw" type="Activity_KeywordLabel"/>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_6NulZM5dEemmCI5rrjVnbw" type="Activity_ParameterCompartment">
+        <styles xsi:type="notation:SortingStyle" xmi:id="_6NulZc5dEemmCI5rrjVnbw"/>
+        <styles xsi:type="notation:FilteringStyle" xmi:id="_6NulZs5dEemmCI5rrjVnbw"/>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6NulZ85dEemmCI5rrjVnbw"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_6NulaM5dEemmCI5rrjVnbw" type="Activity_PreconditionCompartment">
+        <styles xsi:type="notation:SortingStyle" xmi:id="_6Nulac5dEemmCI5rrjVnbw"/>
+        <styles xsi:type="notation:FilteringStyle" xmi:id="_6Nulas5dEemmCI5rrjVnbw"/>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6Nula85dEemmCI5rrjVnbw"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_6NulbM5dEemmCI5rrjVnbw" type="Activity_PostconditionCompartment">
+        <styles xsi:type="notation:SortingStyle" xmi:id="_6Nulbc5dEemmCI5rrjVnbw"/>
+        <styles xsi:type="notation:FilteringStyle" xmi:id="_6Nulbs5dEemmCI5rrjVnbw"/>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6Nulb85dEemmCI5rrjVnbw"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_6NulcM5dEemmCI5rrjVnbw" type="Activity_ActivityNodeCompartment">
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6Nulcc5dEemmCI5rrjVnbw"/>
+      </children>
+      <element href="GrayedIcon.uml#_6Nk0YM5dEemmCI5rrjVnbw"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6Nulcs5dEemmCI5rrjVnbw"/>
+    </children>
+    <styles xsi:type="notation:StringValueStyle" xmi:id="_6Nulc85dEemmCI5rrjVnbw" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xsi:type="notation:DiagramStyle" xmi:id="_6NuldM5dEemmCI5rrjVnbw"/>
+    <styles xsi:type="style:PapyrusDiagramStyle" xmi:id="_6Nuldc5dEemmCI5rrjVnbw" diagramKindId="org.eclipse.papyrus.uml.diagram.activity">
+      <owner href="GrayedIcon.uml#_6IECQM5dEemmCI5rrjVnbw"/>
+    </styles>
+    <element href="GrayedIcon.uml#_6Nk0YM5dEemmCI5rrjVnbw"/>
+  </notation:Diagram>
+</xmi:XMI>

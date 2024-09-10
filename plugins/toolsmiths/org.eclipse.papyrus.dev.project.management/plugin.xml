@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.eclipse.papyrus.dev.project.management.handlers.plugins.AddProjectAboutFileHandler"
+            id="org.eclipse.papyrus.dev.project.management.command.plugin.add.about"
+            name="Add the file about.html to the project">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.dev.project.management.handlers.features.AddFeatureLicenseFileHandler"
+            description="Add the license file to the feature"
+            id="org.eclipse.papyrus.dev.project.management.command.feature.add.license"
+            name="Add License File">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.dev.project.management.handlers.features.AddFEPLFileHandler"
+            description="Add the EPL file to the feature"
+            id="org.eclipse.papyrus.dev.project.management.command.feature.add.epl"
+            name="Add EPL file">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.dev.project.management.handlers.features.SetCopyrightNoticeHandler"
+            description="Set Feature Copyright"
+            id="org.eclipse.papyrus.dev.project.management.command.feature.set.copyright"
+            name="Set Feature Copyright">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.dev.project.management.handlers.plugins.UpdateDependencyRangesHandler"
+            description="Update bundle/package dependency ranges according to the current PDE target"
+            id="org.eclipse.papyrus.dev.project.management.command.updateDependencyRanges"
+            name="Update Dependency Ranges">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.dev.project.management.handlers.plugins.OptimizeDependenciesHandler"
+            description="Optimize bundle dependencies by removing redundancies and adding re-exports to cover the API"
+            id="org.eclipse.papyrus.dev.project.management.command.optimizeDependencies"
+            name="Optimize Bundle Dependencies">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.dev.project.management.handlers.plugins.SingletonBundleHandler"
+            description="Set bundles to be singleton"
+            id="org.eclipse.papyrus.dev.project.management.command.singletonbundle"
+            name="Set bundles to be singleton">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.dev.project.management.handlers.SyncManifestAndPOMVersions"
+            description="Ensure that POM versions match their plug-in/feature manifest"
+            id="org.eclipse.papyrus.dev.project.management.command.syncPOMVersions"
+            name="Synchronize POM Versions">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.dev.project.management.handlers.EnsureAPIAnalysisHandler"
+            description="Ensure that all projects under version management have API Analysis configured"
+            id="org.eclipse.papyrus.dev.project.management.command.ensureAPIAnalysis"
+            name="Ensure API Analysis">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.dev.project.management.handlers.plugins.OpenParentPOMHandler"
+            description="Open the parent POM, even if not in the workspace"
+            id="org.eclipse.papyrus.dev.project.management.command.openParentPOM"
+            name="Open Parent POM">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?after=edit">
+         <menu
+               icon="icons/papyrus.png"
+               label="Project management">
+            <menu
+                  icon="icons/feature_obj.gif"
+                  label="Feature">
+               <command
+                     commandId="org.eclipse.papyrus.dev.project.management.command.feature.add.license"
+                     icon="icons/html.gif"
+                     label="Add License File (no undo)"
+                     style="push">
+               </command>
+               <command
+                     commandId="org.eclipse.papyrus.dev.project.management.command.feature.add.epl"
+                     icon="icons/html.gif"
+                     label="Add EPL File (no undo)"
+                     style="push">
+               </command>
+               <command
+                     commandId="org.eclipse.papyrus.dev.project.management.command.feature.set.copyright"
+                     icon="icons/copyright_icon.png"
+                     label="Set Copyright (doesn&apos;t erase existing value)"
+                     style="push">
+               </command>
+            </menu>
+            <menu
+                  icon="icons/plugin_obj.gif"
+                  label="Plugin">
+               <command
+                     commandId="org.eclipse.papyrus.dev.project.management.command.plugin.add.about"
+                     icon="icons/html.gif"
+                     label="Add about.html file (no undo)"
+                     style="push">
+               </command>
+            </menu>
+            <command
+                  commandId="org.eclipse.papyrus.dev.project.management.command.syncPOMVersions"
+                  icon="icons/version.png"
+                  label="Synchronize POM Versions (no undo)"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.papyrus.dev.project.management.command.ensureAPIAnalysis"
+                  label="Ensure API Analysis (no undo)"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.eclipse.pde.ui.tools?after=additions">
+         <command
+               commandId="org.eclipse.papyrus.dev.project.management.command.updateDependencyRanges"
+               icon="icons/version.png">
+            <visibleWhen
+                  checkEnabled="false">
+               <iterate>
+                  <reference
+                        definitionId="org.eclipse.papyrus.dev.project.management.isPluginProjectOrManifest">
+                  </reference>
+               </iterate>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.papyrus.dev.project.management.command.optimizeDependencies"
+               icon="icons/plugin_mf_obj.gif">
+            <visibleWhen
+                  checkEnabled="false">
+               <iterate>
+                  <reference
+                        definitionId="org.eclipse.papyrus.dev.project.management.isPluginProjectOrManifest">
+                  </reference>
+               </iterate>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.papyrus.dev.project.management.command.singletonbundle"
+               icon="icons/plugin_mf_obj.gif">
+            <visibleWhen
+                  checkEnabled="false">
+               <iterate>
+                  <reference
+                        definitionId="org.eclipse.papyrus.dev.project.management.isPluginProjectOrManifest">
+                  </reference>
+               </iterate>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="org.eclipse.papyrus.dev.project.management.command.openParentPOM">
+            <visibleWhen
+                  checkEnabled="false">
+               <iterate>
+                  <adapt
+	                    type="org.eclipse.core.resources.IFile">
+	                 <or>
+	                    <test
+	                          property="org.eclipse.core.resources.name"
+	                          value="pom.xml">
+	                    </test>
+                        <test
+	                          property="org.eclipse.core.resources.contentTypeId"
+	                          value="org.eclipse.m2e.core.pomFile">
+	                    </test>
+	                 </or>
+	              </adapt>
+	           </iterate>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="org.eclipse.papyrus.dev.project.management.isPluginProjectOrManifest">
+          <or>
+             <adapt
+                   type="org.eclipse.core.resources.IFile">
+                <test
+                      property="org.eclipse.core.resources.name"
+                      value="MANIFEST.MF">
+                </test>
+             </adapt>
+             <adapt
+                   type="org.eclipse.core.resources.IProject">
+                <test
+                      property="org.eclipse.core.resources.projectNature"
+                      value="org.eclipse.pde.PluginNature">
+                </test>
+             </adapt>
+          </or>
+      </definition>
+   </extension>
+</plugin>

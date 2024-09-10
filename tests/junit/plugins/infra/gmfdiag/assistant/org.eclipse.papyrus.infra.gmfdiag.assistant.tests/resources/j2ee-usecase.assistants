@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ASCII"?>
+<assistant:ModelingAssistantProvider xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:assistant="http://www.eclipse.org/Papyrus/2014/diagram/assistant" xmlns:filters="http://www.eclipse.org/Papyrus/2014/common/filters" xmlns:umlfilters="http://www.eclipse.org/Papyrus/2014/uml/filters" name="j2ee">
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Extension Point" elementTypeID="org.eclipse.papyrus.umldi.ExtensionPoint_ExtensionPointLabel"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Extension Point" elementTypeID="org.eclipse.papyrus.umldi.ExtensionPoint_ClassifierExtensionPointLabel"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Use Case" elementTypeID="org.eclipse.papyrus.umldi.UseCase_Shape_CCN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Component" elementTypeID="org.eclipse.papyrus.umldi.Component_Shape_CCN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Constraint" elementTypeID="org.eclipse.papyrus.umldi.Constraint_Shape_CCN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Actor" elementTypeID="org.eclipse.papyrus.umldi.Actor_Shape_CCN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Constraint" elementTypeID="org.eclipse.papyrus.umldi.Constraint_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Actor" elementTypeID="org.eclipse.papyrus.umldi.Actor_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Use Case" elementTypeID="org.eclipse.papyrus.umldi.UseCase_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Component" elementTypeID="org.eclipse.papyrus.umldi.Component_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Package" elementTypeID="org.eclipse.papyrus.umldi.Package_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Actor" elementTypeID="org.eclipse.papyrus.umldi.Actor_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Actor" elementTypeID="org.eclipse.papyrus.umldi.Actor_ClassifierShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Use Case" elementTypeID="org.eclipse.papyrus.umldi.UseCase_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Use Case" elementTypeID="org.eclipse.papyrus.umldi.UseCase_ClassifierShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Classifier" elementTypeID="org.eclipse.papyrus.umldi.Classifier_SubjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Package" elementTypeID="org.eclipse.papyrus.umldi.Package_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Constraint" elementTypeID="org.eclipse.papyrus.umldi.Constraint_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Default Named Element" elementTypeID="org.eclipse.papyrus.umldi.NamedElement_DefaultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Constraint Constrained Element" elementTypeID="org.eclipse.papyrus.umldi.Constraint_ConstrainedElementEdge"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Package" elementTypeID="org.eclipse.papyrus.umldi.Package_UseCaseDiagram"/>
+  <ownedFilter xsi:type="filters:CompoundFilter" name="pertains to Profile j2ee" filter="//@ownedFilter.21/@ownedFilter.0 //@ownedFilter.21/@ownedFilter.1" operator="or">
+    <ownedFilter xsi:type="umlfilters:ProfileApplied" name="j2ee is applied in context" profileQualifiedName="j2ee" profileURI="platform:/plugin/org.eclipse.papyrus.infra.gmfdiag.assistant.tests/resources/j2ee.profile.uml#_raLqoEigEeSRp-p9nf2EsA"/>
+    <ownedFilter xsi:type="assistant:AssistedElementTypeFilter"/>
+  </ownedFilter>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Association" elementTypeID="org.eclipse.papyrus.umldi.Association_Edge"/>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.User_3018" filter="//@popupAssistant.0/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.0/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.3 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.16 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.User_3011" filter="//@popupAssistant.1/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.1/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.3 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.16 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.User_2011" filter="//@popupAssistant.2/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.2/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.3 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.16 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.User_2012" filter="//@popupAssistant.3/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.3/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.3 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.16 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.Browser_3018" filter="//@popupAssistant.4/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.4/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.3 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.16 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.Browser_3011" filter="//@popupAssistant.5/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.5/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.3 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.16 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.Browser_2011" filter="//@popupAssistant.6/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.6/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.3 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.16 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.Browser_2012" filter="//@popupAssistant.7/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.7/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.3 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.16 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.BranchPoint_3007" filter="//@popupAssistant.8/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.8/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.2 //@ownedFilter.8 //@ownedFilter.13 //@ownedFilter.14" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.BranchPoint_3008" filter="//@popupAssistant.9/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.9/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.2 //@ownedFilter.8 //@ownedFilter.13 //@ownedFilter.14" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.WebScenario_3012" filter="//@popupAssistant.10/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.10/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.2 //@ownedFilter.3 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.8 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.11 //@ownedFilter.12 //@ownedFilter.13 //@ownedFilter.14 //@ownedFilter.15 //@ownedFilter.16 //@ownedFilter.22 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.WebScenario_2013" filter="//@popupAssistant.11/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.11/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.2 //@ownedFilter.3 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.8 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.11 //@ownedFilter.12 //@ownedFilter.13 //@ownedFilter.14 //@ownedFilter.15 //@ownedFilter.16 //@ownedFilter.22 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <popupAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.WebScenario_2014" filter="//@popupAssistant.12/@ownedFilter">
+    <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@popupAssistant.12/@ownedFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.2 //@ownedFilter.3 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.8 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.11 //@ownedFilter.12 //@ownedFilter.13 //@ownedFilter.14 //@ownedFilter.15 //@ownedFilter.16 //@ownedFilter.22 //@ownedFilter.20" operator="or"/>
+    </ownedFilter>
+  </popupAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.Import_4013" sourceFilter="//@connectionAssistant.0/@ownedSourceFilter" targetFilter="//@connectionAssistant.0/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@connectionAssistant.0/@ownedSourceFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.0 //@ownedFilter.1 //@ownedFilter.2 //@ownedFilter.3 //@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.6 //@ownedFilter.7 //@ownedFilter.8 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.11 //@ownedFilter.12 //@ownedFilter.13 //@ownedFilter.14 //@ownedFilter.15 //@ownedFilter.16 //@ownedFilter.17 //@ownedFilter.18 //@ownedFilter.19 //@ownedFilter.20" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@connectionAssistant.0/@ownedTargetFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.0 //@ownedFilter.1 //@ownedFilter.2 //@ownedFilter.3 //@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.6 //@ownedFilter.7 //@ownedFilter.8 //@ownedFilter.9 //@ownedFilter.10 //@ownedFilter.11 //@ownedFilter.12 //@ownedFilter.13 //@ownedFilter.14 //@ownedFilter.15 //@ownedFilter.16 //@ownedFilter.17 //@ownedFilter.18 //@ownedFilter.19 //@ownedFilter.20" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.example.j2ee.Web_4011" sourceFilter="//@connectionAssistant.1/@ownedSourceFilter" targetFilter="//@connectionAssistant.1/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@connectionAssistant.1/@ownedSourceFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.2 //@ownedFilter.3 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.8 //@ownedFilter.9 //@ownedFilter.11 //@ownedFilter.12 //@ownedFilter.13 //@ownedFilter.14 //@ownedFilter.15" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.21 //@connectionAssistant.1/@ownedTargetFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.2 //@ownedFilter.3 //@ownedFilter.5 //@ownedFilter.7 //@ownedFilter.8 //@ownedFilter.9 //@ownedFilter.11 //@ownedFilter.12 //@ownedFilter.13 //@ownedFilter.14 //@ownedFilter.15" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.Import_4013</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.Web_4011</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.User_3018</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.User_3011</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.User_2011</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.User_2012</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.Browser_3018</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.Browser_3011</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.Browser_2011</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.Browser_2012</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.BranchPoint_3007</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.BranchPoint_3008</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.WebScenario_3012</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.WebScenario_2013</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.example.j2ee.WebScenario_2014</elementTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.example.j2ee.Import_4013</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.example.j2ee.Web_4011</relationshipTypeID>
+</assistant:ModelingAssistantProvider>

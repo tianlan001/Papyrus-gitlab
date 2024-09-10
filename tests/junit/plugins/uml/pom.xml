@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.papyrus.tests</groupId>
+		<artifactId>org.eclipse.papyrus.plugins.tests.releng</artifactId>
+		<version>7.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>org.eclipse.papyrus.uml.tests.releng</artifactId>
+	<packaging>pom</packaging>
+	<description>Tests for the core uml functions of Papyrus.</description>
+
+	<modules>
+		<!-- Suites -->
+		<module>diagram</module>
+		<module>nattable</module>
+		<module>textedit</module>
+		<module>org.eclipse.papyrus.uml.suite.tests</module>
+
+		<!-- Children -->
+		<module>alf</module>
+		<module>assistants</module>
+		<module>decoratormodel</module>
+		<module>expressions</module>
+		<module>internationalization</module>
+		<module>modelexplorer</module>
+		<module>profile</module>
+		<module>tools</module>
+		<module>validation</module>
+
+		<!-- Standalone Plugins -->
+		<module>org.eclipse.papyrus.uml.dynamic.profile.tests</module>
+		<module>org.eclipse.papyrus.uml.filters.tests</module>
+		<module>org.eclipse.papyrus.uml.modelrepair.tests</module>
+		<module>org.eclipse.papyrus.uml.properties.tests</module>
+		<module>org.eclipse.papyrus.uml.service.types.tests</module>
+		<module>org.eclipse.papyrus.uml.service.types.ui.tests</module>
+		<module>org.eclipse.papyrus.uml.architecture.tests</module>
+		<module>org.eclipse.papyrus.uml.types.core.tests</module>
+
+	</modules>
+
+</project>

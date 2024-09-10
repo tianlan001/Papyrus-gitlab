@@ -1,0 +1,37 @@
+This page presents the requirements and design notes for Modeling Assistants in the diagram editors, customizable for DSMLs based on UML Profiles.
+
+=Requirements=
+
+The requirements for Modeling Assistants in the Papyrus diagram editors, addressable in the Mars release, are
+
+* '''R1''' assistants provided by a diagram shall be described by a model
+* '''R2''' the assistants model shall be initially generated ("seeded") from a UML Profile
+* (omitted) bug 459510 '''R3''' the assistants model should, as much as possible, be unified/aligned with the models for diagram palette customization and Model Explorer "new child" menu customization inasmuch as all three of these mechanisms are, in general terms, different manifestations of tools for creating new model elements
+** '''R3.1''' the modeling assistants shall provide the same "new child" menu as the Model Explorer in the context of diagrams
+*** '''R3.1.1''' which may be further filtered by restrictions of the visualization
+* (omitted) bug 459509 '''R4''' a lightweight customization mechanism may be included that promotes "favourites" in the tool palette as modeling assistants
+* '''R5''' hyperlinks and the hyperlink creation tool shall continue to be presented in the popup bar, in addition to the element creation tools specified by the assistant model
+* '''R6''' the standard UML diagrams provided by Papyrus shall provide assistant models for core editing functionality
+** '''R6.1''' the assistant model for each diagram should be generated from the diagram's GMF Generator model, unless it can better be generated from the diagram's ''Chaos II'' element-types configuration model
+
+=Bugzilla=
+
+The main bugzilla enhancement item tracking progress of this feature is
+
+* bugstrike 451230
+
+Deferred requirements:
+
+* bug 459509
+* bug 459510
+
+=Demonstration Videos=
+
+The progress of development of this feature is recorded in a series of videos, here:
+
+* [http://youtu.be/NxWiMdSu39I First prototype of basic diagram assistants]
+* [http://youtu.be/vRnQ8jOXoWo Defining element types for diagram assistants specific to a UML Profile]
+* [http://youtu.be/i3ERSnjmTgA Generation of diagram assistants model for a UML Profile targeting a particular diagram]
+* [http://youtu.be/tyc0gWU4xj0 Generation of diagram assistants model for a UML Profile not targeting any particular diagram, but UML generally]
+* [http://youtu.be/UR8eSaYXON8 Generating a diagram assistants model for unprofiled UML, targeting a particular diagram's visual types]
+* [http://youtu.be/v-AakQ7TYHQ Context-sensitive activation of diagram assistants for UML Profiles]

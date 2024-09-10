@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+
+<!--
+ Copyright (c) 2013, 2015 CEA LIST, Christian W. Damus, and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   CEA LIST - Initial API and implementation
+   Christian W. Damus - bug 458652
+ 
+-->
+
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.papyrus.views.category"
+            class="org.eclipse.papyrus.views.validation.internal.ModelValidationView"
+            icon="icons/full/view16/model_validation.gif"
+            id="org.eclipse.papyrus.views.validation.ModelValidationView"
+            name="Model Validation"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipse.papyrus.views.validation.internal.expressions.PapyrusMarkerPropertyTester"
+            id="org.eclipse.papyrus.views.validation.PapyrusMarkerPropertyTester"
+            namespace="org.eclipse.papyrus.ui"
+            properties="hasQuickFix"
+            type="org.eclipse.papyrus.infra.services.markerlistener.IPapyrusMarker">
+      </propertyTester>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.papyrus.views.validation.ModelValidationView?after=additions">
+         <command
+               commandId="org.eclipse.jdt.ui.edit.text.java.correction.assist.proposals"
+               label="Quick Fix"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.papyrus.views.validation.internal.handlers.QuickFixHandler"
+            commandId="org.eclipse.jdt.ui.edit.text.java.correction.assist.proposals"> <!-- Yes, this is the command ID to get the key binding -->
+         <activeWhen>
+            <and>
+               <with variable="activePart">
+                  <instanceof value="org.eclipse.papyrus.views.validation.internal.ModelValidationView"/>
+               </with>
+               <with variable="selection">
+                  <iterate ifEmpty="false" operator="and">
+                    <adapt type="org.eclipse.core.resources.IMarker" >
+                      <test property="org.eclipse.ui.ide.marker.superType"
+                            value="org.eclipse.core.resources.problemmarker"/>
+                    </adapt>    
+                  </iterate>
+              </with>
+            </and>
+         </activeWhen>
+         <enabledWhen>
+            <and>
+               <iterate
+                     ifEmpty="false"
+                     operator="or">
+                  <adapt type="org.eclipse.papyrus.infra.services.markerlistener.IPapyrusMarker">
+                    <test
+                          property="org.eclipse.papyrus.ui.hasQuickFix">
+                    </test>
+                  </adapt>
+               </iterate>
+               <count
+                     value="1"> <!-- Multiple selections don't really work, so don't even try. -->
+               </count>
+            </and>
+         </enabledWhen>
+      </handler>
+   </extension>
+</plugin>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ASCII"?>
+<environment:Environment
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:environment="http://www.eclipse.org/papyrus/properties/environment/0.9">
+  <constraintTypes
+      label="isTreeTable"
+      constraintClass="org.eclipse.papyrus.infra.nattable.properties.constraints.IsTreeTableConstraint"/>
+  <constraintTypes
+      label="isEObjectInTable"
+      constraintClass="org.eclipse.papyrus.infra.nattable.properties.constraints.IsEObjectInTableConstraint"/>
+  <constraintTypes
+      label="isEObjectInFlatTable"
+      constraintClass="org.eclipse.papyrus.infra.nattable.properties.constraints.IsEObjectInFlatTableConstraint"/>
+  <constraintTypes
+      label="isEObjectInTreeTable"
+      constraintClass="org.eclipse.papyrus.infra.nattable.properties.constraints.IsEObjectInTreeTableConstraint"/>
+  <modelElementFactories
+      name="NatTableFactory"
+      factoryClass="org.eclipse.papyrus.infra.nattable.properties.modelelement.NatTableFactory"/>
+  <modelElementFactories
+      name="EObjectInNatTableFactory"
+      factoryClass="org.eclipse.papyrus.infra.nattable.properties.modelelement.EObjectInNatTableFactory"/>
+</environment:Environment>

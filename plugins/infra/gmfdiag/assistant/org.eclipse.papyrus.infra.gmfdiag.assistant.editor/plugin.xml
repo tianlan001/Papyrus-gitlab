@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2014 Christian W. Damus and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   Christian W. Damus - Initial API and implementation
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated NOT assistant -->
+      <wizard
+            id="org.eclipse.papyrus.infra.gmfdiag.assistant.presentation.AssistantModelWizardID"
+            name="%_UI_AssistantModelWizard_label"
+            class="org.eclipse.papyrus.infra.gmfdiag.assistant.presentation.AssistantModelWizard"
+            category="org.eclipse.papyrus.wizards.category/org.eclipse.papyrus.wizards.custo.category/org.eclipse.papyrus.wizards.custo.editors.category"
+            icon="icons/full/obj16/AssistantModelFile.gif">
+         <description>%_UI_AssistantModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated assistant -->
+      <editor
+            id="org.eclipse.papyrus.infra.gmfdiag.assistant.presentation.AssistantEditorID"
+            name="%_UI_AssistantEditor_label"
+            icon="icons/full/obj16/AssistantModelFile.gif"
+            class="org.eclipse.papyrus.infra.gmfdiag.assistant.presentation.AssistantEditor"
+            contributorClass="org.eclipse.papyrus.infra.gmfdiag.assistant.presentation.AssistantActionBarContributor">
+         <contentTypeBinding contentTypeId="org.eclipse.papyrus.infra.gmfdiag.assistants"/>
+      </editor>
+   </extension>
+
+</plugin>

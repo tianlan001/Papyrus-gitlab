@@ -1,0 +1,392 @@
+/*****************************************************************************
+ * Copyright (c) 2014-2015 CEA LIST.
+ *
+ *    
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *   Ed Seidewitz (MDS)
+ * 
+ *****************************************************************************/
+import org.eclipse.papyrus.uml.alf.to.fuml.qvt.QVTLibrary;
+import UML2AlfLibrary;
+
+modeltype Alf uses "http://www.omg.org/spec/ALF/20120827";
+modeltype UML uses "http://www.eclipse.org/uml2/5.0.0/UML";
+
+transformation UML2Alf(in uml : UML, out alf : Alf)
+	access library UML2AlfLibrary;
+
+main() {
+  var rootObjects := uml.rootObjects();
+  var model := rootObjects![Model];
+  if model = null then {
+  	model := rootObjects![Namespace].getModel();
+  } else {
+  	rootObjects := model.packagedElement[not name.startsWith("$")];
+  } endif;
+  setModel(model);
+  rootObjects[Namespace]->map toUnitDefinition();
+}
+
+// Elements
+
+abstract mapping Element::toDocumentedElement() : DocumentedElement {
+	self.ownedComment->forEach(c) {
+	  if c.getAppliedStereotype("ActionLanguage::TextualRepresentation") = null then
+  	  // Note: The syntax can only handle one documentation comment on an element.
+  		documentation := "/**" + c.body + "*/"
+		endif;	
+	}
+}
+
+// Named Elements
+
+mapping NamedElement::toMember() : Member 
+  inherits Element::toDocumentedElement {
+  definition := self.map toDefinition();	
+  visibility := toVisibilityString(self.visibility);
+  annotation := self.getAppliedStereotypes()->toAnnotation();
+}
+
+abstract mapping NamedElement::toMemberDefinition() : MemberDefinition
+{
+  name := toName(self.name);
+}
+
+mapping NamedElement::toDefinition() : MemberDefinition
+  disjuncts
+    Property::toPropertyDefinition,
+    Operation::toOperationDefinition,
+    Reception::toReceptionDefinition,
+    Enumeration::toEnumerationDefinition,
+    EnumerationLiteral::toEnumerationLiteralName,
+    Namespace::toNamespaceDefinition,
+    Parameter::toFormalParameter;
+
+// Namespaces
+
+mapping Namespace::toUnitDefinition() : UnitDefinition 
+  inherits Element::toDocumentedElement {
+  if self.namespace <> null and not isModel(self.namespace) then
+    namespaceName := self.namespace.alfQualifiedName(null)
+  endif;
+	definition := self.map toNamespaceDefinition();
+	_import := self.elementImport->map toElementImportReference();
+	_import += self.packageImport->map toPackageImportReference();
+  annotation := self.getAppliedStereotypes()->toAnnotation();
+}
+
+mapping ElementImport::toElementImportReference() : ElementImportReference {
+	visibility := toVisibilityString(self.visibility);
+	referentName := self.importedElement.alfQualifiedName(null);
+	alias := self.alias;
+}
+
+mapping PackageImport::toPackageImportReference() : PackageImportReference {
+	visibility := toVisibilityString(self.visibility);
+	referentName := self.importedPackage.alfQualifiedName(null);
+}
+
+mapping Namespace::toNamespaceDefinition() : NamespaceDefinition
+  disjuncts Classifier::toNamespaceDefinition, Package::toPackageDefinition;
+
+// Packages
+
+mapping Package::toPackageDefinition() : PackageDefinition
+  inherits NamedElement::toMemberDefinition {
+	ownedMember := self.packagedElement->map toMember();
+}
+
+// Classifiers
+
+abstract mapping Classifier::toClassifierDefinition() : ClassifierDefinition
+  inherits NamedElement::toMemberDefinition
+  when { self.templateBinding->isEmpty() } {
+  isAbstract := self.isAbstract;
+  var generals := self.general;
+  if generals->notEmpty() then
+    specialization := object QualifiedNameList {
+    	name := generals.alfQualifiedName(self);
+    }
+  endif;
+  if self.ownedTemplateSignature <> null then {
+    ownedMember += self.ownedTemplateSignature.parameter
+      [uml::ClassifierTemplateParameter]->map toTemplateParameter()
+  } endif;
+  isStub := false;
+}
+
+mapping Classifier::toNamespaceDefinition() : NamespaceDefinition
+  disjuncts
+    Activity::toActivityDefinition,
+    Class::toActiveClassDefinition,
+    Class::toPassiveClassDefinition,
+    Enumeration::toEnumerationDefinition,
+    DataType::toDataTypeDefinition,
+    Association::toAssociationDefinition,
+    Signal::toSignalDefinition,
+    Signal::toSignalReceptionDefinition;
+    
+
+// ClassifierTemplateParameters
+
+mapping uml::ClassifierTemplateParameter::toTemplateParameter() : Member {
+  definition := object ClassifierTemplateParameter {
+    name := self.parameteredElement.oclAsType(Classifier).name;
+    if self.constrainingClassifier->notEmpty() then 
+      specialization := object QualifiedNameList {
+        name += self.constrainingClassifier->any(true).alfQualifiedName(
+          self.signature.template.oclAsType(NamedElement));
+      }
+    endif;
+  };
+}
+
+// Bound Classifiers
+
+// Classes
+
+abstract mapping Class::toClassDefinition() : ClassDefinition 
+  inherits Classifier::toClassifierDefinition {
+  ownedMember += self.nestedClassifier->map toMember();
+//  ownedMember += self.ownedBehavior->select(isDefaultValue())->map toMember(); // TODO: Remove
+  ownedMember += self.ownedAttribute->reject(isInitializationFlag(self.name))->
+    map toMember();
+  // TODO: Filter out default constructor and destructor operations.
+  ownedMember += self.ownedOperation->reject(isInitializationOperation(self.name))->
+    map toMember();
+}
+
+query Behavior::isDefaultValue() : Boolean {
+	return self.name.indexOf("$defaultValue$") > 0;
+}
+
+query Property::isInitializationFlag(className : String) : Boolean {
+	return self.name <> null and self.name.startsWith(className + "$initializationFlag");
+}
+
+query Operation::isInitializationOperation(className : String) : Boolean {
+  return self.name <> null and self.name.startsWith(className + "$initialization");
+}
+
+mapping Class::toPassiveClassDefinition() : ClassDefinition 
+  inherits Class::toClassDefinition
+  when { not self.isActive } {
+	
+}
+
+// Active Classes
+
+mapping Class::toActiveClassDefinition() : ActiveClassDefinition 
+  inherits Class::toClassDefinition
+  when { self.isActive } {
+  // var receivedSignals := self.receivedSignals();
+  // ownedMember += receivedSignals->map toSignalReception();
+	ownedMember += self.ownedReception->
+	  reject(reception | reception.signal.namespace = self)->
+	  map toMember();
+	if self.classifierBehavior <> null and self.classifierBehavior.oclIsKindOf(Activity) then {
+	  classifierBehavior := self.classifierBehavior.oclAsType(Activity).
+	    map toActivityDefinition();
+	  classifierBehavior.isStub := false;
+  } endif;
+}
+
+// Data Types
+
+mapping DataType::toDataTypeDefinition() : DataTypeDefinition 
+  inherits Classifier::toClassifierDefinition {
+	ownedMember += self.ownedAttribute->map toMember();
+}
+
+mapping PrimitiveType::toMember() : Member
+  inherits NamedElement::toMember {
+  annotation += object StereotypeAnnotation {
+    stereotypeName := "primitive".toAlfQualifiedName(null);
+  }
+}
+
+// Associations
+
+mapping Association::toAssociationDefinition() : AssociationDefinition 
+  inherits Classifier::toClassifierDefinition {
+	ownedMember += self.ownedEnd->map toMember();
+	if self.name = null or self.name = "" then {
+		name := "A";
+		self.ownedEnd.name->forEach(endName) {
+			name := name + "_" + endName;
+		};
+		name := toName(name);
+	} endif;
+}
+
+// Enumerations
+
+mapping Enumeration::toEnumerationDefinition() : EnumerationDefinition 
+  inherits Classifier::toClassifierDefinition {
+	ownedMember += self.ownedLiteral->map toMember();
+	ownedMember->forEach(m){m.visibility := null};
+}
+
+mapping EnumerationLiteral::toEnumerationLiteralName() : EnumerationLiteralName 
+  inherits NamedElement::toMemberDefinition;
+
+// Signals
+
+mapping Signal::toSignalDefinition() : SignalDefinition 
+  inherits Classifier::toClassifierDefinition 
+  when { not self.isSignalReception() } {
+	ownedMember += self.ownedAttribute->map toMember();
+}
+
+mapping Signal::toSignalReceptionDefinition() : SignalReceptionDefinition
+  inherits Classifier::toClassifierDefinition 
+  when { self.isSignalReception() } {
+  ownedMember += self.ownedAttribute->map toMember();
+}
+
+query Signal::isSignalReception() : Boolean {
+	return self.namespace.ownedMember[Reception]->
+	 exists(reception | reception.signal = self)
+}
+
+// Activities
+
+mapping Activity::toActivityDefinition() : ActivityDefinition 
+  inherits Classifier::toClassifierDefinition {
+	ownedMember += self.ownedParameter->map toMember();
+	isStub := true;
+}
+
+mapping Activity::toUnitDefinition() : UnitDefinition
+  inherits Namespace::toUnitDefinition {
+  	definition.isStub := false;
+  	definition.oclAsType(ActivityDefinition).body := object Block {};
+  }
+
+// Typed Elements
+
+abstract mapping TypedElement::toTypedElementDefinition() : TypedElementDefinition {
+	typeName :=
+	  if self.type = null then 
+	    null
+	  else if self.oclIsKindOf(NamedElement) then
+	    self.type.alfQualifiedName(self.oclAsType(NamedElement))
+	  else 
+	    self.type.alfQualifiedName(null)
+	  endif endif;
+	isAny := self.type = null;
+}
+
+abstract mapping MultiplicityElement::toTypedElementDefinition() : TypedElementDefinition {
+  isMultiplicity := false;
+  if not (self.lower = 1 and self.upper = 1) then {
+  	lowerBound := self.lower.toString();
+  	upperBound := if self.upper = -1 then "*" else self.upper.toString() endif;
+  } endif;
+	if self.isOrdered and not self.isUnique then {
+	  isSequence := true;
+	  isOrdered := false;
+	  isNonunique := false;
+	} else {
+  	isOrdered := self.isOrdered;
+  	isNonunique := not self.isUnique;
+	} endif;
+}
+
+// Parameters
+
+mapping Parameter::toTypedElementDefinition() : TypedElementDefinition
+  inherits TypedElement::toTypedElementDefinition, MultiplicityElement::toTypedElementDefinition;
+
+mapping Parameter::toFormalParameter() : FormalParameter 
+  inherits NamedElement::toMemberDefinition {
+  init {
+  	if self.direction = ParameterDirectionKind::_return then
+  	  result := object ReturnParameter{}
+  	else
+  	  result := object NonReturnParameter{}
+  	endif
+  }
+	typePart := self.map toTypedElementDefinition();
+	direction := self.direction.toParameterDirectionString();
+	if direction = "return" then {
+		name := null;
+	} endif;
+}
+
+mapping Parameter::toMember() : Member
+  inherits NamedElement::toMember {
+  	visibility := null;
+}
+
+query ParameterDirectionKind::toParameterDirectionString() : String {
+	return
+	  if self = ParameterDirectionKind::_in then "in"
+	  else if self = ParameterDirectionKind::_out then "out"
+	  else if self = ParameterDirectionKind::_inout then "inout"
+	  else if self = ParameterDirectionKind::_return then "return"
+	  endif endif endif endif;
+}
+
+// Properties
+
+mapping Property::toTypedElementDefinition() : TypedElementDefinition 
+  inherits TypedElement::toTypedElementDefinition, MultiplicityElement::toTypedElementDefinition {
+	
+}
+
+mapping Property::toPropertyDefinition() : PropertyDefinition
+  inherits NamedElement::toMemberDefinition {
+	typePart := self.map toTypedElementDefinition();
+	if self.defaultValue.oclIsKindOf(OpaqueExpression) then
+	  initializer := self.defaultValue.oclAsType(OpaqueExpression).map toExpression(self)
+	endif;
+}
+
+mapping OpaqueExpression::toExpression(context : NamedElement) : Expression {
+  init {
+  	if self.language->exists(language | language = "Alf") then {
+  		var i := self.language->indexOf("Alf");
+  		result := self.body->at(i).parseExpression();
+  	} else if self.behavior <> null then {
+	  	result := object BehaviorInvocationExpression {
+	  	  target := self.behavior.alfQualifiedName(context);
+	  	  tuple := object PositionalTuple {
+	  	  	expression := OrderedSet{};
+	  	  }
+	  	};
+  	} else {
+  		result := null;
+  	} endif endif;
+  }
+}
+
+// Operations
+
+mapping Operation::toOperationDefinition() : OperationDefinition 
+  inherits NamedElement::toMemberDefinition {
+	isAbstract := self.isAbstract;
+	isStub := true;
+	var parameters := self.ownedParameter;
+	if self.isConstructor() then
+	  parameters := parameters->reject(direction = ParameterDirectionKind::_return)
+	endif;
+	ownedMember := parameters->map toMember();
+}
+
+query Operation::isConstructor() : Boolean {
+	return self.getAppliedStereotype("StandardProfile::Create") <> null;
+}
+
+// Receptions
+
+mapping Reception::toReceptionDefinition() : ReceptionDefinition {
+	signalName := self.signal.alfQualifiedName(self);
+}

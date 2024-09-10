@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+ Copyright (c) 2011, 2014 LIFL, CEA, and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   LIFL - Initial API and implementation
+   Christian W. Damus (CEA) - bug 323802
+   
+-->
+<plugin>
+   <extension
+      point="org.eclipse.ui.commands">
+   <command
+         categoryId="org.eclipse.papyrus.editor.category"
+         defaultHandler="org.eclipse.papyrus.uml.diagram.component.custom.actions.ShowHideRelatedContentsHandler"
+         description="Call the Show/Hide Related Contents Command"
+         id="org.eclipse.papyrus.uml.diagram.component.commands.ShowHideRelatedContentsCommand"
+         name="Show/Hide Related Contents Command">
+   </command>
+</extension>
+<extension
+      point="org.eclipse.ui.services">
+   <sourceProvider
+         provider="org.eclipse.papyrus.uml.diagram.component.custom.providers.ActionStateSourceProvider">
+      <variable
+            name="showHideRelatedContents"
+            priorityLevel="workbench">
+      </variable>
+   </sourceProvider>
+</extension>
+<extension
+      point="org.eclipse.ui.handlers">
+   <handler
+         class="org.eclipse.papyrus.uml.diagram.component.custom.actions.ShowHideRelatedContentsHandler"
+         commandId="org.eclipse.papyrus.uml.diagram.component.commands.ShowHideRelatedContentsCommand">
+      <activeWhen>
+         <and>
+            <with
+                  variable="showHideRelatedContents">
+               <equals
+                     value="enabled">
+               </equals>
+            </with>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <instanceof
+                        value="org.eclipse.papyrus.uml.diagram.component.edit.parts.ComponentEditPart">
+                  </instanceof>
+               </iterate>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+</extension>
+<!-- The Command to manages the Provided and Required Interfaces for a Port-->
+<extension
+      point="org.eclipse.ui.commands">
+   <command
+         categoryId="org.eclipse.papyrus.editor.category"
+         description="Allows to manage easily provided Interfaces for a Port"
+         id="org.eclipse.papyrus.uml.diagram.component.command.manage.interfaces"
+         name="Manage Provided Interfaces">
+   </command>
+</extension>
+<!-- The Handler to manages the Provided and Required Interfaces for a Port-->
+<extension
+      point="org.eclipse.ui.handlers">
+   <handler
+         class="org.eclipse.papyrus.uml.diagram.component.custom.actions.ComponentManageInterfacesHandler"
+         commandId="org.eclipse.papyrus.uml.diagram.component.command.manage.interfaces">
+      <activeWhen>
+         <with
+               variable="selection">
+            <iterate>
+               <instanceof
+                     value="org.eclipse.papyrus.uml.diagram.component.edit.parts.PortEditPart">
+               </instanceof>
+            </iterate>
+         </with>
+      </activeWhen>
+     </handler>         
+</extension>
+<!-- Add the Menu to manages the Provided and Required Interfaces for a Port-->
+<extension
+      point="org.eclipse.ui.menus">
+   <menuContribution
+         allPopups="false"
+         locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu?endof=editMenu">
+      <command
+            commandId="org.eclipse.papyrus.uml.diagram.component.command.manage.interfaces"
+            icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Interface.gif"
+            label="Manage Interfaces"
+            mnemonic="&amp;I"
+            style="push">
+         <visibleWhen
+               checkEnabled="true">
+         </visibleWhen>
+      </command>
+      </menuContribution>
+</extension>
+<extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.eclipse.papyrus.editor.category"
+            description="Create a new Component Diagram"
+            id="org.eclipse.papyrus.uml.diagram.component.CreateComponentDiagramCommand"
+            name="Create a new Component Diagram">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.ui.papyrusDiagram">
+      <editorDiagram
+            actionBarContributorId="org.eclipse.papyrus.uml.diagram.common.part.UMLDiagramActionBarContributor"
+            factoryClass="org.eclipse.papyrus.uml.diagram.component.ComponentDiagramEditorFactory"
+            icon="icons/obj16/ComponentDiagram.gif">
+      </editorDiagram>
+      <creationCommand
+            creationCommandClass="org.eclipse.papyrus.uml.diagram.component.CreateComponentDiagramCommand"
+            creationCondition="org.eclipse.papyrus.uml.diagram.component.ComponentDiagramCreationCondition"
+            icon="icons/obj16/ComponentDiagram.gif"
+            id="org.eclipse.papyrus.uml.diagram.component.CreateComponentDiagramCommand"
+            label="Component Diagram"
+            language="uml">
+      </creationCommand>
+   </extension>
+
+
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+				      <?gmfgen generated="true"?>
+				      <context
+				         description="%context.description"
+				         id="org.eclipse.papyrus.uml.diagram.component.ui.diagramContext"
+				         name="%context.name"
+				         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+				      </context>
+				   </extension>
+	
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
+		      <?gmfgen generated="true"?>
+		<page
+		      id="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLComponentDiagram"
+		      name="PapyrusUMLComponentDiagram Diagram"
+		      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams"
+		      class="org.eclipse.papyrus.uml.diagram.component.preferences.DiagramGeneralPreferencePage">
+		</page>
+		<page
+		      id="org.eclipse.papyrus.uml.diagram.component.preferences.DiagramPrintingPreferencePage"
+		      name="%prefpage.org.eclipse.uml2.uml.diagram.printing"
+		      category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.PapyrusUMLComponentDiagram"
+		      class="org.eclipse.papyrus.uml.diagram.component.preferences.DiagramPrintingPreferencePage">
+		</page>
+		   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="org.eclipse.papyrus.uml.diagram.component"
+            labelProvider="org.eclipse.papyrus.uml.diagram.component.sheet.UMLSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.papyrus.uml.diagram.component">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.papyrus.uml.diagram.component">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.papyrus.uml.diagram.component.sheet.UMLPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
+
+	<extension point="org.eclipse.core.runtime.preferences" id="prefs">
+		      <?gmfgen generated="true"?>
+		      <initializer class="org.eclipse.papyrus.uml.diagram.component.preferences.DiagramPreferenceInitializer"/>
+		   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+	      <?gmfgen generated="true"?>
+	      <viewProvider class="org.eclipse.papyrus.uml.diagram.component.providers.UMLViewProvider">
+	         <Priority name="Lowest"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="PapyrusUMLComponentDiagram"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="Dependency_Shape,Component_PackagedElementShape,Model_Shape,Package_Shape,Interface_ClassifierShape,Comment_Shape,Constraint_Shape,NamedElement_DefaultShape,Interface_Shape,Port_Shape,Model_Shape_CN,Package_Shape_CN,Interface_ClassifierShape_CN,Component_PackagedElementShape_CCN,Component_PackagedElementShape_CN,Comment_Shape_CN,Constraint_Shape_CN,Property_InterfaceAttributeLabel,Operation_InterfaceOperationLabel,Reception_InterfaceReceptionLabel,Interface_Shape_CN,Property_Shape"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="Usage_Edge,InterfaceRealization_Edge,Generalization_Edge,Substitution_Edge,Manifestation_Edge,ComponentRealization_Edge,Abstraction_Edge,Link_DescriptorEdge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,Dependency_Edge,Dependency_BranchEdge,Link_InterfacePortEdge,Connector_Edge"/>
+	      </viewProvider>
+	   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+	      <?gmfgen generated="true"?>
+	      <editpartProvider class="org.eclipse.papyrus.uml.diagram.component.providers.UMLEditPartProvider">
+	         <Priority name="Lowest"/>
+	         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+	            <method name="getType()" value="PapyrusUMLComponentDiagram"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+	            <method name="getType()" value="Dependency_Shape,Component_PackagedElementShape,Model_Shape,Package_Shape,Interface_ClassifierShape,Comment_Shape,Constraint_Shape,NamedElement_DefaultShape,Interface_Shape,Port_Shape,Model_Shape_CN,Package_Shape_CN,Interface_ClassifierShape_CN,Component_PackagedElementShape_CCN,Component_PackagedElementShape_CN,Comment_Shape_CN,Constraint_Shape_CN,Property_InterfaceAttributeLabel,Operation_InterfaceOperationLabel,Reception_InterfaceReceptionLabel,Interface_Shape_CN,Property_Shape"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+	            <method name="getType()" value="Usage_Edge,InterfaceRealization_Edge,Generalization_Edge,Substitution_Edge,Manifestation_Edge,ComponentRealization_Edge,Abstraction_Edge,Link_DescriptorEdge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,Dependency_Edge,Dependency_BranchEdge,Link_InterfacePortEdge,Connector_Edge"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+	            <method name="getType()" value="Dependency_MultiNameLabel,Dependency_FloatingNameLabel,Component_NameLabel,Component_FloatingNameLabel,Model_NameLabel,Package_NameLabel,Interface_ClassifierNameLabel,Interface_ClassifierFloatingNameLabel,Comment_BodyLabel,Constraint_NameLabel,Constraint_BodyLabel,NamedElement_NameLabel,Interface_NameLabel,Interface_FloatingNameLabel,Port_NameLabel,Port_StereotypeLabel,Model_NameLabel_CN,Package_NameLabel_CN,Interface_ClassifierNameLabel_CN,Interface_ClassifierFloatingNameLabel_CN,Component_NameLabel_CCN,Component_FloatingNameLabel_CCN,Component_NameLabel_CN,Component_FloatingNameLabel_CN,Comment_BodyLabel_CN,Constraint_NameLabel_CN,Constraint_BodyLabel_CN,Interface_NameLabel_CN,Interface_FloatingNameLabel_CN,Property_NameLabel"/>
+	         </object>
+	         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+	            <method name="getType()" value="Component_StructureCompartment,Model_PackagedElementCompartment,Package_PackagedElementCompartment,Model_PackagedElementCompartment_CN,Package_PackagedElementCompartment_CN,Component_StructureCompartment_CCN,Component_StructureCompartment_CN,Interface_AttributeCompartment,Interface_OperationCompartment,Interface_AttributeCompartment_CN,Interface_OperationCompartment_CN"/>
+	         </object>
+	         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+	      </editpartProvider>
+	   </extension>
+
+   
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+	      <?gmfgen generated="true"?>
+	      <IconProvider class="org.eclipse.papyrus.uml.diagram.component.providers.UMLIconProvider">
+	         <Priority name="Low"/>
+	      </IconProvider>
+	   </extension>
+
+   
+   
+	   
+	   
+      
+   
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.papyrus.uml.diagram.component.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="org.eclipse.papyrus.uml.diagram.component.part.UMLDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.papyrus.uml.diagram.component.edit.parts.ComponentDiagramEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="org.eclipse.papyrus.uml.diagram.component.part.UMLDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="org.eclipse.papyrus.uml.diagram.component.LoadResourceAction"
+         name="Load Resource"
+         categoryId="org.eclipse.papyrus.uml.diagram.component.part.UMLDiagramEditorID"
+         defaultHandler="org.eclipse.papyrus.uml.diagram.component.part.LoadResourceAction"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
+<extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+	      <?gmfgen generated="true"?>
+	      <ParserProvider class="org.eclipse.papyrus.uml.diagram.component.providers.UMLParserProvider">
+	         <Priority name="Lowest"/>
+	      </ParserProvider>
+	   </extension>
+
+
+
+   <!-- optionally, specify keybindings -->
+<extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+				      <?gmfgen generated="true"?>
+				      <MarkerNavigationProvider class="org.eclipse.papyrus.uml.diagram.component.providers.UMLMarkerNavigationProvider">
+				         <MarkerType name="org.eclipse.papyrus.uml.diagram.component.diagnostic"/>
+				         <Priority name="Lowest"/>
+				      </MarkerNavigationProvider>
+				   </extension>
+
+<extension id="diagnostic" name="Papyrus Component Diagram  problems" point="org.eclipse.core.resources.markers">
+				      <?gmfgen generated="true"?>
+				      <super type="org.eclipse.core.resources.problemmarker"/>
+				      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+				      <persistent value="true"/>
+				   </extension><extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+				      <?gmfgen generated="true"?>
+				      <decoratorProvider class="org.eclipse.papyrus.uml.diagram.component.providers.UMLValidationDecoratorProvider">
+				         <Priority name="Lowest"/>
+				         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+				         <context decoratorTargets="PRIMARY_VIEW"/>
+				      </decoratorProvider>
+				   </extension>
+<extension
+      point="org.eclipse.ui.commands">
+   <command
+         categoryId="org.eclipse.papyrus.editor.category"
+         defaultHandler="org.eclipse.papyrus.uml.diagram.component.custom.handler.RectangleToLollipopHandler"
+         id="org.eclipse.papyrus.uml.diagram.component.custom.handler.RectancleToLollipop.command"
+         name="Display Interface as lollipop">
+   </command>
+   <command
+         categoryId="org.eclipse.papyrus.editor.category"
+         defaultHandler="org.eclipse.papyrus.uml.diagram.component.custom.handler.LollipopToRectangleHandler"
+         id="org.eclipse.papyrus.uml.diagram.component.custom.handler.LollipopToRectancle.command"
+         name="Display Interface as Rectangle">
+   </command>
+</extension>
+<extension
+      point="org.eclipse.ui.menus">
+   <menuContribution
+         allPopups="false"
+         locationURI="popup:org.eclipse.papyrus.uml.diagram.ui.popupmenu.format">
+      <command
+            commandId="org.eclipse.papyrus.uml.diagram.component.custom.handler.RectancleToLollipop.command"
+            icon="icons/obj16/lollipop.gif"
+            id="org.eclipse.papyrus.uml.diagram.component.custom.handler.RectancleToLollipop.popup"
+            label="Display Interface as lollipop"
+            style="push"
+            tooltip="Display Interface as lollipop">
+         <visibleWhen
+               checkEnabled="true">
+         </visibleWhen>
+      </command>
+      <command
+            commandId="org.eclipse.papyrus.uml.diagram.component.custom.handler.LollipopToRectancle.command"
+            icon="icons/obj16/Interface.gif"
+            id="org.eclipse.papyrus.uml.diagram.component.custom.handler.LollipopToRectancle.popup"
+            label="Display Interface as Rectangle"
+            style="push"
+            tooltip="Display Interface as Rectangle">
+         <visibleWhen
+               checkEnabled="true">
+         </visibleWhen>
+      </command>
+   </menuContribution>
+</extension>
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <editpartProvider class="org.eclipse.papyrus.uml.diagram.component.custom.providers.CustomUMLEditPartProvider">
+         <Priority name="Low"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="PapyrusUMLComponentDiagram"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="Dependency_Shape,Component_PackagedElementShape,Model_Shape,Package_Shape,Interface_ClassifierShape,Comment_Shape,Constraint_Shape,NamedElement_DefaultShape,Interface_Shape,Port_Shape,Model_Shape_CN,Package_Shape_CN,Interface_ClassifierShape_CN,Component_PackagedElementShape_CCN,Component_PackagedElementShape_CN,Comment_Shape_CN,Constraint_Shape_CN,Property_InterfaceAttributeLabel,Operation_InterfaceOperationLabel,Reception_InterfaceReceptionLabel,Interface_Shape_CN,Property_Shape"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="Usage_Edge,InterfaceRealization_Edge,Generalization_Edge,Substitution_Edge,Manifestation_Edge,ComponentRealization_Edge,Abstraction_Edge,Link_DescriptorEdge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,Dependency_Edge,Dependency_BranchEdge,Link_InterfacePortEdge,Connector_Edge"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="Dependency_MultiNameLabel,Dependency_FloatingNameLabel,Component_NameLabel,Component_FloatingNameLabel,Model_NameLabel,Package_NameLabel,Interface_ClassifierNameLabel,Interface_ClassifierFloatingNameLabel,Comment_BodyLabel,Constraint_NameLabel,Constraint_BodyLabel,NamedElement_NameLabel,Interface_NameLabel,Interface_FloatingNameLabel,Port_NameLabel,Port_StereotypeLabel,Model_NameLabel_CN,Package_NameLabel_CN,Interface_ClassifierNameLabel_CN,Interface_ClassifierFloatingNameLabel_CN,Component_NameLabel_CCN,Component_FloatingNameLabel_CCN,Component_NameLabel_CN,Component_FloatingNameLabel_CN,Comment_BodyLabel_CN,Constraint_NameLabel_CN,Constraint_BodyLabel_CN,Interface_NameLabel_CN,Interface_FloatingNameLabel_CN,Property_NameLabel"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="Component_StructureCompartment,Model_PackagedElementCompartment,Package_PackagedElementCompartment,Model_PackagedElementCompartment_CN,Package_PackagedElementCompartment_CN,Component_StructureCompartment_CCN,Component_StructureCompartment_CN,Interface_AttributeCompartment,Interface_OperationCompartment,Interface_AttributeCompartment_CN,Interface_OperationCompartment_CN"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+<extension point="org.eclipse.papyrus.infra.gmfdiag.common.notationTypesMapping"> 
+   <?gmfgen generated="true"?>
+   <diagramMappings diagramID="PapyrusUMLComponentDiagram">
+   	<mapping type="PapyrusUMLComponentDiagram" humanReadableType="ComponentDiagram"/>
+			<mapping
+				humanReadableType="packaged elements"
+				type="Component_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="packaged elements"
+				type="Model_PackagedElementCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="packaged elements"
+				type="Package_PackagedElementCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="packaged elements"
+				type="Model_PackagedElementCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="packaged elements"
+				type="Package_PackagedElementCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="packaged elements"
+				type="Component_StructureCompartment_CCN">
+			</mapping>
+			<mapping
+				humanReadableType="packaged elements"
+				type="Component_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="Interface_AttributeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="Interface_OperationCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="Interface_AttributeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="Interface_OperationCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Usage_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Usage_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="InterfaceRealization_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InterfaceRealization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Generalization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Substitution_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Substitution_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Manifestation_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Manifestation_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="ComponentRealization_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ComponentRealization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Abstraction_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Abstraction_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Dependency_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Dependency_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Connector_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Port_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Port_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Interface_ClassifierFloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Component_FloatingNameLabel_CCN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Component_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Interface_NameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Interface_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Dependency_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Component_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Interface_ClassifierFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Interface_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Interface_FloatingNameLabel">
+			</mapping>
+   </diagramMappings>
+</extension>
+
+<extension
+      point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+   <ParserProvider
+         class="org.eclipse.papyrus.uml.diagram.component.custom.providers.CustomUMLParserProvider">
+      <Priority
+            name="Medium">
+      </Priority>
+   </ParserProvider>
+</extension>
+
+   <extension
+      point="org.eclipse.papyrus.infra.gmfdiag.common.diagramReconciler">
+   <diagramReconciler
+         diagramType="PapyrusUMLComponentDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.component.custom.migration.ComponentReconciler_1_1_0"
+         source="1.0.0"
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="PapyrusUMLComponentDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.component.custom.migration.ComponentReconcilerForCompartment_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="PapyrusUMLComponentDiagram"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.component.custom.migration.ComponentReconciler_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+</extension>
+   <extension point="org.eclipse.papyrus.infra.gmfdiag.common.visualTypeProviders">
+	      <?gmfgen generated="true"?>
+	      <visualTypeProvider
+	            class="org.eclipse.papyrus.uml.diagram.component.providers.UMLVisualTypeProvider"
+	            diagramType="PapyrusUMLComponentDiagram">
+	         </visualTypeProvider>
+	   </extension>
+
+
+</plugin>

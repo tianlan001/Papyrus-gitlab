@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="ASCII"?>
+<assistant:ModelingAssistantProvider xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:assistant="http://www.eclipse.org/Papyrus/2014/diagram/assistant" xmlns:filters="http://www.eclipse.org/Papyrus/2014/common/filters" name="PapyrusUMLActivityDiagram">
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActivityPartition" elementTypeID="org.eclipse.papyrus.umldi.ActivityPartition_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InterruptibleActivityRegion" elementTypeID="org.eclipse.papyrus.umldi.InterruptibleActivityRegion_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InitialNode" elementTypeID="org.eclipse.papyrus.umldi.InitialNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActivityFinalNode" elementTypeID="org.eclipse.papyrus.umldi.ActivityFinalNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="FlowFinal" elementTypeID="org.eclipse.papyrus.umldi.FlowFinalNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="DecisionNode" elementTypeID="org.eclipse.papyrus.umldi.DecisionNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="MergeNode" elementTypeID="org.eclipse.papyrus.umldi.MergeNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="JoinNode" elementTypeID="org.eclipse.papyrus.umldi.JoinNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ForkNode" elementTypeID="org.eclipse.papyrus.umldi.ForkNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="LocalPreconditionConstraint" elementTypeID="org.eclipse.papyrus.umldi.Constraint_LocalPreconditionShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="LocalPreconditionIntervalConstraint" elementTypeID="org.eclipse.papyrus.umldi.IntervalConstraint_LocalPreconditionShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="LocalPreconditionDurationConstraint" elementTypeID="org.eclipse.papyrus.umldi.DurationConstraint_LocalPreconditionShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="LocalPreconditionTimeConstraint" elementTypeID="org.eclipse.papyrus.umldi.TimeConstraint_LocalPreconditionShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="LocalPostConditionConstraint" elementTypeID="org.eclipse.papyrus.umldi.Constraint_LocalPostconditionShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="LocalPostConditionIntervalConstraint" elementTypeID="org.eclipse.papyrus.umldi.IntervalConstraint_LocalPostconditionShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="LocalPostConditionDurationConstraint" elementTypeID="org.eclipse.papyrus.umldi.DurationConstraint_LocalPostconditionShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="LocalPostConditionTimeConstraint" elementTypeID="org.eclipse.papyrus.umldi.TimeConstraint_LocalPostconditionShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin OpaqueAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_OpaqueActionOutputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin CallBehaviorAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_CallBehaviorActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin CallOperationAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_CallOperationActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin AcceptEventAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_AcceptEventActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin ValueSpecificationAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_ValueSpecificationActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin ReadSelfAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_ReadSelfActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin StartObjectBehaviorAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_StartObjectBehaviorActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin TestIdentity" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_TestIdentityActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin ClearStructuralFeature" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_ClearStructuralFeatureActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin ReadLinkAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_ReadLinkActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin ReadExtentAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_ReadExtentActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin ReadIsClassifiedObjectAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_ReadIsClassifiedObjectActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin ReduceAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_ReduceActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin AddStructuralFeatureValue" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_AddStructuralFeatureValueActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin LoopNodeBodyOutput" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_LoopNodeBodyOutputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin LoopNodeVariable" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_LoopNodeVariableShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin LoopNodeResult" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_LoopNodeResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin StructuredActivityNodeOutput" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_StructuredActivityNodeOutputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin CreateLinkObjectAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_CreateLinkObjectActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputPin UnmarshallAction" elementTypeID="org.eclipse.papyrus.umldi.OutputPin_UnmarshallActionResultShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin OpaqueAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_OpaqueActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin CallBehaviorAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_CallBehaviorActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin CallOperationAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_CallOperationActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin SendSignalAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_SendSignalActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin StartObjectBehaviorActionObject" elementTypeID="org.eclipse.papyrus.umldi.InputPin_StartObjectBehaviorActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin StartObjectBehaviorActionArgument" elementTypeID="org.eclipse.papyrus.umldi.InputPin_StartObjectBehaviorActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin TestIdentityActionFirst" elementTypeID="org.eclipse.papyrus.umldi.InputPin_TestIdentityActionFirstShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin TestIdentityActionSecond" elementTypeID="org.eclipse.papyrus.umldi.InputPin_TestIdentityActionSecondShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin ClearStructuralFeature" elementTypeID="org.eclipse.papyrus.umldi.InputPin_ClearStructuralFeatureActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin CreateLinkAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_CreateLinkActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin ReadLinkAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_ReadLinkActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin DestroyLinkAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_DestroyLinkActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin ReclassifyObjectAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_ReclassifyObjectActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin ReadIsClassifiedBehaviorObjectAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_ReclassifyObjectActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin ReduceAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_ReduceActionCollectionShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin StartClassifierBehaviorAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_StartClassifierBehaviorActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin DestroyObjectActionTarget" elementTypeID="org.eclipse.papyrus.umldi.InputPin_DestroyObjectActionTargetShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin AddVariableValueActionInsertAt" elementTypeID="org.eclipse.papyrus.umldi.InputPin_AddVariableValueActionInsertAtShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin AddVariableValueActionValue" elementTypeID="org.eclipse.papyrus.umldi.InputPin_AddVariableValueActionValueShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin BroadcastSignalAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_BroadcastSignalActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin AddStructuralFeatureValueActionObject" elementTypeID="org.eclipse.papyrus.umldi.InputPin_AddStructuralFeatureValueActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin AddStructuralFeatureValueActionValue" elementTypeID="org.eclipse.papyrus.umldi.InputPin_AddStructuralFeatureValueActionValueShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin AddStructuralFeatureValueActionInsertAt" elementTypeID="org.eclipse.papyrus.umldi.InputPin_AddStructuralFeatureValueActionInsertAtShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin LoopNodeVariable" elementTypeID="org.eclipse.papyrus.umldi.InputPin_LoopNodeVariableInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin ReadStructuralFeatureAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_ReadStructuralFeatureActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin StructuredActivityNode" elementTypeID="org.eclipse.papyrus.umldi.InputPin_StructuredActivityNodeInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin CreateLinkObjectAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_CreateLinkObjectActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputPin UnmashallAction" elementTypeID="org.eclipse.papyrus.umldi.InputPin_UnmarshallActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin OpaqueAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_OpaqueActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin CallBehaviorAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_CallBehaviorActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin CallOperationAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_CallOperationActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin SendSignalAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_SendSignalActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin StartObjectBehaviorActionObject" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_StartObjectBehaviorActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin StartObjectBehaviorActionArgument" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_StartObjectBehaviorActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin TestIdentityActionFirst" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_TestIdentityActionFirstShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin TestIdentityActionSecond" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_TestIdentityActionSecondShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin ClearStrcuturalFeatureAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_ClearStructuralFeatureActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin CreateLinkAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_CreateLinkActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin ReadLinkAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_ReadLinkActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin DestroyLinkAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_DestroyLinkActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin ClearAssociationAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_ClearAssociationActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin ReclassifyObjectAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_ReclassifyObjectActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin ReadIsClassifiedObjectAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_ReadIsClassifiedObjectActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin ReduceAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_ReduceActionCollectionShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin StartClassifierBehaviorAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_StartClassifierBehaviorActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin DestroyObjectAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_DestroyObjectActionTargetShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin AddVariableValueActionInsertAt" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_AddVariableValueActionInsertAtShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin AddVariableValueActionValue" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_AddVariableValueActionValueShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin BroadcastSignalAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_BroadcastSignalActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin AddStructuralFeatureValueActionObject" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_AddStructuralFeatureValueActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin AddStructuralFeatureValueActionValue" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_AddStructuralFeatureValueActionValueShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin AddStructuralFeatureValueActionInsertAt" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_AddStructuralFeatureValueActionInsertAtShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin LoopNodeVariable" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_LoopNodeVariableInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin StructuredActivityNode" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_StructuredActivityNodeInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin CreateLinkObjectAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_CreateLinkObjectActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin ReadStructuralFeatureAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_ReadStructuralFeatureActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActionInputPin UnmarshallAction" elementTypeID="org.eclipse.papyrus.umldi.ActionInputPin_UnmarshallActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin OpaqueAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_OpaqueActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin CallBehaviorAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_CallBehaviorActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin CallOperationAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_CallOperationActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin SendSignalAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_SendSignalActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin StartObjectBehaviorActionObject" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_StartObjectBehaviorActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin StartObjectBehaviorActionArgument" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_StartObjectBehaviorActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin TestIdentityActionFirst" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_TestIdentityActionFirstShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin TestIdentityActionSecond" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_TestIdentityActionSecondShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin ClearStructuralFeatureAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_ClearStructuralFeatureActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin CreateLinkAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_CreateLinkActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin ReadLinkAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_ReadLinkActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin DestroyLinkAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_DestroyLinkActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin ClearAssociationAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_ClearAssociationActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin ReclassifyObjectAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_ReclassifyObjectActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin ReadIsClassifiedObjectAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_ReadIsClassifiedObjectActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin ReduceAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_ReduceActionCollectionShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin StartClassifierBehaviorAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_StartClassifierBehaviorActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin DestroyObjectAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_DestroyObjectActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin AddVariableValueActionInsertAt" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_AddVariableValueActionInsertAtShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin AddVariableValueActionValue" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_AddVariableValueActionValueShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin BroadcastSignalAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_BroadcastSignalActionArgumentShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin AddStructuralFeatureValueActionObject" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_AddStructuralFeatureValueActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin AddStructuralFeatureValueActionValue" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_AddStructuralFeatureValueActionValueShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin AddStructuralFeatureValueActionInsertAt" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_AddStructuralFeatureValueActionInsertAtShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin LoopNodeVariable" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_LoopNodeVariableInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin StructuredActivityNode" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_StructuredActivityNodeInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin CreateLinkObject" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_CreateLinkObjectActionInputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin ReadStructuralFeatureAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_ReadStructuralFeatureActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValuePin UnmarshallAction" elementTypeID="org.eclipse.papyrus.umldi.ValuePin_UnmarshallActionObjectShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ExpansionRegion" elementTypeID="org.eclipse.papyrus.umldi.ExpansionRegion_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="InputExpansionNode" elementTypeID="org.eclipse.papyrus.umldi.ExpansionNode_InputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OutputExpansionNode" elementTypeID="org.eclipse.papyrus.umldi.ExpansionNode_OutputShape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="BroadcastSignalAction" elementTypeID="org.eclipse.papyrus.umldi.BroadcastSignalAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="CallBehaviorAction" elementTypeID="org.eclipse.papyrus.umldi.CallBehaviorAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="CallOperationAction" elementTypeID="org.eclipse.papyrus.umldi.CallOperationAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="SendObjectAction" elementTypeID="org.eclipse.papyrus.umldi.SendObjectAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="SendSignalAction" elementTypeID="org.eclipse.papyrus.umldi.SendSignalAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="StartObjectBehaviorAction" elementTypeID="org.eclipse.papyrus.umldi.StartObjectBehaviorAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="CreateObjectAction" elementTypeID="org.eclipse.papyrus.umldi.CreateObjectAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="DestroyObjectAction" elementTypeID="org.eclipse.papyrus.umldi.DestroyObjectAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ReadSelfAction" elementTypeID="org.eclipse.papyrus.umldi.ReadSelfAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ReclassifyObjectAction" elementTypeID="org.eclipse.papyrus.umldi.ReclassifyObjectAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ReadIsClassifiedObjectAction" elementTypeID="org.eclipse.papyrus.umldi.ReadIsClassifiedObjectAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="StructuredActivityNode" elementTypeID="org.eclipse.papyrus.umldi.StructuredActivityNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="LoopNode" elementTypeID="org.eclipse.papyrus.umldi.LoopNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="SequenceNode" elementTypeID="org.eclipse.papyrus.umldi.SequenceNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ConditionalNode" elementTypeID="org.eclipse.papyrus.umldi.ConditionalNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ReadStructuralFeatureAction" elementTypeID="org.eclipse.papyrus.umldi.ReadStructuralFeatureAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="AddStructuralFeatureValueAction" elementTypeID="org.eclipse.papyrus.umldi.AddStructuralFeatureValueAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ClearStructuralFeature" elementTypeID="org.eclipse.papyrus.umldi.ClearStructuralFeatureAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="AddVariableValueAction" elementTypeID="org.eclipse.papyrus.umldi.AddVariableValueAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ReadVariableAction" elementTypeID="org.eclipse.papyrus.umldi.ReadVariableAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="OpaqueAction" elementTypeID="org.eclipse.papyrus.umldi.OpaqueAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ValueSpecificationAction" elementTypeID="org.eclipse.papyrus.umldi.ValueSpecificationAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ClearAssociationAction" elementTypeID="org.eclipse.papyrus.umldi.ClearAssociationAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ReadExtentAction" elementTypeID="org.eclipse.papyrus.umldi.ReadExtentAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ReduceAction" elementTypeID="org.eclipse.papyrus.umldi.ReduceAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="StartClassifierBehavior" elementTypeID="org.eclipse.papyrus.umldi.StartClassifierBehaviorAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="CreateLinkAction" elementTypeID="org.eclipse.papyrus.umldi.CreateLinkAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ReadLinkAction" elementTypeID="org.eclipse.papyrus.umldi.ReadLinkAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="DestroyLinkAction" elementTypeID="org.eclipse.papyrus.umldi.DestroyLinkAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="CreateLinkObjectAction" elementTypeID="org.eclipse.papyrus.umldi.CreateLinkObjectAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="AcceptEventAction" elementTypeID="org.eclipse.papyrus.umldi.AcceptEventAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="UnmarshallAction" elementTypeID="org.eclipse.papyrus.umldi.UnmarshallAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="TestIdentityAction" elementTypeID="org.eclipse.papyrus.umldi.TestIdentityAction_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Activity" elementTypeID="org.eclipse.papyrus.umldi.Activity_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Activity_CN" elementTypeID="org.eclipse.papyrus.umldi.Activity_Shape_CN"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="ActivityParameterNode" elementTypeID="org.eclipse.papyrus.umldi.ActivityParameterNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="CentralBufferNode" elementTypeID="org.eclipse.papyrus.umldi.CentralBufferNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="DataStoreNode" elementTypeID="org.eclipse.papyrus.umldi.DataStoreNode_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Constraint" elementTypeID="org.eclipse.papyrus.umldi.Constraint_Shape"/>
+  <ownedFilter xsi:type="assistant:ElementTypeFilter" name="Comment" elementTypeID="org.eclipse.papyrus.umldi.Comment_Shape"/>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.ControlFlow_Edge" sourceFilter="//@connectionAssistant.0/@ownedSourceFilter" targetFilter="//@connectionAssistant.0/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" name="Source" filter="//@connectionAssistant.0/@ownedSourceFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.2 //@ownedFilter.3 //@ownedFilter.4 //@ownedFilter.5 //@ownedFilter.6 //@ownedFilter.7 //@ownedFilter.8 //@ownedFilter.20 //@ownedFilter.30 //@ownedFilter.18 //@ownedFilter.19 //@ownedFilter.25 //@ownedFilter.35 //@ownedFilter.31 //@ownedFilter.33 //@ownedFilter.32 //@ownedFilter.17 //@ownedFilter.27 //@ownedFilter.28 //@ownedFilter.26 //@ownedFilter.22 //@ownedFilter.29 //@ownedFilter.23 //@ownedFilter.34 //@ownedFilter.24 //@ownedFilter.21 //@ownedFilter.36 //@ownedFilter.59 //@ownedFilter.57 //@ownedFilter.58 //@ownedFilter.54 //@ownedFilter.55 //@ownedFilter.56 //@ownedFilter.38 //@ownedFilter.39 //@ownedFilter.45 //@ownedFilter.46 //@ownedFilter.63 //@ownedFilter.48 //@ownedFilter.53 //@ownedFilter.60 //@ownedFilter.37 //@ownedFilter.50 //@ownedFilter.47 //@ownedFilter.61 //@ownedFilter.49 //@ownedFilter.51 //@ownedFilter.40 //@ownedFilter.52 //@ownedFilter.42 //@ownedFilter.41 //@ownedFilter.62 //@ownedFilter.43 //@ownedFilter.44 //@ownedFilter.64 //@ownedFilter.88 //@ownedFilter.86 //@ownedFilter.87 //@ownedFilter.83 //@ownedFilter.84 //@ownedFilter.85 //@ownedFilter.66 //@ownedFilter.67 //@ownedFilter.77 //@ownedFilter.73 //@ownedFilter.74 //@ownedFilter.91 //@ownedFilter.76 //@ownedFilter.82 //@ownedFilter.89 //@ownedFilter.65 //@ownedFilter.79 //@ownedFilter.75 //@ownedFilter.92 //@ownedFilter.78 //@ownedFilter.80 //@ownedFilter.68 //@ownedFilter.81 //@ownedFilter.70 //@ownedFilter.69 //@ownedFilter.90 //@ownedFilter.71 //@ownedFilter.72 //@ownedFilter.93 //@ownedFilter.117 //@ownedFilter.115 //@ownedFilter.116 //@ownedFilter.112 //@ownedFilter.113 //@ownedFilter.114 //@ownedFilter.95 //@ownedFilter.96 //@ownedFilter.106 //@ownedFilter.102 //@ownedFilter.103 //@ownedFilter.120 //@ownedFilter.105 //@ownedFilter.111 //@ownedFilter.118 //@ownedFilter.94 //@ownedFilter.108 //@ownedFilter.104 //@ownedFilter.121 //@ownedFilter.107 //@ownedFilter.109 //@ownedFilter.97 //@ownedFilter.110 //@ownedFilter.99 //@ownedFilter.98 //@ownedFilter.119 //@ownedFilter.100 //@ownedFilter.101 //@ownedFilter.122 //@ownedFilter.123 //@ownedFilter.124 //@ownedFilter.125 //@ownedFilter.126 //@ownedFilter.127 //@ownedFilter.128 //@ownedFilter.129 //@ownedFilter.130 //@ownedFilter.131 //@ownedFilter.132 //@ownedFilter.133 //@ownedFilter.134 //@ownedFilter.135 //@ownedFilter.136 //@ownedFilter.137 //@ownedFilter.138 //@ownedFilter.139 //@ownedFilter.140 //@ownedFilter.141 //@ownedFilter.142 //@ownedFilter.143 //@ownedFilter.144 //@ownedFilter.145 //@ownedFilter.146 //@ownedFilter.147 //@ownedFilter.148 //@ownedFilter.149 //@ownedFilter.150 //@ownedFilter.151 //@ownedFilter.152 //@ownedFilter.156 //@ownedFilter.157 //@ownedFilter.158 //@ownedFilter.161 //@ownedFilter.162 //@ownedFilter.163" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" name="Target" filter="//@connectionAssistant.0/@ownedTargetFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.156 //@ownedFilter.88 //@ownedFilter.86 //@ownedFilter.87 //@ownedFilter.83 //@ownedFilter.84 //@ownedFilter.85 //@ownedFilter.66 //@ownedFilter.67 //@ownedFilter.77 //@ownedFilter.73 //@ownedFilter.74 //@ownedFilter.91 //@ownedFilter.76 //@ownedFilter.82 //@ownedFilter.89 //@ownedFilter.65 //@ownedFilter.79 //@ownedFilter.75 //@ownedFilter.92 //@ownedFilter.78 //@ownedFilter.80 //@ownedFilter.68 //@ownedFilter.81 //@ownedFilter.70 //@ownedFilter.69 //@ownedFilter.90 //@ownedFilter.71 //@ownedFilter.72 //@ownedFilter.93 //@ownedFilter.3 //@ownedFilter.161 //@ownedFilter.142 //@ownedFilter.144 //@ownedFilter.126 //@ownedFilter.127 //@ownedFilter.128 //@ownedFilter.162 //@ownedFilter.148 //@ownedFilter.143 //@ownedFilter.140 //@ownedFilter.152 //@ownedFilter.155 //@ownedFilter.132 //@ownedFilter.163 //@ownedFilter.5 //@ownedFilter.154 //@ownedFilter.133 //@ownedFilter.123 //@ownedFilter.4 //@ownedFilter.8 //@ownedFilter.124 //@ownedFilter.59 //@ownedFilter.57 //@ownedFilter.58 //@ownedFilter.54 //@ownedFilter.55 //@ownedFilter.56 //@ownedFilter.38 //@ownedFilter.39 //@ownedFilter.45 //@ownedFilter.46 //@ownedFilter.63 //@ownedFilter.48 //@ownedFilter.53 //@ownedFilter.60 //@ownedFilter.37 //@ownedFilter.50 //@ownedFilter.47 //@ownedFilter.61 //@ownedFilter.49 //@ownedFilter.51 //@ownedFilter.40 //@ownedFilter.52 //@ownedFilter.42 //@ownedFilter.41 //@ownedFilter.62 //@ownedFilter.43 //@ownedFilter.44 //@ownedFilter.64 //@ownedFilter.7 //@ownedFilter.138 //@ownedFilter.6 //@ownedFilter.146 //@ownedFilter.36 //@ownedFilter.125 //@ownedFilter.20 //@ownedFilter.30 //@ownedFilter.18 //@ownedFilter.19 //@ownedFilter.25 //@ownedFilter.35 //@ownedFilter.31 //@ownedFilter.33 //@ownedFilter.32 //@ownedFilter.17 //@ownedFilter.27 //@ownedFilter.28 //@ownedFilter.26 //@ownedFilter.22 //@ownedFilter.29 //@ownedFilter.23 //@ownedFilter.34 //@ownedFilter.24 //@ownedFilter.21 //@ownedFilter.149 //@ownedFilter.136 //@ownedFilter.153 //@ownedFilter.134 //@ownedFilter.141 //@ownedFilter.145 //@ownedFilter.135 //@ownedFilter.150 //@ownedFilter.129 //@ownedFilter.130 //@ownedFilter.139 //@ownedFilter.151 //@ownedFilter.131 //@ownedFilter.137 //@ownedFilter.158 //@ownedFilter.157 //@ownedFilter.117 //@ownedFilter.115 //@ownedFilter.116 //@ownedFilter.112 //@ownedFilter.113 //@ownedFilter.114 //@ownedFilter.95 //@ownedFilter.96 //@ownedFilter.106 //@ownedFilter.102 //@ownedFilter.103 //@ownedFilter.120 //@ownedFilter.105 //@ownedFilter.111 //@ownedFilter.118 //@ownedFilter.94 //@ownedFilter.108 //@ownedFilter.104 //@ownedFilter.121 //@ownedFilter.107 //@ownedFilter.109 //@ownedFilter.97 //@ownedFilter.110 //@ownedFilter.99 //@ownedFilter.98 //@ownedFilter.119 //@ownedFilter.100 //@ownedFilter.101 //@ownedFilter.122 //@ownedFilter.147" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.ObjectFlow_Edge" sourceFilter="//@connectionAssistant.1/@ownedSourceFilter" targetFilter="//@connectionAssistant.1/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" name="Source" filter="//@connectionAssistant.1/@ownedSourceFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.88 //@ownedFilter.86 //@ownedFilter.87 //@ownedFilter.83 //@ownedFilter.84 //@ownedFilter.85 //@ownedFilter.66 //@ownedFilter.67 //@ownedFilter.77 //@ownedFilter.73 //@ownedFilter.74 //@ownedFilter.91 //@ownedFilter.76 //@ownedFilter.82 //@ownedFilter.89 //@ownedFilter.65 //@ownedFilter.79 //@ownedFilter.75 //@ownedFilter.92 //@ownedFilter.78 //@ownedFilter.80 //@ownedFilter.68 //@ownedFilter.81 //@ownedFilter.70 //@ownedFilter.69 //@ownedFilter.90 //@ownedFilter.71 //@ownedFilter.72 //@ownedFilter.93 //@ownedFilter.161 //@ownedFilter.162 //@ownedFilter.163 //@ownedFilter.5 //@ownedFilter.123 //@ownedFilter.8 //@ownedFilter.124 //@ownedFilter.59 //@ownedFilter.57 //@ownedFilter.58 //@ownedFilter.54 //@ownedFilter.55 //@ownedFilter.56 //@ownedFilter.38 //@ownedFilter.39 //@ownedFilter.45 //@ownedFilter.46 //@ownedFilter.63 //@ownedFilter.48 //@ownedFilter.53 //@ownedFilter.60 //@ownedFilter.37 //@ownedFilter.50 //@ownedFilter.47 //@ownedFilter.61 //@ownedFilter.49 //@ownedFilter.51 //@ownedFilter.40 //@ownedFilter.52 //@ownedFilter.42 //@ownedFilter.41 //@ownedFilter.62 //@ownedFilter.43 //@ownedFilter.44 //@ownedFilter.64 //@ownedFilter.7 //@ownedFilter.6 //@ownedFilter.146 //@ownedFilter.36 //@ownedFilter.125 //@ownedFilter.20 //@ownedFilter.30 //@ownedFilter.18 //@ownedFilter.19 //@ownedFilter.25 //@ownedFilter.35 //@ownedFilter.31 //@ownedFilter.33 //@ownedFilter.32 //@ownedFilter.17 //@ownedFilter.27 //@ownedFilter.28 //@ownedFilter.26 //@ownedFilter.22 //@ownedFilter.29 //@ownedFilter.23 //@ownedFilter.34 //@ownedFilter.24 //@ownedFilter.21 //@ownedFilter.131 //@ownedFilter.117 //@ownedFilter.115 //@ownedFilter.116 //@ownedFilter.112 //@ownedFilter.113 //@ownedFilter.114 //@ownedFilter.95 //@ownedFilter.96 //@ownedFilter.106 //@ownedFilter.102 //@ownedFilter.103 //@ownedFilter.120 //@ownedFilter.105 //@ownedFilter.111 //@ownedFilter.118 //@ownedFilter.94 //@ownedFilter.108 //@ownedFilter.104 //@ownedFilter.121 //@ownedFilter.107 //@ownedFilter.109 //@ownedFilter.97 //@ownedFilter.110 //@ownedFilter.99 //@ownedFilter.119 //@ownedFilter.100 //@ownedFilter.101 //@ownedFilter.122" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" name="Target" filter="//@connectionAssistant.1/@ownedTargetFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.88 //@ownedFilter.86 //@ownedFilter.87 //@ownedFilter.83 //@ownedFilter.84 //@ownedFilter.85 //@ownedFilter.66 //@ownedFilter.67 //@ownedFilter.77 //@ownedFilter.73 //@ownedFilter.74 //@ownedFilter.91 //@ownedFilter.76 //@ownedFilter.82 //@ownedFilter.89 //@ownedFilter.65 //@ownedFilter.79 //@ownedFilter.75 //@ownedFilter.92 //@ownedFilter.78 //@ownedFilter.80 //@ownedFilter.68 //@ownedFilter.81 //@ownedFilter.70 //@ownedFilter.69 //@ownedFilter.90 //@ownedFilter.71 //@ownedFilter.72 //@ownedFilter.93 //@ownedFilter.3 //@ownedFilter.161 //@ownedFilter.162 //@ownedFilter.163 //@ownedFilter.5 //@ownedFilter.123 //@ownedFilter.4 //@ownedFilter.8 //@ownedFilter.124 //@ownedFilter.59 //@ownedFilter.57 //@ownedFilter.58 //@ownedFilter.54 //@ownedFilter.55 //@ownedFilter.56 //@ownedFilter.38 //@ownedFilter.39 //@ownedFilter.45 //@ownedFilter.46 //@ownedFilter.63 //@ownedFilter.48 //@ownedFilter.53 //@ownedFilter.60 //@ownedFilter.37 //@ownedFilter.50 //@ownedFilter.47 //@ownedFilter.61 //@ownedFilter.49 //@ownedFilter.51 //@ownedFilter.40 //@ownedFilter.52 //@ownedFilter.42 //@ownedFilter.41 //@ownedFilter.62 //@ownedFilter.43 //@ownedFilter.44 //@ownedFilter.64 //@ownedFilter.7 //@ownedFilter.6 //@ownedFilter.146 //@ownedFilter.117 //@ownedFilter.115 //@ownedFilter.116 //@ownedFilter.112 //@ownedFilter.113 //@ownedFilter.114 //@ownedFilter.95 //@ownedFilter.96 //@ownedFilter.106 //@ownedFilter.102 //@ownedFilter.103 //@ownedFilter.120 //@ownedFilter.105 //@ownedFilter.111 //@ownedFilter.118 //@ownedFilter.94 //@ownedFilter.108 //@ownedFilter.104 //@ownedFilter.121 //@ownedFilter.107 //@ownedFilter.109 //@ownedFilter.97 //@ownedFilter.110 //@ownedFilter.99 //@ownedFilter.98 //@ownedFilter.119 //@ownedFilter.100 //@ownedFilter.101 //@ownedFilter.122" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <connectionAssistant elementTypeID="org.eclipse.papyrus.umldi.ExceptionHandler_Edge" sourceFilter="//@connectionAssistant.2/@ownedSourceFilter" targetFilter="//@connectionAssistant.2/@ownedTargetFilter">
+    <ownedSourceFilter xsi:type="filters:CompoundFilter" name="Source" filter="//@connectionAssistant.2/@ownedSourceFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.123 //@ownedFilter.126 //@ownedFilter.127 //@ownedFilter.128 //@ownedFilter.129 //@ownedFilter.130 //@ownedFilter.131 //@ownedFilter.132 //@ownedFilter.133 //@ownedFilter.134 //@ownedFilter.135 //@ownedFilter.136 //@ownedFilter.137 //@ownedFilter.139 //@ownedFilter.138 //@ownedFilter.140 //@ownedFilter.141 //@ownedFilter.142 //@ownedFilter.143 //@ownedFilter.144 //@ownedFilter.145 //@ownedFilter.146 //@ownedFilter.147 //@ownedFilter.148 //@ownedFilter.149 //@ownedFilter.150 //@ownedFilter.151 //@ownedFilter.153 //@ownedFilter.152 //@ownedFilter.154 //@ownedFilter.155 //@ownedFilter.156 //@ownedFilter.157 //@ownedFilter.158" operator="or"/>
+    </ownedSourceFilter>
+    <ownedTargetFilter xsi:type="filters:CompoundFilter" name="Target" filter="//@connectionAssistant.2/@ownedTargetFilter/@ownedFilter.0">
+      <ownedFilter xsi:type="filters:CompoundFilter" filter="//@ownedFilter.156 //@ownedFilter.88 //@ownedFilter.86 //@ownedFilter.87 //@ownedFilter.83 //@ownedFilter.84 //@ownedFilter.85 //@ownedFilter.66 //@ownedFilter.67 //@ownedFilter.77 //@ownedFilter.73 //@ownedFilter.74 //@ownedFilter.91 //@ownedFilter.76 //@ownedFilter.82 //@ownedFilter.89 //@ownedFilter.65 //@ownedFilter.79 //@ownedFilter.75 //@ownedFilter.92 //@ownedFilter.78 //@ownedFilter.80 //@ownedFilter.68 //@ownedFilter.81 //@ownedFilter.70 //@ownedFilter.69 //@ownedFilter.90 //@ownedFilter.71 //@ownedFilter.72 //@ownedFilter.93 //@ownedFilter.3 //@ownedFilter.161 //@ownedFilter.142 //@ownedFilter.144 //@ownedFilter.126 //@ownedFilter.127 //@ownedFilter.128 //@ownedFilter.162 //@ownedFilter.148 //@ownedFilter.143 //@ownedFilter.140 //@ownedFilter.152 //@ownedFilter.155 //@ownedFilter.132 //@ownedFilter.163 //@ownedFilter.5 //@ownedFilter.154 //@ownedFilter.133 //@ownedFilter.123 //@ownedFilter.4 //@ownedFilter.8 //@ownedFilter.2 //@ownedFilter.124 //@ownedFilter.59 //@ownedFilter.57 //@ownedFilter.58 //@ownedFilter.54 //@ownedFilter.55 //@ownedFilter.56 //@ownedFilter.38 //@ownedFilter.39 //@ownedFilter.45 //@ownedFilter.46 //@ownedFilter.63 //@ownedFilter.48 //@ownedFilter.53 //@ownedFilter.60 //@ownedFilter.37 //@ownedFilter.50 //@ownedFilter.47 //@ownedFilter.61 //@ownedFilter.49 //@ownedFilter.51 //@ownedFilter.40 //@ownedFilter.52 //@ownedFilter.42 //@ownedFilter.41 //@ownedFilter.62 //@ownedFilter.43 //@ownedFilter.44 //@ownedFilter.64 //@ownedFilter.7 //@ownedFilter.138 //@ownedFilter.6 //@ownedFilter.146 //@ownedFilter.125 //@ownedFilter.20 //@ownedFilter.30 //@ownedFilter.18 //@ownedFilter.19 //@ownedFilter.25 //@ownedFilter.35 //@ownedFilter.31 //@ownedFilter.33 //@ownedFilter.32 //@ownedFilter.17 //@ownedFilter.27 //@ownedFilter.28 //@ownedFilter.26 //@ownedFilter.22 //@ownedFilter.29 //@ownedFilter.23 //@ownedFilter.34 //@ownedFilter.24 //@ownedFilter.36 //@ownedFilter.21 //@ownedFilter.149 //@ownedFilter.136 //@ownedFilter.153 //@ownedFilter.134 //@ownedFilter.141 //@ownedFilter.145 //@ownedFilter.135 //@ownedFilter.150 //@ownedFilter.129 //@ownedFilter.130 //@ownedFilter.139 //@ownedFilter.151 //@ownedFilter.131 //@ownedFilter.137 //@ownedFilter.158 //@ownedFilter.157 //@ownedFilter.117 //@ownedFilter.115 //@ownedFilter.116 //@ownedFilter.112 //@ownedFilter.113 //@ownedFilter.114 //@ownedFilter.95 //@ownedFilter.96 //@ownedFilter.106 //@ownedFilter.102 //@ownedFilter.103 //@ownedFilter.120 //@ownedFilter.105 //@ownedFilter.111 //@ownedFilter.118 //@ownedFilter.94 //@ownedFilter.108 //@ownedFilter.104 //@ownedFilter.121 //@ownedFilter.107 //@ownedFilter.109 //@ownedFilter.97 //@ownedFilter.110 //@ownedFilter.99 //@ownedFilter.98 //@ownedFilter.119 //@ownedFilter.100 //@ownedFilter.101 //@ownedFilter.122 //@ownedFilter.147" operator="or"/>
+    </ownedTargetFilter>
+  </connectionAssistant>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActivityPartition_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InterruptibleActivityRegion_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InitialNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActivityFinalNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.FlowFinalNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DecisionNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.MergeNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.JoinNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ForkNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Constraint_LocalPreconditionShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.IntervalConstraint_LocalPreconditionShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DurationConstraint_LocalPreconditionShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.TimeConstraint_LocalPreconditionShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Constraint_LocalPostconditionShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.IntervalConstraint_LocalPostconditionShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DurationConstraint_LocalPostconditionShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.TimeConstraint_LocalPostconditionShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_OpaqueActionOutputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_CallBehaviorActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_CallOperationActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_AcceptEventActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_ValueSpecificationActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_ReadSelfActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_StartObjectBehaviorActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_TestIdentityActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_ClearStructuralFeatureActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_ReadLinkActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_ReadExtentActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_ReadIsClassifiedObjectActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_ReduceActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_AddStructuralFeatureValueActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_LoopNodeBodyOutputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_LoopNodeVariableShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_LoopNodeResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_StructuredActivityNodeOutputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_CreateLinkObjectActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OutputPin_UnmarshallActionResultShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_OpaqueActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_CallBehaviorActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_CallOperationActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_SendSignalActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_StartObjectBehaviorActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_StartObjectBehaviorActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_TestIdentityActionFirstShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_TestIdentityActionSecondShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_ClearStructuralFeatureActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_CreateLinkActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_ReadLinkActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_DestroyLinkActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_ReclassifyObjectActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_ReclassifyObjectActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_ReduceActionCollectionShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_StartClassifierBehaviorActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_DestroyObjectActionTargetShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_AddVariableValueActionInsertAtShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_AddVariableValueActionValueShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_BroadcastSignalActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_AddStructuralFeatureValueActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_AddStructuralFeatureValueActionValueShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_AddStructuralFeatureValueActionInsertAtShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_LoopNodeVariableInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_ReadStructuralFeatureActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_StructuredActivityNodeInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_CreateLinkObjectActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.InputPin_UnmarshallActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_OpaqueActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_CallBehaviorActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_CallOperationActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_SendSignalActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_StartObjectBehaviorActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_StartObjectBehaviorActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_TestIdentityActionFirstShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_TestIdentityActionSecondShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_ClearStructuralFeatureActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_CreateLinkActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_ReadLinkActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_DestroyLinkActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_ClearAssociationActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_ReclassifyObjectActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_ReadIsClassifiedObjectActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_ReduceActionCollectionShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_StartClassifierBehaviorActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_DestroyObjectActionTargetShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_AddVariableValueActionInsertAtShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_AddVariableValueActionValueShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_BroadcastSignalActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_AddStructuralFeatureValueActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_AddStructuralFeatureValueActionValueShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_AddStructuralFeatureValueActionInsertAtShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_LoopNodeVariableInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_StructuredActivityNodeInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_CreateLinkObjectActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_ReadStructuralFeatureActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActionInputPin_UnmarshallActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_OpaqueActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_CallBehaviorActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_CallOperationActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_SendSignalActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_StartObjectBehaviorActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_StartObjectBehaviorActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_TestIdentityActionFirstShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_TestIdentityActionSecondShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_ClearStructuralFeatureActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_CreateLinkActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_ReadLinkActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_DestroyLinkActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_ClearAssociationActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_ReclassifyObjectActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_ReadIsClassifiedObjectActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_ReduceActionCollectionShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_StartClassifierBehaviorActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_DestroyObjectActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_AddVariableValueActionInsertAtShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_AddVariableValueActionValueShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_BroadcastSignalActionArgumentShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_AddStructuralFeatureValueActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_AddStructuralFeatureValueActionValueShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_AddStructuralFeatureValueActionInsertAtShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_LoopNodeVariableInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_StructuredActivityNodeInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_CreateLinkObjectActionInputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_ReadStructuralFeatureActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValuePin_UnmarshallActionObjectShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ExpansionRegion_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ExpansionNode_InputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ExpansionNode_OutputShape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.BroadcastSignalAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.CallBehaviorAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.CallOperationAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.SendObjectAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.SendSignalAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.StartObjectBehaviorAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.CreateObjectAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DestroyObjectAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ReadSelfAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ReclassifyObjectAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ReadIsClassifiedObjectAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.StructuredActivityNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.LoopNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.SequenceNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ConditionalNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ReadStructuralFeatureAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.AddStructuralFeatureValueAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ClearStructuralFeatureAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.AddVariableValueAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ReadVariableAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.OpaqueAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ValueSpecificationAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ClearAssociationAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ReadExtentAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ReduceAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.StartClassifierBehaviorAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.CreateLinkAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ReadLinkAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DestroyLinkAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.CreateLinkObjectAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.AcceptEventAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.UnmarshallAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.TestIdentityAction_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Activity_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Activity_Shape_CN</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ActivityParameterNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.CentralBufferNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.DataStoreNode_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Constraint_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.Comment_Shape</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ControlFlow_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ObjectFlow_Edge</elementTypeID>
+  <elementTypeID>org.eclipse.papyrus.umldi.ExceptionHandler_Edge</elementTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.ControlFlow_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.ObjectFlow_Edge</relationshipTypeID>
+  <relationshipTypeID>org.eclipse.papyrus.umldi.ExceptionHandler_Edge</relationshipTypeID>
+</assistant:ModelingAssistantProvider>

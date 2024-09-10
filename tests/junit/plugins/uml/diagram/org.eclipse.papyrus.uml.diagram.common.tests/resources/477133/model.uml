@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Blocks="http://www.eclipse.org/papyrus/0.7.0/SysMLCopy/Blocks" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/papyrus/0.7.0/SysMLCopy/Blocks ../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3a1MPgMEeWiHvr2EcCZeg">
+  <uml:Model xmi:id="_HwHlUFuZEeWBbOvxypwYWA" name="Model">
+    <packagedElement xmi:type="uml:Class" xmi:id="_LdP-YFuZEeWBbOvxypwYWA" name="A"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_MIWw4FuZEeWBbOvxypwYWA" name="B">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_UKuE01uZEeWBbOvxypwYWA" name="a" type="_LdP-YFuZEeWBbOvxypwYWA" association="_UKuE0FuZEeWBbOvxypwYWA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_MXkRkFuZEeWBbOvxypwYWA" name="C"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_MrONYFuZEeWBbOvxypwYWA" name="D"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_UKuE0FuZEeWBbOvxypwYWA" name="Association" memberEnd="_UKuE01uZEeWBbOvxypwYWA _UKuE1FuZEeWBbOvxypwYWA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UKuE0VuZEeWBbOvxypwYWA" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UKuE0luZEeWBbOvxypwYWA" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_UKuE1FuZEeWBbOvxypwYWA" name="b" type="_MIWw4FuZEeWBbOvxypwYWA" association="_UKuE0FuZEeWBbOvxypwYWA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_1LyDQFufEeWBbOvxypwYWA" name="B1">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_4ray4lufEeWBbOvxypwYWA" name="b2_1" type="_1aFlAFufEeWBbOvxypwYWA" aggregation="composite" association="_4rWhcFufEeWBbOvxypwYWA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_1aFlAFufEeWBbOvxypwYWA" name="B2"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_1pONMFufEeWBbOvxypwYWA" name="B3"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_4rWhcFufEeWBbOvxypwYWA" name="Directed Composition" memberEnd="_4ray4lufEeWBbOvxypwYWA _4rcBAFufEeWBbOvxypwYWA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4ray4FufEeWBbOvxypwYWA" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_4ray4VufEeWBbOvxypwYWA" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_4rcBAFufEeWBbOvxypwYWA" name="b1_1" type="_1LyDQFufEeWBbOvxypwYWA" association="_4rWhcFufEeWBbOvxypwYWA"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_BkjZIPgUEeWiHvr2EcCZeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BkkAMfgUEeWiHvr2EcCZeg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkkAMvgUEeWiHvr2EcCZeg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkkAM_gUEeWiHvr2EcCZeg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkkANPgUEeWiHvr2EcCZeg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkkANfgUEeWiHvr2EcCZeg" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkkANvgUEeWiHvr2EcCZeg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BkkAMPgUEeWiHvr2EcCZeg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3REMPgMEeWiHvr2EcCZeg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_TZ_nULU5EduiKqCzJMWbGw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_BkkAN_gUEeWiHvr2EcCZeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BkknQfgUEeWiHvr2EcCZeg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkknQvgUEeWiHvr2EcCZeg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkknQ_gUEeWiHvr2EcCZeg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkknRPgUEeWiHvr2EcCZeg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkknRfgUEeWiHvr2EcCZeg" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkknRvgUEeWiHvr2EcCZeg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BkknQPgUEeWiHvr2EcCZeg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3YY8PgMEeWiHvr2EcCZeg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_Gx8MgLX7EduFmqQsrNB9lw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_BkknR_gUEeWiHvr2EcCZeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BklOUPgUEeWiHvr2EcCZeg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BklOUfgUEeWiHvr2EcCZeg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BklOUvgUEeWiHvr2EcCZeg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BklOU_gUEeWiHvr2EcCZeg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BklOVPgUEeWiHvr2EcCZeg" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BklOVfgUEeWiHvr2EcCZeg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BkknSPgUEeWiHvr2EcCZeg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3a1MPgMEeWiHvr2EcCZeg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_fSw28LX7EduFmqQsrNB9lw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_BklOVvgUEeWiHvr2EcCZeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BklOWPgUEeWiHvr2EcCZeg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BklOWfgUEeWiHvr2EcCZeg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BklOWvgUEeWiHvr2EcCZeg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BklOW_gUEeWiHvr2EcCZeg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BklOXPgUEeWiHvr2EcCZeg" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BklOXfgUEeWiHvr2EcCZeg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BklOV_gUEeWiHvr2EcCZeg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3efkPgMEeWiHvr2EcCZeg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_rpx28LX7EduFmqQsrNB9lw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Bkl1YPgUEeWiHvr2EcCZeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Bkl1YvgUEeWiHvr2EcCZeg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkl1Y_gUEeWiHvr2EcCZeg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkl1ZPgUEeWiHvr2EcCZeg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkl1ZfgUEeWiHvr2EcCZeg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkl1ZvgUEeWiHvr2EcCZeg" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkl1Z_gUEeWiHvr2EcCZeg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Bkl1YfgUEeWiHvr2EcCZeg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3fGoPgMEeWiHvr2EcCZeg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_5WYJ0LX7EduFmqQsrNB9lw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Bkl1aPgUEeWiHvr2EcCZeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Bkl1avgUEeWiHvr2EcCZeg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkl1a_gUEeWiHvr2EcCZeg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkl1bPgUEeWiHvr2EcCZeg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkl1bfgUEeWiHvr2EcCZeg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkl1bvgUEeWiHvr2EcCZeg" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkl1b_gUEeWiHvr2EcCZeg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Bkl1afgUEeWiHvr2EcCZeg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3gUwPgMEeWiHvr2EcCZeg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_C2zXMLX8EduFmqQsrNB9lw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_BkmccPgUEeWiHvr2EcCZeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BkmccvgUEeWiHvr2EcCZeg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkmcc_gUEeWiHvr2EcCZeg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkmcdPgUEeWiHvr2EcCZeg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkmcdfgUEeWiHvr2EcCZeg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkmcdvgUEeWiHvr2EcCZeg" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bkmcd_gUEeWiHvr2EcCZeg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BkmccfgUEeWiHvr2EcCZeg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3iJ8PgMEeWiHvr2EcCZeg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_NxdG4LX8EduFmqQsrNB9lw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_BkmcePgUEeWiHvr2EcCZeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BknDgPgUEeWiHvr2EcCZeg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BknDgfgUEeWiHvr2EcCZeg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BknDgvgUEeWiHvr2EcCZeg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BknDg_gUEeWiHvr2EcCZeg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BknDhPgUEeWiHvr2EcCZeg" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BknDhfgUEeWiHvr2EcCZeg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BkmcefgUEeWiHvr2EcCZeg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3mbYPgMEeWiHvr2EcCZeg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_OOJC4LX8EduFmqQsrNB9lw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_BknDhvgUEeWiHvr2EcCZeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BknqkPgUEeWiHvr2EcCZeg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BknqkfgUEeWiHvr2EcCZeg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BknqkvgUEeWiHvr2EcCZeg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bknqk_gUEeWiHvr2EcCZeg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BknqlPgUEeWiHvr2EcCZeg" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BknqlfgUEeWiHvr2EcCZeg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BknDh_gUEeWiHvr2EcCZeg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3nCcPgMEeWiHvr2EcCZeg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_meOioLX8EduFmqQsrNB9lw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_BknqlvgUEeWiHvr2EcCZeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BkoRoPgUEeWiHvr2EcCZeg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkoRofgUEeWiHvr2EcCZeg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkoRovgUEeWiHvr2EcCZeg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkoRo_gUEeWiHvr2EcCZeg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkoRpPgUEeWiHvr2EcCZeg" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BkoRpfgUEeWiHvr2EcCZeg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Bknql_gUEeWiHvr2EcCZeg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3npgPgMEeWiHvr2EcCZeg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_nAF5kLX8EduFmqQsrNB9lw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_BkoRpvgUEeWiHvr2EcCZeg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Bko4sPgUEeWiHvr2EcCZeg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bko4sfgUEeWiHvr2EcCZeg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bko4svgUEeWiHvr2EcCZeg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bko4s_gUEeWiHvr2EcCZeg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bko4tPgUEeWiHvr2EcCZeg" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Bko4tfgUEeWiHvr2EcCZeg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BkoRp_gUEeWiHvr2EcCZeg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_o3oQkPgMEeWiHvr2EcCZeg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicSysMLProfileTests.profile.uml#_neZmMLX8EduFmqQsrNB9lw"/>
+    </profileApplication>
+  </uml:Model>
+  <Blocks:Block xmi:id="_CViKIPgUEeWiHvr2EcCZeg" base_Class="_LdP-YFuZEeWBbOvxypwYWA" base_Element="_LdP-YFuZEeWBbOvxypwYWA"/>
+  <Blocks:Block xmi:id="_DUGEIPgUEeWiHvr2EcCZeg" base_Class="_MIWw4FuZEeWBbOvxypwYWA" base_Element="_MIWw4FuZEeWBbOvxypwYWA"/>
+  <Blocks:Block xmi:id="_D49rwPgUEeWiHvr2EcCZeg" base_Class="_MXkRkFuZEeWBbOvxypwYWA" base_Element="_MXkRkFuZEeWBbOvxypwYWA"/>
+  <Blocks:Block xmi:id="_Eca-IPgUEeWiHvr2EcCZeg" base_Class="_MrONYFuZEeWBbOvxypwYWA" base_Element="_MrONYFuZEeWBbOvxypwYWA"/>
+</xmi:XMI>

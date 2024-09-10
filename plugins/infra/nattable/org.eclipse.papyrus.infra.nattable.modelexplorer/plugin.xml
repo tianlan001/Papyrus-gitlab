@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.papyrus.emf.facet.util.emf.core.modeldeclaration">
+      <modeldeclaration file="resources/PapyrusTable.custom"/>
+   </extension>
+   <extension point="org.eclipse.ui.handlers">
+      <handler class="org.eclipse.papyrus.infra.nattable.modelexplorer.handlers.RenameTableHandler" commandId="org.eclipse.ui.edit.rename">
+         <activeWhen>
+      
+               <with variable="selection">
+                  <test forcePluginActivation="true" property="org.eclipse.papyrus.infra.nattable.modelexplorer.tablepropertytester.isTable" value="true">
+                  </test>
+               </with>
+            
+         </activeWhen>
+      </handler>
+   </extension>
+      <extension
+            point="org.eclipse.core.expressions.propertyTesters">
+         <propertyTester
+               class="org.eclipse.papyrus.infra.nattable.modelexplorer.providers.TablePropertyTester"
+               id="org.eclipse.papyrus.infra.nattable.modelexplorer.tablepropertytester"
+               namespace="org.eclipse.papyrus.infra.nattable.modelexplorer.tablepropertytester"
+               properties="isTable"
+               type="org.eclipse.jface.viewers.IStructuredSelection">
+         </propertyTester>
+      </extension>
+      
+         <extension
+      id="PapyrusQuickFormatHandler"
+      name="QuickFormatHandler"
+      point="org.eclipse.ui.handlers">
+   <handler
+         class="org.eclipse.papyrus.infra.nattable.modelexplorer.handlers.NattableQuickFormatHandler"
+         commandId="org.eclipse.papyrus.infra.ui.menu.commands.QuickFormattingUpperCaseCommand">
+       <activeWhen>
+         <and>
+            <with
+                  variable="selection">
+               <test
+                     property="org.eclipse.papyrus.infra.nattable.modelexplorer.menu.quickformatpropertytester.isNameChangeable"
+                     value="true">
+               </test>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+   <handler 
+         class="org.eclipse.papyrus.infra.nattable.modelexplorer.handlers.NattableQuickFormatHandler"
+         commandId="org.eclipse.papyrus.infra.ui.menu.commands.QuickFormattingLowerCaseCommand">
+       <activeWhen>
+         <and>
+            <with
+                  variable="selection">
+               <test
+                     property="org.eclipse.papyrus.infra.nattable.modelexplorer.menu.quickformatpropertytester.isNameChangeable"
+                     value="true">
+               </test>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+      <handler 
+         class="org.eclipse.papyrus.infra.nattable.modelexplorer.handlers.NattableQuickFormatHandler"
+         commandId="org.eclipse.papyrus.infra.ui.menu.commands.QuickFormattingSwitchSpace2UnderscoreCommand">
+       <activeWhen>
+         <and>
+            <with
+                  variable="selection">
+               <test
+                     property="org.eclipse.papyrus.infra.nattable.modelexplorer.menu.quickformatpropertytester.isNameChangeable"
+                     value="true">
+               </test>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+   <handler 
+         class="org.eclipse.papyrus.infra.nattable.modelexplorer.handlers.NattableQuickFormatHandler"
+         commandId="org.eclipse.papyrus.infra.ui.menu.commands.QuickFormattingCapitalizeFirstLetterCommand">
+       <activeWhen>
+         <and>
+            <with
+                  variable="selection">
+               <test
+                     property="org.eclipse.papyrus.infra.nattable.modelexplorer.menu.quickformatpropertytester.isNameChangeable"
+                     value="true">
+               </test>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+   <handler 
+         class="org.eclipse.papyrus.infra.nattable.modelexplorer.handlers.NattableQuickFormatHandler"
+         commandId="org.eclipse.papyrus.infra.ui.menu.commands.QuickFormattingRemoveSpaceCommand">
+       <activeWhen>
+         <and>
+            <with
+                  variable="selection">
+               <test
+                     property="org.eclipse.papyrus.infra.nattable.modelexplorer.menu.quickformatpropertytester.isNameChangeable"
+                     value="true">
+               </test>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+</extension>
+      <extension
+            point="org.eclipse.core.expressions.propertyTesters">
+         <propertyTester
+               class="org.eclipse.papyrus.infra.nattable.modelexplorer.handlers.NattableNamePropertyTester"
+               id="org.eclipse.papyrus.infra.nattable.modelexplorer.menu.quickformatpropertytester"
+               namespace="org.eclipse.papyrus.infra.nattable.modelexplorer.menu.quickformatpropertytester"
+               properties="isNameChangeable"
+               type="org.eclipse.jface.viewers.IStructuredSelection">
+         </propertyTester>
+      </extension>
+      <extension
+            point="org.eclipse.papyrus.infra.gmfdiag.extensionpoints.editors.DirectEditor">
+         <DirectEditor
+               contributor="CEA LIST"
+               language="Table Direct Editor"
+               objectToEdit="org.eclipse.papyrus.infra.nattable.model.nattable.Table">
+            <popupeditor
+                  editorConfiguration="org.eclipse.papyrus.infra.nattable.modelexplorer.directeditor.TableDirectEditorConfiguration">
+            </popupeditor>
+            <Priority
+                  name="Medium">
+            </Priority>
+         </DirectEditor>
+      </extension>
+      <extension
+            point="org.eclipse.core.runtime.preferences">
+         <initializer
+               class="org.eclipse.papyrus.infra.nattable.modelexplorer.preferences.TableDirectEditorPreferenceInitializer">
+         </initializer>
+      </extension>
+</plugin>

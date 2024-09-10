@@ -1,0 +1,752 @@
+/**
+ * Copyright (c) 2016 CEA LIST.
+ *  
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *  
+ * Contributors:
+ *  CEA LIST - Initial API and implementation
+ */
+modeltype UML uses "http://www.eclipse.org/uml2/4.0.0/UML";
+modeltype ElementTypes uses "http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1";
+
+/**
+ * A transform to generate the umldi.elementtypesconfigurations
+ */
+transformation GenerateUMLDIElementTypes(in uml : UML, inout elementTypes : ElementTypes);
+
+main() {
+	uml.objectsOfKind(UML::Package)->map toConfiguration();
+}
+
+mapping UML::Package::toConfiguration() : ElementTypes::ElementTypeSetConfiguration {
+	init {
+		result := elementTypes.objectsOfKind(ElementTypeSetConfiguration)->select(metamodelNsURI = 'http://www.eclipse.org/uml2/5.0.0/UML')->any(true);
+	}
+	identifier := 'org.eclipse.papyrus.umldi.service.types.UMLDIElementTypeSet';
+	name := 'UMLDIElementTypeSet';
+	metamodelNsURI := 'http://www.eclipse.org/uml2/5.0.0/UML';
+	
+	var configurations : OrderedSet(ElementTypeConfiguration);
+	
+	//Diagrams
+	configurations := addDiagramConfigurations(configurations);
+	
+	//Shapes
+	var shapes : Set(UML::Class);
+	configurations := addShapeConfigurations(configurations, shapes);
+
+	//Edges
+	var edges : Set(UML::Class);
+	configurations := addEdgeConfigurations(configurations, edges);
+
+	//List Items
+	configurations := addListItemConfigurations(configurations);
+
+	//Labels
+	//configurations := addLabelConfigurations(configurations, shapes, edges);
+	
+	//Compartments
+	//configurations := addCompartmentConfigurations(configurations, shapes);	
+		
+	elementTypeConfigurations := configurations->sortedBy(identifier);
+}
+
+//--------------------------
+
+helper addDiagramConfigurations(inout configurations : OrderedSet(ElementTypeConfiguration)) : OrderedSet(ElementTypeConfiguration) {
+	configurations += getClass('Package')->map toDiagramConfiguration('ClassDiagram', 'PapyrusUMLClassDiagram');
+	configurations += getClass('Package')->map toDiagramConfiguration('ProfileDiagram', 'PapyrusUMLProfileDiagram');
+	/*configurations += getClassAndSubClassesOf('Package')->map toDiagramConfiguration('ObjectDiagram');
+	configurations += getClassAndSubClassesOf('Package')->map toDiagramConfiguration('PackageDiagram');*/
+	configurations += getClass('Package')->map toDiagramConfiguration('DeploymentDiagram', 'PapyrusUMLDeploymentDiagram');
+	configurations += getClass('Package')->map toDiagramConfiguration('ComponentDiagram', 'PapyrusUMLComponentDiagram');
+	configurations += getClass('Package')->map toDiagramConfiguration('UseCaseDiagram', 'UseCase');
+	/*configurations += getClassAndSubClassesOf('Component')->map toConfiguration('ClassDiagram');
+	configurations += getClassAndSubClassesOf('Component')->map toConfiguration('ObjectDiagram');
+	configurations += getClassAndSubClassesOf('Component')->map toConfiguration('PackageDiagram');
+	configurations += getClassAndSubClassesOf('Component')->map toConfiguration('DeploymentDiagram');
+	configurations += getClassAndSubClassesOf('Component')->map toConfiguration('ComponentDiagram');
+	configurations += getClassAndSubClassesOf('Component')->map toConfiguration('UseCaseDiagram');
+	configurations += getClassAndSubClassesOf('StructuredClassifier')->map toConfiguration('CompositeStructureDiagram');
+	configurations += getClassAndSubClassesOf('StateMachine')->map toConfiguration('StateMachineDiagram');
+	configurations += getClassAndSubClassesOf('Activity')->map toConfiguration('ActivityDiagram');
+	configurations += getClassAndSubClassesOf('Activity')->map toConfiguration('InteractionOverviewDiagram');
+	configurations += getClassAndSubClassesOf('Interaction')->map toConfiguration('SequenceDiagram');
+	configurations += getClassAndSubClassesOf('Interaction')->map toConfiguration('CommunicationDiagram');
+	configurations += getClassAndSubClassesOf('Interaction')->map toConfiguration('TimingDiagram');
+	configurations += getClassAndSubClassesOf('StructuredActivityNode')->map toConfiguration('NestedActivityDiagram');
+	configurations += getClassAndSubClassesOf('State')->map toConfiguration('NestedStateDiagram');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('NestedArtifactDiagram');
+	configurations += getClassAndSubClassesOf('Node')->map toConfiguration('NestedNodeDiagram');
+	configurations += getClassAndSubClassesOf('Class')->map toConfiguration('NestedClassifierDiagram');
+	configurations += getClassAndSubClassesOf('Interface')->map toConfiguration('NestedClassifierDiagram');
+	configurations += getClassAndSubClassesOf('BehavioredClassifier')->map toConfiguration('OwnedBehaviorDiagram');
+	configurations += getClassAndSubClassesOf('Classifier', Set{'Association'})->map toConfiguration('OwnedUseCaseDiagram');*/
+	// From Composite Structure Diagram
+	configurations += getClass('Package')->map toDiagramConfiguration('CompositeStructureDiagram', 'CompositeStructure');
+	// From State Machine Diagram
+	configurations += getClass('Package')->map toDiagramConfiguration('StateMachineDiagram', 'PapyrusUMLStateMachineDiagram');
+	// From Activity Diagram
+	configurations += getClass('Package')->map toDiagramConfiguration('ActivityDiagram', 'PapyrusUMLActivityDiagram');
+	// From Interaction Overview Diagram
+	configurations += getClass('Package')->map toDiagramConfiguration('InteractionOverviewDiagram', 'PapyrusUMLInteractionOverviewDiagram');
+	// From Sequence Diagram
+	configurations += getClass('Package')->map toDiagramConfiguration('SequenceDiagram', 'PapyrusUMLSequenceDiagram');
+	// From Communication Diagram
+	configurations += getClass('Package')->map toDiagramConfiguration('CommunicationDiagram', 'PapyrusUMLCommunicationDiagram');
+	// From Timing Diagram
+	configurations += getClass('Package')->map toDiagramConfiguration('TimingDiagram', 'PapyrusUMLTimingDiagram');
+	
+	return configurations;
+}
+
+helper addShapeConfigurations(inout configurations : OrderedSet(ElementTypeConfiguration), inout shapes : Set(UML::Class)) : OrderedSet(ElementTypeConfiguration){
+	shapes += getClassAndSubClassesOf('Duration');
+	shapes += getClassAndSubClassesOf('Component');
+	shapes += getClassAndSubClassesOf('Package');
+	shapes += getClassAndSubClassesOf('Classifier');
+	shapes += getClassAndSubClassesOf('TemplateSignature');
+	shapes += getClassAndSubClassesOf('DurationObservation');
+	shapes += getClassAndSubClassesOf('Gate');
+	shapes += getClassAndSubClassesOf('Region');
+	shapes += getClassAndSubClassesOf('Port');
+	shapes += getClassAndSubClassesOf('Collaboration');
+	shapes += getClassAndSubClassesOf('Class');
+	shapes += getClassAndSubClassesOf('Property');
+	shapes += getClassAndSubClassesOf('Pseudostate');
+	shapes += getClassAndSubClassesOf('ActivityGroup');
+	shapes += getClassAndSubClassesOf('CollaborationUse');
+	shapes += getClassAndSubClassesOf('Comment');
+	shapes += getClassAndSubClassesOf('ConnectionPointReference');
+	shapes += getClassAndSubClassesOf('Dependency');
+	shapes += getClassAndSubClassesOf('Lifeline');
+	shapes += getClassAndSubClassesOf('TimeExpression');
+	shapes += getClassAndSubClassesOf('State');
+	shapes += getClassAndSubClassesOf('StateMachine');
+	shapes += getClassAndSubClassesOf('DeploymentTarget');
+	shapes += getClassAndSubClassesOf('TimeObservation');
+	shapes += getClassAndSubClassesOf('InteractionFragment');
+	shapes += getClassAndSubClassesOf('ActivityNode');
+	shapes += getClassAndSubClassesOf('Activity');
+	shapes += getClassAndSubClassesOf('StructuredActivityNode');
+	shapes += getClassAndSubClassesOf('Constraint');
+	shapes += getClassAndSubClassesOf('GeneralOrdering');
+	configurations += shapes->remove(Set{'CallBehaviorAction'})->map toConfiguration('Shape');
+	configurations += shapes->remove(Set{'ActivityNode'})->map toConfiguration('Shape_CN');
+	configurations += getClass('Class')->map toConfiguration('MetaclassShape');
+	configurations += getClass('Class')->map toConfiguration('MetaclassShape_CN');
+	configurations += getClass('Classifier')->map toConfiguration('SubjectShape');
+	configurations += getClass('Actor')->map toConfiguration('ClassifierShape');
+	configurations += getClass('UseCase')->map toConfiguration('ClassifierShape');
+	configurations += getClass('Interface')->map toConfiguration('ClassifierShape');
+	configurations += getClass('Interface')->map toConfiguration('ClassifierShape_CN');
+	configurations += getClass('Constraint')->map toConfiguration('PackagedElementShape', 'org.eclipse.papyrus.uml.Constraint_As_UML::Package::packagedElement');
+	configurations += getClass('Constraint')->map toConfiguration('PackagedElementShape_CN', 'org.eclipse.papyrus.uml.Constraint_As_UML::Package::packagedElement');
+	configurations += getClass('Component')->map toConfiguration('PackagedElementShape', 'org.eclipse.papyrus.uml.Component_As_UML::Component::packagedElement');
+	configurations += getClass('Component')->map toConfiguration('PackagedElementShape_CN', 'org.eclipse.papyrus.uml.Component_As_UML::Component::packagedElement');
+	configurations += getClass('Constraint')->collect(c|c->map toConfiguration('LocalPostconditionShape', 'org.eclipse.papyrus.uml.'+c.name+'_As_UML::Action::localPrecondition'));
+	configurations += getClass('Constraint')->collect(c|c->map toConfiguration('LocalPreconditionShape', 'org.eclipse.papyrus.uml.'+c.name+'_As_UML::Action::localPrecondition'));
+	configurations += getClassAndSubClassesOf('IntervalConstraint')->collect(c|c->map toConfiguration('LocalPostconditionShape', 'org.eclipse.papyrus.uml.'+c.name+'_As_UML::Action::localPrecondition'));
+	configurations += getClassAndSubClassesOf('IntervalConstraint')->collect(c|c->map toConfiguration('LocalPreconditionShape', 'org.eclipse.papyrus.uml.'+c.name+'_As_UML::Action::localPrecondition'));
+	configurations += getClass('CallBehaviorAction')->map toConfiguration('BaseType');
+	configurations += getClass('CallBehaviorAction')->map toConfiguration('Shape', 'org.eclipse.papyrus.umldi.CallBehaviorAction_BaseType');
+	//from UseCase Diagram
+	configurations += getClass('UseCase')->map toConfiguration('Shape_CCN', 'org.eclipse.papyrus.uml.UseCase_As_UML::Classifier::ownedUseCase');
+	configurations += getClass('Component')->map toConfiguration('Shape_CCN');
+	configurations += getClass('Constraint')->map toConfiguration('Shape_CCN');
+	configurations += getClass('Actor')->map toConfiguration('Shape_CCN');
+	//from Component Diagram
+	configurations += getClass('Component')->map toConfiguration('PackagedElementShape_CCN', 'org.eclipse.papyrus.uml.Component_As_UML::Component::packagedElement');
+	// Deployment Diagram
+	configurations += getClass('Node')->map toConfiguration('Shape_CCN', 'org.eclipse.papyrus.um.Node_As_UML::Node::nestedNode');
+	configurations += getClass('Device')->map toConfiguration('Shape_CCN', 'org.eclipse.papyrus.um.Device_As_UML::Node::nestedNode');
+	configurations += getClass('ExecutionEnvironment')->map toConfiguration('Shape_CCN', 'org.eclipse.papyrus.um.ExecutionEnvironment_As_UML::Node::nestedNode');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('Shape_CCN');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('Shape_ACN');
+	// From Composite Structure Diagram
+	configurations += getClass('ConnectableElement')->map toConfiguration('CollaborationRoleShape', 'org.eclipse.papyrus.uml.Collaboration.CollaborationRole');
+	configurations += getClass('Port')->map toConfiguration('BehaviorShape');
+	configurations += getClass('Parameter')->map toConfiguration('Shape');
+	configurations += getClassAndSubClassesOf('Event')->map toConfiguration('Shape');
+	configurations += getClassAndSubClassesOf('ValueSpecification')->map toConfiguration('Shape');
+	configurations += getClassAndSubClassesOf('StringExpression')->map toConfiguration('PackagedElementShape', 'org.eclipse.papyrus.uml.StringExpression_As_UML::Package::packagedElement');
+	// From State Machine Diagram
+	configurations->select(hint = "Pseudostate_Shape")->forOne(p) {
+		if p.oclAsType(SpecializationTypeConfiguration).editHelperAdviceConfiguration.oclIsUndefined() then
+			p.oclAsType(SpecializationTypeConfiguration).editHelperAdviceConfiguration := object EditHelperAdviceConfiguration {}
+		endif;
+		p.oclAsType(SpecializationTypeConfiguration).editHelperAdviceConfiguration.oclAsType(EditHelperAdviceConfiguration).editHelperAdviceClassName 
+			:= 'org.eclipse.papyrus.uml.diagram.statemachine.custom.helpers.advice.PseudostateKindInitializerAdvice';
+	};
+	getEnumeration("PseudostateKind").ownedLiteral->forEach(e) {
+		configurations += getClass('Pseudostate')->map toConfiguration(e.name.toFirstUpper()+'Shape', 'org.eclipse.papyrus.umldi.Pseudostate_Shape');
+	};
+	// From Activity Diagram
+	configurations += getClass('ExpansionNode')->map toConfiguration('InputShape', 'org.eclipse.papyrus.uml.diagram.activity.ExpansionNode_AsInput');
+	configurations += getClass('ExpansionNode')->map toConfiguration('OutputShape', 'org.eclipse.papyrus.uml.diagram.activity.ExpansionNode_AsOutput');
+	var allInputPins := getClassAndSubClassesOf('InputPin');
+	var valuePin := getClass('ValuePin');
+	var actionInputPin := getClass('ActionInputPin');
+	var allOutputPins := getClass('OutputPin');
+	getClassAndSubClassesOf('Action')->forEach(c) {
+		c.allAttributes()->select(type.name = 'InputPin')->forEach(p)  {
+			var r := p.name.toFirstUpper();
+			switch {
+				case (r = 'InputVariable') { r := 'Input'}
+				case (r = 'StructuredNodeInput') { r := 'Input'}
+				case (r = 'InputValue') { r := 'Input'}
+				case (r = 'LoopVariableInput') { r := 'VariableInput'}
+				case (r = 'ReplyValue') { r := 'Reply'}
+				case (r = 'ReturnInformation') { r := 'Return'}
+			};
+			configurations += allInputPins->map toSpecialConfiguration(c.name+r+'Shape');
+		};
+		c.allAttributes()->select(type.name = 'OutputPin')->forEach(p)  {
+			var r := p.name.toFirstUpper();
+			switch {
+				case (r = 'StructuredNodeOutput') { r := 'Output'}
+				case (r = 'OutputValue') { r := 'Output'}
+				case (r = 'LoopVariable') { r := 'Variable'}
+				case (r = 'ReturnInformation') { r := 'Return'}
+			};
+			configurations += allOutputPins->map toSpecialConfiguration(c.name+r+'Shape');
+		}
+	};
+	// From Interaction Overview Diagram
+	configurations += getClass('CallBehaviorAction').map toConfiguration('InteractionUseShape', 'org.eclipse.papyrus.umldi.CallBehaviorAction_BaseType');
+	var aConfiguration := getClass('CallBehaviorAction').map toConfiguration('InteractionShape', 'org.eclipse.papyrus.umldi.CallBehaviorAction_Shape');
+	if aConfiguration.editHelperAdviceConfiguration.oclIsUndefined() then
+		aConfiguration.editHelperAdviceConfiguration := object EditHelperAdviceConfiguration {}
+	endif;
+	aConfiguration.editHelperAdviceConfiguration.oclAsType(EditHelperAdviceConfiguration).editHelperAdviceClassName := 'org.eclipse.papyrus.uml.diagram.interactionoverview.edit.advices.CallBehaviorActionAsInteractionEditHelperAdvice';
+	configurations += aConfiguration;
+	// From Sequence Diagram
+	configurations += getClass('CombinedFragment')->map toConfiguration('CoRegionShape');
+	// From Timing Diagram
+	configurations += getClass('Lifeline')->map toConfiguration('FullShape');
+	configurations += getClass('Lifeline')->map toConfiguration('CompactShape');
+	configurations += getClass('StateInvariant')->map toConfiguration('FullShape');
+	configurations += getClass('StateInvariant')->map toConfiguration('CompactShape');
+	configurations += 'Node'->map toConfiguration('StateDefinitionShape', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	configurations += 'Node'->map toConfiguration('StateInvariantTransitionShape', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	configurations += 'Node'->map toConfiguration('FreeTimeRulerShape', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	configurations += 'Node'->map toConfiguration('LinearTimeRulerShape', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	configurations += 'Node'->map toConfiguration('TickShape', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	//Notational Cases
+	configurations += 'Diagram'->map toConfiguration('ShortcutShape', 'org.eclipse.papyrus.gmfdiag.common.Diagram');
+	//Odd Case
+	configurations += getClass('NamedElement').map toConfiguration('DefaultShape');
+
+	return configurations;
+}
+
+helper addEdgeConfigurations(inout configurations : OrderedSet(ElementTypeConfiguration), inout edges : Set(UML::Class)) : OrderedSet(ElementTypeConfiguration){
+	edges += getClassAndSubClassesOf('ActivityEdge');
+	edges += getClassAndSubClassesOf('Association');
+	edges += getClassAndSubClassesOf('Connector');
+	edges += getClassAndSubClassesOf('Dependency');
+	edges += getClassAndSubClassesOf('ElementImport');
+	edges += getClassAndSubClassesOf('ExceptionHandler');
+	edges += getClassAndSubClassesOf('Extend');
+	edges += getClassAndSubClassesOf('GeneralOrdering');
+	edges += getClassAndSubClassesOf('Generalization');
+	edges += getClassAndSubClassesOf('GeneralizationSet');
+	edges += getClassAndSubClassesOf('Include');
+	edges += getClassAndSubClassesOf('InformationFlow');
+	edges += getClassAndSubClassesOf('Message');
+	edges += getClassAndSubClassesOf('PackageImport');
+	edges += getClassAndSubClassesOf('PackageMerge');
+	edges += getClassAndSubClassesOf('ProfileApplication');
+	edges += getClassAndSubClassesOf('Transition');
+	edges += getClassAndSubClassesOf('TemplateBinding');
+	edges += getClassAndSubClassesOf('Property');
+	configurations += edges->map toConfiguration('Edge');
+	configurations += getClass('Association')->map toConfiguration('BranchEdge');
+	configurations += getClass('Dependency')->map toConfiguration('BranchEdge');
+	configurations += getClass('Dependency')->map toConfiguration('RoleBindingEdge', 'org.eclipse.papyrus.uml.CollaborationUse.RoleBinding');
+	configurations += getClass('DurationObservation')->map toConfiguration('EventEdge');
+	configurations += getClass('TimeObservation')->map toConfiguration('EventEdge');
+	configurations += getClass('AssociationClass')->map toConfiguration('TetherEdge', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	configurations += getClass('Comment')->map toConfiguration('AnnotatedElementEdge', 'org.eclipse.papyrus.uml.Comment.AnnotatedElements');
+	configurations += getClass('Constraint')->map toConfiguration('ConstrainedElementEdge', 'org.eclipse.papyrus.uml.Constraint.ConstrainedElements');
+	configurations += getClass('Constraint')->map toConfiguration('ContextEdge', 'org.eclipse.papyrus.uml.Constraint.Context');
+	configurations += getClass('InstanceSpecification')->map toConfiguration('Edge', 'org.eclipse.papyrus.uml.InstanceSpecification.Link');
+	configurations += getClass('Element')->map toConfiguration('ContainmentEdge', 'org.eclipse.papyrus.uml.Element.OwnedElement');
+	// From Composite Structure Diagram
+	configurations += getClass('Port')->map toConfiguration('BehaviorEdge');
+	// From Activity Diagram
+	configurations += getClass('Action')->map toConfiguration('LocalPreconditionEdge', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	configurations += getClass('Action')->map toConfiguration('LocalPostconditionEdge', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	// From Sequence Diagram
+	var message = getClass('Message');
+	Sequence {'Synch', 'Asynch', 'Reply', 'Create', 'Delete', 'Lost', 'Found'}->forEach(s) {
+		configurations += message->map toConfiguration(s+'Edge');
+	};
+	// from component diagram
+	configurations += 'Link'->map toConfiguration('DescriptorEdge', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	configurations += 'Link'->map toConfiguration('InterfacePortEdge', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	//Notational Cases
+	configurations += 'Representation'->map toConfiguration('Edge', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	configurations += 'Path'->map toConfiguration('Edge', 'org.eclipse.gmf.runtime.emf.type.core.null');
+
+	return configurations;
+}
+
+helper addListItemConfigurations(inout configurations : OrderedSet(ElementTypeConfiguration)) : OrderedSet(ElementTypeConfiguration){
+	configurations += getClassAndSubClassesOf('Property').toListItemConfiguration('AttributeLabel', Set{'Class', 'Component', 'Signal', 'Interface', 'PrimitiveType', 'DataType'});
+	configurations += getClassAndSubClassesOf('Operation').toListItemConfiguration('OperationLabel', Set{'Class', 'Component', 'Interface', 'PrimitiveType', 'DataType'});
+	configurations += getClassAndSubClassesOf('Classifier', Set{'Association'}).toListItemConfiguration('NestedClassifierLabel', Set{'Class', 'Component', 'Interface'});
+	configurations += getClassAndSubClassesOf('Reception').toListItemConfiguration('ReceptionLabel', Set{'Interface'});
+	configurations += getClassAndSubClassesOf('Trigger')->map toConfiguration('DeferrableTriggerLabel');
+	configurations += getClassAndSubClassesOf('ExtensionPoint')->map toConfiguration('ExtensionPointLabel');
+	configurations += getClass('Behavior')->map toConfiguration('InternalBehaviorLabel');
+	configurations += getClass('Behavior')->map toConfiguration('EntryBehaviorLabel', OrderedSet{'org.eclipse.papyrus.umldi.Behavior_InternalBehaviorLabel, org.eclipse.papyrus.uml.Behavior_As_UML::State::entry'});
+	configurations += getClass('Behavior')->map toConfiguration('ExitBehaviorLabel', OrderedSet{'org.eclipse.papyrus.umldi.Behavior_InternalBehaviorLabel, org.eclipse.papyrus.uml.Behavior_As_UML::State::exit'});
+	configurations += getClass('Behavior')->map toConfiguration('DoActivityBehaviorLabel', OrderedSet{'org.eclipse.papyrus.umldi.Behavior_InternalBehaviorLabel, org.eclipse.papyrus.uml.Behavior_As_UML::State::doActivity'});
+	configurations += getClassAndSubClassesOf('Transition')->map toConfiguration('InternalTransitionLabel');
+	configurations += getClassAndSubClassesOf('EnumerationLiteral')->map toConfiguration('LiteralLabel');
+	configurations += getClassAndSubClassesOf('Parameter')->map toConfiguration('ParameterLabel');
+	configurations += getClassAndSubClassesOf('Constraint')->map toConfiguration('PostconditionLabel');
+	configurations += getClassAndSubClassesOf('Constraint')->map toConfiguration('PreconditionLabel');
+	configurations += getClassAndSubClassesOf('Slot')->map toConfiguration('SlotLabel');
+	configurations += getClassAndSubClassesOf('TemplateParameter')->map toConfiguration('TemplateParameterLabel');
+	configurations += getClassAndSubClassesOf('Stereotype')->map toConfiguration('StereotypeLabel');
+	configurations += getClassAndSubClassesOf('DeployedArtifact')->map toConfiguration('DeployedArtifactLabel');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('NestedArtifactLabel');
+	configurations += getClassAndSubClassesOf('Node')->map toConfiguration('NestedNodeLabel');
+	configurations += getClassAndSubClassesOf('Behavior')->map toConfiguration('OwnedBehaviorLabel');
+	configurations += getClassAndSubClassesOf('UseCase')->map toConfiguration('OwnedUseCaseLabel');
+	configurations += getClassAndSubClassesOf('UseCase')->map toConfiguration('UseCaseLabel');
+	configurations += getClassAndSubClassesOf('ExtensionPoint')->map toConfiguration('ClassifierExtensionPointLabel');
+	configurations += getClassAndSubClassesOf('DecisionNode')->map toConfiguration('DecisionInputLabel');
+	configurations += getClassAndSubClassesOf('JoinNode')->map toConfiguration('JoinSpecLabel');
+
+	return configurations;
+}
+
+helper addLabelConfigurations(inout configurations : OrderedSet(ElementTypeConfiguration), shapes : Set(UML::Class), edges : Set(UML::Class)) : OrderedSet(ElementTypeConfiguration) {
+	configurations += edges->map toConfiguration('StereotypeLabel');
+	configurations += shapes->map toConfiguration('StereotypeLabel');
+	configurations += shapes->map toConfiguration('StereotypeLabel_CN');
+	configurations += edges->select(isNamed())->map toConfiguration('NameLabel');
+	configurations += shapes->remove(Set{'Association', 'Dependency'})->select(isNamed())->map toConfiguration('NameLabel');
+	configurations += shapes->remove(Set{'Association', 'Dependency'})->select(isNamed())->map toConfiguration('NameLabel_CN');
+	configurations += shapes->select(isNamed())->map toConfiguration('FloatingNameLabel');
+	configurations += shapes->select(isNamed())->map toConfiguration('FloatingNameLabel_CN');
+	configurations += getClass('Dependency')->map toConfiguration('MultiNameLabel');
+	configurations += getClassAndSubClassesOf('Association')->map toConfiguration('BranchRoleLabel');
+	configurations += getClassAndSubClassesOf('Association')->map toConfiguration('SourceRoleLabel');
+	configurations += getClassAndSubClassesOf('Association')->map toConfiguration('TargetRoleLabel');
+	configurations += getClassAndSubClassesOf('Association')->map toConfiguration('BranchMultiplicityLabel');
+	configurations += getClassAndSubClassesOf('Association')->map toConfiguration('SourceMultiplicityLabel');
+	configurations += getClassAndSubClassesOf('Association')->map toConfiguration('TargetMultiplicityLabel');
+	configurations += getClassAndSubClassesOf('Association')->map toConfiguration('BranchConstraintLabel');
+	configurations += getClassAndSubClassesOf('Association')->map toConfiguration('SourceConstraintLabel');
+	configurations += getClassAndSubClassesOf('Association')->map toConfiguration('TargetConstraintLabel');
+	configurations += getClassAndSubClassesOf('Property')->map toConfiguration('RoleLabel');
+	configurations += getClassAndSubClassesOf('Property')->map toConfiguration('MultiplicityLabel');
+	configurations += getClassAndSubClassesOf('Property')->map toConfiguration('ConstraintLabel');
+	configurations += getClassAndSubClassesOf('GeneralizationSet')->map toConfiguration('ConstraintLabel');
+	configurations += getClassAndSubClassesOf('ObjectNode')->map toConfiguration('ConstraintLabel');
+	configurations += getClassAndSubClassesOf('StateInvariant')->map toConfiguration('ConstraintLabel');
+	configurations += getClassAndSubClassesOf('Constraint')->map toConfiguration('ConstraintLabel');
+	configurations += getClassAndSubClassesOf('Constraint')->map toConfiguration('BodyLabel');
+	configurations += getClassAndSubClassesOf('Constraint')->map toConfiguration('BodyLabel_CN');
+	configurations += getClassAndSubClassesOf('Constraint')->map toConfiguration('LocalPostconditionNameLabel');
+	configurations += getClassAndSubClassesOf('Constraint')->map toConfiguration('LocalPreconditionNameLabel');
+	configurations += getClassAndSubClassesOf('Constraint')->map toConfiguration('LocalPostconditionBodyLabel');
+	configurations += getClassAndSubClassesOf('Constraint')->map toConfiguration('LocalPreconditionBodyLabel');
+	configurations += getClassAndSubClassesOf('Comment')->map toConfiguration('BodyLabel');
+	configurations += getClassAndSubClassesOf('Comment')->map toConfiguration('BodyLabel_CN');
+	configurations += getClassAndSubClassesOf('Connector')->map toConfiguration('SourceMultiplicityLabel');
+	configurations += getClassAndSubClassesOf('Connector')->map toConfiguration('TargetMultiplicityLabel');
+	configurations += getClassAndSubClassesOf('InformationFlow')->map toConfiguration('ConveyedLabel');
+	configurations += getClassAndSubClassesOf('Transition')->map toConfiguration('GuardLabel');
+	configurations += getClassAndSubClassesOf('ActivityEdge')->map toConfiguration('GuardLabel');
+	configurations += getClassAndSubClassesOf('ExceptionHandler')->map toConfiguration('IconLabel');
+	configurations += getClassAndSubClassesOf('GeneralizationSet')->map toConfiguration('PowerLabel');
+	configurations += getClassAndSubClassesOf('ObjectNode')->map toConfiguration('SelectionLabel');
+	configurations += getClassAndSubClassesOf('ObjectFlow')->map toConfiguration('SelectionLabel');
+	configurations += getClassAndSubClassesOf('ObjectFlow')->map toConfiguration('TransformationLabel');
+	configurations += getClassAndSubClassesOf('ExceptionHandler')->map toConfiguration('TypeLabel');
+	configurations += getClassAndSubClassesOf('InteractionUse')->map toConfiguration('TypeLabel');
+	configurations += getClassAndSubClassesOf('ActivityEdge')->map toConfiguration('WeightLabel');
+	configurations += getClassAndSubClassesOf('ElementImport')->map toConfiguration('AliasLabel');
+	configurations += getClassAndSubClassesOf('TemplateBinding')->map toConfiguration('SubstitutionLabel');
+	configurations += getClassAndSubClassesOf('Include')->map toConfiguration('KeywordLabel');
+	configurations += getClassAndSubClassesOf('Extend')->map toConfiguration('KeywordLabel');
+	configurations += getClassAndSubClassesOf('InstanceSpecification')->map toConfiguration('SourceRoleLabel', 'org.eclipse.papyrus.uml.InstanceSpecification.Link');
+	configurations += getClassAndSubClassesOf('InstanceSpecification')->map toConfiguration('TargetRoleLabel', 'org.eclipse.papyrus.uml.InstanceSpecification.Link');
+	configurations += getClassAndSubClassesOf('Constraint')->map toConfiguration('KeywordLabel', 'org.eclipse.papyrus.uml.Constraint.Context');
+	configurations += getClassAndSubClassesOf('StructuredActivityNode')->map toConfiguration('KeywordLabel');
+	configurations += getClass('Class')->map toConfiguration('MetaclassNameLabel');
+	configurations += getClass('Class')->map toConfiguration('MetaclassNameLabel_CN');
+	configurations += getClass('Actor')->map toConfiguration('ClassifierNameLabel');
+	configurations += getClass('UseCase')->map toConfiguration('ClassifierNameLabel');
+	configurations += getClass('Interface')->map toConfiguration('ClassifierNameLabel');
+	configurations += getClass('Interface')->map toConfiguration('ClassifierNameLabel_CN');
+	configurations += getClass('Interface')->map toConfiguration('ClassifierFloatingNameLabel');
+	configurations += getClass('Interface')->map toConfiguration('ClassifierFloatingNameLabel_CN');
+	configurations += getClass('Classifier')->map toConfiguration('NameLabel');
+	configurations += getClass('Classifier')->map toConfiguration('FloatingNameLabel');
+	configurations += getClass('Actor')->map toConfiguration('QualifiedNameLabel');
+	configurations += getClass('Actor')->map toConfiguration('QualifiedNameLabel_CN');
+	configurations += getClass('Dependency')->map toConfiguration('RoleBindingNameLabel', 'org.eclipse.papyrus.uml.CollaborationUse.RoleBinding');
+	configurations += getClass('Dependency')->map toConfiguration('RoleBindingStereotypeLabel', 'org.eclipse.papyrus.uml.CollaborationUse.RoleBinding');
+	configurations += getClass('Activity')->map toConfiguration('KeywordLabel');
+	configurations += getClass('Activity')->map toConfiguration('KeywordLabel_CN');
+	configurations += getClass('ObjectFlow')->map toConfiguration('KeywordLabel');
+	configurations += getClassAndSubClassesOf('ActivityEdge')->map toConfiguration('IconLabel');
+	//from UseCase Diagram
+	configurations += getClass('UseCase')->map toConfiguration('NameLabel_CCN');
+	configurations += getClass('UseCase')->map toConfiguration('FloatingNameLabel_CCN');
+	configurations += getClass('Component')->map toConfiguration('NameLabel_CCN');
+	configurations += getClass('Constraint')->map toConfiguration('NameLabel_CCN');
+	configurations += getClass('Constraint')->map toConfiguration('BodyLabel_CCN');
+	configurations += getClass('Actor')->map toConfiguration('NameLabel_CCN');
+	configurations += getClass('Actor')->map toConfiguration('StereotypeLabel_CCN');
+	configurations += getClass('Actor')->map toConfiguration('QualifiedNameLabel_CCN');
+	configurations += getClass('Actor')->map toConfiguration('FloatingNameLabel_CCN');
+	//from Component Diagram
+	configurations += getClass('Component')->map toConfiguration('FloatingNameLabel_CCN');
+	// Deployment Diagram
+	configurations += getClassAndSubClassesOf('Node')->map toConfiguration('NameLabel_CCN');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('NameLabel_CCN');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('FloatingNameLabel_CCN');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('NameLabel_ACN');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('FloatingNameLabel_ACN');
+	// From Composite Structure Diagram
+	configurations += getClass('ConnectableElement')->map toConfiguration('CollaborationRoleNameLabel', 'org.eclipse.papyrus.uml.Collaboration.CollaborationRole');
+	configurations += getClass('ConnectableElement')->map toConfiguration('CollaborationRoleFloatingNameLabel', 'org.eclipse.papyrus.uml.Collaboration.CollaborationRole');
+	configurations += getClass('Port')->map toConfiguration('BehaviorFloatingNameLabel');
+	configurations += getClass('Parameter')->map toConfiguration('NameLabel');
+	configurations += getClass('Parameter')->map toConfiguration('StereotypeLabel');
+	configurations += getClassAndSubClassesOf('Event')->map toConfiguration('NameLabel');
+	configurations += getClassAndSubClassesOf('Event')->map toConfiguration('FloatingNameLabel');
+	configurations += getClassAndSubClassesOf('ValueSpecification')->map toConfiguration('NameLabel');
+	configurations += getClassAndSubClassesOf('ValueSpecification')->map toConfiguration('FloatingNameLabel');
+	configurations += getClassAndSubClassesOf('ActivityParameterNode')->map toConfiguration('StreamLabel');
+	configurations += getClassAndSubClassesOf('ActivityParameterNode')->map toConfiguration('ExceptionLabel');
+	// From State Machine Diagram
+	getEnumeration("PseudostateKind").ownedLiteral->forEach(e) {
+		configurations += getClass('Pseudostate')->map toConfiguration(e.name.toFirstUpper()+'FloatingNameLabel', 'org.eclipse.papyrus.umldi.Pseudostate_FloatingNameLabel');
+		configurations += getClass('Pseudostate')->map toConfiguration(e.name.toFirstUpper()+'StereotypeLabel', 'org.eclipse.papyrus.umldi.Pseudostate_StereotypeLabel');
+	};
+	// From Activity Diagram
+	configurations += getClass('AcceptEventAction')->map toConfiguration('TriggerLabel');
+	var allInputPins := getClassAndSubClassesOf('InputPin');
+	var valuePin := getClass('ValuePin');
+	var actionInputPin := getClass('ActionInputPin');
+	var allOutputPins := getClass('OutputPin');
+	getClassAndSubClassesOf('Action')->forEach(c) {
+		c.allAttributes()->select(type.name = 'InputPin')->forEach(p)  {
+			var r := p.name.toFirstUpper();
+			switch {
+				case (r = 'InputVariable') { r := 'Input'}
+				case (r = 'StructuredNodeInput') { r := 'Input'}
+				case (r = 'InputValue') { r := 'Input'}
+				case (r = 'LoopVariableInput') { r := 'VariableInput'}
+				case (r = 'ReplyValue') { r := 'Reply'}
+				case (r = 'ReturnInformation') { r := 'Return'}
+			};
+			configurations += allInputPins->map toConfiguration(c.name+r+'NameLabel');
+			configurations += allInputPins->map toConfiguration(c.name+r+'StereotypeLabel');
+			configurations += valuePin->map toConfiguration(c.name+r+'ValueLabel');
+			configurations += actionInputPin->map toConfiguration(c.name+r+'ValueLabel');
+		};
+		c.allAttributes()->select(type.name = 'OutputPin')->forEach(p)  {
+			var r := p.name.toFirstUpper();
+			switch {
+				case (r = 'StructuredNodeOutput') { r := 'Output'}
+				case (r = 'OutputValue') { r := 'Output'}
+				case (r = 'LoopVariable') { r := 'Variable'}
+				case (r = 'ReturnInformation') { r := 'Return'}
+			};
+			configurations += allOutputPins->map toConfiguration(c.name+r+'NameLabel');
+			configurations += allOutputPins->map toConfiguration(c.name+r+'StereotypeLabel');
+		}
+	};
+	// From Sequence Diagram
+	var message = getClass('Message');
+	Sequence {'Synch', 'Asynch', 'Reply', 'Create', 'Delete', 'Lost', 'Found'}->forEach(s) {
+		configurations += message->map toConfiguration(s+'NameLabel');
+		configurations += message->map toConfiguration(s+'StereotypeLabel');
+	};
+	// From Communication Diagram
+	configurations += 'Path'->map toConfiguration('StereotypeLabel', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	// From Timing Diagram
+	configurations += getClass('Lifeline')->map toConfiguration('FullNameLabel');
+	configurations += getClass('Lifeline')->map toConfiguration('CompactNameLabel');
+	configurations += getClass('StateInvariant')->map toConfiguration('FullStereotypeLabel');
+	configurations += getClass('StateInvariant')->map toConfiguration('CompactNameLabel');
+	configurations += getClass('StateInvariant')->map toConfiguration('CompactStereotypeLabel');
+	// from Timing diagram
+	configurations += 'Node'->map toConfiguration('StateDefinitionNameLabel', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	configurations += 'Node'->map toConfiguration('TickNameLabel', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	//Notational Cases
+	configurations += 'Diagram'->map toConfiguration('NameLabel', 'org.eclipse.papyrus.gmfdiag.common.Diagram');
+	configurations += 'Representation'->map toConfiguration('KeywordLabel', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	configurations += 'Path'->map toConfiguration('MessageLabel', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	//Odd Case
+	configurations += getClass('NamedElement').map toConfiguration('NameLabel');
+
+	return configurations;
+}
+
+helper addCompartmentConfigurations(inout configurations : OrderedSet(ElementTypeConfiguration), shapes : Set(UML::Class)) : OrderedSet(ElementTypeConfiguration) {
+	configurations += getClassAndSubClassesOf('Package')->map toConfiguration('PackagedElementCompartment');
+	configurations += getClassAndSubClassesOf('Component')->map toConfiguration('PackagedElementCompartment');
+	configurations += getClassAndSubClassesOf('StructuredClassifier')->map toConfiguration('StructureCompartment');
+	configurations += getClassAndSubClassesOf('Property')->map toConfiguration('StructureCompartment');
+	configurations += getClassAndSubClassesOf('StateMachine')->map toConfiguration('RegionCompartment');
+	configurations += getClassAndSubClassesOf('State')->map toConfiguration('RegionCompartment');
+	configurations += getClassAndSubClassesOf('Region')->map toConfiguration('SubvertexCompartment');
+	configurations += getClassAndSubClassesOf('Activity')->map toConfiguration('ActivityNodeCompartment');
+	configurations += getClassAndSubClassesOf('StructuredActivityNode')->map toConfiguration('ActivityNodeCompartment');
+	configurations += getClassAndSubClassesOf('ActivityPartition')->map toConfiguration('SubpartitionCompartment');
+	configurations += getClassAndSubClassesOf('Interaction')->map toConfiguration('SubfragmentCompartment');
+	configurations += getClassAndSubClassesOf('InteractionOperand')->map toConfiguration('SubfragmentCompartment');
+	configurations += getClassAndSubClassesOf('CombinedFragment')->map toConfiguration('SubfragmentCompartment');
+	configurations += getClassAndSubClassesOf('Classifier', Set{'Association'})->map toConfiguration('OwnedUseCaseCompartment');
+	configurations += getClassAndSubClassesOf('Classifier', Set{'Association'})->map toConfiguration('UseCaseCompartment');
+	configurations += getClass('Classifier')->map toConfiguration('UseCaseCompartment');
+	configurations += getClassAndSubClassesOf('DataType')->map toConfiguration('AttributeCompartment');
+	configurations += getClassAndSubClassesOf('Interface')->map toConfiguration('AttributeCompartment');
+	configurations += getClassAndSubClassesOf('Signal')->map toConfiguration('AttributeCompartment');
+	configurations += getClassAndSubClassesOf('StructuredClassifier')->map toConfiguration('AttributeCompartment');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('AttributeCompartment');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('OperationCompartment');
+	configurations += getClassAndSubClassesOf('DataType')->map toConfiguration('OperationCompartment');
+	configurations += getClassAndSubClassesOf('Interface')->map toConfiguration('OperationCompartment');
+	configurations += getClassAndSubClassesOf('Class')->map toConfiguration('OperationCompartment');
+	configurations += getClassAndSubClassesOf('Interface')->map toConfiguration('ReceptionCompartment');
+	configurations += getClassAndSubClassesOf('Class')->map toConfiguration('ReceptionCompartment');
+	configurations += getClassAndSubClassesOf('State')->map toConfiguration('DeferrableTriggerCompartment');
+	configurations += getClassAndSubClassesOf('UseCase')->map toConfiguration('ExtensionPointCompartment');
+	configurations += getClassAndSubClassesOf('State')->map toConfiguration('InternalBehaviorCompartment');
+	configurations += getClassAndSubClassesOf('State')->map toConfiguration('InternalTransitionCompartment');
+	configurations += getClassAndSubClassesOf('Enumeration')->map toConfiguration('LiteralCompartment');
+	configurations += getClassAndSubClassesOf('Activity')->map toConfiguration('ParameterCompartment');
+	configurations += getClassAndSubClassesOf('Activity')->map toConfiguration('PostconditionCompartment');
+	configurations += getClassAndSubClassesOf('Activity')->map toConfiguration('PreconditionCompartment');
+	configurations += getClassAndSubClassesOf('InstanceSpecification')->map toConfiguration('SlotCompartment');
+	configurations += getClassAndSubClassesOf('TemplateSignature')->map toConfiguration('TemplateParameterCompartment');
+	configurations += shapes->remove(Set{'Association', 'Dependency'})->map toConfiguration('StereotypeCompartment');
+	configurations += getClassAndSubClassesOf('UseCase')->map toConfiguration('ClassifierExtensionPointCompartment');
+	configurations += getClassAndSubClassesOf('InstanceSpecification')->map toConfiguration('DeployedArtifactCompartment');
+	configurations += getClassAndSubClassesOf('Node')->map toConfiguration('DeployedArtifactCompartment');
+	configurations += getClassAndSubClassesOf('Property')->map toConfiguration('DeployedArtifactCompartment');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('NestedArtifactCompartment');
+	configurations += getClassAndSubClassesOf('Class')->map toConfiguration('NestedClassifierCompartment');
+	configurations += getClassAndSubClassesOf('Interface')->map toConfiguration('NestedClassifierCompartment');
+	configurations += getClassAndSubClassesOf('Node')->map toConfiguration('NestedNodeCompartment');
+	configurations += getClassAndSubClassesOf('BehavioredClassifier')->map toConfiguration('OwnedBehaviorCompartment');
+
+	configurations += getClassAndSubClassesOf('DataType')->map toConfiguration('AttributeCompartment_CN');
+	configurations += getClassAndSubClassesOf('Interface')->map toConfiguration('AttributeCompartment_CN');
+	configurations += getClassAndSubClassesOf('Signal')->map toConfiguration('AttributeCompartment_CN');
+	configurations += getClassAndSubClassesOf('StructuredClassifier')->map toConfiguration('AttributeCompartment_CN');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('OperationCompartment_CN');
+	configurations += getClassAndSubClassesOf('DataType')->map toConfiguration('OperationCompartment_CN');
+	configurations += getClassAndSubClassesOf('Interface')->map toConfiguration('OperationCompartment_CN');
+	configurations += getClassAndSubClassesOf('Class')->map toConfiguration('OperationCompartment_CN');
+	configurations += getClassAndSubClassesOf('Class')->map toConfiguration('NestedClassifierCompartment_CN');
+	configurations += getClassAndSubClassesOf('Interface')->map toConfiguration('NestedClassifierCompartment_CN');
+	configurations += getClassAndSubClassesOf('Node')->map toConfiguration('NestedNodeCompartment_CN');
+	configurations += getClassAndSubClassesOf('Package')->map toConfiguration('PackagedElementCompartment_CN');
+	configurations += getClassAndSubClassesOf('Component')->map toConfiguration('PackagedElementCompartment_CN');
+	configurations += getClassAndSubClassesOf('InstanceSpecification')->map toConfiguration('SlotCompartment_CN');
+	configurations += getClassAndSubClassesOf('Enumeration')->map toConfiguration('LiteralCompartment_CN');
+	configurations += getClassAndSubClassesOf('UseCase')->map toConfiguration('ExtensionPointCompartment_CN');
+	configurations += getClassAndSubClassesOf('StructuredClassifier')->map toConfiguration('StructureCompartment_CN');
+	configurations += getClassAndSubClassesOf('Activity')->map toConfiguration('ParameterCompartment_CN');
+	configurations += getClassAndSubClassesOf('Activity')->map toConfiguration('PostconditionCompartment_CN');
+	configurations += getClassAndSubClassesOf('Activity')->map toConfiguration('PreconditionCompartment_CN');
+	configurations += getClassAndSubClassesOf('Activity')->map toConfiguration('ActivityNodeCompartment_CN');
+
+	//from UseCase Diagram
+	configurations += getClass('UseCase')->map toConfiguration('ExtensionPointCompartment_CCN');
+	configurations += getClass('Component')->map toConfiguration('PackagedElementCompartment_CCN');
+	//from Component Diagram
+	configurations += getClass('Component')->map toConfiguration('StructureCompartment_CCN');// confused with NestedClassifierCompartment
+	// Deployment Diagram
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('NestedArtifactCompartment_CCN');
+	configurations += getClassAndSubClassesOf('Artifact')->map toConfiguration('NestedArtifactCompartment_ACN');
+	// From Activity Diagram
+	configurations += getClassAndSubClassesOf('ActivityGroup')->map toConfiguration('ActivityNodeCompartment');
+	// From Timing Diagram
+	configurations += getClass('Lifeline')->map toConfiguration('FullStateDefinitionCompartment');
+	configurations += getClass('Lifeline')->map toConfiguration('FullSubfragmentCompartment');
+	configurations += getClass('Lifeline')->map toConfiguration('FullTimeRulerCompartment');
+	configurations += getClass('Lifeline')->map toConfiguration('CompactSubfragmentCompartment');
+	configurations += getClass('Lifeline')->map toConfiguration('CompactTimeRulerCompartment');	
+	configurations += getClass('Interaction')->map toConfiguration('TimeRulerCompartment');
+	// from Timing diagram
+	configurations += 'Node'->map toConfiguration('FreeTimeRulerCompartment', 'org.eclipse.gmf.runtime.emf.type.core.null');
+	configurations += 'Node'->map toConfiguration('LinearTimeRulerCompartment', 'org.eclipse.gmf.runtime.emf.type.core.null');
+
+	return configurations;
+}
+
+mapping UML::Class::toSpecialConfiguration(view : String) : ElementTypes::SpecializationTypeConfiguration {
+	 init {
+	 	result := self.map toConfiguration(view);
+	 }
+	 switch {
+		case (result.hint = 'OutputPin_LoopNodeVariableShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.OutputPin_As_UML::LoopNode::loopNodeVariable' }
+
+		case (result.hint = 'InputPin_CallOperationActionTargetShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.InputPin_As_UML::CallOperationAction::target' }
+		case (result.hint = 'ValuePin_CallOperationActionTargetShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ValuePin_As_UML::CallOperationAction::target' }
+		case (result.hint = 'ActionInputPin_CallOperationActionTargetShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ActionInputPin_As_UML::CallOperationAction::target' }
+		
+		case (result.hint = 'InputPin_SendObjectActionRequestShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.InputPin_As_UML::SendObjectAction::object' }
+		case (result.hint = 'ValuePin_SendObjectActionRequestShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ValuePin_As_UML::SendObjectAction::object' }
+		case (result.hint = 'ActionInputPin_SendObjectActionRequestShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ActionInputPin_As_UML::SendObjectAction::object' }
+
+		case (result.hint = 'InputPin_SendObjectActionTargetShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.InputPin_As_UML::SendObjectAction::request' }
+		case (result.hint = 'ValuePin_SendObjectActionTargetShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ValuePin_As_UML::SendObjectAction::request' }
+		case (result.hint = 'ActionInputPin_SendObjectActionTargetShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ActionInputPin_As_UML::SendObjectAction::request' }
+
+		case (result.hint = 'InputPin_SendSignalActionTargetShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.InputPin_As_UML::SendSignalAction::target' }
+		case (result.hint = 'ValuePin_SendSignalActionTargetShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ValuePin_As_UML::SendSignalAction::target' }
+		case (result.hint = 'ActionInputPin_SendSignalActionTargetShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ActionInputPin_As_UML::SendSignalAction::target' }
+
+		case (result.hint = 'InputPin_AddStructuralFeatureValueActionValueShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.InputPin_As_UML::AddStructuralFeatureValueAction::value' }
+		case (result.hint = 'ValuePin_AddStructuralFeatureValueActionValueShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ValuePin_As_UML::AddStructuralFeatureValueAction::value' }
+		case (result.hint = 'ActionInputPin_AddStructuralFeatureValueActionValueShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ActionInputPin_As_UML::AddStructuralFeatureValueAction::value' }
+
+		case (result.hint = 'InputPin_AddVariableValueActionInsertAtShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.InputPin_As_UML::AddVariableValueAction::insertAt' }
+		case (result.hint = 'ValuePin_AddVariableValueActionInsertAtShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ValuePin_As_UML::AddVariableValueAction::insertAt' }
+		case (result.hint = 'ActionInputPin_AddVariableValueActionInsertAtShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ActionInputPin_As_UML::AddVariableValueAction::insertAt' }
+
+		case (result.hint = 'InputPin_AddStructuralFeatureValueActionInsertAtShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.InputPin_As_UML::AddStructuralFeatureValueAction::insertAt' }
+		case (result.hint = 'ValuePin_AddStructuralFeatureValueActionInsertAtShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ValuePin_As_UML::AddStructuralFeatureValueAction::insertAt' }
+		case (result.hint = 'ActionInputPin_AddStructuralFeatureValueActionInsertAtShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ActionInputPin_As_UML::AddStructuralFeatureValueAction::insertAt' }
+
+		case (result.hint = 'InputPin_StartObjectBehaviorActionObjectShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.InputPin_As_UML::StartObjectBehaviorAction::object' }
+		case (result.hint = 'ValuePin_StartObjectBehaviorActionObjectShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ValuePin_As_UML::StartObjectBehaviorAction::object' }
+		case (result.hint = 'ActionInputPin_StartObjectBehaviorActionObjectShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ActionInputPin_As_UML::StartObjectBehaviorAction::object' }
+
+		case (result.hint = 'InputPin_TestIdentityActionSecondShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.InputPin_As_UML::TestIdentityAction::second' }
+		case (result.hint = 'ValuePin_TestIdentityActionSecondShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ValuePin_As_UML::TestIdentityAction::second' }
+		case (result.hint = 'ActionInputPin_TestIdentityActionSecondShape') { result.specializedTypesID := 'org.eclipse.papyrus.uml.ActionInputPin_As_UML::TestIdentityAction::second' }
+	 };
+}
+
+//------------------------
+
+helper UML::Class::toListItemConfiguration(view : String, itemTypes : Set(String)) : OrderedSet(ElementTypes::SpecializationTypeConfiguration) {
+	var configurations : OrderedSet(ElementTypes::SpecializationTypeConfiguration);
+	configurations += self.map toConfiguration(view);
+	itemTypes->forEach(itemType) {
+		configurations += self->map toListItemConfiguration(view, itemType);
+	};
+	return configurations;
+}
+
+mapping UML::Class::toListItemConfiguration(view : String, context : String) : ElementTypes::SpecializationTypeConfiguration {
+	init {
+		result := self.map toConfiguration(context+view);
+	}
+	specializedTypesID := 'org.eclipse.papyrus.umldi.'+self.name+'_'+view;
+}
+
+mapping UML::Class::toConfiguration(view : String, typeID : String) : ElementTypes::SpecializationTypeConfiguration {
+	 init {
+	 	result := self.map toConfiguration(view);
+	 }
+	 specializedTypesID := typeID;
+}
+
+mapping UML::Class::toConfiguration(view : String, typeID : OrderedSet(String)) : ElementTypes::SpecializationTypeConfiguration {
+	 init {
+	 	result := self.map toConfiguration(view);
+	 }
+	 specializedTypesID := typeID;
+}
+
+mapping UML::Class::toConfiguration(view : String) : ElementTypes::SpecializationTypeConfiguration {
+	init {
+		result := elementTypes.objectsOfType(SpecializationTypeConfiguration)->select(hint = self.name+'_'+view)->any(true);
+	}
+	identifier := 'org.eclipse.papyrus.umldi.'+self.name+'_'+view;
+	specializedTypesID := 'org.eclipse.papyrus.uml.'+self.name;
+	name := (self.name+view).replaceAll("_C", " C").replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+	hint := self.name+'_'+view;
+	if IconEntry.oclIsUndefined() then
+		iconEntry := object ElementTypes::IconEntry {}
+	endif;
+	iconEntry.bundleId := 'org.eclipse.uml2.uml.edit';
+	iconEntry.iconPath := '/icons/full/obj16/'+self.name+'.gif';
+}
+
+mapping UML::Class::toDiagramConfiguration(view : String, semanticHint : String) : ElementTypes::SpecializationTypeConfiguration {
+	init {
+		result := self.map toConfiguration(view)
+	}
+	hint := semanticHint;
+}
+
+mapping String::toConfiguration(view : String, typeID : String) : ElementTypes::SpecializationTypeConfiguration {
+	init {
+		result := elementTypes.objectsOfType(SpecializationTypeConfiguration)->select(hint = self+'_'+view)->any(true);
+	}
+	identifier := 'org.eclipse.papyrus.umldi.'+self+'_'+view;
+	specializedTypesID := typeID;
+	name := (self+view).replaceAll("_C", " C").replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+	hint := self+'_'+view;
+	if IconEntry.oclIsUndefined() then
+		iconEntry := object ElementTypes::IconEntry {}
+	endif;
+	iconEntry.bundleId := 'org.eclipse.uml2.uml.edit';
+	iconEntry.iconPath := '/icons/full/obj16/'+self+'.gif';
+}
+
+//--------------------------
+
+helper getClassAndSubClassesOf(aClass : String) : Set(UML::Class) {
+	return getClass(aClass).getClassAndSubClasses();
+}
+
+helper getClassAndSubClassesOf(aClass : String, exceptColl : Set(String)) : Set(UML::Class) {
+	var exceptClasses = exceptColl->collect(c|getClass(c).getClassAndSubClasses())->asSet();
+	return getClass(aClass).getClassAndSubClasses()->excludingAll(exceptClasses);
+}
+
+helper getClass(aClass : String) : UML::Class {
+	return uml.objectsOfKind(UML::Class)->selectOne(name=aClass);
+}
+
+helper getEnumeration(anEnumeration : String) : UML::Enumeration {
+	return uml.objectsOfKind(UML::Enumeration)->selectOne(name=anEnumeration);
+}
+
+helper UML::Class::getClassAndSubClasses() : Set(UML::Class) {
+	return self->union(uml.objectsOfKind(UML::Class)->select(c|c->closure(superClass)->includes(self)))->select(not isAbstract);
+}
+
+query Set(UML::Class)::excludingAll(e : Set(UML::Class)) : Set(UML::Class) {
+	return self->reject(c|e->includes(c));
+}
+
+query Set(UML::Class)::remove(coll : Set(String)) : Set(UML::Class) {
+	var exceptClasses = coll->collect(c|getClass(c).getClassAndSubClasses())->asSet();
+	return self->excludingAll(exceptClasses);
+}
+
+query UML::Class::isNamed() : Boolean {
+	return self->closure(superClass)->exists(name='NamedElement');
+}
+
+query UML::Class::isPackageable() : Boolean {
+	return self->closure(superClass)->exists(name='PackageableElement');
+}
+
+query String::toFirstUpper() : String {
+	return self.at(1).toUpperCase()+self.substring(2, self.size());	
+}

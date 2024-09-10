@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nattableconfiguration:TableConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisconfiguration="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:nattableconfiguration="http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration" xmlns:nattablelabelprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattablecontentprovider" xmlns:nattabletester="http://www.eclipse.org/papyrus/nattable/model/table/nattabletester" xmi:id="PapyrusViewsTable_XMI_ID" description="This table lists all pages (editors) which have the same context than the table of views (or children of the context)" name="TableOfViews" type="PapyrusViewsTable" iconPath="platform:/plugin/org.eclipse.papyrus.infra.nattable.views.config/icons/nattablepageeditor.png" cellEditorDeclaration="COLUMN" defaultRowAxisProvider="_YwraxDzQEei_1txcmoHe_A" defaultColumnAxisProvider="_YwqztjzQEei_1txcmoHe_A">
+  <creationTester xmi:type="nattabletester:JavaTableTester" xmi:id="_YwqMoTzQEei_1txcmoHe_A" tester="org.eclipse.papyrus.infra.nattable.views.config.creation.tester"/>
+  <rowHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:TableHeaderAxisConfiguration" xmi:id="_YwqzsDzQEei_1txcmoHe_A" indexStyle="NUMERIC" displayLabel="true" displayFilter="false" displayIndex="true">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:ObjectLabelProviderConfiguration" xmi:id="_YwqzsTzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true"/>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_YwqzsjzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.infra.nattable.pagelist.contents.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.labelprovider" headerLabelConfiguration="_YwqzsTzQEei_1txcmoHe_A"/>
+  </rowHeaderAxisConfiguration>
+  <columnHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:TableHeaderAxisConfiguration" xmi:id="_YwqzszzQEei_1txcmoHe_A" displayLabel="true" displayFilter="false" displayIndex="true">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" xmi:id="_YwqztDzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayIsDerived="true" displayType="true" displayMultiplicity="true" displayName="true"/>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_YwqztTzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.infra.nattable.page.view.feature.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.feature.labelprovider"/>
+  </columnHeaderAxisConfiguration>
+  <columnAxisProviders xmi:type="nattableaxisprovider:SlaveObjectAxisProvider" xmi:id="_YwqztjzQEei_1txcmoHe_A" description="Provides the features of the views" name="Papyrus Views feature provider">
+    <axis xmi:type="nattableaxis:FeatureIdAxis" xmi:id="_YwrawDzQEei_1txcmoHe_A" manager="_YwqztTzQEei_1txcmoHe_A" element="nattable_editor_pages:/name"/>
+    <axis xmi:type="nattableaxis:FeatureIdAxis" xmi:id="_YwrawTzQEei_1txcmoHe_A" manager="_YwqztTzQEei_1txcmoHe_A" element="nattable_editor_pages:/context"/>
+    <axis xmi:type="nattableaxis:FeatureIdAxis" xmi:id="_YwrawjzQEei_1txcmoHe_A" manager="_YwqztTzQEei_1txcmoHe_A" element="nattable_editor_pages:/isOpen"/>
+    <axis xmi:type="nattableaxis:FeatureIdAxis" xmi:id="_YwrawzzQEei_1txcmoHe_A" manager="_YwqztTzQEei_1txcmoHe_A" element="nattable_editor_pages:/type"/>
+  </columnAxisProviders>
+  <rowAxisProviders xmi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_YwraxDzQEei_1txcmoHe_A"/>
+</nattableconfiguration:TableConfiguration>

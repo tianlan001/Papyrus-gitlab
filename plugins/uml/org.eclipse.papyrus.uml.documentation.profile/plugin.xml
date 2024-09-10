@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Documentation.profile -->
+      <package
+            uri="http://www.eclipse.org/papyrus/documentation"
+            class="org.eclipse.papyrus.uml.documentation.Documentation.DocumentationPackage"
+            genModel="model/Documentation.genmodel"/>
+   </extension>
+   <extension
+         point="org.eclipse.uml2.uml.generated_package">
+      <profile
+            location="pathmap://PAPYRUS_DOCUMENTATION/Papyrus.profile.uml#_H9068AEYEeCIz8iAxBJnfA"
+            uri="http://www.eclipse.org/papyrus/documentation">
+      </profile>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="pathmap://PAPYRUS_DOCUMENTATION/"
+            target="platform:/plugin/org.eclipse.papyrus.uml.documentation.profile/model/">
+      </mapping>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.uml.extensionpoints.UMLProfile">
+      <profile
+            description="Profile that provides documentation profile to Comment Element"
+            iconpath="icons/documentation.png"
+            name="Papyrus Documentation"
+            path="pathmap://PAPYRUS_DOCUMENTATION/Papyrus.profile.uml"
+            provider="Eclipse Modeling Project">
+      </profile>
+   </extension>
+</plugin>

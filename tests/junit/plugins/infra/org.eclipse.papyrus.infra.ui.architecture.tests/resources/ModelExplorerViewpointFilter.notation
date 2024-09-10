@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:nattable="http://www.eclipse.org/papyrus/nattable/model" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xsi:schemaLocation="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis http://www.eclipse.org/papyrus/nattable/model#//nattableaxis http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider http://www.eclipse.org/papyrus/nattable/model#//nattableaxisprovider">
+  <nattable:Table xmi:id="_1pHmAM5CEemJH8FcCaThIQ" name="Class Tree Table" currentRowAxisProvider="_1pHmA85CEemJH8FcCaThIQ" currentColumnAxisProvider="_1pHmAc5CEemJH8FcCaThIQ" tableKindId="org.eclipse.papyrus.uml.table.classTree">
+    <eAnnotations xmi:id="_1pINEM5CEemJH8FcCaThIQ" source="http://www.eclipse.org/papyrus/infra/nattable/version">
+      <details xmi:id="_1pINEc5CEemJH8FcCaThIQ" key="version" value="1.3.0"/>
+    </eAnnotations>
+    <context href="ModelExplorerViewpointFilter.uml#_1pCtgM5CEemJH8FcCaThIQ"/>
+    <owner href="ModelExplorerViewpointFilter.uml#_1pCtgM5CEemJH8FcCaThIQ"/>
+    <tableConfiguration href="platform:/resource/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#PapyrusClassTreeTable_XMI_ID"/>
+    <columnAxisProvidersHistory xsi:type="nattableaxisprovider:SlaveObjectAxisProvider" xmi:id="_1pHmAc5CEemJH8FcCaThIQ" description="This axis provider provides available columns according to the rows of the table (features of the object displayed on the other axis)" name="UML Feature axis provider">
+      <axis xsi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_1pHmAs5CEemJH8FcCaThIQ">
+        <manager href="platform:/resource/org.eclipse.papyrus.uml.nattable.clazz.config/configs/class_synchronized_tree.nattableconfiguration#_UJa7yDzQEei_1txcmoHe_A"/>
+        <element xsi:type="ecore:EAttribute" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+      </axis>
+    </columnAxisProvidersHistory>
+    <rowAxisProvidersHistory xsi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_1pHmA85CEemJH8FcCaThIQ" description="This axis provider manages the rows, according to the wanted hierarchy" name="HierarchicalRowaAxisManager" disconnectSlave="true"/>
+  </nattable:Table>
+  <notation:Diagram xmi:id="_1pJbMM5CEemJH8FcCaThIQ" type="PapyrusUMLClassDiagram" name="Class Diagram" measurementUnit="Pixel">
+    <styles xsi:type="notation:StringValueStyle" xmi:id="_1pJbMc5CEemJH8FcCaThIQ" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xsi:type="notation:DiagramStyle" xmi:id="_1pJbMs5CEemJH8FcCaThIQ"/>
+    <styles xsi:type="style:PapyrusDiagramStyle" xmi:id="_1pJbM85CEemJH8FcCaThIQ" diagramKindId="org.eclipse.papyrus.uml.diagram.class">
+      <owner href="ModelExplorerViewpointFilter.uml#_1pCtgM5CEemJH8FcCaThIQ"/>
+    </styles>
+    <element href="ModelExplorerViewpointFilter.uml#_1pCtgM5CEemJH8FcCaThIQ"/>
+  </notation:Diagram>
+  <notation:Diagram xmi:id="_1pOTsM5CEemJH8FcCaThIQ" type="PapyrusUMLStateMachineDiagram" name="State Machine Diagram" measurementUnit="Pixel">
+    <children xsi:type="notation:Shape" xmi:id="_1pOTsc5CEemJH8FcCaThIQ" type="StateMachine_Shape">
+      <children xsi:type="notation:DecorationNode" xmi:id="_1pOTss5CEemJH8FcCaThIQ" type="StateMachine_NameLabel">
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_1pOTs85CEemJH8FcCaThIQ" width="700" height="20"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_1pOTtM5CEemJH8FcCaThIQ" type="StateMachine_RegionCompartment">
+        <children xsi:type="notation:Shape" xmi:id="_1pOTtc5CEemJH8FcCaThIQ" type="Region_Shape">
+          <eAnnotations xmi:id="_1pOTts5CEemJH8FcCaThIQ" source="RegionAnnotationKey">
+            <details xmi:id="_1pOTt85CEemJH8FcCaThIQ" key="RegionZoneKey" value=""/>
+          </eAnnotations>
+          <children xsi:type="notation:BasicCompartment" xmi:id="_1pOTuM5CEemJH8FcCaThIQ" type="Region_SubvertexCompartment">
+            <layoutConstraint xsi:type="notation:Bounds" xmi:id="_1pOTuc5CEemJH8FcCaThIQ"/>
+          </children>
+          <element href="ModelExplorerViewpointFilter.uml#_1pNsoM5CEemJH8FcCaThIQ"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_1pOTus5CEemJH8FcCaThIQ" width="700" height="280"/>
+        </children>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_1pOTu85CEemJH8FcCaThIQ" y="20" width="700" height="280"/>
+      </children>
+      <element href="ModelExplorerViewpointFilter.uml#_1pL3cM5CEemJH8FcCaThIQ"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_1pOTvM5CEemJH8FcCaThIQ" x="30" y="30" width="700" height="300"/>
+    </children>
+    <styles xsi:type="notation:StringValueStyle" xmi:id="_1pOTvc5CEemJH8FcCaThIQ" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xsi:type="notation:DiagramStyle" xmi:id="_1pOTvs5CEemJH8FcCaThIQ"/>
+    <styles xsi:type="style:PapyrusDiagramStyle" xmi:id="_1pOTv85CEemJH8FcCaThIQ" diagramKindId="org.eclipse.papyrus.uml.diagram.stateMachine">
+      <owner href="ModelExplorerViewpointFilter.uml#_1pCtgM5CEemJH8FcCaThIQ"/>
+    </styles>
+    <element href="ModelExplorerViewpointFilter.uml#_1pL3cM5CEemJH8FcCaThIQ"/>
+  </notation:Diagram>
+  <notation:Diagram xmi:id="_1pQv8M5CEemJH8FcCaThIQ" type="PapyrusUMLActivityDiagram" name="Activity Diagram" measurementUnit="Pixel">
+    <children xsi:type="notation:Shape" xmi:id="_1pQv8c5CEemJH8FcCaThIQ" type="Activity_Shape">
+      <children xsi:type="notation:DecorationNode" xmi:id="_1pQv8s5CEemJH8FcCaThIQ" type="Activity_NameLabel"/>
+      <children xsi:type="notation:DecorationNode" xmi:id="_1pQv885CEemJH8FcCaThIQ" type="Activity_KeywordLabel"/>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_1pQv9M5CEemJH8FcCaThIQ" type="Activity_ParameterCompartment">
+        <styles xsi:type="notation:SortingStyle" xmi:id="_1pRXAM5CEemJH8FcCaThIQ"/>
+        <styles xsi:type="notation:FilteringStyle" xmi:id="_1pRXAc5CEemJH8FcCaThIQ"/>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_1pRXAs5CEemJH8FcCaThIQ"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_1pRXA85CEemJH8FcCaThIQ" type="Activity_PreconditionCompartment">
+        <styles xsi:type="notation:SortingStyle" xmi:id="_1pRXBM5CEemJH8FcCaThIQ"/>
+        <styles xsi:type="notation:FilteringStyle" xmi:id="_1pRXBc5CEemJH8FcCaThIQ"/>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_1pRXBs5CEemJH8FcCaThIQ"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_1pRXB85CEemJH8FcCaThIQ" type="Activity_PostconditionCompartment">
+        <styles xsi:type="notation:SortingStyle" xmi:id="_1pRXCM5CEemJH8FcCaThIQ"/>
+        <styles xsi:type="notation:FilteringStyle" xmi:id="_1pRXCc5CEemJH8FcCaThIQ"/>
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_1pRXCs5CEemJH8FcCaThIQ"/>
+      </children>
+      <children xsi:type="notation:BasicCompartment" xmi:id="_1pRXC85CEemJH8FcCaThIQ" type="Activity_ActivityNodeCompartment">
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_1pRXDM5CEemJH8FcCaThIQ"/>
+      </children>
+      <element href="ModelExplorerViewpointFilter.uml#_1pQI4M5CEemJH8FcCaThIQ"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_1pRXDc5CEemJH8FcCaThIQ"/>
+    </children>
+    <styles xsi:type="notation:StringValueStyle" xmi:id="_1pRXDs5CEemJH8FcCaThIQ" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xsi:type="notation:DiagramStyle" xmi:id="_1pRXD85CEemJH8FcCaThIQ"/>
+    <styles xsi:type="style:PapyrusDiagramStyle" xmi:id="_1pRXEM5CEemJH8FcCaThIQ" diagramKindId="org.eclipse.papyrus.uml.diagram.activity">
+      <owner href="ModelExplorerViewpointFilter.uml#_1pCtgM5CEemJH8FcCaThIQ"/>
+    </styles>
+    <element href="ModelExplorerViewpointFilter.uml#_1pQI4M5CEemJH8FcCaThIQ"/>
+  </notation:Diagram>
+</xmi:XMI>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:org.eclipse.papyrus.dev.ui.editors">
+         <command
+               commandId="org.eclipse.papyrus.infra.nattable.edit.configuration.wizard"
+               label="Edit Table Configuration"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <adapt
+                        type="org.eclipse.core.resources.IFile">
+                     <test
+                           property="org.eclipse.core.resources.extension"
+                           value="nattableconfiguration">
+                     </test>
+                  </adapt>
+               </iterate>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.eclipse.papyrus.customization.nattableconfiguration.handlers.EditExistingTableConfigurationWizardHandler"
+            id="org.eclipse.papyrus.infra.nattable.edit.configuration.wizard"
+            name="Edit Table Configuration Wizard">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.eclipse.papyrus.infra.nattable.edit.configuration.wizard"
+            icon="icons/wizard_icon.png">
+      </image>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="org.eclipse.papyrus.wizards.category/org.eclipse.papyrus.wizards.dev.category/org.eclipse.papyrus.wizards.dev.editors.category"
+            class="org.eclipse.papyrus.customization.nattableconfiguration.wizards.CreateNattableConfigurationProjectWizard"
+            hasPages="true"
+            icon="icons/wizard_icon.png"
+            id="org.eclipse.papyrus.customization.nattableconfiguration.createconfigurationproject"
+            name="%wizardTableConfProject"
+            preferredPerspectives="org.eclipse.papyrus.infra.core.perspective"
+            project="true">
+      </wizard>
+      <wizard
+            category="org.eclipse.papyrus.wizards.category/org.eclipse.papyrus.wizards.dev.category/org.eclipse.papyrus.wizards.dev.editors.category"
+            class="org.eclipse.papyrus.customization.nattableconfiguration.wizards.CreateAndEditTableConfigurationWizard"
+            hasPages="true"
+            icon="icons/wizard_icon.png"
+            id="org.eclipse.papyrus.customization.nattableconfiguration.createandeditconfigurationfile"
+            name="%wizardTableConfFile"
+            preferredPerspectives="org.eclipse.papyrus.infra.core.perspective">
+      </wizard>
+   </extension>
+
+</plugin>

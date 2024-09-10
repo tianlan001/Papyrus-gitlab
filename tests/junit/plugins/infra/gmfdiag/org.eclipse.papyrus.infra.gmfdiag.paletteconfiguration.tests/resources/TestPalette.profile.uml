@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_V8808MpxEeSjn_SJapR5PA" name="TestPaletteConfiguration" URI="http://www.eclipse.org/papyrus/tests/paletteconfiguration/1.1.0" metaclassReference="_U1aIoMpyEeSjn_SJapR5PA" metamodelReference="_V8808cpxEeSjn_SJapR5PA">
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_c9NWMMpyEeSjn_SJapR5PA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_GOiJYMpzEeSjn_SJapR5PA" name="TestPaletteConfiguration" nsURI="http://www.eclipse.org/papyrus/tests/paletteconfiguration/1.1.0" nsPrefix="TestPaletteConfiguration">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GOkloMpzEeSjn_SJapR5PA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GOklocpzEeSjn_SJapR5PA" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GOklospzEeSjn_SJapR5PA" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GOklo8pzEeSjn_SJapR5PA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GOklpMpzEeSjn_SJapR5PA" key="Date" value="2015-03-14"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GOklpcpzEeSjn_SJapR5PA" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_GOiJYcpzEeSjn_SJapR5PA" name="TPC_StoOnClass">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GOiJYspzEeSjn_SJapR5PA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_PZTsUMpyEeSjn_SJapR5PA"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_GOiJY8pzEeSjn_SJapR5PA" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <elementImport xmi:type="uml:ElementImport" xmi:id="_U1aIoMpyEeSjn_SJapR5PA" alias="Class">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+  </elementImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_V8808cpxEeSjn_SJapR5PA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_V8808spxEeSjn_SJapR5PA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_PZTsUMpyEeSjn_SJapR5PA" name="TPC_StoOnClass">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_XnzXwMpyEeSjn_SJapR5PA" name="base_Class" association="_Xnz-0MpyEeSjn_SJapR5PA">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_Xnz-0MpyEeSjn_SJapR5PA" name="E_TPC_StoOnClass_Class1" memberEnd="_Xnz-0cpyEeSjn_SJapR5PA _XnzXwMpyEeSjn_SJapR5PA">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_Xnz-0cpyEeSjn_SJapR5PA" name="extension_TPC_StoOnClass" type="_PZTsUMpyEeSjn_SJapR5PA" aggregation="composite" association="_Xnz-0MpyEeSjn_SJapR5PA"/>
+  </packagedElement>
+</uml:Profile>

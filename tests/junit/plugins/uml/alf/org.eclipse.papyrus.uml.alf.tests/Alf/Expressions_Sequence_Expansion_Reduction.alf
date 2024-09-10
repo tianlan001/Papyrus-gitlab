@@ -1,0 +1,73 @@
+private import Alf::Library::PrimitiveBehaviors::IntegerFunctions::*;
+
+/**
+ * Test sequence expansion and reduction expressions.
+ **/
+active class Expressions_Sequence_Expansion_Reduction {
+
+	public class Employee {
+
+		public activity 'age$defaultValue$1'(): Integer;
+		public activity 'title$defaultValue$1'(): String;
+		public activity 'isMarried$defaultValue$1'(): Boolean;
+		public activity 'name$defaultValue$1'(): String;
+		public activity 'id$defaultValue$1'(): Integer;
+		public age: Integer = 'age$defaultValue$1'();
+		public isMarried: Boolean = 'isMarried$defaultValue$1'();
+		public name: String = 'name$defaultValue$1'();
+		public title: String = 'title$defaultValue$1'();
+		public id: Integer = 'id$defaultValue$1'();
+		@Create
+		public Employee();
+		@Destroy
+		public destroy();
+
+	}
+
+	public class Attribute {
+
+		public activity 'type$defaultValue$1'(): Integer;
+		public type: Integer = 'type$defaultValue$1'();
+		@Create
+		public Attribute();
+		@Destroy
+		public destroy();
+
+	}
+
+	public class Something {
+
+		public activity 'attribute$defaultValue$1'(): Attribute[0..*];
+		public attribute: Attribute[0..*] = 'attribute$defaultValue$1'();
+		@Create
+		public Something();
+		@Destroy
+		public destroy();
+
+	}
+
+	public class Object {
+
+		public attr: Attribute;
+		public init(in attr: Attribute);
+		@Create
+		public Object();
+		@Destroy
+		public destroy();
+
+	}
+
+	activity Bad(in x: Integer, in y: Integer): Integer;
+		public activity test(out sum: Integer, out remainder: Integer,
+			out bad: Integer, out select: Employee[0..*] sequence,
+			out reject: Employee[0..*] sequence, out collect: String[0..*] sequence,
+			out iterate: String[0..*] sequence, out forAll: Boolean,
+			out exists: Boolean, out one: Boolean, out unique: Boolean,
+			out jack: Employee, out joan: Employee, out something: Something,
+			out obj: Object);
+		@Create
+		public Expressions_Sequence_Expansion_Reduction();
+		@Destroy
+		public destroy();
+
+	} do 'Expressions_Sequence_Expansion_Reduction$behavior$1'

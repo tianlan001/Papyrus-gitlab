@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.papyrus.infra.textedit.edit;singleton:=true
+Automatic-Module-Name: org.eclipse.papyrus.infra.textedit.edit
+Bundle-Version: 7.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: org.eclipse.papyrus.infra.textedit.textdocument.provider.TextDocumentEditPlugin$Implementation$Activator
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: org.eclipse.papyrus.infra.textedit.textdocument.provider
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.22.0,4.0.0)";resolution:=optional;x-installation:=greedy,
+ org.eclipse.emf.edit;bundle-version="[2.16.0,3.0.0)",
+ org.eclipse.papyrus.infra.textedit;bundle-version="[7.0.0,8.0.0)"
+Import-Package: org.osgi.framework;version="[1.10.0,2.0.0)"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-17

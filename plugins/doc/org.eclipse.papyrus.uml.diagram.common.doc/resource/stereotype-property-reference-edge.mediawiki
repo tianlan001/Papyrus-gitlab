@@ -1,0 +1,77 @@
+=Stereotype Property Reference Edge=
+A palette tool to create edge between a stereotype and one of its property reference can be added.
+
+==Requirements==
+#Tool to create edge between a Stereotype and a property reference must exist.
+#New stereotype reference tool creation must be possible.
+#Edge creation must set the selected feature with the target of the edge.
+#Edge deletion must unset the feature value of the target of the deleted edge.
+#Edge label should be set in the palette tool parameters.
+#Edge label should be set through CSS properties.
+#CSS Selector to set stereotype property reference edge appearance must exist.
+#Reorient source of the edge must be managed and updated by feature values.
+#Reorient target of the edge must be managed and updated by feature values.
+#Obsolete edge must be deleted at new edge creation.
+#Obsolete edge must be deleted if feature value is changed.
+#Obsolete edge must be deleted if Stereotype is unapplied on source Element.
+#Obsolete edge must be deleted if Profile is unapplied on Model.
+#Show/hide related edge must be managed.
+#Possible stereotype property reference edge must be available in Show/Hide related edge dialog.
+#A drag&drop of a stereotyped Element and the set feature the stereotype property reference edge does not appear.
+ 
+==Example==
+This is an example for the creation of the palette tool which will permit to create stereotype property reference edge between a Unit from SysML and a Dimension to set the Unit’s feature dimension.
+
+===Specialization type creation===
+The first step is the creation of the Specialized Type Configuration for your stereotype property in an Element Type Set Congiguration model.
+ 
+These parameters must be set in this way:
+*''Hint'' : you need to use ''StereotypePropertyReferenceEdge'' hint
+*''Specialized''  Types: The specialized type to extend its Stereotype Property Reference Edge
+
+ [[Image:images/stereotype-property-reference-edge/01.PNG]]
+
+===Advice configuration creation===
+A specific advice binding configuration has to be added to the created specialized type. It’s the ''StereotypePropertyReferenceEdgeAdviceConfiguration''. There are two ways to add this advice, from the element type set editor or through the palette configuration editor.
+
+====From Element type set Editor====
+To add the advice configuration: right click on Element type set configuration > new child > Stereotype Property Reference EdgeAdvice
+ 
+To configure the advice to set dimension feature from ''SysML::Blocks::Unit'' :
+ 
+*''Stereotype Qualified Name'': The Qualified Name of the Stereotype of the feature to set.
+*''Feature To Set'': The feature to set with the created edge.
+*''Edge Label'': The label of the edge.
+*''Target'': The previously created specialized type.
+  [[Image:images/stereotype-property-reference-edge/02.PNG]]
+
+====From Palette Configuration Editor====
+Another way to add advice is to pass by the palette tool editor when creating the palette tool. This permits to have facilities to browse available Stereotypes and features:
+  [[Image:images/stereotype-property-reference-edge/03.PNG]]
+
+===Palette tool creation===
+You can now create a palette tool. Add into the element types list the previous created specialized type.
+ [[Image:images/stereotype-property-reference-edge/04.PNG]]
+ 
+===Result===
+In this example, the previously created models will be deployed through an architecture model. This architecture model will add models to class diagram in a new context.
+ 
+After deploying the element type set configuration and palette configuration models, an edge can now be created between Unit and dimension. This creation will set the dimension feature value of Unit.
+  [[Image:images/stereotype-property-reference-edge/05.PNG]]
+
+===CSS Customization===
+The edge appearance can be customized with CSS. Specific CSS Selectors have been added:
+ 
+*''sourceAppliedStereotypes'': The stereotype qualified name of the source stereotype to set.
+*''featureToSet'': The feature to set in the source applied stereotype.
+ 
+Moreover the edge label can be changed with “label” CSS attribute.
+
+====Example====
+<source lang="css">
+Connector[sourceAppliedStereotypes="SysML::Blocks::Unit"][featureToSet="dimension"]{
+	lineColor: blue;
+	label: "dimensionRef";
+}
+</source>
+  [[Image:images/stereotype-property-reference-edge/06.PNG]]

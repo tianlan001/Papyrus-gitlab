@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_bYd04JLDEeWbp4A9_-WJrQ" name="UMLNatTable" label="UML Table Configuration Models">
+  <tabs xmi:id="_TYJSEPnXEeaHC6GkLFwmEw" label="Matrix" id="Matrix" category="org.eclipse.papyrus" priority="12">
+    <sections xmi:id="_eVSqMPnZEeaHC6GkLFwmEw" name="Matrix" sectionFile="ui/Matrix.xwt">
+      <widget href="ui/Matrix.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_c4fxMCwPEeeKOdJYr-htag" name="MatrixConfiguration" sections="_eVSqMPnZEeaHC6GkLFwmEw">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_2SAlsJQtEeWx9KtEop_Tug" name="isGenericMatrixRelationshipTable">
+      <constraintType href="Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_1knLypMSEeWeQ8lFehLIEQ" name="expectedValue" value="true"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_d43IMCvyEeeezcTZxBVD8g" name="GenericUMLRelationshipMatrixDataContext" label="GenericUMLRelationshipMatrixDataContext">
+    <elements xmi:id="_TDc0ICwOEeeKOdJYr-htag" name="GenericRelationshipMatrixCellEditorConfiguration">
+      <properties xmi:id="_TDc0IywOEeeKOdJYr-htag" name="rowFilter" type="Reference"/>
+      <properties xmi:id="_TDc0JCwOEeeKOdJYr-htag" name="columnFilter" type="Reference"/>
+      <properties xmi:id="_qWk8YCwOEeeKOdJYr-htag" name="rowSources" type="Reference" multiplicity="-1"/>
+      <properties xmi:id="_s9kMwCwOEeeKOdJYr-htag" name="columnSources" type="Reference" multiplicity="-1"/>
+      <properties xmi:id="_TDc0ISwOEeeKOdJYr-htag" name="managedElementType" type="Reference"/>
+      <properties xmi:id="_TDc0IiwOEeeKOdJYr-htag" name="relationshipDirection" type="Enumeration"/>
+      <properties xmi:id="_7ml2MCwPEeeKOdJYr-htag" name="cellContentsFilter" type="Reference"/>
+      <properties xmi:id="_TDc0IiwOEeeKOdJYr-htag" name="relationshipOwnerStrategy" type="Enumeration"/>
+      <properties xmi:id="_qWk8YCwOEeeKOdJYr-htag" name="relationshipOwner" type="Reference"/>
+      <properties xmi:id="_qWk8YCwOEeeKOdJYr-htag" name="relationshipOwnerFeature" type="Reference"/>
+    </elements>
+    <modelElementFactory href="Environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context>

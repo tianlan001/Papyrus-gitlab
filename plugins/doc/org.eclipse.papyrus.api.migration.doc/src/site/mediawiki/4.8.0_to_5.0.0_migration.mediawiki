@@ -1,0 +1,50 @@
+
+Here we will list all changes between Papyrus 4.8.0 (Eclipse 2020-06) and Papyrus 5.0.0 (Eclipse 2020-12).
+
+==Plugin dependencies==
+To ease Papyrus developement, we remove all reexported dependencies from the Manifest file.
+
+==Changes==
+Here the list of API changes for each plugin.
+
+===org.eclipse.papyrus.infra.architecture===
+*bug 565361
+**'''MergedArchitectureDescriptionLanguage'''
+***new method '''getTreeViewerConfigurations()'''
+
+===org.eclipse.papyrus.infra.core.architecture===
+*bug 565361
+**new abstract class in the ''architecture'' ecore model: '''TreeViewerConfiguration'''
+*** concret implementation can be found in the new plugin '''org.eclipse.papyrus.emf.facet.architecture''', see class '''EMFFacetTreeViewerConfiguration'''
+**'''ArchitectureDescriptionLanguage''': new field '''treeViewerConfiguration'''
+
+===org.eclipse.papyrus.infra.nattable===
+*bug 517617 and bug 532452 (ensure the selection don't change after some user actions)
+We change the storage of the current selection, but we keep the algorithm provided by '''TableSelectionProvider''', but we change the manipulation and the storages of the informations. 
+
+**'''TableSelectionProvider'''
+***new method '''setActive(boolean)''' to allow to listen or not the selection changes
+**'''TableSelectionWrapper'''
+***new constructor '''TableSelectionWrapper(final INattableModelManager manager, final SelectionLayer selectionLayer, final Collection<PositionCoordinate> selectionCells)''', 
+all others are deprecated and will be removed.
+***new methods '''updatePositions''', to update position of referenced elements (rows/columns/cells) after a refresh
+***new methods '''buildSingleCellSelection''', '''getSelectedElements''', '''getSingleSelectedCells''', '''addSelectedRow''', '''addSelectedColumn''', '''removeSelectedRow''', '''removeSelectedColumn''', '''copyRowsSelection''', '''copyColumnsSelection'''
+***methods '''getFullySelectedRows''' and '''getFullySelectedColumns''' changed without breaking API: before the returned map used the row index as key, and now this same map use the row position as key. To obtain the row index, you must call '''selectionLayer.getRowIndexByPosition'''
+
+*bug 486733
+**'''PapyrusNatTableComparatorChooser'''
+***change visibility from protected to public for method '''rebuildComparator'''
+
+===org.eclipse.papyrus.infra.ui.emf===
+*bug 565361
+**'''Activator'''
+***remove public field '''CUSTOMIZATION_MANAGER_SECTION''' -> now defined in the new class '''WorspaceCustomizationUpdater''' as protected
+***method '''restoreDefaultCustomizationManager''' has been renamed into '''resetToDefaultCustomizations'''
+
+==Behavior changes==
+*bug 565361:
+**The EMFFacet Customizations applied in the ModelExplorer are now defined in an ArchitectureDescriptionLanguage (Architecture file). If not, we continue to apply them using their plugin.xml declaration.
+**When the user changes the customizations to apply (using the ModelExplorer action), this change is now associated to the current edited model
+**As we define EMFFacet customizations in Architecture File and we associate user changes to an Papyrus model, the list of applied Customizations is now updated each time the user edit a new model.
+**The applied Customizations are also updated when the user change the ArchitectureDescriptionLanguage to use it is model, to be consistent with the current language.
+**A button to reset the applied Customization to the initial definition has been added to the ModelExplorer toolbar.

@@ -1,0 +1,53 @@
+target "Papyrus RCP" with requirements source
+
+include "../../main/targetPlatform/org.eclipse.papyrus.main.targetplatform.tpd"
+
+// manualUpdate
+location "https://download.eclipse.org/justj/jres/21/updates/release" justj {
+	org.eclipse.justj.openjdk.hotspot.jre.full.feature.group lazy
+}
+
+// manualUpdate
+location mylyn "https://download.eclipse.org/mylyn/drops/3.25.2/v20200831-1956" {
+	org.eclipse.mylyn.ide_feature.feature.group
+	org.eclipse.mylyn.java_feature.feature.group
+	org.eclipse.mylyn.pde_feature.feature.group
+	org.eclipse.mylyn.bugzilla_feature.feature.group
+	org.eclipse.mylyn.context_feature.feature.group
+	org.eclipse.mylyn_feature.feature.group
+}
+
+/*** Updates from the Simrel repository ***/
+// updateFrom("EGit",0)
+location egit "https://download.eclipse.org/egit/updates-6.10" {
+	org.eclipse.egit.feature.group
+}
+
+// updateFrom("Eclipse",0)
+location platform "https://download.eclipse.org/eclipse/updates/4.32/R-4.32-202406010610" {
+	org.eclipse.e4.core.tools.feature.feature.group
+	org.eclipse.rcp.configuration.feature.group
+	org.eclipse.equinox.executable.feature.group
+}
+
+// updateFrom("EMF Compare",0) 
+location emfCompare "https://download.eclipse.org/modeling/emf/compare/updates/releases/3.3/R202401051648" {
+	org.eclipse.emf.compare.source.feature.group
+	org.eclipse.emf.compare.ide.ui.source.feature.group
+}
+
+// updateFrom("EMF (Core)",0)
+location emf "https://download.eclipse.org/modeling/emf/emf/builds/release/2.38.0" {
+	org.eclipse.xsd.sdk.feature.group
+}
+
+// updateFrom("EPP Marketplace Client",0)
+location marketPlace "https://download.eclipse.org/mpc/drops/1.10.3/v20240228-1000" {
+	org.eclipse.epp.mpc.feature.group
+}
+
+// updateFrom("User Storage SDK",0)
+location userstorage "https://download.eclipse.org/usssdk/drops/release/1.2.2/" {
+	org.eclipse.userstorage.feature.group
+}
+

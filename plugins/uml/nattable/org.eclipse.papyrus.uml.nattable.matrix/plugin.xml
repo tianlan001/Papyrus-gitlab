@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.celleditor.configuration">
+       <cellAxisConfiguration
+            class="org.eclipse.papyrus.uml.nattable.matrix.configs.GenericRelationshipMatrixCellEditorConfiguration"
+            order="3">
+      </cellAxisConfiguration>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.cellmanager">
+      <cellManager
+            id="org.eclipse.papyrus.uml.nattable.matrix.cell.managers.DependencyMatrixCellManager"
+            manager="org.eclipse.papyrus.uml.nattable.matrix.cell.managers.DependencyMatrixCellManager"
+            order="1160">
+      </cellManager>
+      <cellManager
+            id="org.eclipse.papyrus.uml.nattable.matrix.cell.AbstractionMatrixCellManager"
+            manager="org.eclipse.papyrus.uml.nattable.matrix.cell.managers.AbstractionMatrixCellManager"
+            order="1161">
+      </cellManager>
+   </extension>
+         <extension
+         point="org.eclipse.papyrus.infra.nattable.configuration">
+      <configuration
+            file="configs/generic_matrix_of_relationships.nattableconfiguration"
+            type="UMLGenericMatrixOfRelationships">
+      </configuration>
+   </extension>
+</plugin>

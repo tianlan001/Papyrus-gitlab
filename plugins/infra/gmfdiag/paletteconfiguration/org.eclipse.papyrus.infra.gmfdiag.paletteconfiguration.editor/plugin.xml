@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+   
+   <extension point="org.eclipse.ui.newWizards">
+   	  <!-- @generated NOT PaletteConfiguration -->
+      <wizard
+            id="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.presentation.PaletteconfigurationModelWizardID"
+            name="%_UI_PaletteconfigurationModelWizard_label"
+            class="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.presentation.CustomPaletteconfigurationModelWizard"
+            category="org.eclipse.papyrus.wizards.category/org.eclipse.papyrus.wizards.custo.category/org.eclipse.papyrus.wizards.custo.editors.category"
+            icon="icons/full/obj16/PaletteconfigurationModelFile.gif">
+         <description>%_UI_PaletteconfigurationModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+   
+   <!-- @generated NOT PaletteConfiguration -->
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.presentation.PaletteconfigurationEditorID"
+            name="%_UI_PaletteconfigurationEditor_label"
+            icon="icons/full/obj16/PaletteconfigurationModelFile.gif"
+            extensions="paletteconfiguration"
+            class="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.presentation.CustomPaletteconfigurationEditor"
+            contributorClass="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.presentation.PaletteconfigurationActionBarContributor">
+      </editor>
+   </extension>
+   
+   <extension point="org.eclipse.papyrus.infra.properties.contexts">
+     <context
+           appliedByDefault="true"
+           contextModel="properties/PaletteConfiguration.ctx">
+     </context>
+  </extension>
+  <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="org.eclipse.papyrus.paletteconfigurationcontrib">
+      <propertyContributor
+            contributorId="PaletteConfiguration"
+            labelProvider="org.eclipse.papyrus.infra.properties.ui.providers.PropertiesHeaderLabelProvider"
+            tabDescriptorProvider="org.eclipse.papyrus.infra.properties.ui.xwt.XWTTabDescriptorProvider">
+         <propertyCategory category="org.eclipse.papyrus"/>
+      </propertyContributor>
+   </extension>
+  <extension
+        point="org.eclipse.papyrus.infra.properties.environments">
+     <environment
+           environmentModel="properties/environment.xmi">
+     </environment>
+  </extension>
+  <extension
+        point="org.eclipse.ui.views.properties.tabbed.propertySections">
+     <propertySections
+           contributorId="PaletteConfiguration">
+        <propertySection
+              class="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.presentation.FilterSection"
+              id="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.editor.FilterSection"
+              tab="Filter">
+           <input
+                 type="org.eclipse.papyrus.infra.filters.Filter">
+           </input>
+        </propertySection>
+     </propertySections>
+  </extension>
+  <extension
+        point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+     <propertyTabs
+           contributorId="PaletteConfiguration">
+        <propertyTab
+              category="org.eclipse.papyrus"
+              id="Filter"
+              label="Filter">
+        </propertyTab>
+     </propertyTabs>
+  </extension>
+
+</plugin>

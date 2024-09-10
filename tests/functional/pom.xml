@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.papyrus</groupId>
+		<artifactId>org.eclipse.papyrus.toolsmiths.releng</artifactId>
+		<version>7.0.0-SNAPSHOT</version>
+		<relativePath>../../releng/toolsmiths/pom.xml</relativePath>
+	</parent>
+	<groupId>org.eclipse.papyrus.tests</groupId>
+	<artifactId>org.eclipse.papyrus.tests.functional</artifactId>
+	<version>7.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<description>Parent of the RCPTT-based functional test modules.</description>
+
+	<properties>
+		<!-- Current release snapshot is required to test milestones of current 
+			Eclipse platform because the RCPTT launching framework hard-codes knowledge 
+			of each specific SWT bundle minor release (e.g., 3.107.0) -->
+		<rcptt-version>7.0.0-SNAPSHOT</rcptt-version>
+		<rcptt-runner-version>7.0.0-SNAPSHOT</rcptt-runner-version>
+		<papyrus-aut>../../../../Papyrus-Master-Rcp/lastSuccessful/archive/products/papyrus-linux-64.tar.gz</papyrus-aut>
+	</properties>
+
+	<modules>
+		<module>uml/diagram/org.eclipse.papyrus.uml.diagram.sequence.functional.tests</module>
+	</modules>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>eclipse-rcptt-releases</id>
+			<url>https://repo.eclipse.org/content/repositories/rcptt-releases/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>eclipse-rcptt-snapshots</id>
+			<url>https://repo.eclipse.org/content/repositories/rcptt-snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.rcptt</groupId>
+				<artifactId>rcptt-maven-plugin</artifactId>
+				<version>${rcptt-version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<runner>
+						<version>${rcptt-runner-version}</version>
+						<vmArgs>
+							<vmArg>-Xmx1024m</vmArg>
+						</vmArgs>
+					</runner>
+					<aut>
+						<vmArgs>
+							<vmArg>-Xmx2048m</vmArg>
+						</vmArgs>
+						<explicit>${papyrus-aut}</explicit>
+					</aut>
+					<testOptions>
+						<execTimeout>900</execTimeout>
+						<testExecTimeout>1800</testExecTimeout>
+					</testOptions>
+
+					<skipTags>
+						<skipTag>ignore</skipTag>
+					</skipTags>
+
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

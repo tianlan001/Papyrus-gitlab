@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:Documentation="http://www.eclipse.org/papyrus/documentation" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_VbwgYKqKEeaXCZZV8g7zkA" name="RootElement">
+    <packagedElement xmi:type="uml:Class" xmi:id="_YxJu4KqKEeaXCZZV8g7zkA" name="noCommentedClass"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_bNE-wKqKEeaXCZZV8g7zkA" name="commentedClass">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_sm1DYKqLEeaXCZZV8g7zkA">
+        <body>&lt;p>bodyOfCommentedClass&lt;/p>
+</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_dG61QKqKEeaXCZZV8g7zkA" name="commentedClassWithStereotype">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_ymSrcKqLEeaXCZZV8g7zkA">
+        <body>bodyOfCommentedClassWithStereotype</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nfM3sKqKEeaXCZZV8g7zkA" name="classWithMultipleComments">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_-15b4KqLEeaXCZZV8g7zkA">
+        <body>bodyOfClassWithMuliComment_simpleComment</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_4BubIKsUEeaYu7ttrNZIdg">
+        <body>bodyOfClassWithMuliComment_StereotypedComment</body>
+      </ownedComment>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_qewjoKqLEeaXCZZV8g7zkA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qeyY0KqLEeaXCZZV8g7zkA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/documentation#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_DOCUMENTATION/Papyrus.profile.uml#_H9068AEYEeCIz8iAxBJnfA"/>
+    </profileApplication>
+  </uml:Model>
+  <Documentation:Documentation xmi:id="_oNv18KsdEeaYu7ttrNZIdg" base_Comment="_ymSrcKqLEeaXCZZV8g7zkA"/>
+  <Documentation:Documentation xmi:id="_qNECUKsdEeaYu7ttrNZIdg" base_Comment="_4BubIKsUEeaYu7ttrNZIdg"/>
+</xmi:XMI>

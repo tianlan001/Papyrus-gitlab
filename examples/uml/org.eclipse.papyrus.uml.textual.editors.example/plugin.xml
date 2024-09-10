@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.celleditor.configuration">
+      <configuration
+            class="org.eclipse.papyrus.uml.textual.editors.example.celleditors.UMLReferenceCellEditorConfigurationExample"
+            order="2">
+      </configuration>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.properties.contexts">
+      <context
+            contextModel="model/UML/PropertyViewEditorsExample.ctx"
+            isCustomizable="true">
+      </context>
+    </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.cellmanager">
+      <cellManager
+            id="org.eclipse.papyrus.textual.editors.example.cell.manager"
+            manager="org.eclipse.papyrus.uml.textual.editors.example.manager.cell.ExtendedValueSpecificationCellManager"
+            order="400">
+      </cellManager>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.nattable.celleditor.configuration">
+      <configuration
+            class="org.eclipse.papyrus.uml.textual.editors.example.celleditors.ExtendedValueSpecificationCellEditorConfiguration"
+            order="20">
+      </configuration>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.properties.contexts">
+      <context
+            contextModel="properties/xtext.ctx">
+      </context>
+   </extension>
+</plugin>

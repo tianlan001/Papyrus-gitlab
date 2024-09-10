@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.papyrus.toolsmiths.feature"
+      version="7.0.0.qualifier"
+      label="%featureName"
+      provider-name="%providerName"
+      license-feature="org.eclipse.license"
+      license-feature-version="2.0.2">
+      
+   <description url="https://eclipse.org/papyrus/">
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+   
+   <requires>
+      <import feature="org.eclipse.papyrus.sdk.feature" version="7.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.ui.properties" version="1.7.0" match="compatible"/>
+      <import plugin="org.eclipse.papyrus.views.properties.model.xwt" version="7.0.0" match="compatible"/>
+   </requires>
+   
+   <includes
+         id="org.eclipse.papyrus.uml.m2m.qvto.tests.tools.feature"
+         version="0.0.0"/>
+   
+   <!--Nattable-->
+
+   <plugin
+         id="org.eclipse.papyrus.customization.nattableconfiguration"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <!--Palette-->
+
+   <plugin
+         id="org.eclipse.papyrus.toolsmiths.palette"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+  <!--Properties-->
+
+   <plugin
+         id="org.eclipse.papyrus.views.properties.toolsmiths"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.papyrus.uml.properties.generation"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+  <!--Expansion-->
+
+   <plugin
+         id="org.eclipse.papyrus.infra.gmfdiag.expansion.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.papyrus.infra.gmfdiag.expansion.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <!--EMF properties-->      
+         
+   <plugin
+         id="org.eclipse.papyrus.infra.emf.types.ui.properties"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>      
+         
+
+	<!--Ecore Toolsmiths-->	 
+	
+	<plugin
+         id="org.eclipse.papyrus.toolsmiths.ecore"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/> 
+		 
+   <!--EMF Expressions-->      
+         
+   <plugin
+         id="org.eclipse.papyrus.toolsmiths.expressions"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/> 
+
+   <!--NatTable-->      
+
+
+   <plugin
+         id="org.eclipse.papyrus.toolsmiths.nattable"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/> 
+         
+   <!--UML properties-->
+
+   <plugin
+         id="org.eclipse.papyrus.uml.types.ui.properties"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+    <!--Profile migration-->
+
+   <plugin
+         id="org.eclipse.papyrus.toolsmiths.profilemigration"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.papyrus.toolsmiths.profilemigration.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.papyrus.toolsmiths"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+</feature>

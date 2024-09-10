@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architecture:ArchitectureDomain xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture" xmlns:gmfdiagrepresentation="http://www.eclipse.org/papyrus/infra/gmfdiag/representation" xmi:id="_W1e_4FwYEeupTbvtAFLDpA" name="add_framework" description="An extension domain that adds the 'my_framework' framework to the 'adl' domain.">
+  <contexts xmi:type="architecture:ArchitectureDescriptionLanguage" xmi:id="_hLZDwFwYEeupTbvtAFLDpA" name="adl_extension">
+    <extendedContexts xmi:type="architecture:ArchitectureDescriptionLanguage" href="domain.architecture#_hLZDwFwYEeupTbvtAFLDpA"/>
+    <representationKinds xmi:type="gmfdiagrepresentation:PapyrusDiagram" xmi:id="_HejlwHqvEeuxlImJSGDPXQ" name="my_diagram"/>
+  </contexts>
+  <contexts xmi:type="architecture:ArchitectureFramework" xmi:id="_lFlBYFwYEeupTbvtAFLDpA" name="my_framework" defaultViewpoints="_CXBrQHqvEeuxlImJSGDPXQ">
+    <viewpoints xmi:type="architecture:ArchitectureViewpoint" xmi:id="_CXBrQHqvEeuxlImJSGDPXQ" name="my_viewpoint" representationKinds="_HejlwHqvEeuxlImJSGDPXQ">
+      <concerns xmi:type="architecture:Concern" href="domain.architecture#_d0pKYFwYEeupTbvtAFLDpA"/>
+    </viewpoints>
+  </contexts>
+</architecture:ArchitectureDomain>

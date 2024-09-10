@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Requirements="http://www.eclipse.org/papyrus/sysml/1.4/SysML/Requirements" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/papyrus/sysml/1.4/SysML/Requirements http://www.eclipse.org/papyrus/sysml/1.4/SysML#//requirements">
+  <uml:Model xmi:id="_uHM0wJ4REee5QOeiHCkWLg" name="model">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_uZXi0J4REee5QOeiHCkWLg">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_uZxygJ4REee5QOeiHCkWLg">
+      <importedPackage xmi:type="uml:Package" href="pathmap://SysML14_LIBRARIES/SysML-Standard-Library.uml#SysML.package_packagedElement_Libraries"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_TR6-4J7WEeeE49hrEZE2jQ" name="Requirements">
+      <packagedElement xmi:type="uml:Class" xmi:id="_gdLOUJ7NEeeE49hrEZE2jQ" name="Manage_profile_evolution">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_v4XJ8J7NEeeE49hrEZE2jQ" name="Report_profile_evolution"/>
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_5OEVEJ7NEeeE49hrEZE2jQ" name="Migrate"/>
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_b87s0KzwEeekPI6hsC9IeA" name="Provide_UI">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_qAqrgKq6EeecK7SK84ftVA" name="UI_choice_apply_on_others"/>
+        </nestedClassifier>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Na-kQJ4TEee5QOeiHCkWLg" name="Report_modifications"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_m8YQkKq5EeecK7SK84ftVA" name="Visibility_no_impact"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_rAYmoKq7EeecK7SK84ftVA" name="NamedElement_modify_name"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_7oxPsKdOEee2pt2XW3Ky2w" name="Package">
+        <packagedElement xmi:type="uml:Class" xmi:id="_KfP7wKdPEee2pt2XW3Ky2w" name="Package_modifications">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mG01IKzIEeekPI6hsC9IeA" name="Package_add_Stereotype"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mHSvMKzIEeekPI6hsC9IeA" name="Package_add_ElementImport"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mHwpQKzIEeekPI6hsC9IeA" name="Package_add_PackageImport"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mIN8QKzIEeekPI6hsC9IeA" name="Package_add_Association"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mIrPQKzIEeekPI6hsC9IeA" name="Package_add_Enumeration"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mJJJUKzIEeekPI6hsC9IeA" name="Package_add_Extension"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mJo4kKzIEeekPI6hsC9IeA" name="Package_add_Package"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mKE9cKzIEeekPI6hsC9IeA" name="Package_add_Profile"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mKhpYKzIEeekPI6hsC9IeA" name="Package_delete_Stereotype"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mLB_sKzIEeekPI6hsC9IeA" name="Package_delete_ElementImport"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mLeroKzIEeekPI6hsC9IeA" name="Package_delete_PackageImport"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mL7XkKzIEeekPI6hsC9IeA" name="Package_delete_Association"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mMXccKzIEeekPI6hsC9IeA" name="Package_delete_Enumeration"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mM0vcKzIEeekPI6hsC9IeA" name="Package_delete_Extension"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mNSpgKzIEeekPI6hsC9IeA" name="Package_delete_Package"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mNvVcKzIEeekPI6hsC9IeA" name="Package_delete_Profile"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_h6v8sK59EeexmuCIN6Rutw" name="Package_move"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mOrwoKzIEeekPI6hsC9IeA" name="Package_move_into_ProfileAlreadyApply"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mPQ_cKzIEeekPI6hsC9IeA" name="Package_move_into_ProfileNotApplyYet"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mQK-YKzIEeekPI6hsC9IeA" name="Package_modify_URI"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_7nNo8K5_EeexmuCIN6Rutw" name="Refine1" client="_mOrwoKzIEeekPI6hsC9IeA" supplier="_h6v8sK59EeexmuCIN6Rutw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_8yLnQK5_EeexmuCIN6Rutw" name="Refine2" client="_mPQ_cKzIEeekPI6hsC9IeA" supplier="_h6v8sK59EeexmuCIN6Rutw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_3FUdMKdPEee2pt2XW3Ky2w" name="Profile">
+        <packagedElement xmi:type="uml:Class" xmi:id="_KqNOkKdPEee2pt2XW3Ky2w" name="Profile_modification">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H5Q_cKzKEeekPI6hsC9IeA" name="Profile_add_Stereotype"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H50ZEKzKEeekPI6hsC9IeA" name="Profile_add_ElementImport"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H6S6MKzKEeekPI6hsC9IeA" name="Profile_add_PackageImport"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H6yCYKzKEeekPI6hsC9IeA" name="Profile_add_Association"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H7QjgKzKEeekPI6hsC9IeA" name="Profile_add_Enumeration"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H7vrsKzKEeekPI6hsC9IeA" name="Profile_add_Extension"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H8Oz4KzKEeekPI6hsC9IeA" name="Profile_add_Package"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H8ujIKzKEeekPI6hsC9IeA" name="Profile_add_Profile"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H9MdMKzKEeekPI6hsC9IeA" name="Profile_delete_Stereotype"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H9q-UKzKEeekPI6hsC9IeA" name="Profile_delete_ElementImport"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H-JfcKzKEeekPI6hsC9IeA" name="Profile_delete_PackageImport"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H-zmwKzKEeekPI6hsC9IeA" name="Profile_delete_Association"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H_UkIKzKEeekPI6hsC9IeA" name="Profile_delete_Enumeration"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_H_zFQKzKEeekPI6hsC9IeA" name="Profile_delete_Extension"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_IARmYKzKEeekPI6hsC9IeA" name="Profile_delete_Package"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_IAwHgKzKEeekPI6hsC9IeA" name="Profile_delete_Profile"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_N5QLAK6CEeexmuCIN6Rutw" name="Profile_move"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_JqrdQKzLEeekPI6hsC9IeA" name="Profile_move_into_ProfileAlreadyApply"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_JqsEUKzLEeekPI6hsC9IeA" name="Profile_move_into_ProfileNotApplyYet"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_ICRKcKzKEeekPI6hsC9IeA" name="Profile_modify_URI"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_5_2iMK6CEeexmuCIN6Rutw" name="Refine1" client="_JqsEUKzLEeekPI6hsC9IeA" supplier="_N5QLAK6CEeexmuCIN6Rutw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_7A-oAK6CEeexmuCIN6Rutw" name="Refine2" client="_JqrdQKzLEeekPI6hsC9IeA" supplier="_N5QLAK6CEeexmuCIN6Rutw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_5pj7kKdPEee2pt2XW3Ky2w" name="Enumeration">
+        <packagedElement xmi:type="uml:Class" xmi:id="_Kz9AcKdPEee2pt2XW3Ky2w" name="Enumeration_modification">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_LdykMKzMEeekPI6hsC9IeA" name="Enumeration_add_EnumerationLitteral"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_LeUIoKzMEeekPI6hsC9IeA" name="Enumeration_delete_EnumerationLitteral"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_Lez34KzMEeekPI6hsC9IeA" name="Enumeration_move"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_7FzQEKdPEee2pt2XW3Ky2w" name="EnumerationLiteral">
+        <packagedElement xmi:type="uml:Class" xmi:id="_K1i74KdPEee2pt2XW3Ky2w" name="EnumerationLiteral_modifications">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_Ks7SgKzNEeekPI6hsC9IeA" name="EnumerationLitteral_move"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_9zpWYKdPEee2pt2XW3Ky2w" name="ElementImport">
+        <packagedElement xmi:type="uml:Class" xmi:id="_K27b8KdPEee2pt2XW3Ky2w" name="ElementImport_modifications">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_lI2XsKzNEeekPI6hsC9IeA" name="ElementImport_modify_alias"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_lJX8IKzNEeekPI6hsC9IeA" name="ElementImport_modify_importedElement"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_lJ3EUKzNEeekPI6hsC9IeA" name="ElementImport_modify_source"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_lKVlcKzNEeekPI6hsC9IeA" name="ElementImport_modify_target"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_lLBh8KzNEeekPI6hsC9IeA" name="ElementImport_move"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="__rFZIKdPEee2pt2XW3Ky2w" name="PackageImport">
+        <packagedElement xmi:type="uml:Class" xmi:id="_K5tqMKdPEee2pt2XW3Ky2w" name="PackageImport_modification">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_G70i8KzOEeekPI6hsC9IeA" name="PackageImport_modify_importedPackage"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_G8USMKzOEeekPI6hsC9IeA" name="PackageImport_modify_source"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_G8yzUKzOEeekPI6hsC9IeA" name="PackageImport_modify_target"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_G9TwsKzOEeekPI6hsC9IeA" name="PackageImport_move"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_A8GVEKdQEee2pt2XW3Ky2w" name="Stereotype">
+        <packagedElement xmi:type="uml:Class" xmi:id="_K8FBsKdPEee2pt2XW3Ky2w" name="Stereotype_modifications">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_B3U7IK6LEeexmuCIN6Rutw" name="Stereotype_add_property"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mS1CEKzOEeekPI6hsC9IeA" name="Stereotype_add_Property_defaultValue"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mTV_cKzOEeekPI6hsC9IeA" name="Stereotype_add_Property_noDefaultValue_requiredValue"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mT4yAKzOEeekPI6hsC9IeA" name="Stereotype_add_Property_noDefaultValue_optionalValue"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mUcLoKzOEeekPI6hsC9IeA" name="Stereotype_add_Generalization"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mVvzMKzOEeekPI6hsC9IeA" name="Stereotype_delete_Property"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mWWQIKzOEeekPI6hsC9IeA" name="Stereotype_delete_Generalization"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mYSJ0KzOEeekPI6hsC9IeA" name="Stereotype_modify_isAbstract_trueToFalse"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mY_UcKzOEeekPI6hsC9IeA" name="Stereotype_modify_isAbstract_falseToTrue"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mZsfEKzOEeekPI6hsC9IeA" name="Stereotype_modify_isFinalSpecification"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_maX0gKzOEeekPI6hsC9IeA" name="Stereotype_modify_redefinedClassifier"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_mbB70KzOEeekPI6hsC9IeA" name="Stereotype_move"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_bO8fIK6VEeexmuCIN6Rutw" name="Stereotype_move_into_profileAlreadyApply"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_bagO4K6VEeexmuCIN6Rutw" name="Stereotype_move_into_profileNotApplyYet"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_swTooK6LEeexmuCIN6Rutw" name="Refine1" client="_mTV_cKzOEeekPI6hsC9IeA" supplier="_B3U7IK6LEeexmuCIN6Rutw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_txhOAK6LEeexmuCIN6Rutw" name="Refine2" client="_mS1CEKzOEeekPI6hsC9IeA" supplier="_B3U7IK6LEeexmuCIN6Rutw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_u9TrsK6LEeexmuCIN6Rutw" name="Refine3" client="_mT4yAKzOEeekPI6hsC9IeA" supplier="_B3U7IK6LEeexmuCIN6Rutw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_RIsLYK6WEeexmuCIN6Rutw" name="Refine4" client="_bagO4K6VEeexmuCIN6Rutw" supplier="_mbB70KzOEeekPI6hsC9IeA"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_SEaz0K6WEeexmuCIN6Rutw" name="Refine5" client="_bO8fIK6VEeexmuCIN6Rutw" supplier="_mbB70KzOEeekPI6hsC9IeA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_CwtGQKdQEee2pt2XW3Ky2w" name="Property">
+        <packagedElement xmi:type="uml:Class" xmi:id="_LB584KdPEee2pt2XW3Ky2w" name="Property_modifications">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F3MnwKzPEeekPI6hsC9IeA" name="Property_modify_isReadOnly"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F3wocKzPEeekPI6hsC9IeA" name="Property_modify_isDerived_falseToTrue"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_sZJxMKz8EeekPI6hsC9IeA" name="Property_modify_isDerived_trueToFalse"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F4QXsKzPEeekPI6hsC9IeA" name="Property_modify_isDerivedUnion"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F4_XgKzPEeekPI6hsC9IeA" name="Property_modify_aggregation"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F5efsKzPEeekPI6hsC9IeA" name="Property_modify_isID"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F59n4KzPEeekPI6hsC9IeA" name="Property_modify_redefinedProperty"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F6dXIKzPEeekPI6hsC9IeA" name="Property_modify_subsettedProperty"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F674QKzPEeekPI6hsC9IeA" name="Property_modify_defaultValue"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F7bngKzPEeekPI6hsC9IeA" name="Property_modify_isOrdered"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F8bGAKzPEeekPI6hsC9IeA" name="Property_modify_isUnique_falseToTrue"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F87cUKzPEeekPI6hsC9IeA" name="Property_modify_isUnique_trueToFalse"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_HeyKgK6ZEeexmuCIN6Rutw" name="Property_modify_lowerValue"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F9akgKzPEeekPI6hsC9IeA" name="Property_modify_lowerValue_increase"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F95ssKzPEeekPI6hsC9IeA" name="Property_modify_lowerValue_decrease"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_UIHXoK6bEeexmuCIN6Rutw" name="Property_modify_upperValue"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F-Y04KzPEeekPI6hsC9IeA" name="Property_modify_upperValue_decrease"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F_YTYKzPEeekPI6hsC9IeA" name="Property_modify_upperValue_increase"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_tP2mMK6dEeexmuCIN6Rutw" name="Property_modify_type"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_F_3bkKzPEeekPI6hsC9IeA" name="Property_modify_type_isConvertible"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_GAWjwKzPEeekPI6hsC9IeA" name="Property_modify_type_isNotConvertible"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_GBzVQKzPEeekPI6hsC9IeA" name="Property_modify_isLeaf"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_GCTrkKzPEeekPI6hsC9IeA" name="Property_modify_isStatic"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_GC0B4KzPEeekPI6hsC9IeA" name="Property_move"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_OgxUoK6bEeexmuCIN6Rutw" name="Refine1" client="_F95ssKzPEeekPI6hsC9IeA" supplier="_HeyKgK6ZEeexmuCIN6Rutw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_QIHF4K6bEeexmuCIN6Rutw" name="Refine2" client="_F9akgKzPEeekPI6hsC9IeA" supplier="_HeyKgK6ZEeexmuCIN6Rutw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_fpphIK6bEeexmuCIN6Rutw" name="Refine3" client="_F_YTYKzPEeekPI6hsC9IeA" supplier="_UIHXoK6bEeexmuCIN6Rutw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_g5Z40K6bEeexmuCIN6Rutw" name="Refine5" client="_F-Y04KzPEeekPI6hsC9IeA" supplier="_UIHXoK6bEeexmuCIN6Rutw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_A-_qUK6eEeexmuCIN6Rutw" name="Refine6" client="_GAWjwKzPEeekPI6hsC9IeA" supplier="_tP2mMK6dEeexmuCIN6Rutw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_CHGh4K6eEeexmuCIN6Rutw" name="Refine7" client="_F_3bkKzPEeekPI6hsC9IeA" supplier="_tP2mMK6dEeexmuCIN6Rutw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_oErHcK0AEeekPI6hsC9IeA" name="Association">
+        <packagedElement xmi:type="uml:Class" xmi:id="_qxujkK0AEeekPI6hsC9IeA" name="Association_modifications">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_qxujka0AEeekPI6hsC9IeA" name="Association_move"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_HPxSkKdQEee2pt2XW3Ky2w" name="Extension">
+        <packagedElement xmi:type="uml:Class" xmi:id="_LvYG4KdPEee2pt2XW3Ky2w" name="Extension_modifications">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_DObZQKzQEeekPI6hsC9IeA" name="Extension_move"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_IaVoQKdQEee2pt2XW3Ky2w" name="Generalization">
+        <packagedElement xmi:type="uml:Class" xmi:id="_Lyvj8KdPEee2pt2XW3Ky2w" name="Generalization_modifications">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_VUVuMK8fEeee2YU5cusFOw" name="Generalization_modify_general"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_VJZKAKzQEeekPI6hsC9IeA" name="Generalization_modify_general_oldType.isKindOf(newType)"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_VJ7VgKzQEeekPI6hsC9IeA" name="Generalization_modify_general_newType.isKindOf(oldType)"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_VKdhAKzQEeekPI6hsC9IeA" name="Generalization_modify_general_noHierarchicalLink"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_VK93UKzQEeekPI6hsC9IeA" name="Generalization_modify_specialization"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_VLc_gKzQEeekPI6hsC9IeA" name="Generalization_modify_isSubstituable"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_VL8HsKzQEeekPI6hsC9IeA" name="Generalization_move"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_GR-FwK8gEeee2YU5cusFOw" name="Refine1" client="_VKdhAKzQEeekPI6hsC9IeA" supplier="_VUVuMK8fEeee2YU5cusFOw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_G97z4K8gEeee2YU5cusFOw" name="Refine2" client="_VJ7VgKzQEeekPI6hsC9IeA" supplier="_VUVuMK8fEeee2YU5cusFOw"/>
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_HZfHcK8gEeee2YU5cusFOw" name="Refine3" client="_VJZKAKzQEeekPI6hsC9IeA" supplier="_VUVuMK8fEeee2YU5cusFOw"/>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uZDZwJ4REee5QOeiHCkWLg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uZISQJ4REee5QOeiHCkWLg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.4/SysML#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML14_PROFILES/SysML.profile.uml#SysML"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uZL8oJ4REee5QOeiHCkWLg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uZL8oZ4REee5QOeiHCkWLg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.4/SysML#//activities"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML14_PROFILES/SysML.profile.uml#SysML.package_packagedElement_Activities"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uZPnAJ4REee5QOeiHCkWLg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uZPnAZ4REee5QOeiHCkWLg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.4/SysML#//allocations"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML14_PROFILES/SysML.profile.uml#SysML.package_packagedElement_Allocations"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uZQOEJ4REee5QOeiHCkWLg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uZQOEZ4REee5QOeiHCkWLg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.4/SysML#//blocks"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML14_PROFILES/SysML.profile.uml#SysML.package_packagedElement_Blocks"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uZQ1IJ4REee5QOeiHCkWLg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uZRcMJ4REee5QOeiHCkWLg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.4/SysML#//constraintblocks"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML14_PROFILES/SysML.profile.uml#SysML.package_packagedElement_ConstraintBlocks"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uZSDQJ4REee5QOeiHCkWLg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uZSqUJ4REee5QOeiHCkWLg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.4/SysML#//deprecatedelements"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML14_PROFILES/SysML.profile.uml#SysML.package_packagedElement_DeprecatedElements"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uZSqUZ4REee5QOeiHCkWLg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uZTRYJ4REee5QOeiHCkWLg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.4/SysML#//modelelements"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML14_PROFILES/SysML.profile.uml#SysML.package_packagedElement_ModelElements"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uZT4cJ4REee5QOeiHCkWLg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uZT4cZ4REee5QOeiHCkWLg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.4/SysML#//portsandflows"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML14_PROFILES/SysML.profile.uml#SysML.package_packagedElement_Ports_u0026Flows"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uZUfgJ4REee5QOeiHCkWLg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uZVGkJ4REee5QOeiHCkWLg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.4/SysML#//requirements"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML14_PROFILES/SysML.profile.uml#SysML.package_packagedElement_Requirements"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uZVtoJ4REee5QOeiHCkWLg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uZWUsJ4REee5QOeiHCkWLg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <Requirements:Requirement xmi:id="_NbGgEJ4TEee5QOeiHCkWLg" base_Class="_Na-kQJ4TEee5QOeiHCkWLg" id="REQ02" text="The migration tool shall inform the user on which modification are done"/>
+  <Requirements:Requirement xmi:id="_gdXbkJ7NEeeE49hrEZE2jQ" base_Class="_gdLOUJ7NEeeE49hrEZE2jQ" id="REQ01" text="The migration tool shall be able to manage profile evolution"/>
+  <Requirements:Requirement xmi:id="_v4lzcJ7NEeeE49hrEZE2jQ" base_Class="_v4XJ8J7NEeeE49hrEZE2jQ" id="REQ01.1" text="The migration tool shall be able to make report about the evolution of the profile model"/>
+  <Requirements:Requirement xmi:id="_5OLp0J7NEeeE49hrEZE2jQ" base_Class="_5OEVEJ7NEeeE49hrEZE2jQ" id="REQ01.2" text="The migration tool shall be able to migrate model instance to the new version of the profile&#xA;"/>
+  <Requirements:Requirement xmi:id="_KfZswKdPEee2pt2XW3Ky2w" base_Class="_KfP7wKdPEee2pt2XW3Ky2w" id="REQ01.2.01" text="The migration tool shall be able to manage modifications of a Package"/>
+  <Requirements:Requirement xmi:id="_KqVxcKdPEee2pt2XW3Ky2w" base_Class="_KqNOkKdPEee2pt2XW3Ky2w" id="REQ01.2.02" text="The migration tool shall be able to manage modification of a Profile"/>
+  <Requirements:Requirement xmi:id="_K0FjUKdPEee2pt2XW3Ky2w" base_Class="_Kz9AcKdPEee2pt2XW3Ky2w" id="REQ01.2.03" text="The migration tool shall be able to manage modifications of an Enumeration"/>
+  <Requirements:Requirement xmi:id="_K1q3sKdPEee2pt2XW3Ky2w" base_Class="_K1i74KdPEee2pt2XW3Ky2w" id="REQ01.2.04" text="The migration tool shall be able to manage modification of an EnumerationLitteral"/>
+  <Requirements:Requirement xmi:id="_K3D-0KdPEee2pt2XW3Ky2w" base_Class="_K27b8KdPEee2pt2XW3Ky2w" id="REQ01.2.05" text="The migration tool shall be able to manage modification of an ElementImport"/>
+  <Requirements:Requirement xmi:id="_K520IKdPEee2pt2XW3Ky2w" base_Class="_K5tqMKdPEee2pt2XW3Ky2w" id="REQ01.2.06" text="The migration tool shall be able to manage modification of a PackageImport"/>
+  <Requirements:Requirement xmi:id="_K8NkkKdPEee2pt2XW3Ky2w" base_Class="_K8FBsKdPEee2pt2XW3Ky2w" id="REQ01.2.07" text="The migration tool shall be able to manage modification of a Stereotype"/>
+  <Requirements:Requirement xmi:id="_LCB4sKdPEee2pt2XW3Ky2w" base_Class="_LB584KdPEee2pt2XW3Ky2w" id="REQ01.2.08" text="The migration tool shall be able to manage modification of a Property"/>
+  <Requirements:Requirement xmi:id="_LvhQ0KdPEee2pt2XW3Ky2w" base_Class="_LvYG4KdPEee2pt2XW3Ky2w" id="REQ01.2.10" text="The migration tool shall be able to manage modification of an Extension"/>
+  <Requirements:Requirement xmi:id="_Ly4G0KdPEee2pt2XW3Ky2w" base_Class="_Lyvj8KdPEee2pt2XW3Ky2w" id="REQ01.2.11" text="The migration tool shall be able to manage modifications of a Generalization"/>
+  <Requirements:Requirement xmi:id="_m8gzcKq5EeecK7SK84ftVA" base_Class="_m8YQkKq5EeecK7SK84ftVA" id="REQ03" text="The migration tool shall not take into account the modification of the visibility feature"/>
+  <Requirements:Requirement xmi:id="_qAwyIKq6EeecK7SK84ftVA" base_Class="_qAqrgKq6EeecK7SK84ftVA" id="REQ01.3.1" text="The migration tool shall provide a way to configure the choice for many instance (checkbox &quot;apply this action for others&quot;)"/>
+  <Requirements:Requirement xmi:id="_rAfUUKq7EeecK7SK84ftVA" base_Class="_rAYmoKq7EeecK7SK84ftVA" id="REQ05" text="The migration tool shall be able to rename the element when the name is change"/>
+  <Requirements:Requirement xmi:id="_mG7i0KzIEeekPI6hsC9IeA" base_Class="_mG01IKzIEeekPI6hsC9IeA" id="REQ01.2.01.01" text="If a stereotype is added to a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mHZc4KzIEeekPI6hsC9IeA" base_Class="_mHSvMKzIEeekPI6hsC9IeA" id="REQ01.2.01.02" text="If an element import is added to a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mH3-AKzIEeekPI6hsC9IeA" base_Class="_mHwpQKzIEeekPI6hsC9IeA" id="REQ01.2.01.03" text="If a package import is added to a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mIVRAKzIEeekPI6hsC9IeA" base_Class="_mIN8QKzIEeekPI6hsC9IeA" id="REQ01.2.01.04" text="If an association is added to a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mIx88KzIEeekPI6hsC9IeA" base_Class="_mIrPQKzIEeekPI6hsC9IeA" id="REQ01.2.01.05" text="If an enumeration is added to a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mJSTQKzIEeekPI6hsC9IeA" base_Class="_mJJJUKzIEeekPI6hsC9IeA" id="REQ01.2.01.06" text="If an extension is added to a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mJvmQKzIEeekPI6hsC9IeA" base_Class="_mJo4kKzIEeekPI6hsC9IeA" id="REQ01.2.01.07" text="If a package is added to a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mKLrIKzIEeekPI6hsC9IeA" base_Class="_mKE9cKzIEeekPI6hsC9IeA" id="REQ01.2.01.08" text="If a stereotype is added to a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mKo-IKzIEeekPI6hsC9IeA" base_Class="_mKhpYKzIEeekPI6hsC9IeA" id="REQ01.2.01.09" text="If a stereotype is deleted from a Package the migration tool shall delete the stereotype application."/>
+  <Requirements:Requirement xmi:id="_mLItYKzIEeekPI6hsC9IeA" base_Class="_mLB_sKzIEeekPI6hsC9IeA" id="REQ01.2.01.10" text="If a stereotype is deleted from a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mLlZUKzIEeekPI6hsC9IeA" base_Class="_mLeroKzIEeekPI6hsC9IeA" id="REQ01.2.01.11" text="If a package import is deleted from a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mMCFQKzIEeekPI6hsC9IeA" base_Class="_mL7XkKzIEeekPI6hsC9IeA" id="REQ01.2.01.12" text="If an association is deleted from a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mMexMKzIEeekPI6hsC9IeA" base_Class="_mMXccKzIEeekPI6hsC9IeA" id="REQ01.2.01.13" text="If an enumeration is deleted from a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mM8rQKzIEeekPI6hsC9IeA" base_Class="_mM0vcKzIEeekPI6hsC9IeA" id="REQ01.2.01.14" text="If an extension is deleted from a Package the migration tool shall delete &#xA;the stereotype application of this stereotype or ask the designer if he want &#xA;to replace it by a specialization of this stereotype"/>
+  <Requirements:Requirement xmi:id="_mNYwIKzIEeekPI6hsC9IeA" base_Class="_mNSpgKzIEeekPI6hsC9IeA" id="REQ01.2.01.15" text="If a package is deleted from a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mN2DIKzIEeekPI6hsC9IeA" base_Class="_mNvVcKzIEeekPI6hsC9IeA" id="REQ01.2.01.16" text="If a profile is deleted from a package then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mOyeUKzIEeekPI6hsC9IeA" base_Class="_mOrwoKzIEeekPI6hsC9IeA" id="REQ01.2.01.17.1" text="If the package was moved in a profile that is already applied on the profiled &#xA;model then the migration is trivial and every stereotype application shall remain"/>
+  <Requirements:Requirement xmi:id="_mPXtIKzIEeekPI6hsC9IeA" base_Class="_mPQ_cKzIEeekPI6hsC9IeA" id="REQ01.2.01.17.2" text="If the package was moved in a profile that is not already applied on the&#xA;profiled model then the migration tool asks the designer if the profile should &#xA;be applied. If the designer answers 'yes' every stereotype application shall remain&#xA;conversely if the answer is 'no' then every stereotype application shall be deleted"/>
+  <Requirements:Requirement xmi:id="_mQRsEKzIEeekPI6hsC9IeA" base_Class="_mQK-YKzIEeekPI6hsC9IeA" id="REQ01.2.01.18" text="If the URI of a package is modified then the migration tool shall not to anything."/>
+  <Requirements:Requirement xmi:id="_H5dMsKzKEeekPI6hsC9IeA" base_Class="_H5Q_cKzKEeekPI6hsC9IeA" id="REQ01.2.02.01" text="If a stereotype is added to a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H57t0KzKEeekPI6hsC9IeA" base_Class="_H50ZEKzKEeekPI6hsC9IeA" id="REQ01.2.02.02" text="If an element import is added to a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H6aO8KzKEeekPI6hsC9IeA" base_Class="_H6S6MKzKEeekPI6hsC9IeA" id="REQ01.2.02.03" text="If a package import is added to a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H65XIKzKEeekPI6hsC9IeA" base_Class="_H6yCYKzKEeekPI6hsC9IeA" id="REQ01.2.02.04" text="If an association is added to a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H7X4QKzKEeekPI6hsC9IeA" base_Class="_H7QjgKzKEeekPI6hsC9IeA" id="REQ01.2.02.05" text="If an enumeration is added to a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H73AcKzKEeekPI6hsC9IeA" base_Class="_H7vrsKzKEeekPI6hsC9IeA" id="REQ01.2.02.06" text="If an extension is added to a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H8WIoKzKEeekPI6hsC9IeA" base_Class="_H8Oz4KzKEeekPI6hsC9IeA" id="REQ01.2.02.07" text="If a package is added to a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H81Q0KzKEeekPI6hsC9IeA" base_Class="_H8ujIKzKEeekPI6hsC9IeA" id="REQ01.2.02.08" text="If a profile is added to a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H9Tx8KzKEeekPI6hsC9IeA" base_Class="_H9MdMKzKEeekPI6hsC9IeA" id="REQ01.2.02.09" text="If a Stereotype is deleted from a Profile the migration tool shall delete the stereotype application."/>
+  <Requirements:Requirement xmi:id="_H9yTEKzKEeekPI6hsC9IeA" base_Class="_H9q-UKzKEeekPI6hsC9IeA" id="REQ01.2.02.10" text="If an element import is deleted from a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H-Q0MKzKEeekPI6hsC9IeA" base_Class="_H-JfcKzKEeekPI6hsC9IeA" id="REQ01.2.02.11" text="If an package import is deleted from a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H-67gKzKEeekPI6hsC9IeA" base_Class="_H-zmwKzKEeekPI6hsC9IeA" id="REQ01.2.02.12" text="If an association is deleted from a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H_b44KzKEeekPI6hsC9IeA" base_Class="_H_UkIKzKEeekPI6hsC9IeA" id="REQ01.2.02.13" text="If an enumeration is deleted from a Profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_H_6aAKzKEeekPI6hsC9IeA" base_Class="_H_zFQKzKEeekPI6hsC9IeA" id="REQ01.2.02.14" text="If an extension is deleted from a profile the migration tool shall delete &#xA;the stereotype application of this stereotype or ask the designer if he want &#xA;to replace it by a specialization of this stereotype."/>
+  <Requirements:Requirement xmi:id="_IAYUEKzKEeekPI6hsC9IeA" base_Class="_IARmYKzKEeekPI6hsC9IeA" id="REQ01.2.02.15" text="If a package is deleted from a profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_IA3cQKzKEeekPI6hsC9IeA" base_Class="_IAwHgKzKEeekPI6hsC9IeA" id="REQ01.2.02.16" text="If a profile is deleted from a profile then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_ICZtUKzKEeekPI6hsC9IeA" base_Class="_ICRKcKzKEeekPI6hsC9IeA" id="REQ01.2.02.18" text="If the URI of a profile is modified then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_JqyyAKzLEeekPI6hsC9IeA" base_Class="_JqrdQKzLEeekPI6hsC9IeA" id="REQ01.2.01.17.1" text="If the profile was moved in a profile that is already applied on the profiled &#xA;model then the migration is trivial and every stereotype application shall remain."/>
+  <Requirements:Requirement xmi:id="_JrCCkKzLEeekPI6hsC9IeA" base_Class="_JqsEUKzLEeekPI6hsC9IeA" id="REQ01.2.01.17.2" text="If the profile was moved in a profile that is not already applied on the profiled model&#xA; then the migration tool asks the designer if the moved profile should be reapplied. &#xA;If the designer answers 'yes' every stereotype application shall remain conversely if &#xA;the answer is 'no' then every stereotype application shall be deleted."/>
+  <Requirements:Requirement xmi:id="_Ld88QKzMEeekPI6hsC9IeA" base_Class="_LdykMKzMEeekPI6hsC9IeA" id="REQ01.2.03.01" text="If an EnumerationLitteral is added to a Enumeration the migration tool shall not do anything"/>
+  <Requirements:Requirement xmi:id="_LebdYKzMEeekPI6hsC9IeA" base_Class="_LeUIoKzMEeekPI6hsC9IeA" id="REQ01.2.03.01" text="If an enumeration literal is deleted from an enumeration in the profile specification and this&#xA; enumeration is used to type one or many properties of stereotypes then all stereotype&#xA; applications corresponding to the affected stereotype shall be upgraded. The upgrade &#xA;consists for each stereotype application in providing the designer with the possibility to&#xA; update the enumeration literal affected to the property whose specification was changed."/>
+  <Requirements:Requirement xmi:id="_Le7MoKzMEeekPI6hsC9IeA" base_Class="_Lez34KzMEeekPI6hsC9IeA" id="REQ01.2.03.03" text="If the owner of an Enumeration is modified the migration tool shall not do anything"/>
+  <Requirements:Requirement xmi:id="_KtEccKzNEeekPI6hsC9IeA" base_Class="_Ks7SgKzNEeekPI6hsC9IeA" id="REQ01.2.04.01" text="If an EnumerationLiteral is moved to an other Enumeration and the original Enumeration&#xA; is used to type one or many properties of stereotypes then all stereotype applications &#xA;corresponding to the affected stereotype shall be upgraded.The upgrade consists for &#xA;each stereotype application in providing the designer with the possibility to update &#xA;(choose between all remains EnumerationLiteral) the enumeration literal affected to&#xA; the property whose specification was changed."/>
+  <Requirements:Requirement xmi:id="_lJAIsKzNEeekPI6hsC9IeA" base_Class="_lI2XsKzNEeekPI6hsC9IeA" id="REQ01.2.05.01" text="If the alias of a element import is modified then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_lJfQ4KzNEeekPI6hsC9IeA" base_Class="_lJX8IKzNEeekPI6hsC9IeA" id="REQ01.2.05.01" text="If the imported element of an ElementImport is modified and &#xA;the imported element is a type used to type stereotype properties &#xA;then all stereotype applications corresponding to the upgraded &#xA;stereotype specification shall be upgraded. For each stereotype &#xA;application the upgrade consists in the attempt of converting &#xA;(see requirement REQ01.2.08.15) the values referenced by the slot &#xA;corresponding to the property with the changed type. Such conversion &#xA;of values can only occur if the values are not references and the old type &#xA;and the new type are compatible. The compatibility rule between types is &#xA;specified in the UML specification."/>
+  <Requirements:Requirement xmi:id="_lJ-ZEKzNEeekPI6hsC9IeA" base_Class="_lJ3EUKzNEeekPI6hsC9IeA" id="REQ01.2.05.03" text="If the source of a element import is modified then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_lKc6MKzNEeekPI6hsC9IeA" base_Class="_lKVlcKzNEeekPI6hsC9IeA" id="REQ01.2.05.04" text="If the target of a element import is modified then the migration tool shall do as if the importedElement was modified."/>
+  <Requirements:Requirement xmi:id="_lLI2sKzNEeekPI6hsC9IeA" base_Class="_lLBh8KzNEeekPI6hsC9IeA" id="REQ01.2.05.05" text="If an element import is moved then the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_G78ewKzOEeekPI6hsC9IeA" base_Class="_G70i8KzOEeekPI6hsC9IeA" id="REQ01.2.06.01" text="If the imported package of a package import is modified the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_G8bm8KzOEeekPI6hsC9IeA" base_Class="_G8USMKzOEeekPI6hsC9IeA" id="REQ01.2.06.02" text="If the source of a package import is modified the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_G86vIKzOEeekPI6hsC9IeA" base_Class="_G8yzUKzOEeekPI6hsC9IeA" id="REQ01.2.06.03" text="If the target of a package import is modified the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_G9bFcKzOEeekPI6hsC9IeA" base_Class="_G9TwsKzOEeekPI6hsC9IeA" id="REQ01.2.06.04" text="If a package import is move from a package to an other one the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_mS9k8KzOEeekPI6hsC9IeA" base_Class="_mS1CEKzOEeekPI6hsC9IeA" id="REQ01.2.07.01.1" text="If the new property has a default value then each application of the modified &#xA;stereotype in the profiled model has its corresponding slot set with the default value."/>
+  <Requirements:Requirement xmi:id="_mTgXgKzOEeekPI6hsC9IeA" base_Class="_mTV_cKzOEeekPI6hsC9IeA" id="REQ01.2.07.01.2" text="If the new property has no default value but a value is required (the minimal&#xA; multiplicity is greater or equal than 1) then each application of the modified &#xA;stereotype in the profiled model has its corresponding slot, the migration tool &#xA;shall ask the designer to know which value he wants to set. "/>
+  <Requirements:Requirement xmi:id="_mUBU4KzOEeekPI6hsC9IeA" base_Class="_mT4yAKzOEeekPI6hsC9IeA" id="REQ01.2.07.01.3" text="If the new property has no default value and a value is optional (the minimal&#xA; multiplicity is equal to 0) then each application of the modified stereotype &#xA;in the profiled model has it corresponding slot set to null."/>
+  <Requirements:Requirement xmi:id="_mUjgYKzOEeekPI6hsC9IeA" base_Class="_mUcLoKzOEeekPI6hsC9IeA" id="REQ01.2.07.02" text="If a stereotype becomes a specialization of another stereotype then&#xA; any application of the specializing stereotype shall have slots for each&#xA; inherited property. The strategies to automatically set slot values&#xA; expressed in REQ01.2.07.01 and REQ01.2.07.02 shall apply."/>
+  <Requirements:Requirement xmi:id="_mV6LQKzOEeekPI6hsC9IeA" base_Class="_mVvzMKzOEeekPI6hsC9IeA" id="REQ01.2.07.03" text="If a property is deleted from a Stereotype then the migration tool&#xA; shall delete the slot representing this property in each application&#xA; of this stereotype."/>
+  <Requirements:Requirement xmi:id="_mWdk4KzOEeekPI6hsC9IeA" base_Class="_mWWQIKzOEeekPI6hsC9IeA" id="REQ01.2.07.04" text="If a generalization is deleted from a Stereotype then for each application&#xA; of this stereotype the migration tool shall delete each slot corresponding&#xA; of inherited properties."/>
+  <Requirements:Requirement xmi:id="_mYdI8KzOEeekPI6hsC9IeA" base_Class="_mYSJ0KzOEeekPI6hsC9IeA" id="REQ01.2.07.05" text="If a Stereotype becomes concrete then the migration tool should not do anything."/>
+  <Requirements:Requirement xmi:id="_mZKTkKzOEeekPI6hsC9IeA" base_Class="_mY_UcKzOEeekPI6hsC9IeA" id="REQ01.2.07.06" text="If a Stereotype becomes abstract the migration tool shall ask the designer&#xA; if he wants to replace applications of this stereotype by one or many &#xA;Stereotypes pick in a list. This list is defined by all specializations of the&#xA; abstract Stereotype available on applied profiles. If the answer is &quot;no&quot;&#xA; then the application of this stereotype is delete, otherwise selected&#xA; stereotypes are applied and inherited slot are preserved."/>
+  <Requirements:Requirement xmi:id="_mZ23IKzOEeekPI6hsC9IeA" base_Class="_mZsfEKzOEeekPI6hsC9IeA" id="REQ01.2.07.07" text="If the isFinalSpecification feature of a Stereotype is modified then the migration tool should not do anything."/>
+  <Requirements:Requirement xmi:id="_maiMkKzOEeekPI6hsC9IeA" base_Class="_maX0gKzOEeekPI6hsC9IeA" id="REQ01.2.07.08" text="If the redefinedClassifier feature of a Stereotype is modified then the migration tool should not do anything."/>
+  <Requirements:Requirement xmi:id="_mbLs0KzOEeekPI6hsC9IeA" base_Class="_mbB70KzOEeekPI6hsC9IeA" id="REQ01.2.07.09" text="If a Stereotype is moved to another profile then the  migration tool shall focus&#xA; on the preservation of the stereotype applications available at the profiled model."/>
+  <Requirements:Requirement xmi:id="_F3YN8KzPEeekPI6hsC9IeA" base_Class="_F3MnwKzPEeekPI6hsC9IeA" id="REQ01.2.08.01" text="If the isReadOnly feature of a property is modified the migration &#xA;tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_F339MKzPEeekPI6hsC9IeA" base_Class="_F3wocKzPEeekPI6hsC9IeA" id="REQ01.2.08.02" text="If property of a stereotype becomes derived (i.e., its value is computed&#xA; based on a rule) then this latter is also immutable (i.e. read only). This &#xA;implies that any application of the stereotype owning the derived property&#xA; shall be upgraded. The upgrade consists in replacing the user defined&#xA; value (if any) with the value computed from the derivation rule &#xA;implemented for that property."/>
+  <Requirements:Requirement xmi:id="_F4XscKzPEeekPI6hsC9IeA" base_Class="_F4QXsKzPEeekPI6hsC9IeA" id="REQ01.2.08.04" text="If the isDerivedUnion feature of a property is modified the migration &#xA;tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_F5GsQKzPEeekPI6hsC9IeA" base_Class="_F4_XgKzPEeekPI6hsC9IeA" id="REQ01.2.08.05" text="If the aggregation feature of a property is modified the migration &#xA;tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_F5l0cKzPEeekPI6hsC9IeA" base_Class="_F5efsKzPEeekPI6hsC9IeA" id="REQ01.2.08.06" text="If the isID feature of a property is modified the migration &#xA;tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_F6E8oKzPEeekPI6hsC9IeA" base_Class="_F59n4KzPEeekPI6hsC9IeA" id="REQ01.2.08.07" text="If the redefinedProperty feature of a property is modified the migration &#xA;tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_F6kr4KzPEeekPI6hsC9IeA" base_Class="_F6dXIKzPEeekPI6hsC9IeA" id="REQ01.2.08.08" text="If the subsettedProperty feature of a property is modified the migration &#xA;tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_F7DNAKzPEeekPI6hsC9IeA" base_Class="_F674QKzPEeekPI6hsC9IeA" id="REQ01.2.08.09" text="If the default value of a property is modified the migration &#xA;tool shall not do anything"/>
+  <Requirements:Requirement xmi:id="_F7i8QKzPEeekPI6hsC9IeA" base_Class="_F7bngKzPEeekPI6hsC9IeA" id="REQ01.2.08.10" text="If the isOrdered feature of a property is modified the migration &#xA;tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_F8jo4KzPEeekPI6hsC9IeA" base_Class="_F8bGAKzPEeekPI6hsC9IeA" id="REQ01.2.08.11" text="If a property of a stereotype becomes unique and the difference between&#xA; its lower and upper multiplicity is greater than 0 this means that the&#xA; property works as a set (i.e., the same value cannot be referenced multiple&#xA; times by the property)&quot;. This implies that any application of the stereotype &#xA;owning the property that was modified shall ensure the unicity of values in the &#xA;slot corresponding to the property. If such unicity is not observed the any&#xA; duplicated occurrence of the same value is removed from the set. Conversely &#xA;if the unicity is observed then the set of values referenced in the slot remain unchanged."/>
+  <Requirements:Requirement xmi:id="_F9CxEKzPEeekPI6hsC9IeA" base_Class="_F87cUKzPEeekPI6hsC9IeA" id="REQ01.2.08.12" text="If the isUnique feature of a property becomes false the migration &#xA;tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_F9igUKzPEeekPI6hsC9IeA" base_Class="_F9akgKzPEeekPI6hsC9IeA" id="REQ01.2.08.13.1" text="If the lower value is increase, means that&#xA; as many as the lowerValue values are mandatory the migration tool &#xA;shall upgrade each application of the stereotype owning this property.&#xA; The upgrade consist in asking the designer which value he want to set &#xA;on the slot corresponding of this property."/>
+  <Requirements:Requirement xmi:id="_F-BBcKzPEeekPI6hsC9IeA" base_Class="_F95ssKzPEeekPI6hsC9IeA" id="REQ01.2.08.13.2" text="If the lower value is decreased the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_F-gJoKzPEeekPI6hsC9IeA" base_Class="_F-Y04KzPEeekPI6hsC9IeA" id="REQ01.2.08.14.1" text="If the upper value is decrease the migration&#xA; tool shall upgrade each application of the stereotype owning this &#xA;property. The upgrade consist in asking the designer which values he &#xA;wants to keep for the slot corresponding of this property."/>
+  <Requirements:Requirement xmi:id="_F_foIKzPEeekPI6hsC9IeA" base_Class="_F_YTYKzPEeekPI6hsC9IeA" id="REQ01.2.08.14.2" text="If the upper value is increased the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_F_-wUKzPEeekPI6hsC9IeA" base_Class="_F_3bkKzPEeekPI6hsC9IeA" id="REQ01.2.08.15.1" text="If the new type is convertible into the old one then the migration tool &#xA;shall set the convert value to all slot corresponding of the property &#xA;in each application of the owning stereotype. The compatibility rule &#xA;between types is specified in the UML specification."/>
+  <Requirements:Requirement xmi:id="_GAd4gKzPEeekPI6hsC9IeA" base_Class="_GAWjwKzPEeekPI6hsC9IeA" id="REQ01.2.08.15.2" text="If the new type is not convertible into the old one then the migration tool &#xA;shall set the default value to all slot corresponding of the property &#xA;in each application of the owning stereotype."/>
+  <Requirements:Requirement xmi:id="_GB6qAKzPEeekPI6hsC9IeA" base_Class="_GBzVQKzPEeekPI6hsC9IeA" id="REQ01.2.08.16" text="If the isLeaf feature of a property is modified the migration &#xA;tool shall not do anything"/>
+  <Requirements:Requirement xmi:id="_GCbnYKzPEeekPI6hsC9IeA" base_Class="_GCTrkKzPEeekPI6hsC9IeA" id="REQ01.2.08.17" text="If the property becomes static then the migration tool shall change the &#xA;value of every slop corresponding to this property. To determine which &#xA;value the system shall set, it shall ask the designer which value he wants."/>
+  <Requirements:Requirement xmi:id="_GC9y4KzPEeekPI6hsC9IeA" base_Class="_GC0B4KzPEeekPI6hsC9IeA" id="REQ01.2.08.18" text="If a property is moved from a stereotype to an other stereotype the migration &#xA;tool shall consider this change as a delete of the property and an add of the &#xA;same property to an other stereotype. Strategies to delete a property from &#xA;a stereotype (REQ01.2.07.03) and to add a property to a stereotype &#xA;(REQ01.2.07.01) shall apply."/>
+  <Requirements:Requirement xmi:id="_DOkjMKzQEeekPI6hsC9IeA" base_Class="_DObZQKzQEeekPI6hsC9IeA" id="REQ01.2.10.01" text="If an extension is move from a package to an other one the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_VJi7AKzQEeekPI6hsC9IeA" base_Class="_VJZKAKzQEeekPI6hsC9IeA" id="REQ01.2.11.01.1" text="If the generalizing stereotype is changed and the old general stereotype&#xA; generalize the new general stereotype then only property of the new &#xA;general stereotype shall be preserve other shall be deleted. This implies&#xA; that any application of the specializing stereotype or one of its &#xA;specialization shall be upgrade. The upgrade consists in the removal of &#xA;slot corresponding to properties which are not inherited from the new &#xA;general type or specific to the specializing stereotype. The rules describing&#xA; the strategy for the removal of property of a stereotype are described &#xA;in REQ01.2.07.03."/>
+  <Requirements:Requirement xmi:id="_VKCDMKzQEeekPI6hsC9IeA" base_Class="_VJ7VgKzQEeekPI6hsC9IeA" id="REQ01.2.11.01.2" text="If the generalizing stereotype is changed and the new general stereotype&#xA; generalize the old general stereotype then the properties of the new &#xA;general stereotype are inherited. This implies that any application of &#xA;the specializing stereotype or one of its specialization shall be upgrade. &#xA;The upgrade consists in the addition of slots corresponding to newly &#xA;inherited properties (if any).  The rules describing the strategy to assign &#xA;values to the new slots are described in REQ01.2.07.01."/>
+  <Requirements:Requirement xmi:id="_VKk1wKzQEeekPI6hsC9IeA" base_Class="_VKdhAKzQEeekPI6hsC9IeA" id="REQ01.2.11.01.3" text="If the generalizing stereotype is changed without any relation of &#xA;generalization between the new general stereotype and the old one then &#xA;properties of the old general stereotype are not anymore accessible &#xA;while the properties of the new general stereotype are inherited. &#xA;This implies that any application of the specializing stereotype or one&#xA; of its specialization shall be upgraded. The upgrade consists in the &#xA;removal of slot corresponding to properties inherited from the old &#xA;general stereotype and the addition of slots corresponding to newly &#xA;inherited properties (if any). The rules describing the strategy to assign &#xA;values to the new slots are described in REQ01.2.07.01.  The rules describing&#xA; the strategy for the removal of property of a stereotype are described &#xA;in REQ01.2.07.03."/>
+  <Requirements:Requirement xmi:id="_VLFMEKzQEeekPI6hsC9IeA" base_Class="_VK93UKzQEeekPI6hsC9IeA" id="REQ01.2.11.02" text="If a generalization relationship between stereotypes is modified in the &#xA;profile specification and this modification consists in changing the specializing&#xA; stereotype then all inherited property are not anymore accessible from the old&#xA; specialization and are now available from the new specialization. This implies that &#xA;two types of upgrade shall be done. The first one concern any application of the &#xA;old specializing stereotype or one of its specialization, where the upgrade consists&#xA; in the removal of slot corresponding to properties inherited from the old general&#xA; stereotype. The second upgrade concern any application of the new specializing &#xA;stereotype or one of its specialization where the upgrade consist in addition of &#xA;slots corresponding to newly inherited properties(if any).  The rules describing &#xA;the strategy to assign values to the new slots are described in REQ01.2.07.01.  &#xA;The rules describing the strategy for the removal of property of a stereotype &#xA;are described in REQ01.2.07.03."/>
+  <Requirements:Requirement xmi:id="_VLkUQKzQEeekPI6hsC9IeA" base_Class="_VLc_gKzQEeekPI6hsC9IeA" id="REQ01.2.11.03" text=" If the isSubstituable feature of a Generalization is modified then&#xA; the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_VMEqkKzQEeekPI6hsC9IeA" base_Class="_VL8HsKzQEeekPI6hsC9IeA" id="REQ01.2.11.04" text="If the generalization is move from a stereotype to another one means&#xA; that the specialization of this generalization is changed then the rule &#xA;describing the modification of the specialization in REQ01.2.11.02 &#xA;shall be apply."/>
+  <Requirements:Requirement xmi:id="_b9E2wKzwEeekPI6hsC9IeA" base_Class="_b87s0KzwEeekPI6hsC9IeA" id="REQ01.3" text="The migration tool shall provide a user interface to let the user make choices"/>
+  <Requirements:Requirement xmi:id="_sZPQwKz8EeekPI6hsC9IeA" base_Class="_sZJxMKz8EeekPI6hsC9IeA" id="REQ01.2.08.03" text="If the isDerived feature of a property becomes false the migration &#xA;tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_qx0qMK0AEeekPI6hsC9IeA" base_Class="_qxujkK0AEeekPI6hsC9IeA" id="REQ01.2.09" text="The migration tool shall be able to manage modification of an Association"/>
+  <Requirements:Requirement xmi:id="_qyFI4K0AEeekPI6hsC9IeA" base_Class="_qxujka0AEeekPI6hsC9IeA" id="REQ01.2.09.01" text="If an association is move from a package to an other one the migration tool shall not do anything."/>
+  <Requirements:Requirement xmi:id="_h6_0UK59EeexmuCIN6Rutw" base_Class="_h6v8sK59EeexmuCIN6Rutw" id="REQ01.2.01.17" text="If a package is moved to another profile then the migration tool shall focus&#xA;on the preservation of the stereotype applications available at the profiled model"/>
+  <Requirements:Refine xmi:id="_7nWL0K5_EeexmuCIN6Rutw" base_DirectedRelationship="_7nNo8K5_EeexmuCIN6Rutw" base_Abstraction="_7nNo8K5_EeexmuCIN6Rutw"/>
+  <Requirements:Refine xmi:id="_8yVYQK5_EeexmuCIN6Rutw" base_DirectedRelationship="_8yLnQK5_EeexmuCIN6Rutw" base_Abstraction="_8yLnQK5_EeexmuCIN6Rutw"/>
+  <Requirements:Requirement xmi:id="_N5YG0K6CEeexmuCIN6Rutw" base_Class="_N5QLAK6CEeexmuCIN6Rutw" id="REQ01.2.01.17" text="If a profile is moved to another profile then the  migration tool shall focus&#xA;on the preservation of the stereotype applications available at the profiled model."/>
+  <Requirements:Refine xmi:id="_5_-eAK6CEeexmuCIN6Rutw" base_DirectedRelationship="_5_2iMK6CEeexmuCIN6Rutw" base_Abstraction="_5_2iMK6CEeexmuCIN6Rutw"/>
+  <Requirements:Refine xmi:id="_7BJAEK6CEeexmuCIN6Rutw" base_DirectedRelationship="_7A-oAK6CEeexmuCIN6Rutw" base_Abstraction="_7A-oAK6CEeexmuCIN6Rutw"/>
+  <Requirements:Requirement xmi:id="_B3esIK6LEeexmuCIN6Rutw" base_Class="_B3U7IK6LEeexmuCIN6Rutw" id="REQ01.2.07.01" text="If a Stereotype is updated with a new property then a slot for this &#xA;property shall be available for each application of the stereotype&#xA;in the profile model."/>
+  <Requirements:Refine xmi:id="_swcykK6LEeexmuCIN6Rutw" base_DirectedRelationship="_swTooK6LEeexmuCIN6Rutw" base_Abstraction="_swTooK6LEeexmuCIN6Rutw"/>
+  <Requirements:Refine xmi:id="_txrmEK6LEeexmuCIN6Rutw" base_DirectedRelationship="_txhOAK6LEeexmuCIN6Rutw" base_Abstraction="_txhOAK6LEeexmuCIN6Rutw"/>
+  <Requirements:Refine xmi:id="_u9cOkK6LEeexmuCIN6Rutw" base_DirectedRelationship="_u9TrsK6LEeexmuCIN6Rutw" base_Abstraction="_u9TrsK6LEeexmuCIN6Rutw"/>
+  <Requirements:Requirement xmi:id="_bPDz4K6VEeexmuCIN6Rutw" base_Class="_bO8fIK6VEeexmuCIN6Rutw" id="REQ01.2.07.09.1" text="If the stereotype was moved in a profile that is already applied on the &#xA;profiled model then the migration is trivial and every application of &#xA;this stereotype shall remain"/>
+  <Requirements:Requirement xmi:id="_banjoK6VEeexmuCIN6Rutw" base_Class="_bagO4K6VEeexmuCIN6Rutw" id="REQ01.2.07.09.2" text="If the stereotype was moved in a profile that is not already applied on the &#xA;profiled model then the migration tool asks the designer if the profile&#xA; should be applied. If the designer answers 'yes' every application of this &#xA;stereotype shall remain conversely if the answer is 'no' then every &#xA;application of this stereotype shall be deleted."/>
+  <Requirements:Refine xmi:id="_RI0uQK6WEeexmuCIN6Rutw" base_DirectedRelationship="_RIsLYK6WEeexmuCIN6Rutw" base_Abstraction="_RIsLYK6WEeexmuCIN6Rutw"/>
+  <Requirements:Refine xmi:id="_SEj9wK6WEeexmuCIN6Rutw" base_DirectedRelationship="_SEaz0K6WEeexmuCIN6Rutw" base_Abstraction="_SEaz0K6WEeexmuCIN6Rutw"/>
+  <Requirements:Requirement xmi:id="_He5fQK6ZEeexmuCIN6Rutw" base_Class="_HeyKgK6ZEeexmuCIN6Rutw" id="REQ01.2.08.13" text="If the loverValue feature of a property is modified then the migration &#xA;tool shall maintain the validity of the model."/>
+  <Requirements:Refine xmi:id="_Og6ekK6bEeexmuCIN6Rutw" base_DirectedRelationship="_OgxUoK6bEeexmuCIN6Rutw" base_Abstraction="_OgxUoK6bEeexmuCIN6Rutw"/>
+  <Requirements:Refine xmi:id="_QIPowK6bEeexmuCIN6Rutw" base_DirectedRelationship="_QIHF4K6bEeexmuCIN6Rutw" base_Abstraction="_QIHF4K6bEeexmuCIN6Rutw"/>
+  <Requirements:Requirement xmi:id="_UINeQK6bEeexmuCIN6Rutw" base_Class="_UIHXoK6bEeexmuCIN6Rutw" id="REQ01.2.08.14" text="If the upper value of a property is modified then the migration &#xA;tool shall maintain the validity of the model"/>
+  <Requirements:Refine xmi:id="_fpyrEK6bEeexmuCIN6Rutw" base_DirectedRelationship="_fpphIK6bEeexmuCIN6Rutw" base_Abstraction="_fpphIK6bEeexmuCIN6Rutw"/>
+  <Requirements:Refine xmi:id="_g5ibsK6bEeexmuCIN6Rutw" base_DirectedRelationship="_g5Z40K6bEeexmuCIN6Rutw" base_Abstraction="_g5Z40K6bEeexmuCIN6Rutw"/>
+  <Requirements:Requirement xmi:id="_tP9T4K6dEeexmuCIN6Rutw" base_Class="_tP2mMK6dEeexmuCIN6Rutw" id="REQ01.2.08.15" text="If the type of a property is changes the migration tool shall change the value &#xA;of the slot corresponding of the property in each application of the owning &#xA;stereotype."/>
+  <Requirements:Refine xmi:id="_A_INMK6eEeexmuCIN6Rutw" base_DirectedRelationship="_A-_qUK6eEeexmuCIN6Rutw" base_Abstraction="_A-_qUK6eEeexmuCIN6Rutw"/>
+  <Requirements:Refine xmi:id="_CHPEwK6eEeexmuCIN6Rutw" base_DirectedRelationship="_CHGh4K6eEeexmuCIN6Rutw" base_Abstraction="_CHGh4K6eEeexmuCIN6Rutw"/>
+  <Requirements:Requirement xmi:id="_VUamsK8fEeee2YU5cusFOw" base_Class="_VUVuMK8fEeee2YU5cusFOw" id="REQ01.2.11.01" text="If a generalization relationship between stereotypes is modified in the &#xA;profile specification and this modification consists in changing the generalizing&#xA; stereotype then the migration tool shall focus on the preservation of slot &#xA;corresponding to inherited properties."/>
+  <Requirements:Refine xmi:id="_GSMvQK8gEeee2YU5cusFOw" base_DirectedRelationship="_GR-FwK8gEeee2YU5cusFOw" base_Abstraction="_GR-FwK8gEeee2YU5cusFOw"/>
+  <Requirements:Refine xmi:id="_G-GL8K8gEeee2YU5cusFOw" base_DirectedRelationship="_G97z4K8gEeee2YU5cusFOw" base_Abstraction="_G97z4K8gEeee2YU5cusFOw"/>
+  <Requirements:Refine xmi:id="_HZo4cK8gEeee2YU5cusFOw" base_DirectedRelationship="_HZfHcK8gEeee2YU5cusFOw" base_Abstraction="_HZfHcK8gEeee2YU5cusFOw"/>
+</xmi:XMI>

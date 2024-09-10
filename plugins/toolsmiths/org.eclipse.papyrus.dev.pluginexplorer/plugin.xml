@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.papyrus.dev.views.category"
+            class="org.eclipse.papyrus.dev.pluginexplorer.PluginsContentView"
+            icon="icons/plugin_obj.gif"
+            id="org.eclipse.papyrus.dev.pluginexplorer.PluginsContentView"
+            name="%view.name">
+      </view>
+      <category
+            id="org.eclipse.papyrus.dev.views.category"
+            name="%category.name" >
+      </category>
+   </extension>
+
+</plugin>

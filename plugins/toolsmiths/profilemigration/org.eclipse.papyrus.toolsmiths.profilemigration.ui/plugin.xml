@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.papyrus.uml.tools.profileApplicationDelegate"
+            class="org.eclipse.papyrus.toolsmiths.profilemigration.ui.preferences.ProfileMigrationPreferencePage"
+            id="com.cea.profile.migration.tool.ui.ProfileMigrationToolPreferencePage"
+            name="Profile Migration Tool">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.eclipse.papyrus.toolsmiths.profilemigration.ui.preferences.ProfileMigrationInitializer">
+      </initializer>
+   </extension>
+
+</plugin>

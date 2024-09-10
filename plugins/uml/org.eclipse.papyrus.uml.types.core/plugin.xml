@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated SetTypeAdvice -->
+      <package
+            uri="http://www.eclipse.org/papyrus/uml/types/settypeadvice/1.1"
+            class="org.eclipse.papyrus.uml.types.core.advices.settype.SetTypeAdviceConfigurationPackage"
+            genModel="model/SetTypeAdvice.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated SetTypeAdvice -->
+      <factory
+            uri="http://www.eclipse.org/papyrus/uml/types/settypeadvice/1.1"
+            class="org.eclipse.papyrus.uml.types.core.advices.settype.provider.SetTypeAdviceConfigurationItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.childCreationExtenders">
+      <!-- @generated SetTypeAdvice -->
+      <extender
+            uri="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2"
+            class="org.eclipse.papyrus.uml.types.core.advices.settype.provider.SetTypeAdviceConfigurationItemProviderAdapterFactory$ElementTypesConfigurationsChildCreationExtender"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated InvariantStereotypeRule -->
+      <package
+            uri="http://www.eclipse.org/papyrus/uml/types/invariantstereotyperule/1.1"
+            class="org.eclipse.papyrus.uml.types.core.rules.invariantstereotype.InvariantStereotypeRuleConfigurationPackage"
+            genModel="model/InvariantStereotypeRule.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated InvariantStereotypeRule -->
+      <parser
+            type="invariantstereotyperuleconfiguration"
+            class="org.eclipse.papyrus.uml.types.core.rules.invariantstereotype.util.InvariantStereotypeRuleConfigurationResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated InvariantStereotypeRule -->
+      <factory
+            uri="http://www.eclipse.org/papyrus/uml/types/invariantstereotyperule/1.1"
+            class="org.eclipse.papyrus.uml.types.core.rules.invariantstereotype.provider.InvariantStereotypeRuleConfigurationItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.childCreationExtenders">
+      <!-- @generated InvariantStereotypeRule -->
+      <extender
+            uri="http://www.eclipse.org/papyrus/infra/types/rulebased/1.1"
+            class="org.eclipse.papyrus.uml.types.core.rules.invariantstereotype.provider.InvariantStereotypeRuleConfigurationItemProviderAdapterFactory$RuleBasedChildCreationExtender"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated ApplyStereotypeAdvice -->
+      <package
+            uri="http://www.eclipse.org/papyrus/uml/types/applystereotypeadvice/1.1"
+            class="org.eclipse.papyrus.uml.types.core.advices.applystereotype.ApplyStereotypeAdvicePackage"
+            genModel="model/ApplyStereotypeAdvice.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated ApplyStereotypeAdvice -->
+      <parser
+            type="applystereotypeadvice"
+            class="org.eclipse.papyrus.uml.types.core.advices.applystereotype.util.ApplyStereotypeAdviceResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated ApplyStereotypeAdvice -->
+      <factory
+            uri="http://www.eclipse.org/papyrus/uml/types/applystereotypeadvice/1.1"
+            class="org.eclipse.papyrus.uml.types.core.advices.applystereotype.provider.ApplyStereotypeAdviceItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.childCreationExtenders">
+      <!-- @generated ApplyStereotypeAdvice -->
+      <extender
+            uri="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2"
+            class="org.eclipse.papyrus.uml.types.core.advices.applystereotype.provider.ApplyStereotypeAdviceItemProviderAdapterFactory$ElementTypesConfigurationsChildCreationExtender"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated StereotypeMatcher -->
+      <package
+            uri="http://www.eclipse.org/papyrus/uml/types/stereotypematcher/1.1"
+            class="org.eclipse.papyrus.uml.types.core.matchers.stereotype.StereotypeApplicationMatcherPackage"
+            genModel="model/StereotypeMatcher.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated StereotypeMatcher -->
+      <parser
+            type="stereotypeapplicationmatcher"
+            class="org.eclipse.papyrus.uml.types.core.matchers.stereotype.util.StereotypeApplicationMatcherResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated StereotypeMatcher -->
+      <factory
+            uri="http://www.eclipse.org/papyrus/uml/types/stereotypematcher/1.1"
+            class="org.eclipse.papyrus.uml.types.core.matchers.stereotype.provider.StereotypeApplicationMatcherItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.childCreationExtenders">
+      <!-- @generated StereotypeMatcher -->
+      <extender
+            uri="http://www.eclipse.org/Papyrus/2021/types/constraints"
+            class="org.eclipse.papyrus.uml.types.core.matchers.stereotype.provider.StereotypeApplicationMatcherItemProviderAdapterFactory$ConstraintAdviceChildCreationExtender"/>
+      <extender
+            uri="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2"
+            class="org.eclipse.papyrus.uml.types.core.matchers.stereotype.provider.StereotypeApplicationMatcherItemProviderAdapterFactory$ElementTypesConfigurationsChildCreationExtender"/>
+   </extension>
+
+   <extension
+         point="org.eclipse.papyrus.infra.types.core.adviceConfigurationKind">
+      <adviceConfigurationKind
+            configurationClass="org.eclipse.papyrus.uml.types.core.advices.applystereotype.ApplyStereotypeAdviceConfiguration"
+            description="Set stereotypes to apply"
+            factoryClass="org.eclipse.papyrus.uml.types.core.advices.applystereotype.ApplyStereotypeAdviceConfigurationFactory"
+            icon="icons/Stereotype.gif">
+      </adviceConfigurationKind>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.types.core.adviceConfigurationKind">
+      <adviceConfigurationKind
+            configurationClass="org.eclipse.papyrus.uml.types.core.advices.settype.SetTypeAdviceConfiguration"
+            factoryClass="org.eclipse.papyrus.uml.types.core.advices.settype.SetTypeAdviceFactory">
+      </adviceConfigurationKind>
+   </extension>
+      <extension
+         point="org.eclipse.papyrus.infra.types.core.adviceConfigurationKind">
+      <adviceConfigurationKind
+            configurationClass="org.eclipse.papyrus.uml.types.core.advices.stereotypepropertyreferenceedgeadvice.StereotypePropertyReferenceEdgeAdviceConfiguration"
+            factoryClass="org.eclipse.papyrus.uml.types.core.advices.stereotypereferencelink.StereotypePropertyReferenceEdgeAdviceConfigurationFactory">
+      </adviceConfigurationKind>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.types.core.adviceConfigurationKind">
+      <adviceConfigurationKind
+            configurationClass="org.eclipse.papyrus.uml.types.core.matchers.stereotype.StereotypeMatcherAdviceConfiguration"
+            factoryClass="org.eclipse.papyrus.uml.types.core.matchers.stereotype.StereotypeMatcherAdviceAdviceFactory">
+      </adviceConfigurationKind>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.types.rulebased.ruleKind">
+      <ruleKind
+            configurationClass="org.eclipse.papyrus.uml.types.core.rules.invariantstereotype.InvariantStereotypeRuleConfiguration"
+            ruleClass="org.eclipse.papyrus.uml.types.core.rules.invariantstereotype.InvariantStereotypeRule">
+      </ruleKind>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.types.core.matcherConfigurationKind">
+      <matcherConfigurationKind
+            configurationClass="org.eclipse.papyrus.uml.types.core.matchers.stereotype.StereotypeApplicationMatcherConfiguration"
+            factoryClass="org.eclipse.papyrus.uml.types.core.matchers.stereotype.StereotypeApplicationMatcherConfigurationFactory">
+      </matcherConfigurationKind>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.types.core.matcherConfigurationKind">
+      <matcherConfigurationKind
+            configurationClass="org.eclipse.papyrus.uml.types.core.matchers.stereotype.StereotypeMatcherAdviceConfiguration"
+            factoryClass="org.eclipse.papyrus.uml.types.core.matchers.stereotype.StereotypeApplicationMatcherConfigurationFactory">
+      </matcherConfigurationKind>
+   </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated StereotypePropertyReferenceEdgeAdvice -->
+      <package
+            uri="http://www.eclipse.org/papyrus/uml/types/stereotypepropertyreferenceedgeadvice/1.0"
+            class="org.eclipse.papyrus.uml.types.core.advices.stereotypepropertyreferenceedgeadvice.StereotypePropertyReferenceEdgeAdvicePackage"
+            genModel="model/StereotypePropertyReferenceEdgeAdvice.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated StereotypePropertyReferenceEdgeAdvice -->
+      <factory
+            uri="http://www.eclipse.org/papyrus/uml/types/stereotypepropertyreferenceedgeadvice/1.0"
+            class="org.eclipse.papyrus.uml.types.core.advices.stereotypepropertyreferenceedgeadvice.provider.StereotypePropertyReferenceEdgeAdviceItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.childCreationExtenders">
+      <!-- @generated StereotypePropertyReferenceEdgeAdvice -->
+      <extender
+            uri="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2"
+            class="org.eclipse.papyrus.uml.types.core.advices.stereotypepropertyreferenceedgeadvice.provider.StereotypePropertyReferenceEdgeAdviceItemProviderAdapterFactory$ElementTypesConfigurationsChildCreationExtender"/>
+   </extension>
+</plugin>

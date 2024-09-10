@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nattableconfiguration:TableConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisconfiguration="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:nattableconfiguration="http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration" xmlns:nattablelabelprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattablecontentprovider" xmlns:nattablestyle="http://www.eclipse.org/papyrus/nattable/model/table/nattablestyle" xmlns:umlexpressions="http://www.eclipse.org/papyrus/umlexpressions" xmi:id="PapyrusGenericTable_XMI_ID" description="The generic table allows to edit all UML elements of your model" name="ExampleGenericTreeTableEmptyLines" type="ExampleGenericTreeTableEmptyLines" iconPath="platform:/plugin/org.eclipse.papyrus.example.uml.nattable.actions/icons/table.png" cellEditorDeclaration="COLUMN" defaultRowAxisProvider="_P0EFGDzQEei_1txcmoHe_A" defaultColumnAxisProvider="_P0EFFzzQEei_1txcmoHe_A">
+  <styles xmi:type="nattablestyle:StringListValueStyle" xmi:id="_P0DeATzQEei_1txcmoHe_A" name="dragRegions">
+    <stringListValue>ROW_HEADER</stringListValue>
+  </styles>
+  <styles xmi:type="nattablestyle:TableDisplayStyle" xmi:id="_1s_a4HffEeqHO-J8mZDC6w" displayStyle="HIERARCHIC_SINGLE_TREE_COLUMN"/>
+  <styles xmi:type="nattablestyle:BooleanValueStyle" xmi:id="_nt5TsHfoEeqHO-J8mZDC6w" name="expandAll" booleanValue="true"/>
+  <styles xmi:type="nattablestyle:IntListValueStyle" xmi:id="_KX0DIHfrEeqHO-J8mZDC6w" name="hiddenCategoriesByDepth">
+    <intListValue>0</intListValue>
+  </styles>
+  <rowHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:TableHeaderAxisConfiguration" xmi:id="_P0DeAzzQEei_1txcmoHe_A" indexStyle="NUMERIC" displayLabel="true" displayFilter="false" displayIndex="true">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:ObjectLabelProviderConfiguration" xmi:id="_P0DeBDzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true"/>
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" xmi:id="_q_1fMHfgEeqHO-J8mZDC6w" displayIcon="true" displayLabel="true" displayIsDerived="true" displayType="true" displayMultiplicity="true" displayName="true"/>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:TreeFillingConfiguration" xmi:id="_0iyjgHfdEeqHO-J8mZDC6w" labelProvider="_q_1fMHfgEeqHO-J8mZDC6w" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.treefilling.feature.labelprovider">
+      <axisUsedAsAxisProvider xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_HWYlYHfeEeqHO-J8mZDC6w">
+        <element xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package/packagedElement"/>
+      </axisUsedAsAxisProvider>
+      <filterRule xmi:type="umlexpressions:IsTypeOfExpression" xmi:id="_M56_EHfhEeqHO-J8mZDC6w">
+        <umlEClass xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+      </filterRule>
+    </ownedAxisConfigurations>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_P0EFEDzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.example.uml.nattable.empty.line.managers.axis.CustomEmptyLineUMLElementTreeAxisManagerForEventList" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.labelprovider" headerLabelConfiguration="_P0DeBDzQEei_1txcmoHe_A" specificAxisConfigurations="_0iyjgHfdEeqHO-J8mZDC6w"/>
+  </rowHeaderAxisConfiguration>
+  <columnHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:TableHeaderAxisConfiguration" xmi:id="_P0EFETzQEei_1txcmoHe_A" displayLabel="true" displayFilter="false" displayIndex="true">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" xmi:id="_P0EFEjzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayIsDerived="true" displayType="true" displayMultiplicity="true" displayName="true"/>
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:OperationLabelProviderConfiguration" xmi:id="_P0EFEzzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayType="true" displayMultiplicity="true" displayName="true"/>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_P0EFFDzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.uml.nattable.feature.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.feature.labelprovider" headerLabelConfiguration="_P0EFEjzQEei_1txcmoHe_A"/>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_P0EFFTzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.uml.nattable.stereotype.property.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.feature.labelprovider" headerLabelConfiguration="_P0EFEjzQEei_1txcmoHe_A"/>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_P0EFFjzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.uml.nattable.operation.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.operation.labelprovider" headerLabelConfiguration="_P0EFEzzQEei_1txcmoHe_A"/>
+  </columnHeaderAxisConfiguration>
+  <columnAxisProviders xmi:type="nattableaxisprovider:SlaveObjectAxisProvider" xmi:id="_P0EFFzzQEei_1txcmoHe_A" description="This axis provider provides available columns according to the rows of the table (features of the object displayed on the other axis)" name="UML Feature axis provider">
+    <axis xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_IPd0YHfcEeqHO-J8mZDC6w" manager="_P0EFFDzQEei_1txcmoHe_A">
+      <element xmi:type="ecore:EAttribute" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+    </axis>
+  </columnAxisProviders>
+  <rowAxisProviders xmi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_P0EFGDzQEei_1txcmoHe_A" description="This axis provider contains the object dropped by the user into the table" name="DroppedElementAxisProvider" disconnectSlave="true"/>
+</nattableconfiguration:TableConfiguration>

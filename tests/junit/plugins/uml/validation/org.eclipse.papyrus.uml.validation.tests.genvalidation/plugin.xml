@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse version="3.4"?><plugin>
+<extension name="dsml.validation.generated.profile" point="org.eclipse.emf.validation.constraintProviders">
+      <category id="org.eclipse.papyrus.uml.validation.tests.genvalidation.profile" mandatory="false" name="org.eclipse.papyrus.uml.validation.tests.genvalidation.profile"/>
+      <constraintProvider cache="false" mode="Batch">
+         <package namespaceUri="http://org.eclipse.papyrus/activetest/1"/>
+         <constraints categories="org.eclipse.papyrus.uml.validation.tests.genvalidation.profile">
+            <constraint id="profile.AlwaysActive.ConstraintAlwaysActive" isEnabledByDefault="true" lang="OCLpivot" mode="Batch" name="ConstraintAlwaysActive" severity="ERROR" statusCode="1">
+               <message>Custom message</message><![CDATA[base_Class.isActive]]></constraint>
+            <constraint id="profile.AlwaysActiveMalformed.ConstraintAlwaysActiveMF" isEnabledByDefault="true" lang="OCLpivot" mode="Batch" name="ConstraintAlwaysActiveMF" severity="ERROR" statusCode="1">
+               <message>Constraint 'ConstraintAlwaysActiveMF' is violated</message><![CDATA[self.oclAsType(Class).isActive]]></constraint>
+            <constraint class="org.eclipse.papyrus.uml.validation.tests.genvalidation.constraints.AlwaysPassiveConstraint" id="profile.AlwaysPassiveJava.AlwaysPassive" isEnabledByDefault="true" lang="Java" mode="Batch" name="AlwaysPassive" severity="ERROR" statusCode="1">
+               <message>Constraint 'AlwaysPassive' is violated</message>
+            </constraint>
+         </constraints>
+      </constraintProvider>
+   </extension>
+   <extension name="dsml.validation.generated.profile" point="org.eclipse.emf.validation.constraintBindings">
+      <clientContext id="AlwaysActiveMalformedClientContext">
+         <selector class="org.eclipse.papyrus.uml.validation.tests.genvalidation.selectors.AlwaysActiveMalformedClientSelector"/>
+      </clientContext>
+      <binding context="AlwaysActiveMalformedClientContext">
+         <constraint ref="org.eclipse.papyrus.uml.validation.tests.genvalidation.profile.AlwaysActiveMalformed.ConstraintAlwaysActiveMF"/>
+      </binding>
+      <clientContext id="AlwaysPassiveJavaClientContext">
+         <selector class="org.eclipse.papyrus.uml.validation.tests.genvalidation.selectors.AlwaysPassiveJavaClientSelector"/>
+      </clientContext>
+      <binding context="AlwaysPassiveJavaClientContext">
+         <constraint ref="org.eclipse.papyrus.uml.validation.tests.genvalidation.profile.AlwaysPassiveJava.AlwaysPassive"/>
+      </binding>
+      <clientContext id="AlwaysActiveClientContext">
+         <selector class="org.eclipse.papyrus.uml.validation.tests.genvalidation.selectors.AlwaysActiveClientSelector"/>
+      </clientContext>
+      <binding context="AlwaysActiveClientContext">
+         <constraint ref="org.eclipse.papyrus.uml.validation.tests.genvalidation.profile.AlwaysActive.ConstraintAlwaysActive"/>
+      </binding>
+   </extension>
+</plugin>

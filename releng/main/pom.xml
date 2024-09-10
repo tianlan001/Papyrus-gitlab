@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.papyrus</groupId>
+		<artifactId>org.eclipse.papyrus.all.releng</artifactId>
+		<version>7.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>org.eclipse.papyrus.main.releng</artifactId>
+	<packaging>pom</packaging>
+
+	<properties>
+		<!-- https://repo.maven.apache.org/maven2/ -->
+		<mojo.buildhelper.version>3.4.0</mojo.buildhelper.version>
+		<mylyn.wikitext.version>3.0.42</mylyn.wikitext.version>
+
+		<target.platform>org.eclipse.papyrus.main.targetplatform</target.platform>
+	</properties>
+
+	<modules>
+		<module>../../plugins</module>
+		<module>../../examples</module>
+		<module>../../features/papyrus-main-features</module>
+		<module>../../features/papyrus.user.examples-features</module>
+		<module>targetPlatform</module>
+	</modules>
+
+	<build>
+		<pluginManagement>
+			<!-- redistributed plugins -->
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-p2-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<executions>
+						<execution>
+							<id>attach-p2-metadata</id>
+							<phase>package</phase>
+							<goals>
+								<goal>p2-metadata</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<defaultP2Metadata>false</defaultP2Metadata>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${mojo.buildhelper.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.mylyn.docs</groupId>
+					<artifactId>org.eclipse.mylyn.wikitext.maven</artifactId>
+					<version>${mylyn.wikitext.version}</version>
+				</plugin>
+
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.eclipse.mylyn.docs
+										</groupId>
+										<artifactId>
+											org.eclipse.mylyn.wikitext.maven
+										</artifactId>
+										<versionRange>
+											[7.0.0-SNAPSHOT,)
+										</versionRange>
+										<goals>
+											<goal>eclipse-help</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<!-- Test local parameters <plugin> <groupId>org.apache.maven.plugins</groupId> 
+				<artifactId>maven-antrun-plugin</artifactId> <version>3.0.0</version> <executions> 
+				<execution> <phase>validate</phase> <goals> <goal>run</goal> </goals> <configuration> 
+				<target> <echoproperties /> </target> </configuration> </execution> </executions> 
+				</plugin -->
+			<!-- local plugins -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-repository-plugin</artifactId>
+			</plugin>
+
+			<!-- Sources -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>feature-source</id>
+						<goals>
+							<goal>feature-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<sourceReferences>
+						<generate>true</generate>
+					</sourceReferences>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.tycho.extras</groupId>
+						<artifactId>tycho-sourceref-jgit</artifactId>
+						<version>${tychoExtrasVersion}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- No profile: Don't produce any artifact (update site). Used by Gerrit 
+		findBugs: produce analysis reports. Activation: explicit ("Profiles") packAndSign: 
+		produce a stable update site (Packed & signed). Used for releases (+ milestones) 
+		only. Activation: SIGN=true pack: produce a simple update site (Packed). 
+		Used for nightly or feature branch builds. Activation: SIGN=false -->
+	<profiles>
+
+		<!-- The update site is not needed during gerrit jobs -->
+		<profile>
+			<id>buildP2</id>
+			<activation>
+				<property>
+					<name>!GERRIT_EVENT_TYPE</name>
+				</property>
+			</activation>
+			<modules>
+				<module>site</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>buildAll</id>
+			<activation>
+				<property>
+					<name>buildAll</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-p2-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<executions>
+							<execution>
+								<id>attach-p2-metadata</id>
+								<phase>package</phase>
+								<goals>
+									<goal>p2-metadata</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<!-- nightly profile is useful for developers that want to link to nightly 
+			build -->
+		<profile>
+			<id>nightly</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>devnightly</value>
+				</property>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>papyrus-nightly</id>
+					<layout>p2</layout>
+					<url>http://download.eclipse.org/modeling/mdt/papyrus/updates/nightly/${papyrus.eclipse.target}/
+					</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>daily</updatePolicy>
+						<checksumPolicy>warn</checksumPolicy>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>daily</updatePolicy>
+						<checksumPolicy>fail</checksumPolicy>
+					</snapshots>
+				</repository>
+			</repositories>
+		</profile>
+
+
+		<!-- Stable release profile. Takes +30min. Eclipse servers only -->
+		<profile>
+			<id>sign</id>
+			<activation>
+				<property>
+					<name>SIGN</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.cbi.maven.plugins</groupId>
+						<artifactId>eclipse-jarsigner-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign</id>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-p2-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<executions>
+							<execution>
+								<id>attach-p2-metadata</id>
+								<phase>package</phase>
+								<goals>
+									<goal>p2-metadata</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<defaultP2Metadata>false</defaultP2Metadata>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+
+		<!-- Nightly profile. Artifacts can be consumed, but are not signed -->
+		<profile>
+			<id>p2</id>
+			<activation>
+				<property>
+					<name>SIGN</name>
+					<value>false</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-p2-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<executions>
+							<execution>
+								<id>attach-p2-metadata</id>
+								<phase>package</phase>
+								<goals>
+									<goal>p2-metadata</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<defaultP2Metadata>false</defaultP2Metadata>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+
+		<!-- Analysis profile. Takes +1h -->
+		<profile>
+			<id>findBugs</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>findbugs-maven-plugin</artifactId>
+						<version>${findbugs.version}</version>
+						<configuration>
+							<findbugsXmlOutput>true</findbugsXmlOutput>
+							<failOnError>false</failOnError>
+							<maxHeap>1024</maxHeap>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>check</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-p2-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<executions>
+							<execution>
+								<id>attach-p2-metadata</id>
+								<phase>package</phase>
+								<goals>
+									<goal>p2-metadata</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

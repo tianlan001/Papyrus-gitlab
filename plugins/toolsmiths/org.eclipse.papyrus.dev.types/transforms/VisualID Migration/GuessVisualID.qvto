@@ -1,0 +1,94 @@
+/**
+ * Copyright (c) 2016 CEA LIST.
+ *  
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *  
+ * Contributors:
+ *  CEA LIST - Initial API and implementation
+ */
+modeltype UML uses "http://www.eclipse.org/uml2/4.0.0/UML";
+modeltype ElementTypes uses "http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1";
+modeltype GMFGen uses 'http://www.eclipse.org/papyrus/gmf/2020/GenModel';
+modeltype PapyrusExtension uses 'http://www.eclipse.org/papyrus/gmf/2020/GenExtension';
+
+transformation GuessVisualID(inout gmf : GMFGen);
+
+main() {
+	gmf.objectsOfKind(PapyrusExtension::VisualIDOverride)->forEach(v) { guess(v); }
+	//gmf.objectsOfKind(PapyrusExtension::VisualIDOverride)->select(genView.oclIsTypeOf(GenChildNode))->forEach(v) { fix(v); }
+}
+
+helper fix(inout v : PapyrusExtension::VisualIDOverride) {
+	var i := v.visualID.indexOf("Shape");
+	var sub := v.visualID.substring(1, i-1);
+	v.child->forEach(c) {
+		if (c.genView.editPartClassName.indexOf("Floating") > 0) then
+			c.visualID := sub+"FloatingNameLabel"
+		else if (c.visualID.indexOf("LabelLabel") > 0) then
+			c.visualID := sub+"NameLabel"
+		else if (c.genView.editPartClassName.indexOf("Name") > 0) then
+			c.visualID := sub+"NameLabel"
+		else if (c.genView.editPartClassName.indexOf("BodyEditPart") > 0) then
+			c.visualID := sub+"BodyLabel"
+		else if (c.genView.editPartClassName.indexOf("Stereotype") > 0) then
+			c.visualID := sub+"StereotypeLabel"
+		endif endif endif endif	endif
+	};
+}
+
+helper guess(inout v : PapyrusExtension::VisualIDOverride) {
+	var p := v.genView.elementType.uniqueIdentifier;
+	var p1 := p.lastIndexOf(".");
+	var p2 := p.indexOf("_"); 
+	var c := p.substring(p1+1, p2);
+	
+	var s := v.genView.editPartClassName;
+	if v.genView.oclIsKindOf(GMFGen::GenDiagram) then {
+		var i := s.indexOf("Diagram");
+		v.visualID := c+s.substring(1, i-1)+"Diagram";
+	} else if v.genView.oclIsKindOf(GMFGen::GenChildLabelNode) then {
+		v.visualID := c+"Label";
+	} else if v.genView.oclIsKindOf(GMFGen::GenChildSideAffixedNode) then {
+		v.visualID := c+"Shape";
+	} else if v.genView.oclIsKindOf(GMFGen::GenCompartment) then {
+		s := s.replaceAll("Composite", "Structure");
+		s := s.replaceAll("Packageable", "Packaged");
+		var i := s.indexOf("Compartment");
+		var j := s.indexOf("CN");
+		v.visualID := s.substring(1, i-1).replaceFirst("(\\p{Ll})(\\p{Lu})","$1_$2")+"Compartment"+if j = 0 then '' else '_CN' endif;
+	} else if v.genView.oclIsKindOf(GMFGen::GenChildNode) then {
+		v.visualID := c+"Shape_CN";
+	} else if v.genView.oclIsKindOf(GMFGen::GenTopLevelNode) then {
+		v.visualID := c+"Shape";
+	} else if v.genView.oclIsKindOf(GMFGen::GenNodeLabel) then {
+		s := s.replaceAll("AppliedStereotype", "Stereotype");
+		s := s.replaceAll("SpecificationEditPart", "BodyEditPart");
+		var i := s.indexOf("EditPart");
+		var j := s.indexOf("CN");
+		v.visualID := s.substring(1, i-1).replaceAll("(\\p{Ll})(\\p{Lu})","$1_$2")+"Label"+if j = 0 then '' else '_CN' endif;
+		v.visualID := v.visualID.replaceAll("Floating_LabelLabel", "FloatingNameLabel");
+		v.visualID := v.visualID.replaceAll("Stereotype_LabelLabel", "StereotypeLabel");
+	} else if v.genView.oclIsKindOf(GMFGen::GenLink) then {
+		v.visualID := c+"Edge";
+	} else if v.genView.oclIsKindOf(GMFGen::GenLinkLabel) then {
+		s := s.replaceAll("AppliedStereotype", "Stereotype");
+		var i := s.indexOf("EditPart");
+		v.visualID := s.substring(1, i-1).replaceAll("(\\p{Ll})(\\p{Lu})","$1_$2")+"Label";
+	}
+	endif endif endif endif endif endif endif endif endif;
+}
+
+helper String::indexOfUCL() : Integer {
+	var r := -1;     
+	Sequence{2..self.size()}->forEach(i) {
+    		if r = -1 and self.at(i).toUpperCase() = self.at(i) then
+         	r := i
+        endif;
+    };
+    return r;
+}

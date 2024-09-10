@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin> 
+	 <extension
+         point="org.eclipse.ui.menus">   
+     <menuContribution
+              allPopups="false"
+              locationURI="popup:org.eclipse.ui.popup.any?after=org.eclipse.papyrus.custo.menu">
+         <menu
+               id="org.eclipse.papyrus.dev.ui.menu"
+               label="Papyrus Developer"
+               icon="platform:/plugin/org.eclipse.papyrus.dev.ui/icons/papyrus/Papyrus_16x16.gif"
+               tooltip="Papyrus Developer Menu">
+            <separator
+                  name="org.eclipse.papyrus.dev.ui.menu.separator.after"
+                  visible="true"
+                  id="org.eclipse.papyrus.dev.ui.menu.separator.after">
+         	</separator>
+            <menu
+                  id="org.eclipse.papyrus.dev.ui.editors"
+                  label="Editors"
+                  tooltip="Papyrus editors developer menu">
+            </menu>
+            <menu
+                  id="org.eclipse.papyrus.dev.ui.framework"
+                  label="Framework"
+                  tooltip="Papyrus framework developer menu">
+            </menu>
+         </menu>
+      </menuContribution> 
+   </extension>
+</plugin>

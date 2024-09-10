@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2014 Christian W. Damus and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   Christian W. Damus - Initial API and implementation
+-->
+
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="org.eclipse.papyrus.infra.gmfdiag.assistant.deploy"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.core.resources.IFile">
+                        <and>
+                           <test
+                                 property="org.eclipse.core.resources.contentTypeId"
+                                 value="org.eclipse.papyrus.infra.gmfdiag.assistants">
+                           </test>
+                           <test
+                                 property="org.eclipse.papyrus.infra.gmfdiag.assistant.isDeployed"
+                                 value="false">
+                           </test>
+                        </and>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.papyrus.infra.gmfdiag.assistant.undeploy"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.core.resources.IFile">
+                        <and>
+                           <test
+                                 property="org.eclipse.core.resources.contentTypeId"
+                                 value="org.eclipse.papyrus.infra.gmfdiag.assistants">
+                           </test>
+                           <test
+                                 property="org.eclipse.papyrus.infra.gmfdiag.assistant.isDeployed"
+                                 value="true">
+                           </test>
+                        </and>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.eclipse.papyrus.infra.gmfdiag.assistant.internal.ui.handlers.DeployAssistantModelHandler"
+            id="org.eclipse.papyrus.infra.gmfdiag.assistant.deploy"
+            name="Deploy Modeling Assistants">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.infra.gmfdiag.assistant.internal.ui.handlers.UndeployAssistantModelHandler"
+            id="org.eclipse.papyrus.infra.gmfdiag.assistant.undeploy"
+            name="Deactivate Modeling Assistants">
+      </command>
+   </extension>
+</plugin>

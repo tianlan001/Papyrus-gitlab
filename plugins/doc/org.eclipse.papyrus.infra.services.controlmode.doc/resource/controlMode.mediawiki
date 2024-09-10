@@ -1,0 +1,228 @@
+In this page we will show the Papyrus capabilities to create and reintegrate submodels, also known as ''control mode''. 
+
+= What is it? =
+As a model grows large in number of elements, it is convenient to split them into different physical resources i.e. files.
+Papyrus provides a feature to perform this splitting in a seamless fashion, allowing to move parts of the model to another resource. We call this ''create a submodel''.  
+This is specially helpful working in collaborative environments, since the Team features can be applied individually to the different resources i.e. make changes and commit them in only one part of the model.
+
+= Create a submodel =
+To create a submodel:
+#Right click on the element which you wish to move to a different resource (a Package in the common case)
+#Select ''Create Submodel''<br/>[[Image:images/ControlAction.png]] 
+#The following dialog appears.<br/>[[Image:images/ControlDialog.png]]  
+#Select the desired location for the new resource
+#Click ''OK''.
+
+'''Important:''' The selected element has not been moved just yet. The model editor will be dirty i.e. there will be an asterisk next to its name in the tab. In order to complete the submodel creation, you need to '''save''' your model.
+
+The new resource is created in the chosen location with the chosen file name, whilst a green decorator is shown in the Model Explorer view of the parent model to indicate this element is in a submodel.
+
+Note that, for a package, the dialog shows an option to have it be openable and editable in its own editor, independently of the package containing it (and the one containing that, etc.).
+This can be convenient, but it does mean that the package has to redundantly apply all of the
+profile applications applied to the packages containing it, so that stereotypes can properly be
+manipulated in the editor.  This can result in inconsistencies if a profile definition changes
+over time and not all applications in all packages are kept up-to-date consistently with
+stereotype migrations.  This option is available only for packages, because only they can have
+profile applications.  For other kinds of elements, this option is disabled and the resources
+created for them will always open in the context of the containing model.
+
+When this option is not selected, then the resulting submodel cannot be opened separately.
+Attempting to open it, usually by double-clicking it in the Project Explorer, will instead
+open the top-most independent submodel (or the root model package).  Or, if that is already
+open, just activate its editor.  This ensures that the nesting package context, and especially
+its profile applications, is always available to properly manage stereotypes. 
+
+= Toggle the Independent Submodel Support =
+
+Once a package has been stored in a submodel resource, the support for editing it independently
+can be added and removed at any time:
+#Right-click on the submodel package in the Model Explorer.
+#If the package is independently editable, the ''Independent Submodel'' menu item will have a check mark.  Otherwise, it will not.
+#Click the ''Independent Submodel'' menu item to change whether the package can be edited independently or not.
+[[Image:images/ToggleSubmodelAction.png]]
+
+'''Important:''' These changes will only take permanent effect on the next '''save''' action.  Until then, the resource on disk is not changed and so what happens when it is opened in an editor will not change. 
+
+In the Project Explorer view, the submodel resource is indicated by a filled blue
+note-paper decoration or a hollow blue decoration in the case that it is not an independently
+openable submodel.
+
+[[Image:images/Decorations.png|400px]]
+
+= Reintegrate a submodel into the main model =
+
+To reintegrate a submodel into the main model: 
+#Open the parent model 
+#Right click on the submodel element in the Model Explorer (recognizable with the green decorator).
+#Select ''Reintegrate Submodel''
+[[Image:images/UncontrolAction.png]] 
+
+The submodel is reintegrated into the main model resource. 
+
+'''Important:''' The submodel resources will be deleted only on '''save''' action. 
+
+= Controlled Units as Integral Fragments =
+
+This enhancement introduces a new variant of the controlled unit dubbed a 'shard' (as being a fragment of broken ceramic or glass that is a constituent of the whole on not generally handled). Thus Papyrus supports two modes of controlled unit:
+
+* sub-model units: the classic form, through the Neon release, being usually a package that is independently openable and editable because it is self-sufficient in profile applications
+* shards: the new form, that when the user opens it in an editor will instead open it in the context of the whole model (or the top-most parent unit that is a sub-model unit)
+
+== Use Cases ==
+
+=== UC1 Import Fragmented Model from RSA ===
+
+# User selects a <code>*.emx</code> resource in the workspace, activates the context menu, and selects 'Import RSA Model/Profile'.
+# The system opens the RSA import wizard.
+# The user completes the wizard.
+# The system imports the <code>*.emx</code> resource along with all of its <code>*.efx</code> fragments. These latter are imported as 'shards'.
+# The user double-clicks on the top-level unit (the one that was imported from the EMX file) to open the model.
+# The system opens the top-level unit in the Papyrus Editor.
+
+=== UC2 Open an Imported Sub-unit Resource ===
+
+# The user double-clicks on a <code>*.di</code> resource that was imported from an <code>*.efx</code> in the RSA model.
+# The system opens the top-level unit containing the root package namespace of the contents of the selected resource in the Papyrus Editor.
+
+==== UC2.1 Variant: Open an Imported Sub-unit Resource (Model Already Open) ====
+
+# The user opens an imported model as in UC1.
+# The user finds some sub-unit resource of this model in the Project Explorer and double-clicks on it to open it.
+# The user activates the editor previously opened, which is the root context of the sub-unit resource.
+
+== Design ==
+
+=== Model Cross-Reference Index ===
+
+The topology of sub-model units is implied by cross-resource containment in EMF: that is, containment references that have proxies for lazily resolved objects from other resources. As one of the benefits of the classic Papyrus sub-model unit is that it is independently openable and editable, it does not add a reference to its parent unit in an annotation as is done in RSA's fragments, because that would trigger loading of the parent unit chain by proxy resolution. Accordingly, in order to discover the connected graph of sub-unit resources at run-time, some agent is required that can provide independent off-line knowledge of it. This is naturally implemented on the <code>WorkspaceModelIndex</code> framework.
+
+A new <code>ICrossReferenceIndex</code> API in the <code>org.eclipse.papyrus.infra.emf</code> bundle provides for queries (asynchronous and synchronous, as usual) about:
+
+* incoming and outgoing cross-references of and given resource (since resources have to be scanned for all references to find the containment proxies, it makes sense to keep this non-containment information, too)
+* child sub-units and parent sub-units (the relationship is multiple in both directions). These are the containment counterparts of the incoming and outgoing cross-references
+* root units
+* whether a resource is a 'shard' style of sub-model unit or not
+
+Unlike sub-model units, shards additionally have annotations that reference the containing object in the parent resource, not unlike fragments in RSA. This is not a problem because they are not intended to be loaded independently of their parent units, anyways, but also has the benefit of enabling a tracing of the parent unit chain in cases where the full off-line index is not available:
+
+* when the Eclipse Job Manager is suspended (e.g., when starting the workbench)
+* in a non-Eclipse environment, such as command-line applications (e.g., headless Papyrus-RT code generation)
+
+<div id="on-demand-index"></div>In these contexts, the cross-reference index API actually parses resources on-the-fly looking for these annotations to trace the parent unit chain, without loading them in the EMF manner.
+
+=== Shard Resource Loading ===
+
+The point of shard resources is that they cannot be loaded without the chain of parent resources storing their containing objects, so that in the case of UML resources, packages find all of the profile applications in their nesting packages to ensure that stereotype applications are properly resolved.
+
+This loading of the parent unit chain, from the root unit(s) down, is ensured in two different ways, depending on the circumstances:
+
+* when opening a resource in the Papyrus Editor, the editor will refer to the index to find the root units to open, instead, if the requested resource is actually a 'shard'. Similarly, the <code>PapyrusMatchingStrategy</code> matches editor-inputs for shards with editor-inputs for their root units
+* when resolving proxies, the EMF <code>ResourceSet</code> will demand-load the referenced resource. If this happens to be a shard, it needs to load it from the top unit down (this is the essence of [http://eclip.se/458837 bug 458837] in which stereotype applications were lost by demand-loaded packages not knowing their profile applications). This is accomplished by a <code>ShardResourceLocator</code> installed on the resource set. This API supports non-Eclipse applications via the on-demand cross-reference index discussed above.
+
+=== Other Index Enhancements ===
+
+Because now another index is introduced (Papyrus has had an index of external profile applications since the Mars release), it is prudent to do some refactoring to ensure as much as possible that performance doesn't suffer from the added burden.
+
+==== Consolidation of Indexing Control ====
+
+Rather than have every index create background jobs for itself that react to resource changes and scan projects in the workspace, now a new <code>IndexManager</code> provides a single point of control for these processes:
+
+* one workspace resource-change listener to trigger re-indexing of projects and files recognized by each individual index
+* one pool of jobs with one indexing job per project, which invokes all indexers to process each file in turn
+
+This improves throughput of the indexing process by eliminating multiple passes over resource deltas and resource trees in the workspace projects, but it does mean that asynchronous queries on any index will only be ready when all indices complete their processing of any deltas.
+
+==== Persistence of Index Data ====
+
+Because even the simplest use case of opening a model now depends on this new workspace-wide index, it is important to initialize that index as efficiently as possible. To that end, the <code>WorkspaceModelIndex</code> framework now supports an extension of the <code>IndexHandler</code> protocol which is a <code>PersistentIndexHandler</code>. This protocol
+
+* guarantees that the index data it provides for a file is <code>Serializable</code>, so that it can be persisted when the workspace shuts down
+* provides API for loading index data saved when the workspace shut down last
+
+The new <code>CrossReferenceIndex</code> supports persistence and the older <code>DecoratorModelIndex</code> is retrofitted for persistence, also.
+
+==== Index Start-up ====
+
+As a consequence of both of the enhancements described above, consolidation of control and initialization from a persistent store, it is necessary for the <code>IndexManager</code> to discover all available index instances when it starts up. This is accomplished by a new extension point <code>org.eclipse.papyrus.infra.emf.index</code> on which <code>IWorkspaceModelIndexProvider</code>s are registered that supply unique concrete <code>WorkspaceModelIndex</code> instances. It is not required but probably advisable that all such instances be long-lived singletons.
+
+=== Manipulating Sub-unit Resources ===
+
+As far as the manipulation of sub-units is concerned, they are still created in the same way as in the Neon release. The difference is that, after a model element is stored in its sub-unit resource, it needs to be tagged as a 'shard'. This is accomplished by the <code>ShardResourceHelper</code> API. A helper is initialized with the model element that is the root of the shard sub-tree. It can add or remove the shard annotation directly or by providing <code>Command</code>s for execution on the stack and can query the current shard-ness of the sub-unit. As long as the helper is in use, it maintains <code>Adapter</code>s to track any changes to the object's containment and/or shard annotation. For this reason, it must be closed when no longer needed, to prevent memory leaks.
+
+= User Interface for New Control-Mode Features =
+
+This enhancement introduces UI for manipulation of the 'shard' style of sub-unit resource, including:
+
+* option to disallow independent opening and editing of the sub-unit
+* action to toggle between independent sub-model unit and shard
+* label decorator to mark sub-model units and shards in the Project Explorer
+
+== Use Cases ==
+
+=== UC3 Create a Sub-model Unit ===
+
+# User selects a package in the Model Explorer, activates the context menu, and selects 'Create Submodel'.
+# The system opens the 'Submodel Resource' dialog.
+# The user enters a resource URI and ensures that the 'Create an independent sub-model resource' check-box is selected, then presses OK.
+# The system creates the sub-model resource in the editor's resource set and shows the controlled unit decoration on the package in the Model Explorer.
+# The user saves the editor.
+# The Project Explorer shows the new sub-unit resource with a filled blue bent-corner paper decoration to denote that it is a sub-model unit.
+
+[[File:images/Papyrus-subunits.png|frame|none|alt=|Papyrus Sub-units]]
+
+=== UC4 Create a Shard Unit ===
+
+# User selects a package in the Model Explorer, activates the context menu, and selects 'Create Submodel'.
+# The system opens the 'Submodel Resource' dialog.
+# The user enters a resource URI and ensures that the 'Create an independent sub-model resource' check-box is '''not''' selected, then presses OK.
+# The system creates the shard resource in the editor's resource set and shows the controlled unit decoration on the package in the Model Explorer.
+# The user saves the editor.
+# The Project Explorer shows the new shard resource with a hollow blue bent-corner paper decoration to denote that it is a shard unit.
+
+==== UC4.1 Variant: Control a UML Class ====
+
+# User selects a class in the Model Explorer, activates the context menu, and selects 'Create Submodel'.
+# The system opens the 'Submodel Resource' dialog. The 'Create an independent sub-model resource' check-box is disabled, because classes cannot be edited independently (they cannot have profile applications).
+# The user enters a resource URI then presses OK.
+# The system creates the shard resource in the editor's resource set and shows the controlled unit decoration on the package in the Model Explorer.
+# The user saves the editor.
+# The Project Explorer shows the new shard resource with a hollow blue bent-corner paper decoration to denote that it is a shard unit.
+
+=== UC5 Convert a Sub-model Unit to a Shard ===
+
+# User creates a sub-model unit for a package as in UC3 and saves the editor.
+# The user selects the package, activates the context menu, and toggles the 'Independent Submodel' menu item, which is currently checked.
+# The system adds the shard annotation and removes redundant profile applications from the package.
+# The user saves the editor.
+# The Project Explorer updates the sub-unit resource's label to show the hollow blue bent-corner paper decoration denoting that it is a shard unit. paper decoration to denote that it is a shard unit.
+
+=== UC6 Convert a Shard to a Sub-model Unit ===
+
+# User creates a shard unit for a package as in UC4 and saves the editor.
+# The user selects the package, activates the context menu, and toggles the 'Independent Submodel' menu item, which is currently checked.
+# The system removes the shard annotation and adds redundant profile applications to the package so that it may be opened independently.
+# The user saves the editor.
+# The Project Explorer updates the sub-unit resource's label to show the filled blue bent-corner paper decoration denoting that it is a sub-model unit.
+
+=== UC6.1 Variant: Convert a Class Shard to a Sub-model Unit ===
+
+# User creates a shard unit for a class as in UC4.1 and saves the editor.
+# The user selects the package and activates the context menu.
+# The 'Independent Submodel' menu item is unchecked and disabled so that it may not be toggled.
+
+== Design ==
+
+=== Control-Mode Participants ===
+
+A new protocol specializing the <code>IControlModeParticipant</code> is introduced that participants may optionally implement to influence the UI workflows. The <code>IControlCommandApprover</code> interface specifies two operations:
+
+* <code>boolean canCreateSubModel(EObject)</code>: queries whether a model element that is to be made into a sub-unit can support independent opening and editing. The UML participant implements this to deny sub-model units for non-packages: they can only be created as shards. Thus, the warning dialog about limited support for non-package sub-units is no longer shown
+* <code>Diagnostic approveRequest(ControlModeRequest)</code>: gives participants an opportunity to veto a control or uncontrol request, with a message that is displayed to the user
+
+So, the former of these APIs is used by the <code>ControlModeManager</code> to determine the enablement of the check-box option for sub-models in the 'control resource' dialog and in the context menu (although, of course, in the latter case the action is enabled if a non-package element is controlled as a sub-model in order that it may be converted to a shard).
+
+The latter API is used by the UI control/uncontrol command handlers to validate a request before attempting to survey the participants for commands and execute them.
+
+= Compatibility =
+
+The 'shard' structure is compatible with the Neon and Mars releases. It adds only an annotation that those versions of the software simply ignore. The back-reference to the parent unit will usually cause the parent units (and recursively up to the roots) to be loaded, which may help to emulate the Neon.1 and later behaviour. However, because a Neon.1 shard will not have redundant profile applications (a model imported from RSA in Mars or Neon would not have them, either) then there may be problems in handling of stereotype applications and potential data loss. If these resources must be edited with Mars or Neon versions of Papyrus, then it is recommended either always to open them at the root unit explicitly or even to opt for the classic sub-model unit structure (except for non-packages, which effectively always were defective shards anyways).

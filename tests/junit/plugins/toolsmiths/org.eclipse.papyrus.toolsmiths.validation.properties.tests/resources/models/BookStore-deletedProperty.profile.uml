@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Profile xmi:id="_gnO0wFG6EeuXzM4mqVly4g" name="BookStore" URI="http://www.eclipse.org/Papyrus/test/toolsmiths/propertiesbuilder/BookStore" metaclassReference="_rQ3s8FG6EeuXzM4mqVly4g _rQ5iIFG6EeuXzM4mqVly4g">
+    <eAnnotations xmi:id="_e24cAFG7EeuXzM4mqVly4g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <eAnnotations xmi:id="_V-_VwMVgEeuKDMwJXd21Mg" source="PapyrusVersion">
+        <details xmi:id="_V-_VwcVgEeuKDMwJXd21Mg" key="Version" value="0.0.0"/>
+        <details xmi:id="_V-_VwsVgEeuKDMwJXd21Mg" key="Comment" value="&lt;undefined>"/>
+        <details xmi:id="_V-_Vw8VgEeuKDMwJXd21Mg" key="Copyright" value=""/>
+        <details xmi:id="_V-_VxMVgEeuKDMwJXd21Mg" key="Date" value=""/>
+        <details xmi:id="_V-_VxcVgEeuKDMwJXd21Mg" key="Author" value="&lt;undefined>"/>
+      </eAnnotations>
+      <contents xmi:type="ecore:EPackage" xmi:id="_e24cAVG7EeuXzM4mqVly4g" name="bookstore" nsURI="http://www.eclipse.org/Papyrus/test/toolsmiths/propertiesbuilder/BookStore" nsPrefix="book">
+        <eAnnotations xmi:id="_e24cAlG7EeuXzM4mqVly4g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+          <details xmi:id="_e24cA1G7EeuXzM4mqVly4g" key="originalName" value="BookStore"/>
+        </eAnnotations>
+        <eAnnotations xmi:id="_e26RMFG7EeuXzM4mqVly4g" source="PapyrusVersion">
+          <details xmi:id="_e26RMVG7EeuXzM4mqVly4g" key="Version" value="0.0.1"/>
+          <details xmi:id="_e26RMlG7EeuXzM4mqVly4g" key="Comment" value=""/>
+          <details xmi:id="_e26RM1G7EeuXzM4mqVly4g" key="Copyright" value="Copyright (c) 2021 Christian W. Damus, CEA LIST, and others.&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License 2.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-2.0/&#xA;&#xA;SPDX-License-Identifier: EPL-2.0&#xA;&#xA;Contributors:&#xA;  Christian W. Damus - Initial API and implementation"/>
+          <details xmi:id="_e26RNFG7EeuXzM4mqVly4g" key="Date" value="2021-01-08"/>
+          <details xmi:id="_e26RNVG7EeuXzM4mqVly4g" key="Author" value="Christian W. Damus"/>
+        </eAnnotations>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_e24cBFG7EeuXzM4mqVly4g" name="BookStore">
+          <eAnnotations xmi:id="_e24cBVG7EeuXzM4mqVly4g" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_tQKrMFG6EeuXzM4mqVly4g"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_e24cBlG7EeuXzM4mqVly4g" name="base_Package" ordered="false">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_T36poMViEeuKDMwJXd21Mg" name="bookDispositions" lowerBound="1" upperBound="-1" eType="_FZtToMViEeuKDMwJXd21Mg"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_e24cCFG7EeuXzM4mqVly4g" name="Vendor">
+          <eAnnotations xmi:id="_e24cCVG7EeuXzM4mqVly4g" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_xMldcFG6EeuXzM4mqVly4g"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_e24cClG7EeuXzM4mqVly4g" name="base_Class" ordered="false">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_e24cDFG7EeuXzM4mqVly4g" name="Book">
+          <eAnnotations xmi:id="_e24cDVG7EeuXzM4mqVly4g" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_8r71oFG6EeuXzM4mqVly4g"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_e24cDlG7EeuXzM4mqVly4g" name="base_Class" ordered="false">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_FZtToMViEeuKDMwJXd21Mg" name="DispositionKind">
+          <eLiterals xmi:id="_Hu0J0MViEeuKDMwJXd21Mg" name="new"/>
+          <eLiterals xmi:id="_K4FA0MViEeuKDMwJXd21Mg" name="used" value="1"/>
+          <eLiterals xmi:id="_M41XoMViEeuKDMwJXd21Mg" name="lending" value="2"/>
+        </eClassifiers>
+      </contents>
+    </eAnnotations>
+    <elementImport xmi:id="_rQ3s8FG6EeuXzM4mqVly4g" alias="Package">
+      <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Package"/>
+    </elementImport>
+    <elementImport xmi:id="_rQ5iIFG6EeuXzM4mqVly4g" alias="Class">
+      <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </elementImport>
+    <packageImport xmi:id="_gurgkFG6EeuXzM4mqVly4g">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_gut80FG6EeuXzM4mqVly4g">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_tQKrMFG6EeuXzM4mqVly4g" name="BookStore">
+      <ownedAttribute xmi:id="_uzEBUFG6EeuXzM4mqVly4g" name="base_Package" association="_uzCMIFG6EeuXzM4mqVly4g">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Package"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uzEBUVG6EeuXzM4mqVly4g"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_egjHIMVgEeuKDMwJXd21Mg" name="bookDispositions" type="_V-9gkMVgEeuKDMwJXd21Mg">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hAwaEMVgEeuKDMwJXd21Mg" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_uzCMIFG6EeuXzM4mqVly4g" name="E_BookStore_Package6" memberEnd="_uzDaQFG6EeuXzM4mqVly4g _uzEBUFG6EeuXzM4mqVly4g">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_uzDaQFG6EeuXzM4mqVly4g" name="extension_BookStore" type="_tQKrMFG6EeuXzM4mqVly4g" aggregation="composite" association="_uzCMIFG6EeuXzM4mqVly4g"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_xMldcFG6EeuXzM4mqVly4g" name="Vendor">
+      <ownedAttribute xmi:id="__-fLglG6EeuXzM4mqVly4g" name="base_Class" association="__-fLgFG6EeuXzM4mqVly4g">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__-fykFG6EeuXzM4mqVly4g"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_8r71oFG6EeuXzM4mqVly4g" name="Book">
+      <ownedAttribute xmi:id="__Aw_AVG6EeuXzM4mqVly4g" name="base_Class" association="__AwX8FG6EeuXzM4mqVly4g">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__Aw_AlG6EeuXzM4mqVly4g"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="__AwX8FG6EeuXzM4mqVly4g" name="E_Book_Class9" memberEnd="__Aw_AFG6EeuXzM4mqVly4g __Aw_AVG6EeuXzM4mqVly4g">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="__Aw_AFG6EeuXzM4mqVly4g" name="extension_Book" type="_8r71oFG6EeuXzM4mqVly4g" aggregation="composite" association="__AwX8FG6EeuXzM4mqVly4g"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="__-fLgFG6EeuXzM4mqVly4g" name="E_Vendor_Class10" memberEnd="__-fLgVG6EeuXzM4mqVly4g __-fLglG6EeuXzM4mqVly4g">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="__-fLgVG6EeuXzM4mqVly4g" name="extension_Vendor" type="_xMldcFG6EeuXzM4mqVly4g" aggregation="composite" association="__-fLgFG6EeuXzM4mqVly4g"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_V-9gkMVgEeuKDMwJXd21Mg" name="DispositionKind">
+      <ownedLiteral xmi:id="_b19wMMVgEeuKDMwJXd21Mg" name="new"/>
+      <ownedLiteral xmi:id="_c2HloMVgEeuKDMwJXd21Mg" name="used"/>
+      <ownedLiteral xmi:id="_di2v0MVgEeuKDMwJXd21Mg" name="lending"/>
+    </packagedElement>
+    <profileApplication xmi:id="_LFzeMFG7EeuXzM4mqVly4g">
+      <eAnnotations xmi:id="_LF0FQFG7EeuXzM4mqVly4g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Profile>
+  <Ecore:EPackage xmi:id="_Lr8RIFG7EeuXzM4mqVly4g" base_Package="_gnO0wFG6EeuXzM4mqVly4g" packageName="bookstore" nsPrefix="book" basePackage="org.eclipse.papyrus.toolsmiths.validation.properties.example"/>
+</xmi:XMI>

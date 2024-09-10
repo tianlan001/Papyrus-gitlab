@@ -1,0 +1,1040 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+ Copyright (c) 2009, 2015 CEA, Christian W. Damus, and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   CEA - Initial API and implementation
+   Christian W. Damus (CEA) - bug 323802
+   Christian W. Damus - bug 474489
+   
+-->
+<plugin>
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+				      <?gmfgen generated="true"?>
+				      <context
+				         description="%context.description"
+				         id="org.eclipse.papyrus.uml.diagram.composite.ui.diagramContext"
+				         name="%context.name"
+				         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+				      </context>
+				   </extension>
+      	
+
+
+   <extension point="org.eclipse.core.runtime.preferences" id="prefs">
+		      <?gmfgen generated="true"?>
+		      <initializer class="org.eclipse.papyrus.uml.diagram.composite.preferences.DiagramPreferenceInitializer"/>
+		   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
+      <?gmfgen generated="false"?>
+      <page
+            id="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.CompositeStructure"
+            name="CompositeStructure Diagram"
+            category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams"
+            class="org.eclipse.papyrus.uml.diagram.composite.preferences.DiagramGeneralPreferencePage">
+      </page>
+      
+      <page
+            id="org.eclipse.papyrus.uml.diagram.composite.preferences.DiagramPrintingPreferencePage"
+            name="%prefpage.org.eclipse.uml2.uml.diagram.printing"
+            category="org.eclipse.papyrus.infra.gmfdiag.preferences.diagrams.CompositeStructure"
+            class="org.eclipse.papyrus.uml.diagram.composite.preferences.DiagramPrintingPreferencePage">
+      </page>
+
+
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="org.eclipse.papyrus.uml.diagram.composite"
+            labelProvider="org.eclipse.papyrus.uml.diagram.composite.sheet.UMLSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.papyrus.uml.diagram.composite">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.papyrus.uml.diagram.composite">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.papyrus.uml.diagram.composite.sheet.UMLPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="inner-port-view-provider">
+      <viewProvider class="org.eclipse.papyrus.uml.diagram.composite.custom.providers.InnerPortViewProvider">
+         <Priority name="Low"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="CompositeStructure"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="Port_BehaviorShape,Port_Shape"/>
+         
+       </viewProvider>
+   </extension>
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+	      <?gmfgen generated="true"?>
+	      <viewProvider class="org.eclipse.papyrus.uml.diagram.composite.providers.UMLViewProvider">
+	         <Priority name="Lowest"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="CompositeStructure"/>
+	         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="Activity_Shape,Interaction_Shape,ProtocolStateMachine_Shape,StateMachine_Shape,FunctionBehavior_Shape,OpaqueBehavior_Shape,Component_Shape,Device_Shape,ExecutionEnvironment_Shape,Node_Shape,Class_Shape,Collaboration_Shape,Interface_Shape,PrimitiveType_Shape,Enumeration_Shape,DataType_Shape,Actor_Shape,DeploymentSpecification_Shape,Artifact_Shape,InformationItem_Shape,Signal_Shape,UseCase_Shape,SignalEvent_Shape,CallEvent_Shape,AnyReceiveEvent_Shape,ChangeEvent_Shape,TimeEvent_Shape,DurationObservation_Shape,TimeObservation_Shape,LiteralBoolean_Shape,LiteralInteger_Shape,LiteralNull_Shape,LiteralString_Shape,LiteralUnlimitedNatural_Shape,StringExpression_PackagedElementShape,OpaqueExpression_Shape,TimeExpression_Shape,Expression_Shape,Duration_Shape,TimeInterval_Shape,DurationInterval_Shape,Interval_Shape,InstanceValue_Shape,Comment_Shape,DurationConstraint_Shape,TimeConstraint_Shape,IntervalConstraint_Shape,InteractionConstraint_Shape,Constraint_Shape,Port_BehaviorShape,Port_Shape,Parameter_Shape,Property_Shape,ConnectableElement_CollaborationRoleShape,CollaborationUse_Shape,Activity_Shape_CN,Interaction_Shape_CN,ProtocolStateMachine_Shape_CN,StateMachine_Shape_CN,FunctionBehavior_Shape_CN,OpaqueBehavior_Shape_CN,Component_Shape_CN,Device_Shape_CN,ExecutionEnvironment_Shape_CN,Node_Shape_CN,Class_Shape_CN,Collaboration_Shape_CN,Interface_Shape_CN,PrimitiveType_Shape_CN,Enumeration_Shape_CN,DataType_Shape_CN,Actor_Shape_CN,DeploymentSpecification_Shape_CN,Artifact_Shape_CN,InformationItem_Shape_CN,Signal_Shape_CN,UseCase_Shape_CN,Comment_Shape_CN,DurationConstraint_Shape_CN,TimeConstraint_Shape_CN,IntervalConstraint_Shape_CN,InteractionConstraint_Shape_CN,Constraint_Shape_CN,Property_AttributeLabel,Operation_OperationLabel,EnumerationLiteral_LiteralLabel"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="Port_BehaviorEdge,Link_DescriptorEdge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,ComponentRealization_Edge,InterfaceRealization_Edge,Substitution_Edge,Realization_Edge,Manifestation_Edge,Abstraction_Edge,Usage_Edge,Deployment_Edge,Dependency_RoleBindingEdge,Dependency_Edge,Connector_Edge,Generalization_Edge,TimeObservation_EventEdge,DurationObservation_EventEdge,Representation_Edge,InformationFlow_Edge"/>
+	      </viewProvider>
+	   </extension>
+
+
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <?gmfgen generated="false"?>
+      <editpartProvider class="org.eclipse.papyrus.uml.diagram.composite.custom.providers.CustomEditPartProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="CompositeStructure"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="Activity_Shape,Interaction_Shape,ProtocolStateMachine_Shape,StateMachine_Shape,FunctionBehavior_Shape,OpaqueBehavior_Shape,Component_Shape,Device_Shape,ExecutionEnvironment_Shape,Node_Shape,Class_Shape,Collaboration_Shape,Interface_Shape,PrimitiveType_Shape,Enumeration_Shape,DataType_Shape,Actor_Shape,DeploymentSpecification_Shape,Artifact_Shape,InformationItem_Shape,Signal_Shape,UseCase_Shape,SignalEvent_Shape,CallEvent_Shape,AnyReceiveEvent_Shape,ChangeEvent_Shape,TimeEvent_Shape,DurationObservation_Shape,TimeObservation_Shape,LiteralBoolean_Shape,LiteralInteger_Shape,LiteralNull_Shape,LiteralString_Shape,LiteralUnlimitedNatural_Shape,StringExpression_PackagedElementShape,OpaqueExpression_Shape,TimeExpression_Shape,Expression_Shape,Duration_Shape,TimeInterval_Shape,DurationInterval_Shape,Interval_Shape,InstanceValue_Shape,Comment_Shape,DurationConstraint_Shape,TimeConstraint_Shape,IntervalConstraint_Shape,InteractionConstraint_Shape,Constraint_Shape,Port_BehaviorShape,Port_Shape,Parameter_Shape,Property_Shape,ConnectableElement_CollaborationRoleShape,CollaborationUse_Shape,Activity_Shape_CN,Interaction_Shape_CN,ProtocolStateMachine_Shape_CN,StateMachine_Shape_CN,FunctionBehavior_Shape_CN,OpaqueBehavior_Shape_CN,Component_Shape_CN,Device_Shape_CN,ExecutionEnvironment_Shape_CN,Node_Shape_CN,Class_Shape_CN,Collaboration_Shape_CN,Interface_Shape_CN,PrimitiveType_Shape_CN,Enumeration_Shape_CN,DataType_Shape_CN,Actor_Shape_CN,DeploymentSpecification_Shape_CN,Artifact_Shape_CN,InformationItem_Shape_CN,Signal_Shape_CN,UseCase_Shape_CN,Comment_Shape_CN,DurationConstraint_Shape_CN,TimeConstraint_Shape_CN,IntervalConstraint_Shape_CN,InteractionConstraint_Shape_CN,Constraint_Shape_CN,Property_AttributeLabel,Operation_OperationLabel,EnumerationLiteral_LiteralLabel"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="Port_BehaviorEdge,Link_DescriptorEdge,Comment_AnnotatedElementEdge,Constraint_ConstrainedElementEdge,ComponentRealization_Edge,InterfaceRealization_Edge,Substitution_Edge,Realization_Edge,Manifestation_Edge,Abstraction_Edge,Usage_Edge,Deployment_Edge,Dependency_RoleBindingEdge,Dependency_Edge,Connector_Edge,Generalization_Edge,TimeObservation_EventEdge,DurationObservation_EventEdge,Representation_Edge,InformationFlow_Edge"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="Activity_NameLabel,Activity_FloatingNameLabel,Interaction_NameLabel,Interaction_FloatingNameLabel,ProtocolStateMachine_NameLabel,ProtocolStateMachine_FloatingNameLabel,StateMachine_NameLabel,StateMachine_FloatingNameLabel,FunctionBehavior_NameLabel,FunctionBehavior_FloatingNameLabel,OpaqueBehavior_NameLabel,OpaqueBehavior_FloatingNameLabel,Component_NameLabel,Component_FloatingNameLabel,Device_NameLabel,Device_FloatingNameLabel,ExecutionEnvironment_NameLabel,ExecutionEnvironment_FloatingNameLabel,Node_NameLabel,Node_FloatingNameLabel,Class_NameLabel,Class_FloatingNameLabel,Collaboration_NameLabel,Collaboration_FloatingNameLabel,Interface_NameLabel,Interface_FloatingNameLabel,PrimitiveType_NameLabel,PrimitiveType_FloatingNameLabel,Enumeration_NameLabel,Enumeration_FloatingNameLabel,DataType_NameLabel,DataType_FloatingNameLabel,Actor_NameLabel,Actor_FloatingNameLabel,DeploymentSpecification_NameLabel,DeploymentSpecification_FloatingNameLabel,Artifact_NameLabel,Artifact_FloatingNameLabel,InformationItem_NameLabel,InformationItem_FloatingNameLabel,Signal_NameLabel,Signal_FloatingNameLabel,UseCase_NameLabel,UseCase_FloatingNameLabel,SignalEvent_NameLabel,SignalEvent_FloatingNameLabel,CallEvent_NameLabel,CallEvent_FloatingNameLabel,AnyReceiveEvent_NameLabel,AnyReceiveEvent_FloatingNameLabel,ChangeEvent_NameLabel,ChangeEvent_FloatingNameLabel,TimeEvent_NameLabel,TimeEvent_FloatingNameLabel,DurationObservation_NameLabel,DurationObservation_StereotypeLabel,TimeObservation_NameLabel,TimeObservation_StereotypeLabel,LiteralBoolean_NameLabel,LiteralBoolean_FloatingNameLabel,LiteralInteger_NameLabel,LiteralInteger_FloatingNameLabel,LiteralNull_NameLabel,LiteralNull_FloatingNameLabel,LiteralString_NameLabel,LiteralString_FloatingNameLabel,LiteralUnlimitedNatural_NameLabel,LiteralUnlimitedNatural_FloatingNameLabel,StringExpression_NameLabel,StringExpression_FloatingNameLabel,OpaqueExpression_NameLabel,OpaqueExpression_FloatingNameLabel,TimeExpression_NameLabel,TimeExpression_FloatingNameLabel,Expression_NameLabel,Expression_FloatingNameLabel,Duration_NameLabel,Duration_FloatingNameLabel,TimeInterval_NameLabel,TimeInterval_FloatingNameLabel,DurationInterval_NameLabel,DurationInterval_FloatingNameLabel,Interval_NameLabel,Interval_FloatingNameLabel,InstanceValue_NameLabel,InstanceValue_FloatingNameLabel,Comment_BodyLabel,DurationConstraint_NameLabel,DurationConstraint_BodyLabel,TimeConstraint_NameLabel,TimeConstraint_BodyLabel,IntervalConstraint_NameLabel,IntervalConstraint_BodyLabel,InteractionConstraint_NameLabel,InteractionConstraint_BodyLabel,Constraint_NameLabel,Constraint_BodyLabel,Port_BehaviorFloatingNameLabel,Port_NameLabel,Port_StereotypeLabel,Parameter_NameLabel,Parameter_StereotypeLabel,Property_NameLabel,Property_FloatingNameLabel,ConnectableElement_CollaborationRoleNameLabel,ConnectableElement_CollaborationRoleFloatingNameLabel,CollaborationUse_NameLabel,CollaborationUse_FloatingNameLabel,Activity_NameLabel_CN,Activity_FloatingNameLabel_CN,Interaction_NameLabel_CN,Interaction_FloatingNameLabel_CN,ProtocolStateMachine_NameLabel_CN,ProtocolStateMachine_FloatingNameLabel_CN,StateMachine_NameLabel_CN,StateMachine_FloatingNameLabel_CN,FunctionBehavior_NameLabel_CN,FunctionBehavior_FloatingNameLabel_CN,OpaqueBehavior_NameLabel_CN,OpaqueBehavior_FloatingNameLabel_CN,Component_NameLabel_CN,Component_FloatingNameLabel_CN,Device_NameLabel_CN,Device_FloatingNameLabel_CN,ExecutionEnvironment_NameLabel_CN,ExecutionEnvironment_FloatingNameLabel_CN,Node_NameLabel_CN,Node_FloatingNameLabel_CN,Class_NameLabel_CN,Class_FloatingNameLabel_CN,Collaboration_NameLabel_CN,Collaboration_FloatingNameLabel_CN,Interface_NameLabel_CN,Interface_FloatingNameLabel_CN,PrimitiveType_NameLabel_CN,PrimitiveType_FloatingNameLabel_CN,Enumeration_NameLabel_CN,Enumeration_FloatingNameLabel_CN,DataType_NameLabel_CN,DataType_FloatingNameLabel_CN,Actor_NameLabel_CN,Actor_FloatingNameLabel_CN,DeploymentSpecification_NameLabel_CN,DeploymentSpecification_FloatingNameLabel_CN,Artifact_NameLabel_CN,Artifact_FloatingNameLabel_CN,InformationItem_NameLabel_CN,InformationItem_FloatingNameLabel_CN,Signal_NameLabel_CN,Signal_FloatingNameLabel_CN,UseCase_NameLabel_CN,UseCase_FloatingNameLabel_CN,Comment_BodyLabel_CN,DurationConstraint_NameLabel_CN,DurationConstraint_BodyLabel_CN,TimeConstraint_NameLabel_CN,TimeConstraint_BodyLabel_CN,IntervalConstraint_NameLabel_CN,IntervalConstraint_BodyLabel_CN,InteractionConstraint_NameLabel_CN,InteractionConstraint_BodyLabel_CN,Constraint_NameLabel_CN,Constraint_BodyLabel_CN"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="DataType_AttributeCompartment,DataType_OperationCompartment,DataType_AttributeCompartment_CN,DataType_OperationCompartment_CN,Enumeration_LiteralCompartment,Enumeration_LiteralCompartment_CN,Activity_StructureCompartment_CN,Interaction_StructureCompartment_CN,ProtocolStateMachine_StructureCompartment_CN,StateMachine_StructureCompartment_CN,FunctionBehavior_StructureCompartment_CN,OpaqueBehavior_StructureCompartment_CN,Component_StructureCompartment_CN,Device_StructureCompartment_CN,ExecutionEnvironment_StructureCompartment_CN,Node_StructureCompartment_CN,Class_StructureCompartment_CN,Collaboration_StructureCompartment_CN,Activity_StructureCompartment,Interaction_StructureCompartment,ProtocolStateMachine_StructureCompartment,StateMachine_StructureCompartment,FunctionBehavior_StructureCompartment,OpaqueBehavior_StructureCompartment,Component_StructureCompartment,Device_StructureCompartment,ExecutionEnvironment_StructureCompartment,Node_StructureCompartment,Class_StructureCompartment,Collaboration_StructureCompartment,Property_StructureCompartment"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+
+   
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+	      <?gmfgen generated="true"?>
+	      <IconProvider class="org.eclipse.papyrus.uml.diagram.composite.providers.UMLIconProvider">
+	         <Priority name="Low"/>
+	      </IconProvider>
+	   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+	      <?gmfgen generated="true"?>
+	      <ParserProvider class="org.eclipse.papyrus.uml.diagram.composite.providers.UMLParserProvider">
+	         <Priority name="Lowest"/>
+	      </ParserProvider>
+	   </extension>
+
+
+	   
+	   
+	   
+      
+   
+   <extension
+         point="org.eclipse.papyrus.infra.ui.papyrusDiagram">
+      <editorDiagram
+            actionBarContributorId="org.eclipse.papyrus.uml.diagram.common.part.UMLDiagramActionBarContributor"
+            factoryClass="org.eclipse.papyrus.uml.diagram.composite.CompositeDiagramEditorFactory"
+            icon="icons/obj16/Diagram_CompositeStructure.gif">
+      </editorDiagram>
+      <creationCommand
+            creationCommandClass="org.eclipse.papyrus.uml.diagram.composite.CreateCompositeDiagramCommand"
+            creationCondition="org.eclipse.papyrus.uml.diagram.composite.CompositeDiagramCreationCondition"
+            icon="icons/obj16/Diagram_CompositeStructure.gif"
+            id="org.eclipse.papyrus.uml.diagram.composite.createCompositeDiagram"
+            language="uml"
+            label="Composite Structure Diagram">
+      </creationCommand>
+   </extension>
+   
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.eclipse.papyrus.editor.category"
+            description="Create a new Composite Structure Diagram"
+            id="org.eclipse.papyrus.uml.diagram.composite.createCompositeDiagram"
+            name="Create a new Composite Structure Diagram">
+      </command>
+   </extension><extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.papyrus.uml.diagram.composite.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="org.eclipse.papyrus.uml.diagram.composite.part.UMLDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.papyrus.uml.diagram.composite.edit.parts.CompositeStructureDiagramEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+<extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="org.eclipse.papyrus.uml.diagram.composite.part.UMLDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="org.eclipse.papyrus.uml.diagram.composite.LoadResourceAction"
+         name="Load Resource"
+         categoryId="org.eclipse.papyrus.uml.diagram.composite.part.UMLDiagramEditorID"
+         defaultHandler="org.eclipse.papyrus.uml.diagram.composite.part.LoadResourceAction"/>
+   </extension>
+
+<extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
+
+<extension
+      point="org.eclipse.ui.commands">
+   <command
+         categoryId="org.eclipse.papyrus.editor.category"
+         defaultHandler="org.eclipse.papyrus.uml.diagram.composite.custom.actions.ShowHideRelatedContentsHandler"
+         description="Call the Show/Hide Related Contents Command"
+         id="org.eclipse.papyrus.uml.diagram.composite.commands.ShowHideRelatedContentsCommand"
+         name="Show/Hide Related Contents Command">
+   </command>
+</extension>
+
+<extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+				      <?gmfgen generated="true"?>
+				      <MarkerNavigationProvider class="org.eclipse.papyrus.uml.diagram.composite.providers.UMLMarkerNavigationProvider">
+				         <MarkerType name="org.eclipse.papyrus.uml.diagram.composite.diagnostic"/>
+				         <Priority name="Lowest"/>
+				      </MarkerNavigationProvider>
+				   </extension>
+
+<extension id="diagnostic" name="Papyrus Composite Structure Diagram  problems" point="org.eclipse.core.resources.markers">
+				      <?gmfgen generated="true"?>
+				      <super type="org.eclipse.core.resources.problemmarker"/>
+				      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+				      <persistent value="true"/>
+				   </extension><extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+				      <?gmfgen generated="true"?>
+				      <decoratorProvider class="org.eclipse.papyrus.uml.diagram.composite.providers.UMLValidationDecoratorProvider">
+				         <Priority name="Lowest"/>
+				         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+				         <context decoratorTargets="PRIMARY_VIEW"/>
+				      </decoratorProvider>
+				   </extension>
+   
+<!-- Diagram specific advices -->
+	
+<!-- UML ElementType bindings to Papyrus shared IClientContext -->
+
+<extension
+      point="org.eclipse.ui.services">
+   <sourceProvider
+         provider="org.eclipse.papyrus.uml.diagram.composite.custom.providers.ActionStateSourceProvider">
+      <variable
+            name="showHideRelatedContents"
+            priorityLevel="workbench">
+      </variable>
+   </sourceProvider>
+</extension>
+<extension
+      point="org.eclipse.ui.handlers">
+   <handler
+         class="org.eclipse.papyrus.uml.diagram.composite.custom.actions.ShowHideRelatedContentsHandler"
+         commandId="org.eclipse.papyrus.uml.diagram.menu.commands.ShowHideContentsCommand">
+      <activeWhen>
+         <and>
+            <with
+                  variable="showHideRelatedContents">
+               <equals
+                     value="enabled">
+               </equals>
+            </with>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <instanceof
+                        value="org.eclipse.papyrus.uml.diagram.composite.edit.parts.PropertyPartEditPartCN">
+                  </instanceof>
+               </iterate>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+</extension>
+
+<!-- The Command to manages the Provided and Required Interfaces for a Port-->
+<extension
+      point="org.eclipse.ui.commands">
+   <command
+         categoryId="org.eclipse.papyrus.editor.category"
+         description="Allows to manage easily provided Interfaces for a Port"
+         id="org.eclipse.papyrus.uml.diagram.composite.command.manage.interfaces"
+         name="Manage Provided Interfaces">
+   </command>
+</extension>
+
+<!-- The Handler to manages the Provided and Required Interfaces for a Port-->
+<extension
+      point="org.eclipse.ui.handlers">
+   <handler
+         class="org.eclipse.papyrus.uml.diagram.common.actions.handlers.ManagePortInterfacesHandler"
+         commandId="org.eclipse.papyrus.uml.diagram.composite.command.manage.interfaces">
+      <activeWhen>
+         <and>
+            <with
+                  variable="selection">
+               <iterate>
+                  <instanceof
+                        value="org.eclipse.papyrus.uml.diagram.composite.edit.parts.PortEditPart">
+                  </instanceof>
+               </iterate>
+            </with>
+            <with
+                  variable="activeEditor">
+               <test
+                     forcePluginActivation="true"
+                     property="org.eclipse.papyrus.uml.diagram.common.diagram.tester.diagramType"
+                     value="CompositeStructure">
+               </test>
+            </with>
+         </and>
+      </activeWhen>
+   </handler>
+</extension>
+
+<!-- Add the Menu to manages the Provided and Required Interfaces for a Port-->
+<extension
+      point="org.eclipse.ui.menus">
+   <menuContribution
+         allPopups="false"
+         locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu?endof=editMenu">
+      <command
+            commandId="org.eclipse.papyrus.uml.diagram.composite.command.manage.interfaces"
+            icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Interface.gif"
+            id="org.eclipse.papyrus.uml.diagram.composite.popup.interface.manage.interface"
+            label="Manage Interfaces"
+            mnemonic="&amp;I"
+            style="push"
+            tooltip="The command to manage the interfaces provided and required by a Port">
+            <!-- The action is visible only if there is an active handler for it  -->
+         <visibleWhen
+               checkEnabled="true">
+         </visibleWhen>
+      </command>
+      </menuContribution>
+</extension>
+
+<!-- Override generated parser -->
+<extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+	<ParserProvider class="org.eclipse.papyrus.uml.diagram.composite.custom.providers.CustomParserProvider">
+		<Priority name="Low"/>
+	</ParserProvider>
+</extension>
+
+
+
+
+
+				
+
+<extension
+      point="org.eclipse.papyrus.infra.gmfdiag.canonical.strategies">
+   <semanticChildrenStrategy
+         editPart="org.eclipse.papyrus.uml.diagram.composite.edit.parts.PropertyPartCompartmentEditPartCN"
+         class="org.eclipse.papyrus.uml.diagram.composite.custom.canonical.PropertyPartCompartmentSemanticChildrenStrategy">
+   </semanticChildrenStrategy>
+   <semanticChildrenStrategy
+         editPart="org.eclipse.papyrus.uml.diagram.composite.edit.parts.PropertyPartEditPartCN"
+         class="org.eclipse.papyrus.uml.diagram.composite.custom.canonical.PropertyPartCompartmentSemanticChildrenStrategy">
+   </semanticChildrenStrategy>
+   <semanticChildrenStrategy
+         editPart="org.eclipse.papyrus.uml.diagram.composite.edit.parts.PortEditPart"
+         class="org.eclipse.papyrus.uml.diagram.composite.custom.canonical.PropertyPartCompartmentSemanticChildrenStrategy">
+   </semanticChildrenStrategy>
+   <semanticChildrenStrategy
+         class="org.eclipse.papyrus.uml.diagram.composite.custom.canonical.StructuredClassifierSemanticChildrenStrategy">
+      <enablement>
+         <and>
+            <with
+                  variable="element">
+               <instanceof
+                     value="org.eclipse.uml2.uml.StructuredClassifier">
+               </instanceof>
+            </with>
+            <with
+                  variable="view">
+               <test
+                     property="org.eclipse.papyrus.infra.gmfdiag.common.diagramType"
+                     value="CompositeStructure">
+               </test>
+            </with>
+         </and>
+      </enablement>
+   </semanticChildrenStrategy>
+</extension>
+
+<extension point="org.eclipse.papyrus.infra.gmfdiag.common.notationTypesMapping"> 
+   <?gmfgen generated="true"?>
+   <diagramMappings diagramID="CompositeStructure">
+   	<mapping type="CompositeStructure" humanReadableType="CompositeStructureDiagram"/>
+			<mapping
+				humanReadableType="attributes"
+				type="DataType_AttributeCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="DataType_OperationCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="attributes"
+				type="DataType_AttributeCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="operations"
+				type="DataType_OperationCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="literals"
+				type="Enumeration_LiteralCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="literals"
+				type="Enumeration_LiteralCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Activity_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Interaction_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="ProtocolStateMachine_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="StateMachine_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="FunctionBehavior_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="OpaqueBehavior_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Component_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Device_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="ExecutionEnvironment_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Node_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Class_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Collaboration_StructureCompartment_CN">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Activity_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Interaction_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="ProtocolStateMachine_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="StateMachine_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="FunctionBehavior_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="OpaqueBehavior_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Component_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Device_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="ExecutionEnvironment_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Node_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Class_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Collaboration_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="internal structure"
+				type="Property_StructureCompartment">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="ComponentRealization_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="ComponentRealization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="InterfaceRealization_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InterfaceRealization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Substitution_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Substitution_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Realization_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Realization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Manifestation_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Manifestation_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Abstraction_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Abstraction_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Usage_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Usage_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Deployment_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Deployment_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Dependency_RoleBindingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Dependency_RoleBindingStereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Dependency_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Dependency_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Connector_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Connector_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="SourceMultiplicity"
+				type="Connector_SourceMultiplicityLabel">
+			</mapping>
+			<mapping
+				humanReadableType="TargetMultiplicity"
+				type="Connector_TargetMultiplicityLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Generalization_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Tag"
+				type="Representation_KeywordLabel">
+			</mapping>
+			<mapping
+				humanReadableType="ConveyedElements"
+				type="InformationFlow_ConveyedLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="InformationFlow_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="InformationFlow_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Port_BehaviorFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Port_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Port_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Port_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Parameter_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="Parameter_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="Parameter_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Property_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ConnectableElement_CollaborationRoleFloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="CollaborationUse_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Activity_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Interaction_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ProtocolStateMachine_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="StateMachine_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="FunctionBehavior_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="OpaqueBehavior_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Component_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Device_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ExecutionEnvironment_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Node_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Class_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Collaboration_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Interface_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="PrimitiveType_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Enumeration_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DataType_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Actor_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DeploymentSpecification_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Artifact_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="InformationItem_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Signal_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="UseCase_FloatingNameLabel_CN">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Activity_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Interaction_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ProtocolStateMachine_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="StateMachine_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="FunctionBehavior_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="OpaqueBehavior_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Component_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Device_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ExecutionEnvironment_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Node_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Class_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Collaboration_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Interface_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="PrimitiveType_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Enumeration_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DataType_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Actor_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DeploymentSpecification_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Artifact_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="InformationItem_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Signal_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="UseCase_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="SignalEvent_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="CallEvent_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="AnyReceiveEvent_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="ChangeEvent_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="TimeEvent_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DurationObservation_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="DurationObservation_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="DurationObservation_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="TimeObservation_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Name"
+				type="TimeObservation_NameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Stereotype"
+				type="TimeObservation_StereotypeLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="LiteralBoolean_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="LiteralInteger_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="LiteralNull_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="LiteralString_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="LiteralUnlimitedNatural_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="StringExpression_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="OpaqueExpression_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="TimeExpression_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Expression_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Duration_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="TimeInterval_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="DurationInterval_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="Interval_FloatingNameLabel">
+			</mapping>
+			<mapping
+				humanReadableType="Floating Label"
+				type="InstanceValue_FloatingNameLabel">
+			</mapping>
+   </diagramMappings>
+</extension>
+<extension
+      point="org.eclipse.papyrus.infra.gmfdiag.common.diagramReconciler">
+   <diagramReconciler
+         diagramType="CompositeStructure"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.composite.custom.migration.CompositeReconciler_1_1_0"
+         source="1.0.0"
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="CompositeStructure"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.composite.custom.migration.CompositeReconcilerForCompartment_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+   <diagramReconciler
+         diagramType="CompositeStructure"
+         reconcilerClass="org.eclipse.papyrus.uml.diagram.composite.custom.migration.CompositeReconciler_1_2_0"
+         source="1.1.0"
+         target="1.4.0">
+   </diagramReconciler>
+</extension>
+   <extension point="org.eclipse.papyrus.infra.gmfdiag.common.visualTypeProviders">
+	      <?gmfgen generated="true"?>
+	      <visualTypeProvider
+	            class="org.eclipse.papyrus.uml.diagram.composite.providers.UMLVisualTypeProvider"
+	            diagramType="CompositeStructure">
+	         </visualTypeProvider>
+	   </extension>
+<extension
+      point="org.eclipse.papyrus.infra.hyperlink.hyperlinkContributor">
+      <contributor
+            contributor="org.eclipse.papyrus.uml.diagram.composite.custom.hyperlink.InnerCompositeStructureHyperlinkContributor"
+            description="Creates hyperlinks referencing inner composite structure diagrams"
+            id="org.eclipse.papyrus.uml.diagram.composite.hyperlink.InnerCompositeStructureHyperlinkContributor"
+            label="Inner composite structure diagram hyperlinks">
+      </contributor>
+      <contributor
+            contributor="org.eclipse.papyrus.uml.diagram.composite.custom.hyperlink.NestingPackageHyperlinkContributor"
+            description="Creates hyperlinks referencing composite structure diagrams that are directly owned by the nesting package of the selected package"
+            id="org.eclipse.papyrus.uml.diagram.composite.hyperlink.NestingPackageHyperlinkContributor"
+            label="Nesting package composite structure diagram hyperlinks">
+      </contributor>
+      <contributor
+            contributor="org.eclipse.papyrus.uml.diagram.composite.custom.hyperlink.NestedPackageHyperlinkContributor"
+            description="Creates hyperlinks referencing composite structure diagrams that are directly owned by nested packages of the selected package"
+            id="org.eclipse.papyrus.uml.diagram.composite.hyperlink.NestedPackageHyperlinkContributor"
+            label="Nested package composite structure diagram hyperlinks">
+      </contributor>
+</extension>
+
+
+</plugin>

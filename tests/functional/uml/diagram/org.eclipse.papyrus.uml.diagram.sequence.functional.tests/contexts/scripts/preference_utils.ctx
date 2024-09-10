@@ -1,0 +1,62 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Context-Type: org.eclipse.rcptt.ctx.ecl
+Element-Name: preference_utils
+Element-Type: context
+Element-Version: 2.0
+Id: _IfftoHoNEei64tmsM6ziaQ
+Runtime-Version: 2.3.0.201806122315
+Save-Time: 6/27/18 9:48 AM
+
+------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998
+Content-Type: text/ecl
+Entry-Name: .ecl.context
+
+/**
+ * Set automatic creation execution-specification behaviour for synchronous messages.
+ *
+ * @param option "br" for behaviour exec with reply; "ar" for action exec with reply;
+ *               "b" for behaviour exec only; "a" for action exec only;
+ *               "n" or anything else for nothing
+ */
+proc "auto-syncmsg-execspec" [val option] {
+	str $option | switch 
+			[case "br" { echo "A Behavior Execution Specification and a Reply Message" }]
+			[case "ar" { echo "An ActionExecution Specification and a Reply Message" }]
+			[case "b" { echo "A Behavior Execution Specification" }]
+			[case "a" { echo "An ActionExecution Specification" }]
+			-default { echo "Nothing" } | let [val button -input] {
+		get-preferences-menu | click
+		with [get-window Preferences] {
+		    get-tree | select "Papyrus/Diagrams/PapyrusUMLSequenceDiagram Diagram"
+		    get-group "Automatic creations" | get-button $button | click
+		    get-button Apply | click
+		    get-button "Apply and Close" | click
+		}
+	}
+}
+
+/**
+ * Set automatic creation execution-specification behaviour for asynchronous messages.
+ *
+ * @param option "b" for behaviour execution; "a" for action execution;
+ *               "n" or anything else for nothing
+ */
+proc "auto-asyncmsg-execspec" [val option] {
+	str $option | switch 
+			[case "b" { echo "A Behavior Execution Specification" }]
+			[case "a" { echo "An ActionExecution Specification" }]
+			-default { echo "Nothing" }
+	| let [val button -input] {
+		get-preferences-menu | click
+		with [get-window Preferences] {
+		    get-tree | select "Papyrus/Diagrams/PapyrusUMLSequenceDiagram Diagram"
+		    get-group "Automatic creations" | get-button $button -after [get-label "When creating an asynchronous .*"]
+		    	| click
+		    get-button Apply | click
+		    get-button "Apply and Close" | click
+		}
+	}
+}
+
+------=_.ecl.context-718f04b4-ed39-33e3-af62-0995e4561998--

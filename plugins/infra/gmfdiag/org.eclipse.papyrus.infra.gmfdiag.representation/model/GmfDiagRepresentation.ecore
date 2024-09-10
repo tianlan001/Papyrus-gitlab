@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="representation" nsURI="http://www.eclipse.org/papyrus/infra/gmfdiag/representation"
+    nsPrefix="gmfdiagrepresentation">
+  <eClassifiers xsi:type="ecore:EClass" name="PapyrusDiagram" eSuperTypes="../../org.eclipse.papyrus.infra.architecture.representation/model/Representation.ecore#//PapyrusRepresentationKind">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A representation kind that depicts elements form a UML model as a diagram"/>
+    </eAnnotations>
+    <eOperations name="ceationCommandClassExists" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="diagnostics" unique="false" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EDiagnosticChain"/>
+      <eParameters name="context" unique="false">
+        <eGenericType eClassifier="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EJavaObject"/>
+          <eTypeArguments eClassifier="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="customStyle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The custom style for the diagram specified using a platform plugin URI of a CSS file"/>
+        <details key="propertyDescription" value="The custom style for the diagram specified using a platform plugin URI of a CSS file"/>
+        <details key="propertyCategory" value="Diagram"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childRules" upperBound="-1"
+        eType="#//ChildRule" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The set of rules that determine which model elements can be added as child of the origin through this diagram"/>
+        <details key="propertyDescription" value="The set of rules that determine which model elements can be added as child of the origin through this diagram"/>
+        <details key="propertyCategory" value="Diagram"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="paletteRules" upperBound="-1"
+        eType="#//PaletteRule" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="These set of rules that determine which palette elements should be available for this diagram"/>
+        <details key="propertyDescription" value="These set of rules that determine which palette elements should be available for this diagram"/>
+        <details key="propertyCategory" value="Diagram"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assistantRules" upperBound="-1"
+        eType="#//AssistantRule" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The set of rules that determine which modeling assistants should be presented in this diagram"/>
+        <details key="propertyDescription" value="The set of rules that determine which modeling assistants should be presented in this diagram"/>
+        <details key="propertyCategory" value="Diagram"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationCommandClass" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The fully qualified name of a command that creates the diagram. The command must implement the org.eclipse.papyrus.commands.ICreationCommand inteface"/>
+        <details key="propertyDescription" value="The fully qualified name of a command that creates the diagram. The command must implement the org.eclipse.papyrus.commands.ICreationCommand inteface"/>
+        <details key="propertyCategory" value="Diagram"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/papyrus/infra/core/architecture">
+        <details key="classConstraint" value="bundleclass://org.eclipse.papyrus.infra.gmfdiag.commands/org.eclipse.papyrus.commands.ICreationCommand"/>
+        <details key="requiredBundles" value="org.eclipse.papyrus.infra.gmfdiag.common"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="palettes" upperBound="-1"
+        eType="ecore:EClass ../../org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration/model/PaletteConfiguration.ecore#//PaletteConfiguration">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A set of palette configurations used by the diagram (typically found in .paletteconfiguration files)"/>
+        <details key="propertyDescription" value="A set of palette configurations used by the diagram (typically found in .paletteconfiguration files)"/>
+        <details key="propertyCategory" value="Diagram"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ChildRule" eSuperTypes="../../org.eclipse.papyrus.infra.architecture.representation/model/Representation.ecore#//Rule">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A rule that controls the types of elements that can be dropped on this diagram kind."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="element" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The type (from the language's metamodel) that an element must have to be dropped on this diagram kind."/>
+        <details key="propertyDescription" value="The type (from the language's metamodel) that an element must have to be dropped on this diagram kind."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stereotypes" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The stereotype (from the language's profiles) that an element must have to be dropped on this diagram kind."/>
+        <details key="propertyDescription" value="The stereotype (from the language's profiles) that an element must have to be dropped on this diagram kind."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="origin" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The type (from the language's metamodel) that an element must have to be the target of the drop of the child model element."/>
+        <details key="propertyDescription" value="The type (from the language's metamodel) that an element must have to be the target of the drop of the child model element."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="insertionPath" upperBound="-1"
+        eType="#//PathElement" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A path of properties that must be used from the origin to insert the new child model element in the model."/>
+        <details key="propertyDescription" value="A path of properties that must be used from the origin to insert the new child model element in the model."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PaletteRule" eSuperTypes="../../org.eclipse.papyrus.infra.architecture.representation/model/Representation.ecore#//Rule">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A rule that controls the palette of the diagram kind."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="element" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A pattern (that can include *) to match for the identifier of a palette element."/>
+        <details key="propertyDescription" value="A pattern (that can include *) to match for the identifier of a palette element."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PathElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A path of properties that must be used from the origin to insert the new child model element in the model."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The reference from the origin type that represents the collection of next elements in the path."/>
+        <details key="propertyDescription" value="The reference from the origin type that represents the collection of next elements in the path."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="origin" lowerBound="1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The type (from the language's metamodel) that an element must have to be the next segment in the path."/>
+        <details key="propertyDescription" value="The type (from the language's metamodel) that an element must have to be the next segment in the path."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The type (from the language's metamodel) that is the type of the reference feature."/>
+        <details key="propertyDescription" value="The type (from the language's metamodel) that is the type of the reference feature."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssistantRule" eSuperTypes="../../org.eclipse.papyrus.infra.architecture.representation/model/Representation.ecore#//Rule">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A rule that permits or forbids one or more modeling assistants by element type ID."/>
+    </eAnnotations>
+    <eOperations name="matches" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Queries whether I match a given &lt;tt>elementType&lt;/tt>."/>
+      </eAnnotations>
+      <eParameters name="elementType" lowerBound="1" eType="#//ElementType"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="elementTypeID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A pattern (that can include *) to match for the identifier of a assistant element."/>
+        <details key="propertyDescription" value="A pattern (that can include *) to match for the identifier of a assistant element."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="ElementType" instanceClassName="org.eclipse.gmf.runtime.emf.type.core.IElementType"/>
+</ecore:EPackage>

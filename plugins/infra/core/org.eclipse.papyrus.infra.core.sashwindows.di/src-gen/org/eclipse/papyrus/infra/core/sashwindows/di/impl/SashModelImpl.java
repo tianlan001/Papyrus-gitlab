@@ -1,0 +1,877 @@
+/*****************************************************************************
+ * Copyright (c) 2011, 2016 LIFL, CEA LIST, Christian W. Damus, and others.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *  LIFL - Initial API and implementation
+ *  Christian W. Damus - bug 469188
+ *  Christian W. Damus - bug 485220
+ *
+ *****************************************************************************/
+package org.eclipse.papyrus.infra.core.sashwindows.di.impl;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.papyrus.infra.core.sashwindows.di.AbstractPanel;
+import org.eclipse.papyrus.infra.core.sashwindows.di.DiFactory;
+import org.eclipse.papyrus.infra.core.sashwindows.di.DiPackage;
+import org.eclipse.papyrus.infra.core.sashwindows.di.PageRef;
+import org.eclipse.papyrus.infra.core.sashwindows.di.PanelParent;
+import org.eclipse.papyrus.infra.core.sashwindows.di.SashModel;
+import org.eclipse.papyrus.infra.core.sashwindows.di.SashPanel;
+import org.eclipse.papyrus.infra.core.sashwindows.di.TabFolder;
+import org.eclipse.papyrus.infra.core.sashwindows.di.Window;
+import org.eclipse.papyrus.infra.core.sashwindows.di.util.DiSwitch;
+import org.eclipse.papyrus.infra.core.sashwindows.di.util.PageRemovalValidator;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Sash Model</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ * <li>{@link org.eclipse.papyrus.infra.core.sashwindows.di.impl.SashModelImpl#getWindows <em>Windows</em>}</li>
+ * <li>{@link org.eclipse.papyrus.infra.core.sashwindows.di.impl.SashModelImpl#getCurrentSelection <em>Current Selection</em>}</li>
+ * <li>{@link org.eclipse.papyrus.infra.core.sashwindows.di.impl.SashModelImpl#isRestoreActivePage <em>Restore Active Page</em>}</li>
+ * </ul>
+ *
+ * @generated
+ */
+public class SashModelImpl extends EObjectImpl implements SashModel {
+
+	private static final int SWT_UP = 1 << 7; // from SWT.UP
+	private static final int SWT_HORIZONTAL = 1 << 8; // from SWT.HORIZONTAL
+	private static final int SWT_VERTICAL = 1 << 9; // from SWT.VERTICAL
+	private static final int SWT_LEFT = 1 << 14; // from SWT.LEFT
+	private static final int SWT_RIGHT = 1 << 17; // from SWT.RIGHT
+
+	/**
+	 * The cached value of the '{@link #getWindows() <em>Windows</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @see #getWindows()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Window> windows;
+
+	/**
+	 * The cached value of the '{@link #getCurrentSelection() <em>Current Selection</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @see #getCurrentSelection()
+	 * @generated
+	 * @ordered
+	 */
+	protected TabFolder currentSelection;
+
+	/**
+	 * The default value of the '{@link #isRestoreActivePage() <em>Restore Active Page</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @see #isRestoreActivePage()
+	 * @generated
+	 * @ordered
+	 * @since 1.2
+	 */
+	protected static final boolean RESTORE_ACTIVE_PAGE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isRestoreActivePage() <em>Restore Active Page</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @see #isRestoreActivePage()
+	 * @generated
+	 * @ordered
+	 * @since 1.2
+	 */
+	protected boolean restoreActivePage = RESTORE_ACTIVE_PAGE_EDEFAULT;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	protected SashModelImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return DiPackage.Literals.SASH_MODEL;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	@Override
+	public EList<Window> getWindows() {
+		if (windows == null) {
+			windows = new EObjectContainmentEList<Window>(Window.class, this, DiPackage.SASH_MODEL__WINDOWS);
+		}
+		return windows;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	@Override
+	public TabFolder getCurrentSelection() {
+		if (currentSelection != null && currentSelection.eIsProxy()) {
+			InternalEObject oldCurrentSelection = (InternalEObject) currentSelection;
+			currentSelection = (TabFolder) eResolveProxy(oldCurrentSelection);
+			if (currentSelection != oldCurrentSelection) {
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DiPackage.SASH_MODEL__CURRENT_SELECTION, oldCurrentSelection, currentSelection));
+				}
+			}
+		}
+		return currentSelection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	public TabFolder basicGetCurrentSelection() {
+		return currentSelection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	@Override
+	public void setCurrentSelection(TabFolder newCurrentSelection) {
+		TabFolder oldCurrentSelection = currentSelection;
+		currentSelection = newCurrentSelection;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, DiPackage.SASH_MODEL__CURRENT_SELECTION, oldCurrentSelection, currentSelection));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @since 1.2
+	 */
+	@Override
+	public boolean isRestoreActivePage() {
+		return restoreActivePage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @since 1.2
+	 */
+	@Override
+	public void setRestoreActivePage(boolean newRestoreActivePage) {
+		boolean oldRestoreActivePage = restoreActivePage;
+		restoreActivePage = newRestoreActivePage;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, DiPackage.SASH_MODEL__RESTORE_ACTIVE_PAGE, oldRestoreActivePage, restoreActivePage));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public void addPage(Object pageIdentifier) {
+		getCurrentSelection().addPage(pageIdentifier);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public void addPage(TabFolder folder, Object pageIdentifier) {
+		// if(folder==null) {
+		// // Use first folder
+		// folder = getFirstFolder();
+		// }
+		folder.addPage(pageIdentifier);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 * @since 1.2
+	 */
+	@Override
+	public void addPage(TabFolder folder, PageRef pageRef) {
+		folder.addPage(pageRef);
+	}
+
+	/**
+	 * Get the first folder in the model.
+	 * Return null if no folder exist.
+	 *
+	 * @return
+	 */
+	// public TabFolder getFirstFolder() {
+	//
+	// }
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public void removePage(Object pageIdentifier) {
+		PageRef pageRef = lookupPage(pageIdentifier);
+		if ((pageRef == null) || !PageRemovalValidator.getInstance(this).canRemovePage(pageRef)) {
+			return;
+		}
+
+		// Get the folder containing the page
+		TabFolder folder = pageRef.getParent();
+		// Remove the page
+		folder.getChildren().remove(pageRef);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public void removePageAndEmptyFolder(Object pageIdentifier) {
+		PageRef pageRef;
+
+		PageRemovalValidator validator = PageRemovalValidator.getInstance(this);
+		for (pageRef = lookupPage(pageIdentifier); (pageRef != null) && validator.canRemovePage(pageRef); pageRef = lookupPage(pageIdentifier)) {
+			removeAndEmptyFolder(pageRef);
+		}
+
+	}
+
+	void removeAndEmptyFolder(PageRef pageRef) {
+		// Get the folder containing the page
+		TabFolder folder = pageRef.getParent();
+		// Remove the page
+		folder.getChildren().remove(pageRef);
+		// Remove parent if empty
+		removeEmptyFolder(folder);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public void setCurrentSelectionSilently(TabFolder selection) {
+		currentSelection = selection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public PageRef lookupPage(final Object pageIdentifier) {
+
+		// Create appropriate visitor.
+		DiSwitch<PageRef> visitor = new DiSwitch<PageRef>() {
+
+			/**
+			 * Iterate over windows
+			 *
+			 * @see org.eclipse.papyrus.infra.core.sashwindows.di.util.DiSwitch#caseSashModel(org.eclipse.papyrus.infra.core.sashwindows.di.SashModel)
+			 *
+			 * @param object
+			 * @return
+			 */
+			@Override
+			public PageRef caseSashModel(SashModel object) {
+				PageRef res = null;
+				for (Window window : object.getWindows()) {
+					res = this.doSwitch(window);
+					if (res != null) {
+						return res;
+					}
+				}
+
+				return super.caseSashModel(object);
+			}
+
+			/**
+			 *
+			 * @see org.eclipse.papyrus.infra.core.sashwindows.di.util.DiSwitch#caseWindow(org.eclipse.papyrus.infra.core.sashwindows.di.Window)
+			 *
+			 * @param object
+			 * @return
+			 */
+			@Override
+			public PageRef caseWindow(Window window) {
+
+				AbstractPanel panel = window.getPanel();
+				if (panel == null) {
+					return null;
+				}
+
+
+				PageRef res = this.doSwitch(panel);
+				if (res != null) {
+					return res;
+				}
+
+				return super.caseWindow(window);
+			}
+
+			/**
+			 * Iterate over children
+			 *
+			 * @see org.eclipse.papyrus.infra.core.sashwindows.di.util.DiSwitch#caseSashPanel(org.eclipse.papyrus.infra.core.sashwindows.di.SashPanel)
+			 *
+			 * @param object
+			 * @return
+			 */
+			@Override
+			public PageRef caseSashPanel(SashPanel object) {
+				PageRef res = null;
+				for (AbstractPanel panel : object.getChildren()) {
+					res = this.doSwitch(panel);
+					if (res != null) {
+						return res;
+					}
+				}
+
+				return super.caseSashPanel(object);
+			}
+
+			/**
+			 * Iterate over PageRef
+			 *
+			 * @see org.eclipse.papyrus.infra.core.sashwindows.di.util.DiSwitch#caseTabFolder(org.eclipse.papyrus.infra.core.sashwindows.di.TabFolder)
+			 *
+			 * @param object
+			 * @return
+			 */
+			@Override
+			public PageRef caseTabFolder(TabFolder object) {
+				for (PageRef pageRef : object.getChildren()) {
+
+					if (pageRef.isForIdentifier(pageIdentifier)) {
+						return pageRef;
+					}
+				}
+
+				return super.caseTabFolder(object);
+			}
+
+		};
+
+		// Do lookup
+		PageRef res = visitor.doSwitch(this);
+
+		return res;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * TODO Add method to metamodel
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public TabFolder lookupFirstFolder() {
+
+		// Create appropriate visitor.
+		DiSwitch<TabFolder> visitor = new DiSwitch<TabFolder>() {
+
+			/**
+			 * Iterate over windows
+			 *
+			 * @see org.eclipse.papyrus.infra.core.sashwindows.di.util.DiSwitch#caseSashModel(org.eclipse.papyrus.infra.core.sashwindows.di.SashModel)
+			 *
+			 * @param object
+			 * @return
+			 */
+			@Override
+			public TabFolder caseSashModel(SashModel object) {
+				TabFolder res = null;
+				for (Window window : object.getWindows()) {
+					res = this.doSwitch(window);
+					if (res != null) {
+						return res;
+					}
+				}
+
+				return super.caseSashModel(object);
+			}
+
+			/**
+			 *
+			 * @see org.eclipse.papyrus.infra.core.sashwindows.di.util.DiSwitch#caseWindow(org.eclipse.papyrus.infra.core.sashwindows.di.Window)
+			 *
+			 * @param object
+			 * @return
+			 */
+			@Override
+			public TabFolder caseWindow(Window window) {
+
+				AbstractPanel panel = window.getPanel();
+				if (panel == null) {
+					return null;
+				}
+
+
+				TabFolder res = this.doSwitch(panel);
+				if (res != null) {
+					return res;
+				}
+
+				return super.caseWindow(window);
+			}
+
+			/**
+			 * Iterate over children
+			 *
+			 * @see org.eclipse.papyrus.infra.core.sashwindows.di.util.DiSwitch#caseSashPanel(org.eclipse.papyrus.infra.core.sashwindows.di.SashPanel)
+			 *
+			 * @param object
+			 * @return
+			 */
+			@Override
+			public TabFolder caseSashPanel(SashPanel object) {
+				TabFolder res = null;
+				for (AbstractPanel panel : object.getChildren()) {
+					res = this.doSwitch(panel);
+					if (res != null) {
+						return res;
+					}
+				}
+
+				return super.caseSashPanel(object);
+			}
+
+			/**
+			 * Iterate over PageRef
+			 *
+			 * @see org.eclipse.papyrus.infra.core.sashwindows.di.util.DiSwitch#caseTabFolder(org.eclipse.papyrus.infra.core.sashwindows.di.TabFolder)
+			 *
+			 * @param object
+			 * @return
+			 */
+			@Override
+			public TabFolder caseTabFolder(TabFolder object) {
+				return object;
+			}
+
+		};
+
+		// Do lookup
+		TabFolder res = visitor.doSwitch(this);
+
+		return res;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * TODO Add method to metamodel
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public Window lookupFirstWindow() {
+
+		List<Window> list = getWindows();
+		if (list.size() == 0) {
+			return null;
+		}
+
+		return list.get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public void movePage(TabFolder srcParentFolder, int srcIndex, TabFolder targetParentFolder, int targetIndex) {
+
+
+		// Check if we move all pages of srcFolder
+		if (srcIndex == -1) {
+			// move all
+			List<PageRef> srcChildrens = srcParentFolder.getChildren();
+			List<PageRef> targetChildrens = targetParentFolder.getChildren();
+			// while(srcChildrens.size() > 0) {
+			// PageRef pageRef = srcChildrens.remove(0);
+			// targetChildrens.add(pageRef);
+			// }
+
+			if (targetIndex < 0 || targetIndex >= targetChildrens.size()) {
+				// Index is out of bounds. Move at the end.
+				targetChildrens.addAll(srcChildrens);
+			} else {
+				// index is in bounds. Move at index.
+				targetChildrens.addAll(targetIndex, srcChildrens);
+			}
+			return;
+		}
+
+		// Move only one
+		PageRef pageRef = srcParentFolder.getChildren().remove(srcIndex);
+
+		List<PageRef> targetChildrens = targetParentFolder.getChildren();
+		// Check if out of target range.
+		if (targetIndex < 0 || targetIndex > targetChildrens.size()) {
+			targetChildrens.add(pageRef);
+		} else {
+			targetChildrens.add(targetIndex, pageRef);
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public void insertFolder(TabFolder folderToInsert, TabFolder refFolder, int side) {
+
+		// Get the parent under which the sash will be inserted
+		PanelParent refParent = refFolder.getParent();
+
+		SashPanel newSash;
+		int direction;
+
+		// Compute sash direction
+		if (side == SWT_LEFT || side == SWT_RIGHT) {
+			direction = SWT_HORIZONTAL;
+		} else {
+			direction = SWT_VERTICAL;
+		}
+		// Create sash
+		newSash = DiFactory.eINSTANCE.createSashPanel();
+		// Insert in parent. Should be done before setting childrens, otherwise, the child can't be
+		// replaced as it will not belong to parent anymore.
+		refParent.replaceChild(refFolder, newSash);
+
+		if (side == SWT_LEFT || side == SWT_UP) { // insert left
+			newSash.setChildren(folderToInsert, refFolder, direction);
+		} else {
+			newSash.setChildren(refFolder, folderToInsert, direction);
+		}
+
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public void movePage(TabFolder srcParentFolder, int srcIndex, TabFolder targetParentFolder) {
+
+		// Check if we move all pages of srcFolder
+		if (srcIndex == -1) {
+			// move all
+			List<PageRef> srcChildrens = srcParentFolder.getChildren();
+			List<PageRef> targetChildrens = targetParentFolder.getChildren();
+			while (srcChildrens.size() > 0) {
+				PageRef pageRef = srcChildrens.remove(0);
+				targetChildrens.add(pageRef);
+			}
+			return;
+		}
+
+		// Move only one page
+		PageRef pageRef = srcParentFolder.getChildren().remove(srcIndex);
+		List<PageRef> targetChildrens = targetParentFolder.getChildren();
+		// Check if out of target range.
+		targetChildrens.add(pageRef);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public void removeEmptyFolder(TabFolder folder) {
+
+		EList<PageRef> children = folder.getChildren();
+
+		// Check if empty
+		if (children.size() > 0) {
+			return;
+		}
+
+		PanelParent parent = folder.getParent();
+		// Forbid removing of the last folder
+		if (parent instanceof Window) {
+			return;
+		}
+
+		// Parent is a sash. Ask it to remove the child and itself
+		((SashPanel) parent).delete(folder);
+		// adjust current selection if the old folder was the currentSelection
+		if (getCurrentSelection() == folder) {
+			setCurrentSelectionSilently(lookupFirstFolder());
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public void removeAllPages() {
+		Collection<? extends PageRef> pagesToRemove = getAllPages();
+		int originalCount = pagesToRemove.size();
+		pagesToRemove = PageRemovalValidator.getInstance(this).filterRemovablePages(pagesToRemove);
+
+		if (pagesToRemove.size() < originalCount) {
+			// Do it the hard way
+			pagesToRemove.forEach(this::removeAndEmptyFolder);
+		} else {
+			// Get a the first window and a folder.
+			// Clear the folder and set it as the root folder.
+			// This disguard all other folder and pages ...
+			Window firstWindow = lookupFirstWindow();
+			TabFolder folder = lookupFirstFolder();
+
+			folder.getChildren().clear();
+			firstWindow.setPanel(folder);
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated NOT
+	 */
+	@Override
+	public void removeOtherPages(Object pageIdentifier) {
+		PageRef page = lookupPage(pageIdentifier);
+
+		Collection<? extends PageRef> pagesToRemove = getAllPages();
+		pagesToRemove.remove(page);
+		int originalCount = pagesToRemove.size();
+		pagesToRemove = PageRemovalValidator.getInstance(this).filterRemovablePages(pagesToRemove);
+
+		if (pagesToRemove.size() < originalCount) {
+			// Do it the hard way
+			pagesToRemove.forEach(this::removeAndEmptyFolder);
+		} else {
+			// Get a the first window and a folder.
+			// Clear the folder and set it as the root folder.
+			// This disguard all other folder and pages ...
+			Window firstWindow = lookupFirstWindow();
+			TabFolder folder = lookupFirstFolder();
+
+			folder.getChildren().clear();
+			if (page != null) {
+				folder.getChildren().add(page);
+			}
+			firstWindow.setPanel(folder);
+		}
+	}
+
+	private Collection<PageRef> getAllPages() {
+		Collection<PageRef> result = new ArrayList<>();
+
+		eAllContents().forEachRemaining(next -> {
+			if (next instanceof PageRef) {
+				result.add((PageRef) next);
+			}
+		});
+
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case DiPackage.SASH_MODEL__WINDOWS:
+			return ((InternalEList<?>) getWindows()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case DiPackage.SASH_MODEL__WINDOWS:
+			return getWindows();
+		case DiPackage.SASH_MODEL__CURRENT_SELECTION:
+			if (resolve) {
+				return getCurrentSelection();
+			}
+			return basicGetCurrentSelection();
+		case DiPackage.SASH_MODEL__RESTORE_ACTIVE_PAGE:
+			return isRestoreActivePage();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case DiPackage.SASH_MODEL__WINDOWS:
+			getWindows().clear();
+			getWindows().addAll((Collection<? extends Window>) newValue);
+			return;
+		case DiPackage.SASH_MODEL__CURRENT_SELECTION:
+			setCurrentSelection((TabFolder) newValue);
+			return;
+		case DiPackage.SASH_MODEL__RESTORE_ACTIVE_PAGE:
+			setRestoreActivePage((Boolean) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case DiPackage.SASH_MODEL__WINDOWS:
+			getWindows().clear();
+			return;
+		case DiPackage.SASH_MODEL__CURRENT_SELECTION:
+			setCurrentSelection((TabFolder) null);
+			return;
+		case DiPackage.SASH_MODEL__RESTORE_ACTIVE_PAGE:
+			setRestoreActivePage(RESTORE_ACTIVE_PAGE_EDEFAULT);
+			return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case DiPackage.SASH_MODEL__WINDOWS:
+			return windows != null && !windows.isEmpty();
+		case DiPackage.SASH_MODEL__CURRENT_SELECTION:
+			return currentSelection != null;
+		case DiPackage.SASH_MODEL__RESTORE_ACTIVE_PAGE:
+			return restoreActivePage != RESTORE_ACTIVE_PAGE_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) {
+			return super.toString();
+		}
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (restoreActivePage: ");
+		result.append(restoreActivePage);
+		result.append(')');
+		return result.toString();
+	}
+
+} // SashModelImpl

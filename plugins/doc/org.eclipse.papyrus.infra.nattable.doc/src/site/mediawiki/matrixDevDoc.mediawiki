@@ -1,0 +1,127 @@
+=Introduction=
+Since Papyrus 3.0 (Eclipse Oxygen), Papyrus provides a generic matrix for UML Relationships. This matrix allows to represent a relation between a row element and a column element by a checkbox. This matrix allows to display, create and remove relationships between the elements of your model.
+
+=How does matrices work?=
+==Rows==
+*For the rows, the matrix framework is based on the tree table. We use the '''TreeFillingConfiguration''' object to configure the filling rules of the table. For matrices, the depth must start to 1. The 0 level is given by the user, filling the '''sources''' feature in the matrix property view.
+*When the user fill the row '''sources''' feature, we create <code>ITreeItemAxis</code> in the same time, to simulate a Drag and Drop in a Tree Table. No other changes are required to make rows working as expected.
+*The java class managing the rows is <code>org.eclipse.papyrus.uml.nattable.manager.axis.UMLElementTreeAxisManagerForEventList</code>. This class is registered with the id <code>org.eclipse.papyrus.infra.uml.nattable.tree.axis.manager</code> in the table configuration file. 
+*The provided rows are updated when the applied filter or the listen categories change or when a new element appears in the model.
+*The provided rows are not updated when a stereotype is applied/unapplied or when a feature changed in an element.
+
+==Column==
+*For the columns, the matrix framework is based on the synchronized flat table. We adapt its row AxisManager to create the columns AxisManager used for matrix.
+*The java class managing the columns is <code>org.eclipse.papyrus.infra.emf.nattable.manager.axis.EObjectColumnMatrixAxisManager</code>. This class is registered with the id <code>org.eclipse.papyrus.infra.emf.nattable.axis.column.eobject.matrix.manager</code> in the table configuration file.
+*The feature to listen and the filter to apply are defined by a '''TreeFillingConfiguration''' as it is done for rows. Nevertheless, we are not able to display elements on several depth for columns. The unique managed depth is 1.
+*The provided columns are updated when the applied filter or the listen categories change or when a new element appears in the model.
+*The provided columns are not updated when a stereotype is applied/unapplied or when a feature changed in an element.
+
+==Cells==
+*The cell managers API has been changed for matrices. Now the developer must always provide the <code>INatTableModelManager</code> as parameter of the method.
+*We provide a new interface <code>org.eclipse.papyrus.infra.nattable.manager.cell.IGenericMatrixRelationshipCellManager</code> to be able to distinguish easily matrices cell editors from others.
+**This interface provide a new method <code>org.eclipse.papyrus.infra.nattable.manager.cell.IGenericMatrixRelationshipCellManager.getManagedRelationship()</code>, to be able to know the kind of the relationship managed by the cell editor.
+**We choose to manage relationship as EClass, to be able to manage the UML Relationship (and other UML Element shown as relationship in the future) and stereotyped relationship in the same time (using element type configuration). 
+**This information is used by the Matrix Property View, to provide only relationship for which we provide a cell editor.
+*The cells are read-only in 3 cases:
+**the couple row-column can't be used as source-target for the edited relationship,
+**several relationships of the edited kind already exist between the row and the column,
+**a relationship already exists, but it have more than 2 ends. 
+*The cell painter used for relationship is <code>org.eclipse.papyrus.uml.nattable.matrix.editors.CustomCheckBoxCellEditor</code>
+*The cell editor used for relationship is <code>org.eclipse.papyrus.uml.nattable.matrix.painters.MatrixRelationshipCellBoxPainter</code>
+*The cell data converter used for relationship is <code>org.eclipse.papyrus.uml.nattable.matrix.configs.MatrixRelationshipDisplayConverter</code>
+*The cell configuration is done by the class <code>org.eclipse.papyrus.uml.nattable.matrix.configs.GenericRelationshipMatrixCellEditorConfiguration</code>
+
+=General informations and assumptions=
+*The dedicated property view allows to edit the matrix configuration assuming that there is only 1 '''TreeFillingConfiguration''' for rows, with a depth set to 1, and only 1 TreeFillingConfiguration for columns, with a depth set to 1 too.
+*The framework should work fine with several '''TreeFillingConfiguration''' declared for depth=1, but we don't provide a UI to edit it for columns (for rows, the dialog used to configure the categories can be used).
+*The framework should work fine with several '''TreeFillingConfiguration''' declared with depth=1 and more for rows (the dialog used to configure the categories can be used).
+*The framework won't work with TreeFillingConfiguration declared for depth=1.
+*The framework won't work with TreeFillingConfiguration declared for depth>1 on columns.  
+*Rows and Columns AxisProvider registered in the table configuration file must be instanceof '''IMasterAxisProvider'''.
+*The framework assumes that there is only one AxisManager for rows and only one for columns.
+
+
+=Changes done to support Matrices=
+==API Changes for Matrices==
+*The cell managers API has been changed for matrices. Now the developer must always provide the <code>INatTableModelManager</code> as parameter. This change has been reported on the methods parameters of the <code>CellManagerFactory</code> too.
+*We provide a new interface <code>org.eclipse.papyrus.infra.nattable.manager.cell.IGenericMatrixRelationshipCellManager</code> to be able to distinguish easily matrix cell editors from other one.
+**This interface provide a new method <code>org.eclipse.papyrus.infra.nattable.manager.cell.IGenericMatrixRelationshipCellManager.getManagedRelationship()</code>, to be able to know the kind of the relationship managed by the cell editor.
+
+==Table metamodel changes for Matrices==
+*a new EPackage called '''nattablecelleditor''' has been created. It provides interfaces and concrete EClass to store the required information about the relationship edition.
+**'''ICellEditorConfiguration''': common interface for all futures cell editor configurations;
+**'''IMatrixCellEditorConfiguration''': common interface for all futures matrix cell editor configurations;
+**'''GenericRelationshipMatrixCellEditorConfiguration''': the configuration cell editor used by the matrix of relationship. This class contents these fields:
+***'''direction''': the direction of the edited relationships in the table;
+***'''cellContentsFilter''': a IBooleanEObjectExpression to filter (if required) the contents of the cell in order to display only relationship choosen by the user;
+***'''editedElement''': the EClass (UML in our usecase) representing the relationship edited by the table;
+*a new EPackage called '''wrapper''' has been created. It provides wrappers to be able to reference easily several kind of objects. Currently, only the implementation for EObject is provided, but extending it, we will be able to reference object which are not EObject too.
+***'''relationshipOwnerStrategy''': an enumeration value used to define the strategy to choose the owner of the created relationships.
+***'''relationshipOwner''': the owner chosen by the user, when the '''relationshipOwnerStrategy''' enumeration has the value '''Default'''
+***'''relationshipOwnerFeature''': the containment feature in the owner, defined by the user, used to contain the created relationships. This field is not yet used.
+**'''MatrixRelationShipDirection''': an enumeration used to define the direction of the relations displayed in the table:
+***'''NONE''': we display all directions in the matrixes (from row to columns AND from columns to rows),
+***'''FROM_ROW_TO_COLUMN''',
+***'''FROM_COLUMN_TO_ROW'''.
+**'''MatrixRelationShipOwnerStrategy''': an enumeration used to define the owner of the created relationships:
+***'''DEFAULT''': the owner will be calculated by Papyrus,
+***'''TABLE_CONTEXT''': the owner will be the context of the table,
+***'''ROW_OWNER''': the owner will be the row's owner,
+***'''ROW_AS_OWER''': the owner will be the row itself,
+***'''COLUMN_OWNER''': the owner will be the column's owner,
+***'''COLUMN_AS_OWNER''': the owner will be the column itself,
+***'''OTHER''': the owner is given by the user, using the field <code>'''GenericRelationshipMatrixCellEditorConfiguration#relationshipOwner'''</code>
+*in '''TableConfiguration''':
+**a new property '''ownedCellEditorConfigurations''', used to define the initial matrix configuration;
+*in '''Table'''
+**a new property '''ownedCellEditorConfigurations''', used to define the matrix configuration. This property is copied from the TableConfiguration during the creation of a new table;
+*in '''IMasterAxisProvider''':
+**a new field '''sources''', typed by '''IWrapper''': this field allows to reference the objects of the model used to get the rows and the columns of the table
+*in  '''TreeFillingConfiguration''':
+**a new filter called '''filterRule''' and typed by an IBooleanEObjectExpression has been added. When this field is defined, the axis displayed in table must match the filter.
+
+==New plugins for Matrices==
+Two new plugins have been created to manage matrices:
+*'''org.eclipse.papyrus.uml.nattable.matrix''': to group some code used for matrices. This plugin has been created to avoid a circular dependency. So it doesn't contain all the code required for matrices. There is code for them in others Papyrus NatTable plugin.
+*'''org.eclipse.papyrus.uml.nattable.properties''': this plugin provides a dedicated properties view for the UML Matrix of Relationship.
+
+==Expressions==
+Developing the matrices, we need to provide a way for the user to filter the contents provided by the row sources and the columns sources in order to display only the interesting axis. From this requirement, we created, in the same time, the Expressions framework. This one provides boolean expressions to evaluate the objects of the model and decide if it must be displayed or not in the table. To go further, please read the Expressions Documentation.
+
+=How to create a preconfigured matrix of relationship?=
+The following explanations supposed you already know a bit how works viewpoint, architecture framework and table.
+Here, we will explain you how to create a matrix dedicated to a given relationship starting from the configuration of the '''UMLGenericMatrixOfRelationships'''.
+#Create a new plugin
+#Copy the Papyrus file for the '''generic_matrix_of_relationships.nattableconfiguration''' located in the folder '''configs''' of the plugin '''org.eclipse.papyrus.uml.matrix'''.
+#Open the file, select the root object ('''TableConfiguration''') and edit these fields:
+##'''Description''',
+##'''Icon Path''',
+##'''Name''',
+##'''Type'''.
+#Register your new table in a viewpoint (in a new one, or in an existing one). 
+##The field '''Implementation ID''' in the viewpoint MUST have the same value than the field '''Type''' in the '''TableConfiguration'''
+##In Papyrus, the '''UMLGenericMatrixOfRelationships''' matrix is registered in the file '''org.eclipse.papyrus.uml.architecture/model/uml.architecture'''.
+#Create a '''GenericRelationshipMatrixCellEditorConfiguration''' as child of the '''TableConfiguration''' and edit it:
+##'''Cell Content Filter''' (not mandatory): a '''BooleanEObjectExpression''' used as filter to select precisely the relationship to display in the cells of the table,
+##'''Cell Editor Id''': an id for your cell editor (not yet used in the current implementation),
+##'''Direction''': define the orientation of the relationship displayed in the cells of the table,
+##'''Edited Element''': an element type representing the relationship edited in your table. This field is typed with the object '''ElementTypeConfiguration'''. To be able to define this field, you must: 
+###load a file '''*.elementtypesconfigurations'''. You can have defined your own element types or reuse a Papyrus one. In all cases, you must have the plugin with containing this file in your workspace.
+###open the tableconfiguration file in text mode, to check that the reference to the element type is defined as <code>href="platform:/plugin/myFilePath"</code> and not as <code>href="platform:/resource/myFilePath"</code> or as <code>href="../../../myFilePath"</code>.
+###*the final matrix will work only if a cell editor managing the chosen element type exists
+###'''relationshipOwnerStrategy''': you should define the relationship owner strategy for your new matrix.
+#Define the feature to listen (same behavior than TreeTable)
+##Edit the '''TreeFillingConfiguration''' for rows and columns
+##define the feature to listen (wrapped in a IAxis)
+##define the filter to apply (not mandatory) on the elements referenced by the feature. Only the matching elements will be displayed as rows or as columns.
+#Register the nattableconfiguration file in the '''plugin.xml''' with the extension point '''org.eclipse.papyrus.infra.nattable.configuration'''.
+
+=How to manage a new kind of relationship in the matrix?=
+#Create a new class implementing <code>org.eclipse.papyrus.infra.nattable.manager.cell.IGenericMatrixRelationshipCellManager</code>
+##We advice you to extends <code>org.eclipse.papyrus.uml.nattable.matrix.cell.managers.AbstractUMLGenericMatrixRelationshipCellManager</code>
+###In this case, check if the '''EClass''' representing your relationship is already managed by '''org.eclipse.papyrus.uml.tools.helper.UMLRelationshipHelper'''
+####If yes, it will work fine
+####If not, complete the previous class (if you are a Papyrus developer), or extend it and implements <code>org.eclipse.papyrus.uml.nattable.matrix.cell.managers.AbstractUMLGenericMatrixRelationshipCellManager.getOrCreateUMLRelationshipHelper()</code> in your CellManager.
+#Register it using the extension point '''org.eclipse.papyrus.infra.nattable.celleditor.configuration''', using the property '''cellAxisConfiguration'''
+
+

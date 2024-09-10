@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.papyrus.uml</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+	    <groupId>org.eclipse.papyrus</groupId>
+	    <artifactId>org.eclipse.papyrus.plugins</artifactId>
+	    <version>7.0.0-SNAPSHOT</version>
+    </parent>
+	<name>Papyrus UML</name>
+	<description>Top container of the Papyrus UML layer, including all UML-related editing components.</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.uml.appearance</module>
+		<module>org.eclipse.papyrus.uml.commands</module>
+		<module>org.eclipse.papyrus.uml.controlmode.profile</module>
+		<module>org.eclipse.papyrus.uml.documentation.profile</module>
+		<module>org.eclipse.papyrus.uml.types.core</module>
+		<module>org.eclipse.papyrus.uml.extensionpoints</module>
+		<module>org.eclipse.papyrus.uml.filters</module>
+		<module>org.eclipse.papyrus.uml.filters.edit</module>
+		<module>org.eclipse.papyrus.uml.import</module>
+		<module>org.eclipse.papyrus.uml.export</module>
+		<module>org.eclipse.papyrus.uml.modelrepair</module>
+		<module>org.eclipse.papyrus.uml.navigation</module>
+		<module>org.eclipse.papyrus.uml.oclconstraintevaluation</module>
+		<module>org.eclipse.papyrus.uml.perspective</module>
+		<module>org.eclipse.papyrus.uml.profile</module>
+		<module>org.eclipse.papyrus.uml.resourceloading.profile</module>
+		<module>org.eclipse.papyrus.uml.search.ui</module>
+		<module>org.eclipse.papyrus.uml.service.types</module>
+		<module>org.eclipse.papyrus.uml.service.types.ui</module>
+		<module>org.eclipse.papyrus.uml.service.validation</module>
+		<module>org.eclipse.papyrus.uml.services.decoration</module>
+		<module>org.eclipse.papyrus.uml.templaterepository</module>
+		<module>org.eclipse.papyrus.uml.ui</module>
+		<module>alf</module>
+		<module>architecture</module>
+		<module>decoratormodel</module>
+		<module>diagram</module>
+		<module>expressions</module>
+		<module>modelexplorer</module>
+		<module>nattable</module>
+		<module>profile</module>
+		<module>properties</module>
+		<module>textedit</module>
+		<module>tools</module>
+		<module>xtext</module>
+		<module>internationalization</module>
+		<module>m2m</module>
+	</modules>
+</project>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_1MVYcPSuEeijnplL5ni1LA" name="ComponentDiagram_OnlineShoppingComponentDiagram">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_dgbVEPS0EeijnplL5ni1LA" annotatedElement="_1MVYcPSuEeijnplL5ni1LA">
+      <body>https://www.uml-diagrams.org/examples/online-shopping-uml-component-diagram-example.html?context=cmp-examples</body>
+    </ownedComment>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_1Rch8PSuEeijnplL5ni1LA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Component" xmi:id="_3759EPSuEeijnplL5ni1LA" name="WebStore">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_qRkMoPSxEeijnplL5ni1LA" name="searchInventory" type="_x9P7YPSwEeijnplL5ni1LA" aggregation="composite" isConjugated="true"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_HZiBUPSyEeijnplL5ni1LA" name="manageOrders" type="_Bs0LkPSxEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_I8Mt8PSyEeijnplL5ni1LA" name="manageCustomers" type="_D6ztIPSxEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_Kj8u4PSyEeijnplL5ni1LA" name="userSession" type="_8-5D4PSwEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_P5wV8PSyEeijnplL5ni1LA" name="onlineShopping" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_Sb_pMPSyEeijnplL5ni1LA" name="productSearch" type="_uj2WoPSwEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="__X_agPS2EeijnplL5ni1LA" name="se" type="_vr4LIPSvEeijnplL5ni1LA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_tzksEPS3EeijnplL5ni1LA" name="sc" type="_xqxgwPSvEeijnplL5ni1LA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_OAuJAPS4EeijnplL5ni1LA" name="a" visibility="public" type="_zcwbwPSvEeijnplL5ni1LA"/>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_drKMIPS5EeijnplL5ni1LA" name="Connector10">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_drKzMPS5EeijnplL5ni1LA" role="_Sb_pMPSyEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_drKzMfS5EeijnplL5ni1LA" partWithPort="__X_agPS2EeijnplL5ni1LA" role="_ZaIK4PSwEeijnplL5ni1LA"/>
+      </ownedConnector>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_d9hHcPS5EeijnplL5ni1LA" name="Connector11">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_d9hugPS5EeijnplL5ni1LA" partWithPort="__X_agPS2EeijnplL5ni1LA" role="_aIS4cPSwEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_d9hugfS5EeijnplL5ni1LA" role="_qRkMoPSxEeijnplL5ni1LA"/>
+      </ownedConnector>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_gS8GsPS5EeijnplL5ni1LA" name="Connector12">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_gS8twPS5EeijnplL5ni1LA" role="_I8Mt8PSyEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_gS8twfS5EeijnplL5ni1LA" partWithPort="_OAuJAPS4EeijnplL5ni1LA" role="_bxlxgPSwEeijnplL5ni1LA"/>
+      </ownedConnector>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_gnI1EPS5EeijnplL5ni1LA" name="Connector13">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_gnJcIPS5EeijnplL5ni1LA" partWithPort="_OAuJAPS4EeijnplL5ni1LA" role="_l8rsgPSwEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_gnJcIfS5EeijnplL5ni1LA" partWithPort="_tzksEPS3EeijnplL5ni1LA" role="_lx0gUPSwEeijnplL5ni1LA"/>
+      </ownedConnector>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_g--GQPS5EeijnplL5ni1LA" name="Connector14">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_g-_UYPS5EeijnplL5ni1LA" partWithPort="_tzksEPS3EeijnplL5ni1LA" role="_bL1ZEPSwEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_g-_7cPS5EeijnplL5ni1LA" role="_HZiBUPSyEeijnplL5ni1LA"/>
+      </ownedConnector>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_hVhlEPS5EeijnplL5ni1LA" name="Connector15">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_hViMIPS5EeijnplL5ni1LA" partWithPort="_tzksEPS3EeijnplL5ni1LA" role="_bAMw0PSwEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_hViMIfS5EeijnplL5ni1LA" role="_P5wV8PSyEeijnplL5ni1LA"/>
+      </ownedConnector>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_hxyqUPS5EeijnplL5ni1LA" name="Connector16">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_hxzRYPS5EeijnplL5ni1LA" partWithPort="_OAuJAPS4EeijnplL5ni1LA" role="_bmAMkPSwEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_hxzRYfS5EeijnplL5ni1LA" role="_Kj8u4PSyEeijnplL5ni1LA"/>
+      </ownedConnector>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_QViaYPSvEeijnplL5ni1LA" name="Warehouses">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_1TfB8PSxEeijnplL5ni1LA" name="manageInventory" type="_H0AMQPSxEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_3N8uEPSyEeijnplL5ni1LA" name="searchInventory" type="_x9P7YPSwEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="__DzoUPS4EeijnplL5ni1LA" name="i" visibility="public" type="_Fww-oPSwEeijnplL5ni1LA"/>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_eUsRUPS5EeijnplL5ni1LA" name="Connector4">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_eUs4YPS5EeijnplL5ni1LA" role="_3N8uEPSyEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_eUs4YfS5EeijnplL5ni1LA" partWithPort="__DzoUPS4EeijnplL5ni1LA" role="_cznPMPSwEeijnplL5ni1LA"/>
+      </ownedConnector>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_ep5sUPS5EeijnplL5ni1LA" name="Connector5">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_ep6TYPS5EeijnplL5ni1LA" partWithPort="__DzoUPS4EeijnplL5ni1LA" role="_dCUZkPSwEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_ep6TYfS5EeijnplL5ni1LA" role="_1TfB8PSxEeijnplL5ni1LA"/>
+      </ownedConnector>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_WbqrIPSvEeijnplL5ni1LA" name="Accounting">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_09gK4PSxEeijnplL5ni1LA" name="manageInventory" type="_H0AMQPSxEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_3KCT4PSxEeijnplL5ni1LA" name="manageOrders" type="_Bs0LkPSxEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="__ROdcPSxEeijnplL5ni1LA" name="manageCustomers" type="_D6ztIPSxEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Gp2MoPS5EeijnplL5ni1LA" name="o" visibility="public" type="_IQFgwPSwEeijnplL5ni1LA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_OUYPYPS5EeijnplL5ni1LA" name="c" visibility="public" type="_K18vwPSwEeijnplL5ni1LA"/>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_e7krIPS5EeijnplL5ni1LA" name="Connector6">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_e7lSMPS5EeijnplL5ni1LA" partWithPort="_Gp2MoPS5EeijnplL5ni1LA" role="_d8-D8PSwEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_e7lSMfS5EeijnplL5ni1LA" role="_09gK4PSxEeijnplL5ni1LA"/>
+      </ownedConnector>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_fPvkUPS5EeijnplL5ni1LA" name="Connector7">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_fPwLYPS5EeijnplL5ni1LA" role="_3KCT4PSxEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_fPwycPS5EeijnplL5ni1LA" partWithPort="_Gp2MoPS5EeijnplL5ni1LA" role="_dlsMYPSwEeijnplL5ni1LA"/>
+      </ownedConnector>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_fizDMPS5EeijnplL5ni1LA" name="Connector8">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_fi0RUPS5EeijnplL5ni1LA" partWithPort="_Gp2MoPS5EeijnplL5ni1LA" role="_8IubcPSxEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_fi0RUfS5EeijnplL5ni1LA" partWithPort="_OUYPYPS5EeijnplL5ni1LA" role="_-MGocPSxEeijnplL5ni1LA"/>
+      </ownedConnector>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_f83wEPS5EeijnplL5ni1LA" name="Connector9">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_f84XIPS5EeijnplL5ni1LA" partWithPort="_OUYPYPS5EeijnplL5ni1LA" role="_gpJ9YPSwEeijnplL5ni1LA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_f84XIfS5EeijnplL5ni1LA" role="__ROdcPSxEeijnplL5ni1LA"/>
+      </ownedConnector>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_vr4LIPSvEeijnplL5ni1LA" name="SearchEngine">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_ZaIK4PSwEeijnplL5ni1LA" name="productSearch" type="_uj2WoPSwEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_aIS4cPSwEeijnplL5ni1LA" name="searchInventory" type="_x9P7YPSwEeijnplL5ni1LA" aggregation="composite"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_xqxgwPSvEeijnplL5ni1LA" name="ShoppingCart">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_bAMw0PSwEeijnplL5ni1LA" name="onlineShopping" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_bL1ZEPSwEeijnplL5ni1LA" name="manageOrders" type="_Bs0LkPSxEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_lx0gUPSwEeijnplL5ni1LA" name="userSesion" type="_8-5D4PSwEeijnplL5ni1LA" aggregation="composite"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_zcwbwPSvEeijnplL5ni1LA" name="Authentication">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_bmAMkPSwEeijnplL5ni1LA" name="userSessionExt" type="_8-5D4PSwEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_bxlxgPSwEeijnplL5ni1LA" name="manageCustomers" type="_D6ztIPSxEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_l8rsgPSwEeijnplL5ni1LA" name="userSession" type="_8-5D4PSwEeijnplL5ni1LA" aggregation="composite"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_IQFgwPSwEeijnplL5ni1LA" name="Orders">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_dlsMYPSwEeijnplL5ni1LA" name="manageOrders" type="_Bs0LkPSxEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_d8-D8PSwEeijnplL5ni1LA" name="manageInventory" type="_H0AMQPSxEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_8IubcPSxEeijnplL5ni1LA" name="manageCustomers" type="_D6ztIPSxEeijnplL5ni1LA" aggregation="composite"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_K18vwPSwEeijnplL5ni1LA" name="Customers">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_gpJ9YPSwEeijnplL5ni1LA" name="manageCustomersExt" type="_D6ztIPSxEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_-MGocPSxEeijnplL5ni1LA" name="manageCustomers" type="_D6ztIPSxEeijnplL5ni1LA" aggregation="composite"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_MTwKgPSwEeijnplL5ni1LA" name="Account">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_iIdM8PSwEeijnplL5ni1LA" name="manageAccounts" type="_LQcMAPSzEeijnplL5ni1LA" aggregation="composite"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_Fww-oPSwEeijnplL5ni1LA" name="Inventory">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_cznPMPSwEeijnplL5ni1LA" name="searchInventory" type="_x9P7YPSwEeijnplL5ni1LA" aggregation="composite"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_dCUZkPSwEeijnplL5ni1LA" name="manageInventory" type="_H0AMQPSxEeijnplL5ni1LA" aggregation="composite"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_uj2WoPSwEeijnplL5ni1LA" name="ProductSearch"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_x9P7YPSwEeijnplL5ni1LA" name="SearchInvertory"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_8-5D4PSwEeijnplL5ni1LA" name="UserSession"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Bs0LkPSxEeijnplL5ni1LA" name="ManageOrders"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_D6ztIPSxEeijnplL5ni1LA" name="ManageCustomers"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_H0AMQPSxEeijnplL5ni1LA" name="ManageInventory"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_LQcMAPSzEeijnplL5ni1LA" name="ManageAccount"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_1aorcPS0EeijnplL5ni1LA" client="_09gK4PSxEeijnplL5ni1LA" supplier="_1TfB8PSxEeijnplL5ni1LA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_8Q4KgPS0EeijnplL5ni1LA" client="_qRkMoPSxEeijnplL5ni1LA" supplier="_3N8uEPSyEeijnplL5ni1LA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_9rThIPS0EeijnplL5ni1LA" client="_HZiBUPSyEeijnplL5ni1LA" supplier="_3KCT4PSxEeijnplL5ni1LA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_-ziUgPS0EeijnplL5ni1LA" client="_I8Mt8PSyEeijnplL5ni1LA" supplier="__ROdcPSxEeijnplL5ni1LA"/>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_MWt0YPSvEeijnplL5ni1LA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_MWubcPSvEeijnplL5ni1LA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_C0wcUPS3EeijnplL5ni1LA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_C0xDYPS3EeijnplL5ni1LA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
+  </uml:Model>
+  <standard:Subsystem xmi:id="_O0SqEPSvEeijnplL5ni1LA" base_Component="_3759EPSuEeijnplL5ni1LA"/>
+  <standard:Subsystem xmi:id="_TKnxIPSvEeijnplL5ni1LA" base_Component="_QViaYPSvEeijnplL5ni1LA"/>
+  <standard:Subsystem xmi:id="_b9bqkPSvEeijnplL5ni1LA" base_Component="_WbqrIPSvEeijnplL5ni1LA"/>
+</xmi:XMI>

@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Export-Package: org.eclipse.papyrus.emf.facet.util.pde.core.internal.exported,
+ org.eclipse.papyrus.emf.facet.util.pde.core.internal.exported.exception
+Require-Bundle: com.ibm.icu,
+ org.eclipse.core.resources;bundle-version="[3.13.0,4.0.0)",
+ org.eclipse.core.runtime;bundle-version="[3.18.0,4.0.0)",
+ org.eclipse.jdt.core;bundle-version="[3.22.0,4.0.0)",
+ org.eclipse.papyrus.emf.facet.util.core;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.pde.core;bundle-version="[3.13.0,4.0.0)"
+Bundle-Vendor: Eclipse Modeling Project
+Bundle-ActivationPolicy: lazy
+Bundle-Version: 7.0.0.qualifier
+Bundle-Name: Papyrus EMF Facet PDE Core Utils
+Bundle-Activator: org.eclipse.papyrus.emf.facet.util.pde.core.internal.Activator
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.eclipse.papyrus.emf.facet.util.pde.core;singleton:=true
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: org.eclipse.papyrus.emf.facet.util.pde.core

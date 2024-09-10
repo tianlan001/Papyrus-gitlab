@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_i5HQ8JLFEeWfWq9wJhwxKw" name="Symbols" label="UML Diagram Symbols">
+  <tabs xmi:id="_i5HQ8ZLFEeWfWq9wJhwxKw" label="Symbol" id="symbol" category="org.eclipse.papyrus" image="" priority="100">
+    <afterTab href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#//@tabs.1"/>
+    <sections xmi:id="_i5HQ8pLFEeWfWq9wJhwxKw" name="Single TypeSymbolDefinition" sectionFile="ui/SingleTypeSymbolDefinition.xwt">
+      <widget href="ui/SingleTypeSymbolDefinition.xwt#/"/>
+    </sections>
+    <sections xmi:id="_i5HQ85LFEeWfWq9wJhwxKw" name="Multiple TypeSymbolDefinition" sectionFile="ui/MultipleTypeSymbolDefinition.xwt">
+      <widget href="ui/MultipleTypeSymbolDefinition.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_i5HQ9JLFEeWfWq9wJhwxKw" name="Single TypeSymbolDefinition" sections="_i5HQ8pLFEeWfWq9wJhwxKw" automaticContext="true" datacontexts="_i5H4BpLFEeWfWq9wJhwxKw">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_i5HQ9ZLFEeWfWq9wJhwxKw" name="isSingleTypeSymbolDefinition">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_i5HQ9pLFEeWfWq9wJhwxKw" name="stereotypeName" value="PapyrusInternal::Symbols::TypeSymbolDefinition"/>
+    </constraints>
+  </views>
+  <views xmi:id="_i5H4AJLFEeWfWq9wJhwxKw" elementMultiplicity="-1" name="Multiple TypeSymbolDefinition" sections="_i5HQ85LFEeWfWq9wJhwxKw" automaticContext="true" datacontexts="_i5H4BpLFEeWfWq9wJhwxKw">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_i5H4AZLFEeWfWq9wJhwxKw" name="isMultipleTypeSymbolDefinition">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_i5H4ApLFEeWfWq9wJhwxKw" name="stereotypeName" value="PapyrusInternal::Symbols::TypeSymbolDefinition"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_i5H4A5LFEeWfWq9wJhwxKw" name="PapyrusInternal" label="Papyrus Internal Profile">
+    <elements xmi:id="_i5H4BJLFEeWfWq9wJhwxKw" name="Path"/>
+    <elements xsi:type="contexts:DataContextPackage" xmi:id="_i5H4BZLFEeWfWq9wJhwxKw" name="Symbols">
+      <elements xmi:id="_i5H4BpLFEeWfWq9wJhwxKw" name="TypeSymbolDefinition">
+        <properties xmi:id="_i5H4B5LFEeWfWq9wJhwxKw" name="symbolPath"/>
+        <supertypes href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#//@dataContexts.0/@elements.14"/>
+      </elements>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@modelElementFactories.2"/>
+  </dataContexts>
+</contexts:Context>

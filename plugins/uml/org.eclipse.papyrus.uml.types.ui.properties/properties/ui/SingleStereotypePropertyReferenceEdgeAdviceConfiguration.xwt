@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite xmlns="http://www.eclipse.org/xwt/presentation"
+	xmlns:emfwid="clr-namespace:org.eclipse.papyrus.infra.emf.types.ui.properties.widgets"
+	xmlns:j="clr-namespace:java.lang" xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns:uml="clr-namespace:org.eclipse.papyrus.uml.properties.widgets"
+	xmlns:wid="clr-namespace:org.eclipse.papyrus.uml.types.ui.properties.widgets"
+	xmlns:x="http://www.eclipse.org/xwt">
+	<Composite.layout>
+		<ppel:PropertiesLayout></ppel:PropertiesLayout>
+	</Composite.layout>
+	<uml:StereotypeQualifyNamePropertyEditor
+		input="{Binding}"
+		property="stereotypepropertyreferenceedgeadvice:StereotypePropertyReferenceEdgeAdviceConfiguration:stereotypeQualifiedName"></uml:StereotypeQualifyNamePropertyEditor>
+	<wid:FeatureToSetNamePropertyEditor
+		input="{Binding}"
+		property="stereotypepropertyreferenceedgeadvice:StereotypePropertyReferenceEdgeAdviceConfiguration:featureToSet"></wid:FeatureToSetNamePropertyEditor>
+	<ppe:StringEditor input="{Binding}"
+		property="stereotypepropertyreferenceedgeadvice:StereotypePropertyReferenceEdgeAdviceConfiguration:edgeLabel"></ppe:StringEditor>
+</Composite>

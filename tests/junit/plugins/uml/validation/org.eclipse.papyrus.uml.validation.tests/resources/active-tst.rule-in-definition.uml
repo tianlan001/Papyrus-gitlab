@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:profile="http:///schemas/profile/_N8bc8DHHEeSIQaU3LZ0hmw/6" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/profile/_N8bc8DHHEeSIQaU3LZ0hmw/6 active.rule-in-definition.profile.uml#_N8d5MDHHEeSIQaU3LZ0hmw">
+  <uml:Model xmi:id="_PXaagOG1EeOAC6sb_-0VbA" name="model">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_KmWKYKS9EeW4s_E9GftyFw" annotatedElement="_4iSW8C9SEeShgI5a-mZZKQ">
+      <body>An inactive class with the stereotype AlwaysActive. This stereotype has an OCL constraint that verifies that the class is active. Thus, the class violates the constraints</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_NhgT8KS9EeW4s_E9GftyFw" annotatedElement="_7FVmoKWYEeW4s_E9GftyFw">
+      <body>An active class with the stereotype AlwaysActiveMalformed. This stereotype has an OCL constraint which is not well formed. Validation should result in an error reporting the mal-formedness</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_TmEecKS9EeW4s_E9GftyFw">
+      <body>This model applies a profile with constraints embedded into the profile definition. This is currently only possible for OCL constraints</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_GEzk4KWZEeW4s_E9GftyFw" annotatedElement="_RxxkIOG1EeOAC6sb_-0VbA">
+      <body>An inacitve class with the stereotype AlwaysActive. The stereotype constraint is violated</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Class" xmi:id="_RxxkIOG1EeOAC6sb_-0VbA" name="Inactive"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_4iSW8C9SEeShgI5a-mZZKQ" name="Active" isActive="true"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_7FVmoKWYEeW4s_E9GftyFw" name="ActiveMalformed" isActive="true"/>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_5PUj4J0LEeWTbMathxr4SQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_5PaqgJ0LEeWTbMathxr4SQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="active.rule-in-definition.profile.uml#_N8d5MDHHEeSIQaU3LZ0hmw"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="active.rule-in-definition.profile.uml#_GkQEIOGnEeO2stwZ2ZCXww"/>
+    </profileApplication>
+  </uml:Model>
+  <profile:AlwaysActive xmi:id="_XGipYOG1EeOAC6sb_-0VbA" base_Class="_RxxkIOG1EeOAC6sb_-0VbA"/>
+  <profile:Tst xmi:id="_68Ns4OV-EeOFd8atAXGFIA" base_Package="_PXaagOG1EeOAC6sb_-0VbA"/>
+  <profile:AlwaysActive xmi:id="_7yCQcC9SEeShgI5a-mZZKQ" base_Class="_4iSW8C9SEeShgI5a-mZZKQ"/>
+  <profile:AlwaysActiveMalformed xmi:id="_7FYC4KWYEeW4s_E9GftyFw" base_Class="_7FVmoKWYEeW4s_E9GftyFw"/>
+</xmi:XMI>

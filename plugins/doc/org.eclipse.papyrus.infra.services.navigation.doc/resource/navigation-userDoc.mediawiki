@@ -1,0 +1,39 @@
+= Overview and Video =
+
+This page describes the navigation feature of Papyrus implemented in Neon. [https://youtu.be/OsOnOLu8dXk The YouTube video] guides you step-by-step in using the navigation feature. Sections below only describe succinctly the navigation feature.
+
+= Navigation Menus =
+
+By alt-hovering over an element, in a diagram or the model explorer, a menu pops up. This menu is called the alt-menu. The menu shows commands to navigate to some targets, which are related element or the hovered element itself (in another representation). When clicking on a command, corresponding to a target, we navigate to: (1) first representation of the target found in a(nother) diagram, or (2) the target in the model explorer if the first rule found nothing. The alt-menu also shows user-defined hyperlinks pointing to diagrams, local documents, or websites. The figure below shows the alt-menu:
+
+[[File:images/papyrus_nav_alt_menu.png|frame|center|alt=Papyrus Navigation Alt-Menu]]
+
+
+The goal of the alt-menu is to navigate quickly to a target, with the user having to go through too many choices. The user may also navigate by right-clicking on an element in a diagram or the model explorer. This opens up a context menu. He can then choose where to navigate to for a selected target. The figure below shows the context menu:
+
+[[File:papyrus_nav_popup_menu.png|frame|center|alt=Papyrus Navigation Context Menu]]
+
+The user may choose the available navigation targets in the preferences menu. The figure below shows some implemented targets:
+
+[[File:images/papyrus_navigation_preferences.png|frame|center|alt=Papyrus Navigation Target Preferences]]
+
+= Hyperlinks Proposition =
+
+When the user double-clicks on an element in a diagram, we navigate to its default hyperlink. If there aren't any default hyperlink(s), hyperlinks are proposed according to some pre-defined strategies. If there is only one proposed hyperlink, we navigate to it. If there are several, the user may choose one. The figure below shows the menu to choose a proposed hyperlink:
+
+[[File:images/papyrus_hyperlink_menu.png|frame|center|alt=Papyrus Proposed Hyperlinks Menu]]
+
+The user may choose the hyperlinks proposition strategies in the preferences menu. The figure below shows some implemented strategies:
+
+[[File:images/papyrus_hyperlink_preferences.png|frame|center|alt=Papyrus Hyperlink Preferences]]
+
+= Misc. UI Enhancements =
+
+Some other UI enhancements are implemented:
+
+* Integration in Eclipse history to navigate to the previous/next diagram (even in different models) in the order they were opened ([https://git.eclipse.org/r/#/c/46228/ Gerrit 46228])
+* Toolbar arrows to navigate between opened Papyrus diagram tabs ([https://git.eclipse.org/r/#/c/51264/ Gerrit 51264])
+* Key bindings (CTRL+(SHIFT+)TAB) to navigate between opened Papyrus diagram tabs ([https://git.eclipse.org/r/#/c/46192/ Gerrit 46192])
+* Diagram shortcuts show a preview of the diagram on mouse hover ([https://git.eclipse.org/r/#/c/47035/ Gerrit 47035])
+* Clicking on a search result that's a semantic element, navigates to the element in the model explorer ([https://git.eclipse.org/r/#/c/52726/ Gerrit 52726])
+* Hyperlink pointing to a document (resp. website) has the document's default icon (resp. website's favicon) (in navigation alt menu patch)

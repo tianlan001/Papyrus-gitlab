@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+   <extension-point id="factory" name="factory" schema="schema/factory.exsd"/>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.eclipse.org/papyrus/customization"
+            class="org.eclipse.papyrus.toolsmiths.model.customizationplugin.CustomizationPluginPackage"
+            genModel="models/Customization.genmodel"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+         <!-- @generated NOT -->
+      <wizard
+            category="org.eclipse.papyrus.wizards.category/org.eclipse.papyrus.wizards.dev.category/org.eclipse.papyrus.wizards.dev.framework.category"
+            class="org.eclipse.papyrus.toolsmiths.wizard.CreateNewCustomizationPluginWizard"
+            icon="icons/16-config.png"
+            id="org.eclipse.papyrus.toolsmiths.wizard"
+            name="%wizard.name">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.properties.contexts">
+      <context
+            contextModel="models/Customization/Customization.ctx"
+            isCustomizable="false">
+      </context>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.properties.environments">
+      <environment
+            environmentModel="models/Environment.xmi">
+      </environment>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.toolsmiths.factory">
+      <factory
+            factory="org.eclipse.papyrus.toolsmiths.factory.ModelTemplateExtensionFactory">
+      </factory>
+      <factory
+            factory="org.eclipse.papyrus.toolsmiths.factory.PaletteExtensionFactory">
+      </factory>
+      <factory
+            factory="org.eclipse.papyrus.toolsmiths.factory.ProfileExtensionFactory">
+      </factory>
+      <factory
+            factory="org.eclipse.papyrus.toolsmiths.factory.PropertyViewExtensionFactory">
+      </factory>
+      <factory
+            factory="org.eclipse.papyrus.toolsmiths.factory.UICustomExtensionFactory">
+      </factory>
+      <factory
+            factory="org.eclipse.papyrus.toolsmiths.factory.TableExtensionFactory">
+      </factory>
+      <factory
+            factory="org.eclipse.papyrus.toolsmiths.factory.UMLModelExtensionFactory">
+      </factory>
+      <factory
+            factory="org.eclipse.papyrus.toolsmiths.factory.ConstraintEnvironmentExtensionFactory">
+      </factory>
+      <factory
+            factory="org.eclipse.papyrus.toolsmiths.factory.PropertyViewEnvironmentExtensionFactory">
+      </factory>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any">
+         <separator
+                  name="org.eclipse.papyrus.custo.ui.menu.separator.before"
+                  visible="true"
+                  id="org.eclipse.papyrus.custo.ui.menu.separator.before">
+         </separator>
+         
+         <menu
+               id="org.eclipse.papyrus.custo.menu"
+               label="Papyrus Customizer"
+               icon="icons/papyrus.png"
+               tooltip="Papyrus Customization Menu">
+            <menu
+                  id="org.eclipse.papyrus.custo.editors"
+                  label="Editors"
+                  tooltip="Papyrus editors customization menu">
+            </menu>
+            <menu
+                  id="org.eclipse.papyrus.custo.framework"
+                  label="Framework"
+                  tooltip="Papyrus framework customization menu">
+            </menu>
+            <menu
+                  id="org.eclipse.papyrus.custo.modelexplorer"
+                  label="Model Explorer"
+                  tooltip="Papyrus model explorer customization menu">
+            </menu>
+            <menu
+                  id="org.eclipse.papyrus.custo.propertiesview"
+                  label="Properties view"
+                  tooltip="Papyrus properties view customization menu">
+            </menu>
+      </menu>
+    </menuContribution>
+   </extension>
+
+
+</plugin>

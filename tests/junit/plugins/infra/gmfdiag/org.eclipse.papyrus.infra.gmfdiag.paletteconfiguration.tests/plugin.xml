@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.types.core.elementTypeSetConfiguration">
+      <elementTypeSet
+            clientContextID="org.eclipse.papyrus.infra.services.edit.TypeContext"
+            path="resources/TestPalette.elementtypesconfigurations">
+      </elementTypeSet>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.gmfdiag.common.paletteDefinition">
+      <paletteDefinition
+            ID="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.tests.paletteDefinition"
+            class="org.eclipse.papyrus.infra.gmfdiag.common.service.palette.ExtendedPluginPaletteProvider"
+            name="Test Palette Configuration"
+            path="resources/TestPalette.paletteconfiguration"
+            provider="Eclipse Modeling Project">
+         <Priority
+               name="Medium">
+         </Priority>
+      </paletteDefinition>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.uml.extensionpoints.UMLProfile">
+      <profile
+            name="Test Palette Configuration Profile"
+            path="platform:/plugin/org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.tests/resources/TestPalette.profile.uml">
+      </profile>
+   </extension>
+
+	<!-- false palette declaraiton, with no corresponding profile applied -->
+<extension
+         point="org.eclipse.papyrus.infra.types.core.elementTypeSetConfiguration">
+      <elementTypeSet
+            clientContextID="org.eclipse.papyrus.infra.services.edit.TypeContext"
+            path="resources/FakeProfile.elementtypesconfigurations">
+      </elementTypeSet>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.gmfdiag.common.paletteDefinition">
+      <paletteDefinition
+            ID="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.tests.fakepaletteDefinition"
+            class="org.eclipse.papyrus.infra.gmfdiag.common.service.palette.ExtendedPluginPaletteProvider"
+            name="Test Fake Palette Configuration"
+            path="resources/FakeProfile.paletteconfiguration"
+            provider="Eclipse Modeling Project">
+         <Priority
+               name="Medium">
+         </Priority>
+      </paletteDefinition>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.gmfdiag.common.paletteDefinition">
+      <paletteDefinition
+            ID="org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration.tests.noProfilepaletteDefinition"
+            class="org.eclipse.papyrus.infra.gmfdiag.common.service.palette.ExtendedPluginPaletteProvider"
+            name="Test No Profile Palette Configuration"
+            path="resources/NoProfile.paletteconfiguration"
+            provider="Eclipse Modeling Project">
+         <Priority
+               name="Medium">
+         </Priority>
+      </paletteDefinition>
+   </extension>
+</plugin>

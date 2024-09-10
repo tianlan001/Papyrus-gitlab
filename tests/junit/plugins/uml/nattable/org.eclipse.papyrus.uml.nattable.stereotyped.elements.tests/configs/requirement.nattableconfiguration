@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nattableconfiguration:TableConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:nattableaxis="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxis" xmlns:nattableaxisconfiguration="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisconfiguration" xmlns:nattableaxisprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattableaxisprovider" xmlns:nattableconfiguration="http://www.eclipse.org/papyrus/nattable/model/nattableconfiguration" xmlns:nattablelabelprovider="http://www.eclipse.org/papyrus/nattable/model/table/nattablecontentprovider" xmlns:nattablestyle="http://www.eclipse.org/papyrus/nattable/model/table/nattablestyle" xmi:id="PapyrusDynamicRequirementTable_XMI_ID" description="A synchronized table for SysML Requirements" name="RequirementTable" type="PapyrusDynamicRequirementTable" iconPath="platform:/plugin/org.eclipse.papyrus.uml.nattable.stereotyped.elements.tests/icons/table_SysML_Requirement.png" cellEditorDeclaration="COLUMN" defaultRowAxisProvider="_kmo8MjzQEei_1txcmoHe_A" defaultColumnAxisProvider="_kmo8LjzQEei_1txcmoHe_A">
+  <styles xmi:type="nattablestyle:StringListValueStyle" xmi:id="_kmo8ITzQEei_1txcmoHe_A" name="dragRegions">
+    <stringListValue>ROW_HEADER</stringListValue>
+  </styles>
+  <rowHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:TableHeaderAxisConfiguration" xmi:id="_kmo8IjzQEei_1txcmoHe_A" indexStyle="NUMERIC" displayLabel="true" displayFilter="false" displayIndex="true">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:ObjectLabelProviderConfiguration" xmi:id="_kmo8IzzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true"/>
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:OperationLabelProviderConfiguration" xmi:id="_kmo8JDzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayType="false" displayMultiplicity="false" displayName="true"/>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:EStructuralFeatureValueFillingConfiguration" xmi:id="_kmo8JTzQEei_1txcmoHe_A">
+      <listenFeature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Namespace/ownedMember"/>
+    </ownedAxisConfigurations>
+    <ownedAxisConfigurations xmi:type="nattableaxisconfiguration:PasteEObjectConfiguration" xmi:id="_kmo8JjzQEei_1txcmoHe_A" detachedMode="true" pastedElementId="org.eclipse.papyrus.uml.Class">
+      <postActions>applyStereotype:/SysMLCopy::Requirements::Requirement</postActions>
+      <pasteElementContainementFeature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package/packagedElement"/>
+      <axisIdentifier xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_OgydQXmoEeWVZIGG1XbiFw">
+        <manager xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" href="//@columnHeaderAxisConfiguration/@axisManagers.0"/>
+        <element xmi:type="ecore:EAttribute" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+      </axisIdentifier>
+    </ownedAxisConfigurations>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_kmo8JzzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.uml.nattable.dyanmic.requirement.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.labelprovider" headerLabelConfiguration="_kmo8IzzQEei_1txcmoHe_A" specificAxisConfigurations="_kmo8JTzQEei_1txcmoHe_A"/>
+  </rowHeaderAxisConfiguration>
+  <columnHeaderAxisConfiguration xmi:type="nattableaxisconfiguration:TableHeaderAxisConfiguration" xmi:id="_kmo8KDzQEei_1txcmoHe_A" displayLabel="true" displayFilter="false" displayIndex="true">
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:FeatureLabelProviderConfiguration" xmi:id="_kmo8KTzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayIsDerived="true" displayType="true" displayMultiplicity="true" displayName="true"/>
+    <ownedLabelConfigurations xmi:type="nattablelabelprovider:OperationLabelProviderConfiguration" xmi:id="_kmo8KjzQEei_1txcmoHe_A" displayIcon="true" displayLabel="true" displayType="true" displayMultiplicity="true" displayName="true"/>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_kmo8KzzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.uml.nattable.feature.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.feature.labelprovider" headerLabelConfiguration="_kmo8KTzQEei_1txcmoHe_A"/>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_kmo8LDzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.uml.nattable.stereotype.property.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.feature.labelprovider" headerLabelConfiguration="_kmo8KTzQEei_1txcmoHe_A"/>
+    <axisManagers xmi:type="nattableaxisconfiguration:AxisManagerRepresentation" xmi:id="_kmo8LTzQEei_1txcmoHe_A" axisManagerId="org.eclipse.papyrus.uml.nattable.operation.axis.manager" labelProviderContext="org.eclipse.papyrus.infra.nattable.header.operation.labelprovider" headerLabelConfiguration="_kmo8KjzQEei_1txcmoHe_A"/>
+  </columnHeaderAxisConfiguration>
+  <columnAxisProviders xmi:type="nattableaxisprovider:SlaveObjectAxisProvider" xmi:id="_kmo8LjzQEei_1txcmoHe_A" description="Provides the columns of the tables with a default configuration" name="Requirements Feature Columns Provider">
+    <axis xmi:type="nattableaxis:FeatureIdAxis" xmi:id="_kmo8LzzQEei_1txcmoHe_A" manager="_kmo8LDzQEei_1txcmoHe_A" element="property_of_stereotype:/SysML::Requirements::Requirement::id"/>
+    <axis xmi:type="nattableaxis:EStructuralFeatureAxis" xmi:id="_kmo8MDzQEei_1txcmoHe_A" manager="_kmo8KzzQEei_1txcmoHe_A">
+      <element xmi:type="ecore:EAttribute" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement/name"/>
+    </axis>
+    <axis xmi:type="nattableaxis:FeatureIdAxis" xmi:id="_kmo8MTzQEei_1txcmoHe_A" manager="_kmo8LDzQEei_1txcmoHe_A" element="property_of_stereotype:/SysML::Requirements::Requirement::text"/>
+  </columnAxisProviders>
+  <rowAxisProviders xmi:type="nattableaxisprovider:MasterObjectAxisProvider" xmi:id="_kmo8MjzQEei_1txcmoHe_A" description="Provides the requirements directly owned by the context of the table" name="Requirement Axis Provider" disconnectSlave="true"/>
+</nattableconfiguration:TableConfiguration>

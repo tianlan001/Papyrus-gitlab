@@ -1,0 +1,56 @@
+<html>
+<link rel="stylesheet" href="default.css" type="text/css">
+<H1>Uml UseCase Specification</H1>
+<H2 id ="_fblZEAOJEeWYRrYFctZWYw">Table of Contents</H2>
+<ul><a href="#_fbmAIQOJEeWYRrYFctZWYw">Requirements</a></ul>
+<ul><a href="#_fbqRkAOJEeWYRrYFctZWYw">Use Cases</a><li><a href="#_fcsMUAOJEeWYRrYFctZWYw"> DnD System</a></li>
+<ul><li><a href="#_fcszYAOJEeWYRrYFctZWYw"> DnD of usecase from root without any predefined subject into a target subject</a></li>
+<ul></ul>
+<li><a href="#_fcuokQOJEeWYRrYFctZWYw"> DnD of usecase from root with a different subject into a target subject</a></li>
+<ul></ul>
+<li><a href="#_fcwdwQOJEeWYRrYFctZWYw"> DnD of usecase from root with an identical subject into a target subject</a></li>
+<ul></ul>
+</ul>
+</ul>
+<ul><a href="#_fcy6AQOJEeWYRrYFctZWYw">Design</a></ul>
+<ul><a href="#_fczhEQOJEeWYRrYFctZWYw">Tests</a></ul>
+<ul><a href="#_fc0vMAOJEeWYRrYFctZWYw">Requirements Coverage</a></ul>
+<H2 id ="_fbmAIQOJEeWYRrYFctZWYw">Requirements</H2>
+<pre id ="_fbmnMQOJEeWYRrYFctZWYw">- DnD of usesecase into a subject of a usecase diagram (id=org.eclipse.papyrus.uml.diagram.usecase.Req_010): <BR/> allows to drag and drop a usecase from model explorer into a subject of a usecase diagram</pre>
+<pre id ="_fbnOQQOJEeWYRrYFctZWYw">- DnD of usecase from root without any predefined subject into a target subject (id=org.eclipse.papyrus.uml.diagram.usecase.Req_010.1): <BR/> allows to drag and drop a usecase with an empty subject from the root model element into a target subject of a usecase diagram.</pre>
+<pre id ="_fbn1UQOJEeWYRrYFctZWYw">- DnD of usecase from root with an identical subject into a target subject (id=org.eclipse.papyrus.uml.diagram.usecase.Req_010.2): <BR/> allows to drag and drop a usecase with an identical subject from the root model element into a target subject of a usecase diagram.</pre>
+<pre id ="_fbocYQOJEeWYRrYFctZWYw">- DnD of usecase from root with a different subject into a target subject (id=org.eclipse.papyrus.uml.diagram.usecase.Req_010.3): <BR/> allows to drag and drop a usecase with a different subject from the root model element into a target subject of a usecase diagram.</pre>
+<pre id ="_fbpqgAOJEeWYRrYFctZWYw">- Propose to keep or switch the subject and/or the owner (id=org.eclipse.papyrus.uml.diagram.usecase.Req_030): <BR/> The DnD action should open a dialog box to allow user to select if it keep or switch the subject and/or the owner</pre>
+<H2 id ="_fbqRkAOJEeWYRrYFctZWYw">Use Cases</H2>
+<P align="middle"><img src=/export/home/flefevre/git/org.eclipse.papyrus/plugins/uml/diagram/org.eclipse.papyrus.uml.diagram.usecase/doc/imgDOC/DnDMain-UseCaseDiagram.png alt=DnDMain-UseCaseDiagram ></P><P align="middle">DnDMain-UseCaseDiagram</P></BR>
+<H3 id ="_fcsMUAOJEeWYRrYFctZWYw">DnD System</H3>
+<H4 id ="_fcszYAOJEeWYRrYFctZWYw">DnD of usecase from root without any predefined subject into a target subject</H4>
+<pre id ="_fctacQOJEeWYRrYFctZWYw">  - traces to <a href="#_fbnOQQOJEeWYRrYFctZWYw" title="Requirement DnD of usecase from root without any predefined subject into a target subject">DnD of usecase from root without any predefined subject into a target subject</a></pre>
+<pre id ="_fcuBgQOJEeWYRrYFctZWYw">A user can drag and drop a source usecase from model explorer into a target subject in a usecase diagram where <BR/>- the source usecase belongs to the the root model element, that is a different owner from the target subject<BR/>- the subject of the source usecase is empty</pre>
+<H4 id ="_fcuokQOJEeWYRrYFctZWYw">DnD of usecase from root with a different subject into a target subject</H4>
+<pre id ="_fcvPoQOJEeWYRrYFctZWYw">  - traces to <a href="#_fbn1UQOJEeWYRrYFctZWYw" title="Requirement DnD of usecase from root with an identical subject into a target subject">DnD of usecase from root with an identical subject into a target subject</a></pre>
+<pre id ="_fcv2sQOJEeWYRrYFctZWYw">A user can drag and drop a source usecase from model explorer into a target subject in a usecase diagram where <BR/>- the source usecase belongs to the the root model element, that is a different owner from the target subject<BR/>- the subject of the source usecase is different from the one of the target subject</pre>
+<H4 id ="_fcwdwQOJEeWYRrYFctZWYw">DnD of usecase from root with an identical subject into a target subject</H4>
+<pre id ="_fcxr4AOJEeWYRrYFctZWYw">  - traces to <a href="#_fbocYQOJEeWYRrYFctZWYw" title="Requirement DnD of usecase from root with a different subject into a target subject">DnD of usecase from root with a different subject into a target subject</a></pre>
+<pre id ="_fcyS8QOJEeWYRrYFctZWYw">A user can drag and drop a source usecase from model explorer into a target subject in a usecase diagram where <BR/>- the source usecase belongs to the the root model element, that is a different owner from the target subject<BR/>- the subject of the source usecase is identical to the target subject</pre>
+<H2 id ="_fcy6AQOJEeWYRrYFctZWYw">Design</H2>
+<H2 id ="_fczhEQOJEeWYRrYFctZWYw">Tests</H2>
+<H2 id ="_fc0vMAOJEeWYRrYFctZWYw">Requirements Coverage</H2>
+<table style="border-collapse: collapse;"><caption style="caption-side: bottom;">RequirementsCoverageTable</caption><tr><th style="border: 1px solid black">Id</th><th style="border: 1px solid black">Satisfied by</th><th style="border: 1px solid black">Verified by</th></tr>
+<tr><td style="border : 1px solid black"><a href="#_fbmnMQOJEeWYRrYFctZWYw" title="DnD of usesecase into a subject of a usecase diagram">org.eclipse.papyrus.uml.diagram.usecase.Req_010</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_fbnOQQOJEeWYRrYFctZWYw" title="DnD of usecase from root without any predefined subject into a target subject">org.eclipse.papyrus.uml.diagram.usecase.Req_010.1</a><BR/>
+</td><td style="border : 1px solid black">DnD of usecase from root without any predefined subject into a target subject<BR/>
+</td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_fbn1UQOJEeWYRrYFctZWYw" title="DnD of usecase from root with an identical subject into a target subject">org.eclipse.papyrus.uml.diagram.usecase.Req_010.2</a><BR/>
+</td><td style="border : 1px solid black">DnD of usecase from root with a different subject into a target subject<BR/>
+</td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_fbocYQOJEeWYRrYFctZWYw" title="DnD of usecase from root with a different subject into a target subject">org.eclipse.papyrus.uml.diagram.usecase.Req_010.3</a><BR/>
+</td><td style="border : 1px solid black">DnD of usecase from root with an identical subject into a target subject<BR/>
+</td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_fbpqgAOJEeWYRrYFctZWYw" title="Propose to keep or switch the subject and/or the owner">org.eclipse.papyrus.uml.diagram.usecase.Req_030</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"></td></tr>
+</table>
+<pre id ="_fc1WQgOJEeWYRrYFctZWYw">Unsatisfied requirements (2 out of 5) : </pre>
+<a href="#_fbmnMQOJEeWYRrYFctZWYw" title="DnD of usesecase into a subject of a usecase diagram">org.eclipse.papyrus.uml.diagram.usecase.Req_010, </a><a href="#_fbpqgAOJEeWYRrYFctZWYw" title="Propose to keep or switch the subject and/or the owner">org.eclipse.papyrus.uml.diagram.usecase.Req_030</a><pre id ="_fc19UQOJEeWYRrYFctZWYw">Unverified requirements (5 out of 5) : </pre>
+<a href="#_fbmnMQOJEeWYRrYFctZWYw" title="DnD of usesecase into a subject of a usecase diagram">org.eclipse.papyrus.uml.diagram.usecase.Req_010, </a><a href="#_fbnOQQOJEeWYRrYFctZWYw" title="DnD of usecase from root without any predefined subject into a target subject">org.eclipse.papyrus.uml.diagram.usecase.Req_010.1, </a><a href="#_fbn1UQOJEeWYRrYFctZWYw" title="DnD of usecase from root with an identical subject into a target subject">org.eclipse.papyrus.uml.diagram.usecase.Req_010.2, </a><a href="#_fbocYQOJEeWYRrYFctZWYw" title="DnD of usecase from root with a different subject into a target subject">org.eclipse.papyrus.uml.diagram.usecase.Req_010.3, </a><a href="#_fbpqgAOJEeWYRrYFctZWYw" title="Propose to keep or switch the subject and/or the owner">org.eclipse.papyrus.uml.diagram.usecase.Req_030</a></html>

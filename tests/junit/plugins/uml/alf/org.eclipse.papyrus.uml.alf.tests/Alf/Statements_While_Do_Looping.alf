@@ -1,0 +1,75 @@
+/**
+ * Test while and do statements.
+ **/
+active class Statements_While_Do_Looping {
+
+	class Monitor {
+
+		public cleanUp();
+		@Create
+		public Monitor();
+		@Destroy
+		public destroy();
+
+	}
+
+	class File {
+
+		private more: Boolean;
+		public endMarker: FileRecord;
+		@Create
+		public File();
+		public hasMore(): Boolean;
+		public readNext(): FileRecord[0..1];
+		public reset();
+		@Destroy
+		public destroy();
+
+	}
+
+	class FileRecord {
+
+		public label: String;
+		@Create
+		public FileRecord(in label: String);
+		public toString(): String;
+		@Destroy
+		public destroy();
+
+	}
+
+	class Sensor {
+
+		public count: Integer;
+		@Create
+		public Sensor(in count: Integer);
+		public getNextReading(): Reading[0..1];
+		@Destroy
+		public destroy();
+
+	}
+
+	class Reading {
+
+		private value: Integer;
+		@Create
+		public Reading(in value: Integer);
+		public isFinal(): Boolean;
+		public getValue(): Integer;
+		@Destroy
+		public destroy();
+
+	}
+
+	public activity 'list$defaultValue$1'(): Monitor[0..*] sequence;
+	list: Monitor[0..*] sequence = 'list$defaultValue$1'();
+	test(out count: Integer, out checksum: Integer,
+		out nextRecord: FileRecord[0..1], out file: File, out lines: String[0..*]
+		sequence, out readings: Reading[0..*] sequence, out i: Integer,
+		out j: Integer, out self: Statements_While_Do_Looping);
+	@Create
+	public Statements_While_Do_Looping();
+	@Destroy
+	public destroy();
+
+} do 'Statements_While_Do_Looping$behavior$1'

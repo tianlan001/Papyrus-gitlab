@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_E0O3MPSrEei9TovdHTlmxQ" name="CompiteDiagram_ApacheTomcat">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_FGKUsPSrEei9TovdHTlmxQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_InUHQPSrEei9TovdHTlmxQ" name="Server">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_zlnZoPSrEei9TovdHTlmxQ" type="_1B5KYPSrEei9TovdHTlmxQ"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_bH1UwPSuEei9TovdHTlmxQ" name="service" type="_Y4HU4PSuEei9TovdHTlmxQ">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fDsGUPSuEei9TovdHTlmxQ" value="*"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_1B5KYPSrEei9TovdHTlmxQ" name="GlobalNamingService">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_7ndJIPSrEei9TovdHTlmxQ" type="_9SpfoPSrEei9TovdHTlmxQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EJ7ggPSsEei9TovdHTlmxQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EKJi8PSsEei9TovdHTlmxQ" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_WCqAIPStEei9TovdHTlmxQ" name=" " type="_HSBS0PSsEei9TovdHTlmxQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_9SpfoPSrEei9TovdHTlmxQ" name="Environment"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_HSBS0PSsEei9TovdHTlmxQ" name="Resource"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Y4HU4PSuEei9TovdHTlmxQ" name="Service">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_gVCZcPSuEei9TovdHTlmxQ" type="_8EVLAPSuEei9TovdHTlmxQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__LrWcPSuEei9TovdHTlmxQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__L1HcPSuEei9TovdHTlmxQ" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_vuhaAPSwEei9TovdHTlmxQ" name=" " type="_uMTZUPSwEei9TovdHTlmxQ"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_-wCRYPSwEei9TovdHTlmxQ" name="engine" type="_9LpGcPSwEei9TovdHTlmxQ"/>
+    <ownedConnector xmi:type="uml:Connector" xmi:id="_zxLXIPSwEei9TovdHTlmxQ" name="Connector3">
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_zxLXIfSwEei9TovdHTlmxQ" role="_gVCZcPSuEei9TovdHTlmxQ"/>
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_zxLXIvSwEei9TovdHTlmxQ" role="_vuhaAPSwEei9TovdHTlmxQ"/>
+    </ownedConnector>
+    <ownedConnector xmi:type="uml:Connector" xmi:id="_ik6C8PSxEei9TovdHTlmxQ" name="Connector5">
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_ik6C8fSxEei9TovdHTlmxQ" role="_vuhaAPSwEei9TovdHTlmxQ"/>
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_ik7REPSxEei9TovdHTlmxQ" role="_-wCRYPSwEei9TovdHTlmxQ"/>
+    </ownedConnector>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_8EVLAPSuEei9TovdHTlmxQ" name="Executor"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uMTZUPSwEei9TovdHTlmxQ" name="Connector"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_9LpGcPSwEei9TovdHTlmxQ" name="Engine">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Feg7kPSxEei9TovdHTlmxQ" name="host" type="_EHTRAPSxEei9TovdHTlmxQ">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LtaGwPSxEei9TovdHTlmxQ" value="*"/>
+      <qualifier xmi:type="uml:Property" xmi:id="_k__v4PSyEei9TovdHTlmxQ" name=" " type="_NEICEPSxEei9TovdHTlmxQ"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_p-1SUPS7Eei9TovdHTlmxQ" type="_2O8OgPS6Eei9TovdHTlmxQ"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_vZgLQPS7Eei9TovdHTlmxQ" type="_miu0UPS6Eei9TovdHTlmxQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_EHTRAPSxEei9TovdHTlmxQ" name="Host">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_XSMNAPS7Eei9TovdHTlmxQ" name=" " type="_2O8OgPS6Eei9TovdHTlmxQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_NEICEPSxEei9TovdHTlmxQ" name="Context">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_QP0L4PS6Eei9TovdHTlmxQ" type="_KlG9wPS4Eei9TovdHTlmxQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VpuP0PS6Eei9TovdHTlmxQ"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_W6MZMPS6Eei9TovdHTlmxQ" type="_cS144PS6Eei9TovdHTlmxQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_q4f6sPS6Eei9TovdHTlmxQ"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_szpYwPS6Eei9TovdHTlmxQ" type="_miu0UPS6Eei9TovdHTlmxQ"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_yfgvYPS6Eei9TovdHTlmxQ" type="_wXQCYPS6Eei9TovdHTlmxQ"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_37i6QPS6Eei9TovdHTlmxQ" type="_HSBS0PSsEei9TovdHTlmxQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_KlG9wPS4Eei9TovdHTlmxQ" name="Valve"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_cS144PS6Eei9TovdHTlmxQ" name="Loader"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_miu0UPS6Eei9TovdHTlmxQ" name="Realm"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_wXQCYPS6Eei9TovdHTlmxQ" name="Manage"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_2O8OgPS6Eei9TovdHTlmxQ" name="Logger"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_PJAfYPS7Eei9TovdHTlmxQ" name="Class17"/>
+</uml:Model>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.papyrus.infra-gmfdiag</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+	    <groupId>org.eclipse.papyrus</groupId>
+	    <artifactId>org.eclipse.papyrus.infra</artifactId>
+	    <version>7.0.0-SNAPSHOT</version>
+    </parent>
+	<name>Papyrus Diagram Infrastructure</name>
+	<description>Common language-agnostic frameworks for GMF-based diagram editors.</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.extensionpoints.editors</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.canonical</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.commands</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.common</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.controlmode</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.css.model</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.css.model.edit</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.dnd</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.export</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.extensionpoints.editors</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.gef</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.gmfmenu.filter</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.hyperlink</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.menu</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.modelexplorer</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.navigation</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.outline</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.preferences</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.properties</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.viewersearcher</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.welcome</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.widgets</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.tooling.runtime</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.representation</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.representation.edit</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.style</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.style.edit</module>
+		<module>assistant</module>
+		<module>css</module>
+		<module>expansion</module>
+        <module>paletteconfiguration</module>
+	</modules>
+</project>

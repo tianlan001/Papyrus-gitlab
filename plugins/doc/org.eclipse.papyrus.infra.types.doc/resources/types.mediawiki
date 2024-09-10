@@ -1,0 +1,157 @@
+<!--
+ Copyright (c) 2013 CEA LIST.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+
+ Contributors:
+  CEA LIST - Initial API and implementation
+-->
+
+=Introduction=
+
+The ElementTypesConfigurations Framework provides model-based facilities to define high-level constructs on top of an EMF metamodels based on the GMF Extensible Type Registry. Indeed, EMF generates CRUD-like facilities to manipulate the underlying data structure of the metamodel. However, this low-level facilities are not always adequate or efficient to handle high-level model editing. The ElementTypesConfigurations Framework is a registry in which you can register new application specific constructs that you’ll be able to request for high level commands like relationship reorienting, complex pattern creation... 
+
+For instance, in the context of the UML metamodel, if you have a ''UML::Association'' between two ''UML::Class'' <code>Class1</code> and <code>Class2</code> and you want to reorient the ''Association'' from <code>Class2</code> to another existing ''UML::Class'' <code>Class3</code>, there are many model modifications to do. The property <code>p2:Class2</code> must be moved to <code>Class3</code> (if it is "owned by classifier") and the type of this ''UML::Property'' must be changed to <code>Class3</code>. In this example, an ''ElementTypeConfiguration'' called "UML::Association" can be defined to always build the complex command containing the upper-mentioned atomic model modifications whenever a reorient request is done. 
+
+[[Image:images/reorient.png]]
+
+''This framework being based on GMF ElementTypeRegistry, the reader may refer to GMF “Developer's Guide to the Extensible Type Registry” for details about the GMF ElementTypeRegistry.''
+
+=High level editing requests=
+
+There are various high-level requests already provided by Papyrus. All of them must implement <code>org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest</code> and should extend <code>org.eclipse.gmf.runtime.emf.type.core.requests.AbstractEditCommandRequest</code>. 
+The following requests are dedicated to EMF-based model editing:  
+
+[[Image:images/requests.png]]
+
+In addition to those, Papyrus proposes requests dedicated to UML: 
+
+
+[[Image:images/umlrequests.png]]
+
+=Definition of ElementTypeConfigurations=
+
+To define new ''ElementTypeConfiguration'', a model conforming to the <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1</code> metamodel (defined in <code>org.eclipse.papyrus.infra.types</code>) must be created. 
+At the root of this model, an ''ElementTypeSetConfiguration'' must be created. The ''ElementTypeSetConfiguration'' must have a unique ''identifier'' and a ''name'' (it is a display name). It must also specify the ''NsURI'' of the metamodel it contributes 'ElementTypeConfiguration'' to. 
+
+[[Image:images/elementtypeset.png]]
+
+The ''ElementTypesConfigurations'' can be of two types: ''MetamodelTypeConfiguration'' and ''SpecializationTypeConfiguration''. In both case, it may have a ''hint'' and a ''kind''. So far this ''kind'' must be left to its default value (namely <code>org.eclipse.gmf.runtime.emf.type.core.IHintedType</code>). The ''hint'' (also known as ''Semantic Hint'') is an optional identifier that may be used by a viewprovider (<code>org.eclipse.gmf.runtime.diagram.core.providers.IViewProvider</code>). The diagrams implemented in Papyrus are providing views for particular hints so that if you are defining your own ElementTypeConfiguration and want it to be viewable in an existing Papyrus diagram, you must align the value of the hint with the one provided by the target diagram. 
+
+[[Image:images/metamodeltype.png]]
+
+The ''MetamodelTypeConfigurations'' can reference an ''EClass'' in the EMF metamodel. The ''MetamodelTypeConfigurations'' defines the base editing command for these elements. The command is implemented by an ''EditHelper'' class that must extend <code>org.eclipse.papyrus.infra.gmfdiag.common.helper.DefaultEditHelper</code> and should be referenced using the ''editHelperClassName'' attribute. 
+
+If multiple ''MetamodelTypeConfiguration'' based on the same ''EClass'' must provide different base command, multiple ''ClientContext'' must be defined. ''ClientContext'' are used to group definitions from  different ''ElementTypeSetConfiguration'' in consistent partition in the registry of ''ElementTypeConfiguration''. There must be maximum one ''MetamodelTypeConfiguration'' for a single ''EClass'' in a given ''ClientContext''. All model elements of the same ''EClass'' and ''ClientContext'' have the same ''MetamodelTypeConfiguration''.
+
+''SpecializationTypeConfiguration'' are used to extend the base editing command provided by a ''MetamodelTypeConfiguration''. A ''SpecializationTypeConfiguration'' must specialize at least one ''ElementType''. The definition of the specialized ''ElementType'' is done using the ''specializedTypes'' attribute. If multiple ''SpecializationTypeConfiguration'' specialize a ''MetamodelTypeConfiguration'', they may be distinguished using a ''MatcherConfiguration''. Note that to create an ''ElementTypeConfiguration'' that has no ''EClass'' (e.g. an ''EReference'' in the metamodel), the <code>org.eclipse.gmf.runtime.emf.type.core.NullElementType</code> (whose identifier is <code>org.eclipse.gmf.runtime.emf.type.core.null</code>) ''ElementType'' should be specialized.  
+
+''SpecializationTypeConfiguration'' may have an ''AdviceEditHelper'' bound to them directly to extend the base editing command with ''Advice''. 
+
+''Advice'' are used to define pre and post actions to the base editing command. When an edit is performed on a model element, advices from all of the specializations that match that object is contributed to the command. To force the execution order of the advices bound to an ElementTypeConfiguration, the ''before'' and ''after'' attributes may be used by an advice to refer to the advices that must be executed before or after this itself. 
+
+[[Image:images/specialization.png]]
+
+=Definition of AdviceBindings=
+
+[[Image:images/advicebindings.png]]
+
+Using ''AdviceBindingConfiguration'', additional advices can be defined in an ''ElementTypeSetConfiguration' and bound to the ''ElementTypeConfiguration'' of that ''ElementTypeSetConfiguration''. If the ''target'' of the ''AdviceBindingConfiguration'' is not defined, the advice will be bound to all ''ElementType'' in the clientcontext. 
+The advice is implemented by an <code>EditHelperAdvice</code> class that must extend <code>org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice</code> and should be referenced using the ''editHelperAdviceClassName'' attribute. 
+The ''inheritance'' parameter is used to define if the advice applies only to the target ''ElementType'' (''none'') or to the target ''ElementType'' and its specializations (''all''). 
+
+=Define the edit behavior=
+==Command computation==
+
+The computation of the command from a request by the ''EditHelper'' is mainly defined in <code>org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper</code>. Note that <code>org.eclipse.papyrus.infra.gmfdiag.common.helper.DefaultEditHelper</code> indirectly extends <code>org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper</code>. 
+
+[[Image:images/geteditcommand.png]]
+
+# The ''EditHelper'' asks the registry for all ''ElementTypes'' that apply to a specific ''EditHelperContext'' (EObject or IElementType). The registry iterates over the registered edit ''advice'' and tests the container descriptor and matcher of each ''advice'' against the ''EditHelperContext''.
+# The registry returns all of the ''advice'' whose criteria matched the EObject or IElementType.
+# The ''EditHelper'' iterates the ''advice'' returned by the registry:
+#* For each ''advice'', the ''EditHelper'' asks it for configuration of the edit request.
+# The ''EditHelper'' asks itself for base configuration of the edit request.
+# The ''EditHelper'' iterates the ''advice'' returned by the registry:
+#* For each ''advice'', the ''EditHelper'' asks it for approval of the edit request.
+# The ''EditHelper'' asks itself for base approval of the edit request.
+# The ''EditHelper'' constructs a new composite command.
+# The ''EditHelper'' iterates the ''advice'' returned by the registry:
+#* For each ''advice'', the ''EditHelper'' asks it for a before command for the edit request.
+#* The ''advice'' returns a before command, or null if it has no ''advice'' to offer for that request.
+#* The ''EditHelper'' adds the ''advice'' to the composite command, if it is not null.
+#* The composite command returns itself.
+# The ''EditHelper'' gets the base edit behavior (namely the <code>InsteadCommand</code>).
+# The default edit behavior is returned. Subclasses will override the default behavior as required.
+# The ''EditHelper'' adds the default edit behavior to the composite command.
+# The composite command returns itself.
+# The ''EditHelper'' iterates the ''advice'' retuned by the registry:
+#* For each ''advice'', the ''EditHelper'' asks it for an after command for the edit request.
+#* The ''advice'' returns an after command, or null if it has no ''advice'' to offer for that request.
+#* The ''EditHelper'' adds the ''advice'' to the composite command, if it is not null.
+#* The composite command returns itself. 
+# The ''EditHelper'' returns the composite command.
+
+==Definition of an EditHelper==
+===EMF-based editing===
+
+To provide the base edit commands corresponding to the various requests, an ''EditHelper'' class that extends <code>org.eclipse.papyrus.infra.gmfdiag.common.helper.DefaultEditHelper</code> must override the method corresponding to the type of request to handle. For example, if the domain-specific concept must handle the creation relationship with a custom editing behavior, the corresponding request type is <code>org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest</code> and therefore the method to override is <code>ICommand getCreateRelationshipCommand(CreateRelationshipRequest req)</code>. 
+
+To disapprove an editing request, <code>boolean approveRequest(IEditCommandRequest request)</code> method may be overridden. 
+
+To configure the request, <code>void configureRequest(IEditCommandRequest request)</code> method may be overridden. 
+
+===UML-based editing===
+
+Papyrus adds high-level requests dedicated to UML. To handle those requests, <code>org.eclipse.papyrus.uml.types.core.edithelper.DefaultUMLEditHelper</code> should be extended. The methods corresponding to the type of requests to handle can be overridden to provide specific base edit behavior. For instance, to handle the application of a Stereotype, <code>ICommand getApplyStereotypeCommand(ApplyStereotypeRequest req)</code> must be overridden. 
+
+==Definition of an EditHelperAdvice==
+===EMF-based editing===
+To add pre or post edit commands to the base command for the various requests, an ''EditHelperAdvice'' class that extends <code>org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice</code> must override the method corresponding to the type of request to handle. For example, if the advice must add a specific editing behavior after the creation relationship, the corresponding request type is <code>org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest</code> and therefore the method to override is <code>ICommand getAfterCreateRelationshipCommand(CreateRelationshipRequest request)</code>. 
+To disapprove an editing request, <code>boolean approveRequest(IEditCommandRequest request)</code> method may be overridden. 
+To configure the request, <code>void configureRequest(IEditCommandRequest request)</code> method may be overridden. 
+===UML-based editing===
+Papyrus adds high-level requests dedicated to UML. To handle those requests, <code>org.eclipse.papyrus.uml.types.core.edithelper.DefaultUMLEditHelperAdvice</code> should be extended.
+
+==Bind ElementTypeSetConfiguration to a ClientContext==
+===Using ExtensionPoint===
+Use the <code>org.eclipse.papyrus.infra.types.core.elementTypeSetConfiguration</code> extensionpoint to register an ''ElementTypeSetConfiguration'' and bind its content to a ''ClientContext''. 
+
+=ElementTypeConfiguration Framework extension mechanism=
+If the definition of the ''ElementTypeConfiguration'', ''AdviceConfiguration'', ''ContainerConfiguration'' or ''MatcherConfiguration'' starts to be repetitive because, for instance, the same implementation of an IEditHelperAdvice is reused systematically, the ElementTypeConfiguration Framework can be extended to add new predefined ''ElementTypeConfiguration'', ''AdviceConfiguration'', ''ContainerConfiguration'' or ''MatcherConfiguration'' kinds.
+
+For that, an extension of the <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1</code> metamodel can be created and used in combination with the <code>org.eclipse.papyrus.infra.types.core.elementTypeConfigurationKind</code>, <code>org.eclipse.papyrus.infra.types.core.adviceConfigurationKind</code>, <code>org.eclipse.papyrus.infra.types.core.containerConfigurationKind</code> and <code>org.eclipse.papyrus.infra.types.core.matcherConfigurationKind</code> extensionpoints. 
+
+The approach is always the same: 
+* The metamodel extension must consist in the specialization of the <code>org.eclipse.papyrus.infra.types.ElementTypeConfiguration</code>, <code>org.eclipse.papyrus.infra.types.AdviceConfiguration</code>, <code>org.eclipse.papyrus.infra.types.MatcherConfiguration</code> or <code>org.eclipse.papyrus.infra.types.ContainerConfiguration</code> metaclass. The metamodel extension must use the EMF "Child Creation Extenders" mechanism to appear in the ElementTypeConfigration model editor. 
+* The implementation of the factory (<code>org.eclipse.papyrus.infra.types.core.factories.IElementTypeConfigurationFactory</code>, <code>org.eclipse.papyrus.infra.types.core.factories.IEditHelperAdviceFactory</code>, <code>org.eclipse.papyrus.infra.types.core.factories.IContainerFactory</code> or <code>org.eclipse.papyrus.infra.types.core.factories.IMatcherFactory</code>) that will predefine the interpretation of this specialization. 
+
+Developers may have a look at the <code>org.eclipse.papyrus.infra.types.rulebased</code> or <code>org.eclipse.papyrus.uml.types.core</code> plugins that use this extension mechanism to predefine ''ElementTypesConfiguration'' or ''AdviceConfiguration'' kinds. 
+
+For example, the <code>org.eclipse.papyrus.uml.types.core</code> plugin introduces the <code>org.eclipse.papyrus.uml.types.core.advices.applystereotype.ApplyStereotypeAdviceConfiguration</code> metaclass that extends the <code>org.eclipse.papyrus.types.AbstractAdviceBindingConfiguration</code> metaclass. This specialization adds attributes to define at a model level the stereotypes to apply to the UML element created by the ElementType bound to this new special kind of advice. The <code>org.eclipse.papyrus.uml.types.core.advices.applystereotype.ApplyStereotypeAdviceConfigurationFactory</code> forces the implementation of the ''EditHelperAdvice'' to be <code>org.eclipse.papyrus.uml.types.core.advices.applystereotype.ApplyStereotypeAdviceEditHelperAdvice</code>. This later ''EditHelperAdvice'' provides the model interpretation for the <code>ApplyStereotypeAdviceConfiguration</code> metamodel extension. 
+
+=Developer views=
+To assist the definition and the development of ''ElementTypes'' and ''Advice'', the ElementTypeConfiguration Framework provides two developer views (available in the <code>org.eclipse.papyrus.dev.types</code> plugin). 
+
+==Registered ElementTypes View==
+Explore the ElementTypeRegistry using the "Registered ElementTypes View". Use the dropdown menu to select the ''ClientContext'' to explore. Select the ''ElementType'' to explore in the left hand side tree viewer (the child/parent relationship in this tree illustrates the specialization relationship). On the right hand side, details on the selected ''ElementType'' are given. Notably, the ''Advice'' that are bound to the selected ''ElementType'' are listed and sorted (execution order of advices). 
+
+[[Image:images/Registered-ElementTypes-View.png]]
+
+==TypesConfiguration Listener View==
+
+This view works only if the debug option is enabled (<code>-debug</code> in the program arguments).
+This view traces the notifications from the ''ElementType'' and ''Advice'' while editing. It notably helps to trace what request has been sent, what ''ElementType'' and ''Advice'' have been triggered and how those latter replied to the request. 
+
+[[Image:images/TypesConfigurations-Listener-View.png]]
+ 
+* If the request has been disapproved (by an ''EditHelperAdvice'' or ''EditHelper''), the trace is red. 
+* If the request has been approved (by an ''EditHelperAdvice'' or ''EditHelper''), the trace is green. 
+* If the command returned (by an ''EditHelperAdvice'' or ''EditHelper'') is unexecutable, the trace is red.
+* If the command returned (by an ''EditHelperAdvice'' or ''EditHelper'') is executable, the trace is green. 
+* If the command returned (by an ''EditHelperAdvice'' or ''EditHelper'') is the IdentityCommand, the trace is yellow. 
+* RequestConfiguration (by ''Advice'' or the ''EditHelper'') are traced in blue. Note that the trace says nothing on whether the request has been changed or not by the ''RequestConfiguration''. 

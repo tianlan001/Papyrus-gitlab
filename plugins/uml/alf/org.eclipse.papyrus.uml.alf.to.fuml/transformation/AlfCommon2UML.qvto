@@ -1,0 +1,958 @@
+/*****************************************************************************
+ * Copyright (c) 2015-2016 CEA LIST.
+ *
+ *    
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *   Ed Seidewitz
+ * 
+ *****************************************************************************/
+modeltype Alf uses "http://www.omg.org/spec/ALF/20120827";
+modeltype UML uses "http://www.eclipse.org/uml2/5.0.0/UML";
+
+transformation AlfCommon2UML(in alf : Alf, inout uml : UML);
+
+// Syntax Elements
+
+abstract mapping SyntaxElement::toUml() : Element;
+
+property libraryCache : Dict(String, ElementReference);
+
+helper SyntaxElement::libraryElement(path : String) : ElementReference {
+	var referent := libraryCache->get(path);
+	if referent = null then {
+		referent := self.resolveInLibrary(path)![true];
+		if referent <> null then {
+			libraryCache->put(path, referent);
+		} endif;
+	} endif;
+  return referent;
+}
+
+helper SyntaxElement::collectionFunctionsPackage() : ElementReference {
+	return self.libraryElement("CollectionFunctions");
+}
+
+helper SyntaxElement::libraryFunction(path : String) : Behavior {
+	var referent := self.libraryElement(path);
+  return
+    if referent = null then null
+    else referent.toUml().oclAsType(Behavior)
+    endif;
+}
+
+helper SyntaxElement::primitiveBehavior(package : String, function : String) : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::" + package + "::" + function);
+}
+
+helper SyntaxElement::booleanFunction(function : String) : Behavior {
+	return self.primitiveBehavior("BooleanFunctions", function);
+}
+
+helper SyntaxElement::integerFunction(function : String) : Behavior {
+	return self.primitiveBehavior("IntegerFunctions", function);
+}
+
+helper SyntaxElement::naturalFunction(function : String) : Behavior {
+	return self.primitiveBehavior("NaturalFunctions", function);
+}
+
+helper SyntaxElement::stringFunction(function : String) : Behavior {
+	return self.primitiveBehavior("StringFunctions", function);
+}
+
+helper SyntaxElement::unlimitedNaturalFunction(function : String) : Behavior {
+	return self.primitiveBehavior("UnlimitedNaturalFunctions", function);
+}
+
+helper SyntaxElement::bitStringFunction(function : String) : Behavior {
+	return self.primitiveBehavior("BitStringFunctions", function);
+}
+
+helper SyntaxElement::sequenceFunction(function : String) : Behavior {
+	return self.primitiveBehavior("SequenceFunctions", function);
+}
+
+helper SyntaxElement::functionSize() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::SequenceFunctions::Size");
+}
+
+helper SyntaxElement::functionIsEmpty() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::SequenceFunctions::IsEmpty");
+}
+
+helper SyntaxElement::functionNotEmpty() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::SequenceFunctions::NotEmpty");
+}
+
+helper SyntaxElement::functionCount() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::SequenceFunctions::Count");
+}
+
+helper SyntaxElement::functionAt() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::SequenceFunctions::At");
+}
+
+helper SyntaxElement::functionIncluding() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::SequenceFunctions::Including");
+}
+
+helper SyntaxElement::functionPlus() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::IntegerFunctions::+");
+}
+
+helper SyntaxElement::functionMinus() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::IntegerFunctions::-");
+}
+
+helper SyntaxElement::functionLessThanOrEqual() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::IntegerFunctions::<=");
+}
+
+helper SyntaxElement::functionGreaterThanOrEqual() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::IntegerFunctions::>=");
+}
+
+helper SyntaxElement::functionNot() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::BooleanFunctions::!");
+}
+
+helper SyntaxElement::functionOr() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::BooleanFunctions::|");
+}
+
+helper SyntaxElement::functionUnlimitedNaturalToInteger() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::UnlimitedNaturalFunctions::ToInteger");
+}
+
+helper SyntaxElement::functionBitStringToInteger() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::BitStringFunctions::ToInteger");
+}
+
+helper SyntaxElement::functionIntegerToUnlimitedNatural() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::IntegerFunctions::ToUnlimitedNatural");
+}
+
+helper SyntaxElement::functionIntegerToBitString() : Behavior {
+	return self.libraryFunction("PrimitiveBehaviors::BitStringFunctions::ToBitString");
+}
+
+helper SyntaxElement::libraryType(name : String) : Type {
+	return self.libraryElement("PrimitiveTypes::" + name).toType();
+}
+
+helper SyntaxElement::typeBoolean() : Type {
+	return self.libraryType("Boolean");
+}
+
+helper SyntaxElement::typeNatural() : Type {
+	return self.libraryType("Natural");
+}
+
+helper SyntaxElement::typeInteger() : Type {
+	return self.libraryType("Integer");
+}
+
+helper SyntaxElement::typeString() : Type {
+	return self.libraryType("String");
+}
+
+helper SyntaxElement::typeUnlimitedNatural() : Type {
+	return self.libraryType("UnlimitedNatural");
+}
+
+helper SyntaxElement::typeBitString() : Type {
+	return self.libraryType("BitString");
+}
+
+helper SyntaxElement::literalBoolean(b : Boolean) : LiteralBoolean {
+	return new LiteralBoolean(b, self.typeBoolean());
+}
+
+helper SyntaxElement::literalNatural(n : Integer) : LiteralInteger {
+	return new LiteralInteger(n, self.typeNatural());
+}
+
+helper SyntaxElement::literalInteger(i : Integer) : LiteralInteger {
+	return new LiteralInteger(i, self.typeInteger());
+}
+
+helper SyntaxElement::literalString(s : String) : LiteralString {
+	return new LiteralString(s, self.typeString());
+}
+
+helper SyntaxElement::literalUnlimited() : LiteralUnlimitedNatural {
+	return new LiteralUnlimitedNatural(self.typeUnlimitedNatural());
+}
+
+// Documented Elements
+
+abstract mapping DocumentedElement::toElement() : Element {
+  self.documentation->forEach(d) {
+    var comment = object Comment {
+      annotatedElement := result;
+      body := d.substring(4,d.length()-2)
+    };
+    ownedComment += comment;
+  }
+}
+
+// Element References
+
+abstract helper ElementReference::toUml() : Element;
+
+abstract helper InternalElementReference::toUml() : Element;
+
+helper ExternalElementReference::toUml() : Element {
+ return self.asUml().oclAsType(Element);
+}
+
+helper ElementReference::toType() : Type {
+	return self.toUml().oclAsType(Type);
+}
+
+helper toType(reference : ElementReference) : Type {
+	return
+		if reference = null then null
+		else reference.toType() endif;
+}
+
+helper BoundElementReference::toUml() : Element {
+  // TODO: Handle expansion of template bindings.
+  return self.referent.toUml();
+}
+
+// Constructors
+
+constructor Comment::Comment(body_ : String, element : Element) {
+	body := body_;
+	annotatedElement := element;
+}
+
+// Activities
+
+constructor Activity::Activity(ownedParameters : Sequence(Parameter)) {
+  ownedParameter := ownedParameters;
+  ownedParameters->forEach(ownedParameter) {
+  	var parameterNode := new ActivityParameterNode(result, ownedParameter, false);
+		if ownedParameter.direction = ParameterDirectionKind::_'in' or 
+		   ownedParameter.direction = ParameterDirectionKind::_'inout' then {
+			var forkNode := new ForkNode(result, nameOf(ownedParameter));
+			new ObjectFlow(result, parameterNode, forkNode);
+	  } endif;
+	  if ownedParameter.direction = ParameterDirectionKind::_'inout' then {
+			new ActivityParameterNode(result, ownedParameter, true);
+		} endif;
+  };
+}
+
+constructor ObjectFlow::ObjectFlow(sourceNode : ActivityNode, targetNode : ActivityNode) {
+	source := sourceNode;
+	target := targetNode;
+}
+
+constructor ObjectFlow::ObjectFlow(owner : Activity, sourceNode : ActivityNode, targetNode : ActivityNode) {
+	activity := owner;
+	source := sourceNode;
+	target := targetNode;
+}
+
+constructor ObjectFlow::ObjectFlow(owner : StructuredActivityNode, sourceNode : ActivityNode, targetNode : ActivityNode) {
+	inStructuredNode := owner;
+	source := sourceNode;
+	target := targetNode;
+}
+
+constructor ControlFlow::ControlFlow(sourceNode : ActivityNode, targetNode : ActivityNode) {
+	source := sourceNode;
+	target := targetNode;
+}
+
+constructor ControlFlow::ControlFlow(owner : Activity, sourceNode : ActivityNode, targetNode : ActivityNode) {
+	activity := owner;
+	source := sourceNode;
+	target := targetNode;
+}
+
+constructor ControlFlow::ControlFlow(structuredNode : StructuredActivityNode, sourceNode : ActivityNode, targetNode : ActivityNode) {
+	inStructuredNode := structuredNode;
+	source := sourceNode;
+	target := targetNode;
+}
+
+constructor ActivityParameterNode::ActivityParameterNode(owner : Activity, ownedParameter : Parameter, isOutput : Boolean) {
+	activity := owner;
+	parameter := ownedParameter;
+	name :=
+		if isOutput or ownedParameter.direction = ParameterDirectionKind::_'out' then 
+			"Output(" + nameOf(ownedParameter) + ")"
+		else if ownedParameter.direction = ParameterDirectionKind::_'in' or 
+			      ownedParameter.direction = ParameterDirectionKind::_'inout' then 
+			"Input(" + nameOf(ownedParameter) + ")"
+		else 
+			"Return" 
+		endif endif;
+}
+
+constructor InitialNode::InitialNode(label : String) {
+	name := "Initial(" + label + ")";
+}
+
+constructor InitialNode::InitialNode(structuredNode : StructuredActivityNode) {
+	inStructuredNode := structuredNode;
+	name := "Initial(" + nameOf(structuredNode) + ")"
+}
+
+constructor ForkNode::ForkNode(sourceName : String) {
+	name := "Fork(" + sourceName + ")";
+}
+
+constructor ForkNode::ForkNode(owner : Activity, sourceName : String) {
+	activity := owner;
+	name := "Fork(" + sourceName + ")";
+}
+
+constructor ForkNode::ForkNode(structuredNode : StructuredActivityNode, sourceName : String) {
+	inStructuredNode := structuredNode;
+	name := "Fork(" + sourceName + ")";
+}
+
+constructor JoinNode::JoinNode(sourceName : String) {
+	name := "Join(" + sourceName + ")";
+}
+
+constructor JoinNode::JoinNode(owner : Activity, sourceName : String) {
+	activity := owner;
+	name := "Join(" + sourceName + ")";
+}
+
+constructor JoinNode::JoinNode(structuredNode : StructuredActivityNode, sourceName : String) {
+	inStructuredNode := structuredNode;
+	name := "Join(" + sourceName + ")";
+}
+
+constructor MergeNode::MergeNode(sourceName : String) {
+	name := "Merge(" + sourceName + ")";
+}
+
+constructor MergeNode::MergeNode(owner : Activity, sourceName : String) {
+	activity := owner;
+	name := "Merge(" + sourceName + ")";
+}
+
+constructor MergeNode::MergeNode(structuredNode : StructuredActivityNode, sourceName : String) {
+	inStructuredNode := structuredNode;
+	name := "Merge(" + sourceName + ")";
+}
+
+constructor ActivityFinalNode::ActivityFinalNode(containerName : String) {
+	name := "FinalNode(" + containerName + ")";
+}
+
+constructor ActivityFinalNode::ActivityFinalNode(owner : Activity) {
+	activity := owner;
+	name := "FinalNode(" + nameOf(activity) + ")";
+}
+
+constructor ActivityFinalNode::ActivityFinalNode(structuredNode : StructuredActivityNode) {
+	inStructuredNode := structuredNode;
+	name := "FinalNode(" + nameOf(structuredNode) + ")";
+}
+
+// Pins
+
+constructor InputPin::InputPin(pinName : String, pinType: Type, pinLower : Integer, pinUpper : Integer) {
+	name := pinName;
+	type := pinType;
+	lower := pinLower;
+	upper := pinUpper;
+}
+
+constructor InputPin::InputPin(inout structuredNode : StructuredActivityNode, pinName : String, pinType: Type, pinLower : Integer, pinUpper : Integer) {
+	structuredNode.structuredNodeInput += result;
+	name := pinName;
+	type := pinType;
+	lower := pinLower;
+	upper := pinUpper;
+}
+
+constructor InputPin::InputPin(prefix : String, parameter : Parameter) {
+	name := prefix + "(" + nameOf(parameter) + ")";
+	type := parameter.type;
+	lower := parameter.lower;
+	upper := parameter.upper;
+	isOrdered := parameter.isOrdered;
+	isUnique := parameter.isUnique;
+}
+
+constructor InputPin::InputPin(prefix : String, property_ : Property) {
+	name := prefix + "(" + nameOf(property_) + ")";
+	type := property_.type;
+	lower := property_.lower;
+	upper := property_.upper;
+	isOrdered := property_.isOrdered;
+	isUnique := property_.isUnique;
+}
+
+constructor OutputPin::OutputPin(pinName : String, pinType: Type, pinLower : Integer, pinUpper : Integer) {
+	name := pinName;
+	type := pinType;
+	lower := pinLower;
+	upper := pinUpper;
+}
+
+constructor OutputPin::OutputPin(inout structuredNode : StructuredActivityNode, pinName : String, pinType: Type, pinLower : Integer, pinUpper : Integer) {
+	structuredNode.structuredNodeOutput += result;
+	name := pinName;
+	type := pinType;
+	lower := pinLower;
+	upper := pinUpper;
+}
+
+constructor OutputPin::OutputPin(prefix : String, parameter : Parameter) {
+	name := prefix + "(" + nameOf(parameter) + ")";
+	type := parameter.type;
+	lower := parameter.lower;
+	upper := parameter.upper;
+	isOrdered := parameter.isOrdered;
+	isUnique := parameter.isUnique;
+}
+
+constructor OutputPin::OutputPin(prefix : String, property_ : Property) {
+	name := prefix + "(" + nameOf(property_) + ")";
+	type := property_.type;
+	lower := property_.lower;
+	upper := property_.upper;
+	isOrdered := property_.isOrdered;
+	isUnique := property_.isUnique;
+}
+
+helper inputPinsFromParameters(prefix : String, parameters : OrderedSet(Parameter)) : OrderedSet(InputPin) {
+	return parameters[direction = ParameterDirectionKind::_'in' or direction = ParameterDirectionKind::_inout]->
+		collect(parameter | new InputPin(prefix, parameter))->asOrderedSet();
+}		
+
+helper outputPinsFromParameters(prefix : String, parameters : OrderedSet(Parameter)) : OrderedSet(OutputPin) {		
+	return parameters[direction = ParameterDirectionKind::_'out' or direction = ParameterDirectionKind::_inout or
+									  direction = ParameterDirectionKind::_'return']->
+		collect(parameter | new OutputPin(prefix, parameter))->asOrderedSet();
+}
+
+helper inputPinsFromProperties(prefix : String, properties : OrderedSet(Property)) : OrderedSet(InputPin) {
+	return properties->collect(property_ | new InputPin(prefix, property_))->asOrderedSet();
+}
+
+query Action::returnPin() : OutputPin {
+	var outputParameters := self.parameters()[
+		direction = ParameterDirectionKind::_'out' or 
+		direction = ParameterDirectionKind::_'inout' or 
+		direction = ParameterDirectionKind::_'return'];
+	var parameter := outputParameters![direction = ParameterDirectionKind::_'return'];
+	return
+		if parameter = null then null
+		else self.output->at(outputParameters->indexOf(parameter))
+		endif;
+}
+
+query Action::parameters() : OrderedSet(Parameter) {
+	return OrderedSet{};
+}
+
+query CallOperationAction::parameters() : OrderedSet(Parameter) {
+	return self.operation.ownedParameter;
+}
+
+query CallBehaviorAction::parameters() : OrderedSet(Parameter) {
+	return self.behavior.ownedParameter;
+}
+
+// Link End Data
+
+constructor LinkEndData::LinkEndData(inout action : LinkAction, end_ : Property, isInput : Boolean) {
+	_'end' := end_;
+	action.endData += result;
+	
+	if isInput then {
+		value := new InputPin(nameOf(action) + ".value(" + nameOf(end_) + ")", end_.type, 1, 1);
+		action.inputValue += value;
+	} else if action.oclIsKindOf(ReadLinkAction) then {
+		action.oclAsType(ReadLinkAction).result := new OutputPin(nameOf(action) + ".result", end_);
+	} endif endif;	
+}
+
+constructor LinkEndCreationData::LinkEndCreationData(inout action : CreateLinkAction, end_ : Property, unlimitedNaturalType : Type) {
+	_'end' := end_;
+	value := new InputPin(nameOf(action) + ".value(" + nameOf(end_) + ")", end_.type, 1, 1);
+	isReplaceAll := false;
+
+	action.endData += result;
+	action.inputValue += value;
+	
+	if end_.isOrdered then {
+		insertAt := new InputPin(nameOf(action) + ".insertAt(" + nameOf(end_) + ")", unlimitedNaturalType, 1, 1);
+		action.inputValue += insertAt;
+	} endif;
+}
+
+constructor LinkEndDestructionData::LinkEndDestructionData(inout action : DestroyLinkAction, end_ : Property, unlimitedNaturalType : Type) {
+	_'end' := end_;
+	value := new InputPin(nameOf(action) + ".value(" + nameOf(end_) + ")", end_.type, 1, 1);
+	isDestroyDuplicates := not end_.isOrdered;
+
+	action.endData += result;
+	action.inputValue += value;
+	
+	if end_.isOrdered then {
+		destroyAt := new InputPin(nameOf(action) + ".destroyAt(" + nameOf(end_) + ")", unlimitedNaturalType, 1, 1);
+		action.inputValue += destroyAt;
+	} endif;
+}
+
+// Actions
+
+constructor AcceptEventAction::AcceptEventAction(structuredNode : StructuredActivityNode, signals : Set(Signal), hasOutput : Boolean) {
+	inStructuredNode := structuredNode;
+	isUnmarshall := false;
+	
+	var signalNames := "";
+	signals->forEach(signal) {
+		if signalNames.length() > 0 then {
+			signalNames := signalNames + ",";
+		} endif;
+		signalNames := signalNames + nameOf(signal);
+		
+		trigger += new Trigger(signal);		
+	};
+	
+	name := "Accept(" + signalNames + ")";
+	
+	if hasOutput then {
+		result.result += new OutputPin(name + ".result", null, 1, 1);
+	} endif;
+}
+
+constructor Trigger::Trigger(signal : Signal) {
+	event := new SignalEvent(signal);
+}
+
+constructor SignalEvent::SignalEvent(sig : Signal) {
+	name := "Event(" + nameOf(sig) + ")";
+	signal := sig;
+}
+
+constructor AddStructuralFeatureValueAction::AddStructuralFeatureValueAction(property_ : Property, replaceAll : Boolean, unlimitedNaturalType : Type) {
+	var featuringClassifier := property_.featuringClassifier![true];
+	name := "Write(" + nameOf(property_) + ")";
+	structuralFeature := property_;
+	isReplaceAll := replaceAll;
+	_'object' := new InputPin(name + ".object", featuringClassifier, 1, 1);
+	value := new InputPin (name + ".value", property_.type, 1, 1);
+	result.result := new OutputPin(name + ".result", featuringClassifier, 1, 1);
+	
+	if property_.isOrdered and not replaceAll then {
+		insertAt := new InputPin(name + ".insertAt", unlimitedNaturalType, 1, 1);
+	} endif;
+}
+
+constructor AddStructuralFeatureValueAction::AddStructuralFeatureValueAction(property_ : Property, classifier: Type, replaceAll : Boolean, unlimitedNaturalType : Type) {
+	name := "Write(" + nameOf(property_) + ")";
+	structuralFeature := property_;
+	isReplaceAll := replaceAll;
+	_'object' := new InputPin(name + ".object", classifier, 1, 1);
+	value := new InputPin (name + ".value", property_.type, 1, 1);
+	result.result := new OutputPin(name + ".result", classifier, 1, 1);
+	
+	if property_.isOrdered and not replaceAll then {
+		insertAt := new InputPin(name + ".insertAt", unlimitedNaturalType, 1, 1);
+	} endif;
+}
+
+constructor CallBehaviorAction::CallBehaviorAction(target : Behavior) {
+	name := "Call(" + nameOf(target) +")";
+	behavior := target;
+	argument := inputPinsFromParameters(name + ".argument", behavior.ownedParameter);
+	result.result := outputPinsFromParameters(name + ".result", behavior.ownedParameter);
+}
+
+constructor CallOperationAction::CallOperationAction(operation_ : Operation) {
+	name := "Call(" + nameOf(operation_) + ")";
+	operation := operation_;
+	target := new InputPin(name + ".target", operation_._'class', 1, 1);
+	argument := inputPinsFromParameters(name + ".argument", operation_.ownedParameter);
+	result.result := outputPinsFromParameters(name + ".result", operation_.ownedParameter);
+}
+
+constructor ClearAssociationAction::ClearAssociationAction(association_ : Association) {
+	name := "Clear(" + nameOf(association_) + ")";
+	association := association_;
+	_'object' := new InputPin(name + ".object", null, 1, 1);
+	_'object'.isOrdered := false;
+}
+
+constructor CreateLinkAction::CreateLinkAction(association_ : Association, unlimitedNaturalType : Type) {
+	name := "Create(" + nameOf(association_) + ")";
+	association_.ownedEnd->forEach(ownedEnd) {
+		new LinkEndCreationData(result, ownedEnd, unlimitedNaturalType);
+	};
+}
+
+constructor ClearStructuralFeatureAction::ClearStructuralFeatureAction(property_ : Property) {
+	name := "Clear(" + nameOf(property_) + ")";
+	structuralFeature := property_;
+	
+	var featuringClassifier := property_.featuringClassifier![true];
+	_'object' := new InputPin(name + ".object", featuringClassifier, 1, 1);
+	_'object'.isOrdered := false;
+	result.result := new OutputPin(name + ".result", featuringClassifier, 1, 1);
+}
+
+constructor ClearStructuralFeatureAction::ClearStructuralFeatureAction(property_ : Property, classifier : Type) {
+	name := "Clear(" + nameOf(property_) + ")";
+	structuralFeature := property_;
+	
+	_'object' := new InputPin(name + ".object", classifier, 1, 1);
+	_'object'.isOrdered := false;
+	result.result := new OutputPin(name + ".result", classifier, 1, 1);
+}
+
+constructor CreateObjectAction::CreateObjectAction(class_ : Class) {
+	name := "Create(" + nameOf(class_) + ")";
+	classifier := class_;
+	result.result := new OutputPin(name + ".result", class_, 1, 1);
+}
+
+constructor DestroyLinkAction::DestroyLinkAction(association_ : Association, unlimitedNaturalType : Type) {
+	name := "Destroy(" + nameOf(association_) + ")";
+	association_.ownedEnd->forEach(ownedEnd) {
+		new LinkEndDestructionData(result, ownedEnd, unlimitedNaturalType);
+	};
+}
+
+constructor DestroyObjectAction::DestroyObjectAction(class_ : Class) {
+	name := "Destroy(" + nameOf(class_) + ")";
+	isDestroyLinks := true;
+	isDestroyOwnedObjects := true;
+	target := new InputPin(name + ".target", class_, 1, 1);
+}
+
+constructor ReadExtentAction::ReadExtentAction(class_ : Class) {
+	name := "ReadExtent(" + nameOf(class_) + ")";
+	classifier := class_;
+	result.result := new OutputPin(name + ".result", class_, 0, -1);
+}
+
+constructor ReadIsClassifiedObjectAction::ReadIsClassifiedObjectAction(type : Classifier, direct : Boolean, booleanType : Type) {
+	name := "ReadClassifiedObject(" + nameOf(type) + ")";
+	classifier := type;
+	isDirect := direct;
+	_'object' := new InputPin(name + ".object", null, 1, 1);
+	result.result := new OutputPin(name + ".result", booleanType, 1, 1);
+}
+
+constructor ReadLinkAction::ReadLinkAction(associationEnd : Property) {
+	name := "ReadLink(" + nameOf(associationEnd) + ")";
+	associationEnd.association.ownedEnd->asSequence()->excluding(associationEnd)->
+	forEach(otherEnd) {
+		new LinkEndData(result, otherEnd, true);
+	};
+	new LinkEndData(result, associationEnd, false);
+}
+
+constructor ReadSelfAction::ReadSelfAction(type : Type) {
+	name := "ReadSelf";
+	result.result := new OutputPin(name + ".result", type, 1, 1);
+}
+
+constructor ReadStructuralFeatureAction::ReadStructuralFeatureAction(type : Type, feature : Property) {
+	name := "Read(" + nameOf(feature) + ")";
+	structuralFeature := feature;
+	_'object' := new InputPin(name + ".object", type, 1, 1);
+	result.result := new OutputPin(name + ".result", feature.type, 1, 1);
+}
+
+constructor ReclassifyObjectAction::ReclassifyObjectAction(type : Type, oldClassifiers : Set(Classifier), newClassifiers : Set(Classifier), replaceAll : Boolean) {
+	var oldClassifierList := "";
+	oldClassifiers->forEach(oldClassifier) {
+		if oldClassifierList.length() > 0 then {
+			oldClassifierList := oldClassifierList + ",";
+		} endif;
+		oldClassifierList := oldClassifierList + nameOf(oldClassifier);
+	};
+	if oldClassifierList.length() = 0 and isReplaceAll then {
+		oldClassifierList := "*";
+	} endif;
+	
+	var newClassifierList := "";
+	newClassifiers->forEach(newClassifier) {
+		if newClassifierList.length() > 0 then {
+			newClassifierList := newClassifierList + ",";
+		} endif;
+		newClassifierList := newClassifierList + nameOf(newClassifier);
+	};
+	
+	name := "Reclassify(" + oldClassifierList + " to " + newClassifierList + ")";	
+	_'object' := new InputPin(name + ".object", type, 1, 1);
+	oldClassifier := oldClassifiers;
+	newClassifier := newClassifiers;
+	isReplaceAll := replaceAll;
+}
+
+constructor ReduceAction::ReduceAction(behavior : Behavior, type : Type, isOrdered_ : Boolean) {
+	name := "Reduce(" + nameOf(behavior) + ")";
+	reducer := behavior;
+	isOrdered := isOrdered_;
+	collection := new InputPin(name + ".collection", type, 0, -1);
+	result.result := new OutputPin(name + ".result", type, 0, 1);
+}
+
+constructor RemoveStructuralFeatureValueAction::RemoveStructuralFeatureValueAction(property_ : Property, removeDuplicates : Boolean, unlimitedNaturalType : Type) {
+	name := "Remove(" + nameOf(property_) + ")";
+	structuralFeature := property_;
+	isRemoveDuplicates := removeDuplicates;
+	
+	var featuringClassifier := property_.featuringClassifier![true];
+	_'object' := new InputPin(name + ".object", featuringClassifier, 1, 1);
+	result.result := new OutputPin(name + ".result", featuringClassifier, 1, 1);
+	
+	if not property_.isOrdered or property_.isUnique or isRemoveDuplicates then {
+		value := new InputPin(name + ".value", property_.type, 1, 1);
+	} else {
+		removeAt := new InputPin(name + ".removeAt", unlimitedNaturalType, 1, 1);
+	} endif;
+}
+
+constructor RemoveStructuralFeatureValueAction::RemoveStructuralFeatureValueAction(property_ : Property, classifier : Type, removeDuplicates : Boolean, unlimitedNaturalType : Type) {
+	name := "Remove(" + nameOf(property_) + ")";
+	structuralFeature := property_;
+	isRemoveDuplicates := removeDuplicates;
+	
+	_'object' := new InputPin(name + ".object", classifier, 1, 1);
+	result.result := new OutputPin(name + ".result", classifier, 1, 1);
+	
+	if not property_.isOrdered or property_.isUnique or isRemoveDuplicates then {
+		value := new InputPin(name + ".value", property_.type, 1, 1);
+	} else {
+		removeAt := new InputPin(name + ".removeAt", unlimitedNaturalType, 1, 1);
+	} endif;
+}
+
+constructor SendSignalAction::SendSignalAction(signal_ : Signal) {
+	name := "SendSignal(" + nameOf(signal_) + ")";
+	signal := signal_;
+	target := new InputPin(name + ".target", null, 1, 1);
+	argument := inputPinsFromProperties(name + ".argument", signal.allAttributes());
+}
+
+constructor StartObjectBehaviorAction::StartObjectBehaviorAction(class_ : Class) {
+	name := "Start(" + if class_ = null then "any" else nameOf(class_) endif + ")";
+	_'object' := new InputPin(name + ".object", class_, 1, 1);
+	isSynchronous := false;
+}
+
+constructor TestIdentityAction::TestIdentityAction(testName : String, booleanType : Type) {
+	name := "Test(" + testName + ")";
+	first := new InputPin(name + ".first", null, 1, 1);
+	second := new InputPin(name + ".second", null, 1, 1);
+	result._'result' := new OutputPin(name + ".result", booleanType, 1, 1);
+}
+
+constructor ValueSpecificationAction::ValueSpecificationAction(valueSpecification : ValueSpecification) {
+	name := "Value(" + nameOf(valueSpecification) + ")";
+	value := valueSpecification;
+	result.result := new OutputPin(name + ".result", valueSpecification.type, 1, 1);
+}
+
+constructor LiteralBoolean::LiteralBoolean(b : Boolean, t : Type) {
+	name := b.toString();
+	value := b;
+	type := t;
+}
+
+constructor LiteralString::LiteralString(s : String, t : Type) {
+	name := "\"" + s + "\"";
+	value := s;
+	type := t;
+}
+
+constructor LiteralInteger::LiteralInteger(i : Integer, t : Type) {
+	name := i.toString();
+	value := i;
+	type := t;
+}
+
+constructor LiteralUnlimitedNatural::LiteralUnlimitedNatural(t : Type) {
+	name := "*";
+	type := t;
+}
+
+constructor LiteralNull::LiteralNull() {
+	name := "null";
+}
+
+constructor InstanceValue::InstanceValue(spec : InstanceSpecification) {
+	name := nameOf(spec);
+	instance := spec;
+	type := spec.classifier![true];
+}
+
+constructor InstanceValue::InstanceValue(type_ : Classifier) {
+	name := "Instance(" + nameOf(type_) + ")";
+	instance := object InstanceSpecification {
+		classifier += type_;
+	};
+	type := type_;
+}
+
+// Structured Activity Nodes
+
+constructor StructuredActivityNode::StructuredActivityNode(name_ : String) {
+	name := name_;
+}
+
+constructor StructuredActivityNode::StructuredActivityNode(owner : Activity, name_ : String) {
+	activity := owner;
+	name := name_;
+}
+
+constructor ConditionalNode::ConditionalNode(name_ : String, assured : Boolean, determinate : Boolean) {
+	name := name_;
+	isAssured := assured;
+	isDeterminate := determinate;
+}
+
+constructor Clause::Clause(
+	testNodes : Set(ExecutableNode), bodyNodes : Set(ExecutableNode), 
+	bodyOutputs : Set(OutputPin), predecessorClauses : Set(Clause)) {
+		test := testNodes;
+		body := bodyNodes;
+		bodyOutput := bodyOutputs;
+		predecessorClause := predecessorClauses;
+}
+
+constructor LoopNode::LoopNode(name_ : String, testedFirst : Boolean) {
+	name := name_;
+	isTestedFirst := testedFirst;
+}
+
+constructor LoopNode::LoopNode(name_ : String, testedFirst : Boolean, inputs : OrderedSet(InputPin)) {
+	name := name_;
+	isTestedFirst := testedFirst;
+	inputs->forEach(input) {
+		var variableName := nameOf(input);
+		input.name := name + ".loopVariableInput(" + variableName + ")";
+		loopVariableInput += input;
+		loopVariable += new OutputPin(name + ".loopVariable(" + variableName + ")", input.type, input.lower, input.upper);
+		result.result += new OutputPin(name + ".result(" + variableName + ")", input.type, input.lower, input.upper);
+	}
+}
+
+constructor ExpansionRegion::ExpansionRegion(name_ : String, mode_ : ExpansionKind) {
+	name := name_;
+	mode := mode_;
+}
+
+constructor ExpansionNode::ExpansionNode(sourceName : String, type_ : Type, region : ExpansionRegion, isInput : Boolean) {
+	type := type_;
+	if isInput then {
+		name := nameOf(region) + if sourceName = null then ".inputElement" else ".inputElement(" + sourceName + ")" endif;
+		regionAsInput := region;
+	} else {
+		name := nameOf(region) + if sourceName = null then ".outputElement" else ".outputElement(" + sourceName + ")" endif;
+		regionAsOutput := region;
+	} endif;
+}
+
+helper addToStructuredNode(inout structuredNode : StructuredActivityNode, in nodes : Set(ActivityNode), in edges : Set(ActivityEdge)) : Set(ActivityEdge) {
+	structuredNode.node += nodes;
+	return addEdgesToStructuredNode(structuredNode, edges);
+}
+
+helper addEdgesToStructuredNode(inout structuredNode : StructuredActivityNode, in edges : Set(ActivityEdge)) : Set(ActivityEdge) {
+	var allOwnedNodes := structuredNode.allOwnedNodes();
+	var internalEdges := edges[allOwnedNodes->includes(source) and allOwnedNodes->includes(target)];
+	structuredNode.edge += internalEdges;
+	return edges - internalEdges;
+}
+
+helper addToExpansionRegion(inout region : ExpansionRegion, nodes : Set(ActivityNode), edges : Set(ActivityEdge)) : Set(ActivityEdge) {
+	region.node += nodes;
+	var allOwnedNodes := region.allOwnedNodes();
+	edges->forEach(edge) {
+		var sourceIsContained := allOwnedNodes->includes(edge.source);
+		var targetIsContained := allOwnedNodes->includes(edge.target);
+		if sourceIsContained and targetIsContained or
+			edge.source.oclIsKindOf(ExpansionNode) and
+				region = edge.source.oclAsType(ExpansionNode).regionAsInput or
+			edge.target.oclIsKindOf(ExpansionNode) and
+				region = edge.target.oclAsType(ExpansionNode).regionAsOutput then {
+			region.edge += edge;
+		} else {
+			if targetIsContained then {
+				// If an edge crosses into the region, then redirect its target.
+				if edge.oclIsKindOf(ControlFlow) then {
+					edge.target := region;
+				} else {
+					var inputPin := new InputPin (region,
+						region.name + ".input(" + nameOf(edge.source) + ")", 
+						typeOf(edge.target),
+						if edge.target.oclIsKindOf(Pin) then edge.target.oclAsType(Pin).lower
+						else 0 endif,
+						if edge.target.oclIsKindOf(Pin) then edge.target.oclAsType(Pin).upper
+						else -1 endif
+					);
+					new ObjectFlow(region, inputPin, edge.target);
+					edge.target := inputPin;
+				} endif;
+			} else if sourceIsContained then {
+				// If an edge crosses out of the region, then redirect its source.
+				if edge.oclIsKindOf(ControlFlow) then {
+					edge.source := region;
+				} else {
+					var outputNode := new ExpansionNode(nameOf(edge.source), typeOf(edge.source), region, false);
+					new ObjectFlow(region, edge.source, outputNode);
+					edge.source := outputNode;
+				} endif;
+			} endif endif;
+		} endif;
+	};
+	return edges - region.edge;
+}
+
+helper createPassthruNode (sourceName : String, type : Type, lower : Integer, upper : Integer) : StructuredActivityNode {
+	var nodeName := 
+		if sourceName = null or sourceName.oclIsInvalid() then "Passthru" 
+		else "Passthru(" + sourceName + ")" endif;
+	var structuredNode := new StructuredActivityNode(nodeName);
+	var inputPin := new InputPin(structuredNode, nodeName + ".input", type, lower, upper);
+	var outputPin := new OutputPin(structuredNode, nodeName + ".output", type, lower, upper);
+	structuredNode.edge += new ObjectFlow(inputPin, outputPin);
+	return structuredNode;
+}
+
+// Other
+
+helper nameOf(element : Element) : String {
+	return
+		if element = null then "<Null>"
+		else if element.oclIsInvalid() then "<Invalid>"
+		else if not element.oclIsKindOf(NamedElement) then "<Not Named>"
+		else let name = element.oclAsType(NamedElement).name in
+			if name = null then "<No Name>"
+			else "'" + name + "'" endif
+		endif endif endif;
+}
+
+helper typeOf(element : Element) : Type {
+	return 
+		if element.oclIsKindOf(TypedElement) then element.oclAsType(TypedElement).type 
+		else null 
+		endif;
+}
+
+

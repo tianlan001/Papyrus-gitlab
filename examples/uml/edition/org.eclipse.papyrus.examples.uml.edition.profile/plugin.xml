@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+
+
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated EditionExample.profile -->
+      <package
+            uri="http://www.eclipse.org/papyrus/uml/edition/example"
+            class="org.eclipse.papyrus.examples.uml.edition.profile.EditionExamplePackage"
+            genModel="profile/EditionExample.profile.genmodel"/>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="pathmap://EDITION_EXAMPLE_PROFILE/"
+            target="platform:/plugin/org.eclipse.papyrus.examples.uml.edition.profile/profile/">
+      </mapping>
+   </extension>
+   <extension
+         point="org.eclipse.uml2.uml.generated_package">
+      <profile
+            location="pathmap://EDITION_EXAMPLE_PROFILE/EditionExample.profile.uml#_Kf85gFmaEeunPscLYhz2dA"
+            uri="http://www.eclipse.org/papyrus/uml/edition/example">
+      </profile>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.uml.extensionpoints.UMLProfile">
+      <profile
+            description="Papyrus UML Edition Profile Example"
+            name="Papyrus UML Edition Profile Example"
+            path="pathmap://EDITION_EXAMPLE_PROFILE/EditionExample.profile.uml"
+            provider="Eclipse Modeling Project">
+      </profile>
+   </extension>
+
+</plugin>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite
+	xmlns:umlprofileexternalresource="clr-namespace:org.eclipse.papyrus.uml.decoratormodel.properties.widgets"
+	xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt"
+	xmlns:uml="clr-namespace:org.eclipse.papyrus.uml.properties.widgets">
+	<Composite.layout>
+		<ppel:PropertiesLayout></ppel:PropertiesLayout>
+	</Composite.layout>
+	<umlprofileexternalresource:DecoratorModelPropertyEditor
+		input="{Binding}" property="PackageAdditions:externalProfileApplication"
+		customLabel="External profile applications"></umlprofileexternalresource:DecoratorModelPropertyEditor>
+</Composite>

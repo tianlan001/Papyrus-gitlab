@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_363gYJ-UEee0h-nVQzWobg" name="updateTableContentsAfterRowsSourceChange">
+  <packageImport xmi:id="_4FYHQJ-UEee0h-nVQzWobg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_dYmtMJ-VEeevr48NX92ywA" name="Package1_RowsSource">
+    <packagedElement xmi:type="uml:Class" xmi:id="_gFrXcJ-VEeevr48NX92ywA" name="Class1"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_gobfMJ-VEeevr48NX92ywA" name="Class2"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_gusfQJ-VEeevr48NX92ywA" name="Class3"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_g5R-oJ-VEeevr48NX92ywA" name="Class4"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_GBqmgJ-WEeevr48NX92ywA" client="_gFrXcJ-VEeevr48NX92ywA" supplier="_-7X5QJ-VEeevr48NX92ywA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_GpBhcJ-WEeevr48NX92ywA" client="_gusfQJ-VEeevr48NX92ywA" supplier="__cCWUJ-VEeevr48NX92ywA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_G1YicJ-WEeevr48NX92ywA" client="_g5R-oJ-VEeevr48NX92ywA" supplier="__lAFEJ-VEeevr48NX92ywA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_fRrcwJ-XEeevr48NX92ywA" client="_gobfMJ-VEeevr48NX92ywA" supplier="__bI-cJ-VEeevr48NX92ywA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_eCSjYJ-VEeevr48NX92ywA" name="Package2_RowsSource">
+    <packagedElement xmi:type="uml:Class" xmi:id="_YJPP4J-WEeevr48NX92ywA" name="Class1"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YJPP4Z-WEeevr48NX92ywA" name="Class2"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YJPP4p-WEeevr48NX92ywA" name="Class3"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_YJPP45-WEeevr48NX92ywA" name="Class4"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_PWiOsJ-XEeevr48NX92ywA" name="Class5"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_YuG3gJ-WEeevr48NX92ywA" client="_YJPP45-WEeevr48NX92ywA" supplier="_-7X5QJ-VEeevr48NX92ywA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_Y3e18J-WEeevr48NX92ywA" client="_YJPP4p-WEeevr48NX92ywA" supplier="__bI-cJ-VEeevr48NX92ywA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_ZB6kUJ-WEeevr48NX92ywA" client="_YJPP4Z-WEeevr48NX92ywA" supplier="__cCWUJ-VEeevr48NX92ywA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_ZOwGcJ-WEeevr48NX92ywA" client="_YJPP4J-WEeevr48NX92ywA" supplier="__lAFEJ-VEeevr48NX92ywA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_TGB_QJ-XEeevr48NX92ywA" client="_PWiOsJ-XEeevr48NX92ywA" supplier="_-7X5QJ-VEeevr48NX92ywA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_1nesAJ-VEeevr48NX92ywA" name="Package3_ColumnsSource">
+    <nestedClassifier xmi:type="uml:Signal" xmi:id="_-7X5QJ-VEeevr48NX92ywA" name="Signal1"/>
+    <nestedClassifier xmi:type="uml:Signal" xmi:id="__bI-cJ-VEeevr48NX92ywA" name="Signal2"/>
+    <nestedClassifier xmi:type="uml:Signal" xmi:id="__cCWUJ-VEeevr48NX92ywA" name="Signal3"/>
+    <nestedClassifier xmi:type="uml:Signal" xmi:id="__lAFEJ-VEeevr48NX92ywA" name="Signal4"/>
+  </packagedElement>
+</uml:Model>

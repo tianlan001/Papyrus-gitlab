@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_ZS-p8DrfEeem-4zdbvHfsg" name="stereotypepropertyreferenceedgeadvice">
+  <tabs xmi:id="_ask6IDrfEeem-4zdbvHfsg" label="stereotypepropertyreferenceedgeadvice" id="stereotypepropertyreferenceedgeadvice" priority="100">
+    <sections xmi:id="_ask6ITrfEeem-4zdbvHfsg" name="Single StereotypePropertyReferenceEdgeAdviceConfiguration" sectionFile="ui/SingleStereotypePropertyReferenceEdgeAdviceConfiguration.xwt">
+      <widget href="ui/SingleStereotypePropertyReferenceEdgeAdviceConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_aslhMDrfEeem-4zdbvHfsg" name="Single StereotypeToSet" sectionFile="ui/SingleStereotypeToSet.xwt">
+      <widget href="ui/SingleStereotypeToSet.xwt#/"/>
+    </sections>
+    <sections xmi:id="_aslhMTrfEeem-4zdbvHfsg" name="Multiple StereotypePropertyReferenceEdgeAdviceConfiguration" sectionFile="ui/MultipleStereotypePropertyReferenceEdgeAdviceConfiguration.xwt">
+      <widget href="ui/MultipleStereotypePropertyReferenceEdgeAdviceConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_aslhMjrfEeem-4zdbvHfsg" name="Multiple StereotypeToSet" sectionFile="ui/MultipleStereotypeToSet.xwt">
+      <widget href="ui/MultipleStereotypeToSet.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_ZS-p8TrfEeem-4zdbvHfsg" name="Single StereotypePropertyReferenceEdgeAdviceConfiguration" sections="_ask6ITrfEeem-4zdbvHfsg" automaticContext="true" datacontexts="_ZS-qAjrfEeem-4zdbvHfsg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_ZS-p8jrfEeem-4zdbvHfsg" name="isSingleStereotypePropertyReferenceEdgeAdviceConfiguration">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_ZS-p8zrfEeem-4zdbvHfsg" name="nsUri" value="http://www.eclipse.org/papyrus/uml/types/stereotypepropertyreferenceedgeadvice/1.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_ZS-p9DrfEeem-4zdbvHfsg" name="className" value="StereotypePropertyReferenceEdgeAdviceConfiguration"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_ZS-qATrfEeem-4zdbvHfsg" name="stereotypepropertyreferenceedgeadvice" label="stereotypepropertyreferenceedgeadvice">
+    <elements xmi:id="_ZS-qAjrfEeem-4zdbvHfsg" name="StereotypePropertyReferenceEdgeAdviceConfiguration">
+      <properties xmi:id="_ZS-qBTrfEeem-4zdbvHfsg" name="featureToSet" description="The feature name to set."/>
+      <properties xmi:id="_ZS-qBjrfEeem-4zdbvHfsg" name="stereotypeQualifiedName" description="The stereotype qualified name of the stereotype property to set."/>
+      <properties xmi:id="_aKqYwDy0EeeAp4N8yiBfUA" name="edgeLabel" description="The label of the stereotype property edge."/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context>

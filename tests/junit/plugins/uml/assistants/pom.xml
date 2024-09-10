@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.eclipse.papyrus.tests</groupId>
+    <artifactId>org.eclipse.papyrus.uml.tests.releng</artifactId>
+    <version>7.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>org.eclipse.papyrus.uml.assistants.tests.releng</artifactId>
+  <packaging>pom</packaging>
+	<description>Tests for the Papyrus uml assistants</description>
+  
+  <modules>
+	<module>org.eclipse.papyrus.uml.profile.assistants.generator.tests</module>
+	<!-- <module>org.eclipse.papyrus.uml.profile.elementtypesconfigurations.generator.tests</module> -->
+	<module>org.eclipse.papyrus.uml.profile.types.generator.tests</module>
+			
+  </modules>
+  
+</project>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<paletteDefinition>
+    <content>
+        <drawer id="interactionoverview.drawer.nodes" name="Nodes" iconpath="platform:/plugin/org.eclipse.gmf.runtime.diagram.ui/icons/group.gif">
+            <aspectTool
+                description="Create a new Activity"
+                id="interactionoverviewdiagram.tool.activity"
+                name="Activity"
+                refToolId="activity.nodes.activity">
+            </aspectTool>
+            <aspectTool
+                description="Create a new InitialNode"
+                id="interactionoverviewdiagram.tool.initialnode"
+                name="InitialNode"
+                refToolId="activity.nodes.controlnodes.initialnode">
+            </aspectTool>
+            <aspectTool
+                description="Create a new ActivityFinalNode"
+                id="interactionoverviewdiagram.tool.activityfinalnode"
+                name="ActivityFinalNode"
+                refToolId="activity.nodes.controlnodes.activityfinal">
+            </aspectTool>
+            <aspectTool
+                description="Create a new FlowFinalNode"
+                id="interactionoverviewdiagram.tool.flowfinalnode"
+                name="FlowFinalNode"
+                refToolId="activity.nodes.controlnodes.flowfinal">
+            </aspectTool>
+            <aspectTool
+                description="Create a new DecisionNode"
+                id="interactionoverviewdiagram.tool.decisionnode"
+                name="DecisionNode"
+                refToolId="activity.nodes.controlnodes.decisionnode">
+            </aspectTool>
+            <aspectTool
+                description="Create a new ForkNode"
+                id="interactionoverviewdiagram.tool.forknode"
+                name="ForkNode"
+                refToolId="activity.nodes.controlnodes.forknode">
+            </aspectTool>
+            <aspectTool
+                description="Create a new JoinNode"
+                id="interactionoverviewdiagram.tool.joinnode"
+                name="JoinNode"
+                refToolId="activity.nodes.controlnodes.joinnode">
+            </aspectTool>
+            <aspectTool
+                description="Create a new MergeNode"
+                id="interactionoverviewdiagram.tool.mergenode"
+                name="MergeNode"
+                refToolId="activity.nodes.controlnodes.mergenode">
+            </aspectTool>
+             <aspectTool
+                description="Create a new ConditionalNode"
+                id="interactionoverviewdiagram.tool.conditionalnode"
+                name="ConditionalNode"
+                refToolId="activity.nodes.structuredactions.conditionalnode">
+            </aspectTool>
+            <aspectTool
+                description="Create a new LoopNode"
+                id="interactionoverviewdiagram.tool.loopnode"
+                name="LoopNode"
+                refToolId="activity.nodes.structuredactions.loopnode">
+            </aspectTool>
+             <aspectTool
+                description="Create a new SequenceNode"
+                id="interactionoverviewdiagram.tool.sequencenode"
+                name="SequenceNode"
+                refToolId="activity.nodes.structuredactions.sequencenode">
+            </aspectTool>
+            <aspectTool
+                description="Create a new Comment"
+                id="interactionoverviewdiagram.tool.comment"
+                name="Comment"
+                refToolId="activity.nodes.comment">
+            </aspectTool>
+            <aspectTool
+                description="Create a new Constraint"
+                id="interactionoverviewdiagram.tool.constraint"
+                name="Constraint"
+                refToolId="activity.nodes.constraint">
+            </aspectTool>
+            </drawer>
+            <drawer id="interactionoverview.drawer.edges" name="Edges" iconpath="platform:/plugin/org.eclipse.gmf.runtime.diagram.ui/icons/group.gif">
+            <aspectTool
+                description="Create a new CommentAnnotatedElement"
+                id="interactionoverviewdiagram.tool.commentannotatedelement"
+                name="CommentAnnotatedElement"
+                refToolId="activity.edges.link">
+            </aspectTool>
+            <aspectTool
+                description="Create a new ControlFlow"
+                id="interactionoverviewdiagram.tool.controlflow"
+                name="ControlFlow"
+                refToolId="activity.edges.controlflow">
+            </aspectTool>
+
+        </drawer>
+    </content>
+</paletteDefinition>

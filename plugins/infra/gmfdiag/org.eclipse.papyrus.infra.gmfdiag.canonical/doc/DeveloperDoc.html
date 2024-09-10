@@ -1,0 +1,92 @@
+<html>
+<link rel="stylesheet" href="default.css" type="text/css">
+<H1>Canonical Diagram Views</H1>
+<pre id ="_xz8WAAPBEeW8nIkIujhtCA">The goal is to enable a strong synchronization between visual elements displayed in the diagram with elements contained in the model. <BR/>This mechanism can be added locally for each element by using CSS. <BR/>For example, you would like to see: <BR/>- synchronize compartment of enumeration literal for all enumeration. <BR/>- synchronize compartment of attributes and operation for all class stereotyped ….<BR/>This functionality is associated to the task 433206.<BR/></pre>
+<H2 id ="_xz9kIQPBEeW8nIkIujhtCA">Table of Contents</H2>
+<ul><a href="#_xz_ZUAPBEeW8nIkIujhtCA">Requirements</a></ul>
+<ul><a href="#_x0E44APBEeW8nIkIujhtCA">Use Cases</a><li><a href="#_x0yDgQPBEeW8nIkIujhtCA"> Synchronization</a></li>
+<ul><li><a href="#_x0zRoQPBEeW8nIkIujhtCA"> Add an element in the model</a></li>
+<ul></ul>
+<li><a href="#_x02U8QPBEeW8nIkIujhtCA"> Move an element</a></li>
+<ul></ul>
+<li><a href="#_x05YQAPBEeW8nIkIujhtCA"> Set synchronization enable</a></li>
+<ul></ul>
+<li><a href="#_x08bkQPBEeW8nIkIujhtCA"> Remove an element from the model</a></li>
+<ul></ul>
+</ul>
+</ul>
+<ul><a href="#_x0_e4QPBEeW8nIkIujhtCA">Design</a><li><a href="#_x363EQPBEeW8nIkIujhtCA"> Plugin org.eclipse.papyrus.infra.gmfdiag.canonical</a></li>
+<ul></ul>
+<li><a href="#_x38FMQPBEeW8nIkIujhtCA"> Plugin org.eclipse.ui</a></li>
+<ul></ul>
+<li><a href="#_x39TUAPBEeW8nIkIujhtCA"> Plugin org.eclipse.core.runtime</a></li>
+<ul></ul>
+<li><a href="#_x396YQPBEeW8nIkIujhtCA"> Plugin org.eclipse.emf.common</a></li>
+<ul></ul>
+<li><a href="#_x3_IgQPBEeW8nIkIujhtCA"> Plugin org.eclipse.emf.ecore</a></li>
+<ul></ul>
+<li><a href="#_x3_vkQPBEeW8nIkIujhtCA"> Plugin org.eclipse.gef</a></li>
+<ul></ul>
+<li><a href="#_x4A9sQPBEeW8nIkIujhtCA"> Plugin org.eclipse.gmf.runtime.diagram.ui</a></li>
+<ul></ul>
+<li><a href="#_x4BkwQPBEeW8nIkIujhtCA"> Plugin org.eclipse.uml2.uml</a></li>
+<ul></ul>
+<li><a href="#_x4Cy4QPBEeW8nIkIujhtCA"> Plugin org.eclipse.papyrus.infra.core</a></li>
+<ul></ul>
+<li><a href="#_x4EBAAPBEeW8nIkIujhtCA"> Plugin org.eclipse.papyrus.infra.gmfdiag.common</a></li>
+<ul></ul>
+<li><a href="#_x4EoEQPBEeW8nIkIujhtCA"> Plugin org.eclipse.gmf.tooling.runtime</a></li>
+<ul></ul>
+<li><a href="#_x4F2MAPBEeW8nIkIujhtCA"> Plugin org.eclipse.papyrus.infra.core.log</a></li>
+<ul></ul>
+</ul>
+<ul><a href="#_x4GdQQPBEeW8nIkIujhtCA">Tests</a></ul>
+<ul><a href="#_x4HrYAPBEeW8nIkIujhtCA">Requirements Coverage</a></ul>
+<H2 id ="_xz_ZUAPBEeW8nIkIujhtCA">Requirements</H2>
+<pre id ="_x0AncQPBEeW8nIkIujhtCA">- LocalSynchronization (id=Req001): <BR/> The synchronization shall be local for each graphical element for example: package compartment, attribute compartment...</pre>
+<pre id ="_x0B1kQPBEeW8nIkIujhtCA">- CSSIntegration (id=Req002): <BR/> The synchronization shall be  parameterized by CSS, by using a keyword and a value.</pre>
+<pre id ="_x0DDsQPBEeW8nIkIujhtCA">- CustomSynchronization (id=Req003): <BR/> For an graphical element, it shall be possible to custom the synchonization</pre>
+<H2 id ="_x0E44APBEeW8nIkIujhtCA">Use Cases</H2>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/gmfdiag/org.eclipse.papyrus.infra.gmfdiag.canonical/doc/imgDOC/UseCaseDiagram.png alt=UseCaseDiagram ></P><P align="middle">UseCaseDiagram</P></BR>
+<H3 id ="_x0yDgQPBEeW8nIkIujhtCA">Synchronization</H3>
+<H4 id ="_x0zRoQPBEeW8nIkIujhtCA">Add an element in the model</H4>
+<pre id ="_x01G0APBEeW8nIkIujhtCA">When an user adds an element in the model, the synchronization mechanism try to add in the current diagram the view that correspond to the semantic element<BR/>The difficulty of this mechanism is to parameter the synchronization.<BR/>By default, the synchronizatiopn is based on ' owned element'role. When you add an element, the  graphical element that correponds to the owner try to display it in the diagram. <BR/>But some cases are not interesting. For example in the composite diagram, displaying parts in part correspond to part of the type, not directly part of part.</pre>
+<H4 id ="_x02U8QPBEeW8nIkIujhtCA">Move an element</H4>
+<pre id ="_x03jEQPBEeW8nIkIujhtCA">When a element is moved, the synchronization mechanism must to create graphically the element to each diagram.<BR/></pre>
+<H4 id ="_x05YQAPBEeW8nIkIujhtCA">Set synchronization enable</H4>
+<pre id ="_x06mYQPBEeW8nIkIujhtCA">The user can set enable  the synchronization for a set of graphical elements.<BR/></pre>
+<H4 id ="_x08bkQPBEeW8nIkIujhtCA">Remove an element from the model</H4>
+<pre id ="_x0-QwQPBEeW8nIkIujhtCA">When the element is removed,  the corresponding graphical element must be removed.</pre>
+<H2 id ="_x0_e4QPBEeW8nIkIujhtCA">Design</H2>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/gmfdiag/org.eclipse.papyrus.infra.gmfdiag.canonical/doc/imgDOC/ArchitectureOverview.png alt=ArchitectureOverview ></P><P align="middle">ArchitectureOverview</P></BR>
+<pre id ="_x2BZoQPBEeW8nIkIujhtCA">The design consists of one plugin org.eclipse.papyrus.infra.gmfdiag.canonical.<BR/>It contains an edit-policy provider and an extension point</pre>
+<P align="middle"><img src=/Users/damus/git/Papyrus/plugins/infra/gmfdiag/org.eclipse.papyrus.infra.gmfdiag.canonical/doc/imgDOC/Structure.png alt=Structure ></P><P align="middle">Structure</P></BR>
+<pre id ="_x35B4QPBEeW8nIkIujhtCA">The edit policy PapyrusCanonicalEditPolicy is installed by the PapyrusCanonicalEditPolicyPolicy on any NodeEditPart that is a:<BR/>	- DiagramEditPart (to synchronize content of diagram)<BR/>	- CompartmentEditPart  (to synchronize content of compartment)<BR/>	- IBorderedShapeEditPart  (to synchronize content of borderedElement as port....)<BR/><BR/>This edit policy implements synchronization between graphical element and element in the model<BR/>It is based on GMF's CanonicalEditPolicy but it has several differences:<BR/>  - View Service cannot be called. To call it we need to get the identifier of the child that could be place in compartment. It is not possible to find in a generic way<BR/>  --> link to each Diagram Updater, and moreover some child has been created by custom code. In fact, the hierarchy of visual element must follow the hierachy of semantic element.<BR/>  --> this is not the case so the Diagram updater generated from the gmfgen has not the good info.<BR/><BR/>So, the drag-and-drop support (drop edit policy) of the diagram is used to effect the creation of canonical views.  To by-pass the Papyrus strategy-based<BR/>customizable drag-and-drop implementation, the DropObjectsRequest is wrapped in a CanonicalDropObjectsRequest to pass through the customizable<BR/>drop edit policy.<BR/><BR/>An extension point is defined that lets diagram plug-ins contribute strategies for determination of<BR/>  - what semantic elements should be shown as child nodes or attached edges of the host node<BR/>  - which child views and attached edges are existing views of canonical elements<BR/>  - on which related edit-part should a semantic element be dropped to create its canonical view<BR/><BR/>When requested to refresh the visuals of its host edit-part, the canonical edit-policy iterates registered semantic-children strategies in priority order<BR/>to determine the semantic elements that need to be visualized as children and as edges.  These are compared against views that already exist, as<BR/>provided by registered visual-children strategies.  Any views that need to be created are created by drag-and-drop onto the target edit-part provided<BR/>by the registered creation-target strategies.  All strategies are registered with priorities, either against a specific edit-part implementation class or<BR/>with an XML enablement expression that matches by edit-part, notation view, or semantic element (or some combination of all three).  All strategy<BR/>extension points also provide sensible defaults for the case where no registered strategy matches the particular scenario.</pre>
+<pre id ="_x36QAQPBEeW8nIkIujhtCA">Remarks:<BR/>As in the GMF Run-time (and expected by GMF), the PapyrusCanonicalEditPolicy is governed by the presence (either explicitly in the notation<BR/>model or via CSS) of the CanonicalStyle::canonical attribute.  In CSS, this is inferred from the 'canonical' boolean attribute via generic support<BR/>for single-attribute styles.  However, unlike the default GMF behaviour, the default canonical state for a view that does not have the style at all<BR/>is off, not on.<BR/><BR/>The canonical style is only needed on top graphical shapes.  Compartments do not need the style; all compartments of a canonical shape in the<BR/>diagram are populated with canonical views, including shape compartments (e.g., package contents).<BR/><BR/>Canonical view creation is enabled only when the PapyrusCanonicalEditPolicy is in its fully active state.  However, the edit policy also has a<BR/>semi-active state in which it will delete views for obsolete canonical children and edges, but not create new ones.  In GEF terms, the edit<BR/>policy is 'active' when it is in this state.</pre>
+<H3 id ="_x363EQPBEeW8nIkIujhtCA">Plugin org.eclipse.papyrus.infra.gmfdiag.canonical</H3>
+<H3 id ="_x38FMQPBEeW8nIkIujhtCA">Plugin org.eclipse.ui</H3>
+<H3 id ="_x39TUAPBEeW8nIkIujhtCA">Plugin org.eclipse.core.runtime</H3>
+<H3 id ="_x396YQPBEeW8nIkIujhtCA">Plugin org.eclipse.emf.common</H3>
+<H3 id ="_x3_IgQPBEeW8nIkIujhtCA">Plugin org.eclipse.emf.ecore</H3>
+<H3 id ="_x3_vkQPBEeW8nIkIujhtCA">Plugin org.eclipse.gef</H3>
+<H3 id ="_x4A9sQPBEeW8nIkIujhtCA">Plugin org.eclipse.gmf.runtime.diagram.ui</H3>
+<H3 id ="_x4BkwQPBEeW8nIkIujhtCA">Plugin org.eclipse.uml2.uml</H3>
+<H3 id ="_x4Cy4QPBEeW8nIkIujhtCA">Plugin org.eclipse.papyrus.infra.core</H3>
+<H3 id ="_x4EBAAPBEeW8nIkIujhtCA">Plugin org.eclipse.papyrus.infra.gmfdiag.common</H3>
+<H3 id ="_x4EoEQPBEeW8nIkIujhtCA">Plugin org.eclipse.gmf.tooling.runtime</H3>
+<H3 id ="_x4F2MAPBEeW8nIkIujhtCA">Plugin org.eclipse.papyrus.infra.core.log</H3>
+<H2 id ="_x4GdQQPBEeW8nIkIujhtCA">Tests</H2>
+<H2 id ="_x4HrYAPBEeW8nIkIujhtCA">Requirements Coverage</H2>
+<table style="border-collapse: collapse;"><caption style="caption-side: bottom;">RequirementsCoverageTable</caption><tr><th style="border: 1px solid black">Id</th><th style="border: 1px solid black">Satisfied by</th><th style="border: 1px solid black">Verified by</th></tr>
+<tr><td style="border : 1px solid black"><a href="#_x0AncQPBEeW8nIkIujhtCA" title="LocalSynchronization">Req001</a><BR/>
+</td><td style="border : 1px solid black">org.eclipse.papyrus.infra.gmfdiag.canonical.editpolicy<BR/>
+</td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_x0B1kQPBEeW8nIkIujhtCA" title="CSSIntegration">Req002</a><BR/>
+</td><td style="border : 1px solid black"></td><td style="border : 1px solid black"></td></tr>
+<tr><td style="border : 1px solid black"><a href="#_x0DDsQPBEeW8nIkIujhtCA" title="CustomSynchronization">Req003</a><BR/>
+</td><td style="border : 1px solid black">org.eclipse.papyrus.infra.gmfdiag.canonical.strategy<BR/>
+</td><td style="border : 1px solid black"></td></tr>
+</table>
+<pre id ="_x4IScgPBEeW8nIkIujhtCA">Unsatisfied requirements (1 out of 3) : </pre>
+<a href="#_x0B1kQPBEeW8nIkIujhtCA" title="CSSIntegration">Req002</a><pre id ="_x4I5gQPBEeW8nIkIujhtCA">Unverified requirements (3 out of 3) : </pre>
+<a href="#_x0AncQPBEeW8nIkIujhtCA" title="LocalSynchronization">Req001, </a><a href="#_x0B1kQPBEeW8nIkIujhtCA" title="CSSIntegration">Req002, </a><a href="#_x0DDsQPBEeW8nIkIujhtCA" title="CustomSynchronization">Req003</a></html>

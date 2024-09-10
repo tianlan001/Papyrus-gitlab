@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite
+	xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns:emfwid="clr-namespace:org.eclipse.papyrus.infra.emf.types.ui.properties.widgets"
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt"
+	xmlns:uml="clr-namespace:org.eclipse.papyrus.uml.properties.widgets"
+	xmlns:wid="clr-namespace:org.eclipse.papyrus.uml.types.ui.properties.widgets"
+	xmlns:j="clr-namespace:java.lang">
+	<Composite.layout>
+		<ppel:PropertiesLayout></ppel:PropertiesLayout>
+	</Composite.layout>
+	<wid:FeatureToSetNamePropertyEditor
+		input="{Binding}" property="applystereotype:FeatureToSet:featureName"
+		customLabel="Name"></wid:FeatureToSetNamePropertyEditor>
+	<ppe:ReferenceDialog input="{Binding}"
+		property="applystereotype:FeatureToSet:value"></ppe:ReferenceDialog>
+</Composite>

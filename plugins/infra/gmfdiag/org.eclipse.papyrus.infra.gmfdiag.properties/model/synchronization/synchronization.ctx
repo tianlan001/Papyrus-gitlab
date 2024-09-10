@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_SsfbQMElEeS_u7hIvAIReA" name="synchronization" label="Diagram Synchronization">
+  <tabs xmi:id="_SsfbQcElEeS_u7hIvAIReA" label="Appearance" id="appearance" category="org.eclipse.papyrus" priority="75">
+    <sections xmi:id="_SsgCV8ElEeS_u7hIvAIReA" name="Single CanonicalStyle" sectionFile="ui/SingleCanonicalStyle.xwt">
+      <widget href="ui/SingleCanonicalStyle.xwt#/"/>
+    </sections>
+    <sections xmi:id="_SsgpdsElEeS_u7hIvAIReA" name="Multiple CanonicalStyle" sectionFile="ui/MultipleCanonicalStyle.xwt">
+      <widget href="ui/MultipleCanonicalStyle.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_Ssiem8ElEeS_u7hIvAIReA" name="Single CanonicalStyle" sections="_SsgCV8ElEeS_u7hIvAIReA" automaticContext="true" datacontexts="_SsmJGsElEeS_u7hIvAIReA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_SsienMElEeS_u7hIvAIReA" name="isSingleCanonicalStyle">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.properties/model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_SsiencElEeS_u7hIvAIReA" name="editPolicy" value="Canonical"/>
+    </constraints>
+  </views>
+  <views xmi:id="_SskT2MElEeS_u7hIvAIReA" elementMultiplicity="-1" name="Multiple CanonicalStyle" sections="_SsgpdsElEeS_u7hIvAIReA" automaticContext="true" datacontexts="_SsmJGsElEeS_u7hIvAIReA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_SskT2cElEeS_u7hIvAIReA" name="isMultipleCanonicalStyle">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.properties/model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_SskT2sElEeS_u7hIvAIReA" name="editPolicy" value="Canonical"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_SsmI-cElEeS_u7hIvAIReA" name="synchronization" label="synchronization">
+    <elements xmi:id="_SsmI-sElEeS_u7hIvAIReA" name="ImpliedStyle"/>
+    <elements xmi:id="_SsmJGsElEeS_u7hIvAIReA" name="CanonicalStyle" supertypes="_SsmI-sElEeS_u7hIvAIReA">
+      <properties xmi:id="_SsmJG8ElEeS_u7hIvAIReA" name="syncWithModel" label="Synchronize with model" type="Boolean" description="Whether the diagram view's contents are automatically synchronized with the model."/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.properties/model/Environment.xmi#//@modelElementFactories.5"/>
+  </dataContexts>
+</contexts:Context>

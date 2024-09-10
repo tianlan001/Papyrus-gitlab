@@ -1,0 +1,19 @@
+active class DisambiguationTest {
+
+	class Customer {
+
+		public name: String;
+		@Create
+		public Customer();
+		@Destroy
+		public destroy();
+
+	}
+
+	customer: Customer;
+	@Create
+	public DisambiguationTest();
+	@Destroy
+	public destroy();
+
+} do 'DisambiguationTest$behavior$1'

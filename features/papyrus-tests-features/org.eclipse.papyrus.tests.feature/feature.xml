@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.papyrus.tests.feature"
+      label="%featureName"
+      version="7.0.0.qualifier"
+      provider-name="%providerName"
+      license-feature="org.eclipse.license"
+      license-feature-version="2.0.2">
+
+   <description url="https://eclipse.org/papyrus/">
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <includes
+         id="org.eclipse.papyrus.tests.uml.diagram.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.infra.services.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.uml.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.views.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.infra.nattable.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.infra.emf.expressions.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.uml.nattable.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.infra.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.infra.core.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.uml.tools.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.uml.decoratormodel.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.uml.textedit.tests.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.uml.assistants.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.toolsmiths.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.tests.emf.facet.feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import feature="org.eclipse.papyrus.junit.feature" version="7.0.0" match="compatible"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.papyrus.editor.integration.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.papyrus.infra.core.clipboard.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.papyrus.infra.gmfdiag.css.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+</feature>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ProfileTest="http:///schemas/ProfileTest/_07QtUP_NEemiA_5PHt3jZQ/8" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/ProfileTest/_07QtUP_NEemiA_5PHt3jZQ/8 model.profile.uml#_07TwoP_NEemiA_5PHt3jZQ">
+  <uml:Model xmi:id="_KmXb0JnOEea7EO1JCZQceQ" name="RootElement">
+    <packagedElement xmi:type="uml:Class" xmi:id="_OGGSEJnOEea7EO1JCZQceQ" name="SimpleClass"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_WbJ4gJnOEea7EO1JCZQceQ" name="StereotypedClass"/>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_1Y0OEJnPEea7EO1JCZQceQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_24BU8P_NEemiA_5PHt3jZQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_24BU8f_NEemiA_5PHt3jZQ" key="Version" value="0.0.9"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_24BU8v_NEemiA_5PHt3jZQ" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_24BU8__NEemiA_5PHt3jZQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_24BU9P_NEemiA_5PHt3jZQ" key="Date" value="2019-11-05"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_24BU9f_NEemiA_5PHt3jZQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_1Y1cMJnPEea7EO1JCZQceQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="model.profile.uml#_07TwoP_NEemiA_5PHt3jZQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="model.profile.uml#_I22JgJnPEea7EO1JCZQceQ"/>
+    </profileApplication>
+  </uml:Model>
+  <ProfileTest:Stereotype1 xmi:id="_20jMQJnPEea7EO1JCZQceQ" base_Class="_WbJ4gJnOEea7EO1JCZQceQ">
+    <singleMultiplicityProp xmi:type="uml:Property" xmi:id="_GYq_YP_OEemiA_5PHt3jZQ" name="propOwnedByStereotype1">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+    </singleMultiplicityProp>
+  </ProfileTest:Stereotype1>
+  <ProfileTest:Stereotype2 xmi:id="_HfBjcP_OEemiA_5PHt3jZQ" base_Class="_WbJ4gJnOEea7EO1JCZQceQ">
+    <multivaluedProp xmi:type="uml:Property" xmi:id="_L1nwQP_OEemiA_5PHt3jZQ" name="propOwnedByStereotype2_1">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </multivaluedProp>
+    <multivaluedProp xmi:type="uml:Property" xmi:id="_MnQBgP_OEemiA_5PHt3jZQ" name="propOwnedByStereotype2_2">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </multivaluedProp>
+    <multivaluedProp xmi:type="uml:Property" xmi:id="_QtNKQP_OEemiA_5PHt3jZQ" name="propOwnedByStereotype2_3">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+    </multivaluedProp>
+  </ProfileTest:Stereotype2>
+  <ProfileTest:Stereotype3 xmi:id="_Hf1bwP_OEemiA_5PHt3jZQ" base_Class="_WbJ4gJnOEea7EO1JCZQceQ">
+    <MultivaluedDataTypeProp xmi:type="ProfileTest:DataType1" xmi:id="_VQE4gP_OEemiA_5PHt3jZQ" dt_p1="_OGGSEJnOEea7EO1JCZQceQ">
+      <dt_p2 xmi:type="uml:Property" xmi:id="_VQGGoP_OEemiA_5PHt3jZQ" name="propOwnedByDataType_1">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </dt_p2>
+    </MultivaluedDataTypeProp>
+    <MultivaluedDataTypeProp xmi:type="ProfileTest:DataType1" xmi:id="_X10ywP_OEemiA_5PHt3jZQ" dt_p1="_WbJ4gJnOEea7EO1JCZQceQ">
+      <dt_p2 xmi:type="uml:Property" xmi:id="_X10ywf_OEemiA_5PHt3jZQ" name="propOwnedByDataType_2">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </dt_p2>
+    </MultivaluedDataTypeProp>
+  </ProfileTest:Stereotype3>
+</xmi:XMI>

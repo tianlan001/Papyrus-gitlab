@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.services.navigation.navigationContributor">
+      <contributor
+            contributor="org.eclipse.papyrus.uml.navigation.navigableElement.ElementNavigationContributor"
+            description="Navigates to the selected UML Element"
+            id="org.eclipse.papyrus.uml.navigation.element"
+            label="UML Element navigation">
+      </contributor>
+      <contributor
+            contributor="org.eclipse.papyrus.uml.navigation.navigableElement.TypedElementNavigationContributor"
+            description="Navigates to the type of the current UML Element"
+            id="org.eclipse.papyrus.uml.navigation.typedElement"
+            label="UML Typed Element navigation">
+      </contributor>
+      <contributor
+            contributor="org.eclipse.papyrus.uml.navigation.navigableElement.CBANavigationContributor"
+            description="Navigates to the behavior linked to the current UML CallBehaviourAction"
+            id="org.eclipse.papyrus.uml.navigation.callBehaviorAction"
+            label="UML Call Behavior Action navigation">
+      </contributor>
+      <contributor
+            contributor="org.eclipse.papyrus.uml.navigation.navigableElement.PropertyNavigationContributor"
+            description="Navigates from a property"
+            id="org.eclipse.papyrus.uml.navigation.property"
+            label="UML Property navigation">
+      </contributor>
+      <contributor
+            contributor="org.eclipse.papyrus.uml.navigation.navigableElement.RelationshipNavigationContributor"
+            description="Navigates from a relationship"
+            id="org.eclipse.papyrus.uml.navigation.relationship"
+            label="UML Relationship navigation">
+      </contributor>
+      <contributor
+            contributor="org.eclipse.papyrus.uml.navigation.navigableElement.ConnectorNavigationContributor"
+            description="Navigates from a connector"
+            id="org.eclipse.papyrus.uml.navigation.connector"
+            label="UML Connector navigation">
+      </contributor>
+      <contributor
+            contributor="org.eclipse.papyrus.uml.navigation.navigableElement.ActivityEdgeNavigationContributor"
+            description="Navigates from an activity edge"
+            id="org.eclipse.papyrus.uml.navigation.activityEdge"
+            label="UML ActivityEdge navigation">
+      </contributor>
+      <contributor
+            contributor="org.eclipse.papyrus.uml.navigation.navigableElement.ElementRelationshipNavigationContributor"
+            description="Navigates to target/source and parent/child of UML Element"
+            id="org.eclipse.papyrus.uml.navigation.elementRelationship"
+            label="UML Element relationship navigation">
+      </contributor>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.services.navigation.navigationMenuContributor">
+      <contributor
+            contributor="org.eclipse.papyrus.uml.navigation.menuContributor.TypesButton"
+            description="Navigate to elements typed by selected element"
+            id="org.eclipse.papyrus.uml.navigation.menuContributor.typesButton"
+            label="Types">
+      </contributor>
+   </extension>
+</plugin>

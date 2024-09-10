@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse version="3.0"?><!--
+ 
+   Copyright (c) 2021 CEA LIST.
+    
+   All rights reserved. This program and the accompanying materials
+   are made available under the terms of the Eclipse Public License 2.0
+   which accompanies this distribution, and is available at
+   https://www.eclipse.org/legal/epl-2.0/
+  
+   SPDX-License-Identifier: EPL-2.0
+    
+  Contributors:
+  	Patrick Tessier 	(CEA LIST) - Initial API and implementation
+  
+--><plugin>
+      
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated soft.profile -->
+      <package
+            uri="http://soft_papyrus"
+            class="org.eclipse.papyrus.example.custo.cyber.soft.soft.SoftPackage"
+            genModel="models/soft.profile.genmodel"/>
+   </extension>
+      
+   <extension point="org.eclipse.uml2.uml.generated_package">
+            
+      <profile location="pathmap://PROFILE_CYBER/soft.profile.uml#_wLLQsNNUEeuOA7yBuZ0R9w" uri="http://soft_papyrus">
+      </profile>
+         
+   </extension>
+      
+   <extension point="org.eclipse.emf.ecore.uri_mapping">
+            
+      <mapping source="pathmap://PROFILE_CYBER/" target="platform:/plugin/org.eclipse.papyrus.example.custo.cyber/models/">
+      </mapping>
+         
+   </extension>
+      
+   <extension point="org.eclipse.papyrus.uml.extensionpoints.UMLProfile">
+            
+      <profile description="Small profile for the soft" name="SOFT" path="pathmap://PROFILE_CYBER/soft.profile.uml" provider="Eclipse">
+      </profile>
+         
+   </extension>
+   
+   <extension point="org.eclipse.papyrus.infra.types.core.elementTypeSetConfiguration">
+      <elementTypeSet clientContextID="org.eclipse.papyrus.infra.services.edit.TypeContext" path="models/soft.elementtypesconfigurations"/>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.architecture.models">
+      <model
+            path="models/Cyber.architecture">
+      </model>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.newchild">
+      <menuCreationModel
+            model="models/newChildMenu.creationmenumodel">
+      </menuCreationModel>
+   </extension>
+</plugin>

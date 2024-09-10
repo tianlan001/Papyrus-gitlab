@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Model xmi:id="_gHZ54BUpEeee-IEe7L34yQ" name="elementcreationmenumodel" URI="http://www.eclipse.org/papyrus/infra/newchild/elementcreationmenumodel">
+    <packagedElement xmi:type="uml:Class" xmi:id="_gHZ54RUpEeee-IEe7L34yQ" name="Folder">
+      <generalization xmi:type="uml:Generalization" xmi:id="_gHZ54hUpEeee-IEe7L34yQ" general="_gHZ55hUpEeee-IEe7L34yQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_gHZ54xUpEeee-IEe7L34yQ" name="menu" type="_gHZ55hUpEeee-IEe7L34yQ" isOrdered="true" aggregation="composite" association="_gHZ58RUpEeee-IEe7L34yQ">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gHZ55BUpEeee-IEe7L34yQ"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_gHZ55RUpEeee-IEe7L34yQ" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_gHZ55hUpEeee-IEe7L34yQ" name="Menu" isAbstract="true">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_gHZ55xUpEeee-IEe7L34yQ" name="label" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_gHZ56BUpEeee-IEe7L34yQ" name="icon" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gHZ56RUpEeee-IEe7L34yQ"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_gHZ56hUpEeee-IEe7L34yQ" name="visible" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gHZ56xUpEeee-IEe7L34yQ"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_gHZ57BUpEeee-IEe7L34yQ" value="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        </defaultValue>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_gHZ57RUpEeee-IEe7L34yQ" name="filter" isOrdered="true" aggregation="composite" association="_gHZ57xUpEeee-IEe7L34yQ">
+        <type xmi:type="uml:Interface" href="../../org.eclipse.papyrus.infra.filters/model/filters.uml#_ftlkkHBIEeSbg_BqWNBy6A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gHZ57hUpEeee-IEe7L34yQ"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_gHZ57xUpEeee-IEe7L34yQ" memberEnd="_gHZ57RUpEeee-IEe7L34yQ _gHZ58BUpEeee-IEe7L34yQ">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_gHZ58BUpEeee-IEe7L34yQ" type="_gHZ55hUpEeee-IEe7L34yQ" association="_gHZ57xUpEeee-IEe7L34yQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_gHZ58RUpEeee-IEe7L34yQ" memberEnd="_gHZ54xUpEeee-IEe7L34yQ _gHZ58hUpEeee-IEe7L34yQ">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_gHZ58hUpEeee-IEe7L34yQ" type="_gHZ54RUpEeee-IEe7L34yQ" association="_gHZ58RUpEeee-IEe7L34yQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_gHZ58xUpEeee-IEe7L34yQ" name="CreationMenu">
+      <generalization xmi:type="uml:Generalization" xmi:id="_gHZ59BUpEeee-IEe7L34yQ" general="_gHZ55hUpEeee-IEe7L34yQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_gHZ59RUpEeee-IEe7L34yQ" name="elementType" isOrdered="true" association="_gHZ5_RUpEeee-IEe7L34yQ">
+        <type xmi:type="uml:Class" href="../../org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.uml#_VkhwQhLoEeeDV7UHoBIkeA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gHZ59hUpEeee-IEe7L34yQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8lc-gCQ1EeefcpkEPbVePg" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_gHZ5-RUpEeee-IEe7L34yQ" name="role" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gHZ5-hUpEeee-IEe7L34yQ"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_gHZ5-xUpEeee-IEe7L34yQ" name="displayAllRoles" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_gHZ5_BUpEeee-IEe7L34yQ" value="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        </defaultValue>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_gHZ5_RUpEeee-IEe7L34yQ" memberEnd="_gHZ59RUpEeee-IEe7L34yQ _gHZ5_hUpEeee-IEe7L34yQ">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_gHZ5_hUpEeee-IEe7L34yQ" type="_gHZ58xUpEeee-IEe7L34yQ" association="_gHZ5_RUpEeee-IEe7L34yQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_gHZ5_xUpEeee-IEe7L34yQ" name="CreateRelationshipMenu">
+      <generalization xmi:type="uml:Generalization" xmi:id="_gHZ6ABUpEeee-IEe7L34yQ" general="_gHZ58xUpEeee-IEe7L34yQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_gHZ6ARUpEeee-IEe7L34yQ" name="Separator">
+      <generalization xmi:type="uml:Generalization" xmi:id="_gHZ6AhUpEeee-IEe7L34yQ" general="_gHZ55hUpEeee-IEe7L34yQ"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_gHZ6AxUpEeee-IEe7L34yQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_gHZ6BBUpEeee-IEe7L34yQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <Ecore:EPackage xmi:id="_gHZ6BRUpEeee-IEe7L34yQ" base_Package="_gHZ54BUpEeee-IEe7L34yQ" nsPrefix="ElementCreationMenuModel" basePackage="org.eclipse.papyrus.infra.newchild"/>
+  <Ecore:EClass xmi:id="_gHZ6BhUpEeee-IEe7L34yQ" base_Class="_gHZ54RUpEeee-IEe7L34yQ"/>
+  <Ecore:EReference xmi:id="_gHZ6BxUpEeee-IEe7L34yQ" base_Property="_gHZ54xUpEeee-IEe7L34yQ"/>
+  <Ecore:EClass xmi:id="_gHZ6CBUpEeee-IEe7L34yQ" base_Class="_gHZ55hUpEeee-IEe7L34yQ"/>
+  <Ecore:EReference xmi:id="_gHZ6CRUpEeee-IEe7L34yQ" base_Property="_gHZ57RUpEeee-IEe7L34yQ"/>
+  <Ecore:EClass xmi:id="_gHZ6ChUpEeee-IEe7L34yQ" base_Class="_gHZ58xUpEeee-IEe7L34yQ"/>
+  <Ecore:EReference xmi:id="_gHZ6CxUpEeee-IEe7L34yQ" base_Property="_gHZ59RUpEeee-IEe7L34yQ"/>
+  <Ecore:EClass xmi:id="_gHZ6DBUpEeee-IEe7L34yQ" base_Class="_gHZ5_xUpEeee-IEe7L34yQ"/>
+  <Ecore:EClass xmi:id="_gHZ6DRUpEeee-IEe7L34yQ" base_Class="_gHZ6ARUpEeee-IEe7L34yQ"/>
+</xmi:XMI>

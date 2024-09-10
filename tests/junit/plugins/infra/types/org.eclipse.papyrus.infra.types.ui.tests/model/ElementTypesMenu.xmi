@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ElementCreationMenuModel:Folder
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ElementCreationMenuModel="http://www.eclipse.org/papyrus/infra/newchild/elementcreationmenumodel"
+    label="Test For ElementTypeConfigurations">
+  <menu xsi:type="ElementCreationMenuModel:CreationMenu"
+      label="specific Component"
+      elementTypeIdRef="org.eclipse.papyrus.infra.elementtypesconfigurations.tests.specificcomponent"/>
+  <menu xsi:type="ElementCreationMenuModel:CreationMenu"
+      label="Class - abstract"
+      icon="platform:/plugin/org.eclipse.uml2.uml.edit/icons/full/obj16/Class.gif"
+      elementTypeIdRef="org.eclipse.papyrus.infra.elementtypesconfigurations.tests.aspectabstractclass"/>
+  <menu xsi:type="ElementCreationMenuModel:CreationMenu"
+      label="Standard Class"
+      elementTypeIdRef="org.eclipse.papyrus.uml.Class"/>
+  <menu xsi:type="ElementCreationMenuModel:CreationMenu"
+      label="Package - simple stereotype"
+      elementTypeIdRef="org.eclipse.papyrus.infra.elementtypesconfigurations.tests.classSimpleStereotype"/>
+  <menu xsi:type="ElementCreationMenuModel:CreationMenu"
+      label="Class - simple stereotype - rename"
+      elementTypeIdRef="org.eclipse.papyrus.infra.elementtypesconfigurations.tests.classSimpleStereotypeRename"/>
+  <menu xsi:type="ElementCreationMenuModel:CreationMenu"
+      label="Class - simple stereotype - set Values"
+      elementTypeIdRef="org.eclipse.papyrus.infra.elementtypesconfigurations.tests.classSimpleStereotypeSetValues"/>
+  <menu xsi:type="ElementCreationMenuModel:CreationMenu"
+      label="Class - abstract - simple stereotype - set Values"
+      elementTypeIdRef="org.eclipse.papyrus.infra.elementtypesconfigurations.tests.abstractclassSimpleStereotype"/>
+  <menu xsi:type="ElementCreationMenuModel:CreationMenu"
+      label="Class - abstract - simple stereotype - set Values - view"
+      elementTypeIdRef="org.eclipse.papyrus.infra.elementtypesconfigurations.tests.classSimpleStereotypeRenameWithView"/>
+</ElementCreationMenuModel:Folder>

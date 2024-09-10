@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="BookStore" nsURI="http://www.eclipse.org/Papyrus/test/toolsmiths/propertiesbuilder/BookStore"
+    nsPrefix="store">
+  <eClassifiers xsi:type="ecore:EClass" name="BookStore">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bookDispositions" lowerBound="1"
+        upperBound="-1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DispositionKind"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Vendor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="licenseNumber" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Book"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LoanContract">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="periodInDays" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+</ecore:EPackage>

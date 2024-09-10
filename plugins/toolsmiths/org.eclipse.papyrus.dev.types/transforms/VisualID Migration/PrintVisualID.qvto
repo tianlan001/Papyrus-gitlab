@@ -1,0 +1,120 @@
+/**
+ * Copyright (c) 2016 CEA LIST.
+ *  
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *  
+ * Contributors:
+ *  CEA LIST - Initial API and implementation
+ */
+modeltype UML uses "http://www.eclipse.org/uml2/4.0.0/UML";
+modeltype ElementTypes uses "http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1";
+modeltype GMFGen uses 'http://www.eclipse.org/papyrus/gmf/2020/GenModel';
+modeltype PapyrusExtension uses 'http://www.eclipse.org/papyrus/gmf/2020/GenExtension';
+
+transformation PrintVisualID(in gmf : GMFGen);
+
+main() {
+	gmf.objectsOfKind(GMFGen::GenEditorGenerator)->map print();
+}
+
+mapping GMFGen::GenEditorGenerator::print() {
+	log('Diagrams');
+	self.diagram.map print('');
+}
+
+mapping GMFGen::GenCommonBase::print(s : String)
+{
+	//log(s+self.editPartClassName);
+	//log(s+self.visualID.toString());
+	//log(if self.elementType->notEmpty() then self.elementType.uniqueIdentifier else '' endif);
+	log(gmf.objectsOfKind(PapyrusExtension::VisualIDOverride)->selectOne(genView = self).visualID);
+}
+
+mapping GMFGen::GenContainerBase::print(s : String)
+	inherits GMFGen::GenCommonBase::print
+{
+}
+
+mapping GMFGen::GenDiagram::print(s : String) 
+	inherits GMFGen::GenContainerBase::print
+{
+	log('\n List Item Labels');
+	self.childNodes[GenChildLabelNode]->map print(s+'      ');
+	log('\nBorder Shapes');
+	self.childNodes[GenChildSideAffixedNode]->map print(s+'      ');
+	log('\nNested Nodes');
+	self.childNodes->select(oclIsTypeOf(GenChildNode))->map print(s+'      ');
+	log('\nCompartments');
+	self.compartments->map print(s+'      ');
+	log('\nShapes');
+	self.topLevelNodes->map print(s+'      ');
+	log('\nEdges');
+	self.links->map print(s+'      ');
+}
+
+mapping GMFGen::GenChildContainer::print(s : String)
+	inherits GMFGen::GenContainerBase::print
+{
+}
+
+mapping GMFGen::GenNode::print(s : String)
+	inherits GMFGen::GenChildContainer::print
+{
+	self.labels->map print(s+'      ');
+}
+
+mapping GMFGen::GenChildNode::print(s : String)
+	inherits GMFGen::GenNode::print
+{
+}
+
+mapping GMFGen::GenChildLabelNode::print(s : String)
+	inherits GMFGen::GenChildNode::print
+{
+}
+
+mapping GMFGen::GenChildSideAffixedNode::print(s : String)
+	inherits GMFGen::GenChildNode::print
+{
+}
+
+mapping GMFGen::GenTopLevelNode::print(s : String)
+	inherits GMFGen::GenNode::print
+{
+}
+
+mapping GMFGen::GenCompartment::print(s : String)
+	inherits GMFGen::GenChildContainer::print
+{
+}
+
+mapping GMFGen::GenLabel::print(s : String)
+	inherits GMFGen::GenCommonBase::print
+{
+}
+
+mapping GMFGen::GenNodeLabel::print(s : String)
+	inherits GMFGen::GenLabel::print
+{
+}
+
+mapping GMFGen::GenExternalNodeLabel::print(s : String)
+	inherits GMFGen::GenNodeLabel::print
+{
+}
+
+mapping GMFGen::GenLinkLabel::print(s : String)
+	inherits GMFGen::GenLabel::print
+{
+}
+
+mapping GMFGen::GenLink::print(s : String)
+	inherits GMFGen::GenCommonBase::print
+{
+	self.labels->map print(s+'      ');
+}

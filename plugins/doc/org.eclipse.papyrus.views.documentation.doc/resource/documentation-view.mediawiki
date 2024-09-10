@@ -1,0 +1,46 @@
+==Introdution==
+
+
+A documentation view is available to help user to comment each element of the Papyrus model. By Default it take as source the first comment found of the selected element, if it doesn’t exist a comment will be created.
+
+The enter text will be save at the focus lost of the view.
+
+[[File:images/DocumentationView.png| The "Documentation View"]]
+
+==RichText==
+The documentation can be write through HTML richtext editor:
+
+[[File:images/Richtext.png| Richtext editor]]
+
+<br>You can activate it with the preference:
+ 
+<code> Window > Preferences > Papyrus > Rich text > Use advanced rich text editor  </code>
+
+<br>By default the toolbar is collapse. This can be changed with the preference:
+
+<code> Window > Preferences > Papyrus > Documentation View > Initialy expand Richtext Toolbar  </code>
+
+
+==Documentation Profile use==
+You can choose to select the first comment stereotyped with ''Documentation::Documentation''. You must first apply the profile to ''Documentation'' to the model.
+<br>If stereotyped  comment doesn’t exist a new one will be created.
+<br>The use of ''Documentation'' Profile provide a new tab in the Documentation View: 'Resources'. It correspond to the property ''associatedRessource'' of ''Documentation::Documentation'' stereotype.
+
+<br>The use of the Documentation Profile can be set at preference:
+<code> Window > Preferences > Papyrus > Documentation View > Choose type of Documentation Comment. </code>
+
+
+==Others Features==
+
+==== Context Menu ====
+The Documentation View is available from a right-click on the desired item, it is possible to select the "Show Documentation View" option.
+
+[[File:images/ContextualMenu.png| The Contextual Menu]]
+
+=== Synchronization ===
+The documentation view is synchronized by default with the selection. This can be disabled with [[File:images/Sync.png| The Sync Button]] icon. 
+<br>The selection synchronization works with elements selected in from properties view:
+
+[[File:images/PropertiesViewSync.png| Properties View Sync]]
+
+

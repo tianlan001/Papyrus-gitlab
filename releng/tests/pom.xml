@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.papyrus</groupId>
+		<artifactId>org.eclipse.papyrus.all.releng</artifactId>
+		<version>7.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>org.eclipse.papyrus.tests.releng</artifactId>
+	<version>7.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<testConfig>CI_TESTS_CONFIG</testConfig> <!-- See org.eclipse.papyrus.junit.framework.classification.ClassificationConfig -->
+		<testSuiteClass>org.eclipse.papyrus.tests.AllTests</testSuiteClass>
+		<jacoco.version>0.8.10</jacoco.version> <!-- https://repo.maven.apache.org/maven2/ -->
+		<!-- Separate property for test argLine seems to be required when running 
+			Jacoco + Surefire -->
+		<test.argLine>-Xms512m -Xmx2048m -XX:SoftRefLRUPolicyMSPerMB=100</test.argLine>
+	</properties>
+
+	<modules>
+		<!-- Features -->
+		<module>../../features/papyrus-tests-features/</module>
+
+		<!-- Plugins -->
+		<module>../../tests/junit/plugins</module>
+	</modules>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${jacoco-version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-repository-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<failIfNoTests>false</failIfNoTests>
+					<useUIHarness>true</useUIHarness>
+					<useUIThread>true</useUIThread>
+					<testFailureIgnore>true</testFailureIgnore>
+					<!-- ${tycho.testArgLine} is populated by JaCoCo and is required to 
+						enable code coverage -->
+					<argLine>${tycho.testArgLine} ${test.argLine}</argLine>
+					<appArgLine>-testConfig=${testConfig}</appArgLine>
+					<product>org.eclipse.sdk.ide</product>
+					<skipTests>${skipInnerTests}</skipTests>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>org.eclipse.uml2</exclude>
+					</excludes>
+					<includes>
+						<include>org.eclipse.papyrus.*</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>defaultProfile</id>
+			<activation>
+				<property>
+					<name>defaultProfile</name>
+					<value>!true</value>
+				</property>
+			</activation>
+			<repositories>
+				<repository>
+					<id>papyrus-main</id>
+					<layout>p2</layout>
+					<url>${papyrus.repo.main}</url>
+				</repository>
+				<repository>
+					<id>papyrus-toolsmiths</id>
+					<layout>p2</layout>
+					<url>${papyrus.repo.toolsmiths}</url>
+				</repository>
+			</repositories>
+		</profile>
+
+		<profile>
+			<id>mainTests</id>
+			<activation>
+				<property>
+					<name>mainTests</name>
+					<value>!true</value>
+				</property>
+			</activation>
+			<properties>
+				<target.platform>org.eclipse.papyrus.main.tests.targetplatform</target.platform>
+			</properties>
+			<modules>
+				<module>main-tests</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>mainTestsCDO</id>
+			<activation>
+				<property>
+					<name>mainTestsCDO</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<properties>
+				<target.platform>org.eclipse.papyrus.main.tests.cdo.targetplatform</target.platform>
+			</properties>
+			<modules>
+				<module>../../tests/compatibility/cdo</module>
+				<module>main-tests-with-cdo</module>
+			</modules>
+
+			<repositories>
+				<repository>
+					<id>sysml14</id>
+					<layout>p2</layout>
+					<url>https://ci.eclipse.org/papyrus/job/papyrus-sysml-master/lastSuccessfulBuild/artifact/releng/org.eclipse.papyrus.sysml14.p2/target/repository/</url>
+				</repository>
+				<repository>
+					<id>papyrusCDO</id>
+					<layout>p2</layout>
+					<url>https://ci.eclipse.org/papyrus/job/Papyrus-CDO/lastSuccessfulBuild/artifact/repository/</url>
+				</repository>
+			</repositories>
+		</profile>
+
+		<profile>
+			<id>mac-tests</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<test.argLine>-Xms512m -Xmx2048m -XX:SoftRefLRUPolicyMSPerMB=100
+					-XstartOnFirstThread</test.argLine>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>buildAll</id>
+			<activation>
+				<property>
+					<name>buildAll</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<!-- Papyrus Update sites not included (They are included in the same build) -->
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-p2-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<executions>
+							<execution>
+								<id>attach-p2-metadata</id>
+								<phase>package</phase>
+								<goals>
+									<goal>p2-metadata</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

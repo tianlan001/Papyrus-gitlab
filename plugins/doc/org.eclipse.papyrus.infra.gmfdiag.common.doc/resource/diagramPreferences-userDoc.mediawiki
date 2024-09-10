@@ -1,0 +1,22 @@
+=Diagram Preferences=
+Many preferences are available for the diagrams. This page will be completed as arises.
+The Papyrus diagrams preferences are available doing '''Window > Preferences > Papyrus > Diagrams'''.
+Under the '''Diagram''' page, you will found each Papyrus Diagram with each preferences.
+
+The page for the diagram preferences:
+[[File:images/diagramPreferences/diagramPreferences.png]]
+
+
+==Connection Group==
+===Connection Bendpoints===
+This group provides the preferences concerning the connections' bendpoints.
+*'''Draw Common Bendpoints'''
+**This preference is only available on the page '''Window > Preferences > Papyrus > Diagrams''' because it is applied to all existing diagrams.
+**This preference allows to draw plain circle at the beginning and ending of a connection segment shared between several link representing the same type of UML Element and connected to the same source or target.
+**This preference is not available through the CSS.
+**This preference is set to <code>false</code> by default.
+**Known trouble:
+***print a diagram as image is not able to render the drawn bendpoints
+**Example of represented common bendpoints:
+[[File:images/diagramPreferences/drawCommonBendpoints.png]]
+

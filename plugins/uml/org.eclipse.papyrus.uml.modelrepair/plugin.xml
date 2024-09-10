@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.eclipse.papyrus.uml.modelrepair.profileSwitchPreconditions" name="Profile Switch Preconditions" schema="schema/profileSwitchPreconditions.exsd"/>
+   <extension-point id="org.eclipse.papyrus.uml.modelrepair.profileNamespaceURIPattern" name="Profile Namespace URI Pattern" schema="schema/profileNamespaceURIPattern.exsd"/>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.papyrus.views.modelexplorer.modelexplorer.popup?after=tools">
+         <menu
+               icon="icons/papyrus.png"
+               id="org.eclipse.papyrus.uml.modelrepair.refactor"
+               label="%pluginMenuRefactor">
+            <command
+                  commandId="org.eclipse.papyrus.uml.modelrepair.switchprofiles"
+                  style="push"
+                  label="Switch Profiles...">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <test
+                           property="org.eclipse.papyrus.views.modelexplorer.tester.eClass"
+                           value="uml::Package">
+                     </test>
+                     <iterate
+                           operator="and"
+                           ifEmpty="false">
+                        <test
+                              property="org.eclipse.papyrus.uml.tools.isRoot">
+                        </test>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="org.eclipse.papyrus.uml.modelrepair.switchlibraries"
+                  label="Switch Libraries..."
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <test
+                           property="org.eclipse.papyrus.views.modelexplorer.tester.eClass"
+                           value="uml::Package">
+                     </test>
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <test
+                              property="org.eclipse.papyrus.uml.tools.isRoot">
+                        </test>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command> 
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.eclipse.papyrus.uml.modelrepair.handler.ModelRepairHandler"
+            id="org.eclipse.papyrus.uml.modelrepair.editlinks"
+            name="Edit model dependencies">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.uml.modelrepair.handler.SwitchProfileHandler"
+            id="org.eclipse.papyrus.uml.modelrepair.switchprofiles"
+            name="Switch Profiles">
+      </command>
+      <command
+            defaultHandler="org.eclipse.papyrus.uml.modelrepair.handler.SwitchLibraryHandler"
+            id="org.eclipse.papyrus.uml.modelrepair.switchlibraries"
+            name="Switch Libraries">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.emf.dependencyUpdateParticipant">
+      <replaceParticipant
+            class="org.eclipse.papyrus.uml.modelrepair.internal.participants.StereotypeApplicationRepairParticipant">
+      </replaceParticipant>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.core.model">
+      <modelSetSnippet
+            classname="org.eclipse.papyrus.uml.modelrepair.internal.stereotypes.StereotypeApplicationRepairSnippet"
+            description="Initiates repair of zombie stereotype applications on load of a UML resource.">
+      </modelSetSnippet>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.uml.modelrepair.profileSwitchPreconditions">
+      <precondition
+            class="org.eclipse.papyrus.uml.modelrepair.internal.stereotypes.StereotypeApplicationPrecondition">
+      </precondition>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.core.service">
+      <service
+            classname="org.eclipse.papyrus.uml.modelrepair.internal.stereotypes.StereotypeRepairService"
+            description="Service for interaction with the stereotype repair function."
+            id="org.eclipse.papyrus.uml.modelrepair.service.IStereotypeRepairService"
+            priority="50"
+            startKind="lazy">
+         <dependsOn
+               serviceKeyRef="org.eclipse.papyrus.infra.core.resource.ModelSet">
+         </dependsOn>
+      </service>
+   </extension>
+   <extension
+         point="org.eclipse.emf.validation.constraintProviders">
+      <category
+            id="org.eclipse.papyrus.uml.modelrepair.constraints"
+            name="UML Model Repair">
+      </category>
+      <constraintProvider
+            cache="true"
+            mode="Batch">
+         <package
+               namespaceUri="http://www.eclipse.org/uml2/5.0.0/UML">
+         </package>
+         <constraints
+               categories="org.eclipse.papyrus.uml.modelrepair.constraints">
+            <constraint
+                  id="org.eclipse.papyrus.uml.modelrepair.stereotypeRepair"
+                  class="org.eclipse.papyrus.uml.modelrepair.internal.validation.StereotypeApplicationRepairConstraint"
+                  isEnabledByDefault="true"
+                  lang="Java"
+                  mode="Batch"
+                  name="Stereotype applications needing repair"
+                  severity="WARNING"
+                  statusCode="1">
+               <message>
+                  Stereotype application is detached from its base element and/or is inconsistent with the currently applied profile(s).
+               </message>
+               <description>
+                  Scans stereotype applications in the model for inconsistencies of various kinds with the profiles applied on their contextual packages.  These are the same checks as are performed automatically by Papyrus when loading a UML resource.
+               </description>
+            </constraint>
+         </constraints>
+      </constraintProvider>
+   </extension>
+   <extension
+         point="org.eclipse.emf.validation.constraintBindings">
+      <clientContext
+            id="org.eclipse.papyrus.uml.modelrepair.repairContext">
+         <selector
+               class="org.eclipse.papyrus.uml.modelrepair.internal.validation.UMLClientSelector">
+         </selector>
+      </clientContext>
+      <binding
+            category="org.eclipse.papyrus.uml.modelrepair.constraints"
+            context="org.eclipse.papyrus.uml.modelrepair.repairContext">
+      </binding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.markerResolution">
+      <markerResolutionGenerator
+            class="org.eclipse.papyrus.uml.modelrepair.internal.validation.StereotypeRepairResolutionGenerator"
+            markerType="org.eclipse.emf.ecore.diagnostic">
+         <attribute
+               name="source"
+               value="org.eclipse.papyrus.uml.modelrepair.stereotypeRepair">
+         </attribute>
+      </markerResolutionGenerator>
+   </extension>
+
+</plugin>

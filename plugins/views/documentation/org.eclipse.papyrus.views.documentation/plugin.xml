@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=showPropertiesViewAction">
+         <command
+               commandId="org.eclipse.papyrus.views.documentation.ShowDocumentationView"
+               icon="icons/documentation.png"
+               label="Show Documentation View"
+               style="push">
+            <visibleWhen>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.emf.ecore.EObject">
+                        <instanceof
+                              value="java.lang.Object">
+                        </instanceof>
+                     </adapt>
+                  </iterate>
+               </and>
+            </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.papyrus.views.documentation.handlers.DocumentationViewHandler"
+            commandId="org.eclipse.papyrus.views.documentation.ShowDocumentationView">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.eclipse.papyrus.views.documentation.ShowDocumentationView"
+            name="Show Documention View">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.papyrus.views.category"
+            class="org.eclipse.papyrus.views.documentation.views.DocumentationView"
+            icon="icons/documentation.png"
+            id="org.eclipse.papyrus.views.documentation.DocumentationView"
+            name="Documentation">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.papyrus.infra.core.perspective">
+         <view
+               id="org.eclipse.papyrus.views.documentation.DocumentationView"
+               relationship="stack"
+               relative="org.eclipse.papyrus.perspective.folder.bottom">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.eclipse.papyrus.views.documentation.preferences.DocumentationViewPreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.papyrus.infra.core.sasheditor.preferences.generalcategory"
+            class="org.eclipse.papyrus.views.documentation.preferences.DocumentationViewPreferencePage"
+            id="org.eclipse.papyrus.views.documentation.preferences"
+            name="Documentation View">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertiesView">
+      <excludeSources
+            id="org.eclipse.papyrus.views.documentation.DocumentationView">
+      </excludeSources>
+   </extension>
+
+</plugin>

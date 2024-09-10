@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.papyrus.uml.export" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.eclipse.papyrus.uml.export" id="org.eclipse.papyrus.uml.export.generation" name="Annotate Generation"/>
+      </appinfo>
+      <documentation>
+         This extension point is used to enhance html export.
+
+You can add :
+ - new script and css
+ - additionnal datas in the generated json
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="annotation" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="additionnalInformation" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="html" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="copyFile" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="annotation">
+      <annotation>
+         <documentation>
+            annotation
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="annotation" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.papyrus.uml.export.extension.AnnotateSVG"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="additionnalInformation">
+      <complexType>
+         <attribute name="key" type="string" use="required">
+            <annotation>
+               <documentation>
+                  key to store the info (don&apos;&apos;t reuse the official ones)
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="data" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Fonctioanl instarfet to get the data from an object (in most of the case will be a Diagram)
+
+The data will ba available in the json tree representing the &quot;model explorer &quot; in the html file.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.papyrus.uml.export.extension.AdditionalInformations"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="html">
+      <complexType>
+         <attribute name="header" type="boolean" use="default" value="true">
+            <annotation>
+               <documentation>
+                  by default will be place in html header
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="priority" type="string">
+            <annotation>
+               <documentation>
+                  integer to order the injection
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="text" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="copyFile">
+      <complexType>
+         <attribute name="from" type="string">
+            <annotation>
+               <documentation>
+                  platform path
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="to" type="string">
+            <annotation>
+               <documentation>
+                  relative path from target directory
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         Papyrus 3.3.0 (plugin version 1.0.0)
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="examples"/>
+      </appinfo>
+      <documentation>
+         Inject the default script in index.html and copy the file: 
+(id is mandatory)
+
+&lt;extension
+   id=&quot;script.default&quot; 
+   name=&quot;Default script&quot;
+   point=&quot;org.eclipse.papyrus.uml.export.generation&quot;&gt;
+	&lt;html
+		  header=&quot;true&quot;
+		  priority=&quot;1&quot;
+		  text=&quot;&amp;lt;script language=&amp;quot;JavaScript&amp;quot; type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;script.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&quot;&gt;
+	&lt;/html&gt;
+	&lt;copyFile
+		  from=&quot;platform:/plugin/org.eclipse.papyrus.uml.export/resources/script.js&quot;
+		  to=&quot;script.js&quot;&gt;
+	&lt;/copyFile&gt;
+&lt;/extension&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="apiinfo"/>
+      </appinfo>
+      <documentation>
+         The id for extansion is mandatory since it&apos;s used in preference page
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="implementation"/>
+      </appinfo>
+      <documentation>
+         Check org.eclipse.papyrus.uml.export/plugins.xml 
+and following classes:
+
+org.eclipse.papyrus.uml.export.extension.contribution.CommentAnnotateSVG.java
+org.eclipse.papyrus.uml.export.extension.contribution.DiagramPathAdditionalInformations.java
+org.eclipse.papyrus.uml.export.extension.contribution.HyperlinkAnnotateSVG.java
+org.eclipse.papyrus.uml.export.extension.contribution.IconpathAdditionalInformations.java
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="copyright"/>
+      </appinfo>
+      <documentation>
+         /*****************************************************************************
+         * Copyright (c) 2017 CEA LIST.
+         *
+         *    
+         * All rights reserved. This program and the accompanying materials
+         * are made available under the terms of the Eclipse Public License 2.0
+         * which accompanies this distribution, and is available at
+         * https://www.eclipse.org/legal/epl-2.0/
+         *
+         * SPDX-License-Identifier: EPL-2.0
+         *
+         * Contributors:
+         * Benoit Maggi (CEA LIST) - Initial API and implementation
+         *
+         *****************************************************************************/
+      </documentation>
+   </annotation>
+
+</schema>

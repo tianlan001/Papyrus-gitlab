@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.papyrus.uml-textedit</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+	    <groupId>org.eclipse.papyrus</groupId>
+	    <artifactId>org.eclipse.papyrus.uml</artifactId>
+	    <version>7.0.0-SNAPSHOT</version>
+    </parent>
+	<name>Papyrus UML Textual Edit</name>
+	<description>The embedded textual editors for UML constructs in the Papyrus diagrams.</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.uml.textedit.collaborationuse.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.collaborationuse.xtext.ui</module>
+		<module>org.eclipse.papyrus.uml.textedit.common.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.common.xtext.ui</module>
+		<module>org.eclipse.papyrus.uml.textedit.connectionpointreference.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.connectionpointreference.xtext.ui</module>
+		<module>org.eclipse.papyrus.uml.textedit.constraintwithessentialocl.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.javaconstraint</module>
+		<module>org.eclipse.papyrus.uml.textedit.message.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.message.xtext.ui</module>
+		<module>org.eclipse.papyrus.uml.textedit.parameter.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.parameter.xtext.ui</module>
+		<module>org.eclipse.papyrus.uml.textedit.port.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.port.xtext.ui</module>
+		<module>org.eclipse.papyrus.uml.textedit.property.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.property.xtext.ui</module>
+		<module>org.eclipse.papyrus.uml.textedit.state.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.state.xtext.ui</module>
+		<module>org.eclipse.papyrus.uml.textedit.stereotypeproperty.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.stereotypeproperty.xtext.ui</module>
+		<module>org.eclipse.papyrus.uml.textedit.transition.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.transition.xtext.ui</module>
+		<module>org.eclipse.papyrus.uml.textedit.valuespecification.xtext</module>
+		<module>org.eclipse.papyrus.uml.textedit.valuespecification.xtext.ui</module>
+		<module>org.eclipse.papyrus.uml.textedit.valuespecification.xtext.utils</module>
+	</modules>
+</project>

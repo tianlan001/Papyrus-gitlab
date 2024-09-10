@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_UqAg0FjeEeiaQ6n7T6ZY4g" name="Bug533770-OperandsLayout">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_U2VsoFjeEeiaQ6n7T6ZY4g">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_UrUIYFjeEeiaQ6n7T6ZY4g" name="Interaction1">
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_Wki64FjeEeiaQ6n7T6ZY4g" name="Lifeline1" coveredBy="_Xn3ZEFjeEeiaQ6n7T6ZY4g _fpiXMFjjEeiaQ6n7T6ZY4g"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_W0IPAFjeEeiaQ6n7T6ZY4g" name="Lifeline2" coveredBy="_Xn3ZEFjeEeiaQ6n7T6ZY4g _fpiXMFjjEeiaQ6n7T6ZY4g"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_W_RIAFjeEeiaQ6n7T6ZY4g" name="Lifeline3" coveredBy="_fpiXMFjjEeiaQ6n7T6ZY4g _Xn3ZEFjeEeiaQ6n7T6ZY4g"/>
+    <fragment xmi:type="uml:CombinedFragment" xmi:id="_XnsZ8FjeEeiaQ6n7T6ZY4g" name="TestedCF">
+      <operand xmi:type="uml:InteractionOperand" xmi:id="_Xn3ZEFjeEeiaQ6n7T6ZY4g" name="InteractionOperand0" covered="_W_RIAFjeEeiaQ6n7T6ZY4g _W0IPAFjeEeiaQ6n7T6ZY4g _Wki64FjeEeiaQ6n7T6ZY4g">
+        <guard xmi:type="uml:InteractionConstraint" xmi:id="_Xn4AIFjeEeiaQ6n7T6ZY4g" name="guard"/>
+      </operand>
+      <operand xmi:type="uml:InteractionOperand" xmi:id="_fpiXMFjjEeiaQ6n7T6ZY4g" name="InteractionOperand2" covered="_W_RIAFjeEeiaQ6n7T6ZY4g _W0IPAFjeEeiaQ6n7T6ZY4g _Wki64FjeEeiaQ6n7T6ZY4g">
+        <guard xmi:type="uml:InteractionConstraint" xmi:id="_fpmBkFjjEeiaQ6n7T6ZY4g" name="guard"/>
+      </operand>
+    </fragment>
+  </packagedElement>
+</uml:Model>

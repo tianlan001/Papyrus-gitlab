@@ -1,0 +1,39 @@
+/**
+ * Test active class instantiation
+ */
+active class Units_ActiveClass {
+
+	public active class C {
+
+		public i: Integer;
+		public j: Integer;
+		public t: TestRunner;
+		@Create
+		public C(in i: Integer, in t: TestRunner);
+		@Destroy
+		public destroy();
+
+	} do 'C$behavior$1'
+
+	public active class TestRunner {
+
+		public receive signal Start {
+		}
+
+		public receive signal Continue {
+		}
+
+		public test(out c: C);
+		@Create
+		public TestRunner();
+		@Destroy
+		public destroy();
+
+	} do 'TestRunner$behavior$1'
+
+	@Create
+	public Units_ActiveClass();
+	@Destroy
+	public destroy();
+
+} do 'Units_ActiveClass$behavior$1'

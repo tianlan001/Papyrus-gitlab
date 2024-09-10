@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>org.eclipse.papyrus-toolsmiths</artifactId>
+		<groupId>org.eclipse.papyrus</groupId>
+		<version>7.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>org.eclipse.papyrus.dev.types</artifactId>
+	<groupId>org.eclipse.papyrus</groupId>
+	<version>7.0.0-SNAPSHOT</version>
+	<packaging>eclipse-plugin</packaging>
+	<build>
+		<plugins>
+			<!-- Empty out the xtend-gen folder in the clean phase. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>xtend-gen</directory>
+							<excludes>
+								<exclude>**/.gitignore</exclude>
+							</excludes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<!-- Generate Xtend sources in the compilation phase. -->
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>xtend-gen</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

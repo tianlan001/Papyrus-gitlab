@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.papyrus.infra-gmfdiag-assistant</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+	    <groupId>org.eclipse.papyrus</groupId>
+	    <artifactId>org.eclipse.papyrus.infra-gmfdiag</artifactId>
+	    <version>7.0.0-SNAPSHOT</version>
+    </parent>
+    <name>Papyrus Diagram Assistants</name>
+	<description>Model and run-time engine for model-driven contributions to the GMF Diagram Assistants service.</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.infra.gmfdiag.assistant</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.assistant.edit</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.assistant.editor</module>
+		<module>org.eclipse.papyrus.infra.gmfdiag.assistant.ui</module>
+	</modules>
+</project>

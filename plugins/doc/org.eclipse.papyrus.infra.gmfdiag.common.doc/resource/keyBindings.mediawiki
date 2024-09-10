@@ -1,0 +1,94 @@
+= List of Key bindings =
+
+== Key Bindings ==
+You may find them in Preferences > Keys
+
+[[File:images/keyBindings/PreferencesPapyrusKeyBindings.jpg]]
+
+== Delete key binding behaviors ==
+
+Delete should have some behaviors:
+
+{| class="wikitable" border="1" cellspacing="0"
+! 
+! Delete From Model (DEL)
+! Delete From Diagram (SHIFT+DEL)
+! Example
+! Delete From Model Action (DEL)
+|-
+| View with semantic
+| style="text-align: center;" | Delete
+| style="text-align: center;" | Hide
+| style="text-align: center;" | Class
+| style="text-align: center;" | 
+|-
+| View with no semantic, but representing a feature
+| style="text-align: center;" | Delete: remove the reference from the feature
+| style="text-align: center;" | Hide
+| style="text-align: center;" | Comment Link, Constraint Links (context and contrainedElement), DurationObservation and TimeObservation Link
+| style="text-align: center;" | Remove the link and remove the reference from the feature
+|-
+| View with no semantic
+| style="text-align: center;" | Hide
+| style="text-align: center;" | Hide
+| style="text-align: center;" | ? 
+| style="text-align: center;" | Remove the link
+|-
+| View with semantic Read Only
+| style="text-align: center;" | Forbidden
+| style="text-align: center;" | Hide
+| style="text-align: center;" | PimitivesTypes::Integer
+| style="text-align: center;" | 
+|-
+| Metaclass All Diagram (Read-Only)
+| style="text-align: center;" | Hide
+| style="text-align: center;" | Hide
+| style="text-align: center;" | Import Metaclass (Profile Diagram)
+| style="text-align: center;" | Keep the element imported, destroy the view of the metaclass
+|}
+
+== Mouse Key Bindings ==
+There is no easy way to list them (java hard coded)
+
+This table contains some of the mouse bindings:
+{| class="wikitable" border="1" cellspacing="0"
+! Binding
+! Location
+! Action
+|-
+| CTRL+Left Mouse Click
+| Diagram
+| Allow multi selection
+|-
+| Shift+Left Mouse Click
+| Diagram
+| Allow multi selection
+|-
+| Shift + Drag & Drop
+| Diagram
+| Move along a line (Horizontal/Vertical/Diagonal)
+|-
+| Double click
+| Diagram
+| Navigate to hyperlink(s)
+|-
+| Double click
+| Diagram
+| Open hyperlink dialog (If no hyperlink exists)
+|-
+| Ctrl + Mouse wheel
+| Diagram
+| Zoom in (Wheel Up) or out (Wheel Down)
+|-
+| Drag & Drop
+| Model Explorer to Diagram
+| Display the element
+|-
+| Ctrl + Drag & Drop
+| Model Explorer to Diagram
+| Display the element, including its child nodes
+|-
+| ...
+|
+|
+|}

@@ -1,0 +1,163 @@
+<!--
+ Copyright (c) 2020, 2021 Christian W. Damus, CEA LIST, and others.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+
+ Contributors:
+  Christian W. Damus - Initial API and implementation
+-->
+
+= Plug-in Builder Framework =
+
+As part of the Element Types plug-in validation builder work under [http://eclip.se/569357 bug 569357], a reusable ''Plug-in Builder''
+framework based on injection of configurable project checkers is introduced. The two main goals of this framework are
+
+# To make generic plug-in checkers that do 80% of the work for their specific aspect of the plug-in validation builder, with the model-specific logic injected for the other 20%. This should accelerate the development of plug-in builders for other models and ensure some kind of consistency in their behaviour.
+# To change the builder approach from one in which the checkers each create problem markers to one in which they all report problems to a common sink in which they are sifted, redundant problems elided, and from which then the resource markers are created in the workspace.
+
+The following figure shows an overview of the generic plug-in builder framework:
+
+[[Image:images/api-overview.png|thumb|API Overview]]
+
+== API Details ==
+
+=== Package oep.toolsmiths.validation.common.checkers ===
+
+In previous releases, this package defined an interface <code>IPluginChecker</code>, to implementations of which the
+<code>PluginValidationService</code> used by the plug-in validation menu actions delegates the work of validating the project and
+creating problem markers. The new framework adds an alternative <code>IPluginChecker2</code> that does the same, except that it
+reports problems as <code>Diagnostic</code>s to a <code>DiagnosticChain</code> instead of creating resource markers. This is
+critical to externalizing the analysis of problems and optimization of the marker creation at the end of the validation process.
+
+A new class <code>AbstractPluginChecker</code> unifies the old and new checker protocols, implementing the
+<code>IPluginChecker::check(IProgressMonitor)</code> method by invocation of the new
+<code>IPluginChecker::check(DiagnosticChain, IProgressMonitor)</code> API and creating markers from the collected diagnostics. This provides
+compatibility for the existing project validation menu actions and the legacy approach of marker creation. But the
+<code>AbstractPluginChecker</code> leaves the new <code>check</code> operation for subclasses to implement each in their own way.
+
+Five concrete checker classes are defined to implement the <code>IPluginChecker2</code> protocol:
+
+* <code>BuildPropertiesChecker</code> checks that all files that implement a model are included in the <code>build.properties</code> file for packaging. This checker is reusable as is for any model, with some configuration capability to compute dependent resources that also should be included in the build
+* <code>ExtensionsChecker</code> checks that all extensions required for run-time registration etc. of the model are present and correct in the <code>plugin.xml</code> file. More on this checker, below
+* <code>ModelDependenciesChecker</code> checks that all bundle dependencies implied by the model are listed in the <code>MANIFEST.MF</code>. This is mostly automatic, using cross-document references in the models that it checks to find bundles in which dependencies are deployed. Some configuration is available, though, to specify additional requirements that are not computable in this way from the model
+* <code>ModelValidationChecker</code> runs the EMF <code>Diagnostician</code> on the model resource and relays the diagnostics that it reports. The scope of this checker is limited to EMF model validation, and so it is generally reusable as is for any model
+* <code>CustomModelChecker</code> is like the previous except that it is configured with custom constraints that are not implemented (and often not implementable) in the model because they are specific to the tooling aspect. For example, checking that foreign model constructs referenced by name from a model are deployed in some bundle in either the workspace or the target platform. Custom checks are injected as <code>EValidator</code>s; a convenient superclass for which is the <code>CustomModelChecker::SwitchValidator</code> that delegates dynamically to validation methods implemented in the subclass, matched by signature to the model elements being validated
+
+==== ExtensionsChecker ====
+
+The <code>ExtensionsChecker</code> is based on a <code>PluginErrorReporter</code> that extends <code>ManifestErrorReporter</code> from the PDE internals. Like other checkers, this one is configured by injection of computations, but in this case what is injected is a model-specific configuration of the <code>PluginErrorReporter</code>. So, there is another level of indirection in this checker for the most common cases of checking for the existence of and validating the content of extension elements that register the model.
+
+The <code>PluginErrorReporter</code> is configured with strategies for finding extension elements on various extension points and (optionally) for checking those elements in the case that they exist (absence of the element doesn't require a checker to report that problem). The injected element checkers are given a call-back interface for reporting problems that knows how to map elements and attributes to lines in the source <code>plugin.xml</code> file. This problem reporting API, as per the PDE framework, create <code>VirtualMarker</code>s to encapsulate the information that later will fill resource markers. This is managed by an <code>IncrementalErrorReporter</code> which in this case is replaced by an implementation (<code>DiagnosticErrorReporter</code>) that doesn't create actual resource markers but which generates <code>Diagnostic</code>s and appends them to the collector chain, in accordance with the general protocol of the <code>IPluginChecker2</code>s.
+
+Most cases of validating the existence and form of extensions that register the tooling models can be handled by this configurable <code>PluginErrorReporter</code> class as is. More complex cases may require a more custom solution, in which case any kind of <code>XMLErrorReporter</code> that implements the <code>IPluginChecker2</code> protocol can be substituted.
+
+Finally, the <code>PluginErrorReporter</code> is aware of the registration of tooling models via ''Architecture Domain'' models. For these cases, the client can indicate which extension points support this mechanism as an alternative. For those extension points, if the <code>PluginErrorReporter</code> does not find a matching extension element in the <code>plugin.xml</code>, it will search the available architecture domains for a cross-reference to the tooling model via a new index that caches these cross-references. If no such reference is found, then a warning is issued instead of an error on the assumption that a suitable architecture model just isn't available. For tooling models that cannot be associated with architecture contexts, a missing extension in the <code>plugin.xml</code> is reported as an error.
+
+==== Diagnostics ====
+
+Markers have some details that are not specifically coded in <code>Diagnostic</code>s, of which the most commonly used are marker type,
+line number, and character offset range. To encode these in a recognizable form in the <code>Diagnostic</code>s that they produce,
+implementors of <code>IPluginChecker2</code> can use static APIs of that interface to create simple data wrapper objects of two kinds:
+
+* <code>MarkerType</code> to encapsulate the marker type to generate from the diagnostic, and
+* <code>MarkerAttribute</code> to encapsulate a name-value pair of the attribute types supported by the <code>IMarker</code> protocol
+
+When creating markers from diagnostics, the framework scans the <code>Diagnostic::data</code> list for these wrappers to determine the marker type to create (instead of the builder's default marker type) and attributes such as line number to set into the marker.
+
+=== Package oep.toolsmiths.plugin.builder ===
+
+As in earlier releases, the <code>Activator</code> of this bundle configures the <code>PapyrusPluginBuilder</code> by adding a suite of
+<code>AbstractPapyrusBuilder</code>s to it. The difference in the new framework is that there is now a generic
+<code>PluginCheckerBuilder</code> (a subclass of <code>AbstractPapyrusBuilder</code>) that delegates to <code>IPluginChecker2</code>s
+to do all of the work, apart from cleaning markers; for that, it just deletes all the markers of its model marker type from the project.
+
+Any number of <code>IPluginChecker2</code>s can be added to a <code>PluginCheckerBuilder</code>. It will run all of them, collate
+their diagnostics, and then create markers from those diagnostics. Because the builder itself is long-lived and the checkers are not
+assumed to be usable for more than one invocation, the builder is actually configured with ''factories'' to create the checkers as it
+needs them. The <code>IPluginChecker2.Factory</code> interface provides for creation of checkers from three inputs:
+
+* the <code>IProject</code> being validated
+* a specific <code>IFile</code> in the project that is to be checked, if applicable
+* the EMF <code>Resource</code> loaded from that <code>IFile</code>, if applicable
+
+The "if applicable" qualifiers above are significant: the builder uses the same factories to create three kinds of checkers:
+
+* using the project only, a checker for the project as a whole. For example, to verify that certain bundle dependencies that are a minimum requirement are present. A factory that does not create such project-wide checkers can just return <code>null</code>
+* using the project, file, and EMF resource, a checker for a model resource. This is the most common case for our model-based plug-in validation
+* using the project and file only, a checker for a file that is not an EMF model. We don't currently have such cases (that I know of)
+
+The <code>PluginCheckerBuilder</code> needs to know what are the model resources in the project for which it needs to create and run
+these checkers. That is the configured by injection of a function that computes the a multi mapping of <code>IFile</code> to
+<code>EObject</code> for the specific model objects in the various applicable EMF resources to validate. A convenient mechanism for
+computing this mapping is the <code>ModelResourceMapper</code> class, which itself is configurable with strategies for
+
+* matching files that need to be validated
+* creating appropriate <code>ResourceSet</code>s in which to load those files, and
+* functions to extract the model objects from the <code>Resource</code>s loaded from those files
+
+=== Package oep.toolsmiths.validation.elementtypes.internal.checkers ===
+
+As a prototypical example of the implementation of this generic plug-in checker builder framework for a particular Papyrus model, the
+Element Types plug-in validation provides configuration of all of the different checker types that are then installed into the
+<code>PapyrusPluginBuilder</code>.
+
+The <code>ElementTypesPluginChecker</code> class that is the central component of the older plug-in validation menu action is retained
+as a factory for the checker configurations. The <code>ElementTypesPluginXMLValidator</code> class is a helper that provides the
+strategies configured in the <code>PluginErrorReporter</code> as discussed above, with validation logic for the extension points in
+the <code>plugin.xml</code> that pertain to Element Types models.
+
+== A Word on Marker Types ==
+
+As mentioned above, the <code>PluginCheckerBuilder</code> is configured with a default marker type that it will use to create
+<code>IMarker</code>s from <code>Diagnostic</code>s that do not specify an explicit marker type in their data lists. This marker
+type is also used in cleaning the project to delete existing markers. Thus, it works best when this marker type is a supertype of
+all marker types that individual checkers and diagnostics will create.
+
+<blockquote>'''Note''' that marker types can specify multiple supertypes, so the plug-in builder for a model can specify an abstract
+marker type for its domain and have checkers/diagnostics specify various specific subtypes of it that are also subtypes of other marker
+types from Eclipse Platform as needed, e.g., Java Problem, PDE Problem, EMF Problem, etc. as applicable.
+</blockquote>
+
+In the 2020-12 release, ''Eclipse PDE'' added support for any sub-type of the ''Java Problem'' marker type to trigger the dialog
+confirming to launch a run-time instance projects contributing to it have errors. Accordingly, it is recommended that any model-specific
+plug-in validation problems that should trigger this launch gate should use a marker type that is a sub-type both of ''Java Problem'' and
+the model's abstract problem type that all of its markers conform to. This latter marker type is recommended to make it easy for the
+plug-in builder to clean all relevant markers in a project.
+
+= Quick Fixes =
+
+Quick fixes, known in the Eclipse APIs as <em>marker resolutions</em>, provide the user with convenient automation of
+changes to fix problems identified in markers. Wherever it is practical, it is helpful to provide quick fixes for
+every change that would commonly be recommended for any given problem.
+
+To assist in the development of simple quick fixes, the common plug-in builder bundle provides a small framework.
+
+== API Details ==
+
+=== Package oep.toolsmiths.validation.common.checkers ===
+
+The <code>IPluginChecker2</code> interface provides a convenient method <code>problem(int) : MarkerAttribute</code> that
+creates a marker attribute encoding an unique <em>problem identifier</em> for inclusion in the data of a <code>Diagnostic</code>.
+This identifier correlates to a quick-fix <em>marker resolution</em>.
+
+The <code>CommonProblemConstants</code> class has two constants <code>PROBLEM_ID_BASE</code> and
+<code>MAX_PROBLEM_ID</code> that define a range of problem IDs reserved for problems reported by the common layer, itself,
+of the plug-in builder framework. Problem IDs used by model-specific builders must use IDs greater than the
+<code>MAX_PROBLEM_ID</code> of the common layer. They can use the same IDs as problems from other models because they
+are tagged with different <em>marker types</em>; the problems reported by the common framework do use each model's
+marker type, which is thy the ID numbers need to be kept separate.
+
+=== Package oep.toolsmiths.validation.common.quickfix ===
+
+Builder bundles that provide quick fixes for their problems should extend the <code>CommonMarkerResolutionGenerator</code>
+class. This provides fixes for all of the problems reported by the common framework and is easily extended to add
+fixes for your model's specific problems. A variety of marker resolutions are available to implement fixes for the most
+common kinds of problems:
+
+* <code>SimpleMissingAttributeMarkerResolution</code>: this fixes a problem that reports a required attribute missing from an extension in the <tt>plugin.xml</tt>, where a suitable value can be suggested automatically. It is configured with the attribute name and a value to set (or a function that computes the value from the marker's attributes). The marker already has the information about which element of which extension to update
+* <code>SimpleMissingExtensionMarkerResolution</code>: similar to the previous, this fixes a problem that reports a required or recommended extension missing on a model-specific extension point. It is configured with the values, or computations of, the extension point, element name, and one or more attributes to set
+* <code>SimpleModelEditMarkerResolution</code>: a flexible marker resolution to fix problems in EMF-based model resources. It is configured with a function that computes an EMF <em>command</em> to update the object in the model that the marker targets. The resolution takes care of finding an <em>editing domain</em> in which context to create the command, using an existing open editor if available, otherwise editing the model "off-line", as it were

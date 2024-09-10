@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ASCII"?>
+<elementtypesconfigurations:ElementTypeSetConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:applystereotypeadvice="http://www.eclipse.org/papyrus/uml/types/applystereotypeadvice/1.1" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2" xmlns:stereotypematcher="http://www.eclipse.org/papyrus/uml/types/stereotypematcher/1.1" xmi:id="_JHkF8Jg0EeSrbqbUdG1DAA" identifier="org.eclipse.papyrus.example.j2ee.elementTypes" name="j2ee" metamodelNsURI="j2ee">
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.example.j2ee.Bean" identifier="org.eclipse.papyrus.example.j2ee.Bean" name="Bean">
+    <iconEntry xmi:id="_JHkF8pg0EeSrbqbUdG1DAA" iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration" xmi:id="_JHkF85g0EeSrbqbUdG1DAA">
+      <stereotypesQualifiedNames>j2ee::Bean</stereotypesQualifiedNames>
+    </matcherConfiguration>
+    <specializedTypes xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Class"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.example.j2ee.Finder" identifier="org.eclipse.papyrus.example.j2ee.Finder" name="Finder">
+    <iconEntry xmi:id="_JHkF9Zg0EeSrbqbUdG1DAA" iconPath="/icons/full/obj16/Operation.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration" xmi:id="_JHkF9pg0EeSrbqbUdG1DAA">
+      <stereotypesQualifiedNames>j2ee::Finder</stereotypesQualifiedNames>
+    </matcherConfiguration>
+    <specializedTypes xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Operation"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.example.j2ee.Import" identifier="org.eclipse.papyrus.example.j2ee.Import" name="Import">
+    <iconEntry xmi:id="_JHkF-Jg0EeSrbqbUdG1DAA" iconPath="/icons/full/obj16/Dependency.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration" xmi:id="_JHkF-Zg0EeSrbqbUdG1DAA">
+      <stereotypesQualifiedNames>j2ee::Import</stereotypesQualifiedNames>
+    </matcherConfiguration>
+    <specializedTypes xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Dependency"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.example.j2ee.Web" identifier="org.eclipse.papyrus.example.j2ee.Web" name="Web">
+    <iconEntry xmi:id="_JHkF-5g0EeSrbqbUdG1DAA" iconPath="/icons/full/obj16/Association.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration" xmi:id="_JHkF_Jg0EeSrbqbUdG1DAA">
+      <stereotypesQualifiedNames>j2ee::Web</stereotypesQualifiedNames>
+    </matcherConfiguration>
+    <specializedTypes xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Association"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.example.j2ee.User" identifier="org.eclipse.papyrus.example.j2ee.User" name="User">
+    <iconEntry xmi:id="_JHkF_pg0EeSrbqbUdG1DAA" iconPath="/icons/full/obj16/Actor.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration" xmi:id="_JHkF_5g0EeSrbqbUdG1DAA">
+      <stereotypesQualifiedNames>j2ee::User</stereotypesQualifiedNames>
+    </matcherConfiguration>
+    <specializedTypes xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Actor"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.example.j2ee.Browser" identifier="org.eclipse.papyrus.example.j2ee.Browser" name="Browser">
+    <iconEntry xmi:id="_JHkGAZg0EeSrbqbUdG1DAA" iconPath="/icons/full/obj16/Actor.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration" xmi:id="_JHkGApg0EeSrbqbUdG1DAA">
+      <stereotypesQualifiedNames>j2ee::Browser</stereotypesQualifiedNames>
+    </matcherConfiguration>
+    <specializedTypes xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Actor"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.example.j2ee.BranchPoint" identifier="org.eclipse.papyrus.example.j2ee.BranchPoint" name="BranchPoint">
+    <iconEntry xmi:id="_JHkGBJg0EeSrbqbUdG1DAA" iconPath="/icons/full/obj16/ExtensionPoint.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration" xmi:id="_JHkGBZg0EeSrbqbUdG1DAA">
+      <stereotypesQualifiedNames>j2ee::BranchPoint</stereotypesQualifiedNames>
+    </matcherConfiguration>
+    <specializedTypes xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.ExtensionPoint"/>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.example.j2ee.WebScenario" identifier="org.eclipse.papyrus.example.j2ee.WebScenario" name="WebScenario">
+    <iconEntry xmi:id="_JHkGB5g0EeSrbqbUdG1DAA" iconPath="/icons/full/obj16/UseCase.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration" xmi:id="_JHkGCJg0EeSrbqbUdG1DAA">
+      <stereotypesQualifiedNames>j2ee::WebScenario</stereotypesQualifiedNames>
+    </matcherConfiguration>
+    <specializedTypes xsi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.UseCase"/>
+  </elementTypeConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_JHkGCZg0EeSrbqbUdG1DAA" identifier="org.eclipse.papyrus.example.j2ee.bean" target="org.eclipse.papyrus.example.j2ee.Bean">
+    <stereotypesToApply xmi:id="_JHkGCpg0EeSrbqbUdG1DAA" stereotypeQualifiedName="j2ee::Bean" updateName="true">
+      <requiredProfiles>j2ee</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_JHkGC5g0EeSrbqbUdG1DAA" identifier="org.eclipse.papyrus.example.j2ee.finder" target="org.eclipse.papyrus.example.j2ee.Finder">
+    <stereotypesToApply xmi:id="_JHkGDJg0EeSrbqbUdG1DAA" stereotypeQualifiedName="j2ee::Finder" updateName="true">
+      <requiredProfiles>j2ee</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_JHkGDZg0EeSrbqbUdG1DAA" identifier="org.eclipse.papyrus.example.j2ee.import" target="org.eclipse.papyrus.example.j2ee.Import">
+    <stereotypesToApply xmi:id="_JHkGDpg0EeSrbqbUdG1DAA" stereotypeQualifiedName="j2ee::Import" updateName="true">
+      <requiredProfiles>j2ee</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_JHkGD5g0EeSrbqbUdG1DAA" identifier="org.eclipse.papyrus.example.j2ee.web" target="org.eclipse.papyrus.example.j2ee.Web">
+    <stereotypesToApply xmi:id="_JHkGEJg0EeSrbqbUdG1DAA" stereotypeQualifiedName="j2ee::Web" updateName="true">
+      <requiredProfiles>j2ee</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_JHkGEZg0EeSrbqbUdG1DAA" identifier="org.eclipse.papyrus.example.j2ee.user" target="org.eclipse.papyrus.example.j2ee.User">
+    <stereotypesToApply xmi:id="_JHkGEpg0EeSrbqbUdG1DAA" stereotypeQualifiedName="j2ee::User" updateName="true">
+      <requiredProfiles>j2ee</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_JHkGE5g0EeSrbqbUdG1DAA" identifier="org.eclipse.papyrus.example.j2ee.browser" target="org.eclipse.papyrus.example.j2ee.Browser">
+    <stereotypesToApply xmi:id="_JHkGFJg0EeSrbqbUdG1DAA" stereotypeQualifiedName="j2ee::Browser" updateName="true">
+      <requiredProfiles>j2ee</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_JHkGFZg0EeSrbqbUdG1DAA" identifier="org.eclipse.papyrus.example.j2ee.branchPoint" target="org.eclipse.papyrus.example.j2ee.BranchPoint">
+    <stereotypesToApply xmi:id="_JHkGFpg0EeSrbqbUdG1DAA" stereotypeQualifiedName="j2ee::BranchPoint" updateName="true">
+      <requiredProfiles>j2ee</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_JHkGF5g0EeSrbqbUdG1DAA" identifier="org.eclipse.papyrus.example.j2ee.webScenario" target="org.eclipse.papyrus.example.j2ee.WebScenario">
+    <stereotypesToApply xmi:id="_JHkGGJg0EeSrbqbUdG1DAA" stereotypeQualifiedName="j2ee::WebScenario" updateName="true">
+      <requiredProfiles>j2ee</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+</elementtypesconfigurations:ElementTypeSetConfiguration>

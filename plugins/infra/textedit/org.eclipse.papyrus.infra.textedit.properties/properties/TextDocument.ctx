@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_OIAa4CBDEeyKktiv60hJyQ" name="textdocument">
+  <tabs xmi:id="_Rg6QYCBDEeyKktiv60hJyQ" label="TextDocument" id="textdocument" category="" priority="10">
+    <allSections xsi:type="contexts:Section" xmi:id="_Rg_v8CBDEeyKktiv60hJyQ" name="Single TextDocument" sectionFile="ui/SingleTextDocument.xwt">
+      <widget href="ui/SingleTextDocument.xwt#/"/>
+    </allSections>
+    <allSections xsi:type="contexts:Section" xmi:id="_Rg_v8SBDEeyKktiv60hJyQ" name="Multiple TextDocument" sectionFile="ui/MultipleTextDocument.xwt">
+      <widget href="ui/MultipleTextDocument.xwt#/"/>
+    </allSections>
+  </tabs>
+  <views xmi:id="_OIAa4SBDEeyKktiv60hJyQ" name="Single TextDocument" sections="_Rg_v8CBDEeyKktiv60hJyQ" automaticContext="true" datacontexts="_OIAa6iBDEeyKktiv60hJyQ">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_OIAa4iBDEeyKktiv60hJyQ" name="isSingleTextDocument">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_OIAa4yBDEeyKktiv60hJyQ" name="nsUri" value="http://www.eclipse.org/papyrus/infra/textedit/textdocument"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_OIAa5CBDEeyKktiv60hJyQ" name="className" value="TextDocument"/>
+    </constraints>
+  </views>
+  <views xmi:id="_OIAa5SBDEeyKktiv60hJyQ" elementMultiplicity="-1" name="Multiple TextDocument" sections="_Rg_v8SBDEeyKktiv60hJyQ" automaticContext="true" datacontexts="_OIAa6iBDEeyKktiv60hJyQ">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_OIAa5iBDEeyKktiv60hJyQ" name="isMultipleTextDocument">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_OIAa5yBDEeyKktiv60hJyQ" name="className" value="TextDocument"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_OIAa6CBDEeyKktiv60hJyQ" name="nsUri" value="http://www.eclipse.org/papyrus/infra/textedit/textdocument"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_OIAa6SBDEeyKktiv60hJyQ" name="textdocument" label="textdocument">
+    <elements xmi:id="_OIAa6iBDEeyKktiv60hJyQ" name="TextDocument">
+      <properties xmi:id="_OIAa6yBDEeyKktiv60hJyQ" name="semanticContext" type="Reference" description="Reference the edited element of the user model."/>
+      <properties xmi:id="_OIAa7CBDEeyKktiv60hJyQ" name="graphicalContext" type="Reference" description="Reference the element under which the TextDocument will be displayed in a TreeViewer (for example)."/>
+      <properties xmi:id="_OIAa7SBDEeyKktiv60hJyQ" name="name" description="The name to display in the UI for the editor."/>
+      <properties xmi:id="_OIAa7iBDEeyKktiv60hJyQ" name="kindId" description="This field will allow a better integration with the Papyrus Architecture Framework.&#xA;This value must be equals to the value PapyrusRepresentationKind#implementationID&#xA;This field will be used to find the ViewPrototype of an instance of TextDocument.&#xA;This field is useless for usage outside of Papyrus, but we set its multiplicity to [1] to avoid possible mistake in Papyrus usages.&#xA;This value can be changed by an architecture context switch."/>
+      <properties xmi:id="_OIAa7yBDEeyKktiv60hJyQ" name="type" description="The type of the editor. This value must not be changed."/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+  <dataContexts xmi:id="_CnYM0CaEEeyzPtGN1oEhrQ" name="customtextdocument">
+    <elements xmi:id="_IAY44CaEEeyzPtGN1oEhrQ" name="TextDocument">
+      <properties xmi:id="_IAY45CaEEeyzPtGN1oEhrQ" name="customKindId" description="This field will allow a better integration with the Papyrus Architecture Framework.&#xD;&#xA;This value must be equals to the value PapyrusRepresentationKind#implementationID&#xD;&#xA;This field will be used to find the ViewPrototype of an instance of TextDocument.&#xD;&#xA;This field is useless for usage outside of Papyrus, but we set its multiplicity to [1] to avoid possible mistake in Papyrus usages.&#xD;&#xA;This value can be changed by an architecture context switch."/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.textedit.properties/properties/Environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context>

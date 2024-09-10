@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.eclipse.papyrus.uml.export.generation" name="Annotate Generation" schema="resources/schema/generation.exsd"/>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="prototype.export.html"
+            name="ExportAllDiagrams">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.papyrus.uml.export.ui.ExportHtmlHandler"
+            commandId="prototype.export.html">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipse.papyrus.infra.gmfdiag.export.propertytester.ExportableSelectionPropertyTester"
+            id="org.eclipse.papyrus.export.propertyTester"
+            namespace="org.eclipse.papyrus.export"
+            properties="isFileExportable"
+            type="org.eclipse.core.resources.IFile">
+      </propertyTester>
+      <propertyTester
+            class="org.eclipse.papyrus.infra.gmfdiag.export.propertytester.ExportableSelectionPropertyTester"
+            id="org.eclipse.papyrus.export.propertyTester"
+            namespace="org.eclipse.papyrus.export"
+            properties="isCollectionExportable"
+            type="java.util.Collection">
+      </propertyTester>
+      <propertyTester
+            class="org.eclipse.papyrus.infra.gmfdiag.export.propertytester.ExportableSelectionPropertyTester"
+            id="org.eclipse.papyrus.export.propertyTester"
+            namespace="org.eclipse.papyrus.export"
+            properties="isExportableModel"
+            type="org.eclipse.jface.viewers.IStructuredSelection">
+      </propertyTester>
+   </extension>
+   
+   <!-- in model explorer -->
+   
+      <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:org.eclipse.papyrus.views.modelexplorer.modelexplorer.popup?after=org.eclipse.papyrus.uml.export.menu">
+         <menu
+               id="org.eclipse.papyrus.infra.gmfdiag.export.menu"
+               label="&amp;Export"
+               icon="resources/icons/export_wiz_16x16-papyrusColor.gif"
+               tooltip="Papyrus Export Menu">            
+         <command
+               commandId="prototype.export.html"
+               icon="resources/icons/exportAll.png"
+               id="org.eclipse.papyrus.export.exportToHTML"
+               label="Export to HTML..."
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.papyrus.export.isExportableModel">
+                  </test>
+               </with>
+            </visibleWhen>
+         </command>
+        </menu> 
+      </menuContribution>
+   </extension>
+     <extension
+           id="tooltip.comment"
+           name="Display Comment as Tooltip"
+           point="org.eclipse.papyrus.uml.export.generation">
+         <annotation
+               annotation="org.eclipse.papyrus.uml.export.extension.contribution.CommentAnnotateSVG">
+         </annotation>
+      </extension>
+     <extension
+           id="script.default"
+           name="Default script"
+           point="org.eclipse.papyrus.uml.export.generation">
+        <html
+              header="true"
+              priority="1"
+              text="&lt;script language=&quot;JavaScript&quot; type=&quot;text/javascript&quot; src=&quot;resources/js/script.js&quot;&gt;&lt;/script&gt;">
+        </html>
+        <copyFile
+              from="platform:/plugin/org.eclipse.papyrus.uml.export/resources/js/script.js"
+              to="resources/js/script.js">
+        </copyFile>
+     </extension>
+     <extension
+           id="script.tree"
+           name="Simple tree script"
+           point="org.eclipse.papyrus.uml.export.generation">
+        <html
+              header="true"
+              priority="1"
+              text="&lt;script language=&quot;JavaScript&quot; type=&quot;text/javascript&quot; src=&quot;resources/js/simpletreemenu.js&quot;&gt;&lt;/script&gt;">
+        </html>
+        <html
+              header="false"
+              priority="1"
+              text="&lt;script&gt;ddtreemenu.createTree(&quot;diagram-explorer&quot;, true, 5);&lt;/script&gt;">
+        </html>
+        <copyFile
+              from="platform:/plugin/org.eclipse.papyrus.uml.export/resources/js/simpletreemenu.js"
+              to="resources/js/simpletreemenu.js">
+        </copyFile>
+     </extension>
+     <extension
+           id="css.default"
+           name="Default css"
+           point="org.eclipse.papyrus.uml.export.generation">
+        <html
+              header="true"
+              priority="1"
+              text="&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;resources/css/simpletree.css&quot;/&gt;">
+        </html>
+        <copyFile
+              from="platform:/plugin/org.eclipse.papyrus.uml.export/resources/css/simpletree.css"
+              to="resources/css/simpletree.css">
+        </copyFile>
+     </extension>
+     <extension
+           id="doubleclick.hyperlink"
+           name="Hyperlink strategy"
+           point="org.eclipse.papyrus.uml.export.generation">
+        <annotation
+              annotation="org.eclipse.papyrus.uml.export.extension.contribution.HyperlinkAnnotateSVG">
+        </annotation>
+        <html
+              header="false"
+              priority="1"
+              text="&lt;script language=&quot;JavaScript&quot; type=&quot;text/javascript&quot; src=&quot;resources/js/hyperlink.js&quot;&gt;&lt;/script&gt;">
+        </html>
+        <copyFile
+              from="platform:/plugin/org.eclipse.papyrus.uml.export/resources/js/hyperlink.js"
+              to="resources/js/hyperlink.js">
+        </copyFile>
+     </extension>
+     <extension
+           id="additional.information"
+           name="Additionnal Info"
+           point="org.eclipse.papyrus.uml.export.generation">
+        <additionnalInformation
+              data="org.eclipse.papyrus.uml.export.extension.contribution.IconpathAdditionalInformations"
+              key="iconpath">
+        </additionnalInformation>
+        <additionnalInformation
+              data="org.eclipse.papyrus.uml.export.extension.contribution.DiagramPathAdditionalInformations"
+              key="diagramPath">
+        </additionnalInformation>
+     </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+      		id="org.eclipse.papyrus.export.html.preferences"
+            category="org.eclipse.papyrus.infra.core.sasheditor.preferences.generalcategory"
+            class="org.eclipse.papyrus.uml.export.ui.HTMLExportPreferencesPage"
+            name="HTML Export">
+      </page>
+   </extension>
+   <extension
+         id="script.tree"
+         name="Split script"
+         point="org.eclipse.papyrus.uml.export.generation">
+      <html
+            header="true"
+            priority="1"
+            text="&lt;script language=&quot;JavaScript&quot; type=&quot;text/javascript&quot; src=&quot;resources/js/split.min.js&quot;&gt;&lt;/script&gt;">
+      </html>
+      <html
+            header="false"
+            priority="1"
+            text="&lt;script&gt;Split([&apos;#diagram-explorer-div&apos;, &apos;#diagram-div&apos;], {sizes: [20, 80],minSize: 0,cursor: &apos;col-resize&apos;});&lt;/script&gt;">
+      </html>
+      <copyFile
+            from="platform:/plugin/org.eclipse.papyrus.uml.export/resources/js/split.min.js"
+            to="resources/js/split.min.js">
+      </copyFile>
+   </extension>
+
+   
+</plugin>

@@ -1,0 +1,38 @@
+all Activator.log.warn/Error + IMArker must have a clean ID (like "Papyrus BUILDER : error message") to identify our build error message easily
+
+suppression re-export
+	- problèmes : les dépendances nécessaires aux modèles sont ignorées
+		- idée : 
+		- avoir des erreurs prises en compte par la launch config Eclipse pour bien bloquer le développeur
+			- et du coup s'assurer que les problèmes soient bien visible
+	- solution : 
+		- builder pour obtenir les dépendances de manières génériques des modèles Ecore
+		- validateur spécifique à chaque métamodèle pour les champ string référançant une classe/image/...
+		- lancement de la validation sur chaque model Ecore
+		- check des dependency ranges et des re-export  (fichier manifest) (+ quickfix)
+		- page de préférences pour activer/désactiver notre builder
+		- création d'une nature pour les projet Papyrus pour que notre builder soit activé
+	
+
+info : la launch config Eclipse a été patchée par Vincent pour pouvoir prendre en compte des sous-types du marker d'erreur java
+https://git.eclipse.org/r/c/pde/eclipse.pde.ui/+/170693 
+ -> à voir si on l'utilise maintenant ou plus tard
+ 
+ 
+patch nécessaires dans l'ordre d'application: 
+	https://git.eclipse.org/r/c/papyrus/org.eclipse.papyrus/+/166324/24   (suppression des re-export)
+	https://git.eclipse.org/r/c/papyrus/org.eclipse.papyrus/+/168578/     (réapplication profile pour que les tests passent)
+	https://git.eclipse.org/r/c/papyrus/org.eclipse.papyrus/+/170355/     (Papyrus builder + validation)
+
+
+Problème identifié : 
+	- les dépendances des modèles de vues propriétés (environment.xmi, ctx, ...) 
+	
+
+dans oep.toolsmiths.builder :
+	- 1 builder Eclipse
+	- 1 builder Manifest qui se branche dessus
+	- plusieurs builder pour EMF, XWT, ... qui se branchent dessus
+		-> pas satisfait de manière générale de mon branchement
+	- les oep.toolsmiths*validation ne sont pas appelables directement car ouvrent des dialogues
+		-> en vrai ces plugins ressemblent bcp à des builders. 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="target/generated-eclipse-help/guidelines-main-toc.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="target/generated-eclipse-help/guidelines-toc.xml"
+            primary="false">
+      </toc>
+      
+      <toc
+            file="target/generated-eclipse-help/umledition-main-toc.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="target/generated-eclipse-help/umledition-toc.xml"
+            primary="false">
+      </toc>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.papyrus.developer.doc.examples"
+            name="%doc.examples.name"
+            parentCategory="org.eclipse.ui.Examples">
+      </category>
+   </extension>
+   
+</plugin>

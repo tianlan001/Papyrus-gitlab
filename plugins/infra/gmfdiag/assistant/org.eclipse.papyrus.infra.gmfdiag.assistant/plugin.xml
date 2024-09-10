@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2014 Christian W. Damus and others.
+ 
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+   Christian W. Damus - Initial API and implementation
+-->
+
+<plugin>
+   <extension-point id="modelProviders" name="Modeling Assistant Model Providers" schema="schema/modelProviders.exsd"/>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated assistant -->
+      <package
+            uri="http://www.eclipse.org/Papyrus/2014/diagram/assistant"
+            class="org.eclipse.papyrus.infra.gmfdiag.assistant.AssistantPackage"
+            genModel="model/assistant.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.content_parser">
+      <!-- @generated assistant -->
+      <parser
+            contentTypeIdentifier="org.eclipse.papyrus.infra.gmfdiag.assistants"
+            class="org.eclipse.papyrus.infra.gmfdiag.assistant.util.AssistantResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.core.contenttype.contentTypes">
+      <!-- @generated assistant -->
+      <content-type
+            base-type="org.eclipse.emf.ecore.xmi"
+            file-extensions="assistants"
+            id="org.eclipse.papyrus.infra.gmfdiag.assistants"
+            name="%_UI_Assistant_content_type"
+            priority="normal">
+         <describer class="org.eclipse.emf.ecore.xmi.impl.RootXMLContentHandlerImpl$Describer">
+            <parameter name="namespace" value="http://www.eclipse.org/Papyrus/2014/diagram/assistant"/>
+            <parameter name="kind" value="xmi"/>
+         </describer>
+      </content-type>
+   </extension>
+
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="pathmap://PAPYRUS_MODELING_ASSISTANTS/"
+            target="platform:/plugin/org.eclipse.papyrus.infra.gmfdiag.assistant/model/">
+      </mapping>
+   </extension>
+   <extension
+         point="org.eclipse.uml2.uml.generated_package">
+      <profile
+            location="pathmap://PAPYRUS_MODELING_ASSISTANTS/assistant.merged.uml#_0"
+            uri="http://www.eclipse.org/Papyrus/2014/diagram/assistant">
+      </profile>
+   </extension>
+   <extension
+         point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
+      <modelingAssistantProvider
+            class="org.eclipse.papyrus.infra.gmfdiag.assistant.internal.core.DelegatingModelingAssistantProvider">
+         <Priority
+               name="Lowest">
+         </Priority>
+      </modelingAssistantProvider>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipse.papyrus.infra.gmfdiag.assistant.internal.expressions.ResourcePropertyTester"
+            id="org.eclipse.papyrus.infra.gmfdiag.assistant.fileProperties"
+            namespace="org.eclipse.papyrus.infra.gmfdiag.assistant"
+            properties="isDeployed"
+            type="org.eclipse.core.resources.IFile">
+      </propertyTester>
+   </extension>
+
+</plugin>

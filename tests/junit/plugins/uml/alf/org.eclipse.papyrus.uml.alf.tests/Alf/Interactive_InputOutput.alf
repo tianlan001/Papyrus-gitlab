@@ -1,0 +1,13 @@
+private import FoundationalModelLibrary::BasicInputOutput as ;
+active class Interactive_InputOutput {
+
+	activity Input(): StandardInputChannel;
+	activity Output(): StandardOutputChannel;
+	activity A(out x: any[0..1], out y: any[0..1], out status1: Status[0..1],
+		out status2: Status[0..1]);
+	@Create
+	public Interactive_InputOutput();
+	@Destroy
+	public destroy();
+
+} do 'Interactive_InputOutput$behavior$1'

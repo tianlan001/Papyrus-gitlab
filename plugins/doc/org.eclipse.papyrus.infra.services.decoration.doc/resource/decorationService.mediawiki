@@ -1,0 +1,704 @@
+__TOC__
+
+= Introduction  =
+The purpose of this documentation is to give the minimum information to deploy your own decorator for Papyrus elements as EditPart.
+To manage decorator on Edit Part two solutions are provided by Papyrus:
+
+* Papyrus Decoration Service Framework
+* Shape Service Framework
+* GMF Decorator Service Framework
+
+Decoration Service is compliant with gif, ico, bmp, jpg and png files. Contextual message can be set for each decoration, and propagation to parents can be allowed.
+Unlike Decoration Service, Shape Service is only compliant to svg files, but the position of the shape can be selected within in the properties view. Others differences are that the shape can be displayed in the symbol compartment and it can be used as the shape of the figure.
+
+GMF Decorator Service Framework can also be used to display image. As the Decoration Service from papyrus you will be available to display several formats of images.
+
+=Papyrus Decoration Service Framework=
+
+== Architecture ==
+
+The decoration service architecture has already been described on a document ([http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/tree/plugins/infra/services/org.eclipse.papyrus.infra.services.decoration/docs/DecorationService_v01_d2011-05-23.pdf?h=streams/1.1-maintenance here]). You will find a description of main interfaces or classes to be implemented or to be called in order to use the framework and add specific decoration.
+
+=== DecorationService ===
+
+[[File:images/DecorationService.jpg]]
+
+Decoration service permits to manage decoration on EObject. Decorations are added through this service. It provides listener to observe changes. This service can be retrieved with: <br>
+
+<source lang="java">
+DecorationService decorationService = ServiceUtilsForEditPart.getInstance().getService(DecorationService.class, editPart);
+</source>
+
+==== Main methods ====
+
+*'''addDecorations(IPapyrusMarker marker, EObject element)'''
+:Add a new Decoration to a decorations Map with an IPapyrusMarker associated to an element.
+
+*'''addDecoration(String id, String type, EObject element, ImageDescriptor decorationImageForGE, ImageDescriptor decorationImageForME, PreferedPosition position, String message, int priority)'''
+:Add a new decoration without passing by a marker.
+
+*'''removeDecoration(String id)'''
+:Remove a decoration from the decorations Map,
+
+*'''getDecorations(EObject element):List<IPapyrusDecoration>'''
+:Return an Interface of decoration (IDecoration) for the element
+
+=== IPapyrusMarker ===
+
+[[File:images/IPapyrusMarker.jpg]]
+
+IPapyrusMarker provides a protocol for markers that annotates elements with information, often used for problems. It is an analogy of the Eclipse IMarker API for resources in the workspace, to be implemented in order to create its own marker used for custom decoration.
+
+==== Main methods ====
+
+*'''getType():String'''
+:Return the type of the concret Papyrus marker. Is also used to link a decorator to the marker(see Decoration Image Extension Point).
+
+*'''exist():Boolean'''
+:Return true if the marker exists on the view.
+
+=== IDecorationSpecificFunctions ===
+
+[[File:images/IDecorationSpecificFunctions.jpg]]
+
+This interface allows to access a set of functions that depends on the decorator type. The objective is that plug-ins for a specific decoration type can implement this interface (via an extension point) to provide the information that depends on the decoration type, notably the used icons, their position, the way how messages are calculated and how decoration might propagate from children to parents.
+To be implemented in order to create its own decoration.It Is related to a marker through ''decorationImage'' extension point.
+
+==== Main methods ====
+
+*'''getImageDescriptorForGE(IPapyrusMarker marker):ImageDescriptor''' 
+:Get the image descriptor for a graphical editor.
+
+*'''getImageDescriptorForME(IPapyrusMarker marker):ImageDescriptor''' 
+:Get the image descriptor for model explorer. May be identical to the image for a graphical editor.
+
+*'''getPreferedPosition(IPapyrusMarker marker):PreferedPosition'''
+:Return the preferred position for markers within the model explorer.
+
+*'''getMessage(IPapyrusMarker marker):String'''
+:Return a textual information for the marker (used for fixing messages that do not need to be stored in each marker).
+
+*'''getPriority(IPapyrusMarker marker):int'''
+:Return the priority of a decoration. This enables selecting a marker with a high priority, if multiple markers for the same model element and the same position exist. 
+
+*'''supportsMarkerPropagation():MarkChildren'''
+:Does the decoration type support a propagation from child to parent, e.g. in case of a problem on a parents' marker (package) might be marked as containing warnings or errors.
+
+*'''markerPropagation(EList<IPapyrusDecoration> childDecorations):IPapyrusDecoration'''
+:Calculate a propagated marker for the parent, given the set of child decorations. Return the calculated decoration for the parent depending on a set of decorations on children.
+
+=== Decoration Image Extension Point ===
+
+Provide an ImageDescription for a decoration marker. It allows to link a IDecorationSpecificFunction class to a Papyrus marker through his type.
+
+'''Identifier:''' org.eclipse.papyrus.infra.services.decoration.decorationImage
+
+[[File:images/DecorationExtensionPoint.jpg]]
+
+=Shape Service Framework=
+The shape service framework allows to display svg document in the symbol compartment or at a chosen position on the edit part.
+
+==Architecture==
+===AbstractShapeProvider===
+The framework provides a simple abstract provider class in order to add svg shape to edit parts. Only few methods have to be implemented.
+
+[[File:images/AbstractShapeProvider.jpg]]
+
+====Main methods====
+
+*'''getShapes(EObject view):List<RenderedImage>'''
+:Returns the list of shapes proposed by this provider or null if no shapes have to be displayed by this provider.
+
+*'''getSVGDocument(EObject view):List<SVGDocument>'''
+:Return the list of SVG DOCUMENT or null if no shape has to be displayed by this provider.
+	
+*'''providesShapes(EObject view):Boolean'''
+:Returns true if the provider can display shapes. This methods allows to compute if shapes can be displayed instead of computing the whole list of shapes to be displayed.
+
+===ShapeProvider Extension Point===
+To be loaded, implemented shape providers have to be linked through a specific extension point.
+
+[[File:images/ShapeProviderExtensionPoint.jpg]]
+
+===Appearence tab===
+To display the shape on the edit parts and to choose the visibility and the position, attributes have to be set on the appearance tab of the properties view.
+
+[[File:images/AppearenceTab.jpg]]
+
+=GMF Decorator Service Framework=
+
+GMF provide a decorator service to display decorations on views. An extension point exists to use to load your custom decorator provider. By default the position of decoration is set according to the direction, but you can customize its location throught a locator(<code>org.eclipse.draw2d.Locator</code>).
+
+==Architecture==
+===IDecoratorProvider ===
+
+[[File:images/IDecoratiorProvider.jpg]]
+
+Clients providing an extension to the DecoratorService need to create a decorator provider class that implements the IDecoratorProvider interface.
+IDecoratorProvider is the interface for providers of the decorator service. A decorator provider is responsible for installing its decorators on the decorator targets that it wishes to decorate.
+
+====Main methods====
+*'''provides(IOperation operation):Boolean'''
+:Determines whether this decorator provider supports adding decorations to a given decoration target. The operation in the provides method will be of type <code>CreateDecoratorsOperation</code> from which the decorator target can be extracted.
+
+*'''createDecorators(IDecoratorTarget decoratorTarget)'''
+:Creates the decorators and installs them on the decorator target.
+
+===AbstractDecorator===
+
+[[File:images/AbstractDecorator.jpg]]
+
+Clients can have their decorator subclass this to inherit utility methods for adding decoration figures.
+
+====Main methods====
+*'''getDecoration():Decoration '''
+:Returns the decoration.
+
+*'''getDecoratorTarget():DecoratorTarget'''
+:Gets the object to be decorated.
+
+*'''removeDecoration()'''
+:Removes the decoration if it exists and sets it to null.
+
+*'''setDecoration(IDecoration decoration)'''
+:The decoration to set.
+
+*'''refresh()'''
+:Refreshes the decorations. This is called when the host decorator target is refreshed.
+
+===IDecoratorTarget===
+[[File:images/IDecoratorTarget.jpg]]
+
+It's the interface of targeted element. It will not implemented by client. 
+Decorator in decorator target have some properties which can be set: 
+*The direction relative to the shape to place the decoration.
+*The margin is the space between the shape's edge and the decoration. A positive margin will place the figure outside the shape, a negative margin will place the decoration inside the shape. 
+*Volatile:  True if this decoration is volatile (i.e. not to be included in the printed output of a diagram); false otherwise.
+
+====Main methods====
+*'''installDecorator(Object key, IDecorator decorator)'''
+:Installs a decorator on this decorator target using a key (a String identifier). If another decorator is installed on the same target with the same key then it will override the previous one installed.
+
+*'''addShapeDecoration(Image image, Direction direction, int margin, boolean isVolatile):IDecoration''' 
+:Adds an image as a decoration on a shape, according to a direction, the margin and the volatilivity. Return the decoration object, which will be needed to remove the decoration from the shape.
+
+*'''addShapeDecoration(IFigure figure, Direction direction, int margin, boolean isVolatile):IDecoration''' 
+: Adds a figure as a decoration on a shape.
+
+*'''addConnectionDecoration(Image image, int percentageFromSource, boolean isVolatile):IDecoration''' 
+:Adds an image as a decoration on a connection. Return the decoration object, which will be needed to remove the decoration from the connection.
+
+*'''addConnectionDecoration(IFigure figure, int percentageFromSource, boolean isVolatile):IDecoration''' 
+:Adds a figure as a decoration on a connection.
+
+*'''removeDecoration(IDecoration decoration)'''
+:Removes the decoration from the shape or connection it has been added to.
+
+===GMF Decorator Provider Extension Point===
+his extension point is used to define decorator providers for the decorator service (org.eclipse.gmf.runtime.diagram.ui.services.decorator). The Decoration Service gives clients the ability to decorate diagram elements with an image or figure.
+
+[[File:images/DecoratorProviderExtensionPoint.jpg]]
+
+= Application Example =
+__TOC__
+This part will provide a simple example to use available services to display decorations on edit part according to the conditions described above.
+
+== Context ==
+SysML profile will be used as allocation profile. An "allocation table" affects the call behavior to nodes. Nodes can be stereotyped with ''NodeA'' and ''NodeB'' stereotypes. 
+Depending on the node on which the ''callBehavior'' is allocated, the decorator of the ''callBehavior'' should change.
+
+=== Example ===
+With this profile:
+
+[[File:images/ExampleProfile.jpg]]
+
+Applied on these two nodes:
+
+[[File:images/NodesStereotyped.jpg]]
+
+And with this allocation Table:
+
+[[File:images/AllocationTable.jpg]]
+
+The expected result is:
+
+[[File:images/ExpectedResult.jpg]]
+
+===Using Decoration Service===
+
+====Implemented architecture ====
+
+On this example, we have used 2 markers and one decoration specific function for each marker. The association between markers and decoration are done thanks to a specific extension point.
+An Edit policy is used to add markers to the decoration Service according to the model context. The edit policy is installed to the right edit parts through an edit policy provider, which is loaded by extension point.
+
+[[File:images/ExampleArchitecture.jpg]]
+
+====Implemented markers ====
+
+For each type of stereotype ''NodeA'' and ''NodeB'', a marker have been implemented with a specific markerType:
+
+<source lang="java">
+public class NodeAMarker implements IPapyrusMarker {
+	public static final String MARKER_TYPE = "org.eclipse.papyrus.infra.services.decoration.example.NodeA"; //$NON-NLS-1$
+	public static final String NODE_A_STEREOTYPE = "DecorationExampleProfile::NodeA";//$NON-NLS-1$
+	protected View notationElement;
+	public NodeAMarker(final View notationElement) {
+		this.notationElement = notationElement;
+	}
+	@Override
+	public boolean exists() {
+		return ExampleUtils.isAllocatedTo((CallBehaviorAction) notationElement, NODE_A_STEREOTYPE);
+	}
+	@Override
+	public String getType() throws CoreException {
+		return MARKER_TYPE;
+	}
+	@Override
+	public String getTypeLabel() throws CoreException {
+		return "Node A marker example";
+	}
+	...
+</source>
+
+
+====Implemented NodeDecoration EditPolicy ====
+
+These markers are added to the DecorationService thanks to an editPolicy applied to the ''CallBehavoir'' edit part. 
+
+The DecorationService is called in the ''Activate()'' method:
+
+<source lang="java">
+	@Override
+	public void activate() {
+		super.activate();
+		// TODO install listener
+		try {
+			decorationService = ServiceUtilsForEditPart.getInstance().getService(DecorationService.class, getHost());
+			refresh();
+		} catch (final ServiceException ex) {
+			// Ignored; do nothing
+		}
+	}
+</source>
+
+The refresh method adds or removes markers according to the allocated element on the UML element of the edit part:
+
+<source lang="java">
+	@Override
+	public void refresh() {
+		...
+		// If the marker already set for nodeA have to be changed.
+		if (ExampleUtils.isAllocatedTo((CallBehaviorAction) view.getElement(), NodeAMarker.NODE_A_STEREOTYPE) != isNodeAMarked) {
+			isNodeAMarked = !isNodeAMarked;
+			if (isNodeAMarked) {
+				decorationService.addDecoration(getMarkerA(), getView());
+			} else {
+				decorationService.removeDecoration(getMarkerA().toString());
+			}
+			getHost().refresh();
+		}
+		// If the marker for nodeB already set have to be changed
+		if (ExampleUtils.isAllocatedTo((CallBehaviorAction) view.getElement(), NodeBMarker.NODE_B_STEREOTYPE) != isNodeBMarked) {
+			isNodeBMarked = !isNodeBMarked;
+			if (isNodeBMarked) {
+				decorationService.addDecoration(getMarkerB(), getView());
+			} else {
+				decorationService.removeDecoration(getMarkerB().toString());
+			}
+			getHost().refresh();
+		}
+	}
+</source>
+
+====Implemented CustomEditPolicy Provider ====
+
+An edit policy provider is used to install the NodeDecorationEditPolicy to the right edit parts.
+
+<source lang="java">
+public class CustomEditPolicyProvider implements IEditPolicyProvider {
+	protected String diagramType = org.eclipse.papyrus.uml.diagram.activity.edit.parts.ActivityDiagramEditPart.MODEL_ID;
+	@Override
+	public void addProviderChangeListener(final IProviderChangeListener listener) {
+	}
+	@Override
+	public boolean provides(final IOperation operation) {
+		boolean provide = false;
+		String currentDiagramType;
+		// get the element
+		final EObject referenceElement = ((View) ((CreateEditPoliciesOperation) operation).getEditPart().getModel()).getElement();
+		// Test if it's a creation operation and the element is a CallBehavoirActino
+		if ((operation instanceof CreateEditPoliciesOperation) && (referenceElement instanceof CallBehaviorAction)) {
+			// Get The current diagram type
+			currentDiagramType = ((View) ((CreateEditPoliciesOperation) operation).getEditPart().getModel()).getDiagram().getType();
+			// Test if we are on an Activity Diagram
+			if ((diagramType != null) && (diagramType.equals(currentDiagramType))) {
+				provide = true;
+			} else {
+				provide = false;
+			}
+		}
+		return provide;
+	}
+	@Override
+	public void removeProviderChangeListener(final IProviderChangeListener listener) {
+	}
+	@Override
+	public void createEditPolicies(final EditPart editPart) {
+		editPart.installEditPolicy(NodeDecoratorEditPolicy.EDIT_POLICY_ROLE, new NodeDecoratorEditPolicy());
+	}
+}
+</source>
+
+This edit policy provider is installed with the editpolicyProviders extension point:
+
+<source lang="css">
+<extension
+       point="org.eclipse.gmf.runtime.diagram.ui.editpolicyProviders">
+    <editpolicyProvider
+          class="org.eclipse.papyrus.infra.services.decoration.example.provider.CustomEditPolicyProvider">
+       <Priority
+             name="Medium">
+       </Priority>
+    </editpolicyProvider>
+ </extension>
+</source>
+[[File:images/EditPolicyProviderExtension.jpg]]
+
+====Implemented Decoration Specific Function ====
+The decoration specific function specifies the decoration to be applied on a marked element. It defines the image, the position, the context message of the decoration etc...
+
+<source lang="java">
+public class NodeADecoration implements IDecorationSpecificFunctions {
+	@Override
+	public MarkChildren supportsMarkerPropagation() {
+		// This marker should not be propagated
+		return null;
+	}
+	@Override
+	public ImageDescriptor getImageDescriptorForGE(final IPapyrusMarker marker) {
+		return org.eclipse.papyrus.infra.widgets.Activator.getDefault().getImageDescriptor(Activator.ID, "icons/NodeA.gif"); //$NON-NLS-1$
+	}
+	@Override
+	public PreferedPosition getPreferedPosition(final IPapyrusMarker marker) {
+		return PreferedPosition.NORTH_EAST;
+	}
+	@Override
+	public String getMessage(final IPapyrusMarker marker) {
+		return "Node A decoration example";
+	}
+	@Override
+	public int getPriority(final IPapyrusMarker marker) {
+		return 0;
+	}
+}
+
+</source>
+
+To associate ''decoration specific function''  to a marker, an extension point can be used. In the image below the decoration ''NodeAdecoration'' is linked to the marker type defined in the marker <code>NodeAMarker.MARKER_TYPE</code>
+
+<source lang="css">
+   <extension
+ 		point="org.eclipse.papyrus.infra.services.decoration.decorationSpecificFunctions">
+	  <client
+		class="org.eclipse.papyrus.infra.services.decoration.example.NodeADecoration"
+		decorationType="org.eclipse.papyrus.infra.services.decoration.example.NodeA">
+	  </client>
+	  <client
+		class="org.eclipse.papyrus.infra.services.decoration.example.NodeBDecoration"
+		decorationType="org.eclipse.papyrus.infra.services.decoration.example.NodeB">
+	  </client>
+   </extension>
+
+</source>
+[[File:images/SpecificFunctionExtension.jpg]]
+
+====Implementation without markers====
+NOTE:this implementation does't work for now due to a NPE. A Patch is in progress to fix that.
+=====Architecture=====
+Without marker the architecture of class to implement is less complexe. You only needs the edit policy which will add decoration to the decorationService with the provider which is the same than with marker.
+
+[[File:images/ExampleArchitectureWithoutMarker.jpg]]
+
+=====Implemented Edit Policy=====
+The edit policy is prtty much the same except that we use <code>addDecoration(String id, String type, EObject element, ImageDescriptor decorationImageForGE, ImageDescriptor decorationImageForME, PreferedPosition position, String message, int priority)</code>
+
+So in the refresh methode for NodeB:
+<source lang="java">
+...
+// If the marker for nodeB already set have to be changed
+if (ExampleUtils.isAllocatedTo((CallBehaviorAction) view.getElement(), ExampleUtils.NODE_B_STEREOTYPE) != nodeBMarked) {
+	nodeBMarked = !nodeBMarked;
+	if (nodeBMarked) {
+		// Decoration Without marker
+		decorationService.addDecoration(
+				view.getElement().toString(), // $NON-NLS-1$ 
+				"NodeBDecoration", //$NON-NLS-1$ 
+				view.getElement(),
+				org.eclipse.papyrus.infra.widgets.Activator.getDefault().getImageDescriptor(Activator.ID, "icons/NodeB.gif"), //$NON-NLS-1$
+				org.eclipse.papyrus.infra.widgets.Activator.getDefault().getImageDescriptor(Activator.ID, "icons/NodeB.gif"), //$NON-NLS-1$ ,
+				PreferedPosition.SOUTH_WEST,
+				"NodeB decoration Without marker",
+				0);
+	} else {
+		decorationService.removeDecoration(view.getElement().toString());
+	}
+	getHost().refresh();
+}
+...
+
+</source>
+
+====Result ====
+[[File:images/DiagramExample.jpg]]
+
+===Using Shape Service===
+====Implemented architecture ====
+The use of Shape service is done by the implementation of a shape provider which extends AbstractShapeProvider: "''NodeShapeProvider''". Then "''NodeShapeProvider''" is activated thanks to the shape provider extension point.
+
+[[File:images/ExampleArchitectureWithShapeProvider.jpg]]
+
+====Implemented Shape Provider ====
+The implementated Shape provder will provide shape according to the same conditions than before.
+<source lang="java">
+public class NodeShapeProvider extends AbstractShapeProvider {
+	// The used SVG files
+	private static final String ICONS_SYMBOLS_NODE_A_SVG = "/icons/NodeA.svg";//$NON-NLS-1$
+	private static final String ICONS_SYMBOLS_NODE_B_SVG = "/icons/NodeB.svg";//$NON-NLS-1$
+	...
+	@Override
+	public boolean providesShapes(final EObject view) {
+		boolean provide = false;
+		if (view instanceof View) {
+			final EObject element = ((View) view).getElement();
+			// Test if the element is a CallBehavoirAction and if a stereotyped node is allocated to it.
+			if (element instanceof CallBehaviorAction
+					&& (ExampleUtils.isAllocatedTo((CallBehaviorAction) element, ExampleUtils.NODE_A_STEREOTYPE)
+							|| ExampleUtils.isAllocatedTo((CallBehaviorAction) element, ExampleUtils.NODE_B_STEREOTYPE))) {
+				provide = true;
+			} else {
+				provide = false;
+			}
+		}
+		return provide;
+	}
+	@Override
+	public List<RenderedImage> getShapes(final EObject view) {
+		if (providesShapes(view)) {
+			// Gets the SVG document: here NodeA.svg or/and NodeB.svg
+			final List<SVGDocument> documents = getSVGDocument(view);
+			if (documents != null) {
+				final List<RenderedImage> result = new LinkedList<RenderedImage>();
+				for (final SVGDocument document : documents) {
+					try {
+						// Adds the shape to result
+						result.add(renderSVGDocument(view, document));
+					} catch (final IOException ex) {
+						// Do nothing
+					}
+				}
+				return result;
+			}
+		}
+		return null;
+	}
+	@Override
+	public List<SVGDocument> getSVGDocument(final EObject view) {
+		final List<SVGDocument> svgDocuments = new ArrayList<SVGDocument>();
+		if (providesShapes(view)) {
+			final CallBehaviorAction callBehaviorAction = (CallBehaviorAction) ((View) view).getElement();
+			// If allocation corresponding adds SVG document for Node A
+			if (ExampleUtils.isAllocatedTo(callBehaviorAction, ExampleUtils.NODE_A_STEREOTYPE)) {
+				// Get the SVG document
+				final SVGDocument document = getSVGDocument(URI.createPlatformPluginURI(Activator.ID + ICONS_SYMBOLS_NODE_A_SVG, true).toString());
+				if (document != null) {
+					svgDocuments.add(document);
+				}
+			}
+			// If allocation corresponding adds SVG document for Node B
+			if (ExampleUtils.isAllocatedTo(callBehaviorAction, ExampleUtils.NODE_B_STEREOTYPE)) {
+				// Get the SVG document
+				final SVGDocument document = getSVGDocument(URI.createPlatformPluginURI(Activator.ID + ICONS_SYMBOLS_NODE_B_SVG, true).toString());
+				if (document != null) {
+					svgDocuments.add(document);
+				}
+			}
+		}
+		return svgDocuments;
+	}
+	...
+}
+
+</source>
+
+====Implemented Shape Provider Extension Point ====
+To activate the shape provider we use the Shape Provider Extension Point:
+
+[[File:images/ShapeProviderExtension.jpg]]
+<source lang="xml">
+
+<extension point="org.eclipse.papyrus.infra.gmfdiag.common.shapeProvider">
+   <shapeProvider 
+      class="org.eclipse.papyrus.infra.services.decoration.example.provider.NodeShapeProvider"
+      id="org.eclipse.papyrus.infra.services.decoration.example.nodeShapeProvider"
+      name="NodeShapeProvider">
+      <Priority 
+         name="Medium">
+      </Priority>
+   </shapeProvider>
+</extension>
+</source>
+
+====Result ====
+[[File:images/DiagramExampleWithShapeProvider.jpg]]
+
+===Using GMF Decorator Service===
+
+GMF Decorator framework can be implemented by many ways. The choice made here is to use Figure as decorator which contains icons. This will permits to position icons on the figure. The to locate the figure in the target à specific locator will be implemented. This permits to have a better control of the location of decoration. A tootip will be also added.
+
+====Implemented architecture ====
+To implement it  we create a provider loaded through the specific extension point. The provider will install the node decorator which use the specific locator.
+
+[[File:images/GMFExampleArchitecture.jpg]]
+
+====Implemented Decorator Provider====
+<source lang="java">
+/**
+ * Example of provider for display decoration using gmf decorator framework.
+ */
+public class GMFDecoratorProvider extends AbstractProvider implements IDecoratorProvider {
+	// The key of the installed decorator
+	private static final String GMF_DECORATION_KEY = "gmf_decoration_example_key"; //$NON-NLS-1$
+	@Override
+	public boolean provides(final IOperation operation) {
+		boolean provide = false;
+		// it needs to be a CreateDecoratorsOperation
+		if (operation instanceof CreateDecoratorsOperation) {
+			final IDecoratorTarget decoratorTarget = ((CreateDecoratorsOperation) operation).getDecoratorTarget();
+			final View view = decoratorTarget.getAdapter(View.class);
+
+			// Test if the decoratorTarget element is a CallBehavoirAction
+			if (view != null && ActivityDiagramEditPart.MODEL_ID.equals(UMLVisualIDRegistry.getModelID(view)) && view.getElement() instanceof CallBehaviorAction) {
+				provide = true;
+			} else {
+				provide = false;
+			}
+		}
+		return provide;
+	}
+	@Override
+	public void createDecorators(final IDecoratorTarget decoratorTarget) {
+		final View node = decoratorTarget.getAdapter(View.class);
+		if (node != null) {
+			// Install the decorator
+			decoratorTarget.installDecorator(GMF_DECORATION_KEY, new NodeDecorator(decoratorTarget));
+		}
+	}
+}
+</source>
+
+====Implemented AbstractDecorator ====
+The refresh methods will permit to adds the decoration.
+
+<source lang="java">
+...
+@Override
+public void refresh() {
+	//First of all, we remove decoration
+	removeDecoration();
+	final EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
+	if (editPart instanceof NodeEditPart) {
+		// Get the figure of the editpart
+		final IFigure editPartFigure = ((GraphicalEditPart) editPart).getFigure();
+		// Get the view of the editpart
+		final View view = (View) editPart.getModel();
+
+		// Create a main figure with a flow layout. It will contains icons.
+		final IFigure figure = new Figure();
+		final FlowLayout flowLayout = new FlowLayout();
+		flowLayout.setHorizontal(true);
+		flowLayout.setMinorSpacing(0);
+		figure.setLayoutManager(flowLayout);
+
+
+		// If for nodeA is allocated to the call behavior
+		if (ExampleUtils.isAllocatedTo((CallBehaviorAction) view.getElement(), ExampleUtils.NODE_A_STEREOTYPE)) {
+			// Create child figure
+			final ScaledImageFigure imageFigureA = getImageNode("icons/NodeA.gif");//$NON-NLS-1$
+			// Add it to main figure of the decoration
+			figure.add(imageFigureA);
+		}
+		// If for nodeA is allocated to the call behavior
+		if (ExampleUtils.isAllocatedTo((CallBehaviorAction) view.getElement(), ExampleUtils.NODE_B_STEREOTYPE)) {
+			// Create child figure
+			final ScaledImageFigure imageFigureB = getImageNode("icons/NodeB.gif");//$NON-NLS-1$
+			// Add it to main figure of the decoration
+			figure.add(imageFigureB);
+		}
+
+		// Get MapMode
+		final IMapMode mm = MapModeUtil.getMapMode(editPartFigure);
+		// Set the size of the decorator figure
+		figure.setSize(mm.DPtoLP(IMAGE_WIDTH * figure.getChildren().size()) + 2, mm.DPtoLP(IMAGE_HEIGHT));
+
+		// Get the direction/position of the decoration. Direction will be takes from shape direction in appearance tab of properties view.
+		final Direction direction = getDirection(view);
+
+		// Instantiate a custom locator to have decoration inside the figure.
+		final Locator locator = new InsideDirectedLocator(editPartFigure, direction);
+		// Set the decoration with the custom locator.
+		setDecoration(getDecoratorTarget().addDecoration(figure, locator, false));
+
+		//Set the tool tip of the decoration
+		getDecoration().setToolTip(new Label("GMF Decorations"));
+	}
+}
+</source>
+
+the Figure is get with the following method:
+
+<source lang="java">
+/**
+ * Create a ScaledImageFigure for a specific relative location of a image.
+ * 
+ * @param imageLocation
+ * @return the image.
+ */
+private ScaledImageFigure getImageNode(final String imageLocation) {
+	final ImageDescriptor imageDescriptor = org.eclipse.papyrus.infra.widgets.Activator.getDefault().getImageDescriptor(Activator.ID, imageLocation);
+	final Image image = imageDescriptor.createImage();
+	final ScaledImageFigure imageFigure = new ScaledImageFigure();
+	imageFigure.setImage(image);
+	imageFigure.setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
+	return imageFigure;
+}
+</source>
+
+If you don't want to use a custom locator use instead of addDecoration. A negative margin will put the decoration inside and a positive will put it outside.
+<source lang="java">
+	setDecoration(getDecoratorTarget().addShapeDecoration(figure, direction, -1, false));
+</source>
+
+====Implemented GMF Decorator Provider Extension Point====
+
+To activate the GMF Decorator Provider we use the Extension Point <code>org.eclipse.gmf.runtime.diagram.ui.decoratorProviders </code>:
+
+[[File:images/GMFImplementedExtensionPoint.jpg]]
+
+
+<source lang="xml">
+ <extension
+       point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+    <decoratorProvider
+          class="org.eclipse.papyrus.example.decoration.provider.GMFDecoratorProvider">
+       <Priority
+             name="Medium">
+       </Priority>
+    </decoratorProvider>
+ </extension>
+</source>
+
+====Result====
+[[File:images/GMFResult.jpg]]
+
+== Sources ==
+The plugin of this example can be retrieved in the Papyrus git code repository [http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/tree/examples/org.eclipse.papyrus.service.decoration.example?h=streams/1.1-maintenance here] or imported in File>New>Others...>Examples>Papyrus Example>Decoration Services Examples.

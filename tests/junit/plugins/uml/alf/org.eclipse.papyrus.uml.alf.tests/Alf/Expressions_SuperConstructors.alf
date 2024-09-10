@@ -1,0 +1,78 @@
+/**
+ * Test super constructor invocation expressions.
+ **/
+active class Expressions_SuperConstructors {
+
+	class Super1 {
+
+		public activity 'x$defaultValue$1'(): Integer;
+		public x: Integer = 'x$defaultValue$1'();
+		@Create
+		public Super1();
+		@Create
+		public create(in x: Integer);
+		@Destroy
+		public destroy();
+
+	}
+
+	class Sub1 specializes Super1 {
+
+		public activity 'z1$defaultValue$1'(): Integer;
+		public z1: Integer = 'z1$defaultValue$1'();
+		@Create
+		public Sub1();
+		@Create
+		public a();
+		@Create
+		public b(in x: Integer);
+		@Destroy
+		public destroy();
+
+	}
+
+	class Super2 {
+
+		public activity 'y$defaultValue$1'(): Integer;
+		public y: Integer = 'y$defaultValue$1'();
+		@Create
+		public Super2();
+		@Create
+		public create(in y: Integer);
+		@Destroy
+		public destroy();
+
+	}
+
+	class Sub2 specializes Super2, Super1 {
+
+		public activity 'z2$defaultValue$1'(): Integer;
+		public z2: Integer = 'z2$defaultValue$1'();
+		@Create
+		public Sub2();
+		@Create
+		public create1(in x: Integer);
+		@Create
+		public create2(in x: Integer, in y: Integer);
+		@Destroy
+		public destroy();
+
+	}
+
+	class Sub3 specializes Sub1, Sub2 {
+
+		@Create
+		public Sub3();
+		@Destroy
+		public destroy();
+
+	}
+
+	test(out super0: Super1, out super1: Super1, out s0: Sub1, out s1: Sub1,
+		out s2: Sub1, out s00: Sub2, out s10: Sub2, out s11: Sub2, out s3: Sub3);
+	@Create
+	public Expressions_SuperConstructors();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_SuperConstructors$behavior$1'

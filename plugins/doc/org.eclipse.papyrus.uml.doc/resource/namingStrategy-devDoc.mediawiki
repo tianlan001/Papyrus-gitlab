@@ -1,0 +1,21 @@
+=Naming Strategies=
+==History==
+Until Papyrus Oxygen.3, the created NamedElement were automatically named. The name was found according to the element's UML Metaclass, suffixed by an index. This index was found crossing all the elements in the owner until to build a unique name (''Metaclass' name + index''). This strategy cost many time for huge model and most of the time, the found name is replaced by the user just after the element's creation. 
+
+Since Papyrus Oxygen.3, we implement new strategies, to reduce the time consumption.
+*'''no index''': the created element is named according to its Metaclass. We have no warranty about the uniqueness of its name.
+*'''quick index''': the created element is named according to its Metaclass. This name is suffixed by an index (typically, the number of the elements already contained by its parent +1). We don't check the unicity of the name.
+*'''unique index''': the initial Papyrus strategy
+
+
+==How does it work?==
+Papyrus uses the '''quick index''' strategy by default.
+*The preference key to use to get the behavior to implements is : '''org.eclipse.papyrus.uml.tools.utils.internal.preferences.NameElementNamingStrategyPreferenceInitializer.NAMED_ELEMENT_INDEX_INITIALIZATION''' has been created to allow to the user to choose the naming.
+*All the code providing the preferences is in the plugin '''org.eclipse.papyrus.uml.tools.utils'''.
+*The class in charge of the calculus of the name is and using the preference is '''NamedElementUtil'''.
+*Excepted some classes (which should probably be refactored), we think that the call to the methods used to get the new element's name must provide to an ''EditHelperAdvice''.
+*The best example of clean usage is '''org.eclipse.papyrus.uml.service.types.helper.advice.NamedElementInitializerHelperAdvice''' which call '''NamedElementUtil''' 
+
+
+
+

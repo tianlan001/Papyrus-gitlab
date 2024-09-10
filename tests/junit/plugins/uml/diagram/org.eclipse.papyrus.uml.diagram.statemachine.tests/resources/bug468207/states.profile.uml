@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_f3edsPgXEeW8Us5SRbfNZA" name="states" metaclassReference="_lA5OkPgXEeW8Us5SRbfNZA">
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pBhLYPgXEeW8Us5SRbfNZA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_pBhLYfgXEeW8Us5SRbfNZA" name="states" nsURI="http:///schemas/states/_pBeIEPgXEeW8Us5SRbfNZA/0" nsPrefix="states">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pBiZgfgXEeW8Us5SRbfNZA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pBiZgvgXEeW8Us5SRbfNZA" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pBiZg_gXEeW8Us5SRbfNZA" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pBiZhPgXEeW8Us5SRbfNZA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pBiZhfgXEeW8Us5SRbfNZA" key="Date" value="2016-04-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pBiZhvgXEeW8Us5SRbfNZA" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_pBhLYvgXEeW8Us5SRbfNZA" name="S1">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pBhLY_gXEeW8Us5SRbfNZA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_lsLAMPgXEeW8Us5SRbfNZA"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_pBhLZPgXEeW8Us5SRbfNZA" name="base_Region" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Region"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <elementImport xmi:type="uml:ElementImport" xmi:id="_lA5OkPgXEeW8Us5SRbfNZA" alias="Region">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Region"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_lsLAMPgXEeW8Us5SRbfNZA" name="S1">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_nPZGcPgXEeW8Us5SRbfNZA" name="base_Region" association="_nPWqMPgXEeW8Us5SRbfNZA">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Region"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_nPWqMPgXEeW8Us5SRbfNZA" name="E_S1_Region1" memberEnd="_nPYfYPgXEeW8Us5SRbfNZA _nPZGcPgXEeW8Us5SRbfNZA">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_nPYfYPgXEeW8Us5SRbfNZA" name="extension_S1" type="_lsLAMPgXEeW8Us5SRbfNZA" aggregation="composite" association="_nPWqMPgXEeW8Us5SRbfNZA"/>
+  </packagedElement>
+</uml:Profile>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2020 CEA LIST and others.&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License 2.0&#xA;which accompanies this distribution, and is available at&#xA;https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA;SPDX-License-Identifier: EPL-2.0&#xA;&#xA;Contributors:&#xA;CEA LIST - Initial API and implementation"
+    modelDirectory="/org.eclipse.papyrus.infra.emf.types/src-gen" editDirectory="/org.eclipse.papyrus.infra.emf.types/src-gen"
+    editorDirectory="/org.eclipse.papyrus.infra.emf.types.editor/src-gen" modelPluginID="org.eclipse.papyrus.infra.emf.types"
+    modelName="SetValuesAdvice" editPluginClass="org.eclipse.papyrus.infra.emf.types.advices.values.provider.SetValuesAdviceEditPlugin"
+    testsDirectory="/org.eclipse.papyrus.infra.emf.types.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="11.0" copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.genmodel#//types platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel#//uml platform:/plugin/org.eclipse.uml2.types/model/Types.genmodel#//types">
+  <foreignModel>SetValuesAdvice.ecore</foreignModel>
+  <genPackages prefix="SetValuesAdvice" basePackage="org.eclipse.papyrus.infra.emf.types.advices"
+      resource="XMI" disposableProviderFactory="true" childCreationExtenders="true"
+      ecorePackage="SetValuesAdvice.ecore#/">
+    <genClasses ecoreClass="SetValuesAdvice.ecore#//SetValuesAdviceConfiguration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SetValuesAdvice.ecore#//SetValuesAdviceConfiguration/featuresToSet"/>
+    </genClasses>
+    <genClasses ecoreClass="SetValuesAdvice.ecore#//FeatureToSet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SetValuesAdvice.ecore#//FeatureToSet/featureName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SetValuesAdvice.ecore#//FeatureToSet/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="SetValuesAdvice.ecore#//FeatureValue"/>
+    <genClasses ecoreClass="SetValuesAdvice.ecore#//DynamicValue"/>
+    <genClasses ecoreClass="SetValuesAdvice.ecore#//ConstantValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SetValuesAdvice.ecore#//ConstantValue/valueInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="SetValuesAdvice.ecore#//ListValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SetValuesAdvice.ecore#//ListValue/values"/>
+    </genClasses>
+    <genClasses ecoreClass="SetValuesAdvice.ecore#//QueryExecutionValue"/>
+  </genPackages>
+</genmodel:GenModel>

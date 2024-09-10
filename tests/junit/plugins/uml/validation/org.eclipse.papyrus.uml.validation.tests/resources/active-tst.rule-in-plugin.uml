@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:profile="http://org.eclipse.papyrus/activetest/1" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_PXaagOG1EeOAC6sb_-0VbA" name="model">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_egUQYKS7EeW4s_E9GftyFw" annotatedElement="_RxxkIOG1EeOAC6sb_-0VbA">
+      <body>An inactive class with the stereotype AlwaysActive. This stereotype has an OCL constraint that verifies that the class is active. Thus, the class violates the constraints</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_0LVLUKS7EeW4s_E9GftyFw" annotatedElement="_4iSW8C9SEeShgI5a-mZZKQ">
+      <body>An active class with the stereotype AlwaysActiveMalformed. This stereotype has an OCL constraint which is not well formed. Validation should result in an error reporting the mal-formedness</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_KVybUKS8EeW4s_E9GftyFw" annotatedElement="_CjfAgJ7FEeWu3Jt7boFR1Q">
+      <body>An inactive class with the stereotype AlwaysPassive. This stereotype has a Java constraint that verifies that the class is passive. Thus, this class should not have an error.</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_zutEQKS8EeW4s_E9GftyFw" annotatedElement="_Vksg0J83EeWEmsoUFtjwMA">
+      <body>An active class with the stereotype AlwaysPassive. This stereotype has a Java constraint that verifies that the class is passive. Thus, this class violates the constraint</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_cYRT4KS9EeW4s_E9GftyFw">
+      <body>This model applies a profile with OCL and Java constraints embedded into the plugin.xml (using DSML validation). profile definition.</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Class" xmi:id="_RxxkIOG1EeOAC6sb_-0VbA" name="InactiveOCL"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_4iSW8C9SEeShgI5a-mZZKQ" name="ActiveOCL" isActive="true"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_CjfAgJ7FEeWu3Jt7boFR1Q" name="InactiveJava"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Vksg0J83EeWEmsoUFtjwMA" name="ActiveJava" isActive="true"/>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Jr0gQJ81EeWF7vVRM-jlQQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Jr1uYJ81EeWF7vVRM-jlQQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://org.eclipse.papyrus/activetest/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://ACTIVE_TEST_PROFILE//active.rule-in-plugin.profile.uml#_GkQEIOGnEeO2stwZ2ZCXww"/>
+    </profileApplication>
+  </uml:Model>
+  <profile:AlwaysPassiveJava xmi:id="_MJl4UJ83EeWEmsoUFtjwMA" base_Class="_CjfAgJ7FEeWu3Jt7boFR1Q"/>
+  <profile:AlwaysActiveMalformed xmi:id="_N2ISoJ83EeWEmsoUFtjwMA" base_Class="_4iSW8C9SEeShgI5a-mZZKQ"/>
+  <profile:AlwaysActive xmi:id="_OykswJ83EeWEmsoUFtjwMA" base_Class="_RxxkIOG1EeOAC6sb_-0VbA"/>
+  <profile:AlwaysPassiveJava xmi:id="_Y3DpcJ83EeWEmsoUFtjwMA" base_Class="_Vksg0J83EeWEmsoUFtjwMA"/>
+</xmi:XMI>

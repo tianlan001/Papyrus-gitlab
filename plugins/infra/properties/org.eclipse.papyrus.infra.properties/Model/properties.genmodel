@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/uml2/2.2.0/GenModel"
+    copyrightText="Copyright (c) 2011, 2021 CEA LIST and others.&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License 2.0&#xA;which accompanies this distribution, and is available at&#xA;https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA;SPDX-License-Identifier: EPL-2.0&#xA;&#xA;Contributors:&#xA;  CEA LIST - Initial API and implementation&#xA;"
+    modelDirectory="/org.eclipse.papyrus.infra.properties/src-gen" creationIcons="false"
+    editDirectory="/org.eclipse.papyrus.infra.properties.edit/src-gen"
+    editorDirectory="/org.eclipse.papyrus.infra.properties.editor/src-gen" modelPluginID="org.eclipse.papyrus.infra.properties"
+    modelName="Properties" nonNLSMarkers="true" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.uml2.uml.ecore.importer" complianceLevel="11.0" copyrightFields="false"
+    usedGenPackages="../../org.eclipse.papyrus.infra.constraints/Model/Constraints.genmodel#//constraints ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipse.uml2.types/model/Types.genmodel#//types"
+    operationReflection="true" importOrganizing="true" cacheAdapterSupport="true">
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/importer/org.eclipse.uml2.uml.ecore.importer">
+    <details key="OPPOSITE_ROLE_NAMES" value="IGNORE"/>
+    <details key="DUPLICATE_FEATURES" value="DISCARD"/>
+    <details key="ANNOTATION_DETAILS" value="PROCESS"/>
+    <details key="PROPERTY_DEFAULT_EXPRESSIONS" value="IGNORE"/>
+    <details key="DUPLICATE_FEATURE_INHERITANCE" value="DISCARD"/>
+    <details key="COMMENTS" value="PROCESS"/>
+    <details key="DERIVED_FEATURES" value="PROCESS"/>
+    <details key="SUPER_CLASS_ORDER" value="PROCESS"/>
+    <details key="DUPLICATE_OPERATION_INHERITANCE" value="DISCARD"/>
+    <details key="REDEFINING_OPERATIONS" value="REPORT"/>
+    <details key="INVARIANT_CONSTRAINTS" value="PROCESS"/>
+    <details key="UNION_PROPERTIES" value="REPORT"/>
+    <details key="DUPLICATE_OPERATIONS" value="DISCARD"/>
+    <details key="NON_API_INVARIANTS" value="IGNORE"/>
+    <details key="CAMEL_CASE_NAMES" value="IGNORE"/>
+    <details key="SUBSETTING_PROPERTIES" value="PROCESS"/>
+    <details key="OPERATION_BODIES" value="IGNORE"/>
+    <details key="ECORE_TAGGED_VALUES" value="PROCESS"/>
+    <details key="UNTYPED_PROPERTIES" value="REPORT"/>
+    <details key="REDEFINING_PROPERTIES" value="REPORT"/>
+    <details key="INVOCATION_DELEGATES" value="IGNORE"/>
+    <details key="VALIDATION_DELEGATES" value="IGNORE"/>
+  </genAnnotations>
+  <foreignModel>properties.uml</foreignModel>
+  <genPackages xsi:type="genmodel:GenPackage" prefix="Properties" basePackage="org.eclipse.papyrus.infra"
+      disposableProviderFactory="true" ecorePackage="properties.ecore#/">
+    <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="Environment" basePackage="org.eclipse.papyrus.infra.properties"
+        resource="XMI" disposableProviderFactory="true" contentTypeIdentifier="org.eclipse.papyrus.infra.properties.environment"
+        fileExtensions="environment,xmi" ecorePackage="properties.ecore#//environment"
+        operationsPackage="org.eclipse.papyrus.infra.properties.environment.operations">
+      <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="properties.ecore#//environment/Type">
+        <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="properties.ecore#//environment/Type/String"/>
+        <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="properties.ecore#//environment/Type/Boolean"/>
+        <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="properties.ecore#//environment/Type/Integer"/>
+        <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="properties.ecore#//environment/Type/Reference"/>
+        <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="properties.ecore#//environment/Type/Enumeration"/>
+        <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="properties.ecore#//environment/Type/Double"/>
+      </genEnums>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//environment/Environment">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//environment/Environment/modelElementFactories"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//environment/Environment/widgetTypes"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//environment/Environment/propertyEditorTypes"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//environment/Environment/compositeWidgetTypes"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//environment/Environment/layoutTypes"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//environment/Environment/namespaces"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//environment/Environment/miscClasses"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//environment/ModelElementFactoryDescriptor">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//environment/ModelElementFactoryDescriptor/name"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//environment/ModelElementFactoryDescriptor/factoryClass"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//environment/StandardWidgetType"/>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="properties.ecore#//environment/WidgetType">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//environment/WidgetType/label"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//environment/WidgetType/widgetClass"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//environment/WidgetType/namespace"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//environment/Namespace">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//environment/Namespace/prefix"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//environment/Namespace/name"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//environment/Namespace/value"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//environment/PropertyEditorType">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//environment/PropertyEditorType/type"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//environment/PropertyEditorType/multiplicity"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//environment/CompositeWidgetType"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//environment/LayoutType"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//environment/MiscClass">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//environment/MiscClass/label"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//environment/MiscClass/class"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//environment/MiscClass/namespace"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="Contexts" basePackage="org.eclipse.papyrus.infra.properties"
+        resource="XMI" disposableProviderFactory="true" contentTypeIdentifier="org.eclipse.papyrus.infra.properties.context"
+        fileExtensions="ctx" ecorePackage="properties.ecore#//contexts" operationsPackage="org.eclipse.papyrus.infra.properties.contexts.operations">
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//contexts/Context">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Context/name"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Context/dependencies"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Context/tabs"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Context/views"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Context/dataContexts"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Context/prototype"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Context/label"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+            ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Context/userLabel"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//contexts/Tab">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Tab/label"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Tab/id"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Tab/category"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Tab/image"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Tab/afterTab"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="false"
+            ecoreFeature="ecore:EReference properties.ecore#//contexts/Tab/sections"/>
+        <genFeatures xsi:type="genmodel:GenFeature" children="true" createChild="true"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Tab/allSections"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Tab/indented"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Tab/priority"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//contexts/Section">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Section/sectionFile"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Section/widget"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+            createChild="false" ecoreFeature="ecore:EReference properties.ecore#//contexts/Section/views"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
+            createChild="false" ecoreFeature="ecore:EReference properties.ecore#//contexts/Section/owner"/>
+        <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="properties.ecore#//contexts/Section/getViews"
+            cacheAdapterScope="Resource"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="properties.ecore#//contexts/AbstractSection">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/AbstractSection/name"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/AbstractSection/tab"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="properties.ecore#//contexts/Annotatable">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Annotatable/annotations"/>
+        <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="properties.ecore#//contexts/Annotatable/getAnnotation">
+          <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="properties.ecore#//contexts/Annotatable/getAnnotation/source"/>
+        </genOperations>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//contexts/Annotation">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Annotation/source"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Annotation/references"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Annotation/details"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
+            createChild="false" ecoreFeature="ecore:EReference properties.ecore#//contexts/Annotation/element"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//contexts/Property">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Property/name"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Property/label"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Property/type"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
+            createChild="false" ecoreFeature="ecore:EReference properties.ecore#//contexts/Property/contextElement"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Property/multiplicity"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/Property/description"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Property/redefinedProperties"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/Property/redefinedByProperties"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//contexts/DataContextElement">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/DataContextElement/name"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
+            createChild="false" ecoreFeature="ecore:EReference properties.ecore#//contexts/DataContextElement/package"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/DataContextElement/supertypes"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/DataContextElement/properties"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//contexts/DataContextPackage">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/DataContextPackage/elements"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//contexts/UnknownProperty"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//contexts/View">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/View/name"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/View/sections"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
+            createChild="false" ecoreFeature="ecore:EReference properties.ecore#//contexts/View/context"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/View/automaticContext"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/View/datacontexts"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//contexts/DataContextRoot">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//contexts/DataContextRoot/label"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//contexts/DataContextRoot/modelElementFactory"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="Ui" basePackage="org.eclipse.papyrus.infra.properties"
+        disposableProviderFactory="true" ecorePackage="properties.ecore#//ui" operationsPackage="org.eclipse.papyrus.infra.properties.ui.operations">
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//ui/Element"/>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="properties.ecore#//ui/UIComponent">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ui/UIComponent/attributes"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="properties.ecore#//ui/WidgetAttribute">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ui/WidgetAttribute/name"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="properties.ecore#//ui/Widget"/>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//ui/StandardWidget">
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ui/StandardWidget/widgetType"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//ui/PropertyEditor">
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ui/PropertyEditor/property"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ui/PropertyEditor/readOnly"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ui/PropertyEditor/widgetType"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ui/PropertyEditor/unresolvedProperty"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ui/PropertyEditor/contentProviderClass"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ui/PropertyEditor/showLabel"/>
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ui/PropertyEditor/customLabel"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//ui/UnknownComponent">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ui/UnknownComponent/typeName"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//ui/Layout">
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ui/Layout/layoutType"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//ui/ValueAttribute">
+        <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ui/ValueAttribute/value"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//ui/ReferenceAttribute">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ui/ReferenceAttribute/value"/>
+      </genClasses>
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="properties.ecore#//ui/CompositeWidget">
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ui/CompositeWidget/layout"/>
+        <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+            createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ui/CompositeWidget/widgets"/>
+        <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+            propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ui/CompositeWidget/widgetType"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,5 @@
+# Inform p2 of the bundle renaming
+update.matchExp=providedCapabilities.exists(pc | \
+  pc.namespace == 'org.eclipse.equinox.p2.iu' \
+      && (pc.name == 'org.eclipse.papyrus.infra.services.resourceloading.preferences' \
+       || pc.name == 'org.eclipse.papyrus.infra.services.resourceloading.ui'))

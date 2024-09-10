@@ -1,0 +1,22 @@
+=Diagram Preferences=
+Many preferences are available for the diagrams. This page will be completed as arises.
+*The list of the diagram preferences key is provided by the class <code>org.eclipse.papyrus.infra.gmfdiag.common.preferences.PreferencesConstantsHelper</code>.
+**This class provides methods to calculate the <code>String</code> key for a given preference, represented by an <code>int</code> according to the context:
+***all diagrams
+***a specific diagram
+***a specific UML element 
+
+The preference values are generally stored in the PreferenceStore provided by <code>org.eclipse.papyrus.infra.gmfdiag.common.Activator</code>.
+
+The default value of preferences are generally done by classes extending <code>org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer</code> or by a static method in a PreferencePage, like it is done with <code>org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer</code>
+
+ 
+==Connection Preference==
+===Connection Bendpoints===
+*'''Draw Common Bendpoints''': 
+**the <code>int</code> value is provided by <code>org.eclipse.papyrus.infra.gmfdiag.common.preferences.PreferencesConstantsHelper.DRAW_CONNECTION_POINT</code>
+**the suffix's key is provided by <code>org.eclipse.papyrus.infra.gmfdiag.common.preferences.PreferencesConstantsHelper.DRAW_CONNECTION_POINT_CONSTANT</code>
+**the default value for this preference is <code>false</code>.
+**the class <code>org.eclipse.papyrus.infra.gmfdiag.common.figure.edge.PapyrusEdgeFigure</code> is in charge to draw the bendpoints through the method  <code>drawCommonbendpoints(Graphics)</code>, when the preference is set to <code>true</code>, but we need to override the method <code>org.eclipse.papyrus.infra.gmfdiag.common.figure.edge.PapyrusEdgeFigure.getDrawBendpointPreferenceValue()</code> to get this behavior.
+**The subclass <code>org.eclipse.papyrus.uml.diagram.common.figure.edge.CommonEdgeFigure</code> override the previous method to be able to draw the bendpoints according to the preference value.
+**The algorithm used to find the bendpoints to draw is tested by a JUnit test provided by the class <code>org.eclipse.papyrus.uml.diagram.common.tests.tests.CommonBendpointsTest</code>.

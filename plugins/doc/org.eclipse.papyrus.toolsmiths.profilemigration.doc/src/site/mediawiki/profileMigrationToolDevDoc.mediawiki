@@ -1,0 +1,59 @@
+=General presentation=
+The Profile Migration Tool is mainly base on the difference between the old profile and the new profile. Base on this difference we can get a list of migration action we will apply in the model.
+
+=Migration=
+==Quick overview==
+Globally to do the migration the program is in 4 step:
+# Get the treeNode: the treeNonde correspond to differences between the profile V1 and V2.
+# Initialize the <code>atomicMigratorList</code>: this is the list of <code>IAtomiMigrators</code>. To initialize this list we run into the treeNode and for each node we will test if it is corresponding to a <code>IAtomicMigrator</code>, to do this we use the <code>MigratorFactory</code>.
+# Reapply the profile: we reapply the profile using UML default behavior (many of automatic actions of migration are done by the reapplying the profile). See UML 2.5 <code>Package#applyProfile(Profile)</code>.
+# Migrate the model: we run into the <code>atomicMigratorList</code> and for each <code>IAtomicMigrator</code> we call the <code>migrationAction()</code> method.
+
+==Get differences==
+To get differences between the profile V1 and the profile V2 we use [https://www.eclipse.org/emf/compare/ EMF Compare]. However the output (<code>Comparison</code>) of EMF Compare is not really understandable. This output is interpreted by the class <code>org.eclipse.papyrus.profile.migration.internal.utils.DifferenceTreeBuilder(Comparison)</code> the method <code>buildMatchTree()</code> get a <code>TreeNode</code> from the comparison. The treeNode is much understandable since this element represent differences in a tree form and remove every elements which are not changed. For example, here we are in the left the output of EMF Compare, where there is every element of the model even if there are matching. In the right you can see the TreeNode, there is here only modified elements.
+
+[[File:images/devDoc/Papyrus_Comparison.png|frame|none|Comparison direct output from EMF Compare]]
+[[File:images/devDoc/Papyrus_TreeNode.png|frame|none|Calculated treeNode from the comparison]]
+
+==List of actions==
+After getting the TreeNode corresponding to differences between the profile V1 and V2 we initialize the list of <code>IAtomicMigrator</code>.
+
+
+To initialize the <code>atomicMigratorList</code> we will check for each node of the treeNode if there is a corresponding migrator. To do that we will ask the <code>MigratorFactory</code> by the method <code>instantiateMigrator(TreeNode)</code>. This method check for each known migrator if the treeNode in parameter is valid for the migrator.
+
+This way we get a list of <code>IAtomicMigrator</code>, this list represent every difference between model where the too; have an action to do.
+
+==Migration==
+[[File:images/devDoc/Papyrus_MigratorsStructure.png|frame|none|Migrators structure]]
+
+To do the migration, we need the list of <code>IAtomicMigrator</code>. We run into it and for each <code>IAtomicMigrator</code> we call the <code>migrationAction()</code> method. 
+
+=UI=
+There is a separate plug-in for the UI part of the tool: <code>org.eclipse.papyrus.profile.migration.ui</code>. This plug-in manage with preference and pop-up display during the migration.
+
+==Preference==
+The preference page control if pop-up are display or not during the migration. During the execution, we keep in memory files that the user select (as profile before modification), and the preference page allow the user to remove which are keep file in cache if he want. 
+
+==Dialogs==
+
+[[File:images/devDoc/Papyrus_DialogStructure.png|frame|none|Code structure of UI part]]
+
+=How to add a migrator=
+
+# Create the migrator class which shall implement the <code>IAtomicMigrator</code> and shall have a static method like <code>isValid(TreeNode)</code> this is the method that the migratorFactory will call to determine if the treeNode correspond to this migrator of not. This method should return true if the treeNode correspond to this migrator.
+# Add an entry in the <code>MigratorFactory</code>. When the <code>MigratorFactory</code> is modified, 3 file should be modified in the same time:
+#* org.eclipse.papyrus.profile.migration.factory.IMigratorFactory
+#* org.eclipse.papyrus.profile.migration.factory.MigratorFactory
+#* org.eclipse.papyrus.profile.migration.internal.factory.MigratorFactory
+
+To keep in mind when you are coding the migration action:
+* Think to '''sub stereotype''' application (if it is necessary):
+** use StereotypeApplicationRegistry.get<b>All</b>StereotypeApplicationDescriptors(Stereotype) and not getStereotypeApplicationDescriptors
+** use descriptor.getStereotype() and not directly the stereotype (because the saved stereotype could be the super stereotype)
+* Think to '''update registry of StereotypeApplicationDescriptor''' (StereotypeApplicationRegistry.stereotypeApplicationList) ex:
+** if a stereotype application is remove: we should delete the descriptor to avoid that a migrator try to migrate a delete stereotype application
+** if the stereotype of a stereotype application is change: we should update the descriptor otherwise following migrators will try to access the old stereotype application
+
+=Connection to Papyrus=
+The Profile Migration Tool is connected to Papyrus by the extensionPoint: <code>org.eclipse.papyrus.uml.tools.profileApplicationDelegates</code>. This extension point replace the action of reapplying profile when Papyrus detect a difference of version between the applying profile and the other one.
+

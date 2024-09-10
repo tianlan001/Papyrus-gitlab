@@ -1,0 +1,824 @@
+== Papyrus 2.0 API Migration Guide ==
+
+This document provides a guide to migrating applications that extend Papyrus to the new 2.0 version APIs. In the 2.0 (Neon) release, several refactorings were implemented to fix problems of invalid bundle dependencies. These dependencies are of two kinds:
+
+* dependency on Eclipse UI and/or SWT in bundle that should provide only headless API
+* dependencies that violate the Papyrus layer architecture. For example, bundles in the &quot;Infra&quot; layer using UML or GEF APIs, bundles in the core NatTable component using diagram APIs, etc.
+
+In most cases, these refactorings are simply moving types from one bundle to another bundle that is better suited to hosting them. As such, migration generally requires one or two steps:
+
+# Updating imports to change package names: type names are usually not changed, but the package namespaces do change to reflect the new containing bundle name
+# Adding new bundle dependencies to bring the new packages into the classpath. This step will sometimes not be required when the bundle to which a type was moved is already on the dependent bundle's classpath
+
+{{note|Owing to the Papyrus project's policy prohibiting <code>Require-Bundle</code> re-exports, it will sometimes be necessary to change your bundles' dependencies in this migration task even when none of the APIs that it uses are moved, because of refactorings in the transitive dependencies of APIs that your bundles do use.}}
+
+Migration details are presented by Papyrus component/layer and theme in the following sections.
+
+Some refactorings are done in a more compatible fashion, by deprecating APIs and providing replacements, usually in a lower-level layer. These cases are self-documenting and are flagged in client code by new deprecation warnings, so they are not addressed in this document.
+
+== Infra Layer ==
+
+=== UI Dependencies ===
+
+==== APIs Moved out of the infra.tools Bundle ====
+
+Several UI-dependency classes are moved from the <code>org.eclipse.papyrus.infra.tools</code> bundle to <code>org.eclipse.papyrus.infra.ui</code>. These simply require package renames in imports and adding the <code>infra.ui</code> bundle dependency.
+
+Some packages are moved in their entirety (<code>*</code> replaces the prefix <code>org.eclipse.papyrus</code>):
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="47%"| Old Package
+!width="52%"| New Package
+|-
+| *.infra.tools.converter
+| *.infra.ui.converter
+|-
+| *.infra.tools.dnd
+| *.infra.ui.dnd
+|-
+| *.infra.tools.messages which should not have been API in any case
+| *.infra.ui.messages
+|-
+| *.infra.tools.preferences
+| *.infra.ui.preferences
+|-
+| *.infra.tools.preferences.ui.dialog
+| *.infra.ui.preferences.dialog
+|}
+
+And in the <code>org.eclipse.papyrus.infra.tools.util</code> package, several individual types are moved to <code>org.eclipse.papyrus.infra.ui.util</code>:
+
+* <code>AbstractCreateMenuFromCommandCategory</code>
+* <code>EclipseCommandUtils</code>
+* <code>EditorHelper</code>
+* <code>ICallableWithProgress</code>
+* <code>LocalMemento</code>
+* <code>SelectionHelper</code>
+* <code>UIUtil</code>
+* <code>WorkbenchPartHelper</code>
+
+===== The UIUtil API for asynchronous code execution =====
+
+The <code>UIUtil</code> class presents some interesting use cases. It is often used by clients to provide a simple means of deferring execution of some block of code or ensuring that some code is executed on the UI thread, even in an otherwise headless API (usually because it is known or assumed that common use cases for that API are initiated by an application UI). To that end, a new API is introduced in the <code>org.eclipse.papyrus.infra.tools</code> bundle that provides a headless-compatible access to this UI execution capability:
+
+* <code>org.eclipse.papyrus.infra.tools.util.CoreExecutors</code>. This new class is intended to provide access to a variety of useful <code>Executor</code> implementations for asynchronous execution of code. The <code>getUIExecutorService</code> method provides one such executor for posting code to the UI thread. If there is no UI thread because the application is a headless Eclipse instance, then this executor simply uses a daemon thread as per the standard Java platform single-thread executor service
+* <code>org.eclipse.papyrus.infra.tools.util.IExecutorService</code>. This extension of the Java Platform <code>ExecutorService</code> interface provides methods for synchronous execution of <code>Runnable</code>s and <code>Callable</code>s on the UI thread. The UI executor service provided by the <code>CoreExecutors</code> class implements that protocol using <code>Display.syncExec</code> when the UI is available
+
+==== APIs Moved out of the infra.core Bundle ====
+
+Several UI-dependent APIs are moved out of the <code>org.eclipse.papyrus.infra.core</code> bundle into <code>org.eclipse.papyrus.infra.ui</code>, most notably the <code>IMultiDiagramEditor</code> interface and its related service APIs.
+
+Some packages are moved in their entirety:
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="50%"| Old Package
+!width="50%"| New Package
+|-
+| *.infra.core.contentoutline
+| *.infra.ui.contentoutline
+|-
+| *.infra.core.editor.reload
+| *.infra.ui.editor.reload
+|-
+| *.infra.core.editorsfactory
+| *.infra.ui.editorsfactory.anytype
+|-
+| *.infra.core.editorsfactory.anytype
+| *.infra.ui.editorsfactory
+|-
+| *.infra.core.extension.commands
+| *.infra.ui.extension.commands
+|-
+| *.infra.core.extension.diagrameditor
+| *.infra.ui.extension.diagrameditor
+|-
+| *.infra.core.lifecycleevents
+| *.infra.ui.lifecycleevents
+|-
+| *.infra.core.multidiagram.actionbarcontributor
+| *.infra.ui.multidiagram.actionbarcontributor
+|}
+
+In the <code>org.eclipse.papyrus.infra.core.editor</code> package, several types were moved to a new <code>org.eclipse.papyrus.infra.ui.editor</code> package:
+
+* <code>ContentProviderServiceFactory</code>
+* <code>CoreMultiDiagramEditor</code>
+* <code>DiSashModelManagerServiceFactory</code>
+* <code>DiSashModelMngrServiceFactory</code>
+* <code>IMultiDiagramEditor</code>
+* <code>IPapyrusPageInput</code>
+* <code>IReloadableEditor</code>
+* <code>MultiDiagramEditorSelectionContext</code>
+* <code>MultiDiagramPropertySheetPage</code>
+* <code>PageIconRegistryServiceFactory</code>
+* <code>PageMngrServiceFactory</code>
+* <code>PapyrusPageInput</code>
+
+And in the <code>org.eclipse.papyrus.infra.core.util</code> package, several individual types are moved to <code>org.eclipse.papyrus.infra.ui.util</code>:
+
+* <code>DisplayUtils</code>
+* <code>EditorUtils</code>
+* <code>PapyrusImageUtils</code> — note that the icon resources are also moved
+* <code>ServiceUtilsForActionHandlers</code>
+* <code>ServiceUtilsForWorkbenchPage</code>
+
+===== The service utilities API =====
+
+The <code>AbstractServiceUtils</code> class and its subclass present some interesting use cases for the API migration. The <code>AbstractServiceUtils</code> class in the 1.x release provided the following methods that were accessible through all of the concrete utility subclasses:
+
+* <code>getIPageMngr(T): IPageMngr</code>
+* <code>getIPageManager(T): IPageManager</code>
+* <code>getILifeCycleEventsProvider(T): ILifeCycleEventsProvider</code>
+* <code>getISashWindowsContainer(T): ISashWindowsContainer</code>
+* <code>getNestedActiveEditorPart(T): IEditorPart</code>
+
+These methods were all convenient shortcuts and are simply deleted in the 2.0 API. There is no sensible way to move them because the types that exposed these methods must remain accessible in a headless context, but the APIs that they return are strictly UI-dependent. Clients must change to access these services using the standard <code>getService(Class&lt;?&gt;, T)</code> method. In the case of the nested active editor part, the replacement is
+
+<source lang="java">    ServiceUtilsForXyz.getInstance().getService(
+        ISashWindowsContainer.class, xyz).getActiveEditor();</source>
+Also, the <code>ServiceUtilsForActionHandlers</code> class is used by many clients to access the services in the currently active Papyrus editor, where the calling context doesn't actually know what that editor is. This worked by looking for the Platform UI's active editor and getting its service registry. That obviously doesn't work in the context of the now headless <code>org.eclipse.papyrus.infra.core</code> bundle, so a new OSGi service is defined that allows the core <code>AbstractServiceUtils</code> API to access this current-editor-context service registry. Clients that depend on this capability can now, if they no longer have access to the <code>ServiceUtilsForActionHandlers</code> API (which is deprecated anyways), get it thus:
+
+<source lang="java">
+    ServiceUtils.getInstance().getServiceRegistry(null); // to get the registry
+    ServiceUtils.getInstance().getModelSet(null);        // To get the ModelSet
+    ServiceUtils.getInstance().getService(IPageManager.class, null); // Others
+</source>
+==== Bundle Re-exports Removed from the infra.core Bundle ====
+
+Although it was in contravention of Papyrus project policy, the 1.x version of the <code>org.eclipse.papyrus.infra.core</code> bundle re-exported its dependency on the <code>org.eclipse.papyrus.infra.core.sasheditor.di</code> bundle for its DI/sash-windows model and other APIs. This is an overtly UI-dependent bundle, so it is no longer used by the <code>infra.core</code> bundle in Papyrus 2.0 and therefore is not re-exported. Clients that relied on this re-export will have to add it explicitly. Moreover, the EMF model that was provided by that bundle is moved to another new bundle, as [[#apis-moved-out-of-the-infra.core.sasheditor.di-bundle|discussed below]].
+
+==== APIs Moved out of the infra.emf Bundle ====
+
+A few UI-dependent packages are moved from in their entirety from the <code>org.eclipse.papyrus.infra.emf</code> bundle to a new <code>org.eclipse.papyrus.infra.ui.emf</code> bundle (<code>*</code> replaces the prefix <code>org.eclipse.papyrus</code>):
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="47%"| Old Package
+!width="52%"| New Package
+|-
+| *.infra.emf.databinding
+| *.infra.ui.emf.databinding
+|-
+| *.infra.emf.dialog
+| *.infra.ui.emf.dialog
+|-
+| *.infra.emf.providers
+| *.infra.ui.emf.providers
+|-
+| *.infra.emf.providers.strategy
+| *.infra.ui.emf.providers.strategy
+|}
+
+One class is moved from the <code>org.eclipse.papyrus.infra.emf.adapters</code> package to <code>org.eclipse.papyrus.infra.ui.emf.adapter</code>:
+
+* <code>EObjectAdapterFactory</code>
+
+One class is moved from <code>org.eclipse.papyrus.infra.emf.utils</code> to <code>org.eclipse.papyrus.infra.emf.utils</code>:
+
+* <code>ProviderHelper</code>
+
+In fact, the <code>org.eclipse.papyrus.infra.ui.emf.utils.ProviderHelper</code> class now also has a <code>getCustomizationManager()</code> method that should now be used instead of the same method on the <code>org.eclipse.papyrus.infra.emf.Activator</code> class to access the EMF Facet customization manager.
+
+One class is moved from the <code>org.eclipse.papyrus.infra.emf.utils</code> package to <code>org.eclipse.papyrus.infra.ui.converter</code> in the <code>org.eclipse.papyrus.infra.ui</code> bundle:
+
+* <code>EMFStringValueConverter</code>
+
+and several others are moved to the <code>org.eclipse.papyrus.infra.ui.util</code> package because they have nothing to do with the EMF component, specifically:
+
+* <code>ServiceUtilsForHandlers</code>
+* <code>ServiceUtilsForIEvaluationContext</code>
+* <code>ServiceUtilsForSelection</code>
+
+Finally, note that, although the <code>org.eclipse.papyrus.infra.emf</code> bundle no longer has any UI dependencies in version 2.0, the <code>EMFHelper::getEObject(Object)</code> utility API still can unwrap selections from the ''Model Explorer'' and other views based on the EMF Facet tree model nodes that encapsulate the business objects being presented.
+
+==== APIs Moved out of the infra.core.sasheditor.di Bundle ====
+
+The <code>infra.core.sasheditor.di</code> bundle in the 1.x version performs two distinct functions: defining an EMF model for the editor layout in the <code>*.di</code> (and also <code>*.sash</code>) resource, and implementing a sash-windows content provider (from the <code>infra.core.sasheditor</code> bundle) based on this DI model. Unfortunately, the latter adds a UI dependency to the bundle, so that headless code cannot make use of the DI model API.
+
+The DI model packages are moved into their own bundle, better aligning with the usual EMF code generation pattern. The following packages are now provided by the <code>org.eclipse.papyrus.infra.sashwindows.di</code> bundle:
+
+* <code>org.eclipse.papyrus.infra.core.sashwindows.di</code>
+* <code>org.eclipse.papyrus.infra.core.sashwindows.di.exception</code>
+* <code>org.eclipse.papyrus.infra.core.sashwindows.di.impl</code>
+* <code>org.eclipse.papyrus.infra.core.sashwindows.di.util</code>
+
+This new bundle is now a dependency of the <code>infra.core</code> bundle, which continues to use the DI model API. However, it is not re-exported as the <code>infra.core.sasheditor.di</code> dependency was in the 1.x version, so clients of the DI model API that got it &quot;for free&quot; from <code>infra.core</code> must now add an explicit dependency on <code>infra.core.sashwindows.di</code>.
+
+Similarly, the <code>IPageManager</code> API does still need to be accessible by client code in a headless context in order to maintain the integrity of the DI/Sash model references to pages, especially when the notation views that they reference are deleted. This is necessary whether they are presented in an editor or not. A part of this is the particles of edit advice that clean up page-references to deleted objects. Accordingly, the following classes are moved from the <code>org.eclipse.papyrus.infra.core.sasheditor.di</code> bundle to <code>org.eclipse.papyrus.infra.core.sashwindows.di</code> along with the DI model, itself:
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="56%"| Old Type
+!width="43%"| New Type
+|-
+| *.sasheditor.contentprovider.IPageManager
+| *.sashwindows.di.service.IPageManager
+|-
+| *.sasheditor.contentprovider.service.ILocalPageService
+| *.sashwindows.di.service.ILocalPageService
+|-
+| *.sasheditor.contentprovider.service.AbstractLocalPageService
+| *.sashwindows.di.service.AbstractLocalPageService
+|}
+
+Along with these, the <code>IPageUtils::getMemoizedCloseAllPagesCommand()</code> method is moved to the <code>org.eclipse.papyrus.infra.core.sashwindows.di.util.DiUtils</code> class. Also, the <code>org.eclipse.papyrus.infra.core.sasheditor.contentprovider.PageMngr</code> class, which implemented the deprecated <code>IPageMngr</code> interface, is moved to <code>org.eclipse.papyrus.infra.core.sashwindows.di.service.BasicPageManagerImpl</code> as a headless implementation of the <code>IPageManager</code> service. It includes support for the legacy <code>PageList</code> object in the DI model and is specialized, as the <code>PageMngr</code> was previously, by the UI-based <code>PageManagerImpl</code> in the <code>org.eclipse.papyrus.infra.core.sasheditor.di</code> bundle.
+
+==== API Moved out of the infra.constraints Bundle ====
+
+The <code>org.eclipse.papyrus.infra.constraints.providers.ConstraintTypeContentProvider</code> class is moved to a new bundle <code>infra.constraints.ui</code> as <code>org.eclipse.papyrus.infra.constraints.ui.providers.ConstraintTypeContentProvider</code>.
+
+More significantly, the signatures of API methods that accepted <code>ISelection</code> or <code>IStructuredSelection</code> (which are JFace UI types) now accept more plastic <code>Object</code> and <code>Collection&lt;?&gt;</code> parameters, respectively:
+
+* <code>IConstraintEngine::getDisplayUnits(Object selection)</code> (and hence the same in the <code>DefaultConstraintEngine</code> class) no longer requires an <code>ISelection</code>
+* <code>Constraint::match(Collection&lt;?&gt; selection)</code> (and hence the same in <code>AbstractConstraint</code> and <code>CompoundConstraint</code>) no longer requires an <code>IStructuredSelection</code>
+
+Note that the default implementation of the <code>getDisplayUnits(Object)</code> API accepts arguments in a variety of shapes, from which it tries to get or create a collection to pass along to its constraints:
+
+* incoming <code>null</code>s are coerced to empty collections
+* incoming collections are taken as they are
+* incoming objects that offer a no-argument collection coercion method such as <code>asSet()</code> or <code>toList()</code> or similar (which includes the <code>IStructuredSelection</code> type) will be converted to a collection via that method
+* other objects will be wrapped in a singleton collection
+
+==== APIs Moved out of the infra.services.edit Bundle ====
+
+The <code>ElementTypeValidator</code> class is moved from the <code>org.eclipse.papyrus.infra.services.edit.utils</code> package to the <code>org.eclipse.papyrus.infra.services.ui.dialogs</code> package in a new <code>org.eclipse.papyrus.infra.services.ui</code> bundle.
+
+==== APIs Moved out of the infra.onefile Bundle ====
+
+Several UI-dependent packages are moved out of the <code>infra.onefile</code> bundle into a new <code>org.eclipse.papyrus.infra.onefile.ui</code> bundle. However, most of these contained only internal APIs and were not exported at all, so clients should not be affected.
+
+One package is partially moved:
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="47%"| Old Package
+!width="52%"| New Package
+|-
+| *.infra.onefile.providers
+| *.infra.onefile.ui.providers
+|}
+
+The following types in the <code>onefile.providers</code> package were moved to the new <code>onefile.ui.providers</code> package:
+
+* <code>PapyrusContentProvider</code>
+* <code>PapyrusLabelProvider</code>
+* <code>PapyrusViewerSorter</code>
+
+The <code>OneFileModelProvider</code> class remains in the headless <code>infra.onefile</code> bundle and other classes are now internal in the UI bundle because they were not public API:
+
+* <code>CopyToClipboardAction</code>
+* <code>OneFileDecorator</code>
+* <code>PapyrusEditActionProvider</code>
+* <code>PapyrusModelActionProvider</code>
+* <code>SubresourceFileActionProvider</code>
+
+Finally, some APIs are changed on the sub-type level:
+
+* the <code>IPapyrusElement::getImage()</code> method is removed. This is simply incompatible with a headless execution environment and is an incorrect placement of the responsibility, anyways, which in Eclipse is served by label providers. Thus, the implementations of this API are now provided exclusively by the <code>PapyrusLabelProvider</code> class in the UI bundle
+* several API methods are moved from the <code>OneFileUtils</code> class into a new class <code>org.eclipse.papyrus.infra.onefile.ui.utils.OneFileUIUtils</code>:
+** <code>getActivePage()</code>
+** <code>getEditorID(IEditorInput)</code>
+** <code>isOpenInEditor(Object)</code>
+** <code>openInEditor(Object, boolean)</code>
+
+It is doubtful that any of these should have been used by clients in the first place, as they are all redundant with similar utilities provided now by the <code>infra.ui</code> bundle (formerly by the <code>infra.core</code> bundle).
+
+=== GEF 3 Dependencies ===
+
+To support the introduction of diagrams based on the [https://wiki.eclipse.org/GEF/GEF4 new GEF 4 API], dependencies on the GEF 3 API need to be isolated as much as possible from the core GMF-based diagram infrastructure in Papyrus. Also, because GEF implies a UI dependency, dependencies on GEF APIs in bundles that should be headless also need to be refactored.
+
+Accordingly, some GEF-related refactorings in the Infra Layer may need to be accounted for by clients.
+
+==== APIs Moved out of the infra.core.sasheditor Bundle ====
+
+The <code>MultiDiagramEditorGefDelegate</code> class is moved from the <code>org.eclipse.papyrus.infra.core.sasheditor.editor</code> package to the <code>org.eclipse.papyrus.infra.gmfdiag.gef.internal.editor</code> package in a new <code>org.eclipse.papyrus.infra.gmfdiag.gef</code> bundle. Note that this API is now internal.
+
+Also, the <code>CoreMultiDiagramEditor</code> class, which itself was moved from the <code>infra.core</code> bundle to <code>infra.ui</code>, has had its <code>gefAdaptor</code> field removed because the GEF dependency in the <code>infra.ui</code> bundle would be illegal. Accordingly, this is now implemented as an external adapter via Eclipse Platform's adapter registry: the <code>CoreMultiDiagramEditorAdapterFactory</code> class in the <code>infra.gmfdiag.gef</code> bundle provides the <code>ActionRegistry</code> adapter via the <code>MultiDiagramEditorGefDelegate</code>.
+
+=== UML Dependencies ===
+
+==== New APIs to Generalize UML-specific Patterns ====
+
+===== Replacing Usage of UmlModel =====
+
+The <code>org.eclipse.papyrus.uml.tools.utils.UmlModel</code> API (often via <code>UmlUtils</code> in the same package) is commonly used in the 1.x releases to access the &quot;semantic model&quot;, being the model content that it is the user's intent to edit. This naturally assumes UML content to the exclusion of any other (the Papyrus vision being broader than UML). Several new and updated APIs are now available for a more generic access to the model content:
+
+* in the ''Language Service'', an <code>ILanguage</code> can now be associated with an <code>IModel</code> that provides access to its semantic content in the <code>ModelSet</code> via a new <code>&lt;modelBinding&gt;</code> element in the <code>org.eclipse.papyrus.infra.core.languages</code> extension point. The <code>UmlModel</code> is thus associated with the UML language. The <code>ILanguage</code> interface has a new <code>getModel(ModelSet) : IModel</code> API to get the associated language, if there is one. Similarly, the <code>ILanguageService</code> has a static convenience method <code>getLanguageModels(ModelSet)</code> for obtaining all of the semantic models in a model set that have content
+* the <code>IEMFModel</code> interface extending <code>IModel</code> has a new <code>getRootElements() : Iterable&lt;? extends EObject&gt;</code> API providing the root semantic model elements. Thus, for any language models (per above) that implement this interface, they can now provide the actual root semantic model elements that the user is editing. The <code>UmlModel</code> implementation of this API provides the top-most UML elements, excluding stereotype applications or other foreign-schema resource contents
+* the ''Semantic Service'' now more accurately provides the root semantic model elements, according to the aforementioned language models, instead of all contents of all resources in the set. Also, the <code>SemanticService::getSemanticIModels()</code> API now is implemented, providing the language models as above
+
+===== Replacing Usage of SemanticUMLContentProvider =====
+
+Several generic UI components, such as element-chooser dialogs and even the ''Model Explorer'' view, have a need to present the semantic model content from the <code>ModelSet</code> to the user. Thus, it was often necessary to construct a <code>SemanticUMLContentProvider</code> as content provider for a <code>TreeViewer</code>. The most appropriate <code>ITreeContentProvider</code>s for presentation of model content can now be obtained via the semantic <code>IModel</code>s discussed in the previous section:
+
+* a new <code>org.eclipse.papyrus.infra.ui.providers.ISemanticContentProviderFactory</code> interface creates tree-content providers conforming to the specialized Papyrus protocols required for various use cases: <code>IStaticContentProvider</code>, <code>IHierarchiveContentProvider</code>, and <code>IAdaptableContentProvider</code>. The provider factories are self-composable; a composite factory yields composite content providers
+* the <code>IModel</code> interface now extends <code>IAdaptable</code>, to provide for adapters of <code>ISemanticContentProviderFactory</code> type. Thus, for any semantic model (as above) that has a content-provider factory adapter, a suitable tree content provider can be obtained. By composing the factories for all semantic models in the model-set, all potentially heterogeneous semantic content can be presented to the user in a unified view (for example, if there is Ecore content in addition to UML content in the model-set)
+* in the 2.0 release, a provider factory adapter is supplied for the <code>UmlModel</code> that creates the <code>SemanticUMLContentProvider</code> used previously
+
+Additionally, the <code>org.eclipse.papyrus.infra.ui.emf.utils.ProviderHelper</code> class provides static convenience APIs for obtaining a language-appropriate content provider for a <code>ResourceSet</code>.
+
+===== Replacing Usage UML-specific XML Enablement Expression Definitions =====
+
+Several menu/toolbar contributions in Papyrus are guarded with enablement expressions that are UML-specific, that should be more generally applicable to Papyrus editors on any kind of semantic model. Consider replacing expression definitions as follows
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="50%"| Old Definition/Property
+!width="50%"| New Definition/Property
+|-
+| *.uml.diagram.common.IsPapyrusActiveWithUMLModel
+| *.ui.semanticModelActive
+|}
+
+Note that the &quot;old definitions&quot; in the left column of the table above are still defined and usable in the appropriate circumstances.
+
+==== Extension Identifiers Moved out of the uml.diagram namespace ====
+
+The <code>org.eclipse.papyrus.uml.diagram.ui.toolbar</code> contribution to the Platform toolbars is defined in the <code>org.eclipse.papyrus.infra.ui</code> bundle. Accordingly, its identifier is changed to <code>org.eclipse.papyrus.ui.toolbar</code> to better reflect its role as '''the''' Papyrus toolbar.
+
+=== Diagram Layer Dependencies ===
+
+==== NotationModel and NotationUtils ====
+
+Papyrus supports two kinds of notational views on models: graphical diagrams and tables. Extenders may well implement more. A common use of the <code>NotationModel</code> API (sometimes indirectly via the <code>NotationUtils</code> is the addition of a newly created view (diagram, table) to the <code>*.notation</code> resource of the model currently being edited. This dependency on the <code>NotationModel</code> is not a problem in the case of diagrams, because dependency on the diagram layer in that case is correct. For tables, however, this dependency is a problem. To address that, new APIs are added to the Papyrus Model Set:
+
+* <code>IEMFModel</code> gets new operations <code>canPersist(EObject) : boolean</code> and <code>persist(EObject) : boolean</code> that give client code a generic way to find the proper place to store a new root object such as a notation view
+* the <code>ModelSet</code> class gets a new operation <code>getModelToPersist(EObject) : IEMFModel</code> that makes it easy to find the right model with which to add a root element to the most appropriate resource
+
+==== Diagram Hyperlinks ====
+
+The <code>org.eclipse.papyrus.infra.hyperlink</code> bundle in the Mars release provides all of the various kinds of Hyperlink supported by the Papyrus diagrams, including links to diagram views. The contribution of the type of hyperlink is moved up into the Diagram Layer. The following types are all moved into the <code>org.eclipse.papyrus.infra.gmfdiag.hyperlink</code> bundle:
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="50%"| Old Type Name
+!width="50%"| New Type Name
+|-
+| *.infra.hyperlink.helper.EditorHyperLinkHelper
+| *.infra.gmfdiag.hyperlink.helper.EditorHyperLinkHelper
+|-
+| *.infra.hyperlink.object.HyperLinkEditor
+| *.infra.gmfdiag.hyperlink.object.HyperLinkEditor
+|-
+| *.infra.hyperlink.ui.EditorHyperLinkEditorShell
+| *.infra.gmfdiag.hyperlink.ui.EditorHyperLinkEditorShell
+|-
+| *.infra.hyperlink.ui.EditorLookForEditorShell
+| *.infra.gmfdiag.hyperlink.ui.EditorLookForEditorShell
+|}
+
+==== On-Demand Loading Resource Set ====
+
+The <code>org.eclipse.papyrus.infra.services.resourceloading.util.LoadingUtils::unloadResourcesFromModelSet(...)</code> variant with the option to refresh diagrams is removed because it was not used within Papyrus. The code that used it was superseded by Papyrus Editor's deferred re-load framework.
+
+Also, the <code>org.eclipse.papyrus.infra.services.resourceloading.preferences</code> bundle is renamed <code>org.eclipse.papyrus.infra.services.resourceloading.ui</code> because the preference page is just one special case of a UI element. All of its APIs, including the <code>StrategyChooser</code> class implementing the <code>IStrategyChooser</code> interface, are now internal. Clients that (for some reason) needed to access the current loading strategy chooser can now access the editor's active <code>IStrategyChooser</code> in the service registry (it is now registered as a service). A new <code>IStrategyChooser::setStrategy(int) : boolean</code> operation is provided to update the active loading strategy.
+
+==== Table and Diagram Coöperation ====
+
+Papyrus tables and diagrams support copy/paste back and forth between them. To that end, in the Mars release, the <code>org.eclipse.papyrus.infra.nattable.common</code> bundle provided a Paste Strategy. The <code>IPasteStrategy</code> API is defined in the Diagram Layer because it is design to handle the quirks of pasting in a graphical context. This paste strategy is extract into a new bundle <code>org.eclipse.papyrus.infra.nattable.gmfdiag</code> that can provide any and all table/diagram interoperability function.
+
+=== Views Dependencies ===
+
+==== Properties Model ====
+
+Several of the Infra Layer bundles (not only diagram infrastructure but also the infrastructure core, including bundles that should be headless) have dependencies in the 1.x releases on the Properties Model from the <code>org.eclipse.papyrus.views.properties.model</code> bundle and also its <code>.edit</code> counterpart for bundles that extend/re-used the properties model. This dependency is a violation of the strictly acyclic dependencies between Papyrus layers.
+
+Accordingly, these model bundles are refactored into the Infra Layer. The bundle names are changed according to the following table
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="41%"| Old Bundle
+!width="58%"| New Bundle
+|-
+| *.views.properties.model
+| *.infra.properties
+|-
+| *.views.properties.model.edit
+| *.infra.properties.edit
+|-
+| *.views.properties.model.editor
+| *.infra.properties.editor
+|}
+
+Along with this, the model API packages are correspondingly renamed:
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="41%"| Old Package
+!width="58%"| New Package
+|-
+| *.views.properties.contexts
+| *.infra.properties.contexts
+|-
+| *.views.properties.contexts.impl
+| *.infra.properties.contexts.impl
+|-
+| *.views.properties.contexts.util
+| *.infra.properties.contexts.util
+|-
+| *.views.properties.environment
+| *.infra.properties.environment
+|-
+| *.views.properties.environment.impl
+| *.infra.properties.environment.impl
+|-
+| *.views.properties.environment.util
+| *.infra.properties.environment.util
+|-
+| *.views.properties.ui
+| *.infra.properties.ui
+|-
+| *.views.properties.ui.impl
+| *.infra.properties.ui.impl
+|-
+| *.views.properties.ui.util
+| *.infra.properties.ui.util
+|}
+
+as well as a non-model package that serves persistence of context and environment models:
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="41%"| Old Package
+!width="58%"| New Package
+|-
+| *.views.properties.catalog
+| *.infra.properties.catalog
+|}
+
+This moved package includes the <code>PropertiesCatalog</code> EMF resource implementation and the <code>PropertiesURIHandler</code> that implements its <code>ppe:</code> URI scheme.
+
+Extension points are moved or split:
+
+* the <code>org.eclipse.papyrus.views.properties.environment</code> point is renamed <code>org.eclipse.papyrus.infra.properties.environments</code> (note the plural, now) and is otherwise unchanged
+* the <code>org.eclipse.papyrus.properties.context</code> point is split into two. A new <code>org.eclipse.papyrus.infra.properties.contexts</code> point (note the plural, now) defines the <code>&lt;context&gt;</code> element for registration of context models. The old extension point is retained, minus the <code>&lt;context&gt;</code> element, for association of contexts with preference pages via the <code>&lt;preferencePageBinding&gt;</code> element
+
+==== Properties UI ====
+
+In the 1.x releases, all of the UI APIs for the XWT-based property sheets are in the <code>org.eclipse.papyrus.views.properties</code> bundle. However, this bundle doesn't actually define any view (the Properties View is provided by Eclipse Platform). Moreover, none of the clients of these APIs care that the properties are shown in some view (and in the Neon release the Welcome Page of the editor reuses the framework to present widgets in a totally different context). These APIs are used extensively by bundles in the Infra, Table, and Diagram layers that have nothing to do with specific views.
+
+So, all of the APIs for definition and presentation of properties widgets are factored out of the <code>org.eclipse.papyrus.views.properties</code> bundle into a new <code>org.eclipse.papyrus.infra.properties.ui</code> bundle. The following packages are renamed in the new bundle (note that some packages that were not internal now are):
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="41%"| Old Package
+!width="58%"| New Package
+|-
+| *.views.properties.creation
+| *.infra.properties.ui.creation
+|-
+| *.views.properties.extensions
+| *.infra.properties.internal.ui.observable
+|-
+| *.views.properties.messages
+| *.infra.properties.internal.ui.messages
+|-
+| *.views.properties.modelelement
+| *.infra.properties.ui.modelelement
+|-
+| *.views.properties.observable
+| *.infra.properties.internal.ui.observable
+|-
+| *.views.properties.preferences
+| *.infra.properties.ui.preferences
+|-
+| *.views.properties.providers
+| *.infra.properties.ui.providers
+|-
+| *.views.properties.runtime
+| *.infra.properties.ui.runtime
+|-
+| *.views.properties.util
+| *.infra.properties.ui.util
+|-
+| *.views.properties.widgets
+| *.infra.properties.ui.widgets
+|-
+| *.views.properties.widgets.layout
+| *.infra.properties.ui.widgets.layout
+|-
+| *.views.properties.xwt
+| *.infra.properties.ui.xwt
+|}
+
+Proposition of a Migration Tool
+
+* Download the https://wiki.eclipse.org/images/7/75/Papyrus_neon_migration_xwt.png  (nb it is a text file with sed command)
+* Execute the following command on any xwt file
+sed -f ../migration.png -i *.xwt
+
+Two important changes are made in the <code>ConfigurationManager</code> API:
+
+* the <code>org.eclipse.papyrus.views.properties.runtime.ConfigurationManager</code> class is replaced by a new interface <code>org.eclipse.papyrus.infra.properties.ui.runtime.IConfigurationManager</code> which provides all of the same API that is required by bundles that contribute content to the property sheet. The implementation of the configuration manager is still provided by the <code>org.eclipse.papyrus.views.properties</code> bundle, but the activate manager instance is to be obtained via a new <code>org.eclipse.papyrus.infra.properties.ui.runtime.PropertiesRuntime</code> class (the <code>getConfigurationManager</code> method). The Properties View bundle still implements the entire properties preference storage system
+* the <code>ConfigurationConflict</code> class is now internal API; clients providing property sheet content have no need of it
+
+Two extension points are renamed (the first is also divided in two, as described above):
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="41%"| Old Extension Point
+!width="58%"| New Extension Point
+|-
+| *.views.properties.context
+| *.infra.properties.ui.context
+|-
+| *.views.properties.labelprovider
+| *.infra.properties.ui.labelprovider
+|}
+
+References to constraints and widgets in the core environment/context models must now reference those models (still via URIs of <code>ppe:</code> scheme) in the new bundle, for example
+
+<source lang="xml">    <constraintType
+        href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/></source>
+The namespaces of the core property-sheet widgets likewise must be updated in XWT source files:
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="41%"| Old XWT Namespace
+!width="58%"| New XWT Namespace
+|-
+| *.views.properties.creation
+| *.infra.properties.ui.creation
+|-
+| *.views.properties.widgets
+| *.infra.properties.ui.widgets
+|-
+| *.views.properties.widgets.layout
+| *.infra.properties.ui.widgets.layout
+|}
+
+=== ElementTypesConfiguration Framework ===
+
+==== APIs Moved ====
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="50%"| Old namespace
+!width="49%"| New namespace
+|-
+| <code>oep.infra.elementtypesconfigurations</code>
+| <code>oep.infra.types.core</code> and <code>oep.infra.types</code>
+|-
+| <code>oep.infra.elementtypesconfigurations.edit</code>
+| <code>oep.infra.types.edit</code>
+|-
+| <code>oep.infra.elementtypesconfigurations.editor</code>
+| <code>oep.infra.types.editor</code>
+|-
+| <code>oep.infra.elementtypesconfigurations.ui</code>
+| <code>oep.infra.types.ui</code>
+|-
+| <code>oep.infra.elementtypesconfigurations.invarianttypes</code>
+| <code>oep.infra.types.rulebased</code>
+|-
+| <code>oep.infra.elementtypesconfigurations.emf</code>
+| <code>oep.infra.emf.types</code> and <code>oep.infra.emf.types.ui</code>
+|-
+| <code>oep.uml.elementtypesconfigurations</code>
+| <code>oep.uml.types.core</code>
+|}
+
+==== ElementTypesConfiguration Metamodel Changes ====
+
+The metamodel for the ElementTypesConfigurations has been changed to improve and fix the possible extensions of this metamodel.
+
+This changes notably distinguish default <code>AdviceBindingConfiguration</code>, <code>EditHelperconfiguration</code>, and <code>MatcherConfiguration</code> from the abstract <code>AdviceBindingConfiguration</code>, <code>EditHelperconfiguration</code>, and <code>MatcherConfiguration</code> that can be extended thanks to <code>org.eclipse.papyrus.infra.elementtypesconfigurations.adviceConfigurationType</code> and <code>org.eclipse.papyrus.infra.elementtypesconfigurations.matcherConfigurationType</code> extension points.
+
+Although these changes don't change the underlying concepts of the elementtypesconfigurations and their extensions, they impact the <code>*.elementtypesconfigurations</code> models created with this metamodel (and their extensions).
+
+You'll find all the details of the changes below. A little developer tool has been developed to assist the migration in the <code>org.eclipse.papyrus.types.dev</code> plugin (namely: <code>org.eclipse.papyrus.dev.types.handlers.MigrateTypesConfigurations</code>).
+
+'''Migration of the NsURI'''
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="50%"| Old Namespace URI
+!width="49%"| New Namespace URI
+|-
+| <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.0</code>
+| <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1</code>
+|-
+| <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/uml/applystereotypeadvice/1.0</code>
+| <code>http://www.eclipse.org/papyrus/uml/types/applystereotypeadvice/1.1/</code>
+|-
+| <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/invariantstereotyperule/1.0</code>
+| <code>http://www.eclipse.org/papyrus/uml/types/invariantstereotyperule/1.1</code>
+|-
+| <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/uml/settypeadvice/1.0</code>
+| <code>http://www.eclipse.org/papyrus/uml/types/settypeadvice/1.1</code>
+|-
+| <code>http://www.eclipse.org/payrus/elementtypesconfigurations/uml/stereotypematcherconfiguration</code>
+| <code>http://www.eclipse.org/papyrus/uml/types/stereotypematcher/1.1</code>
+|-
+| <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/invarianttypeconfiguration/containerruleconfiguration/1.0</code>
+| <code>http://www.eclipse.org/papyrus/emf/types/invariantcontainerrule/1.1</code>
+|-
+| <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/emf/runtimevalueseditionadviceconfiguration/1.0</code>
+| <code>http://www.eclipse.org/papyrus/emf/types/runtimevaluesadvice/1.1</code>
+|-
+| <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/emf/setvaluesadviceconfiguration/1.0</code>
+| <code>http://www.eclipse.org/papyrus/emf/types/setvaluesadvice/1.1</code>
+|-
+| <code>http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/invarianttype/1.0</code>
+| <code>http://www.eclipse.org/papyrus/infra/types/rulebased/1.1</code>
+|}
+
+'''Migration of the EditHelperAdviceConfigurations'''
+
+For default interpretation, the <code>xsi:type</code> must be <code>elementtypesconfigurations:EditHelperAdviceConfiguration</code>
+
+For extensions of <code>EditHelperAdviceConfiguration</code>, the <code>editHelperAdviceClassName</code> attribute has been removed.
+
+The <code>name</code>, <code>inheritance</code> and <code>identifier</code> attributes have been removed.
+
+'''Migration of the AdviceBindingsConfigurations'''
+
+For default interpretation, the <code>xsi:type</code> must be <code>elementtypesconfigurations:AdviceBindingConfiguration</code>
+
+For extensions of <code>AdviceBindingsConfiguration</code>, the <code>editHelperAdviceClassName</code> attribute has been removed.
+
+The <code>name</code> attribute has been removed.
+
+'''Migration of the MatcherConfigurations'''
+
+For default interpretation, the <code>xsi:type</code> must be <code>elementtypesconfigurations:MatcherConfiguration</code>
+
+For extensions of <code>MatcherConfiguration</code>, the <code>matcherClassName</code> attribute has been removed.
+
+'''Migration of the InvariantTypes'''
+
+<code>InvariantTypeConfiguration</code> metaclass is now <code>RuleBasedTypeConfiguration</code>
+
+'''Migration of the RuntimeValuesEditionAdvice'''
+
+<code>RuntimeValuesEditionAdviceConfiguration</code> metaclass is now <code>RuntimeValuesAdviceConfiguration</code>
+
+==== Multiple ClientContexts ====
+
+In Mars loading and unloading elementtypesconfiguration in the registry was done only by specifying a elementtypeconfigurationset Eobject or the path of a model containing an elementtypeconfigurationset to load/unload (because all the configurations were automatically bound to the default Papyrus ClientContext).
+
+In Neon, the identifier of the clientContext the configurations will be bound to must be specified, too.
+
+'''Changes on loading and unload through the registry singleton'''
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="56%"| Old API
+!width="43%"| New API
+|-
+| <code>void loadElementTypeSetConfiguration(String identifier)</code>
+| <code>boolean loadElementTypeSetConfiguration(String contextId, String path)</code>
+|-
+| <code>void loadElementTypeSetConfigurations(Collection&lt;ElementTypeSetConfiguration&gt; elementTypeSetConfigurations)</code>
+| <code>boolean loadElementTypeSetConfigurations(String contextId, Collection&lt;ElementTypeSetConfiguration&gt; elementTypeSetConfigurationsToRegister)</code>
+|-
+| <code>void unload(String identifier)</code>
+| <code>boolean unload(String contextId, String elementTypeSetId)</code>
+|}
+
+'''Changes on the registration of an elementtypeset through the elementTypeSetConfiguration extensionpoint (elementTypeSetConfiguration.exsd)'''
+
+<code>elementTypeSet.id</code> in Mars was the identifier of the elementTypeSetConfiguration. In Neon, this attribute is removed and a new String attribute <code>elementTypeSet.clientContextID</code> has been added to specify the context in which the elementtypeset is to be registered.
+
+==== Extension Points ====
+
+Extension Points that were defined in <code>org.eclipse.papyrus.infra.elementtypesconfigurations</code> moved in <code>org.eclipse.papyrus.infra.types.core</code>. 
+
+extensionIDs of those extension points changed like this: 
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="56%"| Old extensionID
+!width="43%"| New extensionID
+|-
+| <code>adviceConfigurationType</code>
+| <code>adviceConfigurationKind</code>
+|-
+| <code>containerConfigurationType</code>
+| <code>containerConfigurationKind</code>
+|-
+| <code>elementTypeConfigurationType</code>
+| <code>elementTypeConfigurationKind</code>
+|-
+| <code>matcherConfigurationType</code>
+| <code>matcherConfigurationKind</code>
+|}
+
+The Extension Point defined in <code>org.eclipse.papyrus.infra.elementtypesconfigurations.invarianttypes</code> moved in <code>org.eclipse.papyrus.infra.types.rulebased</code>. 
+
+<code>invariantRule</code> extensionIDs becomes <code>ruleKind</code>
+
+=== ExtendedTypes Framework ===
+The ExtendedTypes Framework has been completely removed from Neon.
+The ElementTypesConfiguration Framework (plugins/infra/types) replaces it completely. 
+
+The following table shows the ElementTypesConfiguration plugins that replace the ExtendedTypes plugins:  
+
+{| class="wikitable" border="1" cellspacing="0"
+| ExtendedTypes
+| ElementTypesConfiguration 
+|-
+| <code>oep.infra.extendedtypes</code>
+| <code>oep.infra.types</code>, <code>oep.infra.types.core</code>, <code>oep.types.rulebased</code>, <code>oep.infra.types.ui</code>, <code>oep.infra.types.doc</code>, <code>oep.dev.types</code>
+|-
+| <code>oep.infra.extendedtypes.emf</code>
+| <code>oep.infra.emf.types</code>, <code>oep.infra.emf.types.ui</code>
+|-
+| <code>oep.infra.extendedtypes.edit</code>
+| <code>oep.infra.types.edit</code>
+|-
+| <code>oep.infra.extendedtypes.editor</code>
+| <code>oep.infra.types.editor</code>
+|-
+| <code>oep.uml.tools.extendedtypes</code>
+| <code>oep.uml.types.core</code>
+|}
+
+== Diagram Infrastructure Layer ==
+
+=== UML Dependencies ===
+
+=== APIs Removed in the infra.gmfdiag.common Bundle ===
+
+The <code>org.eclipse.papyrus.infra.gmfdiag.common.utils.MDTUtil</code> utility class had some APIs that operated on an annotation for identification of a UML-specific editor:
+
+* <code>EDITOR_VERSION : String</code>
+* <code>addDiagramVersion(Diagram, String) : void</code>
+* <code>getDiagramVersion(Diagram) : String</code>
+
+These are simply deleted as they are obsolete and were not used within Papyrus.
+
+==== APIs Moved out of the infra.gmfdiag.css.palette Bundle ====
+
+As the purpose of this bundle is to provide CSS styling post-actions on creation of new elements via the Palette Service, and whereas the Palette Service is an overtly UML-specific capability The definition and APIs of the Palette Service are dependent on concepts from UML Profiles in even the most abstract interfaces. Factoring out these UML-isms was ruled out of scope for the Neon release, as simply not being a priority, considering that the entire Palette Service is planned to be superseded.
+, this bundle is renamed as <code>org.eclipse.papyrus.uml.diagram.css.palette</code>.
+
+Accordingly, the identifier of the aspect action provider is changed from <code>org.eclipse.papyrus.infra.gmfdiag.css.style</code> to <code>org.eclipse.papyrus.uml.diagram.css.style</code>. Palette XML definitions will have to be updated to use this new identifier.
+
+==== APIs Moved out of the uml.diagram.common Bundle ====
+
+Two XML expressions properties were used in action extensions in the Diagram infrastructure layer:
+
+* <code>org.eclipse.papyrus.uml.diagram.common.</code>'''<code>isSemanticDeletion</code>'''
+* <code>org.eclipse.papyrus.uml.diagram.common.</code>'''<code>isReadOnly</code>'''
+
+These are removed and are superseded by, respectively:
+
+* <code>org.eclipse.papyrus.infra.gmfdiag.common.</code>'''<code>isSemanticDeletion</code>'''
+* <code>org.eclipse.papyrus.infra.gmfdiag.common.</code>'''<code>canDelete</code>'''
+
+Note that the latter above is actually the negation of the property that it supersedes, which was used only as a test for whether an element may be deleted (it would be logically incorrect in the more general case of testing read-only state).
+
+== UML Layer ==
+
+=== UI Dependencies ===
+
+==== APIs Moved out of the uml.service.types Bundle ====
+
+Several UI-dependency classes are moved from the <code>org.eclipse.papyrus.uml.services.types</code> bundle to a new <code>org.eclipse.papyrus.uml.service.types.ui</code> bundle. These simply require package renames in imports and adding the <code>uml.service.types.ui</code> bundle dependency.
+
+Some packages are moved in their entirety (<code>*</code> replaces the prefix <code>org.eclipse.papyrus</code>):
+
+{| class="wikitable" border="1" cellspacing="0"
+!width="47%"| Old Package
+!width="52%"| New Package
+|-
+| *.uml.service.types.handlers
+| *.uml.service.types.ui.handlers
+|-
+| *.uml.service.types.menu
+| *.uml.service.types.ui.menu
+|}
+
+In the <code>org.eclipse.papyrus.uml.service.types.command</code> package, several commands with UI interactions are moved into an internal package <code>org.eclipse.papyrus.uml.service.types.internal.ui.commands</code> (they should not be API because they only service edit advices, which were not and are not API):
+
+* <code>CollaborationRoleCreateCommand</code>
+* <code>InformationFlowCreateCommand</code>
+* <code>InstanceSpecificationLinkCreateCommand</code>
+
+Also, the type <code>ExtensionHelper</code> is moved from the <code>org.eclipse.papyrus.uml.service.types.helper</code> package to <code>org.eclipse.papyrus.uml.service.types.ui.util</code> (it is a collection of utility methods, not an edit-helper).
+
+== VisualID Migration ==
+
+=== Meaningful VisualIDs ===
+Up to the Neon release, The visualIDs in the Papyrus GMFGen models were defined as integer numbers. These numbers were used as hints for <code>Views</code> in notatinal models, and as part of the names of the generated APIs. This made interpretting those models and using those APIs hard by users. In the Neon release, the Papyrus visualIDs have changed to meaningful names. The change is implemented by introducing a tree of <code>papyrusgmfgenextension:VisualIDOverride</code> objects as another root in the GMFGen model. The tree parallels the <code>GenView</code> tree in the model, in the sense that there is a <code>VisualIDOverride</code> object that references a corresponding <code>GenView</code> object at the same nesting level. The <code>VisualIDOverride</code> object provides the meaningful visualID string, which will be used by the Papyrus GMFGen templates instead of the integer.
+
+=== UML Element Types Unification ===
+Up to the Neon release, each Papyrus UML diagram defined its own relevant subset of UML graphical element types (and correponding visualIDs). These subsets usually overlapped when the same notational cases existed in multiple diagrams resulting in duplicate code. In the Neon release, all UML graphical element types have been unified (similar notational elements in multiple diagrams are represented by the same graphical element type) and defined in a common library <code>org.eclipse.papyrus.uml.service.types/model/umldi.elementtypesconfigurations</code>. The library is then reused by all Papyrus UML diagrams (i.e., its element types are referenced by those diagrams' GMFGen models).
+
+* Both changes mentioned above have been applied to all Papyrus UML diagrams and the impacted code in the core plugins have been migrated. However, Papyrus's extra plugins and some third party extensions may have to be migrated as well. This guide provides tips for doing that.
+
+=== Migration of Code Base ===
+
+==== Step 1: Migrate Java Code ====
+
+Occurrences of the old (integer) style visualIDs (e.g., 3012) for UML need to be replaced by the new (meaningful name) style (e.g., Property_ClassAttributeLabel). These occurrences may exist in hard-code strings, which could be replaced by the new string, but really should be refactored to use instead the VISUAL_ID constant defined by the corresponding editpart (e.g., PropertyForClassEditPart.VISUAL_ID). Similarly, calls to (or overrides of) the old style properties (e.g., UMLElementTyps.Property_3012) or functions (UMLViewProvider.createClass_2008) that have the integers in their names, and which will give compile errors, need to be replaced by the equivalent ones that have meaningful names (e.g., UMLElementTypes.Property_ClassAttributeLabel, UMLViewProvider.createClass_Shape).
+
+* The replacement can be done manually by looking up the visualID and graphical element type mappings in this spreadsheet ([[File:https://wiki.eclipse.org/File:Mars_to_Neon_VisualID_Mappings.zip]]), which has a page for each UML diagram.
+
+There is no reliable way now to generically tell if a string represents a visualID. Any assumption in the code about the visualIDs (or semantic hints) being exlcusively numbers need to be changed. This is typically found in code that checks, with a string pattern, if visualIDs are numbers, or tries to parse them into numbers. Moreover, there is also no reliable way now to generically tell if a visualID represents a UML visualID (i.e., defined by the UML element type library).
+
+Furthermore, there is no cheap way now to  tell if an element type represents a graphical element type (an expensive way is to check if the view service provides a view for it). However, one may check if an element type represents a core UML graphical element type by checking if the identifier is prefixed by <code>org.eclipse.papyrus.umldi</code>. Also, there is no reliable way to tell which diagram uses such an element type, since it may be used by multiple diagrams.
+
+==== Step 2: Migrate plugin.xml ====
+
+Occurrences of the UML old style visualIDs or old identifiers for graphical element types in extensions (e.g., viewProviders or editpartProviders) in plugin.xml files need to be replaced by the corresponding ones using the spreadsheet in step 1.
+
+==== Step 3: Migrate domain models ====
+
+Occurrences of the UML old style visualIDs (e.g., 3012) or old identifiers for graphical element types (e.g., org.eclipse.papyrus.uml.diagram.clazz.Property_3012), or references to them, in some domain models (e.g., *.assistants and *.elementtypesconfigurations) need to be replaced by the corresponding ones (Property_ClassAttributeLabel, org.eclipse.papyrus.umldi.Property_ClassAttributeLabel) using the spreadsheet in step 1.
+
+==== Step 4: Migrate end user models ====
+
+A set of reconcilers for UML diagrams have been added to migrate pre-Neon models. They basically replace the old visualIDs by new ones. These reconcilers are invoked when a diagram editor is opened and perform the replacement in memory. However, for their changes to be persistent, the diagram needs to be saved. Any old models that are kept in the code base, including those in test plugins, can be migrated by opening their diagrams, performing a dummy change to dirty them, and saving them.
+
+=== Adding New Notational Cases ===
+
+When contemplating adding new notational cases to one of the UML GMFGen models, one must first check the common UML library of graphical elements <code>org.eclipse.papyrus.uml.service.types/model/umldi.elementtypesconfigurations</code> to see if the cases already exist and can be reused. When truly new cases (that belong to core UML notation) are identified, then they can by handled by adding new element types for them in the common UML library. Suitable meaningful names should be chosen for the visualIDs, which are consistent with the existing ones.
+
+Once a new graphical element type is added to the UML common library, then it can be used in a GMFGen by referring to its identifier in a new <code>GenView</code> object. The <code>GenView</code> object will still need to get assigned a unique integer visualID. However, one must also provide the meaning name visualID, by adding a new <code>VisualIDOverride</code> object in the appropriate nesting level in the <code>VisualIDOverride</code> tree (at the root). That object needs to reference the <code>GenView</code> and provide the string visualID.

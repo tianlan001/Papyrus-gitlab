@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="modelListener" name="ModelListener" schema="schema/modelListener.exsd"/>
+   <extension-point id="service" name="Service" schema="schema/service.exsd"/>
+   <extension-point id="model" name="plugin.xml.ModelName" schema="schema/model.exsd"/>
+   <extension-point id="transactionalEditingDomainProvider" name="transactionalEditingDomainProvider" schema="schema/transactionalEditingDomainProvider.exsd"/>
+   <extension-point id="sashModelProvider" name="Sash Model Providers" schema="schema/sashModelProvider.exsd"/>
+   <extension-point id="language" name="Modeling Language" schema="schema/language.exsd"/>
+   <extension-point id="copier" name="Clipboard Copier Configuration" schema="schema/copier.exsd"/>
+   
+  <extension
+         point="org.eclipse.papyrus.infra.core.model">
+      <model
+            classname="org.eclipse.papyrus.infra.core.resource.sasheditor.SashModel"
+            description="Model for sash system"
+            fileExtension="sash">
+      </model>
+      <modelSetSnippet
+            classname="org.eclipse.papyrus.infra.core.modelsetquery.impl.ModelSetQueryInitializer"
+            description="Adapter attached to the ModelSet (aka ResourceSet)">
+      </modelSetSnippet>
+      <model
+            classname="org.eclipse.papyrus.infra.core.resource.sasheditor.DiModel"
+            description="Main Papyrus IModel"
+            fileExtension="di"
+            required="true">
+         <modelSnippet
+               classname="org.eclipse.papyrus.infra.core.resource.AdjunctResourceModelSnippet"
+               description="Snippet for DI resource of referenced model resources">
+         </modelSnippet>
+      </model>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.core.service">
+      <serviceFactory
+            classname="org.eclipse.papyrus.infra.core.editor.ModelSetServiceFactory"
+            description="The service loading Models"
+            id="org.eclipse.papyrus.infra.core.resource.ModelSet"
+            priority="1"
+            startKind="startup">
+      </serviceFactory>
+      <serviceFactory
+            classname="org.eclipse.papyrus.infra.core.editor.DiResourceSetServiceFactory"
+            description="An alias to ModelSet"
+            id="org.eclipse.papyrus.infra.core.utils.DiResourceSet"
+            priority="1"
+            startKind="startup">
+         <dependsOn
+               serviceKeyRef="org.eclipse.papyrus.infra.core.resource.ModelSet">
+         </dependsOn>
+      </serviceFactory>
+      <serviceFactory
+            classname="org.eclipse.papyrus.infra.core.resource.EditingDomainServiceFactory"
+            description="TransactionalEditing Domain"
+            id="org.eclipse.emf.transaction.TransactionalEditingDomain"
+            priority="1"
+            startKind="startup">
+         <dependsOn
+               serviceKeyRef="org.eclipse.papyrus.infra.core.resource.ModelSet">
+         </dependsOn>
+      </serviceFactory>
+      <serviceFactory
+            classname="org.eclipse.papyrus.infra.core.resource.EditingDomainServiceFactory"
+            description="Editing Domain"
+            id="org.eclipse.emf.edit.domain.EditingDomain"
+            priority="1"
+            startKind="startup">
+         <dependsOn
+               serviceKeyRef="org.eclipse.papyrus.infra.core.resource.ModelSet">
+         </dependsOn>
+      </serviceFactory>
+   </extension>
+   <extension
+       id="org.eclipse.papyrus.modelmarker"
+       name="model marker"
+       point="org.eclipse.core.resources.markers">
+     <attribute
+           name="uri">
+     </attribute>
+     <persistent
+           value="true">
+     </persistent>
+   </extension>
+    <extension
+          point="org.eclipse.core.runtime.adapters">
+       <factory
+             adaptableType="org.eclipse.papyrus.infra.core.resource.ModelSet"
+             class="org.eclipse.papyrus.infra.core.services.ModelSetServiceAdapter$Factory">
+          <adapter
+                type="org.eclipse.papyrus.infra.core.services.IService">
+          </adapter>
+       </factory>
+    </extension>
+    <extension
+          point="org.eclipse.papyrus.infra.core.service">
+       <service
+             classname="org.eclipse.papyrus.infra.core.internal.language.LanguageService"
+             id="org.eclipse.papyrus.infra.core.language.ILanguageService"
+             priority="10"
+             startKind="startup">
+       </service>
+       <serviceFactory
+             classname="org.eclipse.papyrus.infra.core.internal.sashmodel.BasicPageManagerServiceFactory"
+             description="Default IPageManager service for headless operation."
+             id="org.eclipse.papyrus.infra.core.sashwindows.di.service.IPageManager"
+             priority="1"
+             startKind="startup">
+          <dependsOn
+                serviceKeyRef="org.eclipse.papyrus.infra.core.resource.ModelSet">
+          </dependsOn>
+       </serviceFactory>
+    </extension>
+    
+    <extension
+          point="org.eclipse.core.expressions.propertyTesters">
+       <propertyTester
+             id="org.eclipse.papyrus.infra.core.serviceRegistryProperties"
+             type="org.eclipse.papyrus.infra.core.services.ServicesRegistry"
+             namespace="org.eclipse.papyrus.infra.core"
+             properties="hasSemanticModel"
+             class="org.eclipse.papyrus.infra.core.internal.expressions.ServiceRegistryPropertyTester">
+       </propertyTester>
+    </extension>
+</plugin>

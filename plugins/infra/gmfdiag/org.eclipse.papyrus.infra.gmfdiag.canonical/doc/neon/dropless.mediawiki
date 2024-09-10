@@ -1,0 +1,160 @@
+
+== Dropless Canonical Edit Policy ==
+
+This document describes the design of an enhancement in the Neon release in which the
+synchronization of canonical diagram views with the model no longer relies on the
+drag-and-drop infrastructure.
+
+=== Contents ===
+
+__TOC__
+
+=== Requirements ===
+
+In the Mars release, a new <code>PapyrusCanonicalEditPolicy</code> was introduced that replaces
+GMF's standard canonical edit policy (the <code>EditPolicyRoles.CANONICAL_ROLE</code>).  The key
+design point of this policy was its delegation to the diagram's specific drag-and-drop policy
+to create views of existing elements.  As indicated by
+[https://bugs.eclipse.org/bugs/show_bug.cgi?id=477384 bug 477384], this does have the side-effect
+of limiting the customizability of drag-and-drop in the diagrams.  In particular, the canonical
+synchronization implemented by the <code>CanonicalEditPolicy</code> expects the drop edit policy
+to do nothing (or very little) more than create a view of an existing element.  This restricts
+the amount of intelligent dropping of elements to create related new elements in various scenarios,
+without also going to lengths to constrain what kinds of elements the canonical edit policy will
+attempt to visualize.
+
+Accordingly, the primary requirements for the Neon implementation of the canonical edit policy are:
+
+* '''R1''': the <code>PapyrusCanonicalEditPolicy</code> {{req|wont}} depend on the diagram's drag-and-drop edit policy to create new views of model elements
+* '''R2''': the <code>PapyrusCanonicalEditPolicy</code> {{req|shall}} simply use <code>CreateRequest</code>s to create new views for elements as directly as possible, according to the specific visual element types of each diagram
+** '''R2.1''': the diagrams {{req|should}} publish information about their specific visual element types in some reusable form that other components (such as drag-and-drop, itself) may likewise rely on
+
+=== Design ===
+
+The core issue addressed by the Mars design was that a generic edit policy such as the
+<code>PapyrusCanonicalEditPolicy</code> had no means to determine the specific visual element types
+(in particular, ''visual IDs'') of the views that it needed to create for semantic elements in
+any given diagram.  These specific element types are required to formulate the
+<code>CreateRequest</code>s that ultimately are satisfied by the diagram's particular
+<code>ViewProvider</code>.  The solution in the Mars release was to delegate to the diagram's
+generated <code>DragDropEditPolicy</code> by transforming <code>CreateRequest</code> to
+<code>DropObjectsRequest</code>s (encapsulated in a wrapper to pass them through the customizable
+drop policy with its pluggable strategies, but that's a minor detail).  This worked because
+each diagram actually substitutes a custom drop edit policy implementation that is specifically
+coded to be aware of the mapping of semantic element types to visual element types in each
+parent view that can visualize each semantic element within the context of the particular diagram.
+
+Accordingly, the new design for Neon hoists this knowledge of the diagram's specific visual element
+types out of the drop edit policy and into a new GMF-style ''service'' that the generic
+<code>PapyrusCanonicalEditPolicy</code> can query to determine the visual element types that it
+should request.
+
+[[image:images/main.jpg|Canonical Edit Policy and Visual Type Registry]]
+
+The <code>PapyrusCanonicalEditPolicy</code> uses a new <code>VisualTypeService</code> to query the
+following diagram-specific information that it needs to formulate <code>CreateRequest</code>s to
+create new views for the semantic elements that it needs to visualize:
+
+* the most appropriate view type (''visual ID'' in generated diagrams, but generally some string type code) for an element to be visualized as a child <code>Node</code> of some parent <code>View</code> (which could be the diagram surface or some shape or compartment)
+* the most appropriate view type (''visual ID'' or string) for an element to be visualized as an <code>Edge</code> in the <code>Diagram</code>
+* the element type corresponding to a view type (''visual ID'' or string, as obtained from one of the two previous queries) specific to a particular <code>Diagram</code>
+
+Thus the dependence on the diagram-specific drop edit policies is removed, as the canonical edit
+policy now has independent access to the visual type information that it needs, specific to each
+diagram.  The generic <code>CommonDiagramDragDropEditPolicy</code> is also updated to use the new
+<code>VisualTypeService</code> to implement the previously abstract API methods that the diagrams'
+custom subclasses implemented to provide this same visual type information.  As a result, diagrams
+that don't need special drop behaviour but only need drag-and-drop to create new views can be
+somewhat simplified.
+
+=== Code Generation ===
+
+A new code generation template is added in the <code>org.eclipse.papyrus.def</code> bundle that
+generates the diagram's contribution of a concrete implementation of the
+<code>IVisualTypeProvider</code>.  The implementations of the provider API methods simply delegate
+to static APIs that are also generated for each diagram:
+
+* <code>getNodeType</code> and <code>getLinkType</code> methods delegate to the corresponding APIs of the generated visual ID registry (usually named <code>UMLVisualIDRegistry</code>)
+* <code>getElementType</code> delegates to the generated element-types enumeration (usually named <code>UMLElementTypes</code>
+
+Because the APIs that the visual type provider delegates to are static, there is no way in the
+existing GMF/Papyrus frameworks to plug them into the core diagram layer without an intermediate
+object like the visual type provider.  The generated <code>UMLElementTypes</code> classes do all
+include a <code>TYPED_INSTANCE</code> field implementing a <code>DiagramElementTypes</code> interface,
+but this, too, is a static API, so it has to be injected by code into any class that needs it.  There
+is no facility for injecting these into a core component like the
+<code>PapyrusCanonicalEditPolicy</code>.  Besides that the <code>DiagramElementTypes</code> API
+doesn't provide all that is needed in this scenario.  So, the alternatives are to create a new
+template for generation of subclasses of the <code>PapyrusCanonicalEditPolicy</code> in each diagram
+(which would obviate the need for the <code>VisualTypeService</code>) or create a new template for
+generation of visual type providers.  The latter seems a cleaner design, separating out the concern
+of diagram-specific visual ID discovery into a reusable component that may be of service to other
+clients than just the <code>PapyrusCanonicalEditPolicy</code> (such as, in fact, the
+<code>CommonDiagramDragDropEditPolicy</code>).
+
+Because there is now a new generated visual type provider class, the GMFGen model for a diagram
+needs to be able to specify the name of the generated class, if necessary, and also a custom subclass
+for overrides of the generated default behaviour.  This is a common pattern, especially in the
+edit-parts and edit-policies models.  These use cases are satisfied by the addition of the
+<code>GenVisualTypeProvider</code> class in Papyrus's GMFGen extension model on the one hand and
+by registration of a higher-priority custom provider on the other (as is done for
+edit-part providers, for example).
+
+[[image:images/gmfgenextension.jpg|Visual Type Provider Model in GMFGen Extension]]
+
+The <code>GenVisualTypeProvider</code> optionally specifies a provider class name; the default value
+is <code>"UMLVisualTypeProvider"</code>.  Static methods are defined that obtain, respectively, the
+simple and the qualified name of the visual type provider class for a diagram.  This accounts for
+the absence of a <code>GenVisualTypeProvider</code> element in the GMFGen model (it is an optional
+extension element) to provide the defaults even in that case.  Thus, none of the existing UML
+diagrams' GMFGen models need changes to generate the new provider class.
+
+=== Deprecations ===
+
+==== ICreationTargetStrategy ====
+
+The custom drop edit policies of some of the diagrams are rather particular about what an element
+needs to be dropped on in order to add it to the diagram.  For example, some connections cannot just
+be dropped anywhere in the diagram but only on a particular shape (perhaps one of its ends).  In
+the State Machine Diagram, a region that is not the first region visualized in a composite state must
+be dropped onto some other region in order to partition the space that it occupies in two.  To
+account for these cases, the Mars design included pluggable <code>ICreationTargetStrategy</code>
+extensions.  These allowed the diagrams to re-direct the drop operation from the obvious target
+(the edit-part of the parent element) to some other edit-part.  This mechanism is now no longer
+necessary, because the <code>PapyrusCanonicalEditPolicy</code> knows ''a priori'' which parent view
+must contain the node that it is trying to create, and the diagrams' view providers know how to
+create the child views (note that edges are a simpler case because they are all owned by the root
+diagram view).
+
+Accordingly, the <code>ICreationTargetStrategy</code> API is deprecated in Neon and all
+implementations in the UML diagrams are deleted (the framework still delegates to these strategies
+if they happen to exist).  The special case of regions in a diagram might have needed this target
+strategy but it is easily handled in the custom creation strategies for state machine compartment
+and state compartment using GEF's own <code>getTargetEditPart(Request)</code> protocol, for the
+case of the <code>CreateRequest</code>.
+
+==== CanonicalDropObjectsRequest ====
+
+The Mars design delegated to the diagrams' generated drop edit policies.  This required a mechanism
+to sidestep the <code>CustomizableDropEditPolicy</code> installed by the core Papyrus diagram layer
+to override the diagrams' generated policies, because it would not be desirable to let pluggable
+drop strategies interfere with the straightforward drop behaviour needed for view synchronization.
+
+The solution was similar to protocol encapsulation in networking:  wrap the
+<code>DropObjectsRequest</code> in a <code>CanonicalDropObjectsRequest</code> which the
+<code>CustomizableDropEditPolicy</code> recognized.  On receiving the wrapper, the customizable
+policy would simply unwrap the <code>DropObjectsRequest</code> within it and forward that to the
+default drop policy provided by the diagram.
+
+None of this encapsulation is needed in Neon, so the <code>CanonicalDropObjectsRequest</code> class
+is deprecated and the <code>CustomizableDropEditPolicy</code> no longer recognizes it.
+
+=== Limitations ===
+
+All of the UML diagrams are regenerated in Neon to plug in their visual type providers.  However,
+the SysML 1.1 diagrams in the main Papyrus repository cannot be generated (they do not use GMFGen
+models) and, more importantly, they do not use visual ID registries as the UML diagrams do.
+They prefer the use of non-integer view types, using integer visual IDs only for elements
+inherited from the UML diagrams that they extend.  So, a different pattern of delegation to
+existing SysML-specific view-type registries and the inherited UML visual type providers is
+devised in the SysML diagrams to implement their specific visual type providers.

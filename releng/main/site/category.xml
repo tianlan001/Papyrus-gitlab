@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.papyrus.sdk.feature_7.0.0.qualifier.jar" id="org.eclipse.papyrus.sdk.feature" version="7.0.0.qualifier">
+      <category name="org.eclipse.papyrus.category"/>
+   </feature>
+   <feature url="features/org.eclipse.papyrus.sdk.feature.source_7.0.0.qualifier.jar" id="org.eclipse.papyrus.sdk.feature.source" version="7.0.0.qualifier">
+      <category name="org.eclipse.papyrus.category"/>
+   </feature>
+   <feature url="features/org.eclipse.papyrus.user.examples.feature_7.0.0.qualifier.jar" id="org.eclipse.papyrus.user.examples.feature" version="7.0.0.qualifier">
+      <category name="org.eclipse.papyrus.user.examples.category"/>
+   </feature>
+   <feature url="features/org.eclipse.papyrus.user.examples.feature.source_7.0.0.qualifier.jar" id="org.eclipse.papyrus.user.examples.feature.source" version="7.0.0.qualifier">
+      <category name="org.eclipse.papyrus.user.examples.category"/>
+   </feature>
+   <category-def name="org.eclipse.papyrus.category" label="Papyrus">
+      <description>
+         Papyrus Category
+      </description>
+   </category-def>
+   <category-def name="org.eclipse.papyrus.user.examples.category" label="Papyrus User Examples">
+      <description>
+         Papyrus User Examples offers a set of plugins dedicated to gather examples of Papyrus usage.
+      </description>
+   </category-def>
+   <repository-reference location="https://download.eclipse.org/tools/orbit/downloads/drops/R20230531010532/repository/" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-06/" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/modeling/gmp/gmf-runtime/updates/milestones/S202405171447/" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/modeling/gmp/gmf-notation/updates/releases/R202211151334" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/xwt/milestones-1.9.200/1.9.200-RC2/" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/cbi/updates/tpd/nightly/latest" enabled="true" />
+</site>

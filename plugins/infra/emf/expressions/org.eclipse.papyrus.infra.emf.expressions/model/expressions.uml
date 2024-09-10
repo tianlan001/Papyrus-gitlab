@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Model xmi:id="_s7iicBUjEee_D4EhwjboOQ" name="Expressions" URI="http://www.eclipse.org/papyrus/expressions">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_V3o0QCaCEeexSJ7rHbRCGQ" annotatedElement="_-hQYgBqgEeex7OKxnYgv8Q">
+      <body>Basic Element for this Model. &#xD;
+All elements must have a Name and a Description</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_cnCrgCaCEeexSJ7rHbRCGQ" annotatedElement="_T6J2sBUlEee_D4EhwjboOQ">
+      <body>This interface must be extended to provide expression. &#xD;
+It is templated by the type of the object to evaluate (CONTEXT_TYPE) and by the return of the evaluate operation (RETURN_TYPE)</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_TxCMwCaFEeexSJ7rHbRCGQ" annotatedElement="_eYkocBVIEee_D4EhwjboOQ">
+      <body>The catalog allows to store predefined expressions.&#xD;
+The class ExpressionCatalogRegistry allows to find all registered Catalog throw the dedicated extension point.</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_-IgbIDMnEeeGI8mhpM0GYw" annotatedElement="_s7iicBUjEee_D4EhwjboOQ">
+      <body>We don';t use the UML Primitives Types, because using it, the generated Ecore model has a dependency on Types.ecore and the generated code has a dependency on uml.&#xD;
+</body>
+    </ownedComment>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_LaZ7YDVfEeehgM33eB4DQQ">
+      <importedPackage xmi:type="uml:Model" href="pathmap://ECORE_METAMODEL_LIBRARY/Ecore.uml#_SeWiQMX_EduPJbEsMYXjUQ"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_T6J2sBUlEee_D4EhwjboOQ" name="IExpression">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_mhY58BVZEee_D4EhwjboOQ" name="RedefinableTemplateSignature1" parameter="_nHnzgBVZEee_D4EhwjboOQ _quFj4BVZEee_D4EhwjboOQ">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_nHnzgBVZEee_D4EhwjboOQ" parameteredElement="_p44aMBVZEee_D4EhwjboOQ">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_p44aMBVZEee_D4EhwjboOQ" name="CONTEXT_TYPE" templateParameter="_nHnzgBVZEee_D4EhwjboOQ"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_quFj4BVZEee_D4EhwjboOQ" parameteredElement="_uA6mkBVZEee_D4EhwjboOQ">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_uA6mkBVZEee_D4EhwjboOQ" name="RETURN_TYPE" templateParameter="_quFj4BVZEee_D4EhwjboOQ"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+      <generalization xmi:type="uml:Generalization" xmi:id="_B1280BqhEeex7OKxnYgv8Q" general="_-hQYgBqgEeex7OKxnYgv8Q"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_u89_IBVZEee_D4EhwjboOQ" name="evaluate">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_u0X-oCaCEeexSJ7rHbRCGQ" annotatedElement="_u89_IBVZEee_D4EhwjboOQ">
+          <body>This method evaluate an object of type CONTEXT_TYPE and return an object of type RETURN_TYPE.</body>
+        </ownedComment>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_u89_IRVZEee_D4EhwjboOQ" name="context" type="_p44aMBVZEee_D4EhwjboOQ"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_u89_IhVZEee_D4EhwjboOQ" name="return" type="_uA6mkBVZEee_D4EhwjboOQ" direction="return"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_eYkocBVIEee_D4EhwjboOQ" name="ExpressionCatalog">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_9Nr7chVIEee_D4EhwjboOQ" name="expressions" type="_T6J2sBUlEee_D4EhwjboOQ" aggregation="composite" association="_9NqtUBVIEee_D4EhwjboOQ">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CKvrUBVJEee_D4EhwjboOQ"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CLJT8BVJEee_D4EhwjboOQ" value="*"/>
+      </ownedAttribute>
+      <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_BH0LEBqhEeex7OKxnYgv8Q" client="_eYkocBVIEee_D4EhwjboOQ" supplier="_-hQYgBqgEeex7OKxnYgv8Q" contract="_-hQYgBqgEeex7OKxnYgv8Q"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_9NqtUBVIEee_D4EhwjboOQ" memberEnd="_9Nr7chVIEee_D4EhwjboOQ _9NsigBVIEee_D4EhwjboOQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_9Nr7cBVIEee_D4EhwjboOQ" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_9Nr7cRVIEee_D4EhwjboOQ" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_9NsigBVIEee_D4EhwjboOQ" name="expressioncatalog" type="_eYkocBVIEee_D4EhwjboOQ" association="_9NqtUBVIEee_D4EhwjboOQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_0cNGMBXhEee_D4EhwjboOQ" name="BooleanExpressions" URI="http://www.eclipse.org/papyrus/expressions/booleanexpressions">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_GlUW0Bn3EeeYEuQJkmbFAA" annotatedElement="_2GdzIBXiEee_D4EhwjboOQ">
+        <body>Make an OR between all owned and referenced IBooleanExpressions.&#xD;
+If ownedExpressions.size()==0 and referencedExpressions.size()==0, we return FALSE&#xD;
+otherwize we return the OR between all owned and referenced expressions</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_mKJYABrSEeeJdcoPLKQK3g" annotatedElement="_WpVKMBVbEee_D4EhwjboOQ">
+        <body>Make an AND between all owned and referenced IBooleanExpression.&#xD;
+If ownedExpressions.size()==0 and referencedExpressions.size()==0, we return TRUE&#xD;
+otherwize we return the OR between all owned and referenced expressions</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_oD69EBrSEeeJdcoPLKQK3g" annotatedElement="_3NcCQBXiEee_D4EhwjboOQ">
+        <body>Make a not on an IBooleanExpression&#xD;
+If ownedExpression==NULL and referencedExpression==NULL we return FALSE&#xD;
+If ownedExpression&lt;>NULL and referencedExpression&lt;>NULL we return the result for ownedExpression. The referencedExpression is ignored&#xD;
+In other case we return the evaluation of the non NULL expression</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_Bw_YMBrTEeeJdcoPLKQK3g" annotatedElement="_wcKe0BVKEee_D4EhwjboOQ">
+        <body>Returns always TRUE</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_EmJncBrTEeeJdcoPLKQK3g" annotatedElement="_sckEMBXjEee_D4EhwjboOQ">
+        <body>Returns always false</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_hcgHsBrTEeeJdcoPLKQK3g" annotatedElement="_P-MkYBVaEee_D4EhwjboOQ">
+        <body>The common type to use for all BooleanExpression evaluating EObject&#xD;
+&#xD;
+</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_PMb0MBrUEeeJdcoPLKQK3g" annotatedElement="_oU_pgBrTEeeJdcoPLKQK3g">
+        <body>This expression allows to reference an expression defined in another model.&#xD;
+If there is no expression referenced we return TRUE.</body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Interface" xmi:id="_P-MkYBVaEee_D4EhwjboOQ" name="IBooleanEObjectExpression">
+        <templateBinding xmi:type="uml:TemplateBinding" xmi:id="_laXLABVaEee_D4EhwjboOQ" signature="_XpdZsBtqEeeNbZVCoqtPGQ">
+          <parameterSubstitution xmi:type="uml:TemplateParameterSubstitution" xmi:id="_ah-0EBtsEeeNbZVCoqtPGQ" formal="_7vGyMBtqEeeNbZVCoqtPGQ">
+            <actual xmi:type="uml:Class" href="pathmap://ECORE_METAMODEL_LIBRARY/Ecore.uml#_SeWijsX_EduPJbEsMYXjUQ"/>
+          </parameterSubstitution>
+        </templateBinding>
+        <generalization xmi:type="uml:Generalization" xmi:id="_KMXTMBVbEee_D4EhwjboOQ" general="_yFQYgBtpEeeNbZVCoqtPGQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WpVKMBVbEee_D4EhwjboOQ" name="AndExpression">
+        <generalization xmi:type="uml:Generalization" xmi:id="_qM9EcJHYEemkbNOY_7-CZA" general="_16D2sJHWEemkbNOY_7-CZA"/>
+        <generalization xmi:type="uml:Generalization" xmi:id="_vtTHkJHYEemkbNOY_7-CZA" general="_RqUHAJHWEemkbNOY_7-CZA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_wcKe0BVKEee_D4EhwjboOQ" name="LiteralTrueExpression">
+        <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_5eytMBVbEee_D4EhwjboOQ" client="_wcKe0BVKEee_D4EhwjboOQ" supplier="_P-MkYBVaEee_D4EhwjboOQ" contract="_P-MkYBVaEee_D4EhwjboOQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_2GdzIBXiEee_D4EhwjboOQ" name="OrExpression">
+        <generalization xmi:type="uml:Generalization" xmi:id="_nTgLEJHYEemkbNOY_7-CZA" general="_RqUHAJHWEemkbNOY_7-CZA"/>
+        <generalization xmi:type="uml:Generalization" xmi:id="_s-gmEJHYEemkbNOY_7-CZA" general="_16D2sJHWEemkbNOY_7-CZA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_3NcCQBXiEee_D4EhwjboOQ" name="NotExpression">
+        <generalization xmi:type="uml:Generalization" xmi:id="_yNmhIJHYEemkbNOY_7-CZA" general="_vbWt4JHWEemkbNOY_7-CZA"/>
+        <generalization xmi:type="uml:Generalization" xmi:id="_1TDPIJHYEemkbNOY_7-CZA" general="_fidikJHWEemkbNOY_7-CZA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_sckEMBXjEee_D4EhwjboOQ" name="LiteralFalseExpression">
+        <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_w6Uo8BXjEee_D4EhwjboOQ" client="_sckEMBXjEee_D4EhwjboOQ" supplier="_P-MkYBVaEee_D4EhwjboOQ" contract="_P-MkYBVaEee_D4EhwjboOQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_oU_pgBrTEeeJdcoPLKQK3g" name="ReferenceBooleanExpression">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uWcIkJD3EembtcUdk7EePw" source="http://www.eclipse.org/emf/2002/GenModel">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_uWcIkZD3EembtcUdk7EePw" key="propertyEditorFactory" value="http://www.eclipse.org/papyrus/expressions/singleBooleanExpressionReference"/>
+        </eAnnotations>
+        <generalization xmi:type="uml:Generalization" xmi:id="_4K3w0JHYEemkbNOY_7-CZA" general="_fidikJHWEemkbNOY_7-CZA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Interface" xmi:id="_yFQYgBtpEeeNbZVCoqtPGQ" name="IBooleanExpression">
+        <templateBinding xmi:type="uml:TemplateBinding" xmi:id="_1nV_MBtpEeeNbZVCoqtPGQ" signature="_mhY58BVZEee_D4EhwjboOQ">
+          <parameterSubstitution xmi:type="uml:TemplateParameterSubstitution" xmi:id="_Q9vQ0CQ3EeeuT_H16Quvkg" actual="_A4OoIBtrEeeNbZVCoqtPGQ" formal="_nHnzgBVZEee_D4EhwjboOQ"/>
+          <parameterSubstitution xmi:type="uml:TemplateParameterSubstitution" xmi:id="_HlVOwBtqEeeNbZVCoqtPGQ" formal="_quFj4BVZEee_D4EhwjboOQ">
+            <actual xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBooleanObject"/>
+          </parameterSubstitution>
+        </templateBinding>
+        <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_XpdZsBtqEeeNbZVCoqtPGQ" name="RedefinableTemplateSignature1" parameter="_7vGyMBtqEeeNbZVCoqtPGQ">
+          <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_7vGyMBtqEeeNbZVCoqtPGQ" parameteredElement="_A4OoIBtrEeeNbZVCoqtPGQ"/>
+        </ownedTemplateSignature>
+        <generalization xmi:type="uml:Generalization" xmi:id="_hAyYoBtuEeeI-LWWg9sIYg" general="_T6J2sBUlEee_D4EhwjboOQ"/>
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_A4OoIBtrEeeNbZVCoqtPGQ" name="REDEFINED_CONTEXT_TYPE" templateParameter="_7vGyMBtqEeeNbZVCoqtPGQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_sIyu4I3OEemaCNM_5JlkJw" name="SingleEAttributeValueEqualityExpression">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_MKE6EI3PEemaCNM_5JlkJw" annotatedElement="_sIyu4I3OEemaCNM_5JlkJw">
+          <body>This expression allows to check if the eAttribute value is equals to the expected one. &#xD;
+This expression returns false in all cases, expected when the expectedValue is equals to the current value.</body>
+        </ownedComment>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_z6B2kI3OEemaCNM_5JlkJw" name="eAttribute">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_hhHRkI6qEemjwpaBkaWY0Q" source="http://www.eclipse.org/emf/2002/GenModel">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_z1BGwI6qEemjwpaBkaWY0Q" key="propertyEditorFactory" value="http://www.eclipse.org/papyrus/expressions/singleEAttributeReference"/>
+          </eAnnotations>
+          <ownedComment xmi:type="uml:Comment" xmi:id="_R3TioI3PEemaCNM_5JlkJw" annotatedElement="_z6B2kI3OEemaCNM_5JlkJw">
+            <body>The eAttribute to check.</body>
+          </ownedComment>
+          <type xmi:type="uml:Class" href="pathmap://ECORE_METAMODEL_LIBRARY/Ecore.uml#_SeWiQcX_EduPJbEsMYXjUQ"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_300RII3OEemaCNM_5JlkJw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_5hKeMI3OEemaCNM_5JlkJw" name="expectedValue">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_URzPII3PEemaCNM_5JlkJw" annotatedElement="_5hKeMI3OEemaCNM_5JlkJw">
+            <body>The expected value for the EAttribute.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-SKvEI3OEemaCNM_5JlkJw"/>
+        </ownedAttribute>
+        <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_NBlw4I3PEemaCNM_5JlkJw" client="_sIyu4I3OEemaCNM_5JlkJw" supplier="_P-MkYBVaEee_D4EhwjboOQ" contract="_P-MkYBVaEee_D4EhwjboOQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_RqUHAJHWEemkbNOY_7-CZA" name="AbtractMultiBooleanEObjectExpressionsOwnedExpression" isAbstract="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_CfNj4JHYEemkbNOY_7-CZA" name="ownedExpressions" type="_P-MkYBVaEee_D4EhwjboOQ" aggregation="composite" association="_CfEZ8JHYEemkbNOY_7-CZA">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CfOK8JHYEemkbNOY_7-CZA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CfOK8ZHYEemkbNOY_7-CZA" value="*"/>
+        </ownedAttribute>
+        <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_tpYkgJHXEemkbNOY_7-CZA" client="_RqUHAJHWEemkbNOY_7-CZA" supplier="_P-MkYBVaEee_D4EhwjboOQ" contract="_P-MkYBVaEee_D4EhwjboOQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_fidikJHWEemkbNOY_7-CZA" name="AbstractSingleBooleanEObjectExpressionReferenceExpression" isAbstract="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_ade64JHYEemkbNOY_7-CZA" name="referencedExpression" type="_P-MkYBVaEee_D4EhwjboOQ" association="_addFsJHYEemkbNOY_7-CZA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_dLAR0JJsEemkbNOY_7-CZA" source="http://www.eclipse.org/emf/2002/GenModel">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_guXq4JJsEemkbNOY_7-CZA" key="propertyEditorFactory" value="http://www.eclipse.org/papyrus/expressions/SingleBooleanEObjectExpressionReferenceExpression/referencedExpression"/>
+          </eAnnotations>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_adfh8JHYEemkbNOY_7-CZA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_adgJAJHYEemkbNOY_7-CZA" value="1"/>
+        </ownedAttribute>
+        <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_tpADYJJuEemkbNOY_7-CZA" client="_fidikJHWEemkbNOY_7-CZA" supplier="_P-MkYBVaEee_D4EhwjboOQ" contract="_P-MkYBVaEee_D4EhwjboOQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_vbWt4JHWEemkbNOY_7-CZA" name="AbstractSingleBooleanEObjectExpressionOwnedExpression" isAbstract="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_gX8HIZHYEemkbNOY_7-CZA" name="ownedExpression" type="_P-MkYBVaEee_D4EhwjboOQ" aggregation="composite" association="_gX6R8JHYEemkbNOY_7-CZA">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gX8uMJHYEemkbNOY_7-CZA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_gX9VQJHYEemkbNOY_7-CZA" value="1"/>
+        </ownedAttribute>
+        <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_-YK2AJHXEemkbNOY_7-CZA" client="_vbWt4JHWEemkbNOY_7-CZA" supplier="_P-MkYBVaEee_D4EhwjboOQ" contract="_P-MkYBVaEee_D4EhwjboOQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_16D2sJHWEemkbNOY_7-CZA" name="AbstractMultiBooleanEObjectExpressionsReferenceExpression" isAbstract="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_OwPQoJHYEemkbNOY_7-CZA" name="referencedExpressions" type="_P-MkYBVaEee_D4EhwjboOQ" association="_OwLmQJHYEemkbNOY_7-CZA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yg87sJJsEemkbNOY_7-CZA" source="http://www.eclipse.org/emf/2002/GenModel">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_yg87sZJsEemkbNOY_7-CZA" key="propertyEditorFactory" value="http://www.eclipse.org/papyrus/expressions/MultiBooleanEObjectExpressionsReferenceExpression/referencedExpressions"/>
+          </eAnnotations>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_SkDggJHYEemkbNOY_7-CZA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_SeYWUJHYEemkbNOY_7-CZA" value="*"/>
+        </ownedAttribute>
+        <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_3ODYsJHXEemkbNOY_7-CZA" client="_16D2sJHWEemkbNOY_7-CZA" supplier="_P-MkYBVaEee_D4EhwjboOQ" contract="_P-MkYBVaEee_D4EhwjboOQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_CfEZ8JHYEemkbNOY_7-CZA" memberEnd="_CfNj4JHYEemkbNOY_7-CZA _CfOyAJHYEemkbNOY_7-CZA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CfKgkJHYEemkbNOY_7-CZA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CfLHoJHYEemkbNOY_7-CZA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_CfOyAJHYEemkbNOY_7-CZA" name="abtractmultibooleaneobjectexpressionscontainmentexpression" type="_RqUHAJHWEemkbNOY_7-CZA" association="_CfEZ8JHYEemkbNOY_7-CZA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_OwLmQJHYEemkbNOY_7-CZA" memberEnd="_OwPQoJHYEemkbNOY_7-CZA _OwQewJHYEemkbNOY_7-CZA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OwOpkJHYEemkbNOY_7-CZA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_OwOpkZHYEemkbNOY_7-CZA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_OwQewJHYEemkbNOY_7-CZA" name="abstractmultibooleaneobjectexpressionsreferenceexpression" type="_16D2sJHWEemkbNOY_7-CZA" association="_OwLmQJHYEemkbNOY_7-CZA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_addFsJHYEemkbNOY_7-CZA" memberEnd="_ade64JHYEemkbNOY_7-CZA _adgwEJHYEemkbNOY_7-CZA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_adeT0JHYEemkbNOY_7-CZA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_adeT0ZHYEemkbNOY_7-CZA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_adgwEJHYEemkbNOY_7-CZA" name="abstractsinglebooleaneobjectexpressionreferenceexpression" type="_fidikJHWEemkbNOY_7-CZA" association="_addFsJHYEemkbNOY_7-CZA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_gX6R8JHYEemkbNOY_7-CZA" memberEnd="_gX8HIZHYEemkbNOY_7-CZA _gX9VQZHYEemkbNOY_7-CZA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_gX7gEJHYEemkbNOY_7-CZA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_gX8HIJHYEemkbNOY_7-CZA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_gX9VQZHYEemkbNOY_7-CZA" name="abstractsinglebooleaneobjectexpressionownedexpression" type="_vbWt4JHWEemkbNOY_7-CZA" association="_gX6R8JHYEemkbNOY_7-CZA"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_-hQYgBqgEeex7OKxnYgv8Q" name="IBasicExpressionElement">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_6fy8MBUkEee_D4EhwjboOQ" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_FzQ0gBUlEee_D4EhwjboOQ" name="description" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_03hsUBVJEee_D4EhwjboOQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_03oaABVJEee_D4EhwjboOQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <Ecore:EPackage xmi:id="_4JTR0Bn5EeeYEuQJkmbFAA" base_Package="_s7iicBUjEee_D4EhwjboOQ" packageName="expressions" nsPrefix="expressions" basePackage="org.eclipse.papyrus.infra.emf" prefix="Expressions"/>
+  <Ecore:EPackage xmi:id="_-wytwBn6EeeYEuQJkmbFAA" base_Package="_0cNGMBXhEee_D4EhwjboOQ" packageName="booleanexpressions" nsPrefix="booleanexpressions" basePackage="org.eclipse.papyrus.infra.emf.expressions" prefix="BooleanExpressions"/>
+  <Ecore:EAttribute xmi:id="_YGSR8BqhEeex7OKxnYgv8Q" base_Property="_6fy8MBUkEee_D4EhwjboOQ" isID="true"/>
+</xmi:XMI>

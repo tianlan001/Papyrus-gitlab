@@ -1,0 +1,2539 @@
+= Development Environment =
+
+To ease the development on Papyrus, each member of the team works with basically the same configuration.
+
+One way to manage this is using the [http://wiki.eclipse.org/Eclipse_Installer Eclipse Installer] (by Oomph) to manage your Papyrus development workbench.
+
+== Papyrus Oomph Setup Model ==
+
+The [http://wiki.eclipse.org/Eclipse_Installer Eclipse Installer] provides a set-up model for Papyrus, making it easier than ever to get a complete Eclipse workbench up and running for development on the Papyrus source code. Just download the Oomph Installer from the linked wiki page and follow the simple wizard to create your IDE and import the Papyrus source projects that you want to work on.
+
+Pick any product you like on the first page, but be sure it's the latest release of that product for the Papyrus stream you're working on. For example, if you're working on the Luna service stream of Papyrus, you need the Luna release of Eclipse. On the second page, expand '''Eclipse.org''' / '''Papyrus''' to see the various components that you can import to work on. Pick any combination of the leaf-level sub-(sub-)projects, even all of them if you like. In the third page where you specify variables such as install location, workspace location, git clone, etc. be sure to choose "Luna" for the Target Platform. This ensures that you will be set up to work on Papyrus Luna (SR1), which is the only development stream currently supported by the setup model (until Mars development gets under way).
+
+Contributing your changes is easy because Oomph will clone the Papyrus Git repository for you and configure Gerrit push.
+
+Amongst possibly other details, the setup model configures:
+
+* your IDE with all of the tools needed to edit and build the source projects you choose
+* your workspace with a Git clone and the source projects imported from it that you choose
+* a PDE target that includes all of the dependencies required by Papyrus plus the latest nightly build of Papyrus, itself, so that you can import only a subset of the (many) source projects but still run the complete Papyrus toolset in a run-time workbench
+* Mylyn queries for current open bugs and enhancements in the Papyrus bugzilla database
+* Mylyn queries for the status of the latest Papyrus automated builds, including tests
+* Mylyn queries for open Gerrit reviews
+* preferences enforcing the Papyrus standard compiler and code formatter/template settings
+
+Please raise bugs if you see any problems in the setup configuration.
+
+Follow the following link for a step by step installation guide:
+
+=== Oomph Installation Guide ===
+
+When you first launch the Eclipse Installer, it will show the default "simple mode" installer presentation:
+
+[[Image:images/Papyrus_Oomph_simple.png]]
+
+You can choose to proceed from here, picking for example the "Eclipse IDE for Committers" package to install, which is the minimal configuration, and later using Oomph to import the Papyrus sources into the workspace (box 1 in the screenshot). However, you may as well select all of the Papyrus content that you need in your development environment now to set everything up in one go. To do that, switch to the "advanced mode": open the dialog tray by clicking on the button (box 2) and select "Advanced Mode..." (box 3). Now you should see the dialog reconfigured as shown below:
+
+[[Image:images/Papyrus_Oomph_page1.png]]
+
+Again, the simplest option is to start with the "Eclipse IDE for Committers" package because the setup model will add everything else you need for working on Papyrus's various code and models.
+
+On the second page, pick whatever Papyrus components you need to import into the workspace:
+
+[[Image:images/Papyrus_Oomph_page2.png]]
+
+Note: At a minimum, you must select the top-level "Papyrus" project node for import, to get the correct tooling installed for working with the source and to bring the nightly builds into your PDE Target.
+
+If you need to work on and test the Papyrus setup model, itself, then you should also import the "Papyrus / Developer / Oomph Setup" project (selected in the screenshot above) to configure the workbench to load the Papyrus setup model from your Git checkout instead of from the central Git repository via HTTP.
+
+Next, tell Oomph where to check out the Papyrus repository, where to install Eclipse, and where to create the workspace:
+
+[[Image:images/Papyrus_Oomph_page3.png]]
+
+'''Note''' that exactly how this page looks will depend on the options you choose for how to manage installation and workspace locations, and whether you have previously used Oomph to install other Eclipse instances (I have).
+
+'''Note''' also that if you do not see the target platform that you need in the 'Target Platform' pick-list (for example, Neon to start working on the Papyrus Neon branch that is the master at the time of this writing), then you can just type the name into the field.
+
+The last page summarizes the steps that Oomph will follow to start the installation:
+
+[[Image:images/Papyrus_Oomph_page4.png]]
+
+After the newly installed Eclipse instance starts up, it will complete the setup by performing the rest of the tasks that have to be done in the workspace that didn't exist initially. These include the git checkout, importing projects from the checkout into the workspace, creating working sets, Mylyn queries, and more. Once these steps have completed, you will be ready to start working on the Papyrus code.
+
+If you used Oomph's "simple mode" to create your Eclipse workspace, or if you need to make changes to what Papyrus bits you have imported (even for setting up the set-up model redirection), you can do this at any time by launching the Oomph installer wizard from within the Eclipse workbench. '''Note''' that you will first have to make the Oomph setup actions available in the toolbar be enabling the preference:
+
+[[Image:images/Papyrus_Oomph_updater.png]]
+
+This launches essentially the same wizard as the "advanced mode" of the Oomph Installer.
+
+== Common Environment ==
+
+Following is a description of the basic configuration: 
+
+* The latest Eclipse Modeling (Or Standard) release
+* EGit
+* [http://jautodoc.sourceforge.net/ JAutoDoc]
+** Configure the header template according to your company: Eclipse Preferences -&gt; Java -&gt; JAutodoc 
+* Java 1.8: 
+** Eclipse Preferences -&gt; Java -&gt; Compiler 
+** Eclipse Preferences -&gt; Java -&gt; Installed JREs 
+** VM Arguments for debug mode:
+<pre>-Dosgi.requiredJavaVersion=1.8 -Xms768m -Xmx1024m -XX:+CMSClassUnloadingEnabled</pre>
+
+== Version Management Tooling ==
+
+Oomph includes a way to manage the version changes between two releases as illustrated as following:
+
+As of late February 2016 in the Neon development cycle, the Papyrus Main plug-ins and features and the Developer Tools are configured for PDE API Tooling and Oomph Version Management validation. One of the value-added capabilities of Oomph is flagging plug-ins and features that aren't included in any other feature, and thus appear to be slipping through a crack in the release. This only works when the workspace has all of the plug-in and feature projects of Papyrus imported.
+
+If your workspace only has a subset of the Papyrus projects imported, then you can tell Oomph that this check is not appropriate by configuring the "check mode" in the Preferences:
+
+[[File:images/Papyrus_Oomph_versionmgmt_prefs.png|800px]]
+
+== [Future] Maven Integration ==
+
+The Hudson builds are currently implemented with Maven, using Tycho to build Eclipse-compatible artifacts. Therefore, all active plug-in and feature projects have Maven POM files describing them. There is a proposal under consideration to implement Maven Nature provided by M2Eclipse in the Papyrus source projects, to more closely align the Hudson build environment with the developer's local build environment in the Eclipse workbench.
+
+An initial analysis of what would be involved in this change, both in terms of actually implementing the Maven Nature and its impact on Papyrus developers' daily workflow, is captured in this document:
+
+* [http://www.slideshare.net/cdamus/adopting-maven-nature-in-papyrus-source-projects Adopting Maven Nature] in the Papyrus source projects.
+
+= Getting the code =
+
+If you are not using Oomph to set your environment you will need to fetch the code manually.
+
+== Cloning the Git repository and importing the code ==
+
+The Papyrus code and some documents are located in a Git repository. In the website [http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git] you will find the most recent activity information of the repository and, at the bottom of the page, you will find the URIs of the Git repository (e.g., http://git.eclipse.org/gitroot/papyrus/org.eclipse.papyrus.git).
+
+Follow this quick tutorial if you never used Git before and want to know how to import the source files of one or more Papyrus plugins in your Eclipse workspace.
+
+=== Papyrus Git Tutorial ===
+
+The following tutorial will focus on the main repository but every repository in the papyrus constellation can be found in the [http://projects.eclipse.org/projects/modeling.mdt.papyrus/developer Papyrus project developer resources] page.
+
+==== Retrieve Papyrus code ====
+
+To retrieve the papyrus code: 
+
+* via git : git://git.eclipse.org/gitroot/papyrus/org.eclipse.papyrus.git
+* via http : http://git.eclipse.org/gitroot/papyrus/org.eclipse.papyrus.git
+
+==== Configure access ====
+===== Via EGit =====
+
+First, you will have to clone the Git repository.
+
+[[File:images/git_Clone1.png|600px]]
+
+Select the clone by URI.
+
+[[File:images/git_Clone2.png|600px]]
+
+As you can see, you have access to a number of ways to import the Git repository. Select the way you prefer and enter the corresponding address.
+
+[[File:images/git_Clone3.png|600px]]
+
+You then have to select the branches you want to import.
+
+[[File:images/git_Clone4.png|600px]]
+
+Then, at the moment of the creation, you will be asked which branch you want to be created by default.
+
+[[File:images/git_Clone5.png|600px]]
+
+
+Once you already have a cloned Git repository, you have to add it to your "Git repository" view.
+
+[[File:images/add_Git_Repository1.png|600px]]
+
+[[File:images/add_Git_Repository2.png|600px]]
+
+[[File:images/add_Git_Repository3.png|600px]]
+
+
+To allow the user to commit anything Git will have to know your id and email. As such you can enter those variables in '''Preferences>Team>Git>Configuration''' and add the two entries:
+* key: '''user.name''' / value: '''[your name]'''
+* key: '''user.email''' / value: '''[your email]'''
+
+[[File:images/EGit_User_Settings.png|800px]]
+
+
+If you do not have an ssh key yet, you can generate one using PuTTYgen ( http://the.earth.li/~sgtatham/putty/latest/x86/puttygen.exe ). Select '''Key>SSH-2 RSA''' key in 2048 bits in length and just click generate. It is important to know that the key is generated by the random movements of the mouse inside the window, so don't wait for it to generate itself. then, save both keys in your .ssh folder.
+
+[[File:images/putty_SSH1.png|600px]]
+
+[[File:images/putty_SSH2.png|600px]]
+
+
+Save your private key and your public key with the corresponding buttons. It is preferable to protect your key by adding a pass-phrase to it that will be asked every time you use it as a precaution. You should get two keys by the time this is finished: xxxx.pub (for your public key) and xxxx (for your private one). PuTTy may name your keys with its owned extensions but ignore it and rename them accordingly.
+
+
+===== Via command line =====
+
+To clone the repository:
+* '''git clone [URI to clone the Git] [Folder in which you want to clone the repository]'''
+
+For the configuration:
+* '''git config --global user.name "[your name]"'''
+* '''git config --global user.email "[your email]"''''
+If you want to check your info:
+* '''git config --list'''
+
+For the ssh key, just type the following command: 
+* '''ssh -keygen -t [your key's name] -b [number of bits in length]'''
+
+[[File:images/command_SSH.png|1000px]]
+
+
+The steps are essentially the same as with PuTTY: generate the key, say where to save it and enter a pass-phrase. You can then test your new pair by entering '''ssh-keygen -y -f [private key name]''', you will be prompt for the pass-phrase (if any) and your public key will pop up.
+
+===== Adding the ssh key =====
+
+Furthermore your will have to add the ssh key (if you want to commit via ssh) to '''Preferences>General>Network Connection>SSH2''' by setting the path to your .ssh folder and adding the name of your key to the private keys list.
+
+As an example here is what this should look like when viewed inside your eclipse's Preferences page:
+
+[[File:images/EGit_ssh.png|800px]]
+
+
+= Contributing to Papyrus =
+== Developer Charter ==
+=== Management of service release ===
+* M3+
+ It is forbidden to modify the GUI. Only important bug fixes should be merged. 
+ Creation of a branch (tag) for the release
+* RC1+
+ Its forbidden to merge contribution. Only by the project Chief for critical bugs.
+=== Bug Management ===
+* When a bug is resolved the Target Milestone must be filled. For example the bug has been fixed for the service release 3 of oxygen, the target milestone is 3.3.
+
+=== Code convention===
+See the chapter '''Papyrus Developer Guide > Contributing to Papyrus > Code Contributions and Reviews'''.
+
+=== CQ ===
+* Remember to check on the current CQs to see if they are still current and that we will not miss any currently required dependencies (e.g. glazed lists in the new orbit or the new apache.common.io dependency) as well as the IPlogs. 
+Find here a quick tutorial on CQs:
+
+==== Creating a Contribution Questionnaire ====
+
+Contribution Questionnaires (CQs) are a big part of the IP (Intellectual Property) checking of a project. They allow the Eclipse IP Team to quickly know what third party code a project depends on and see if it is compliant with the EPL (Eclipse Public License).
+Eclipse Projects are expected to take necessary precautions to mitigate intellectual property risk to adopters. The integration of the provided code must come with the confidence that it can legally be distributed under the agreed-to terms, i.e. the EPL.
+
+
+==== The CQ tools - Where ====
+
+You must be a committer to see those but they can be found when logging into your Eclipse account and going to the project's page. There you will have access to three different menus providing the following:
+ 1- The page used to create a CQ
+ 2- A list of all active and previously used CQs
+ 3- A list of all active and previously used jars
+
+[[File:images/CQ_HowTo_Where.PNG|1000px]]
+
+
+==== The CQ tools - How ====
+
+Considering that there is no existing CQ for the code you are contributing, you will need to create your own. To that end you will need to search the existing CQs to see if the code already possesses a CQ declaring its fair use under the EPL.
+If you are lucky, which you should be in most cases, there will be a CQ for the third party code you are using, as illustrated in (1) and you just have to select the correct version, and/or tool, for you and depend directly onto it. This particular process is called Piggy Backing (PB).
+If there are no existing CQs then the work of proof reading and getting into contact with the owner of the code begins (which should of course have been done BEFORE asking for a CQ). You will also get to, instead of selecting and existing one, name the CQ yourself ! (yay !)
+
+[[File:images/CQ_HowTo_Search.PNG|1000px]]
+
+Once selected, or created, you will then proceed to the creation of the CQ.
+
+[[File:images/CQ_HowTo_Proceed1.PNG|1000px]]
+
+In our example the CQ is created as a Piggy Back of the original 13111 CQ (1). Its name will therefore show that (2). Once you are content with the look of your new CQ you can then proceed to officially create it.
+Once create a request will be sent to the IP team in order to review the CQ and a PMC will have to validate it.
+
+[[File:images/CQ_HowTo_Proceed2.PNG|1000px]]
+
+==== The created CQ ====
+
+Once a CQ is created you can follow the link to see it in the CQ bugzilla: [https://dev.eclipse.org/ipzilla/ IPZilla].
+There you will have be able to check the associated information:
+ 1- The name of the CQ
+ 2- The number of the Piggy Backed CQ
+ 3- Your CQ's number
+ 4- The project associated to the CQ
+ 5- The compliance level of the Project. Type B - Full IP Due Diligence (License, Provenance, Scanning)
+
+[[File:images/CQ_HowTo_What.PNG|1000px]]
+
+
+== Retrieve configuration files ==
+
+The Papyrus [http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/tree/releng/templates/Papyrus%20Code%20templates.xml Code Templates], [http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/tree/releng/templates/papyrus_cleanup.xml Java Cleanup] and [http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/tree/releng/templates/papyrus_formatter.xml Java Formatter] files are available under the Papyrus repository in the folder releng/templates/ and should be used for all your development on Papyrus.
+
+[http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/tree/doc/DevelopperDocuments/templates/HowToUseTemplates.txt The note] explains how to install the templates in your environment.
+
+== String Externalization/Internalization ==
+* The goal of the externalization process is to distinguish the string used as messages and visible by the final user and the string required in your code, but not visible for the user,
+
+=== How to process to manage strings in your java plugin? ===
+#messages/string visible by the user must be in a Messages.properties file, located in a java package called '''your.plugin.name.messages'''
+#Exception message must not be translated, even if they are visible by the final user. We need to avoid to receive bugs with exception message in another language than english.
+#String hidden for the final user, must have the tag //$NON-NLS-index. (index starting to 1, with no space between the <code>//</code> and the <code>$</code>.
+#Each string displayed to the user, must be written in one string: 
+'''Bad code''':
+
+<source lang="java">String fileName = "aFileName";
+
+String message = "The file " + fileName + " can't be found";
+</source>
+
+This message is splitted in 2 strings. It is not good, because the translator doesn't know what he is translating and the order of the words can change from english to another language, so we recommand: 
+
+'''Good code''': 
+
+<source lang="java">String fileName = "aFileName";
+
+String message = NLS.bind("The file {0} can't be found", fileName);
+</source>
+
+In this message, there is only one string to translate, the translator, can move the {0} to the good location in the new language.
+The method <code>String#format</code> should work fine too.
+
+==== step 1: Open the Externalization menu ====
+Left Click -> Source-> Externalize Strings...:
+
+[[File:images/ExternalizationMenu.png |1000px]]
+
+==== step 2: Name the String ====
+Give a nice name to the string
+
+[[File:images/giveAniceName.png |1000px]]
+
+==== step 3: Configure the output package ====
+
+[[File:images/configureOutput.png |1000px]]
+
+==== step 4: View the result ====
+
+[[File:images/resultExternalizationt.png |1000px]]
+
+
+=== How to process to manage strings in your plugin.xml file? ===
+In plugin.xml, you should do the same thing, from the Overview tab. The output folder shouldn't changed:
+
+[[File:images/pluginExternalization.png |1000px]]
+
+
+=== How to define if a string must be externalized creating a new extension point? ===
+Set the field '''translatable''' to <code>true</code>:
+
+[[File:images/pluginTranslatable.png |1000px]]
+
+
+== Papyrus Plug-ins and Features ==
+
+=== Coding rules for Papyrus plug-ins and features ===
+
+These rules apply to all plug-ins and features developed for the Papyrus Eclipse project, and distributed under the EPL licence. 
+
+
+==== Plug-ins ====
+
+*All plug-ins must compile and run with Java 17 (''Execution Environment = JavaSE-17'') since 2023-06.
+*Plug-in provider&nbsp;: ''Eclipse Modeling Project'' 
+*Version&nbsp;: 
+**Juno&nbsp;: ''0.9.2.qualifier'' 
+**Kepler&nbsp;: ''0.10.0.qualifier''
+**Luna&nbsp;: ''1.0.0.qualifier'' or ''0.11.0.qualifier''
+**Mars&nbsp;: ''1.1.0.qualifier'' or ''0.12.0.qualifier''
+**Neon&nbsp;: ''as of this release, Papyrus adheres to the [http://wiki.eclipse.org/Version_Numbering Eclipse Versioning Guidelines] for API evolution and other kinds of changes''
+*Plug-in name&nbsp;: must end with (Incubation) if version is less than 1.0. e.g. ''Papyrus CDO Model Repository (Incubation)''. If the version is at least 1.0.0, the (Incubation) suffix must be removed (e.g. ''Papyrus Backbone'').
+*Plug-in ID&nbsp;: must start with org.eclipse.papyrus 
+*Plug-in dependencies must be re-exported that contribute types to the API signatures exported by the plug-in. This ensures a correct and consistent classpath for consuming bundles
+**The Papyrus Developer Tools include an action '''Optimize Bundle Dependencies''' in the '''Plug-in Tools''' context menu of plug-in projects and manifest files that automatically re-exports the minimal set of dependencies to cover all imported APIs that are exposed by a plug-in
+*Dependencies to Papyrus plug-ins must match the current compatible version (e.g. depend on ''oep.infra.core;bundle-version="[1.2.0,2.0.0)"'' instead of ''oep.infra.core'' or ''oep.infra.core;bundle-version="1.2.0"'')
+**The Papyrus Developer Tools include an action '''Update Dependency Ranges''' in the '''Plug-in Tools''' context menu of plug-in projects and manifest files that automatically assigns bundle dependency ranges compatible with the current PDE target and workspace
+*The build.properties file describes the files that '''must''' be included at runtime. It is important to fill it properly, so that plug-ins can work correctly once installed. Especially, you should probably always include the following files and folders (When they exist), in the "Binary build" category: 
+**META-INF/ 
+**about.html 
+**icons/, images/, resources/, models/, etc. (All folders containing runtime resources) 
+**plugin.properties 
+**plugin.xml 
+**schema/ 
+*Do '''not''' include the following files: 
+**.classpath 
+**.project 
+**bin/, src/, src-gen/, custom-src/ 
+**build.properties 
+*The ''Source build'' category '''must''' contain the following file: 
+**about.html 
+*Optionnally, it may contain the following files: 
+**.classpath 
+**build.properties 
+*It '''must not''' contain the following: 
+**src/, src-gen/, custom-src/ 
+**All files and directories which are already contained in the "Binary build" category (Except about.html which must be contained in both Binary and Source builds)
+
+plugin.xml:
+[[File:images/Papyrus.codestandards.plugin.xml.png]]
+
+
+==== Java classes ====
+
+*All APIs must be documented with JavaDoc comments. Automatic generation of JavaDoc comments may help, but the automatically generated comments are '''templates'''. They are not sufficient. It is better not to generate javadoc comments than to generate empty comments. 
+*No abbreviations - the class, methods and variables should have meaningful names 
+*Formatting - the code should be formatted in accordance with format templates
+*Always use brackets in conditions, loops, ...
+*Compile - the modified code and other plugins should be compilable. Be sure to use '''Java 1.5 code compatibility'''. Check other plugins that could be influenced before commiting! 
+*Standard Java Rules coding - Unless specified differently, the Java Standard Coding rules should be applied: no abbreviations, variables starting with lower case; class and types with upper case; Composed name separated with upper case; no underscore in names; ... 
+
+*Each Java class must contain the Copyright/Licence/Contributor header. e.g.:
+
+<source lang="java">/*****************************************************************************
+ * Copyright (c) 2016 CEA LIST and others.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *   Name (SOCIETY) Email - Initial API and implementation
+ *   
+ *****************************************************************************/</source> 
+
+*You must '''not''' use the standard console output in Papyrus plug-ins. Use the Papyrus log ('''Papyrus Developer Guide > How to... > Use Papyrus Log''') instead
+
+*In case of doubt - check existing code from those following the rules&nbsp;:-)
+
+
+==== Features ====
+
+*ID: 
+**Main Papyrus components: org.eclipse.papyrus.&lt;feature.name&gt;.feature 
+***e.g. ''org.eclipse.papyrus.infra.core.feature'' 
+**Extra components: org.eclipse.papyrus.extra.&lt;feature.name&gt;.feature 
+***e.g. ''org.eclipse.papyrus.extra.marte.feature'' 
+*Name: Papyrus &lt;Feature Name&gt; (Incubation) 
+**e.g. ''Papyrus core (Incubation)'' 
+**e.g. ''Papyrus Marte (Incubation)'' 
+*Each feature must contain the files ''license.html'' (April 9, 2014) 
+*The build.properties file must contain the following files in the "Binary build" section: 
+**feature.properties (When available) 
+**feature.xml 
+**licence.html 
+*The build.properties file must contain the following files in the "Source build" section: 
+**build.properties (Optional) 
+**licence.html
+
+
+[[File:images/Papyrus.Build.properties-selectedOptions.png]]
+
+=== Tests ===
+
+==== Test plug-ins ====
+
+Each plug-in contributed within the Papyrus project must be accompanied with a Test plug-in (And their associated Feature). Each test plug-in must ''at least'' contain a test class so that it can be included to the build/test infrastructure. Of course, the more tests it actually contains, the better... 
+
+The test plug-ins and features must follow the same rules as the other Papyrus plug-ins. 
+
+==== Automatic check ====
+
+Most of these rules are checked automatically when running the Papyrus tests. If you want to check them locally, use the plug-in ''org.eclipse.papyrus.bundles.tests'' (''Run as &gt; Junit plug-in test'' or use the ''*.launch'' file from this plug-in). This plug-in can be retrieved on the Papyrus Git repository: http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/tree/tests/junit/plugins/developer/org.eclipse.papyrus.bundles.tests
+
+=== Papyrus New Plugin Submission Process ===
+
+==== Overview ====
+All new plugins contributed to Papyrus should follow a submition process describe here.
+The goal of this submition process is to allows all commiters to review the new plugin before it is added to the main development trunk.
+The goals of this process are:
+*Allow other commiter to be informed of new plugins
+*Allow to review new plugins before they are delivered in the main trunk
+*Let other commiters have a chance to test, check and comment new plugin before it is fully part of Papyrus. This 
+allows to choose altogether the definitive plugin name, its target repository (core, uml, ...) and to check that coding rules are respected.
+*To provide more robust and well written plugins
+*To simplify the nightly build process
+*Allow new commiters to submit their code without being afraid of breaking Papyrus
+
+==== Prerequesites ====
+
+*Your plugin should be fully operational. Do not submit a plugin that is not running
+*Papyrus should still running without your new plugin.
+*Your plugin should follows rules describe in this document [http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/tree/doc/DevelopperDocuments/How-To/PapyrusDevelopperTutorial_OnCreating&AddingNewPluginInPapyrus_v1.0_d2010-05-07.odt]
+*The name of your plugin should follow Papyrus naming rules
+
+==== Submission Process ====
+
+This is a draft proposal, subject to changes. 
+
+#Add a Bugzilla entry
+#Choose a name for your new project (see '''Papyrus Developer Guide > Contributing to Papyrus > Papyrus Plug-ins and Features > Papyrus New Plugin Submission Process > Papyrus Plugin Naming Scheme'''). 
+#Develop and test your plugin in a branch named bugs/<bug-id>-<short-desc> (e.g. bugs/12345-myFeature)
+#Check the "Check List" (see after)
+#Send an email on the Payrus mailing list to inform other developpers 
+#*Mention the plugin name
+#*Give a short description of your plugin purpose 
+#Wait at least 7 days (unless you have positive feedbacks from a vast majority of commiters, and no negative one)
+#*During this period, answer to remarks from others commiters, discuss, rename, do proposed enhancement... 
+#Once there are no more objections from other commiters, merge your branch to master
+#*enter a sub-task to the releng bug: 263430: [General] Add releng (https://bugs.eclipse.org/bugs/show_bug.cgi?id=263430). This informs the build server must be updated.
+
+==== Check List ====
+
+This list contains all points that should be verified before committing the plugin in the repository: 
+
+*Plugin id should correspond to Papyrus standards. It should be meaningfull and distinguishable from other plugins (to avoid having plugins org.eclipse.papyrus.editors and org.eclipse.papyrus.editor) 
+**Plugin id and project name should be exactly the same, to ease the process build 
+*Plugin should be compatible with the java 11 library: 
+**Minimal execution environment is JavaSE-17
+**JRE system library should be specified to JavaSE-17
+*Plugin should contain the 'about.html' file at the root of the plugin 
+**Check also that this file is included in the source and binary builds (build.properties -&gt; binary build, source build)
+*Plugin should be internationalized, with plugin.properties file or with the new system: PDE Tools &gt; Internationalize 
+*Plugin build should be carrefully inspected: 
+**Binary build&nbsp;: Is everything required at runtime present? Icons folder, extension point schemas, plugin.properties, about.html, etc. 
+**Source build should contain at least the about.hmtl file. 
+**Unless exception, there should be no warnings on this file!
+*Code should contain correct headers 
+*Code should be commented (javadoc) 
+*Java formatter and templates shared on the repository should be applied on the whole plugin content 
+*No System.out/err.println left in the code
+**Use the papyrus log system
+
+==== Papyrus Plugin Naming Scheme ====
+
+This page explains:
+
+*how Papyrus plugins are named and located. 
+*the structure of the trunk and branches
+
+All papyrus plugin should start with the same prefix: 
+
+'''''&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; org.eclipse.papyrus''''' 
+
+===== Naming Scheme =====
+
+So you want to propose a new plugin. You need to give it a name. 
+
+All papyrus plugins should start with the same prefix: 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '''org.eclipse.papyrus ''' 
+
+But this is not enough. The next step is to decide where your plugin should be located: 
+
+#Read carrefully the next paragraph, and decide in which folder/subfolder your plugin will be located 
+#Use the proposed prefix (ex: org.eclipse.papyrus.example. ) 
+#If you want to contribute a set of plugins, give them a namespace name to identify all of them 
+#Try to give a self explanatory name.
+
+===== Folders Structure =====
+
+The trunk and the branches have the same structure. Here we will only describe the trunk structure. 
+
+The trunk contains the following folders: 
+
+*'''plugins''' - contains all plugins included in the Papyrus distribution: core, main uml diagras, sysml 
+*'''tests''' - contains tests plugin. The internal structure is the same as plugins, but here we have tests. 
+*'''examples''' - contains some example of plugins, for user and developper. 
+
+These folders can also contains subfolders. 
+
+====== Plugins ======
+
+This folder contains sub folders. All plugins in the sub folders form the main Papyrus distribution. 
+
+{| cellspacing="1" cellpadding="1" border="1" style="width: 1003px; height: 148px;"
+|-
+| '''folder''' 
+| '''plugin prefixes''' 
+| '''description'''
+|-
+| plugins/core 
+| bgcolor="#66ffff" | ''org.eclipse.papyrus''.'''core.'''*'''''' 
+| 
+|-
+| plugins/uml 
+| bgcolor="#66ffff" | ''org.eclipse.papyrus''.'''uml.*''' 
+| All plugins related to UML diagrams and UML should be located in this repository, except plugins related to a particular profile
+|-
+| plugins/uml 
+| bgcolor="#66ffff" | ''org.eclipse.papyrus''.'''uml.diagram.*''' 
+| Plugins related to common UML diagrams are located in this repository. The naming scheme include 'diagram' namespace.
+|-
+| plugins/developer 
+| bgcolor="#66ffff" | 
+| To be moved in extraplugins or in developer&nbsp;?
+|-
+| plugins/others 
+| bgcolor="#66ffff" | org.eclipse.papyrus.??? 
+| Plugins that do no feet in other repositories
+|-
+| plugins/sysml 
+| bgcolor="#66ffff" | org.eclipse.papyrus.'''sysml.*''' 
+| All plugins related to sysml UML profile
+|-
+| 
+| bgcolor="#66ffff" | 
+| 
+|}
+
+====== Tests ======
+
+This folders contains subfolders, each one dedicated to a kind of test: 
+
+*junit 
+*recipes 
+*swbot
+
+Each subfolder mimic the same structure as the trunk. The names of the plugins are usually the same name as the tested plugin, suffixed with the type of test. 
+
+{| cellspacing="1" cellpadding="1" border="1" style="width: 1003px; height: 148px;"
+|-
+| '''folder''' 
+| '''plugin prefixes''' 
+| '''description'''
+|-
+| tests/junit 
+| bgcolor="#66ffff" | org.eclipse.papyrus'''.*.tests''' 
+| This folder mimic the trunk folder. It containt Plugin for junit tests. 
+The plugins have the same name as the plugin they test, with the suffix '''.tests''' 
+
+|-
+| tests/recipes 
+| bgcolor="#66ffff" | org.eclipse.papyrus'''.*.recipetest''' 
+| This folder mimic the trunk folder. It containt Plugin for recipes tests. 
+The plugins have the same name as the plugin they test, with the suffix '''.recipetest''' 
+
+|-
+| tests/swbot 
+| bgcolor="#66ffff" | org.eclipse.papyrus'''.*''' 
+| &nbsp;????
+|}
+
+====== Examples ======
+
+There is two kind of examples: 
+
+*user examples 
+*Papyrus developer or customizer examples
+
+The folder contains subfolders for each kind of examples. 
+
+{| cellspacing="1" cellpadding="1" border="1" style="width: 1003px; height: 148px;"
+|-
+| '''folder''' 
+| '''plugin prefixes'''
+| '''description'''
+|-
+| examples/user 
+| bgcolor="#66ffff" | org.eclipse.papyrus.'''example.user.*'''
+| Plugins providing examples for Papyrus end user (ex: models)
+|-
+| examples/dev/core 
+| bgcolor="#66ffff" | org.eclipse.papyrus.'''example.core.*'''
+| Plugins related to core and providing examples for developer or customizer.
+|-
+| examples/dev/uml 
+| bgcolor="#66ffff" | org.eclipse.papyrus.'''example.uml.*'''
+| Plugins related to UML and providing examples for developer or customizer.
+|-
+| examples/dev/others 
+| bgcolor="#66ffff" | org.eclipse.papyrus.'''example.???.*'''
+| Plugins providing examples that do not fit in other folders.
+|}
+
+
+===== Actual Sub-Folders and Proposed Refactoring =====
+
+The following table try to resume the actual existing folders, their purpose, and eventually the proposed refactoring: 
+
+{| cellspacing="1" cellpadding="1" border="1" style="width: 999px; height: 1053px;"
+|-
+| '''folder''' 
+| bgcolor="#66ffff" | '''plugin prefixes''' 
+| '''description''' 
+| 
+'''required actions ''' 
+
+|-
+| plugins/core 
+| bgcolor="#66ffff" | ''org.eclipse.papyrus''.'''core.'''*'''''' 
+| 
+| 
+|-
+| plugins/uml 
+| bgcolor="#66ffff" | ''org.eclipse.papyrus''.'''uml.*''' 
+| All plugins related to UML diagrams and UML should be locate in this repository, except plugins related to a particular profile 
+| 
+|-
+| plugins/uml/diagram 
+| bgcolor="#66ffff" | ''org.eclipse.papyrus'''''.uml.diagram.*''' 
+| All plugins related to UML diagrams. 
+| 
+|-
+| plugins/developer 
+| bgcolor="#66ffff" | 
+| 
+| Move to extraplugins&nbsp;?
+|-
+| plugins/marte 
+| bgcolor="#66ffff" | org.eclipse.papyrus.'''marte.*''' 
+| All plugins related to marte UML profile 
+| Delete from plugins. Marte stuff is in extraplugins/marte
+|-
+| plugins/others 
+| bgcolor="#66ffff" | org.eclipse.papyrus.??? 
+| Plugins that do no feet in other repository 
+| 
+oep.outline --&gt; extraplugins 
+
+oep.profile --&gt; uml 
+
+|-
+| plugins/sysml 
+| bgcolor="#66ffff" | org.eclipse.papyrus.'''sysml.*''' 
+| All plugins related to sysml UML profile 
+| 
+|-
+| plugins/profile-tool 
+| bgcolor="#66ffff" | 
+| bgcolor="#ff3333" | &nbsp;&nbsp;??? 
+| bgcolor="#ff3333" | clarify this repository, its purpose, and its naming scheme. Move to UML&nbsp;?
+|-
+| incoming 
+| bgcolor="#66ffff" | org.eclipse.papyrus'''.*''' 
+| 
+New plugins that should be added to Papyrus. See [[Papyrus Developer Guide/Build Process|Build_Process]]. 
+
+Plugins in this repository should follow the naming scheme of there targeted repository. 
+
+| 
+|-
+| extraplugins 
+| bgcolor="#66ffff" | org.eclipse.papyrus'''.*''' 
+| 
+This repository contains plugins providing some extra functionalities to Papyrus. For example: 
+
+*Java reverse tool 
+*diagram auto layout 
+*...
+
+| 
+|-
+| examples 
+| bgcolor="#66ffff" | ''org.eclipse.papyrus''.'''examples.*''' 
+| 
+Examples for Papyrus users. 
+
+| Need to separate user examples from developers examples.
+|-
+| examples 
+| bgcolor="#66ffff" | org.eclipse.papyrus.'''examples.*''' 
+| 
+Examples for Papyrus developpers / customizers. 
+
+This repository contains some plugins illustrating how to use some Papyrus functionalities, or how to extends Papyrus. 
+
+| 
+|-
+| 
+tests/junit/plugins 
+
+tests/junit/extraplugins 
+
+| bgcolor="#66ffff" | ''sameNameAsTestedPlugin'''''.tests''' 
+| 
+These repositories contain the same hierarchies as in plugins. 
+
+The test plugins should have the name of its tested plugin, suffixed with ".tests" 
+
+| 
+|-
+| 
+tests/recipes/plugins 
+
+tests/recipes/extraplugins 
+
+| bgcolor="#66ffff" | sameNameAsTestedPlugin.recipetest 
+| These repositories contain the same hierarchies as in plugins. 
+The recipetest plugins should have the name of its tested plugin, suffixed with ".recipetest" 
+
+| 
+|-
+| tests/swbot 
+| bgcolor="#66ffff" | 
+| &nbsp;??? 
+| please complete
+|}
+
+
+== Write Documentation for Papyrus ==
+=== Documentation guidelines ===
+
+Documentation for the finished functionalities of Papyrus should be accessible online via the [http://help.eclipse.org/ info center], in the documentation embedded in Eclipse platform and in the documentation plugins themselves. 
+Such distributed documentation should be coherent throughout those platforms. As such, the documentation should be stored in plugin format inside the Papyrus documentation repository in the main and extra folders. 
+
+There will not be any documentation on finished and/or published features in wiki pages. The wiki pages will only be used to discuss and exchange ideas on feature currently in development. Any finished feature's documentation should be removed from those pages and published in plugin form in the papyrus' git repository.
+ 
+
+Documentation should follow these recommendations [http://wiki.eclipse.org/Eclipse_Doc_Style_Guide Eclipse Doc Style], but keep particularly in mind the following ones:
+# Each tool should provide its own documentation plugin with its documentation separated in two ''distinct'' sections: User and Developer.
+# The documentation should be written in [http://www.mediawiki.org/wiki/Help:Contents mediawiki] form and have its corresponding toc file.
+# Each tool should provide its own anchors so as to not overload existing ones, preventing the reader to access the provided content easily. Some doc may contribute to existing anchors but this should be validated by the original owner first.
+# Topics should not include more than one task. If the need arise then sub-section should be created or new sections with their own page if the content proves itself too rich for a subsection (i.e. mediawiki pages of more than 3-400 lines should never exist but be split into several pages with their own anchors).
+# The User documentation should be ''sufficiently'' illustrated using screenshots (contributed through rcptt tests or done manually) in order to guide the user through the motions. Those images shall be in the .png format. Those illustration shall begin with ''Papyrus_xxx''
+# Use [https://www.mediawiki.org/wiki/Help:Formatting/en wiki formatting] as much as possible when writing the documentation. Eclipse allows the use of some html tags but their wiki alternative should be preferred if possible.
+# The text in a section's title must match the text in the heading, the titles must also begin with a Capital and reveal the content of their documentation. E.G. the [http://en.wikipedia.org/wiki/Gerund gerund] will be preferred in cases such as this one: '''Creating a Papyrus project''' instead of '''Papyrus project'''.
+# The ''depth'' of the documentation should not exceed 3, that is:
+<table border="1" cellpadding="3" cellspacing="0">
+<td>Root Folder
+	<ol>
+		<li>Step 1 text.</li>
+		<li>Step 2 text:
+			<ol type="a">
+				<li>Sub-step 1.</li>
+				<li>Sub-step 2.</li>
+			</ol>
+		</li>
+	</ol>
+</td>
+</table>
+
+Please be aware that there is a discussion on releasing the developer documentation directly from the git repository through the usage of maven site plugin. The proposition is to maintain the documentation only in the source code repository and have a mechanism to publish it directly.
+If you have any idea or requirements, do not hesitate to contact us via the [mdt-papyrus.dev@eclipse.org developer mailing list].
+
+=== Creating Your Own documentation plugin ===
+
+The following steps should help you create your own documentation plugin and integrate it as a publishable item if needed.
+
+==== Step 1: Creating the base of the plugin ====
+
+Create a new plugin with the following tree content.
+
+[[File:images/Papyrus_Doc_BeforeBuild.png]]
+
+Notice that there is a main-toc.xml to provide the skeleton for the future ''book''. Then several mediawiki pages are to be created, one for every topic treated. Of course, as your wikimedia pages will be illustrated don't forget to add your screenshots in a images folder.
+
+==== Step2: Adding mylyn generation to the pom.xml ====
+
+Here is the plugin you will have to add to your pom.xml (as long as it is not already inherited from the parent pom.xml).
+
+<source lang="xml" collapse="true" first-line="2"> 
+<plugin>
+  <groupId>org.eclipse.mylyn.docs</groupId>
+  <artifactId>org.eclipse.mylyn.wikitext.core.maven</artifactId>
+  <configuration>
+   <sourceFolder>src/site/mediawiki</sourceFolder>
+   <outputFolder>${project.build.directory}/generated-eclipse-help</outputFolder>
+   <copyrightNotice>${help.copyrightNotice}</copyrightNotice>
+   <title>${help.documentTitle}</title>
+   <multipleOutputFiles>false</multipleOutputFiles>
+   <navigationImages>true</navigationImages>
+   <formatOutput>true</formatOutput>
+   <htmlFilenameFormat>$1.html</htmlFilenameFormat>
+   <xmlFilenameFormat>$1-toc.xml</xmlFilenameFormat>
+   <helpPrefix>target/site/generated-eclipse-help</helpPrefix>
+   <stylesheetUrls>
+     <param>styles/main.css</param>
+   </stylesheetUrls>
+  </configuration>
+  <executions>
+   <execution>
+     <goals>
+      <goal>eclipse-help</goal>
+     </goals>
+   </execution>
+  </executions>
+  <dependencies>
+   <dependency>
+     <groupId>org.eclipse.mylyn.docs</groupId>
+     <artifactId>org.eclipse.mylyn.wikitext.mediawiki.core</artifactId>
+     <version>${mylyn.wikitext.version}</version>
+   </dependency>
+  </dependencies>
+</plugin>
+</source>
+
+==== Step 3: Writting and referencing the documentation ====
+
+As is illustrated below, adding the MyLyn mediawiki maven plugin to the pom.xml enables the creation of the target folder containing automatically generated eclipse documentation when building the project.
+
+[[File:images/Papyrus_Doc_AfterBuild.png]]
+
+Your plugin will contains a site directory that will hold your mediawiki documentation with it embedded resources such as images.
+The mediawiki files will be processed by a maven wiki plugin and will generate a toc file and the corresponding html file in the output folder.
+If you want more information, please have a look to the mylyn [http://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.mylyn.wikitext.help.ui%2Fhelp%2FMarkup-Generation.html wiki page]. 
+
+You will then have to create a new TOC file that will reference the generated TOC files
+
+Content of the myplugin-main-toc.xml file&nbsp;: 
+
+<source lang="xml">
+<?xml version='1.0' encoding='utf-8' ?>
+<toc label="Using tables" link_to="../org.eclipse.papyrus.infra.doc/toc.xml#PapyrusDocCustom">
+  <topic label="Using tables" >
+   <link toc="target/site/generated-eclipse-help/tablemetamodeldocumentation-toc.xml"/>
+   <anchor id="tableMetamodel"/>
+   <link toc="target/site/generated-eclipse-help/tableUserDoc-toc.xml"/>
+   <anchor id="tableUserDoc"/>
+  </topic>
+</toc>
+</source> 
+
+''link_to'' add the contribution to the PapyrusDocCustom anchor (defined in the main papyrus documentation plugin's org.eclipse.papyrus.infra.doc toc.xml).
+
+'''warning''': paths are related to the root of the plugin.
+
+The generated TOC (through the build, e.g. tablemetamodeldocumentation-toc in our example) is referenced by the hand-written one (which we called main-toc.xml). An anchor is also added in the generated ones, so the documentation can be extended by another contribution.
+
+Then, add all images embedded in the documentation in the same folder as the mediawiki and all generated files. Do not forget to add all files (the folder resource in the example) to the build.properties file.
+
+Finally, the tocs should be referenced in the extensions of the plugin.
+
+<source lang="xml">
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension point="org.eclipse.help.toc">
+   <toc file="target/site/generated-eclipse-help/myplugin-main-toc.xml" primary="false"/>
+   <toc file="target/site/generated-eclipse-help/myplugin-generated-toc.xml" primary="false"/>
+  </extension>
+</plugin>
+</source>
+
+==== Step 4: Attaching the documentation to the build process ====
+
+Now that your documentation is ready to be published, you need to add your doc plugin in the modules of the pom.xml of the root documentation folder (in our case ''plugins/doc/pom.xml'').
+
+<source lang="xml" collapse="true" first-line="2"> 
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+   <artifactId>org.eclipse.papyrus</artifactId>
+   <groupId>org.eclipse.papyrus</groupId>
+   <version>1.1.0-SNAPSHOT</version>
+   <relativePath>../../releng/top-pom-main.xml</relativePath>
+  </parent>
+  <artifactId>org.eclipse.papyrus.plugins.doc</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+   <module>org.eclipse.papyrus.cdo.ui.doc</module>
+   <module>org.eclipse.papyrus.copypaste.ui.doc</module>
+   ...
+   <module>org.eclipse.papyrus.myplugin.doc</module>
+  </modules>
+</project>
+</source>
+
+==== Step 5: Publishing the documentation ====
+
+If you want the new documentation to be released with the Papyrus doc plugins that will serve as the basic released documentation for the next info center (i.e. ''<nowiki>http://help.eclipse.org/[version]/index.jsp</nowiki>''), it will need to be added in org.eclipse.papyrus.doc.feature/feature.xml
+
+<source lang="xml" collapse="true" first-line="2"> 
+<plugin
+  id="org.eclipse.papyrus.infra.nattable.doc"
+  download-size="0"
+  install-size="0"
+  version="0.0.0"
+  unpack="false"/>
+</source>
+
+==== Step 6: Test it ! ====
+
+You should execute an Eclipse RCP obtained from your initial platform, and your documentation should be accessible through the help menu.
+You could also execute a full local release of Papyrus by running a <code>mvn clean install -f ./releng/main/pom.xml -Dtycho.localArtifacts=ignore</code> from the root of your papyrus git repository.
+
+== Code Contributions and Reviews ==
+=== Code Style ===
+*'''default''' keyword in Interfaces: should be avoided and only used if unavoidable and justified (to prevent unnecessary API break for example)
+*'''var''' keyword is forbidden
+*'''lambda expressions''' are allowed, but must be commented to ease the understanding
+
+=== Code Contribution ===
+==== How to add a Task (Papyrus Bugzilla usage) ====
+
+When adding a task to the buzilla, the following grammar should be used: 
+
+*'[' ''Category'' ']' ''NameOfTheTask''
+
+The category helps to filter the bugs for developers. There are already some existing categories: General, XXX Diagram, Common, Property View, etc.
+
+As a reminder, the lifecycle of bugs is located here: [http://wiki.eclipse.org/Development_Resources/HOWTO/Bugzilla_Use Bugzilla Use]
+
+==== How to contribute code with Gerrit (non committer) ====
+
+Using Gerrit, you can contribute to the Papryrus project, even if you aren't a committer.  
+If you have not cloned the repository yet please follow the tutorial of '''Papyrus Developer Guide > Getting the code > Papyrus Git Tutorial'''.
+
+===== Sign in the eclipse development chart =====
+
+* Create an Eclipse Bugzilla account : [http://dev.eclipse.org/site_login/createaccount.php]
+This step is your average account creation, and it will require you to visit a mail sent URL to validate the account.
+* Sign the CLA : [http://wiki.eclipse.org/CLA]
+This can be done (by visitiing the following link: [http://projects.eclipse.org/user/login/sso]) once logged in by clicking on Contributor License Agreement and following all the instruction on this same page.
+* Activate your Gerrit account : [http://git.eclipse.org/r/]
+The id and password , just as your sign-in information on the eclipse website, are the mail address you used to create the eclipse account and the associated password, no need to create a new one.
+* And Add your ssh key, if you have one, to your gerrit account by going into your settings and then '''SSH Public Keys>Add Key''' and paste the newly generated public key. It should look like:'''[algorithm] [key] [comment]''', as shown here the first one is of the form: '''ssh-rsa xxxxxxxxx Generated'''
+
+[[File:images/EGit_ssh2.png|1000px]]
+
+===== Configure push for Gerrit =====
+
+Because you're not an official Papyrus commiter, you can't just commit your code on the papyrus git repository; you have to submit your contribution via the commit refs/for/master branch. 
+
+====== Via EGit ======
+You can configure EGit for push on that particular branch:
+
+* On the Git Repositories view, open ''Remotes''
+* Add a new Remote by right clicking on ''Remotes'', then choose ''Create Remote...'', and choose a new name (for example Gerrit) 
+N.B. : you can also choose to modify the origin remote.
+* Configure Gerrit for this remote by right clicking on it, and Gerrit Configuration
+
+You now have to configure the repository URI :
+* Choose your preferred protocole (http, https, ssh)
+* Enter the papyrus URI : 
+** via ssh : '''ssh://<nowiki>[committer_id]</nowiki>@git.eclipse.org:29418/papyrus/org.eclipse.papyrus''', where [commiter_id] is your Gerrit id.
+** via https : '''https://<nowiki>[committer_id]</nowiki>@git.eclipse.org/r/papyrus/org.eclipse.papyrus'''
+
+[[File:images/EGit_PushConfigurations.png | 800px]]
+
+* The above push configurations already contain your Gerrit id in the adress, and therefore the Gerrit id field will be updated automatically in the configuration window.
+* You may want to enter you password so that you won't have to type it on each push.
+
+If you're experiencing problems, please verify that you're pushing on refs/for/master (Or refs/drafts/master for hidden review)
+
+====== Via command line ======
+ git remote add sshGerrit ssh://<nowiki>[committer_id]</nowiki>@git.eclipse.org:29418/papyrus/org.eclipse.papyrus
+
+===== How to commit using EGit =====
+
+A good way to do this is to open the Git perspective inside your eclipse window as it will have all the necessary views to achieve what you want to do in this case.
+The first step is to verify that your local branches have a remote assigned and that it is the remote you want to push on, as the mechanism of commit and push of egit will select this one by default. This can be done easily by clicking on the branch in your Git repository interface and selecting the "Configure Branch" option.
+
+[[File:images/EGit_Branch_Configuration0.png | 600px]]
+
+Or by editing the '''Preferences>Team>Git>Configuration''' "Repository Settings" and defining which default remote your branch will be attached to.
+
+[[File:images/EGit_Branch_Configuration2.png | 1000px]]
+
+Once this is done you will have to create, or amend, the commit by going to the "Git Staging" tab. there you will have all the changes detected by EGit (it might be a little messy and full of files you didn't even touch, as is the case in this image, but don't pay it attention as your changes will be there as well) and drag the wanted files from ''' Unstaged Changes ''' to ''' Staged Changes '''. then edit the commit message:
+* The first line of your commit comment should be the bugzilla task number and its name; example : Bug 12345: The name of the bug you fixed.
+* Then should be the fixes you provided
+* If it is an amend of a precedent commit be sure to add the Change-Id provided by gerrit (upper left corner of the gerrit page) and separate the Change-Id from the rest of the meassage with a blank line
+* You will then have to sign-off your commit 
+
+[[File:images/EGit_Staging1.png | 1000px]]
+
+[[File:images/EGit_Staging2.png | 1000px]]
+
+If you only need to amend a commit EGit provides a fast way to edit the message with the "amend previous commit", "add signed off by" and "add Change Id" buttons.
+
+[[File:images/EGit_Staging0.png | 1000px]]
+
+The first commit on a Bug won't have a change-id as this will be created when the commit is pushed and accepted by Gerrit. The change-id can be retrieved by visiting the pushed commit on Gerrit.
+With EGit the "amend previous commit" button should fill the new commit's message with the previous fields. It is important to know that the Change-Id must be separated from the commit message by a blank line, so that it will be identified from the rest of the message and your push to gerrit will update the existing one.
+
+====== Once the commit is submitted ======
+
+Once all this is done, don't forget to link the gerrit page inside a comment in the related Bugzilla page. This little update will make things easier for the users and even serve you as a reminder to close or update the Bugzilla status ! 
+
+Gerrit & Bugzilla are now synchronized. A reference from Bugzilla to the Gerrit contribution is now automatically added as soon as the contribution is proposed, and another comment is added when the contribution is accepted (merged). Note that this synchronization can only happen if the Contribution contains the Bug ID in the commit message (‘'''Bug 123456''': ....’). Also note that by default, Mylyn/Bugzilla only writes the bug number (Without the ‘Bug’ prefix), which doesn’t trigger the automatic synchronization.
+
+===== How to commit using commands =====
+
+The editor used in this section is Cygwin ([http://www.cygwin.com/]), to which we added the specific git packages: git-completion, gui, svn and fast version control system. To install them choose a site, such as mirrors.kernel.org
+To make the display more comfortable and easier to read, it is preferable to run the following command: '''git config --global color.ui true''', if it is not already enabled, so that you will have access to all the nice colors. Also, if you are allergic to VI, try installing another editor, like nano.
+
+====== Install the commit-hook in your local repository ======
+
+This hook will automaticaly insert ''Gerrit Change-Id'' in your commit message
+ scp -p -P 29418 username@git.eclipse.org:hooks/commit-msg .git/hooks/
+see also [http://wiki.eclipse.org/EGit/Contributor_Guide#Install_the_commit-msg_hook_in_your_repository Install the commit-msg hook in your repository].
+
+
+====== First push - How to commit and push ======
+
+[[File:images/first_Commit.png | 1000px]]
+
+Having created an empty file (using the touch command) inside the git repository, git sees it as a modification and therefore the '''git status''' command shows the file as untracked. 
+We add it to the index of the next commit using '''git add [file name]''' and as you can see by the second ''' git status ''' the file testGerrit.txt is in the "Changes to be committed".
+The next step is to create the commit itself. For this purpose we run the '''git commit -m "[your commit message]" --signoff''' command. This command decompose itself in 3:
+* The actual order of commit, by using the commit keyword
+* The message we want to asociate with the commit, by using -m an entering the commit message between comas
+* The addition of the signature without which your commit will be refused, by adding --signoff (or just -s). This signature is comprised of your previously defined user name and user email.
+
+Before pushing on gerrit it is preferable to update your local branch from the remote as that should prevent merge conflicts if your change is accepted and merged. 
+* To do this we used the '''git fetch''' ( short for: git fetch [name of the git remote], and in this example the remote of the repository is named "origin" ) that will import all the changes (commits) that happened since the last update of the branch or, if no update were done, since the creation of the branch.
+* And '''git rebase''' ( short for: git rebase [name of the remote branch], which in this case is "origin/master" ) that will detach all the work done on the local branch, patch the local branch with the changes that happened on the remote branch and replay the work on top of them, effectively giving you an updated branch and clean base to push your new commit.
+
+[[File:images/fetch&rebase.png | 600px]]
+
+
+Then, we push the commit onto Gerrit. It will signal you if the build incorporating your changes has failed and allow your code to be reviewed before being merged. Instead of pushing to the actual branch, your local is based on, Gerrit uses "magic branches", effectively virtual branches, for the purpose of reviewing the code and pushing it, or not depending on the review, on the actual git remote. Those are identified with the "refs/for/[remote]" tag.
+
+[[File:images/Gerrit_Magic_Branches.png | 600px]]
+
+[[File:images/first_Push_Https.png | 1000px]]
+
+
+You will be able to see your contribution by opening Gerrit's web interface ([http://git.eclipse.org/r]). Filters can be applied in the search fieldbox. Useful ones in this case are:
+* status:open, that will only show the opened and not yet reviewed commits
+* project:papyrus/org.eclipse.papyrus, that will only show commit related to the papyrus project
+
+And this is what your commit details will look like:
+
+[[File:images/first_Push_Result.png | 1000px]]
+
+
+====== Second push - What not to do, or not too often ======
+
+Please keep in mind that, for the following steps ("second push" and "third push"), we are in the Gerrit situation where the contribution has not yet been merged. Amended commits are actually entirely new commits, and the previous commit is removed from the project history. If you amend a commit that other developers have based their work on it will look like the basis of their work has vanished from the project history and that is a tricky situation to recover from. 
+
+Now lets say that you want to add modifications to the project you are working on. In this case we just create a new file "testGerritMod.txt". As a newly created file, a "git status" tells us that it is added to the untracked list, that is the not yet committed files. We add the new file to the index and create a new commit as usual and adding the Change-Id to our message in order to signify gerrit that it is a modification of our first commit. As a reminder, remember to put an empty line between the commit message and the footer containing the Change-Id.
+
+[[File:images/second_Commit.png | 1000px]]
+
+
+But the problem is that we did not amend the first commit but created a new and different commit altogether without deleting the first one. Therefore we try to have two commits with the same Change-Id and that is just not possible. The push order gets rejected. Time for a squash, that is a rebase -i, of our two commits: ''' git rebase -i HEAD~2 ''' which means that we get the last two commits (~2) done from our local branch (HEAD).
+We then get an editor in which we choose how to fuse the commits together (image pending) and, once this is done, another that allows us to edit and choose which commit message to use.
+
+[[File:images/squash_For_Second_Push.png | 1000px]]
+
+[[File:images/squash_Commits_Message1.png | 1000px]]
+
+[[File:images/squash_Commits_Message2.png | 1000px]]
+
+
+As we can see the updated gerrit contribution contains the new file and the updated commit message.
+
+[[File:images/second_Push_Result.png | 1000px]]
+
+
+====== Third push - How to do it correctly ======
+
+To amend a commit properly you just have to run the ''' git commit --amend ''' that will allow you to amend the last commit done on this branch. In this case we create a new file to our test, add it to the index and then run the command. The new file is added to the commit and a message editor is opened to allow us to modify the commit message if need be. After making sure that our branch is still up to date, we push the new modification on gerrit (this time by ssh just to show that you can manipulate both together).
+
+[[File:images/third_Commit_Amend.png | 1000px]]
+
+[[File:images/third_Commit_Message_Amend1.png | 1000px]]
+
+[[File:images/third_Commit_Message_Amend2.png | 1000px]]
+
+
+Now that all is up to speed we can push the new modifications.
+
+[[File:images/third_Push_SSH.png | 1000px]]
+
+
+And the resulting modifications on the Gerrit page.
+
+[[File:images/third_Push_Result.png | 1000px]]
+
+
+===== Useful Tips =====
+
+====== Git Commands ======
+
+Here is a list a commands you may find useful:
+* '''git status''': allows you to see which files were changed in your repository
+* '''git add -i''': opens an interface that allows you to choose which files to add in bulk
+* '''git stash''': if you have unstaged changes in your local repository you wont be able to rebase after a fetch, or you will loose them if you switch branches. The stash command pu those changes away to be retrieved later. A new folder "Stashed Commits" will be created and your unstaged changes put in the Stash@{0} folder. It is useful to know that each new stash will take the Stash@{0} name and increment the anterior ones index by 1 ( Stash@{1}, ... )
+* '''git stash list''': will list all the stash you have in store
+* '''git branch''': will list all the branches created in your local git and notify you where you are
+* '''git branch -vv''': will show you all your branches and the remote they are based on
+* '''git log -n''': will display the last "n" commits that happened in your branch
+* '''git log -n --pretty=oneline''': just as above but will show each one on a single line, useful if you want to display a lot of them
+* '''git reset --soft HEAD~n''': rewind the last "n" actions done on your branch. Only use this to correct your own mistakes as it can lead to annoying situations
+* '''git reset --hard [remote]''': resets the local branch to look like the remote. Again be careful as any changes on your end will be erased 
+
+As a reminder here are some Git related commands, just in case:
+* '''git clone [remote uri] [local path]''': clone the git repository at the uri address mentioned
+* '''git remote add [name] [remote uri]''': add a new remote
+* '''git checkout [name of the local branch]''': switch to the mentioned branch
+* '''git checkout -b [name of the local branch] [remote uri]''': create a new local branch from the remote
+* '''git branch --set-upstream [name of the remote]''': will set the new remote as the upstream for this branch
+
+Of course, don"t forget the very useful command:
+* '''man git''': allows you to access all the possible commands with a brief explanation of their purpose
+
+
+====== VI Commands ======
+And if you use the VI editor:
+There are two "modes", one for editing (inserting) and one for navigating through the file, that we will call "I mode" and "Esc mode" respectively. Each of them are entered by pressing the associated key and exited by pressing its counterpart.
+* '''i''' (I mode): allows you to edit a line. Be aware that the text will be inserted before the cursor
+* '''dd''' (Esc mode): allows you to delete a line
+* '''x''' (Esc mode): delete a character
+* '''o''' (Esc mode): insert blank line
+* '''u''' (Esc mode): undo last changes
+
+* ''':w''' (Esc mode): saves the changes in the file
+* ''':wq''' (Esc mode): saves the changes and exits the editor
+* ''':q!''' (Esc mode): exits the editor without saving anything
+
+
+More information of how to use git on [http://wiki.eclipse.org/Development_Resources/Contributing_via_Git Contributing via Git]
+
+
+====== Mylyn Configuration ======
+Here is a basic example of how to configure mylyn to receive the bugs associated withe Papyrus:
+First, after installing the mylyn connector just as you would any other new software (Help>Install New Software), open the mylyn view (Window>Show View). From there select the '''New Query''' option and proceed as illustrated below.
+
+[[File:images/mylyn_Config1.png | 600px]]
+
+[[File:images/mylyn_Config2.png | 600px]]
+
+[[File:images/mylyn_Config3.png | 600px]]
+
+
+As a side note you can file bugs directly from mylyn using the '''New Task''' option from the Task Repositories view. Then, proceed to fill the requiered fields corresponding to your use case and submit the newly created bug.
+
+[[File:images/mylyn_Bug1.png | 600px]]
+
+[[File:images/mylyn_Bug2.png | 600px]]
+
+[[File:images/mylyn_Bug3.png | 600px]]
+
+==== What to do to contribute a patch ====
+
+(For further information, see [http://www.eclipse.org/legal/EclipseLegalProcessPoster.pdf]) 
+
+When a non-committer wants to contribute to Papyrus, he must create patchs and attach them to a bug. In the comment of each patch, he must write&nbsp;: 
+
+*(1) I, Forename Name, wrote 100% of the code I've provided. 
+*(2) This code contains no cryptography 
+*(3) I have the right to contribute the code to Eclipse. 
+*(4) I contribute the content under the EPL.
+
++ Set the field Review to '?'.
+
+==== What to check before committing a patch ====
+
+Before commiting a patch, you should verify that the contributor has written the following lines in the comment&nbsp;: 
+
+*(1) I, Forename Name, wrote 100% of the code I've provided. 
+*(2) This code contains no cryptography 
+*(3) I have the right to contribute the code to Eclipse. 
+*(4) I contribute the content under the EPL.
+
+If not, he must do that before you commit its patch! 
+
+*If the writer is an employee of the same company and if the compagny has signed a Member Commiter Agreement&nbsp;: after the commit, you should comment the attachment writing&nbsp;: 
+**Here is a contribution from one employee of "the name of the company" 
+**The company has signed a Member Commiter Agreement. 
+**The contribution does not need a CQ. 
+**I've committed this contribution. 
+**Committed revision xxx. 
+**Set the field iplog to +
+
+Note&nbsp;: In reality, you should have the autorization of the PMC before doing this commit. 
+
+*If the writer is not an employee of the CEA&nbsp;: you need to do a CQ (http://www.eclipse.org/legal/EclipseLegalProcessPoster.pdf. See '''Papyrus Developer Guide > Contributing to Papyrus > Developer Charter > CQ''' topic for more information).
+
+*In all other cases, see [http://www.eclipse.org/legal/EclipseLegalProcessPoster.pdf]
+
+==== Code formatting ====
+
+*Before to commit, you should verify these items&nbsp;: 
+**your code is formatted using the Papyrus Template 
+**each file has an header with the EPL licence and your name 
+**all strings are externalized or tagged with //$NON-NLS-1$. See '''Papyrus Developer Guide > Contributing to Papyrus > String Externalization/Internationalization''' topic for more information.
+**the version numbers are correct. See [http://wiki.eclipse.org/Version_Numbering this guide] for more information.
+
+*Moreover, if you want to commit a patch, please see the point "How to commit a patch".
+
+==== Plugin Versioning - Deprecated code ====
+Using the @Deprecated tag, you must do these things in the same time:
+*increase the minor version of the plugin (of course, only if it has not yet be done since the last release)
+**NB : if you just add @Deprecated tag in a plugin, it is normally not required to increase the plugin version. Nevertheless, we decided to increase the minor of a such plugin, in order to be able to know easily when the object became deprecated. Depending of the API Tools configuration, you can get an error doing this. In this case configure your API tools to ignore it.
+* indicate in the comment the plugin version when the class/method became deprecated
+* open a bug to remove the deprecated class/method in the next major release
+* reference this bug in the comment of the deprecated class/method
+* (optional) indicate in the comment in which major release the class/method will be remove
+
+Add the end, you must have something like that: 
+
+<source lang="java">
+/**
+ *
+ * @deprecated since 3.1
+ *       Use {@link org.eclipse.papyrus.infra.gmfdiag.common.structure.DiagramStructure} API instead.
+ *
+ *       This class will be removed in Papyrus 5.0, see Bug 541027.
+ *
+ */
+@Deprecated
+public abstract class DiagramStructure {
+...
+}
+</source>
+
+==== Commit message ====
+*During the commit&nbsp;: 
+**you should comment your commit and precise the id of the bug. See '''Papyrus Developer Guide > Contributing to Papyrus > Code Contributions and Reviews > Code Contribution > How to contribute code with Gerrit''' topic for more information about contributing through git and gerrit.
+
+=== Code Reviews ===
+
+Unless there is a good reason as to why, it is the Reviewer that is allowed to merge/push the gerrit patch into the repository. The reviewer must never be the committer of the patch to keep a two way check and minimize errors.<br/>
+Here are some guidelines (which may be altered and/or improved) that every reviewer and committer should follow:
+* '''Headers''': The headers must include a new entry for each contribution. It will include the bug number, the committer identification (the name is not mandatory, but the company is), updated date brackets (e.g. 2015-2018), respect the format below.
+In addition they must respect the EPL2.0 licensing and, in case of a plugin, include the about.html with the EPL2.0 license summary.
+
+<source lang="java">
+ /*****************************************************************************
+ * Copyright (c) 2015, 2018 CEA LIST, Committer Name, and others.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ * CEA LIST - Initial API and implementation
+ * Committer Name (CEA LIST) committer.name@cea.fr - Bug 492522, Bug XXXXXX
+ *****************************************************************************/
+
+ ###############################################################################
+ # Copyright (c) 2013, 2018 CEA LIST, Committer Name, and others.
+ #
+ # All rights reserved. This program and the accompanying materials
+ # are made available under the terms of the Eclipse Public License 2.0
+ # which accompanies this distribution, and is available at
+ # https://www.eclipse.org/legal/epl-2.0/
+ #
+ # SPDX-License-Identifier: EPL-2.0
+ #
+ # Contributors:
+ #
+ ###############################################################################
+ </source>
+
+* '''Javadoc''': It should exist for all methods (sometimes a simple @Inherited is enough). Generated javadoc should not be sufficient unless it expresses clearly what the method do, its parameters and return values.
+* '''Strings''': Verify the Non-NLS markers.
+* '''Tags''': (@since plugin-number, ...)
+
+<source lang="java">
+ /**
+ * Constructs an Editor for multiple Integer values.
+ * The widget is a List, with controls to move values up/down, add values and remove values.
+ *
+ * @param parent
+ *      The Composite in which this editor is created
+ * @param directCreation
+ *      Indicates if the creation and modification are directed.
+ * @param directCreationWithTreeViewer
+ *      Indicates if the creation and modification are directed on the TreeViewer.
+ * @param style
+ *      The List's style
+ *
+ * @since 3.1
+ */
+ public MultipleIntegerEditor(Composite parent, ...){}
+</source>
+
+* '''Version numbers''': A plugin's version should reflect its changes. Above is a linked to the guidelines and you can use tools to help you such as the integrated Eclipse's API tools.
+* '''Reexports''': A contributed code should never introduce any 'hidden' dependencies such as reexporting plugins dependencies.
+* '''Visibility ordering''': There is no order of methods or variables in a class (private, public or protected). On the other hand, there is an order when dealing with keywords (private static final Type).
+* '''Attributes''': All attributes, field must be at beginning of the class
+* '''Returns and conditions''': You can have as many 'return' statement you need in a method.
+
+* '''Features and Manifest''': The variables should be externalized in a properties files when possible. and the features should point to the eclipse license plugin instead of declaring their own.
+<source lang="xml">
+ <feature 
+   id="org.eclipse.papyrus.XXXXXXX.feature" 
+   version="2.0.0.qualifier"
+   label="%featureName" 
+   provider-name="%providerName" 
+   license-feature="org.eclipse.license"
+   license-feature-version="2.0.0">
+ 
+  <description>
+   %description
+  </description>
+ 
+  <copyright>
+   %copyright
+  </copyright>
+ 
+  <license url="%licenseURL">
+   %license
+  </license>
+</source>
+==== API ====
+* Code of plugins shall be inside internal package
+* API shall be public and each classe presence shall be justified by implementation of usecase
+* The usecase are store inside the plugin the name of the file '''name.usecases'''
+* The grammar is:
+ '''Requirement :''' requirementID ''':''' text 
+ '''Code Instruction: ''' path to the API class
+
+* See the folowing example
+
+ # Requirements defined for the validation of Papyrus profile plug-in
+ # This file must be filled by developer when a task is done in the validation of a profile plug-in
+ 
+ # General Requirements
+ Requirement: Req_Validate_Menu_ProfileValidation_001: The profile validation must be done with a button 'Validate Profile plug-in' on plug-in, in the papyrus developer 
+ menu
+ Code instruction: - org.eclipse.papyrus.toolsmiths.validation.profile/src/org/eclipse/papyrus/toolsmiths/validation/profile/handlers/ValidateProfilePluginHandler.java
+ - org.eclipse.papyrus.toolsmiths.validation.profile/src/org/eclipse/papyrus/toolsmiths/validation/profile/testers/ValidateProfilePluginTester.java
+ - org.eclipse.papyrus.toolsmiths.validation.profile/plugin.xml
+
+ Requirement: Req_Validation_Dialog_ProfileValidation_002: During the validation, a progress monitor must be opened with correct explanations
+ Code instruction: - org.eclipse.papyrus.toolsmiths.validation.profile/src/org/eclipse/papyrus/toolsmiths/validation/profile/handlers/ValidateProfilePluginHandler.java
+
+ # General Technical Requirements
+ Requirement: ReqTechnical_Extensions_Checker_ProfileValidation_001: A checker for the extensions must be implemented
+ Code instruction: - 
+ org.eclipse.papyrus.toolsmiths.validation.profile/src/org/eclipse/papyrus/toolsmiths/validation/profile/internal/checkers/ProfileExtensionsChecker.java
+
+ Requirement: ReqTechnical_Definition_Profile_Checker_ProfileValidation_002: A checker for the definition profile must be implemented
+ Code instruction: - 
+ org.eclipse.papyrus.toolsmiths.validation.profile/src/org/eclipse/papyrus/toolsmiths/validation/profile/internal/checkers/ProfileDefinitionChecker.java
+
+
+= How To ... =
+== Use Papyrus log ==
+Papyrus Log is using the log from Eclipse (see [https://bugs.eclipse.org/bugs/show_bug.cgi?id=292256]). Logs are displayed in the "Error Log" view. 
+
+=== Activating Log === 
+First, your plugin should depend on the '''org.eclipse.papyrus.infra.core.log.LogHelper''' plugin.
+
+Then, to benefit from the Papyrus log mechanism, you must add onto your bundle : 
+
+A public static variable on your bundle activator : 
+
+        '''import org.eclipse.papyrus.infra.core.log.LogHelper;'''
+        
+        public class Activator extends Plugin { // or AbstractUIPlugin 
+          
+          '''/** Logging helper */'''
+          ''' public static LogHelper log;'''
+           
+           /**
+            * {@inheritDoc}
+            */
+           public void start(BundleContext context) throws Exception {
+                super.start(context);
+                plugin = this;
+                '''// register the login helper'''
+                '''log = new LogHelper(plugin);'''
+           }
+        ...
+        }
+
+A static import of this variable on your class : 
+
+        '''import static org.eclipse.papyrus.[yourPluginName].Activator.log;'''
+        
+        public class CreateDiagramAction extends Action {
+        
+          public void run() {
+              ''' log.info("log");'''
+          }
+        }
+
+=== Writing Log === 
+
+There are three levels of log in Papyrus : info, debug, error
+==== info ====
+
+   log.info("..."); //$NON-NLS-1$
+
+==== debug ==== 
+A debug log is used for development and/or debug purposes only. It '''MUST''' be encapsulated with the condition log.isDebugEnabled(). 
+
+   if (log.isDebugEnabled()) {
+       log.debug("Start - CreateDiagramAction#run"); //$NON-NLS-1$
+   }
+
+==== error ==== 
+
+
+  try {
+    ...
+  } catch (IOException io) {
+       log.error(io);
+       ...
+  }
+
+==== Help writing log ====
+
+You can write a template for each of those logs to ease your development (Key assist / "Ctrl Space"). 
+
+First, you have to install on your platform, the bundle "org.eclipse.papyrus.java.template" available on the developer Papyrus repository ([http://dev.eclipse.org/svnroot/modeling/org.eclipse.mdt.papyrus/trunk/plugins/developer])
+
+Then, open the menu "Preferences" > "Java" > "Editor" > "Template"
+
+Finally, create your template. The "name" corresponds to the shortcut you will use in your editor. The "context" is "Java". 
+
+===== Pattern Info =====
+
+    ${activatorLog}log.info("${cursor}");
+
+===== Pattern Debug ===== 
+
+   ${activatorLog}if(log.isDebugEnabled()){
+        log.debug("${cursor}");
+   }
+
+===== Pattern Error =====
+
+    ${activatorLog}log.error("${cursor}");
+
+=== Displaying Log ===
+
+In order to display the debug log, you '''must''' add the command line argument "-debug" to your platform. 
+
+Two others usefull arguments are "-console" and "-consoleLog". 
+
+For more information, read this page : http://www.eclipse.org/eclipse/platform-core/documents/3.1/debug.html
+
+== Papyrus Diagram Generation ==
+
+Papyrus editor add some new features to GMF, and needs specific generation. Here is a little guide explaining how to deal with the Papyrus generation stuff. 
+
+=== How to generate a diagram for Papyrus ===
+
+==== Prerequisites ====
+From the Papyrus update site, you need to install the Papyrus Diagram Generation Tools feature.
+[[Image:images/PapyrusDiagramGenInstallation.png]]
+
+If you want to work with the generation plug-ins in your workspace, add the following developer plugins to your workspace (first instance).
+
+* org.eclipse.papyrus.codegen
+* org.eclipse.papyrus.dev.assistants.codegen
+* org.eclipse.papyrus.gmf.codegen
+* org.eclipse.papyrus.gmf.codegen.edit
+* org.eclipse.papyrus.gmf.codegen.ui
+* org.eclipse.papyrus.gmf.codegen.xtend
+* org.eclipse.papyrus.gmf.codegen.xtend.ui
+* org.eclipse.papyrus.gmf.common
+* org.eclipse.papyrus.gmf.validate
+* org.eclipse.papyrus.dev.assistants.codegen (optional, needed in case of generating a diagram assistant, as shown below)
+
+Now use the "debug/run configurations" dialog to create a new Eclipse Application instance and launch it.
+
+
+==== Setup your runtime application ====
+
+This step is executed in the 2nd Eclipse instance that includes executable versions of the three Papyrus developer plugins that have been added to the workspace of the first instance (see preceding step).
+
+Go to Preferences / Java / Code Style. '''Use the code formatter "papyrus_formatter.xml" (in doc/DevelopperDocuments/templates).
+
+==== Import the required project ====
+
+You will need to import from your workspace the following project into your runtime application (do not copy them)&nbsp;: 
+
+* the plugin of the diagram you will generate (like org.eclipse.papyrus.diagram.clazz)
+
+==== Update the GMFGen ====
+
+In your GMFGen, you have to update two properties to take into account the specific Papyrus templates. If you are extending an existing Papyrus diagram, the setup has (of course) already been done and this step can be skipped.
+
+In the node ''Gen Editor Generator'' of your gmfgen files, you have to setup the following properties, as shown in the screenshot below for the example for the state-machine diagram:
+'''Template Directory''' to ''/org.eclipse.papyrus.def/xtend''
+'''Use Dynamic Templates''' to ''true''
+
+[[Image:images/gmfgen-setup.png]]
+
+==== Run the generation ====
+
+To run the transformation, right click on your gmfgen file and select the menu '''Generate Papyrus Diagram'''.
+
+=== How to Generate the Diagram Assistants Model ===
+
+To fit in with the other UML diagrams provided by Papyrus, you will want to provide Diagram Assistants (the pop-up bar and connection handles) in your diagram.  Since the Feb 9 2015 nightly build towards Mars M6, Papyrus has supported modelled diagram assistants.  To get started defining your diagram assistants, generate a <tt>*.assistants</tt> model from the '''GMFGen''':
+
+[[Image:images/generate-assistants-from-gmfgen.png]]
+
+In the resulting model, you will want to stream-line the assistants so as not to overwhelm users with too many options in the pop-up bar and connection menus:
+
+* delete '''PopupAssistant'''s and '''ConnectionAssistant'''s for element types that are less commonly used
+* customize the filters specified by the assistants to restrict the elements on which they are presented to the most appropriate and common scenarios
+
+The assistants model depends on the element types described by the diagram's <tt>*.elementtypesconfigurations</tt> model, so be sure to generate that, too.
+
+When you are happy with the model (you can hot-deploy it from the workspace for testing as described in the Papyrus User Guide in the on-line help), deploy it on the extension point in your diagram plug-in:
+
+[[Image:images/papyrus-assistants-extension.png]]
+
+==== Enabling the Pop-up Bar Assistant in your Diagram ====
+
+Most shape nodes in the diagram should inherit the <tt>PapyrusPopupBarEditPolicy</tt> by default from the Papyrus diagram infrastructure.  However, most shape compartments (for package contents, activity contents, etc.) will not have this edit policy.  To enable the pop-up bar assistant on these compartments, a context-menu action is contributed to the GMFGen editor by the Papyrus Developer Tools plug-ins:
+
+[[Image:images/add-popupbar-assistant-menu.png]]
+
+Select any number of '''GenCompartment'''s in the diagram generator model and invoke this action to generate the required edit policy registration.
+
+=== How to add your own template to the custom Papyrus generator ===
+
+To add a new template to the mechanism of generation, you have to&nbsp;: 
+
+#Add your template xpt to the plugin org.eclipse.papyrus.def under a subfolder of "dynamic-templates3.5/codegen/xpt" 
+#In the plugin org.eclipse.papyrus.codegen, edit the class org.eclipse.papyrus.codegen.PapyrusCodegenEmitters by adding a get method for your template&nbsp;:
+
+ public TextEmitter get'''yourTemplateName'''Emitter() {
+ return newXpandEmitter("xpt::'''yourTemplatePath'''::'''yourTemplateName'''::'''yourStartingDefine'''"); //$NON-NLS-1$
+ }
+
+where  '''yourTemplateName''' is the name of your template  '''yourTemplatePath''' is the path to access to your template from the folder xpt. Subfolder has to be separated by '''::'''  '''yourStartingDefine''' the define that will start the generation 
+
+#Edit the class org.eclipse.papyrus.codegen.PapyrusGenerator 
+#Add a method generateXXXPage()&nbsp;:
+
+ private void generateDiagramPreferencePage() throws InterruptedException, UnexpectedBehaviourException {
+ doGenerateJavaClass(emitters.'''getyourTemplateNameEmitter()''', '''PackageName''',
+ '''ClassName''', '''Input''');
+ }
+
+where  '''getyourTemplateNameEmitter()'''&nbsp;: is the new TextEmitter defined before  '''PackageName'''&nbsp;: is the name of the package the class will be contained in. It has to match with the one specified in the template.  '''ClassName'''&nbsp;: is the name of the class. It has to match with the one defined in the template.  '''Input'''&nbsp;: is the input element. It has to match with the type defined with '''FOR''' in your first xpt define.  
+
+#Call this method in the method customRun().
+
+You just now have to run your transformation as explained before in this page. Be careful to refresh your projects in your runtime application if you generate in this mode.  
+
+=== Papyrus Extension Root Node Description ===
+Since Papyrus for Eclipse 2021-09, the Papyrus Extension doesn't exist anymore, but its concepts have been included directly in the GMF metamodel. So this documentation is half-deprecated.
+
+==== Compartment Visibility Preference ====
+Description : This extension allows to define the default visibility for the compartments. The compartments not referenced by this node are visible by default.
+
+Fields for this node: 
+*'''Comment'''&nbsp;: a comment 
+*'''Visible By Default'''&nbsp;: true or false, allows to define the visibility preference for the compartments
+
+'''Warning :''' Often you have the same preference page for Top Node and Child Node, in this case, you should define your preference for the top node. Currently, we generate in first the Child Node Preference Page, then the Top Node Preference Page erases the Child Node Preference Page.
+
+==== Compartment Title Visibility Preference ====
+Description : This extension allows to define the default visibility for the titles of compartments. The titles not referenced by this node are visible by default.
+
+Fields for this node: 
+*'''Comment'''&nbsp;: a comment 
+*'''Visible By Default'''&nbsp;: true or false, allows to define the visibility preference for the compartments titles
+
+Warning : Often you have the same preference page for Top Node and Child Node, in this case, you should define your preference for the top node. Currently, we generate in first the Child Node Preference Page, then the Top Node Preference Page erases the Child Node Preference Page.
+
+==== Label Visibility Preference ====
+
+Description&nbsp;: This extension is used to define the default visibility for the labels (Connection Labels and External Node Labels).
+The information provided by this node are used in two ways&nbsp;: 
+
+*Define which label should be hidden after the element creation (Preference Page) 
+*Provide the role of the label in the Manage Labels dialog.
+
+Fields for this node: 
+
+*'''Comment'''&nbsp;: a comment 
+*'''External Node Label'''&nbsp;: the list of the external node labels which have the specified role 
+*'''Icon Path Role'''&nbsp;: an icon to illustrate the role of the label 
+*'''Link Labels'''&nbsp;: the list of the link labels which have the specified role 
+*'''Role'''&nbsp;: the role of the referenced labels 
+*'''Visible By Default'''&nbsp;: true or false, allows to define the preference for the labels
+
+The LabelEditPart referenced by the Label Role Node implements the interface ILabelRoleProvider.
+ 
+
+
+'''Warning with the Preferences Pages&nbsp;:''' for example, Association can be represented in 3 ways in the Class Diagram : 
+* Association link
+* AssociationBranch link
+* Association node
+
+Currently the value of the field "Display Name" of these nodes in the genModel, is "Association".
+Now, we need to have 2 preferences pages (one for link and one for node). Concerning AssociationBranch, it should have the same name as AssociationLink, but it should be located before AssociationLink in the genModel.
+
+
+'''If you don't use this node&nbsp;:''' 
+
+*you can't manage the display of the labels in the preferences pages and all labels are visible by default.
+*the dialog to manage the labels works (if you have the correct EditPolicy), but it doesn't display the role.
+
+'''Examples of usage:''' 
+
+* Labels Preferences for Association
+[[Image:images/AssociationLinkLabelPreference.png|Label Preferences for Association]]
+
+* Labels Manager (if you EditPart provides ShowHideLabelEditPolicy)
+[[Image:images/LabelManager.png|LabelManager]]
+
+== Model your papyrus development, and generate User doc ==
+
+=== Table of Contents ===
+=== Requirements ===
+- REQ_001 (id=REQ_001): 
+ The tool must help to model papyrus development
+- REQ_0011 (id=REQ_0011): 
+ The tool must help to model requirements.
+- REQ_0012 (id=REQ_0012): 
+ The tool must help to make the design
+- REQ_0013 (id=REQ_0013): 
+ The tool must help to model test
+- REQ_0014 (id=REQ_0014): 
+ The model of development must contain traceability
+- REQ_0015 (id=REQ_0015): 
+ The tool must help to model use cases.
+
+- REQ_002 (id=REQ_002): 
+ From the model, it must be able to generate documentation
+- REQ_0021 (id=REQ_0021): 
+ From the model, it must be able to generate HTML documentation
+- REQ_0022 (id=REQ_0022): 
+ From the model, it must be able to generate WKIMEDIA documentation
+ 
+=== Use Cases ===
+
+[[Image:images/UseCases.png|UseCases]]
+''UseCases''
+
+In order to model your development and generate your documentation.
+You must install a version of SysML and the plugin org.eclipse.papyrus.uml.developer.mde that can been found in the git org.eclipse.papyrus\plugins\developer
+
+==== PapyrusMDE ====
+===== Model Requirements =====
+ - traces to REQ_0011
+
+The Designer has to create a use case inside the "requirements" model. 
+The requirement may be functional or non functional.
+Requirements has to be refined or decompose until it can be tested.
+
+====== How to ======
+In order to create requirements, the Designer can use the module "Papyrus for Requirements" that helps to create requirements
+
+[[Image:images/createRequirements.png|Create a requirement]]
+''Create a requirement''
+
+===== Model Use Cases =====
+
+ - traces to REQ_0015, REQ_0014
+ 
+The "Designer" has to develop Use cases  that are refinement of the functional requirements.
+In each use case, a comment has to be added in order to explain the use case.
+In each use case,  the designer has to add a set of comment stereotyped "userDoc" in order to write the how to.
+Each Use case must have a link "satisfy" with the  refined requirement 
+====== How to ======
+In order to create a use case, the designer has to create a use case in the component inside the UseCase model.
+
+[[Image:images/usecaseCreation.png|Create a Use Case]]
+''Create a Use Case''
+
+In each Use case, the designer has to add a nested comment in order to explain the goal of the use case, (it can be also an activity diagram or sequence diagram)
+
+[[Image:images/createCommentOnUseCase.png|Create a comment]]
+''Create a comment''
+
+The designer has also to explain how  a user can execute this function. This is the "how to" section, the purpose is to explain step by step how the user can do in order to run the  functionality. 
+To do that, create a comment stereotyped "UserDoc" write you text inside or associate a screenshot of your execution by adding a hyperlink on this comment.
+
+[[Image:images/UserDoc.png|Add a comment for the user doc]]
+''Add a comment for the user doc''
+
+
+[[Image:images/AddHyperlinkToTheImage.png|Reference an image by using hyperlinks]]
+''Reference an image by using hyperlinks''
+
+
+===== Model the design =====
+
+ - traces to REQ_0012, REQ_0014
+The designer must model its development in order to be able to explain its architecture, the behavior, choices of its tool.
+
+====== How to ======
+To do that, the designer can design the model or make a retro-engineering of the code. To that papyrus provides in papyrus designer a generator and retro tool for the java  or C++code. 
+
+===== Model Tests =====
+
+ - traces to REQ_0013, REQ_0014
+The Designer must add a least one test case for each use case.
+A test case is  a use case stereotyped "UseCaseTest".  The Use case must contain an activity that represents the  java class that represents the code of you test.
+
+====== How to ======
+To do that, go to the "Test" model, create use case and stereotype it "Use case Test". This is the scenario to test a use case.
+In the use case add a comment and explain the scenario.
+In the code you must have a JUnit or a java class that corresponds tho this test. Copy qualified name of your test and add it as an activity.
+Then add a verify link from the test the use case to the requirement. Use papyrus requirement in order to simplify creation of links.
+
+[[Image:images/UsecaseTestCreation.png|Use Case Test]]
+''Use Case Test''
+
+===== Generate the documentation =====
+
+ - traces to REQ_002, REQ_0021, REQ_0022
+From the model, it possible to generate the developer Document.
+This generation is done in two steps: first the tool generate a document model and from the document model it generates a document.
+The document model contains only package stereotyped "section" and comment stereotyped "content" or "imageRef".
+
+Transformation to the document model:
+Each package requirements, UseCases, Design and Test become a section.
+Each requirement becomes a paragraph.
+Each Use Case becomes a section with its comments a paragraph of the section. 
+The comment stereotyped user doc becomes a sub-section "How to".
+Each diagram will be serialized and become an image inside the  container section.
+Each image hyperlink associated to a comment becomes an image  after the paragraph.
+
+The transformation from the model of document to the document is bijective.
+
+====== How to ======
+In order to generate the code: Ensure that the following profile are applied.
+
+[[Image:images/appliedProfiles.png|Applied Profiles]]
+''Applied Profiles''
+
+Fill properties of stereotype "Project " for the root model.
+
+[[Image:images/fillModelMetaInfo.png|Project stereotype properties]]
+''Project stereotype properties''
+
+Ensure that the model are in directory doc, all images are in the directory doc/imgDOC.
+
+[[Image:images/PluginStrucuture.png|PluginStructure.png]]
+''PluginStructure.png''
+
+Select the root model in the model explorer and click right to generate html or media wiki.
+
+[[Image:images/generateHTML.png|HTML generation]]
+''HTML generation''
+
+Open the html document, use a css file, called default css, and you can obtain the following document.
+
+Note that this doc has been obtained by using the tool on itself. You can notice that a new model element with the stereotype Document is also generated. You can remove it. I let it in order to demonstrate that is possible to make all in model.  
+
+[[Image:images/generatedHTMLpage.png|Generated HTML page]]
+''Generated HTML page''
+
+
+=== Design ===
+==== Package org.eclipse.papyrus.uml.developer.mde ====
+===== Class Activator =====
+
+The activator class controls the plug-in life cycle.
+===== Interface I_DeveloperIDMStereotype =====
+
+Constant included in the MDE process profile.
+===== Interface I_DocumentStereotype =====
+
+List of constant contained in the document profile.
+===== Package command =====
+
+[[Image:images/Command_ClassDiagram.png|Command ClassDiagram]]
+''Command ClassDiagram''
+
+====== Class CreateDocumentModelCommand ======
+This command transform a model to document model.
+
+===== Package handler =====
+
+[[Image:images/Handler_ClassDiagram.png|Handler ClassDiagram]]
+''Handler ClassDiagram''
+
+====== Class GetHTMLTextHandler ======
+This class is used to create and html developer doc file.
+====== Class IDMAbstractHandler ======
+Abstract handler in order to connect to papyrus.
+====== Class GetWikiTextHandler ======
+This class is used to create and wiki developer doc file.
+===== Package transcription =====
+
+[[Image:images/Transcription_ClassDiagram.png|Transcription ClassDiagram]]
+''Transcription ClassDiagram''
+
+====== Class HTMLTranscription ======
+This class is a specialization to generate html files. 
+====== Interface ITranscription ======
+This class is used to generated very swiftly a document from the document model.
+====== Class TranscriptionEngine ======
+This class is an engine to traduce a document model into files.
+====== Class WikiTranscription ======
+This class is a specialization to generate mediawiki files.
+
+
+== Papyrus Code Examples ==
+
+=== Core Examples ===
+
+This section contains code examples related to the 'core' 
+
+==== How to get the ServicesRegistry ====
+
+The ServiceRegistry is a central point in Papyrus. It allows to get nearly all objects or services used by papyrus. 
+
+There is one and only one ServiceRegistry for each Papyrus Editor. 
+
+  import org.eclipse.papyrus.infra.core.services.ServicesRegistry;
+
+When you create a Diagram or a Service, Papyrus always provide the ServiceRegistry as an argument. You usually need to store it in a way you could easily retrieve it. 
+
+There is several ways to found the ServicesRegistry, depending of the objects you have at your disposal. 
+
+If you have the Papyrus main editor part ('''IEditorPart'''): 
+
+  IEditorPart editorPart = getIEditorPart() // The Papyrus editor, not a nested editorPart
+  ServicesRegistry serviceRegistry = (ServicesRegistry)editor.getAdapter(ServicesRegistry.class);
+
+If you are in a '''GMF''' related stuff and you have the '''IDiagramEditDomain'''&nbsp;: 
+
+    IDiagramEditDomain domain = getIDiagramEditingDomain(); // 
+    ServicesRegistry serviceRegistry = ServiceUtilsForGMF.getInstance().getServiceRegistry(domain);
+
+If you have an '''EObject''' (UML Element, Diagram, ...) attached to one Papyrus model:
+
+    EObject eobject = ....;
+    ServicesRegistry registry = ServiceUtilsForResource.getInstance().getServiceRegistry(eobject.eResource());
+
+See also example in Git: http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/tree/examples/infra/org.eclipse.papyrus.example.infra.servicesregistry.retrieval
+
+If you are implementing a '''Command Handler''', you can rely on the fact that the currently selected editor is a Papyrus one. In this case, and only in this case, you can get the ServiceRegistry of the currently active Papyrus editor like that: 
+
+    ServicesRegistry serviceRegistry = ServiceUtilsForActionHandlers.getInstance().getServiceRegistry();
+
+==== How to get a Well Known Service ====
+
+Papyrus has some well known services that can be easily retrieved. To get one of these services, you should use one of the XxxServiceUtils class. You should use the right ServiceUtils class, according to what kind of object you have at disposal. Use one of the following: 
+
+*When you have the instance of the ServiceRegistry 
+**<pre>org.eclipse.papyrus.core.utils.ServiceUtils</pre>
+
+*When you have a GMF EditPart 
+*When you have a GMF EditPolicies 
+**<pre>org.eclipse.papyrus.diagram.common.util.ServiceUtilsForGMF</pre>
+
+*When you have an EObject, a Resource or a ResourceSet 
+**<pre>org.eclipse.papyrus.infra.emf.utils.ServiceUtilsForResource</pre>
+
+*from action handlers acting on the current active editor (and only in this case).This is the case for eclipse.ui.handler and similar code.
+
+**<pre>org.eclipse.papyrus.core.utils.ServiceUtilsForActionHandlers</pre>
+
+ Examples - From the ServiceRegistry: 
+<pre>  ServicesRegistry serviceRegistry = getServiceRegistry(); // see How to get the ServiceRegistry
+  TransactionalEditingDomain editingDomain = ServiceUtils.getInstance().getTransactionalEditingDomain(serviceRegistry);</pre> 
+ Examples - From an EObject: 
+<pre>  EObject eobject = ...; // You should know how to get your EObject :-)
+  ModelSet modelSet = ServiceUtilsForResource.getInstance().getModelSet(eobject.eResource());</pre> 
+
+
+Examples - From an Handler (and only from handler, check javadoc): 
+
+  TransactionalEditingDomain editingDomain = ServiceUtilsForActionHandlers.getInstance().getTransactionalEditingDomain();
+ 
+
+===== Well Known Services =====
+
+*ServiceRegistry 
+**Allow to get any service by its name 
+*ModelSet 
+**Service allowing to get API to access the underlying 'Models' used by Papyrus 
+*TransactionalEditingDomain 
+**EMF object used to perform transactions on the Models 
+*IPageMngr 
+**Service used to open, close, add pages in the SashWindow 
+*ISashWindowsContainer 
+**This service manage the nested editors. 
+*ILifeCycleEventsProvider 
+**Service providing events when a 'save' actions is required by the user.
+
+==== How to be notified when active page change ====
+
+The SashWindows system send events when the current active page change (i.e. the nested editor). It is possible to listen on this event. 
+
+Your listener should implement the following interface: 
+<pre>org.eclipse.papyrus.sasheditor.editor.IPageChangedListener
+</pre> 
+Then you need to register your listener to the sashWindowContainer: 
+
+
+    ISashWindowsContainer container = getISashWindowsContainer(); // see&nbsp; How to get the ISashWindowsContainer;
+    IPageChangedListener listener = ... // Get your listener
+    container.addPageChangedListener(listener);
+
+
+==== How to be notified of page lifecycle ====
+
+The SashWindows system send events during the life cycle of a page (i.e. the nested editor). It is possible to listen on these events. 
+
+Your listener should implement the following interface: 
+<pre>org.eclipse.papyrus.sasheditor.editor.IPageLifeCycleEventsListener
+</pre> 
+Then you need to register your listener to the sashWindowContainer: 
+
+
+    ISashWindowsContainer container = getISashWindowsContainer(); // see&nbsp; How to get the ISashWindowsContainer;
+    IPageLifeCycleEventsListener listener = ... // Get your listener
+    container.addPageLifeCycleListener(listener);
+    
+
+==== How to get the ISashWindowsContainer ====
+
+The ISashWindowContainer allows to listen on page changed events, or to refresh the windows. There is one ISashWindowsContainer for each Papyrus editor. 
+
+It is possible to get it in different ways: 
+
+From the ServiceRegistry: 
+<pre>  ServicesRegistry serviceRegistry = getServiceRegistry(); // see How to get the ServiceRegistry
+  ISashWindowsContainer container = ServiceUtils.getInstance().getISashWindowsContainer(serviceRegistry);
+</pre> 
+From an Handler (and only from handler, check javadoc): 
+
+  ISashWindowsContainer container = ServiceUtilsForActionHandlers.getInstance().getISashWindowsContainer();
+  
+
+From the Papyrus IEditorPart (): 
+<pre>	
+        IEditorPart editorPart = getIEditorPart() // The Papyrus editor, not a nested editorPart
+        ISashWindowsContainer container = (ISashWindowsContainer)editorPart.getAdapter(ISashWindowsContainer.class);
+</pre> 
+==== How to get the currently active nested editor ====
+
+You can get the nested editor that is currently active from the ISashWindowContainer. 
+
+First, get the ISashWindowsContainer (see ). 
+
+Second get the Active nested editor: 
+<pre>        ISashWindowsContainer container = getISashWindowsContainer(); // see&nbsp; How to get the ISashWindowsContainer;
+        IEditorPart activeEditor = container.getActiveEditor();
+
+</pre>
+
+==== How to get the list of IEditorPart for the Opened Diagrams ====
+
+A visible nested editor is one that is visible from the user. There can be several nested editors visible at one time. You can get the list of visible editors: 
+
+  ISashWindowsContainer container = getISashWindowsContainer(); // see&nbsp; How to get the ISashWindowsContainer;
+  List&lt;IEditorPart&gt; visibleEditors = container .getVisibleIEditorParts();
+
+==== How to get the IPageMngr ====
+
+The IPageMngr class allows to open, close, page in the sash window system. A page is generally a diagram. The IPageMngr also allows to list existing pages, or to check if a page is open. See the javadoc for more. 
+
+The IpageMngr can be retrieved from the ServiceRegistry: 
+<pre> 
+ ServicesRegistry serviceRegistry = getServiceRegistry(); // see How to get the ServiceRegistry
+ IPageMngr pageMngr = ServiceUtils.getInstance().getIPageMngr(serviceRegistry);
+</pre> 
+==== How to open/close a nested editors ====
+
+Nested editors can be opened and closed programatically. 
+
+For that, you need to have the 'diagram identifier': this is the object that you provide when you open the diagram. The ID. For GMF diagrams, this is usually the notation.Diagram element used as the root of the diagram. 
+
+An instance of the class IPageMngr is used to open or close a diagram: 
+<pre> 
+  IPageMngr pageMngr = getIPageMngr(); // see How to get the IPageMngr
+ 
+  // Open all closed diagrams
+  for( Object id&nbsp;: pageMngr.allPages() {
+    if(&nbsp;! pageMngr.isOpened(id)
+      pageMngr.open(id);
+  } 
+  
+  // Close all opened diagrams
+  for( Object id&nbsp;: pageMngr.allPages() {
+    if( pageMngr.isOpened(id)
+      pageMngr.close(id);
+  } 
+  
+</pre> 
+==== How to Get the Current Selection from Java code ====
+
+You can get the current selection inside the active nested editor by using the usual Eclipse way: 
+
+  IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+  ISelection selection = page.getActiveEditor().getSite().getSelectionProvider().getSelection();
+
+This will give you a Selection object containing a collection of Graphical Objects (ex: GMF class, Common Navigator class ...). If you want to get the associated "Domain" object (i.e. the UML objects), you should adapt your Graphical Object to a UML one (see [[#How to adapt a Graphical Object to underlying Domain (UML)]]). See the two next methods for example. 
+
+
+This first method return a list of selected elements:
+<pre> 
+  /**
+   * Lookup selected objects in UI. 
+   * @return
+   */
+  protected List<Object> lookupSelectedElements() {
+    IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+    ISelection selection = page.getSelection();
+    if(selection instanceof IStructuredSelection) {
+	IStructuredSelection structuredSelection = (IStructuredSelection)selection;
+	return structuredSelection.toList();
+      }
+      else if( selection instanceof TreeSelection) {
+	TreeSelection treeSelection = (TreeSelection)selection;
+	return treeSelection.toList();
+      }
+    return null;
+}
+</pre> 
+
+==== How to adapt a Graphical Object to underlying Domain (UML) ====
+
+When you ask the current selection, you get the selected Graphical Object. Often, you really want the underlying domain object (i.e. the UML object).
+As there is several graphical technology used in Papyrus (GMF, GEF, Common Navigator ...), you shouldn't test for the type of the selected object, but rather you should "adapt" it to the requested type.
+
+  Object obj = ... // The Graphical Object
+  if( obj instanceof IAdaptable ) {
+    NamedElement ele = (NamedElement)((IAdaptable)obj).getAdapter(NamedElement.class);
+    // Adapt object to NamedElement
+    NamedElement ele = null;
+    if( obj instanceof IAdaptable ) {
+      ele = (NamedElement)((IAdaptable)obj).getAdapter(NamedElement.class);
+    }
+    if( ele == null) {
+      ele = (NamedElement)Platform.getAdapterManager().getAdapter(obj, NamedElement.class);
+    }
+  }
+
+The following method get the list of selections, adapt each selected element to get its underlying UML type, and return a list of the found UML types.
+<pre>
+/**
+ * Return a list of selected domain (UML) elements.
+ * @return
+ */
+protected List<NamedElement> getSelectedUmlObject() {
+  List<Object> selections = lookupSelectedElements(); // see "How to Get the Current Selection from Java code"
+		
+  List<NamedElement> results = new ArrayList<NamedElement>();
+
+  // create model with EList<EObject> objects
+  for( Object obj : selections) {
+    // Adapt object to NamedElement
+    NamedElement ele = null;
+    if( obj instanceof IAdaptable ) {
+      ele = (NamedElement)((IAdaptable)obj).getAdapter(NamedElement.class);
+    }
+    if(ele == null) {
+      ele = (NamedElement)Platform.getAdapterManager().getAdapter(obj, NamedElement.class);
+    }				
+    if(ele != null) {
+      results.add(ele);
+    }
+  }
+  return results;
+}
+</pre>
+
+==== How to create external label which can be set invisible ====
+When creating external label you want them to be usable by the framework of MDT Papyrus which handle label visibility.
+With figure such as WrappingLabel there is a little problem. This consider containing point even if it is invisible.
+However the correct behaviour for such element is that invisible element should be consider not usable by the diagram.
+I would advice you from now to use org.eclipse.papyrus.diagram.common.figure.node.PapyrusWrappingLabel instead normal WrappingLabel figure.
+This figure implement the following method:
+<pre>
+    @Override
+    public boolean containsPoint(int x, int y) {
+        if (isVisible()){
+            return super.containsPoint(x, y);            
+        }
+        return false;
+    }
+
+</pre>
+If you want to use other figure for externals labels you should make sure the method containsPoint of this method return false if the figure is invisible.
+
+=== Diagram Examples ===
+
+This section contains code example related to diagrams. 
+
+==== Compartment without Scrollbar ====
+
+===== Goal =====
+
+The goal is to display a compartment without scroll bar. All elements in this compartment cannot be move outdoor as (the behavior of the scrollbar) 
+
+===== How to =====
+
+*In the editpart parent (compartmentEditPart) add in the method refreshvisual the line to not display scroll bar For example:
+<pre>protected void refreshVisuals() {
+   super.refreshVisuals();
+ ((ResizableCompartmentFigure)getFigure()).getScrollPane().setScrollBarVisibility(org.eclipse.draw2d.ScrollPane.NEVER);
+ refreshBounds();
+ } 
+</pre>
+
+*&nbsp; For all children edit part,
+
+&nbsp; &nbsp; &nbsp; - Overload the method getDragTracker. The purpose of this method is to provide a tracker when you move the editpart. The NoScrollEditPartTracker provides a means to constraint movement in an a compartment without scroll bar 
+<pre> 
+        /**
+	 * the drag tracker has been specialized in order to constraint mvt inside its container without 
+	 * scroll bar
+	 * {@inheritDoc}
+	 */
+	@Override
+	public DragTracker getDragTracker(Request request) {
+		return new NoScrollDragEditPartsTrackerEx(this);
+	}
+</pre> 
+&nbsp;&nbsp;&nbsp;&nbsp; -Add an editpolicy for the role PRIMARY_DRAG_ROLE that provides A tracker for the constrained resize “NoScrollResizeTracker” A tracker for the constrained move “NoScrollDragEditPartsTrackerEx” 
+<pre> 
+         /**
+	 * this code has been overloaded in order to constraint the resize into its container without scroll bars
+	 *{@inheritDoc} 
+	 */
+        @Override
+	protected ResizeTracker getResizeTracker(int direction) {
+		return new NoScrollResizeTracker((GraphicalEditPart) getHost(), direction);
+	}
+        
+        /**
+	 * this code has been overloaded in order to constraint the move into its container without scroll bars
+	 *{@inheritDoc} 
+	 */
+	@Override
+	protected DragEditPartsTracker getDragTracker() {
+		return new NoScrollDragEditPartsTrackerEx(getHost());
+	}
+</pre> 
+* See an example that contains theses two drag trackers: NoScrollClassifierResizableShapeEditPolicy
+
+==== Create graphical elements programmatically ====
+
+It is possible to create graphical elements programmatically. You need to obtain first a reference to an existing graphical view, for instance to obtain a reference to the current diagram in an Eclipse handler.
+
+<pre>
+// event is an ExecutionEvent passed to an Eclipse handler
+ISashWindowsContainer windowsContainer = ServiceUtilsForHandlers.getInstance().getISashWindowsContainer(event);
+Object model = windowsContainer.getActiveSashWindowsPage().getRawModel();
+if(model instanceof PageRef) {
+    EObject diagramEObj = ((PageRef)model).getEmfPageIdentifier();
+    if(diagramEObj instanceof Diagram) {
+	Diagram diagram = (Diagram)diagramEObj;
+	...
+</pre>
+
+The Interfaces Diagram, Edge, View and Node can be found in the package org.eclipse.gmf.runtime.notation.
+
+Once the diagram is recovered, you can use the UMLViewProvider of a specific diagram to create new elements within. In general, you need to create a UML element first and then use the provider to create the associated view. For instance, if you want to create a view for a lifeLine within a sequence diagram, you can use the following code. Note that the lifeline is not placed directly into the passed interaction view. Instead, the interaction view has a child corresponding to its compartment.
+
+<pre>
+/**
+ * Add a lifeline view for a given UML lifeline within an interaction view
+ * @param lifeline the UML lifeline
+ * @param interactionView the view associated with the interaction	
+ * @param x layout hint
+ * @param y layout hint
+ * @return the created view
+ */
+public View addLifeline(Lifeline lifeline, View interactionView, int x, int y)
+{
+	// get first compartment of view
+	Object compartment = interactionView.getChildren().get(1);
+	// use the generic view service to create views This is a bit cleaner than using specific operations of the sequence-diagram view
+	// provider (as we do below for the message)
+	final String nodeType =
+		UMLVisualIDRegistry.getType( org.eclipse.papyrus.uml.diagram.sequence.edit.parts.LifelineEditPart.VISUAL_ID);
+	Node lifelineView =
+		ViewService.createNode((View) compartment, lifeline, nodeType, UMLDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+	Bounds location = NotationFactory.eINSTANCE.createBounds();
+	location.setX(x);
+	location.setY(40);
+	if(lifelineView instanceof Node) {
+		((Node)lifelineView).setLayoutConstraint(location);
+	}
+	return lifelineView;
+}
+</pre>
+
+The interaction has a single compartment. Other graphical elements like classes have severals (you can find out via the filters->show/hide compartment dialog). In this case, you need to make sure to obtain the right one.
+
+Edges (lines) are created in a similar way, for instance a message betweeen two lifelines can be added with the following function. It is typically required to set source and target.
+
+<pre>
+/**
+ * Add a message view for a given UML message within a given diagram
+ * @param message UML message
+ * @param diagram Sequence diagram
+ * @param lifelineSrcV view of source lifeline
+ * @param lifelineDstV view of destination lifeline
+ */
+public void addMessage(Message message, Diagram diagram, View lifelineSrcV, View lifelineDstV)
+{
+	View messageView = sequenceDiagViewProvider.createMessage_4004(message, diagram, -1, true,
+			UMLDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+	if(messageView instanceof Edge) {
+		((Edge)messageView).setSource(lifelineSrcV);
+		((Edge)messageView).setTarget(lifelineDstV);
+	}
+}
+</pre>
+
+The whole plugin, called org.eclipse.papyrus.uml.diagram.example.programmaticcreation, can be found in the [http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/tree/examples/uml Papyrus git]. The plugin provides commands that create two lifelines and a message in a sequence diagram and a collaboration use in a composite diagram (when a composite class is selected). If you use the plugin, you have to create the respective diagram first as usual and then call commands from the context menu (sub-menu "Test diagram creation") to call code that programmatically adds elements to UML and the diagram.
+
+Caveat: the example is very simple and does not check whether the user invokes the creation of lifelines in the context of an interaction within a sequence diagram or an interaction within another diagram. The lifeline example only works for interactions within a sequence diagram, the collaboration-use example only for composite classes within a composite structure diagram.
+
+== Rcptt Tests ==
+
+RCPTT was used in some versions of Papyrus but was abandoned for non conclusive tests (differs from developers results).
+But you can find some explanations:
+
+=== Introduction ===
+RCPTT is an Eclipse Project that provides a testing tool for Eclipse RCP application. RCPTT allows to run GUI tests based on ECL.
+Several functions as the "Record actions" make RCPTT easy to handle and use for beginners. 
+After a bit of experience, it will be easy to understand the different commands and make more complex scripts.
+
+A quick Start guide is available here : [http://www.eclipse.org/rcptt/documentation/userguide/getstarted/ Getting Started with RCPTT]:  
+
+The RCPTT "framework" has been put in place in Papyrus RT. Some tests are already created and could base as example.
+
+=== How to use RCPTT === 
+
+RCPTT Eclipse can be found [https://www.eclipse.org/rcptt/download/].
+
+You can find an example to create RCTTT test for papyrus [http://git.eclipse.org/c/papyrus/org.eclipse.papyrus.git/tree/tests/functional/uml/diagram/org.eclipse.papyrus.uml.diagram.sequence.functional.tests here].
+
+=== Good Practices ===
+Here are some tips to have an homogeneous practice around RCPTT.
+This is a certain way to work, maybe not the best one. If you have other opinion, please share it here. 
+
+==== Root Structure ====
+A way to organize Rcptt test for Papyrus is to do a RCPTT project by feature to test. For example in <code>org.eclipse.papyrus.tools/rcptt/.</code> 
+[[File:images/FolderAtRootTools.JPG]]
+
+Another way is to only have one project as done in PapyrusRT. In the RCPTT root in <code> org.eclipse.papyrus-rt\releng\rcptt</code> of the project we should have the following elements:
+
+[[File:images/FolderAtRoot.JPG]]
+
+==== Folder Structure ====
+The structure of projects is different if you choose to have only one RCPTT project or several.
+
+In the case as papyrusRT of one plugin, after importing the rcptt folder into the RCPTT eclipse IDE, the the tests created should respect architecture to make this folder easy to maintain.
+
+[[File:images/ImportedFolderStructure.JPG]]
+
+Another structure is also possible in case of several RCPTT plugin, with a folder for each type of files:
+
+[[File:images/ExampleFolderStructure.JPG]]
+
+===== Project Properties file =====
+rcptt.properties is shown as Project Settings file in the Test Explorer and contains Description, default contexts and default Validations.
+
+===== Contexts =====
+There are several type of contexts : 
+* Preferences contexts
+** Like the UMLRTViewPoint
+* Workbenchs contexts
+** For exemple: Perspective to use
+* Workspaces contexts
+** To clear the workspace
+** Inital projects to be used for the further tests
+* Procedures contexts
+** ECL procedures that will be used as common library for RCPTT test
+
+==== Naming Convention ====
+===== Contexts Name =====
+
+There are various types of contexts:
+
+[[File:images/ContextsType.JPG]]
+
+To identify them easily, the names of contexts should be prefixed by a tag according to the type of context file:
+
+[[File:images/ContextsExample.JPG]]
+
+{| class="wikitable" border="1" cellspacing="0"
+|Workspace
+|WS_[context-name].ctx
+|-
+|Workbench
+|WB_[context-name].ctx
+|-
+|Folder
+|FS_[context-name].ctx
+|-
+|Parameters
+|PARAM_[context-name].ctx
+|-
+|Preferences
+|PREF_[context-name].ctx
+|-
+|Group
+|GROUP_[context-name].ctx
+|-
+|ECL Script
+|ECL_[context-name].ctx
+|-
+|Launch
+|DEBUG_[context-name].ctx
+|-
+|Super Context
+|SUPER_[context-name].ctx
+|}
+
+===== Test Name =====
+All tests are executed alphabetically and this should work as each test must be independant ! 
+But in order to have a better overview during execution, it would be a good practice to regroup test by feature. 
+For this reason here is a naming convention used as for now:
+ [FeatureName]_[XY]_[TestName]
+*X = Type of the test (e.i.: 0: initialisation, 1: creation, 2: deletion, 3: modification , ...) 
+*Y = Number of this test of this type X
+
+For Example:
+ CallEvent_15_CreateCallEventTest
+
+Represents a test around CallEvent, 1 = creation , 5 = fifth test of Creation of CallEvent.
+
+==== Workspace initialisation with model files ====
+
+When you want to test Papyrus, you need to initialize your application’s workspace. For that you can use Papyrus model files.
+
+First, export or copy model files of the papyrus project that you want use to start your tests
+and place them in a folder named //models// at the root of your rcptt project.
+
+Then, create a new '''workspace context''', open it and create an '''empty project'''.
+Once the project created, '''import files''' from the Papyrus model onto the created project.
+
+[[File:images/InitialisationProject.JPG|750px]]
+
+Then, if you launch a test linked with your workspace context or if it is add by default in your project settings, the AUT’s workspace will be initialized with model files and creates a project with elements you need to start the test.
+
+==== Super Contexts ====
+
+Sometimes you have to execute the same tests with variant parameters, with super contexts it’s possible to launch the same script with different values. 
+
+For example if you want to use a procedure which create a node on a diagram:
+
+For each possible node, you create a parameter context which contains the node’s label in the palette and the coordinates of the node, for each value, the parameter’s name must be the same in each context.
+
+[[File:images/NodesParameters.JPG]]
+
+Link all contexts to a super context of the same type as them and in the test, use the super context by using the parameters’ names in your test script.
+
+[[File:images/SuperContext.JPG]]
+
+RCPTT will launch your test script for each context link to your super context.
+
+[[File:images/ExecutionSuperContext.JPG]]
+
+The super context is execute with each context successively and give different parameters to your test and give you the possibility to test different elements with the same test.
+
+==== Tag "ignore" ====
+If one of your tests detects a bug on your AUT and fails, you can add to this test a tag "ignore" and you can configure the job which launch it so that it will skip this test.
+Then, if your test is linked to a bug, you can add a comment in the bug's report to indicate the presence of the skipped test so that the tag will be removed once the anomaly corrected.
+
+=== Generic procedures ===
+
+* '''open'''
+Description :
+This function open the given model and the given diagram.
+
+Parameters :
+''project'' : Label of project to open in Project Explorer. (String)
+''model'' : Label of model to open in Project Explorer. (String)
+''rootName'' : Label of the RootElement in Model Explorer. (String)
+''diagramName'' : Diagram’s label in Model Explorer. (String)
+
+* '''add-diagram'''
+Description :
+This function add a diagram to the current model.
+
+Parameters :
+''type'' : Type of diagram to create in creation menu. (String)
+''name'' : Name of the new diagram created. (String)
+''modelExplorerRootName'' : Name of the Model Explorer view. (String)
+
+* '''add-node-from-palette'''
+Description :
+This function add a node on the given diagram by using the palette.
+
+Parameters :
+''name'' : Label of the node to create in the palette. (String)
+''x'' : Abscissa of the node to create on the editor. (int)
+''y'' : Ordinate of the node to create on the editor. (int)
+''defaultName'' : Node’s default name in the model explorer. (String)
+''diagramName'' : Diagram’s label on the editor. (String)
+''rootName'' : Name of the RootElement. (String)
+
+* '''remove-node'''
+Description :
+This function remove a node on the given diagram.
+
+Parameters :
+''nameNode'' : Name of the node on the editor. (String)
+''diagramName'' : Diagram’s label on the editor. (String)
+''rootName'' : Name of the RootElement. (String)
+
+* '''add-child'''
+Description :
+This function add a child to a parent node on the editor.
+
+Parameters :
+''parentName'' : Name of the parent node on the editor. (String)
+''childName'' : Label of the element child to create in the palette. (String)
+''pathChildDefaultName'' : Path to Child’s default name in model explorer. (String)
+''rootName'' : Name of the RootElement. (String)
+
+* '''remove-child'''
+Description :
+This function removes a node’s child on the editor.
+
+Parameters :
+''parentName'' : Name of the parent node on the editor. (String)
+''childName'' : Name of the child to remove on the editor. (String)
+''diagramName'' : Diagram’s label on the editor. (String)
+''rootName'' : Name of the RootElement. (String)
+
+* '''add-relation'''
+Description :
+This function creates a relation between two given nodes.
+
+Parameters :
+''relation'' : Label of the relation in the palette. (String)
+''element1'' : Name of the first node on the editor. (String)
+''element2'' : Name of the second node on the editor. (String)
+''diagramName'' : Diagram’s label on the editor. (String)
+''rootName'' : Name of the RootElement. (String)
+
+* '''rename-element'''
+Description :
+This function replaces node’s name by a new one.
+
+Parameters :
+''pathOldName'' : path to node’s name to replace in model explorer. (String)
+''newName'' : New name of the node. (String)
+''pathNewName'' : Path to node’s new name in model explorer. (String)
+''diagramName'' : Diagram’s label on the editor. (String)
+''rootName'' : Name of the RootElement. (String)
+
+
+* '''edit-combo'''
+Description :
+This function modify an element’s property which use a combo-box.
+
+Parameters :
+''propertyTab'' : Label of tab which contains the combo-box to modify in view properties. (String)
+''propertyLabel'' : Label of property to modify in view properties. (String)
+''propertyValue'' : New value of the property to modify. (String)
+''pathNameElement'' : Path in model explorer of the element’s default name which have a property to modify. (String)
+''rootName'' : Name of the RootElement. (String)
+
+* '''add-comment'''
+Description :
+This function add a comment on the given diagram.
+
+Parameters :
+''x'' : Abscissa of the comment to create on the editor. (int)
+''y'' : Ordinate of the comment to create on the editor. (int)
+''textComment'' : Body of the comment to create. (String)
+''diagramName'' : Diagram’s label on the editor. (String)
+''editorRootName'' : Name of the root in editor. (String)
+''explorerRootName'' : Name of the root in model explorer. (String)
+''pathComment'' : Path to comment’s name in model explorer. (String)
+
+* '''remove-comment'''
+Description :
+This function remove a comment of a given diagram.
+
+Parameters :
+''explorerRootName'' : Name of the root in model explorer. (String)
+''pathComment'' : Path to comment’s name in model explorer. (String)
+
+=== Open points ===
+==== Naming Convention ====
+* What should be that best naming convention to make the tests structured ? 
+==== Directory Structure ====
+* How deep should be the test folder 
+==== Common Library ====
+* How this library can be put in place (ECL, Java, ???)
+* What will be added into this library ?
+==== Industrialization ====
+* Should we create a special Hudson job to run the RCPTT
+* On which version of Papyrus should be based the AUT ? 
+* On which version of Papyrus RT should be based the AUT ?

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.papyrus.tests</groupId>
+		<artifactId>org.eclipse.papyrus.tests.junit-framework</artifactId>
+		<version>7.0.0-SNAPSHOT</version>
+	</parent>
+	<groupId>org.eclipse.papyrus.tests</groupId>
+	<artifactId>org.eclipse.papyrus.bundles.tests</artifactId>
+	<version>7.0.0-SNAPSHOT</version>
+	<packaging>eclipse-test-plugin</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- By default, don't do tests -->
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<!-- Profile for API Evolution Report generation. -->
+		<profile>
+			<id>api-report-gen</id>
+			<activation>
+				<property>
+					<name>apireport.baseline</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-surefire-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<failIfNoTests>false</failIfNoTests>
+							<useUIHarness>false</useUIHarness>
+							<testFailureIgnore>true</testFailureIgnore>
+							<argLine>-Dapireport.baseline=${apireport.baseline}
+								-Dapireport.outputdir=${apireport.outputdir} -Xms512m -Xmx2048m</argLine>
+							<appArgLine>-testConfig=CI_TESTS_CONFIG</appArgLine>
+							<product>org.eclipse.sdk.ide</product>
+							<skipTests>false</skipTests>
+							<testClass>org.eclipse.papyrus.bundles.tests.APIReports</testClass>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<dependency-resolution>
+								<extraRequirements>
+									<requirement>
+										<type>p2-installable-unit</type>
+										<id>org.eclipse.sdk.feature.group</id>
+										<versionRange>0.0.0</versionRange>
+									</requirement>
+									<requirement>
+										<type>eclipse-feature</type>
+										<id>org.eclipse.papyrus.sdk.feature</id>
+										<versionRange>0.0.0</versionRange>
+									</requirement>
+								</extraRequirements>
+							</dependency-resolution>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="tableReconciler" name="tableReconciler" schema="schema/tableReconciler.exsd"/>
+
+<!--We declare the model used for the Papyrus Table Editor  -->
+   <extension point="org.eclipse.papyrus.infra.core.model">
+      <model classname="org.eclipse.papyrus.infra.nattable.common.modelresource.PapyrusNattableModel" description="Model for Papyrus Nattable editors">
+      </model>
+   </extension>
+ <extension id="papyrus.table.menuspapyrus.table.menu" name="Papyrus Table Menus" point="org.eclipse.ui.menus">
+      <menuContribution allPopups="false" locationURI="popup:org.eclipse.papyrus.views.modelexplorer.modelexplorer.popup?after=org.eclipse.papyrus.views.modelexplorer.popupmenu.creatediagram">
+         <menu icon="platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/icons/NewTable.gif" id="org.eclipse.papyrus.infra.nattable.popupmenu.createnattable" label="New Table" mnemonic="&amp;T" tooltip="The Papyrus Table Menu">
+            <dynamic
+                  class="org.eclipse.papyrus.infra.nattable.common.handlers.DynamicTablesMenuContribution"
+                  id="org.eclipse.papyrus.infra.nattable.common.handlers.DynamicTablesMenuContribution">
+            </dynamic>
+         </menu>
+      </menuContribution>
+      <menuContribution allPopups="false" locationURI="menu:org.eclipse.papyrus.ui.menu?after=org.eclipse.papyrus.uml.diagram.ui.menu.diagrams">
+         <menu
+               icon="platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/icons/NewTable.gif"
+               id="org.eclipse.papyrus.infra.nattable.menu.createnattable"
+               label="New Table"
+               mnemonic="&amp;T"
+               tooltip="The Papyrus Table Menu">
+            <dynamic
+                  class="org.eclipse.papyrus.infra.nattable.common.handlers.DynamicTablesMenuContribution"
+                  id="org.eclipse.papyrus.infra.nattable.common.handlers.DynamicTablesMenuContribution">
+            </dynamic>
+         </menu>
+      </menuContribution>
+      
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?endof=org.eclipse.papyrus.ui.toolbar">
+         <toolbar id="org.eclipse.papyrus.infra.nattable.toolbar.createnattable" label="New Table Toolbar (New Version)">
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.papyrus.infra.nattable.menu.createnattable">
+         <command
+               commandId="org.eclipse.papyrus.infra.nattable.createFromCatalog.command"
+               mnemonic="&amp;G"
+               style="push">
+            <visibleWhen>
+               <with
+                     variable="activeEditorId">
+                  <equals
+                        value="org.eclipse.papyrus.infra.core.papyrusEditor">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.papyrus.infra.nattable.toolbar.createnattable">
+         <command
+               commandId="org.eclipse.papyrus.infra.nattable.createFromCatalog.command"
+               mnemonic="&amp;G"
+               style="push">
+            <visibleWhen>
+               <with
+                     variable="activeEditorId">
+                  <equals
+                        value="org.eclipse.papyrus.infra.core.papyrusEditor">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.papyrus.infra.nattable.popupmenu.createnattable">
+         <command
+               commandId="org.eclipse.papyrus.infra.nattable.createFromCatalog.command"
+               mnemonic="&amp;G"
+               style="push">
+            <visibleWhen>
+               <with
+                     variable="activeEditorId">
+                  <equals
+                        value="org.eclipse.papyrus.infra.core.papyrusEditor">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.eclipse.papyrus.editor.category"
+            description="Create a NatTable from Configurations Catalog"
+            id="org.eclipse.papyrus.infra.nattable.createFromCatalog.command"
+            name="Create a new Table from the Configurations Catalog">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="org.eclipse.papyrus.infra.nattable.createFromCatalog.command">
+         <class
+               class="org.eclipse.papyrus.infra.nattable.common.handlers.CreateNatTableFromCatalogHandler">
+         </class>
+      </handler>
+   </extension>
+
+ <extension
+       point="org.eclipse.papyrus.infra.ui.papyrusDiagram">
+    <editorDiagram
+          factoryClass="org.eclipse.papyrus.infra.nattable.common.factory.NattableEditorFactory"
+          icon="icons/table.gif">
+    </editorDiagram>
+ </extension>
+ <extension
+       point="org.eclipse.ui.handlers">
+    <handler
+          class="org.eclipse.papyrus.infra.nattable.common.handlers.RenameTableHandler"
+          commandId="org.eclipse.papyrus.infra.core.sasheditor.command.tabdoubleclick">
+       <activeWhen>
+          <and>
+             <with
+                   variable="selection">
+                <test
+                      property="org.eclipse.papyrus.infra.nattable.tester.isNattableWidget"
+                      value="true">
+                </test>
+             </with>
+          </and>
+       </activeWhen>
+    </handler>
+ </extension>
+     <!-- ElementType bindings for table duplication with paste command -->
+   
+<extension
+      point="org.eclipse.ui.commandImages">
+   <image
+         commandId="org.eclipse.papyrus.infra.nattable.createFromCatalog.command"
+         icon="icons/tableCatalog.png">
+   </image>
+</extension>
+<extension
+      point="org.eclipse.core.runtime.adapters">
+   <factory
+         adaptableType="org.eclipse.papyrus.infra.nattable.model.nattable.Table"
+         class="org.eclipse.papyrus.infra.nattable.common.adapter.NattableAdapterFactory">
+      <adapter
+            type="org.eclipse.papyrus.infra.core.sasheditor.di.contentprovider.IOpenable">
+      </adapter>
+   </factory>
+</extension>
+<extension
+      point="org.eclipse.ui.menus">
+   <menuContribution
+         allPopups="false"
+         locationURI="toolbar:org.eclipse.ui.main.toolbar">
+      <toolbar
+            id="org.eclipse.papyrus.infra.viewpoints.policy.toolbar">
+         <command
+               commandId="org.eclipse.papyrus.infra.viewpoints.policy.toolbar.tables.command"
+               icon="platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/icons/NewTable.gif"
+               id="org.eclipse.papyrus.infra.viewpoints.policy.toolbar.tables.command"
+               label="Create a new table ..."
+               style="pulldown"
+               tooltip="Create a new table ...">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeEditorId">
+                  <equals
+                        value="org.eclipse.papyrus.infra.core.papyrusEditor">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </toolbar>
+      <command
+            commandId="org.eclipse.papyrus.infra.nattable.createFromCatalog.command"
+            mnemonic="&amp;G"
+            style="push">
+         <visibleWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="org.eclipse.papyrus.infra.core.papyrusEditor">
+               </equals>
+            </with>
+         </visibleWhen>
+      </command>
+   </menuContribution>
+   <menuContribution
+         allPopups="false"
+         locationURI="menu:org.eclipse.papyrus.infra.viewpoints.policy.toolbar.tables.command">
+      <dynamic
+            class="org.eclipse.papyrus.infra.nattable.common.handlers.DynamicTablesMenuContribution"
+            id="org.eclipse.papyrus.infra.nattable.common.handlers.DynamicTablesMenuContribution">
+      </dynamic>
+      <command
+            commandId="org.eclipse.papyrus.infra.nattable.createFromCatalog.command"
+            mnemonic="&amp;G"
+            style="push">
+         <visibleWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="org.eclipse.papyrus.infra.core.papyrusEditor">
+               </equals>
+            </with>
+         </visibleWhen>
+      </command>
+   </menuContribution>
+</extension>
+<extension
+      point="org.eclipse.ui.commands">
+   <command
+         categoryId="org.eclipse.papyrus.infra.viewpoints.policy.commands"
+         defaultHandler="org.eclipse.papyrus.infra.viewpoints.policy.DynamicCommandHandler"
+         id="org.eclipse.papyrus.infra.viewpoints.policy.toolbar.tables.command"
+         name="Create Dynamic Table Command">
+   </command>
+</extension>
+<extension
+      point="org.eclipse.papyrus.infra.viewpoints.policy.viewType">
+   <helper
+         class="org.eclipse.papyrus.infra.nattable.common.helper.TableCommandHelper"
+         priority="0">
+   </helper>
+</extension>
+<extension
+      point="org.eclipse.ui.commands">
+   <command
+         categoryId="org.eclipse.papyrus.infra.nattable.category"
+         description="This command allow to reload the table widget"
+         id="org.eclipse.papyrus.infra.nattable.common.reload.table.editor.command"
+         name="Reload Table Widget">
+   </command>
+</extension>
+<extension
+      point="org.eclipse.ui.menus">
+   <menuContribution
+         allPopups="true"
+         locationURI="popup:org.eclipse.papyrus.infra.nattable.widget.menu?endof=general.separator">
+      <command
+            commandId="org.eclipse.papyrus.infra.nattable.common.reload.table.editor.command"
+            label="Reload Table Editor"
+            style="push">
+         <visibleWhen
+               checkEnabled="true">
+         </visibleWhen>
+      </command>
+   </menuContribution>
+</extension>
+<extension
+      point="org.eclipse.ui.handlers">
+   <handler
+         class="org.eclipse.papyrus.infra.nattable.common.handlers.ReloadNattableWidgetInEditorHandler"
+         commandId="org.eclipse.papyrus.infra.nattable.common.reload.table.editor.command">
+      <activeWhen>
+         <with
+               variable="selection">
+            <test
+                  forcePluginActivation="true"
+                  property="org.eclipse.papyrus.infra.nattable.tester.isNattableWidget"
+                  value="true">
+            </test>
+         </with>
+      </activeWhen>
+   </handler>
+</extension>
+</plugin>

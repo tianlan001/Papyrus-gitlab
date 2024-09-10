@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.papyrus.infra.core" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.papyrus.infra.core" id="language" name="Modeling Language"/>
+      </appInfo>
+      <documentation>
+         Registration of Modeling Languages in the Papyrus Language Service.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <choice minOccurs="1" maxOccurs="unbounded">
+            <element ref="provider" minOccurs="1" maxOccurs="unbounded"/>
+            <element ref="modelBinding"/>
+         </choice>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="provider">
+      <annotation>
+         <documentation>
+            Registration of a Papryus modeling language provider.
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="class" minOccurs="0" maxOccurs="1"/>
+            <choice minOccurs="0" maxOccurs="unbounded">
+               <element ref="content-type"/>
+               <element ref="language"/>
+            </choice>
+         </sequence>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  The name of a language provider class.  If not specified, then nested elements are required to specify a generic provider that matches URIs to languages.
+The class may also be specified by the nested &lt;tt&gt;&amp;lt;class&amp;gt;&lt;/tt&gt; element, especially if it is parameterized.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.papyrus.infra.core.language.ILanguageProvider"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="content-type">
+      <annotation>
+         <documentation>
+            Matches languages by resource content type.
+Ignored if the &lt;tt&gt;class&lt;/tt&gt; attribute of the &lt;tt&gt;&amp;lt;provider&amp;gt;&lt;/tt&gt; element is specified.
+Required if the &lt;tt&gt;&amp;lt;language&amp;gt;&lt;/tt&gt; element is specified.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  References a resource content type for which to provider a language.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="org.eclipse.core.contenttype.contentTypes/content-type/@id"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="language">
+      <annotation>
+         <documentation>
+            Specifies a language matched by resource content type.
+Ignored if the &lt;tt&gt;class&lt;/tt&gt; attribute or &lt;tt&gt;&amp;lt;implementation&amp;gt;&lt;/tt&gt; element of the &lt;tt&gt;&amp;lt;provider&amp;gt;&lt;/tt&gt; element is specified.
+Required if the &lt;tt&gt;&amp;lt;contentType&amp;gt;&lt;/tt&gt; element is specified.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  The name of a language implementation class.  If not specified, then a default implementation is supplied based on the other attributes that simply does no ModelSet configuration.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.papyrus.infra.core.language.ILanguage"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  An unique identifier for the language.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="version" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The version number of the language.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The localized user-presentable name of the language.
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="class">
+      <annotation>
+         <documentation>
+            Specification of a parameterized executable extension.  If specified, then the &lt;tt&gt;class&lt;/tt&gt; attribute is ignored.
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="parameter" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  The name of a language provider class.  Parameters may be specified to configure the instance as appropriate to its API specification.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.papyrus.infra.core.language.ILanguageProvider"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="parameter">
+      <annotation>
+         <documentation>
+            A name/value pair to configure an implementation of the language provider.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  An unique parameter name, as specified by the API of the implementation class.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="value" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="modelBinding">
+      <annotation>
+         <documentation>
+            Binds a Papyrus model to a language that describes its semantic content in the ModelSet.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="language" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The Papyrus Modeling Language to which to bind a model.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="org.eclipse.papyrus.infra.core.language/provider/language/@id"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="model" type="string" use="required">
+            <annotation>
+               <documentation>
+                  References the model, by ID, to which the language is bound.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         1.1.0
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="copyright"/>
+      </appinfo>
+      <documentation>
+         /*****************************************************************************
+         * Copyright (c) 2015, 2016 Christian W. Damus and others.
+         *
+         *    
+         * All rights reserved. This program and the accompanying materials
+         * are made available under the terms of the Eclipse Public License 2.0
+         * which accompanies this distribution, and is available at
+         * https://www.eclipse.org/legal/epl-2.0/
+         *
+         * SPDX-License-Identifier: EPL-2.0
+         *
+         * Contributors:
+         * CEA LIST - Initial API and implementation
+         *
+         *****************************************************************************/
+      </documentation>
+   </annotation>
+
+</schema>

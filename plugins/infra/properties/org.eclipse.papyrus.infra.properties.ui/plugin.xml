@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+  Copyright (c) 2011, 2016 CEA LIST, Christian W. Damus, and others.
+  
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License 2.0
+  which accompanies this distribution, and is available at
+  https://www.eclipse.org/legal/epl-2.0/
+
+  SPDX-License-Identifier: EPL-2.0
+  
+  Contributors:
+    CEA LIST - Initial API and implementation
+    Christian W. Damus - bug 485220
+-->
+<plugin>
+   <extension-point id="context" name="%extension-point.context" schema="schema/context.exsd"/>
+   <extension-point id="labelprovider" name="labelprovider" schema="schema/labelprovider.exsd"/>
+   <extension-point id="configuration" name="Papyrus Properties Configuration Management" schema="schema/configuration.exsd"/>
+   
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="pathmap://PPEResources/"
+            target="platform:/plugin/org.eclipse.papyrus.infra.properties.ui/model/">
+      </mapping>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.properties.environments">
+      <environment
+            environmentModel="model/Environment.xmi">
+      </environment>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.properties.ui.labelprovider">
+      <labelProvider
+            labelProvider="org.eclipse.papyrus.infra.ui.emf.providers.EMFFilteredLabelProvider"
+            priority="100">
+      </labelProvider>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.services.labelprovider.labelProvider">
+      <context
+            description="The properties view label provider context (Widgets)"
+            id="org.eclipse.papyrus.infra.properties.ui.labelProvider.context">
+      </context>
+      <context
+            description="The properties view label provider context (Header)"
+            id="org.eclipse.papyrus.infra.properties.ui.header.labelProvider.context">
+      </context>
+   </extension>
+   
+</plugin>

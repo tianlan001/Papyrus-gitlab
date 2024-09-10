@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+   
+   <extension
+         point="org.eclipse.ui.newWizards">
+           <category
+        id="org.eclipse.papyrus.examples"
+        name="%wizardCategoryExamples"
+        parentCategory="org.eclipse.papyrus.examples">
+      </category>
+      <wizard
+            canFinishEarly="false"
+            category="org.eclipse.ui.Examples/org.eclipse.papyrus.examples"
+            class="org.eclipse.papyrus.uml.diagram.wizards.wizards.PapyrusExampleInstallerWizard"
+            preferredPerspectives="org.eclipse.papyrus.infra.core.perspective"
+            finalPerspective="org.eclipse.papyrus.infra.core.perspective"
+            icon="icons/papyrus.png"
+            id="org.eclipse.papyrus.examples.uml.diagrams.wizard"
+            name="Papyrus Model Examples"
+            project="true">
+      </wizard>
+   </extension>
+
+      <extension point="org.eclipse.emf.common.ui.examples">
+        <example
+            id="org.eclipse.papyrus.examples.uml.diagrams.online.shopping.activity"
+            pageImage="icons/papyrus.png"
+            wizardID="org.eclipse.papyrus.examples.uml.diagrams.wizard">
+            <projectDescriptor
+                contentURI="models/ActivityDiagram_Online Shopping/"
+                name="Online Shopping"
+                description="UML Activity Diagram Example (Online Shopping)">
+            </projectDescriptor>
+            <fileToOpen
+                location="Online Shopping/ActivityDiagram_Online Shopping.di">
+            </fileToOpen>
+        </example>
+        <example
+              id="org.eclipse.papyrus.examples.uml.diagrams.abstract.factory.design.pattern.class"
+              pageImage="icons/papyrus.png"
+              wizardID="org.eclipse.papyrus.examples.uml.diagrams.wizard">
+           <projectDescriptor
+                 contentURI="models/ClassDiagram_AbstractFactoryDesignPattern/"
+                 description="UML Class Diagram Example (Abstract Factory Design Pattern)"
+                 name="Abstract Factory Design Pattern">
+           </projectDescriptor>
+           <fileToOpen
+                 location="Abstract Factory Design Pattern/ClassDiagram_AbstractFactoryDesignPattern.di">
+           </fileToOpen>
+        </example>
+        <example
+              id="org.eclipse.papyrus.examples.uml.diagrams.bookshop.communication"
+              pageImage="icons/papyrus.png"
+              wizardID="org.eclipse.papyrus.examples.uml.diagrams.wizard">
+           <projectDescriptor
+                 contentURI="models/Communication_Bookshop/"
+                 description="UML Communication Diagram Example (Bookshop)"
+                 name="Bookshop">
+           </projectDescriptor>
+           <fileToOpen
+                 location="Bookshop/Communication_Bookshop.di">
+           </fileToOpen>
+        </example>
+        <example
+              id="org.eclipse.papyrus.examples.uml.diagrams.online.shopping.component"
+              pageImage="icons/papyrus.png"
+              wizardID="org.eclipse.papyrus.examples.uml.diagrams.wizard">
+           <projectDescriptor
+                 contentURI="models/ComponentDiagram_OnlineShoppingComponentDiagram/"
+                 description="UML Component Diagram Example (Online Shopping)"
+                 name="Online Shopping Component">
+           </projectDescriptor>
+           <fileToOpen
+                 location="Online Shopping Component/ComponentDiagram_OnlineShoppingComponentDiagram.di">
+           </fileToOpen>
+        </example>
+        <example
+              id="org.eclipse.papyrus.examples.uml.diagrams.apache.tomcat.composite"
+              pageImage="icons/papyrus.png"
+              wizardID="org.eclipse.papyrus.examples.uml.diagrams.wizard">
+           <projectDescriptor
+                 contentURI="models/CompositeDiagram_ApacheTomcat/"
+                 description="UML Composite Diagram Example (Apache Tomcat)"
+                 name="Apache Tomcat">
+           </projectDescriptor>
+           <fileToOpen
+                 location="Apache Tomcat/CompositeDiagram_ApacheTomcat.di">
+           </fileToOpen>
+        </example>
+        <example
+              id="org.eclipse.papyrus.examples.uml.diagrams.bank.atm.statemachine"
+              pageImage="icons/papyrus.png"
+              wizardID="org.eclipse.papyrus.examples.uml.diagrams.wizard">
+           <projectDescriptor
+                 contentURI="models/StateMachineDiagram_BankATM/"
+                 description="UML State Machine Diagram Example (Bank ATM)"
+                 name="Bank ATM">
+           </projectDescriptor>
+           <fileToOpen
+                 location="Bank ATM/StateMachineDiagram_BankATM.di">
+           </fileToOpen>
+        </example>
+        <example
+              id="org.eclipse.papyrus.examples.uml.diagrams.water.phases.statemachine"
+              pageImage="icons/papyrus.png"
+              wizardID="org.eclipse.papyrus.examples.uml.diagrams.wizard">
+           <projectDescriptor
+                 contentURI="models/StateMachineDiagram_WaterPhases/"
+                 description="UML State Machine Diagram Example (Water Phases)"
+                 name="Water Phases">
+           </projectDescriptor>
+           <fileToOpen
+                 location="Water Phases/StateMachineDiagram_WaterPhases.di">
+           </fileToOpen>
+        </example>
+        <example
+              id="org.eclipse.papyrus.examples.uml.diagrams.airport.checkin.usescase"
+              pageImage="icons/papyrus.png"
+              wizardID="org.eclipse.papyrus.examples.uml.diagrams.wizard">
+           <projectDescriptor
+                 contentURI="models/UseCase_AirportCheckIn/"
+                 description="UML Use Case Diagram Example (Airport Check In)"
+                 name="Airport Check In">
+           </projectDescriptor>
+           <fileToOpen
+                 location="Airport Check In/UseCase_AirportCheckIn.di">
+           </fileToOpen>
+        </example>
+   </extension>
+   
+   
+</plugin>

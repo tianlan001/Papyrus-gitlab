@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.eclipse.papyrus</groupId>
+	<artifactId>org.eclipse.papyrus.all.releng</artifactId>
+	<version>7.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<!-- https://repo.maven.apache.org/maven2/ -->
+		<tycho-version>4.0.3</tycho-version>
+		<tychoExtrasVersion>4.0.3</tychoExtrasVersion>
+		<xtend-version>2.31.0</xtend-version>
+		<xtext.version>2.31.0</xtext.version>
+		<maven.resources.version>3.3.1</maven.resources.version>
+		<maven.clean.version>3.3.1</maven.clean.version>
+		<mojo.execmaven.version>3.0.0</mojo.execmaven.version>
+		<findbugs.version>3.0.5</findbugs.version>
+		<maven.compiler.version>3.11.0</maven.compiler.version>
+
+		<!-- https://repo.eclipse.org/content/repositories/cbi-releases/ -->
+		<eclipse-cbi.version>1.4.2</eclipse-cbi.version>
+
+		<java.source.version>17</java.source.version>
+		<java.target.version>17</java.target.version>
+		<skipAllTests>false</skipAllTests>
+		<skipInnerTests>true</skipInnerTests>
+		<!-- Set buildAll to true when building this pom directly (Rather than 
+			individual components). This will disable Papyrus Update Sites (Since they 
+			are being built by this POM). -->
+		<buildAll>false</buildAll>
+
+		<!-- Papyrus repositories. Used when we're building individual components 
+			(vs building the parent pom including everything) -->
+		<papyrus.eclipse.target>master</papyrus.eclipse.target>
+		<papyrus.repo.main>http://download.eclipse.org/modeling/mdt/papyrus/updates/nightly/${papyrus.eclipse.target}/main</papyrus.repo.main>
+		<papyrus.repo.toolsmiths>http://download.eclipse.org/modeling/mdt/papyrus/updates/nightly/${papyrus.eclipse.target}/toolsmiths</papyrus.repo.toolsmiths>
+
+		<tycho.scmUrl>scm:git:git://git.eclipse.org/gitroot/papyrus/org.eclipse.papyrus.git</tycho.scmUrl>
+	</properties>
+
+	<modules>
+		<module>main</module>
+		<module>toolsmiths</module>
+		<module>tests</module>
+	</modules>
+
+	<pluginRepositories>
+		<!-- https://repo.maven.apache.org/maven2/ is being fetched by default -->
+		<!-- pluginRepository> <id>central</id> <name>Central Repository</name> 
+			<url>https://repo.maven.apache.org/maven2</url> <releases> <enabled>true</enabled> 
+			</releases> <snapshots> <enabled>false</enabled> </snapshots> </pluginRepository -->
+		<pluginRepository>
+			<id>tycho-snapshots</id>
+			<url>https://repo.eclipse.org/content/repositories/tycho-snapshots/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>org.eclipse.cbi.maven.plugins</id>
+			<name>Eclipse CBI</name>
+			<url>https://repo.eclipse.org/content/repositories/cbi-releases/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>eclipse.org-mylyn</id>
+			<url>https://repo.eclipse.org/content/repositories/mylyn/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<repositories>
+		<repository>
+			<id>license-feature</id>
+			<url>http://download.eclipse.org/cbi/updates/license/</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
+
+	<build>
+		<outputDirectory>bin</outputDirectory>
+		<pluginManagement>
+			<!-- redistributed plugin configurations -->
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.version}</version>
+					<configuration>
+						<source>${java.source.version}</source>
+						<target>${java.target.version}</target>
+						<compilerArgs>
+							<main.argLine>-Xms512m -Xmx2048m -XX:SoftRefLRUPolicyMSPerMB=100</main.argLine>
+						</compilerArgs>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven.resources.version}</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${maven.clean.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>${mojo.execmaven.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.eclipse.xtend</groupId>
+					<artifactId>xtend-maven-plugin</artifactId>
+					<version>${xtext.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-maven-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<extensions>true</extensions>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.cbi.maven.plugins</groupId>
+					<artifactId>eclipse-jarsigner-plugin</artifactId>
+					<version>${eclipse-cbi.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.cbi.maven.plugins</groupId>
+					<artifactId>eclipse-macsigner-plugin</artifactId>
+					<version>${eclipse-cbi.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.cbi.maven.plugins</groupId>
+					<artifactId>eclipse-winsigner-plugin</artifactId>
+					<version>${eclipse-cbi.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-p2-repository-plugin</artifactId>
+					<version>${tycho-version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<source>${java.source.version}</source>
+						<target>${java.target.version}</target>
+						<optimize>true</optimize>
+						<showWarnings>true</showWarnings>
+						<!-- Tycho build using the project's JDT settings. -->
+						<useProjectSettings>true</useProjectSettings>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>target-platform-configuration</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<environments>
+							<environment>
+								<os>linux</os>
+								<ws>gtk</ws>
+								<arch>x86_64</arch>
+							</environment>
+							<environment>
+								<os>win32</os>
+								<ws>win32</ws>
+								<arch>x86_64</arch>
+							</environment>
+							<environment>
+								<os>macosx</os>
+								<ws>cocoa</ws>
+								<arch>x86_64</arch>
+							</environment>
+						</environments>
+						<target>
+							<artifact>
+								<groupId>org.eclipse.papyrus</groupId>
+								<artifactId>${target.platform}</artifactId>
+								<version>7.0.0-SNAPSHOT</version>
+							</artifact>
+						</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

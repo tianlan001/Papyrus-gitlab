@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architecture:ArchitectureDomain xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture" xmlns:custom="http://www.eclipse.org/papyrus/emf/facet/custom/0.2.incubation/custom" xmlns:customizationconfiguration="http://www.eclipse.org/papyrus/emf/facet/architecture/configuration" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2" xmlns:representation="http://www.eclipse.org/papyrus/infra/textedit/representation" xmlns:representation_1="http://www.eclipse.org/papyrus/infra/core/architecture/representation" xmi:id="_HQhf4MSYEeaKZJ_pGfaSiA" id="org.eclipse.papyrus.softwareEngineering" name="Software Engineering" description="The domain of developing software systems" icon="platform:/plugin/org.eclipse.papyrus.uml.architecture/icons/domain.gif">
+  <contexts xmi:type="architecture:ArchitectureDescriptionLanguage" xmi:id="_HQhf5cSYEeaKZJ_pGfaSiA" id="org.eclipse.papyrus.infra.services.edit.TypeContext" name="UML" description="The Unified Modeling Language" icon="platform:/plugin/org.eclipse.papyrus.uml.architecture/icons/uml.gif" creationCommandClass="org.eclipse.papyrus.uml.diagram.common.commands.CreateUMLModelCommand">
+    <viewpoints xmi:type="architecture:ArchitectureViewpoint" xmi:id="_HQhf5sSYEeaKZJ_pGfaSiA" id="org.eclipse.papyrus.uml.analysis" name="Software Analysis" description="A viewpoint allowing software analysis with UML" icon="platform:/plugin/org.eclipse.papyrus.uml.architecture/icons/viewpoint.gif" representationKinds="_cuzcsBrTEeysSp9JokodgA"/>
+    <viewpoints xmi:type="architecture:ArchitectureViewpoint" xmi:id="_OOrIUMSZEeaKZJ_pGfaSiA" id="org.eclipse.papyrus.uml.design" name="Software Design" description="A viewpoint allowing software design with UML" icon="platform:/plugin/org.eclipse.papyrus.uml.architecture/icons/viewpoint.gif" representationKinds="_cuzcsBrTEeysSp9JokodgA"/>
+    <elementTypes xmi:type="elementtypesconfigurations:ElementTypeSetConfiguration" href="platform:/plugin/org.eclipse.papyrus.infra.textedit.types/resources/textdocument-context.elementtypesconfigurations#_mn_RcCA7EeyP_rvz9XoGqg"/>
+    <representationKinds xmi:type="representation:TextDocumentRepresentation" xmi:id="_cuzcsBrTEeysSp9JokodgA" id="org.eclipse.papyrus.examples.uml.textedit.property.xtext.architecture" name="XText UML Property Editor Example" icon="platform:/plugin/org.eclipse.papyrus.examples.uml.textedit.property.xtext.architecture/icons/XTextUMLPropertyEditor.gif" implementationID="UMLXTextPropertyEditor" creationCommandClass="org.eclipse.papyrus.infra.textedit.representation.architecture.CreateTextDocumentEditorCommand">
+      <modelRules xmi:type="representation_1:ModelRule" xmi:id="_mgNFUBrTEeysSp9JokodgA" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </modelRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_mgNFURrTEeysSp9JokodgA" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Property"/>
+      </owningRules>
+    </representationKinds>
+    <metamodel xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+    <treeViewerConfigurations xmi:type="customizationconfiguration:EMFFacetTreeViewerConfiguration" xmi:id="_smyaECBaEey7csiNkmIzVw">
+      <customizationReferences xmi:type="customizationconfiguration:CustomizationReference" xmi:id="_tERnUCBaEey7csiNkmIzVw" description="This customization allows to display the TextDocument in the ModelExplorer View">
+        <referencedCustomization xmi:type="custom:Customization" href="platform:/plugin/org.eclipse.papyrus.infra.textedit.modelexplorer/resources/TextDocument.custom#/"/>
+        <applicationRule xmi:type="customizationconfiguration:AbsoluteOrder" xmi:id="_u1MyYCBaEey7csiNkmIzVw" order="5"/>
+      </customizationReferences>
+    </treeViewerConfigurations>
+  </contexts>
+</architecture:ArchitectureDomain>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_MPALcI7eEeWNa5T2Agi7uA" name="welcome-general" label="General Editor Settings">
+  <tabs xmi:id="_SsfbQcElEeS_u7hIvAIReA" label="General" id="general" category="org.eclipse.papyrus" priority="75">
+    <sections xmi:id="_SsgCV8ElEeS_u7hIvAIReA" name="Single Page Layout" sectionFile="ui/SinglePageLayout.xwt">
+      <widget href="ui/SinglePageLayout.xwt#/"/>
+    </sections>
+  </tabs>
+  <tabs xmi:id="_R74MUJhuEeWbjrnVcTzZFw" label="Related Views" id="view-links" category="org.eclipse.papyrus" afterTab="_SsfbQcElEeS_u7hIvAIReA" priority="75">
+    <sections xmi:id="_SsgCV9ElEeS_u7hIvAIReA" name="Single View Links" sectionFile="ui/SingleViewLinks.xwt">
+      <widget href="ui/SingleViewLinks.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_Ssiem8ElEeS_u7hIvAIReA" name="Single Page Layout" sections="_SsgCV8ElEeS_u7hIvAIReA" automaticContext="true" datacontexts="_SsmJGsElEeS_u7hIvAIReA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_SskT2cElEeS_u7hIvAIReA" name="isWelcomeElement">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.editor.welcome/model/environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_SskT2sElEeS_u7hIvAIReA" name="metaclassName" value="Welcome"/>
+    </constraints>
+  </views>
+  <views xmi:id="_Mz4-0JhuEeWbjrnVcTzZFw" name="Single View Links" sections="_SsgCV9ElEeS_u7hIvAIReA" automaticContext="true" datacontexts="_SsmJGsElEeS_u7hIvAIReA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_Mz4-0ZhuEeWbjrnVcTzZFw" name="isWelcomeElement">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.editor.welcome/model/environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_Mz4-0phuEeWbjrnVcTzZFw" name="metaclassName" value="Welcome"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_SsmI-cElEeS_u7hIvAIReA" name="welcomeGeneral" label="Welcome">
+    <elements xmi:id="_SsmJGsElEeS_u7hIvAIReA" name="PageLayout">
+      <properties xmi:id="_SsmJG8ElEeS_u7hIvAIReA" name="privateLayout" label="Private editor settings" type="Boolean" multiplicity="1" description="Do not share the editor settings (page layouts, viewpoints) in the *.di file"/>
+      <properties xmi:id="_SsmJG9ElEeS_u7hIvAIReA" name="restoreActivePage" label="Remember last active page" type="Boolean" multiplicity="1" description="Remember the last active editor page to restore it when the editor is next opened"/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.editor.welcome/model/environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Composite
+	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
+	xmlns="http://www.eclipse.org/xwt/presentation" xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns:lay="clr-namespace:org.eclipse.papyrus.infra.gmfdiag.properties.layout"
+	xmlns:x="http://www.eclipse.org/xwt">
+	<Composite.layout>
+		<GridLayout></GridLayout>
+	</Composite.layout>
+	<ppe:BooleanCheckbox input="{Binding}"
+		property="GenericShape:FloatingLabelCustomisation:labelConstrained"></ppe:BooleanCheckbox>
+	<Group>
+		<Group.layout>
+			<ppel:PropertiesLayout numColumns="2"></ppel:PropertiesLayout>
+		</Group.layout>
+		<ppe:StringCombo input="{Binding}"
+			property="GenericShape:FloatingLabelCustomisation:position"></ppe:StringCombo>
+		<ppe:IntegerEditor input="{Binding}"
+			property="GenericShape:FloatingLabelCustomisation:labelOffsetX"></ppe:IntegerEditor>
+		<ppe:IntegerEditor input="{Binding}"
+			property="GenericShape:FloatingLabelCustomisation:labelOffsetY"></ppe:IntegerEditor>
+	</Group>
+	<Group text="Margin">
+		<Group.layout>
+			<ppel:PropertiesLayout numColumns="2"></ppel:PropertiesLayout>
+		</Group.layout>
+		<ppe:IntegerEditor input="{Binding}"
+			property="GenericShape:LabelCustomisation:topMarginLabel"
+			customLabel="Top"></ppe:IntegerEditor>
+		<ppe:IntegerEditor input="{Binding}"
+			property="GenericShape:LabelCustomisation:bottomMarginLabel"
+			customLabel="Bottom"></ppe:IntegerEditor>
+		<ppe:IntegerEditor input="{Binding}"
+			property="GenericShape:LabelCustomisation:rightMarginLabel"
+			customLabel="Right"></ppe:IntegerEditor>
+		<ppe:IntegerEditor input="{Binding}"
+			property="GenericShape:LabelCustomisation:leftMarginLabel"
+			customLabel="Left"></ppe:IntegerEditor>
+	</Group>
+</Composite>

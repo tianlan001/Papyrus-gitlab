@@ -1,0 +1,116 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: add009_AddOneMessageLost
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _rLR_0DmZEeiGhrmLGgv4BA
+Runtime-Version: 2.3.0.201806262310
+Save-Time: 7/26/18 3:27 PM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+with [get-editor "SequenceDiagramTest.di"] {
+    get-diagram -index 1 | get-edit-part -name Interaction1 | mouse-move 1887 90 -height 1000 -width 1892
+    with [get-palette | get-palette-entry Lifeline] {
+        mouse-move 41 8 button1 -height 23 -width 125
+        mouse-press 41 8 button1 -height 23 -width 125
+        mouse-release 41 8 button1 524288 -height 23 -width 125
+    }
+    with [get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part -text Interaction1 | get-edit-part 
+        -className CInteractionInteractionCompartmentEditPart] {
+        mouse-move 174 40 button1 -height 738 -width 857
+        mouse-press 174 40 button1 -height 738 -width 857
+        mouse-release 174 40 button1 524288 -height 738 -width 857
+    }
+    with [get-diagram -index 1 | get-edit-part -name Interaction1] {
+        mouse-move 1741 194 -height 1000 -width 1892
+        get-edit-part -text Interaction1 | get-edit-part -className CInteractionInteractionCompartmentEditPart 
+            | get-edit-part -name Lifeline1 | get-edit-part -name Lifeline1 | activate-direct-edit
+        mouse-move 1891 361 -height 1000 -width 1892
+    }
+    with [get-palette] {
+        get-palette-entry "Time Observation" | mouse-move 9 35 -height 37 -width 125
+        get-palette-entry "Duration Constraint" | mouse-move 13 32 -height 37 -width 125
+        get-palette-entry Gate | mouse-move 17 21 -height 23 -width 125
+        get-palette-entry ConsiderIgnoreFragment | mouse-move 23 17 -height 23 -width 125
+        get-palette-entry "Message Sync" | mouse-move 38 18 -height 23 -width 125
+        get-palette-entry "Message Async" | mouse-move 48 22 -height 23 -width 125
+        get-palette-entry "Message Reply" | mouse-move 54 20 -height 23 -width 125
+        get-palette-entry "Message Create" | mouse-move 58 22 -height 23 -width 125
+        get-palette-entry "Message Delete" | mouse-move 64 19 -height 23 -width 125
+        with [get-palette-entry "Message Lost"] {
+            mouse-move 71 19 -height 23 -width 125
+            mouse-move 74 14 -height 23 -width 125
+        }
+    }
+    get-diagram -index 1 | commit-direct-edit
+    with [get-palette | get-palette-entry "Message Lost"] {
+        mouse-move 74 14 button1 -height 23 -width 125
+        mouse-press 74 14 button1 -height 23 -width 125
+        mouse-release 74 14 button1 524288 -height 23 -width 125
+    }
+    with [get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part -text Interaction1 | get-edit-part 
+        -className CInteractionInteractionCompartmentEditPart] {
+        with [get-edit-part -name Lifeline1] {
+            mouse-move 52 89 button1 -height 700 -width 100
+            mouse-press 52 89 button1 -height 700 -width 100
+            mouse-release 52 89 button1 524288 -height 700 -width 100
+        }
+        mouse-move 550 107 button1 -height 738 -width 857
+        mouse-press 550 107 button1 -height 738 -width 857
+    }
+    with [get-diagram -index 1] {
+        with [get-edit-part -name Interaction1 | get-edit-part -text Interaction1] {
+            with [get-edit-part -className CInteractionInteractionCompartmentEditPart] {
+                mouse-release 550 107 button1 524288 -height 738 -width 857
+                mouse-move 489 197 -height 738 -width 857
+            }
+            get-target-connection -path 0 | get-edit-part -text Message2 | activate-direct-edit
+            with [get-edit-part -className CInteractionInteractionCompartmentEditPart] {
+                mouse-move 487 199 -height 738 -width 857
+                mouse-hover 487 199 -height 738 -width 857
+                mouse-move 487 199 button1 -height 738 -width 857
+                mouse-press 487 199 button1 -height 738 -width 857
+            }
+        }
+        commit-direct-edit
+        get-edit-part -name Interaction1 | get-edit-part -text Interaction1 | get-edit-part 
+            -className CInteractionInteractionCompartmentEditPart | mouse-release 487 199 button1 524288 -height 738 
+            -width 857
+        key-type "M1+s"
+        with [get-edit-part -name Interaction1 | get-edit-part -text Interaction1 | get-edit-part 
+            -className CInteractionInteractionCompartmentEditPart] {
+            mouse-hover 487 199 -height 738 -width 857
+            mouse-move 506 186 -height 738 -width 857
+            mouse-hover 506 186 -height 738 -width 857
+        }
+    }
+}
+with [get-editor "SequenceDiagramTest.di" | get-diagram -index 1 | get-edit-part -name Interaction1] {
+    get-edit-part -text Interaction1 | get-edit-part -className CInteractionInteractionCompartmentEditPart 
+        | get-edit-part -name Lifeline1 | mouse-move 19 516 -height 700 -width 100
+    mouse-move 921 359 -height 1000 -width 1892
+}
+get-editor "SequenceDiagramTest.di" | get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part 
+    	-text Interaction1
+    | assert-bounds 0 0 857 757
+
+get-editor "SequenceDiagramTest.di" | get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part 
+	    -text Interaction1 | get-edit-part -className CInteractionInteractionCompartmentEditPart | get-figure -path "1/0"
+    | assert-bounds 6 33 847 728
+
+get-editor "SequenceDiagramTest.di" | get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part 
+    	-text Interaction1 | get-edit-part -className CInteractionInteractionCompartmentEditPart | get-edit-part 
+    	-name Lifeline1 | get-figure -path "0/0"
+    | assert-bounds 174 10 100 700
+
+with [get-editor "SequenceDiagramTest.di" | get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part 
+	    -text Interaction1 | get-target-connection -path 0] {
+    assert-message-source "0.5" "0.12"
+    assert-message-target "560" "140.0" "2.0"
+}
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--

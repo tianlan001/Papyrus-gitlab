@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_QFK38JmjEeW_-tPAoZEp-w" name="paletteconfiguration" label="Palette Configuration Metamodel">
+  <tabs xmi:id="_pevIQJmjEeW_-tPAoZEp-w" label="Configuration" id="paletteconfiguration" priority="100">
+    <sections xmi:id="_pfL0MJmjEeW_-tPAoZEp-w" name="Single PaletteConfiguration" sectionFile="ui/SinglePaletteConfiguration.xwt">
+      <widget href="ui/SinglePaletteConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_pfMbQJmjEeW_-tPAoZEp-w" name="Single ToolConfiguration" sectionFile="ui/SingleToolConfiguration.xwt">
+      <widget href="ui/SingleToolConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_pfMbQZmjEeW_-tPAoZEp-w" name="Single StackConfiguration" sectionFile="ui/SingleStackConfiguration.xwt">
+      <widget href="ui/SingleStackConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_pfNCUJmjEeW_-tPAoZEp-w" name="Single ChildConfiguration" sectionFile="ui/SingleChildConfiguration.xwt">
+      <widget href="ui/SingleChildConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_pfNCUZmjEeW_-tPAoZEp-w" name="Single DrawerConfiguration" sectionFile="ui/SingleDrawerConfiguration.xwt">
+      <widget href="ui/SingleDrawerConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_pfNCUpmjEeW_-tPAoZEp-w" name="Single Configuration" sectionFile="ui/SingleConfiguration.xwt">
+      <widget href="ui/SingleConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_pfNCU5mjEeW_-tPAoZEp-w" name="Single IconDescriptor" sectionFile="ui/SingleIconDescriptor.xwt">
+      <widget href="ui/SingleIconDescriptor.xwt#/"/>
+    </sections>
+    <sections xmi:id="_pfNCVJmjEeW_-tPAoZEp-w" name="Single ElementDescriptor" sectionFile="ui/SingleElementDescriptor.xwt">
+      <widget href="ui/SingleElementDescriptor.xwt#/"/>
+    </sections>
+    <sections xmi:id="_pfNpYJmjEeW_-tPAoZEp-w" name="Single SeparatorConfiguration" sectionFile="ui/SingleSeparatorConfiguration.xwt">
+      <widget href="ui/SingleSeparatorConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_pfNpYZmjEeW_-tPAoZEp-w" name="Single LeafConfiguration" sectionFile="ui/SingleLeafConfiguration.xwt">
+      <widget href="ui/SingleLeafConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="__fyvAOefEeWvSphMoTjkZw" name="SingleApplyStereotypeAction" sectionFile="ui/SingleApplyStereotypeAction.xwt">
+      <widget href="ui/SingleApplyStereotypeAction.xwt#/"/>
+    </sections>
+  </tabs>
+  <tabs xmi:id="_MeheUN7kEeWswp6oNc-gJA" label="Actions" id="paletteconfigurationactions" category="" image="" afterTab="_pevIQJmjEeW_-tPAoZEp-w" priority="110">
+    <sections xmi:id="_XU-1EN7lEeWswp6oNc-gJA" name="Single ToolActions" sectionFile="ui/SingleToolActions.xwt">
+      <widget href="ui/SingleToolActions.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_QFK38ZmjEeW_-tPAoZEp-w" name="Single PaletteConfiguration" sections="_pfL0MJmjEeW_-tPAoZEp-w" automaticContext="true" datacontexts="_QFK4QpmjEeW_-tPAoZEp-w">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_QFK38pmjEeW_-tPAoZEp-w" name="isSinglePaletteConfiguration">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_QFK385mjEeW_-tPAoZEp-w" name="className" value="PaletteConfiguration"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_QFK39JmjEeW_-tPAoZEp-w" name="nsUri" value="http://www.eclipse.org/papyrus/diagram/paletteconfiguration/0.8"/>
+    </constraints>
+  </views>
+  <views xmi:id="_QFK39ZmjEeW_-tPAoZEp-w" name="Single ToolConfiguration" sections="_pfMbQJmjEeW_-tPAoZEp-w _XU-1EN7lEeWswp6oNc-gJA" automaticContext="true" datacontexts="_QFK4RZmjEeW_-tPAoZEp-w">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_QFK39pmjEeW_-tPAoZEp-w" name="isSingleToolConfiguration">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_QFK395mjEeW_-tPAoZEp-w" name="className" value="ToolConfiguration"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_QFK3-JmjEeW_-tPAoZEp-w" name="nsUri" value="http://www.eclipse.org/papyrus/diagram/paletteconfiguration/0.8"/>
+    </constraints>
+  </views>
+  <views xmi:id="_QFK4AZmjEeW_-tPAoZEp-w" name="Single DrawerConfiguration" sections="_pfNCUZmjEeW_-tPAoZEp-w" automaticContext="true" datacontexts="_QFK4S5mjEeW_-tPAoZEp-w">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_QFK4ApmjEeW_-tPAoZEp-w" name="isSingleDrawerConfiguration">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_QFK4A5mjEeW_-tPAoZEp-w" name="className" value="DrawerConfiguration"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_QFK4BJmjEeW_-tPAoZEp-w" name="nsUri" value="http://www.eclipse.org/papyrus/diagram/paletteconfiguration/0.8"/>
+    </constraints>
+  </views>
+  <views xmi:id="_QFK4CZmjEeW_-tPAoZEp-w" name="Single IconDescriptor" sections="_pfNCU5mjEeW_-tPAoZEp-w" automaticContext="true" datacontexts="_QFK4UpmjEeW_-tPAoZEp-w">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_QFK4CpmjEeW_-tPAoZEp-w" name="isSingleIconDescriptor">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_QFK4C5mjEeW_-tPAoZEp-w" name="nsUri" value="http://www.eclipse.org/papyrus/diagram/paletteconfiguration/0.8"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_QFK4DJmjEeW_-tPAoZEp-w" name="className" value="IconDescriptor"/>
+    </constraints>
+  </views>
+  <views xmi:id="_QFK4DZmjEeW_-tPAoZEp-w" name="Single ElementDescriptor" sections="_pfNCVJmjEeW_-tPAoZEp-w" automaticContext="true" datacontexts="_QFK4VZmjEeW_-tPAoZEp-w">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_QFK4DpmjEeW_-tPAoZEp-w" name="isSingleElementDescriptor">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_QFK4D5mjEeW_-tPAoZEp-w" name="className" value="ElementDescriptor"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_QFK4EJmjEeW_-tPAoZEp-w" name="nsUri" value="http://www.eclipse.org/papyrus/diagram/paletteconfiguration/0.8"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_QFK4QZmjEeW_-tPAoZEp-w" name="paletteconfiguration" label="paletteconfiguration">
+    <elements xmi:id="_QFK4QpmjEeW_-tPAoZEp-w" name="PaletteConfiguration" supertypes="_QFK4TZmjEeW_-tPAoZEp-w">
+      <properties xmi:id="_QFK4Q5mjEeW_-tPAoZEp-w" name="drawerConfigurations" type="Reference" multiplicity="-1" description="Configuration for Drawer"/>
+      <properties xmi:id="_QFK4RJmjEeW_-tPAoZEp-w" name="requiredProfiles" label="Required profiles" multiplicity="-1" description="The List of Required Profiles for this Palette Configuration"/>
+    </elements>
+    <elements xmi:id="_QFK4RZmjEeW_-tPAoZEp-w" name="ToolConfiguration" supertypes="_QFK4WZmjEeW_-tPAoZEp-w">
+      <properties xmi:id="_QFK4RpmjEeW_-tPAoZEp-w" name="kind" label="" type="Enumeration" description="The Kind of the Tool Configuration"/>
+      <properties xmi:id="_QFK4R5mjEeW_-tPAoZEp-w" name="elementDescriptors" type="Reference" multiplicity="-1" description=""/>
+      <properties xmi:id="_bgGzsA2LEeeAw6ejKZocqQ" name="toolClassName" label="" description="The qualify name of the class wich extends Tool to instanciate for this ToolConfiguration."/>
+    </elements>
+    <elements xmi:id="_QFK4SJmjEeW_-tPAoZEp-w" name="StackConfiguration" supertypes="_QFK4SpmjEeW_-tPAoZEp-w">
+      <properties xmi:id="_QFK4SZmjEeW_-tPAoZEp-w" name="ownedConfigurations" type="Reference" multiplicity="-1"/>
+    </elements>
+    <elements xmi:id="_QFK4SpmjEeW_-tPAoZEp-w" name="ChildConfiguration" supertypes="_QFK4TZmjEeW_-tPAoZEp-w"/>
+    <elements xmi:id="_QFK4S5mjEeW_-tPAoZEp-w" name="DrawerConfiguration" supertypes="_QFK4TZmjEeW_-tPAoZEp-w">
+      <properties xmi:id="_QFK4TJmjEeW_-tPAoZEp-w" name="ownedConfigurations" type="Reference" multiplicity="-1"/>
+    </elements>
+    <elements xmi:id="_QFK4TZmjEeW_-tPAoZEp-w" name="Configuration">
+      <properties xmi:id="_QFK4TpmjEeW_-tPAoZEp-w" name="id" label="Identifier" description="Unique Identifier of the Configuration, Used by the Tool to Retrieve the Configuration"/>
+      <properties xmi:id="_QFK4T5mjEeW_-tPAoZEp-w" name="label" label="" description="Label of the Configuration, Used Only for Display"/>
+      <properties xmi:id="_QFK4UJmjEeW_-tPAoZEp-w" name="description" description="Description of the Configuration."/>
+      <properties xmi:id="_QFK4UZmjEeW_-tPAoZEp-w" name="icon" description="Icon of the Configuration"/>
+      <properties xmi:id="_5sZggIvtEeegX7GLIzVb2g" name="filter" type="Reference" multiplicity="1"/>
+    </elements>
+    <elements xmi:id="_QFK4UpmjEeW_-tPAoZEp-w" name="IconDescriptor">
+      <properties xmi:id="_QFK4U5mjEeW_-tPAoZEp-w" name="pluginID" description="ID of the plugin where the icon is located. If not set, the tool will look in the bundle defining the palette."/>
+      <properties xmi:id="_QFK4VJmjEeW_-tPAoZEp-w" name="iconPath" description="Path of the icon in the bundle. "/>
+    </elements>
+    <elements xmi:id="_QFK4VZmjEeW_-tPAoZEp-w" name="ElementDescriptor">
+      <properties xmi:id="_QFK4VpmjEeW_-tPAoZEp-w" name="elementType" type="Reference"/>
+      <properties xmi:id="_QFK4V5mjEeW_-tPAoZEp-w" name="graphicalHints" multiplicity="-1"/>
+    </elements>
+    <elements xmi:id="_QFK4WJmjEeW_-tPAoZEp-w" name="SeparatorConfiguration" supertypes="_QFK4WZmjEeW_-tPAoZEp-w"/>
+    <elements xmi:id="_QFK4WZmjEeW_-tPAoZEp-w" name="LeafConfiguration" supertypes="_QFK4SpmjEeW_-tPAoZEp-w"/>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.paletteconfiguration/model/environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context>

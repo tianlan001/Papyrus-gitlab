@@ -1,0 +1,91 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Contexts: _NHXLMAf_EeiHkPkpSqDhSg,_KWhwYAgBEeiHkPkpSqDhSg
+Element-Name: TestCase_createCombinedFragment
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _6NjH0BitEeii7Ma-UZJeLw
+Runtime-Version: 2.3.0.201802230030
+Save-Time: 2/23/18 4:52 PM
+Testcase-Type: ecl
+
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
+Content-Type: text/plain
+Entry-Name: .description
+
+creates of a CombinedFragment in an Interaction with empty fragments list
+checks that:
+
+1) fragments list of the Interaction contains exactly one element
+2) the only Interaction fragment is a CombinedFragment
+3) the CombinedFragment has at least one operand
+
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa--
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+get-view "Project Explorer" | get-tree | select "SequenceDiagramTest/SequenceDiagramTest" | double-click
+with [get-editor "SequenceDiagramTest.di"] {
+    get-diagram -index 1 | get-edit-part -name Interaction1 | mouse-move 1370 232 -height 1000 -width 1376
+    with [get-palette] {
+        get-palette-entry InteractionUse | mouse-move 9 20 -height 27 -width 125
+        with [get-palette-entry "Combined Fragment"] {
+            mouse-move 54 28 button1 -height 47 -width 125
+            mouse-press 54 28 button1 -height 47 -width 125
+            mouse-release 54 28 button1 524288 -height 47 -width 125
+        }
+    }
+    with [get-diagram -index 1 | get-edit-part -name Interaction1] {
+        mouse-move 887 303 -height 1000 -width 1376
+        with [get-edit-part -text Interaction1] {
+            with [get-edit-part -className CInteractionInteractionCompartmentEditPart] {
+                mouse-move 97 144 button1 -height 733 -width 857
+                mouse-press 97 144 button1 -height 733 -width 857
+                mouse-move 97 146 -mask 524288 -height 733 -width 857
+            }
+            mouse-drag 630 390 button1 524288 -height 757 -width 857
+            mouse-release 630 390 button1 524288 -height 757 -width 857
+        }
+    }
+    with [get-diagram -index 1] {
+        get-edit-part -name Interaction1 | get-edit-part -text Interaction1 | get-edit-part 
+            -className CInteractionInteractionCompartmentEditPart | get-edit-part -name CombinedFragment1 
+            | get-edit-part -name CombinedFragment1 | mouse-hover 529 206 -height 217 -width 541
+        key-type "M1+s"
+        with [get-edit-part -name Interaction1 | get-edit-part -text Interaction1 | get-edit-part 
+            -className CInteractionInteractionCompartmentEditPart] {
+            with [get-edit-part -name CombinedFragment1 | get-edit-part -name CombinedFragment1] {
+                mouse-move 95 154 -height 217 -width 541
+                mouse-hover 95 154 -height 217 -width 541
+            }
+            mouse-move 41 351 -height 733 -width 857
+        }
+    }
+}
+get-view "Model Explorer" | get-tree | select SequenceDiagramTest
+get-editor "SequenceDiagramTest.di" | get-diagram -index 1 | get-edit-part -name Interaction1 | get-edit-part 
+    -text Interaction1 | get-edit-part -className CInteractionInteractionCompartmentEditPart | mouse-move 196 458 
+    -height 733 -width 857
+with [get-view "Model Explorer" | get-tree] {
+    get-item -path SequenceDiagramTest 
+        | get-property "getData().getEObject().getMembers().InteractionImpl[0].getFragments().CombinedFragmentImpl[0].getClassName()" 
+        | equals "org.eclipse.uml2.uml.internal.impl.CombinedFragmentImpl" | verify-true
+    get-item -path SequenceDiagramTest 
+        | get-property "getData().getEObject().getMembers().InteractionImpl[0].getFragments().CombinedFragmentImpl[0].getOperands().getClassName()" 
+        | equals "org.eclipse.emf.ecore.util.EObjectContainmentEList$Resolving" | verify-true
+    get-item -path SequenceDiagramTest 
+        | get-property "getData().getEObject().getMembers().InteractionImpl[0].getFragments().CombinedFragmentImpl[0].getOperands().isEmpty()" 
+        | equals false | verify-true
+    get-item -path SequenceDiagramTest 
+        | get-property "getData().getEObject().getMembers().InteractionImpl[0].getFragments().CombinedFragmentImpl[0].getOperands().size()" 
+        | equals 1 | verify-true
+    get-item -path SequenceDiagramTest 
+        | get-property "getData().getEObject().getMembers().InteractionImpl[0].getFragments().isEmpty()" | equals false 
+        | verify-true
+    get-item -path SequenceDiagramTest 
+        | get-property "getData().getEObject().getMembers().InteractionImpl[0].getFragments().size()" | equals 1 
+        | verify-true
+}
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--

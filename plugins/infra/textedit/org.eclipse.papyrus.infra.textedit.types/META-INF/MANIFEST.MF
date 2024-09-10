@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name
+Bundle-SymbolicName: org.eclipse.papyrus.infra.textedit.types
+Bundle-Version: 7.0.0.qualifier
+Bundle-Activator: org.eclipse.papyrus.infra.textedit.types.Activator
+Bundle-Vendor: %Bundle-Vendor
+Require-Bundle: org.eclipse.emf.ecore;bundle-version="[2.24.0,3.0.0)",
+ org.eclipse.gmf.runtime.common.core;bundle-version="[1.7.0,2.0.0)",
+ org.eclipse.gmf.runtime.emf.type.core;bundle-version="[1.9.0,2.0.0)",
+ org.eclipse.papyrus.infra.services.edit;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.infra.textedit;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.papyrus.infra.types;bundle-version="[7.0.0,8.0.0)",
+ org.eclipse.ui.workbench;bundle-version="[3.122.0,4.0.0)"
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: org.eclipse.papyrus.infra.textedit.types
+Bundle-ActivationPolicy: lazy

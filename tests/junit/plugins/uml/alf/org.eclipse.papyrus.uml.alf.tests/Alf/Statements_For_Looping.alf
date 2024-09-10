@@ -1,0 +1,37 @@
+/**
+ * Test for statements.
+ **/
+active class Statements_For_Looping {
+
+	private class Sensor {
+
+		private reading: Integer[0..1];
+		@Create
+		public Sensor(in reading: Integer[0..1]);
+		public getNextReading(): Integer[0..1];
+		@Destroy
+		public destroy();
+
+	}
+
+	private class ActivityEdgeInstance {
+
+		public token: Integer;
+		public sendOffer(in token: Integer);
+		@Create
+		public ActivityEdgeInstance();
+		@Destroy
+		public destroy();
+
+	}
+
+	private activity processRecord(in index: Integer);
+	public test(out readings: Integer[0..*], out sum1: Integer,
+		out outgoingEdges: ActivityEdgeInstance[0..*], out SnEven: Integer[0..*],
+		out SnOdd: Integer[0..*]);
+	@Create
+	public Statements_For_Looping();
+	@Destroy
+	public destroy();
+
+} do 'Statements_For_Looping$behavior$1'

@@ -1,0 +1,28 @@
+=Architecture View=
+The Architecture view allows to visualize the architecture contexts registered in the running Eclipse instance.
+You can open this view by the menu ''''Window''''>''''Show view''''>''''Other...'''' and select ''''Architecture View'''' in ''''Papyrus Dev'''' category:
+
+[[File:images/devDoc/Papyrus_ShowViewArchitectureView.png|frame|none|Open Architecture view]]
+
+In this view, the registered architecture contexts, both from the extension point and models in the workspace that are added in the Papyrus Architecture preferences, are presented in a tree showing:
+# The architecture domains at the top level
+# The architecture contexts in each domain
+# The viewpoints in each context
+
+The contents of the view are re-loaded whenever the Papyrus Architecture preferences are changed, but not when changes within a registered architecture model in the workspace are saved in the model editor.
+
+[[File:images/devDoc/Papyrus_TreeDefinition.png|frame|none|Example of Architecture tree]]
+
+The columns of this view are the following:
+# The name
+# The identifier of the architecture
+# Whether the architecture domain is merged or not: a merged architecture domain is a domain with the same name as another domain
+# The file name of the architecture model
+# The plugin name containing the architecture model file
+# Whether the architecture domain is valid (does not present model validation problems)
+
+[[File:images/devDoc/Papyrus_ColumnsDefinition.png|frame|none|Example of Architecture columns values]]
+
+Actions that can be performed on objects in this view include:
+* The columns can be sorted by clicking on their headers
+* An architecture domain can be opened in the editor by double-clicking on it

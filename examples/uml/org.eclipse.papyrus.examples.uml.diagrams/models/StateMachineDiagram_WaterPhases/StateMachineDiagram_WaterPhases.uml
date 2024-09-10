@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="__ueLYPS3EeijlfDPatOxpg" name="StateMachineDiagram_WaterPhases">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_CImzgPbREeidhqL1pIoUbw">
+    <body>Diagram representation for : https://www.uml-diagrams.org/examples/water-phase-uml-state-machine-diagram-example.html</body>
+  </ownedComment>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="__xr3cPS3EeijlfDPatOxpg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="__upxkPS3EeijlfDPatOxpg" name="Water Phases">
+    <region xmi:type="uml:Region" xmi:id="__uy7gPS3EeijlfDPatOxpg" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_dAmBoPS4EeijlfDPatOxpg" name="freezing" source="_YA9e4PS4EeijlfDPatOxpg" target="_U6kVsPS4EeijlfDPatOxpg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_dg9jwPS4EeijlfDPatOxpg" name="melting" source="_U6kVsPS4EeijlfDPatOxpg" target="_YA9e4PS4EeijlfDPatOxpg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_eIHDUPS4EeijlfDPatOxpg" name="deposition" source="_OO3SsPS4EeijlfDPatOxpg" target="_U6kVsPS4EeijlfDPatOxpg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_exeJYPS4EeijlfDPatOxpg" name="sublimation" source="_U6kVsPS4EeijlfDPatOxpg" target="_OO3SsPS4EeijlfDPatOxpg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_f33JsPS4EeijlfDPatOxpg" name="condensation" source="_OO3SsPS4EeijlfDPatOxpg" target="_YA9e4PS4EeijlfDPatOxpg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_gukIMPS4EeijlfDPatOxpg" name="vaporization" source="_YA9e4PS4EeijlfDPatOxpg" target="_OO3SsPS4EeijlfDPatOxpg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_nM1zMPS4EeijlfDPatOxpg" name="ionization" source="_OO3SsPS4EeijlfDPatOxpg" target="_CQCwQPS4EeijlfDPatOxpg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_nrVtEPS4EeijlfDPatOxpg" name="deionization" source="_CQCwQPS4EeijlfDPatOxpg" target="_OO3SsPS4EeijlfDPatOxpg"/>
+      <subvertex xmi:type="uml:State" xmi:id="_CQCwQPS4EeijlfDPatOxpg" name="Plasma"/>
+      <subvertex xmi:type="uml:State" xmi:id="_OO3SsPS4EeijlfDPatOxpg" name="Water vapor"/>
+      <subvertex xmi:type="uml:State" xmi:id="_U6kVsPS4EeijlfDPatOxpg" name="Ice or Frost"/>
+      <subvertex xmi:type="uml:State" xmi:id="_YA9e4PS4EeijlfDPatOxpg" name="Liquid Water"/>
+    </region>
+  </packagedElement>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_KusXkPS4EeijlfDPatOxpg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Kus-oPS4EeijlfDPatOxpg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+  </profileApplication>
+</uml:Model>

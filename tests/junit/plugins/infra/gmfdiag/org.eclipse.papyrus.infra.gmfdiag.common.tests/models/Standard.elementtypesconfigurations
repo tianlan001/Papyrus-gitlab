@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<elementtypesconfigurations:ElementTypeSetConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:applystereotypeadvice="http://www.eclipse.org/papyrus/uml/types/applystereotypeadvice/1.1" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2" xmlns:stereotypematcher="http://www.eclipse.org/papyrus/uml/types/stereotypematcher/1.1" xmi:id="_jZndYOfKEeamrL54jVwZWw" identifier="org.eclipse.papyrus.infra.gmfdiag.common.tests.Standard" name="org.eclipse.papyrus.infra.gmfdiag.common.tests.Standard" metamodelNsURI="http://www.eclipse.org/uml2/5.0.0/UML">
+  <elementTypeConfigurations xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="org.eclipse.papyrus.infra.gmfdiag.common.tests.StandardTest" identifier="org.eclipse.papyrus.infra.gmfdiag.common.tests.StandardTest" name="StandardTest" hint="Class_Shape" kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+    <matcherConfiguration xmi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration" xmi:id="_tKBAcOfKEeamrL54jVwZWw">
+      <stereotypesQualifiedNames>StandardProfile::Metaclass</stereotypesQualifiedNames>
+    </matcherConfiguration>
+    <specializedTypes xmi:type="elementtypesconfigurations:MetamodelTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/uml.elementtypesconfigurations#org.eclipse.papyrus.uml.Class"/>
+    <specializedTypes xmi:type="elementtypesconfigurations:SpecializationTypeConfiguration" href="platform:/plugin/org.eclipse.papyrus.uml.service.types/model/umldi.elementtypesconfigurations#org.eclipse.papyrus.umldi.Class_Shape"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.Class</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Class_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <adviceBindingsConfigurations xmi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_CNqZYOfLEeamrL54jVwZWw" identifier="org.eclipse.papyrus.infra.gmfdiag.common.tests.StandardAdivce" target="org.eclipse.papyrus.infra.gmfdiag.common.tests.StandardTest" inheritance="all">
+    <stereotypesToApply xmi:type="applystereotypeadvice:StereotypeToApply" xmi:id="_FMHukOfLEeamrL54jVwZWw" stereotypeQualifiedName="StandardProfile::Metaclass">
+      <requiredProfiles>StandardProfile</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+</elementtypesconfigurations:ElementTypeSetConfiguration>

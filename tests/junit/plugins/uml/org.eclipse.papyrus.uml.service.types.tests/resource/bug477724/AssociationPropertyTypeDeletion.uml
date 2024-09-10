@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0f3JMHOOEeeZH5cfWau4iw" name="AssociationPropertyTypeDeletion">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_AGhCYIgLEees-fcJGJI-Hg">
+    <body>When deleting the tpe of an assocaition property, it should delete the assocaition without deleting the property
+</body>
+  </ownedComment>
+  <packagedElement xmi:type="uml:Class" xmi:id="_RkpcQIgCEees-fcJGJI-Hg" name="Class1">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_qixb0YgEEees-fcJGJI-Hg" name="class2" type="_R0HboIgCEees-fcJGJI-Hg" association="_qiuYgIgEEees-fcJGJI-Hg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qiyp8IgEEees-fcJGJI-Hg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qiyp8YgEEees-fcJGJI-Hg" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_R0HboIgCEees-fcJGJI-Hg" name="Class2"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_qiuYgIgEEees-fcJGJI-Hg" name="myAssociation" memberEnd="_qixb0YgEEees-fcJGJI-Hg _qiyp8ogEEees-fcJGJI-Hg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qiwNsIgEEees-fcJGJI-Hg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_qixb0IgEEees-fcJGJI-Hg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_qiyp8ogEEees-fcJGJI-Hg" name="class1" type="_RkpcQIgCEees-fcJGJI-Hg" association="_qiuYgIgEEees-fcJGJI-Hg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_5789kIgKEees-fcJGJI-Hg" name="Deletion Of a Type of a Property"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_8dwzAIgKEees-fcJGJI-Hg" name="Actor1"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="__TBI4IgKEees-fcJGJI-Hg" client="_8dwzAIgKEees-fcJGJI-Hg" supplier="_5789kIgKEees-fcJGJI-Hg"/>
+</uml:Model>

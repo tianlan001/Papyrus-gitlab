@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="pathmap://DYNAMIC_PROFILES_TESTS/"
+            target="platform:/plugin/org.eclipse.papyrus.uml.dynamic.profile.tests/resources/">
+      </mapping>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.uml.extensionpoints.UMLProfile">
+      <profile
+            description="A common profile to use for JUnit tests about stereotypes properties"
+            name="TestProfile"
+            path="platform:/plugin/org.eclipse.papyrus.uml.dynamic.profile.tests/resources/DynamicProfileTypeTests.uml"
+            provider="Eclipse Modeling Project">
+      </profile>
+   </extension>
+
+</plugin>

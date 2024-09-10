@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/uml2/2.2.0/GenModel"
+    copyrightText="Copyright (c) 2014, 2021 Christian W. Damus and others.&#xA;&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License 2.0&#xA; which accompanies this distribution, and is available at&#xA; https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA; SPDX-License-Identifier: EPL-2.0&#xA;&#xA; Contributors:&#xA; Christian W. Damus - Initial API and implementation"
+    modelDirectory="/org.eclipse.papyrus.infra.filters/src-gen" creationIcons="false"
+    editDirectory="/org.eclipse.papyrus.infra.filters.edit/src-gen" editorDirectory="/org.eclipse.papyrus.infra.filters.editor/src-gen"
+    modelPluginID="org.eclipse.papyrus.infra.filters" modelName="Filters" nonNLSMarkers="true"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    commentFormatting="true" testsDirectory="/org.eclipse.papyrus.infra.filters.tests/src-gen"
+    booleanFlagsField="_flags" importerID="org.eclipse.uml2.uml.ecore.importer" complianceLevel="11.0"
+    copyrightFields="false" packedEnums="true" usedGenPackages="../../org.eclipse.uml2.types/model/Types.genmodel#//types"
+    operationReflection="true" importOrganizing="true" cleanup="true" factoryMethods="true"
+    pluralizedGetters="true" safeStrings="true" invariantPrefix="validate">
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/importer/org.eclipse.uml2.uml.ecore.importer">
+    <details key="ECORE_TAGGED_VALUES" value="PROCESS"/>
+    <details key="UNION_PROPERTIES" value="PROCESS"/>
+    <details key="UNTYPED_PROPERTIES" value="REPORT"/>
+    <details key="DUPLICATE_FEATURES" value="DISCARD"/>
+    <details key="SUBSETTING_PROPERTIES" value="PROCESS"/>
+    <details key="VALIDATION_DELEGATES" value="IGNORE"/>
+    <details key="OPPOSITE_ROLE_NAMES" value="IGNORE"/>
+    <details key="COMMENTS" value="PROCESS"/>
+    <details key="DUPLICATE_FEATURE_INHERITANCE" value="DISCARD"/>
+    <details key="DUPLICATE_OPERATIONS" value="DISCARD"/>
+    <details key="PROPERTY_DEFAULT_EXPRESSIONS" value="IGNORE"/>
+    <details key="INVARIANT_CONSTRAINTS" value="PROCESS"/>
+    <details key="REDEFINING_PROPERTIES" value="PROCESS"/>
+    <details key="ANNOTATION_DETAILS" value="PROCESS"/>
+    <details key="NON_API_INVARIANTS" value="IGNORE"/>
+    <details key="DUPLICATE_OPERATION_INHERITANCE" value="DISCARD"/>
+    <details key="REDEFINING_OPERATIONS" value="PROCESS"/>
+    <details key="INVOCATION_DELEGATES" value="IGNORE"/>
+    <details key="DERIVED_FEATURES" value="PROCESS"/>
+    <details key="OPERATION_BODIES" value="IGNORE"/>
+    <details key="CAMEL_CASE_NAMES" value="IGNORE"/>
+    <details key="SUPER_CLASS_ORDER" value="PROCESS"/>
+  </genAnnotations>
+  <foreignModel>filters.uml</foreignModel>
+  <genPackages xsi:type="genmodel:GenPackage" prefix="Filters" basePackage="org.eclipse.papyrus.infra"
+      disposableProviderFactory="true" generateExampleClass="false" extensibleProviderFactory="true"
+      childCreationExtenders="true" ecorePackage="filters.ecore#/" operationsPackage="org.eclipse.papyrus.infra.filters.internal.operations">
+    <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="filters.ecore#//OperatorKind">
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="filters.ecore#//OperatorKind/and"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="filters.ecore#//OperatorKind/or"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="filters.ecore#//OperatorKind/xor"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="filters.ecore#//OperatorKind/not"/>
+    </genEnums>
+    <genDataTypes xsi:type="genmodel:GenDataType" ecoreDataType="filters.ecore#//Object"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="filters.ecore#//FilterReference">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference filters.ecore#//FilterReference/filter"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference filters.ecore#//FilterReference/ownedFilter"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="filters.ecore#//Filter">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute filters.ecore#//Filter/name"
+          key="true"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="filters.ecore#//Filter/matches">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="filters.ecore#//Filter/matches/input"/>
+      </genOperations>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="filters.ecore#//CompoundFilter">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference filters.ecore#//CompoundFilter/filter"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference filters.ecore#//CompoundFilter/ownedFilter"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute filters.ecore#//CompoundFilter/operator"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="filters.ecore#//CompoundFilter/acyclic">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="filters.ecore#//CompoundFilter/acyclic/diagnostics"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="filters.ecore#//CompoundFilter/acyclic/context"/>
+      </genOperations>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="filters.ecore#//Equals">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute filters.ecore#//Equals/object"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="filters.ecore#//FilteredElement">
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference filters.ecore#//FilteredElement/filter"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,69 @@
+=Introduction=
+This tool is providing a way to migrate profiled model from a profile version V1 to the same profile version V2. This tool try to make the most part of the migration automatically but in some case it is necessary that the user make a choice.
+
+=How to use it=
+==Run the migration==
+If the Profile migration tool is selected in preferences (see [[#Configuration]], to run the migration, you just have to '''open the profiled model''' which have to be migrated. The following pop-up will appear, then you just have to select one or many profiles you want to migrate and click on "OK".
+
+[[File:images/userDoc/Papyrus_SomeProfilesHaveChanged.png|frame|none|Pop-up asking which profile the user want to migrate]]
+
+Since the tool is base on the comparison of the old version of the model and the new one, the tool will ask you to select the file corresponding to the profile before modifications (pop-up in the following image). Then the tool will start the migration and if necessary ask you to make some choice.
+
+[[File:images/userDoc/Papyrus_SelectOldProfile.png|frame|none|Pop-up asking which profile the user want to migrate]]
+
+==Migration actions==
+The tool will determine some actions of migration according to differences between the two version of the profile. Some of this actions will be manage automatically for example: when the ''isUnique'' feature of a property is set to true then the Profile Migration Tool will delete every duplicated values in each slot corresponding to this property. However, some action can't be done without choices of the user.
+
+In the following lines you will see each case where the tool will ask you to do something. 
+
+* When a stereotype '''''S'' has become abstract''' (means ''isAbstract'' = true) then S can not be applied anymore. Instead of delete each stereotype application the tool will propose you to replace those stereotype applications by applying one or many of stereotype inherited from ''S'' (in the following screenshot: ''S1'', ''S2'' or ''S3'').
+
+[[File:images/userDoc/Papyrus_IsAbstractStereotype.png|frame|none|Pop-up replace abstract Stereotype]]
+
+* When a property '''''p'' has been added to a stereotype''' ''S''. In the specific case where a value is necessary to insure the validity of the model (in other words the lower multiplicity of ''p'' is equal or greater than 1) and where no default value is define for this property then the tool can not migrate automatically. The Profile Migration Tool will ask you to choose a value for each slot corresponding to ''p''.
+
+[[File:images/userDoc/Papyrus_AddedProperty.png|frame|none|Pop-up initialize new property value]]
+
+* When an '''enumeration literal has been deleted''' from an enumeration, then the tool will ask you if you want to replace it by an other enumeration literal from the same enumeration.
+
+[[File:images/userDoc/Papyrus_DeleteEnumLiteralEnumeration.png|frame|none|Pop-up replace a deleted enumeration literal]]
+
+* When a property '''''p'' has become static''' (means ''isStatic'' = true) then every slot corresponding to this property should have the same value. The tool can not define automatically the value to set so it will ask you to choose the value set to each slot corresponding to ''p''.
+
+[[File:images/userDoc/Papyrus_IsStaticProperty.png|frame|none|Pop-up replace every slot corresponding to the static property by the same value]]
+
+* When a '''package or a profile has been moved''' into a profile which is not apply to the model, the tool will ask you if you want to apply it (see following screenshot). If you answer "yes" then every stereotype applications corresponding to stereotypes owning by the moved package or profile are kept. If you answer "no" then every stereotype applications corresponding to stereotypes owning by the moved package or profile are deleted. In the same way, when a '''stereotype is moved''' into a profile which is not apply to the model, the tool will ask you if you want to apply it to the model.
+
+[[File:images/userDoc/Papyrus_MoveStereotype.png|frame|none|Pop-up apply the profile owning the moved stereotype]]
+
+* When the '''multiplicity of a property ''p'' has been changed''' then for each slot corresponding to p which is not matching with this new multiplicity the tool will ask you to add or remove values. For example, if the lower multiplicity of a property ''p1'' in the stereotype ''S1'' has been changed from 0 to 2. Then we should add values to every slot corresponding to ''p1'' which has less than 2 values. 
+
+[[File:images/userDoc/Papyrus_LowerMultiplicity.png|frame|none|Pop-up add or remove values to match with the new multiplicity]]
+
+'''Note''': note that for each pop-up display you free to tick the box ''"do not show this pop-up again"''. You can still display it again by using preferences (see [[#Configuration]])
+=Configuration=
+To configure the profile migration tool there is two interesting preference pages. 
+
+The first one is the '''Profile Application''' preference page (which can be find under Papyrus preference group), this property allow you to choose the tool you want to use, to run our tool you have to select '''Profile migration tool''' (like in the following screenshot).
+
+[[File:images/userDoc/Papyrus_ProfileApplicationPreference.png|frame|none|Preference page to select the Profile application tool]]
+
+The second interesting preference page is named "Profile Migration Tool", and it can be find under Papyrus/Profile Application group. 
+
+[[File:images/userDoc/Papyrus_ProfileMigrationToolPreference.png|frame|none|Preference page for the profile migration tool]]
+
+This page allow you to do:
+# You can choose if you want or not display the pop-up in different situations. For example you can choose to not display the pop-up when there was a stereotype which has been moved into an unapply profile. If you decide to not display some pop-up then default actions will be done instead. Default actions are described bellow:
+#* '''A property has been added to a stereotype''': the slot corresponding to the property is created but has no default value (the model is not valid).
+#* '''A Stereotype has been moved into an unapplied Profile''': every stereotype applications of the moved stereotype are deleted.
+#* '''A Package has been moved into an unapplied Profile''': every stereotype applications of stereotypes owned by the moved package are deleted.
+#* '''A Profile has been moved into an unapplied Profile''': every stereotype applications of stereotypes owned by the moved profile are deleted.
+#* '''IsStatic feature of Property has been modified''': values of slots corresponding to the property are not changed.
+#* '''The lower multiplicity of Property has been modified''': values of slots corresponding to the property are not changed (the model is not valid).
+#* '''An EnumerationLiteral has been deleted from an Enumeration''': values of slots corresponding to the property type by this enumeration are not changed.
+#* '''IsAbstract feature of Stereotype has been modified''': every stereotype applications of the abstract stereotype are deleted.
+#* '''The upper multiplicity of Property has been modified''': values of slots corresponding to the property are not changed (the model is not valid).
+# During the execution, the program keep in cache files you select for the migration. If you made twice the same migration the tool will not ask you again to select the file corresponding to the profile before modifications. However if you really need to change the file it is used, you can remove cached files in this preference page.
+
+=Video=
+A quick video can be found on the Papyrus' Youtube channel right [https://www.youtube.com/watch?v=tGrQUaERoA0 here] showcasing the use of the current iteration of the Profile Migration Tool.

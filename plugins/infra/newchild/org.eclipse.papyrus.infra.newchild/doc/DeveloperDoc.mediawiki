@@ -1,0 +1,290 @@
+
+__TOC__
+= New Child Menu into the model explorer =
+==<span id="_QiM6kfs9EeWfd8HYkrLHlg">Table of Contents</span>==
+==<span id="_QiOIsfs9EeWfd8HYkrLHlg">Requirements</span>==
+<span id="_QiPW0fs9EeWfd8HYkrLHlg">- AddNewChild (id=newChild001): 
+ Papyrus shall add in the menu new child for new customized elements by using extended type</span><br>
+<span id="_QiQk8Ps9EeWfd8HYkrLHlg">- HideElement (id=newChild002): 
+ Papyrus shall not display all UML or SysML element creation</span><br>
+<span id="_QiRzEPs9EeWfd8HYkrLHlg">- newChildFromProfile (id=newChild003): 
+ Papyrus shall add the creation of new elements from a subset of profile</span><br>
+<span id="_QiSaIfs9EeWfd8HYkrLHlg">- newChildMenuDisplay (id=newChild004): 
+ Papyrus shall be able to associated icons to folder or creation menu</span><br>
+<span id="_QiToQfs9EeWfd8HYkrLHlg">- RoleAndElementCreation (id=newChild005): 
+ An element can be created from several roles for a container, Papyrus shall let the possibility to choose the role or to let to the possibility to be created from all roles.</span><br>
+<span id="_QiU2Yfs9EeWfd8HYkrLHlg">- deployProgrammaticallyNewChild (id=newChild006): 
+ A creationMenuModel shall be deployed programmatically.</span><br>
+<span id="_QiWEgPs9EeWfd8HYkrLHlg">- undeployProgrammaticallyNewChild (id=newChild007): 
+ A creationMenuModel shall be undeployed programmatically.</span><br>
+<span id="_QiWrkfs9EeWfd8HYkrLHlg">- deployNewChildFromWorkspace (id=newChild008): 
+ A creationMenuModel shall be deployed from the workspace.</span><br>
+<span id="_QiX5sfs9EeWfd8HYkrLHlg">- undeployNewChildFromWorkspace (id=newChild010): 
+ A creationMenuModel shall be undeployed from the workspace.</span><br>
+==<span id="_QiZH0fs9EeWfd8HYkrLHlg">Use Cases</span>==
+<br>
+[[Image:./imgDOC/UseCaseDiagram.png|UseCaseDiagram]]
+<br>''UseCaseDiagram''<br>
+<br>
+===<span id="_Qj8nAfs9EeWfd8HYkrLHlg">NewChildMenu</span>===
+====<span id="_Qj91Ifs9EeWfd8HYkrLHlg">UseCreateMenu</span>====
+======<span id="_Qj91Ifs9EeWfd8HYkrLHlg">UseCreateMenu</span>======
+<span id="_Qj-cMfs9EeWfd8HYkrLHlg">The Papyrus User shall use this functionality from the model explorer in order to create elements in the model. It can decide to display or not this element creation</span><br>
+=====<span id="_Qj_qUfs9EeWfd8HYkrLHlg">How to</span>=====
+<span id="_QkA4cfs9EeWfd8HYkrLHlg">A user can create an element by  select element in the model explorer, click on it ant then click on the diagram.
+In order to not display a menu,  a user can edit the model that represents the creation menu and set the attribute visibility to false. </span><br>
+<br>
+[[Image:git/org.eclipse.papyrus/plugins/infra/org.eclipse.papyrus.infra.newchild/doc/imgDOC/EnableCreationMenu.png|EnableCreationMenu]]
+<br>''EnableCreationMenu''<br>
+<br>
+<br>
+[[Image:git/org.eclipse.papyrus/plugins/infra/org.eclipse.papyrus.infra.newchild/doc/imgDOC/EnableCreationMenu.png|EnableCreationMenu]]
+<br>''EnableCreationMenu''<br>
+<br>
+====<span id="_QkD7wfs9EeWfd8HYkrLHlg">Create or modify ElementCreationModel</span>====
+======<span id="_QkD7wfs9EeWfd8HYkrLHlg">Create or modify ElementCreationModel</span>======
+<span id="_QkFJ4fs9EeWfd8HYkrLHlg">An advanced User is able to create of modify creation menu. This menu is a model that can be edited </span><br>
+=====<span id="_QkGYAfs9EeWfd8HYkrLHlg">How to</span>=====
+<span id="_QkHmIPs9EeWfd8HYkrLHlg">An advanced user can contribuate to the menu by adding a new plugin that contains:
+	-a xmi file that represents a creation menu. The model must be an instance of org.eclipse.papyrus.infra.newchild/resource/elementCreationMenuModel.ecore. It contains
+		•	CreationMenu
+			o	It corresponds to a menu
+			o	The ElemenTypeIDRef corresponds a reference to the element Type.
+			o	The role can be filled in order to specify the role play by the element.
+			o	If displayAllRole is set to true, it displays all roles played by the element if the number of roles is greater than 1. By default this property is true;
+		•	Folder
+			o	It is possible to add owns label and icon.
+			o  Visibilty to specify if the folder is visible.
+	-a reference to an extension point, to specify that papyrus must take in account this file to display the menu
+<code>
+<extension
+         point="org.eclipse.papyrus.infra.newchild">
+      <menuCreationModel
+            model="YourCreationMenu.xmi">
+      </menuCreationModel>
+</extension>
+</code></span><br>
+<span id="_QkINMfs9EeWfd8HYkrLHlg">In the following example, a menu creation for a package is presented. This menu is contained in the folder SimpleUMLTest. We have associated an image for this menu.</span><br>
+<br>
+[[Image:git/org.eclipse.papyrus/plugins/infra/org.eclipse.papyrus.infra.newchild/doc/imgDOC/PackageWithIconO.png|Creation menu for a package with a specific icon]]
+<br>''Creation menu for a package with a specific icon''<br>
+<br>
+<br>
+[[Image:git/org.eclipse.papyrus/plugins/infra/org.eclipse.papyrus.infra.newchild/doc/imgDOC/PackageWithIconOIllustration.png|Result for this menu]]
+<br>''Result for this menu''<br>
+<br>
+<span id="_QkLQgfs9EeWfd8HYkrLHlg">In this following example, a creation menu will be specified  to allow creation of nested classifier. That 's why the role "nestedClassifier" is precised. The label for this creation is "nestedClass"</span><br>
+<br>
+[[Image:git/org.eclipse.papyrus/plugins/infra/org.eclipse.papyrus.infra.newchild/doc/imgDOC/NestedClassifierIllustration.png|Result for the menu nestedClass]]
+<br>''Result for the menu nestedClass''<br>
+<br>
+<br>
+[[Image:git/org.eclipse.papyrus/plugins/infra/org.eclipse.papyrus.infra.newchild/doc/imgDOC/NestedClassifier.png|Creation menu model for nested class]]
+<br>''Creation menu model for nested class''<br>
+<br>
+<span id="_QkO64fs9EeWfd8HYkrLHlg">In the followin examplen a creation menu is created for activities. In this case, all roles are displayed. Thanks to this, when we want to associate an activity to a state, 3 roles are proposed. </span><br>
+<br>
+[[Image:git/org.eclipse.papyrus/plugins/infra/org.eclipse.papyrus.infra.newchild/doc/imgDOC/AllPossibleActivities.png|Creation menu model for activity]]
+<br>''Creation menu model for activity''<br>
+<br>
+<br>
+[[Image:git/org.eclipse.papyrus/plugins/infra/org.eclipse.papyrus.infra.newchild/doc/imgDOC/AllPossibleActivitiesIllustration.png|Result for this menu activity]]
+<br>''Result for this menu activity''<br>
+<br>
+====<span id="_QkR-Mfs9EeWfd8HYkrLHlg">Generate "ElementCreationModel" from a profile</span>====
+======<span id="_QkR-Mfs9EeWfd8HYkrLHlg">Generate "ElementCreationModel" from a profile</span>======
+<span id="_QkTMUfs9EeWfd8HYkrLHlg">From a stereotyped profile, a model of new child menu can be generated.
+For example a user after designing a profile, want to have a dedicated menu  from this profile/
+For the moment this function is not implemented.</span><br>
+====<span id="_QkUacPs9EeWfd8HYkrLHlg">Hide, change order or add submenus</span>====
+======<span id="_QkUacPs9EeWfd8HYkrLHlg">Hide, change order or add submenus</span>======
+<span id="_QkVBgfs9EeWfd8HYkrLHlg">The User can modify the creation menu by adding submenus: order about new child menu, precise if the role must be displayed.</span><br>
+=====<span id="_QkWPofs9EeWfd8HYkrLHlg">How to</span>=====
+<span id="_QkXdwfs9EeWfd8HYkrLHlg">test</span><br>
+====<span id="_QkYr4fs9EeWfd8HYkrLHlg">Create or modify ElementCreationModel at runtime thanks to a GUI</span>====
+======<span id="_QkYr4fs9EeWfd8HYkrLHlg">Create or modify ElementCreationModel at runtime thanks to a GUI</span>======
+<span id="_QkZS8fs9EeWfd8HYkrLHlg">A user  can edit a the model that represent the creation menu  at runtime for papyrus thanks to a dedicated UI.</span><br>
+====<span id="_QkahEfs9EeWfd8HYkrLHlg">Deploy or undeploy ElementCreationModel programatically</span>====
+======<span id="_QkahEfs9EeWfd8HYkrLHlg">Deploy or undeploy ElementCreationModel programatically</span>======
+<span id="_QkbvMPs9EeWfd8HYkrLHlg">  - traces to [[#_QiU2Yfs9EeWfd8HYkrLHlg|deployProgrammaticallyNewChild]], [[#_QiWEgPs9EeWfd8HYkrLHlg|undeployProgrammaticallyNewChild]]</span><br>
+<span id="_QkcWQfs9EeWfd8HYkrLHlg">An advance user shall have the possibility to deploy or undeploy creationMenuChild Model programmatically. This can be done using org.eclipse.papyrus.infra.newchild.CreationMenuRegistry.loadCreationMenuModel(URI uri).</span><br>
+====<span id="_QkdkYfs9EeWfd8HYkrLHlg">Deploy or undeploy ElementCreationModel from workspace</span>====
+======<span id="_QkdkYfs9EeWfd8HYkrLHlg">Deploy or undeploy ElementCreationModel from workspace</span>======
+<span id="_QkeygPs9EeWfd8HYkrLHlg">  - traces to [[#_QiWrkfs9EeWfd8HYkrLHlg|deployNewChildFromWorkspace]], [[#_QiX5sfs9EeWfd8HYkrLHlg|undeployNewChildFromWorkspace]]</span><br>
+<span id="_QkfZkfs9EeWfd8HYkrLHlg">An advance user shall have the possibility to deploy or undeploy creationMenuChild Model from workspace. This can be done with the contextuelle menu at the right click.</span><br>
+==<span id="_Qkgnsfs9EeWfd8HYkrLHlg">Design</span>==
+<br>
+[[Image:./imgDOC/Architecture.png|Architecture]]
+<br>''Architecture''<br>
+<br>
+<span id="_Qle4Efs9EeWfd8HYkrLHlg">The system is done by two plugins:
+	•	org.eclipse.papyrus.infra.newchild
+	It has in charge to provide and construct swt.Menu from the ecore model. To do that the developer has to:
+		o	instantiate a CreationMenuFactory, 
+		o	ask to get all Root model and populate it
+	<code>
+		CreationMenuFactory creationMenuFactory= new CreationMenuFactory(editingDomain);
+		ArrayList<Folder> folders= creationMenuRegistry.getRootFolder();
+		Iterator<Folder> iterFolder= folders.iterator();
+		while (iterFolder.hasNext()) {
+			Folder currentFolder= iterFolder.next();
+			creationMenuFactory.populateMenu(menu, currentFolder,eObject);
+		}
+</code>
+	•	org.eclipse.papyrus.views.modelexplorer.newchild
+	It has in charge to add menu in the model explorer of papyrus.
+</span><br>
+<br>
+[[Image:./imgDOC/NewDiagram.png|NewDiagram]]
+<br>''NewDiagram''<br>
+<br>
+<span id="_QmCRsfs9EeWfd8HYkrLHlg">This the structure of EMF model for model
+	•	CreationMenu
+		o	It correspond to a menu
+		o	The ElemenTypeIDRef correspond a reference to the element Type.
+		o	The role can be filled in order to specify the role play by the element.
+		o	If displayAllRole is set to true, it displays all roles played by the element if the number of roles is greater than 1. By default this property is true;
+	•	Folder
+		o	It is possible to add owns label an icon.
+</span><br>
+<br>
+[[Image:git/org.eclipse.papyrus/plugins/infra/org.eclipse.papyrus.infra.newchild/doc/imgDOC/MenuExample.png|Example of obtained Menu]]
+<br>''Example of obtained Menu''<br>
+<br>
+<br>
+[[Image:git/org.eclipse.papyrus/plugins/infra/org.eclipse.papyrus.infra.newchild/doc/imgDOC/codeXML.PNG|Example of xml for a creation menu]]
+<br>''Example of xml for a creation menu''<br>
+<br>
+<span id="_QmFVAfs9EeWfd8HYkrLHlg">Here an example of xml of creation menu.</span><br>
+===<span id="_QmGjIfs9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.infra.newchild</span>===
+===<span id="_QmHKMfs9EeWfd8HYkrLHlg">Plugin org.eclipse.ui</span>===
+===<span id="_QmIYUfs9EeWfd8HYkrLHlg">Plugin org.eclipse.core.runtime</span>===
+===<span id="_QmJmcfs9EeWfd8HYkrLHlg">Plugin org.eclipse.emf</span>===
+===<span id="_QmK0kPs9EeWfd8HYkrLHlg">Plugin org.eclipse.emf.ecore</span>===
+===<span id="_QmLbofs9EeWfd8HYkrLHlg">Plugin org.eclipse.osgi</span>===
+===<span id="_QmMpwfs9EeWfd8HYkrLHlg">Plugin org.eclipse.emf.ecore.xmi</span>===
+===<span id="_QmN34Ps9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.infra.extendedtypes</span>===
+===<span id="_QmOe8fs9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.infra.services.resourceloading</span>===
+===<span id="_QmPtEfs9EeWfd8HYkrLHlg">Plugin org.eclipse.emf.transaction</span>===
+===<span id="_QmQ7Mfs9EeWfd8HYkrLHlg">Plugin org.eclipse.gmf.runtime.emf.type.core</span>===
+===<span id="_QmSJUfs9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.infra.services.edit</span>===
+===<span id="_QmTXcfs9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.infra.gmfdiag.commands</span>===
+===<span id="_QmT-gfs9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.infra.core.log</span>===
+===<span id="_QmVMofs9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.infra.widgets</span>===
+===<span id="_QmWawfs9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.views.modelexplorer.newchild</span>===
+===<span id="_QmXB0fs9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.infra.core</span>===
+===<span id="_QmZeEfs9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.infra.emf</span>===
+===<span id="_QmasMfs9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.uml.service.types</span>===
+===<span id="_QmbTQfs9EeWfd8HYkrLHlg">Plugin org.eclipse.gmf.runtime.common.core</span>===
+===<span id="_QmchYfs9EeWfd8HYkrLHlg">Plugin org.eclipse.papyrus.infra.tools</span>===
+==<span id="_Qmdvgfs9EeWfd8HYkrLHlg">Tests</span>==
+===<span id="_Qme9ofs9EeWfd8HYkrLHlg">Package Test AboutCreateModifyElementCreationModel</span>===
+<br>
+[[Image:./imgDOC/Test_about_Create_or_Modify_Element_CreationModel.png|Test about Create or Modify Element CreationModel]]
+<br>''Test about Create or Modify Element CreationModel''<br>
+<br>
+====<span id="_QnjUofs9EeWfd8HYkrLHlg">Use Case Create a model without nothing</span>====
+======<span id="_QnjUofs9EeWfd8HYkrLHlg">Use Case Create a model without nothing</span>======
+<span id="_Qnkiwfs9EeWfd8HYkrLHlg">org.eclipse.papyrus.infra.newchild.tests.NewChildExtensionPointTests.NewChildExtensionPointTest() test if a creationMenuModel is well deployed using extension point.</span><br>
+====<span id="_QnmX8Ps9EeWfd8HYkrLHlg">Use Case createa model with only a root</span>====
+======<span id="_QnmX8Ps9EeWfd8HYkrLHlg">Use Case createa model with only a root</span>======
+====<span id="_QnqCUfs9EeWfd8HYkrLHlg">Use Case create a model with elementType as String</span>====
+======<span id="_QnqCUfs9EeWfd8HYkrLHlg">Use Case create a model with elementType as String</span>======
+===<span id="_Qnu60Ps9EeWfd8HYkrLHlg">Package TestUseCreateMenu</span>===
+<br>
+[[Image:./imgDOC/Test_about_UseCreateMenu.png|Test about UseCreateMenu]]
+<br>''Test about UseCreateMenu''<br>
+<br>
+====<span id="_Qol2cfs9EeWfd8HYkrLHlg">Use Case Use a menu from a model without ElementType model</span>====
+======<span id="_Qol2cfs9EeWfd8HYkrLHlg">Use Case Use a menu from a model without ElementType model</span>======
+====<span id="_QonEkPs9EeWfd8HYkrLHlg">Use Case Use a menu with elementType model</span>====
+======<span id="_QonEkPs9EeWfd8HYkrLHlg">Use Case Use a menu with elementType model</span>======
+====<span id="_Qonrofs9EeWfd8HYkrLHlg">Use Case Use a menu with stereotyped element</span>====
+======<span id="_Qonrofs9EeWfd8HYkrLHlg">Use Case Use a menu with stereotyped element</span>======
+===<span id="_Qoo5wfs9EeWfd8HYkrLHlg">Package TestAboutDeployUndeployCreationMenuModel</span>===
+<br>
+[[Image:./imgDOC/TestAboutDeployUndeployCreationMenuModel.png|TestAboutDeployUndeployCreationMenuModel]]
+<br>''TestAboutDeployUndeployCreationMenuModel''<br>
+<br>
+====<span id="_Qp6sIfs9EeWfd8HYkrLHlg">Use Case Use deploy programmatically</span>====
+======<span id="_Qp6sIfs9EeWfd8HYkrLHlg">Use Case Use deploy programmatically</span>======
+<span id="_Qp8hUfs9EeWfd8HYkrLHlg">Test done in org.eclipse.papyrus.infra.newchild.tests.DeployUndeployTests.DeployUndeployTest()</span><br>
+====<span id="_Qp9vcfs9EeWfd8HYkrLHlg">Use Case Use undeploy programmatically</span>====
+======<span id="_Qp9vcfs9EeWfd8HYkrLHlg">Use Case Use undeploy programmatically</span>======
+<span id="_Qp-9kfs9EeWfd8HYkrLHlg">Test done in org.eclipse.papyrus.infra.newchild.tests.DeployUndeployTests.DeployUndeployTest()</span><br>
+====<span id="_Qp_kofs9EeWfd8HYkrLHlg">Use Case Use deploy from workspace</span>====
+======<span id="_Qp_kofs9EeWfd8HYkrLHlg">Use Case Use deploy from workspace</span>======
+<span id="_QqAywfs9EeWfd8HYkrLHlg">TODO with rcptt when available for Papyrus.</span><br>
+====<span id="_QqCA4fs9EeWfd8HYkrLHlg">Use Case Use undeploy from workspace</span>====
+======<span id="_QqCA4fs9EeWfd8HYkrLHlg">Use Case Use undeploy from workspace</span>======
+<span id="_QqCn8fs9EeWfd8HYkrLHlg">TODO with rcptt when available for Papyrus.</span><br>
+==<span id="_QqD2Efs9EeWfd8HYkrLHlg">Requirements Coverage</span>==
+{| border="1" cellpadding="20" cellspacing="0"
+!ID
+!Satisfied by
+!Verified by
+|-
+|[[#_QiPW0fs9EeWfd8HYkrLHlg|newChild001]]
+
+|
+|
+
+|-
+|[[#_QiQk8Ps9EeWfd8HYkrLHlg|newChild002]]
+
+|
+|
+
+|-
+|[[#_QiRzEPs9EeWfd8HYkrLHlg|newChild003]]
+
+|
+|
+
+|-
+|[[#_QiSaIfs9EeWfd8HYkrLHlg|newChild004]]
+
+|
+|
+
+|-
+|[[#_QiToQfs9EeWfd8HYkrLHlg|newChild005]]
+
+|
+|
+
+|-
+|[[#_QiU2Yfs9EeWfd8HYkrLHlg|newChild006]]
+
+|Deploy or undeploy ElementCreationModel programatically
+
+|[[#_Qp6sIfs9EeWfd8HYkrLHlg|Use deploy programmatically]]
+
+
+|-
+|[[#_QiWEgPs9EeWfd8HYkrLHlg|newChild007]]
+
+|Deploy or undeploy ElementCreationModel programatically
+
+|[[#_Qp9vcfs9EeWfd8HYkrLHlg|Use undeploy programmatically]]
+
+
+|-
+|[[#_QiWrkfs9EeWfd8HYkrLHlg|newChild008]]
+
+|Deploy or undeploy ElementCreationModel from workspace
+
+|[[#_Qp_kofs9EeWfd8HYkrLHlg|Use deploy from workspace]]
+
+
+|-
+|[[#_QiX5sfs9EeWfd8HYkrLHlg|newChild010]]
+
+|Deploy or undeploy ElementCreationModel from workspace
+
+|[[#_QqCA4fs9EeWfd8HYkrLHlg|Use undeploy from workspace]]
+
+
+|}
+<span id="_QqFEMfs9EeWfd8HYkrLHlg">Unsatisfied requirements (5 out of 9) : </span><br>[[#_QiPW0fs9EeWfd8HYkrLHlg|newChild001, ]][[#_QiQk8Ps9EeWfd8HYkrLHlg|newChild002, ]][[#_QiRzEPs9EeWfd8HYkrLHlg|newChild003, ]][[#_QiSaIfs9EeWfd8HYkrLHlg|newChild004, ]][[#_QiToQfs9EeWfd8HYkrLHlg|newChild005]]
+<span id="_QqFrQfs9EeWfd8HYkrLHlg">Unverified requirements (5 out of 9) : </span><br>[[#_QiPW0fs9EeWfd8HYkrLHlg|newChild001, ]][[#_QiQk8Ps9EeWfd8HYkrLHlg|newChild002, ]][[#_QiRzEPs9EeWfd8HYkrLHlg|newChild003, ]][[#_QiSaIfs9EeWfd8HYkrLHlg|newChild004, ]][[#_QiToQfs9EeWfd8HYkrLHlg|newChild005]]

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_aM2vEAfYEeecBNIdvHNERQ" name="RootElement">
+  <packagedElement xmi:type="uml:Class" xmi:id="_jkkZIBCbEeeJu4TZy_sr1Q" name="Class1">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_khwaIhCbEeeJu4TZy_sr1Q" name="class2" type="_kCttsBCbEeeJu4TZy_sr1Q" association="_khvzEBCbEeeJu4TZy_sr1Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_kCttsBCbEeeJu4TZy_sr1Q" name="Class2"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_khvzEBCbEeeJu4TZy_sr1Q" name="Association1" memberEnd="_khwaIhCbEeeJu4TZy_sr1Q _khxBMBCbEeeJu4TZy_sr1Q">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_khwaIBCbEeeJu4TZy_sr1Q" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_khwaIRCbEeeJu4TZy_sr1Q" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_khxBMBCbEeeJu4TZy_sr1Q" name="class1" type="_jkkZIBCbEeeJu4TZy_sr1Q" association="_khvzEBCbEeeJu4TZy_sr1Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_1BkmEBCcEeeJu4TZy_sr1Q" name="Class3"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_14RkkBCcEeeJu4TZy_sr1Q" name="Class4"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_7Z_gsBCcEeeJu4TZy_sr1Q" name="Dependency1" client="_1BkmEBCcEeeJu4TZy_sr1Q" supplier="_14RkkBCcEeeJu4TZy_sr1Q"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_AXJ-QBCdEeeJu4TZy_sr1Q" name="Class5">
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_BBCBsBCdEeeJu4TZy_sr1Q" name="Constraint1">
+      <specification xmi:type="uml:LiteralString" xmi:id="_BBCBsRCdEeeJu4TZy_sr1Q" name="constraintSpec"/>
+    </ownedRule>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_FkiCEBCdEeeJu4TZy_sr1Q" name="Class6">
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_HEs0UBCdEeeJu4TZy_sr1Q" name="IntRealization" client="_FkiCEBCdEeeJu4TZy_sr1Q" supplier="_GE0EoBCdEeeJu4TZy_sr1Q" contract="_GE0EoBCdEeeJu4TZy_sr1Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_GE0EoBCdEeeJu4TZy_sr1Q" name="Interface1"/>
+</uml:Model>

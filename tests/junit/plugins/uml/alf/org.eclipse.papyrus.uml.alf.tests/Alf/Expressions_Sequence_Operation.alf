@@ -1,0 +1,22 @@
+/**
+ * Test sequence operation expressions.
+ **/
+active class Expressions_Sequence_Operation {
+
+	class Customer {
+
+		public name: String;
+		@Create Customer(in name: String);
+		@Destroy
+		public destroy();
+
+	}
+
+	test(out notEmpty: Boolean, out includes: Boolean, out m: Integer,
+		out n: Integer, out customers: Customer[0..*], out list: any[0..*]);
+	@Create
+	public Expressions_Sequence_Operation();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Sequence_Operation$behavior$1'

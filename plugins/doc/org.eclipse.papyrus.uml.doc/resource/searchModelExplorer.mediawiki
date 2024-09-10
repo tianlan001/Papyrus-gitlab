@@ -1,0 +1,28 @@
+= Search field in Model Explorer =
+
+[[File:images/FilterInModelExplorer.png]]
+
+You can use:<br>
+<code>?</code> for any character<br>
+<code>*</code> for any string<br>
+<code>;</code> is used as OR<br>
+<code>^</code> is used as start key<br>
+<code>$</code> is used as end key<br>
+
+A case sensitive option is available (use Aa checkbox)
+
+= Preferences =
+The search is executed live (with a delay) by default and on the "enter" key.
+It can be changed in the preferences, here are the options 
+ - disable the live validation
+ - change the delay (in millisecond)
+
+[[File:images/SearchInModelExplorerPreferences.png]]
+
+= Stereotype Information =
+
+Stereotype are displayed using special char that may them difficult to filter. 
+
+Here is the an extract of UML 2.4.1: <br>
+Annex B: Keywords (normative) page 697
+Keywords are always enclosed in guillemets («keyword»), which serve as visual cues to more readily distinguish when a keyword is being used. (Note that guillemets are a special kind of quotation marks and should not be confused with or replaced by duplicated “greater than” (») or “less than” («) symbols, except in situations where the available character set may not include guillemets.) In addition to identifying keywords, guillemets are also used to distinguish the usage of stereotypes defined in user profiles. This means that: 1. Not all words appearing between guillemets are necessarily keywords (i.e., reserved words), and 2. words appearing in guillemets do not necessarily represent stereotypes. If multiple keywords and/or stereotype names apply to the same model element, each stereotype may be enclosed in a separate pair of guillemets and listed one after the other. Alternatively they all appear between the same pair of guillemets, separated by commas: “«” <label> [“,” <label>]* “»” where: <label> ::= <keyword> | <stereotype-label>

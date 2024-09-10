@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_IElOsHi_EeWLz9_fOdUDAA" name="dropless">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_7kpJ8HjDEeWLz9_fOdUDAA" annotatedElement="_YNzYMXjDEeWLz9_fOdUDAA _YqWxUXjDEeWLz9_fOdUDAA _VVaOwHjDEeWLz9_fOdUDAA _Yxmo0XjDEeWLz9_fOdUDAA">
+    <body>generated</body>
+  </ownedComment>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_kZUIQHjCEeWLz9_fOdUDAA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_1fAc4HjNEeWLz9_fOdUDAA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_1qJD0HzIEeW-84Rud4Kaxg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_MkUJYHi_EeWLz9_fOdUDAA" name="gmf">
+    <packagedElement xmi:type="uml:Interface" xmi:id="_SiEhQHi_EeWLz9_fOdUDAA" name="IProvider"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_U3PB0Hi_EeWLz9_fOdUDAA" name="Service"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_f3AiEHi_EeWLz9_fOdUDAA" client="_U3PB0Hi_EeWLz9_fOdUDAA" supplier="_SiEhQHi_EeWLz9_fOdUDAA"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_PomkUHjAEeWLz9_fOdUDAA" name="CanonicalEditPolicy"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_4F7SQHjBEeWLz9_fOdUDAA" name="Diagram"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_JEwK4HjCEeWLz9_fOdUDAA" name="IElementType"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_YwlxoHjCEeWLz9_fOdUDAA" name="View"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_7mYzMHi_EeWLz9_fOdUDAA" name="VisualTypeService">
+    <generalization xmi:type="uml:Generalization" xmi:id="__ureQHi_EeWLz9_fOdUDAA" general="_U3PB0Hi_EeWLz9_fOdUDAA"/>
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_HZrbEHjAEeWLz9_fOdUDAA" client="_7mYzMHi_EeWLz9_fOdUDAA" supplier="_FKN54HjAEeWLz9_fOdUDAA" contract="_FKN54HjAEeWLz9_fOdUDAA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_FKN54HjAEeWLz9_fOdUDAA" name="IVisualTypeProvider">
+    <generalization xmi:type="uml:Generalization" xmi:id="_IfyukHjAEeWLz9_fOdUDAA" general="_SiEhQHi_EeWLz9_fOdUDAA"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Kq_I4HjCEeWLz9_fOdUDAA" name="getNodeType" visibility="public">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_cVn-oHjCEeWLz9_fOdUDAA" name="view" type="_YwlxoHjCEeWLz9_fOdUDAA" effect="read"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_gaZboHjCEeWLz9_fOdUDAA" name="element" type="_8_dNAHjBEeWLz9_fOdUDAA" effect="read"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_pMkb4HjCEeWLz9_fOdUDAA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_NDPZsHjCEeWLz9_fOdUDAA" name="getLinkType">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_xhW8kHjCEeWLz9_fOdUDAA" name="diagram" type="_4F7SQHjBEeWLz9_fOdUDAA" effect="read"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_0COW0HjCEeWLz9_fOdUDAA" name="element" type="_8_dNAHjBEeWLz9_fOdUDAA" effect="read"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_2jXd4HjCEeWLz9_fOdUDAA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_N6yswHjCEeWLz9_fOdUDAA" name="getElementType">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_7a2KMHjCEeWLz9_fOdUDAA" name="diagram" type="_4F7SQHjBEeWLz9_fOdUDAA" effect="read"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_9Y-q0HjCEeWLz9_fOdUDAA" name="viewType" effect="read">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_BU678HjDEeWLz9_fOdUDAA" type="_JEwK4HjCEeWLz9_fOdUDAA" direction="return" effect="read"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_b7He0HjAEeWLz9_fOdUDAA" name="PapyrusCanonicalEditPolicy">
+    <generalization xmi:type="uml:Generalization" xmi:id="_wGCDgHjBEeWLz9_fOdUDAA" general="_PomkUHjAEeWLz9_fOdUDAA"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_JgvG0HjDEeWLz9_fOdUDAA" name="refreshSemantic" visibility="protected"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_kTgtIHjAEeWLz9_fOdUDAA" client="_b7He0HjAEeWLz9_fOdUDAA" supplier="_7mYzMHi_EeWLz9_fOdUDAA"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_5mrTUHjBEeWLz9_fOdUDAA" name="ecore">
+    <packagedElement xmi:type="uml:Interface" xmi:id="_8_dNAHjBEeWLz9_fOdUDAA" name="EObject"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_RDo3kHjDEeWLz9_fOdUDAA" name="uml.diagram.clazz">
+    <packagedElement xmi:type="uml:Class" xmi:id="_VVaOwHjDEeWLz9_fOdUDAA" name="UMLVisualTypeProvider">
+      <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_0e-HwHjDEeWLz9_fOdUDAA" client="_VVaOwHjDEeWLz9_fOdUDAA" supplier="_FKN54HjAEeWLz9_fOdUDAA" contract="_FKN54HjAEeWLz9_fOdUDAA"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_YNzYMHjDEeWLz9_fOdUDAA" name="uml.diagram.composite">
+    <packagedElement xmi:type="uml:Class" xmi:id="_YNzYMXjDEeWLz9_fOdUDAA" name="UMLVisualTypeProvider">
+      <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_1ZaWwHjDEeWLz9_fOdUDAA" client="_YNzYMXjDEeWLz9_fOdUDAA" supplier="_FKN54HjAEeWLz9_fOdUDAA" contract="_FKN54HjAEeWLz9_fOdUDAA"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_YqWxUHjDEeWLz9_fOdUDAA" name="uml.diagram.activity">
+    <packagedElement xmi:type="uml:Class" xmi:id="_YqWxUXjDEeWLz9_fOdUDAA" name="UMLVisualTypeProvider">
+      <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_2DAGUHjDEeWLz9_fOdUDAA" client="_YqWxUXjDEeWLz9_fOdUDAA" supplier="_FKN54HjAEeWLz9_fOdUDAA" contract="_FKN54HjAEeWLz9_fOdUDAA"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_Yxmo0HjDEeWLz9_fOdUDAA" name="uml.diagram.usecase">
+    <packagedElement xmi:type="uml:Class" xmi:id="_Yxmo0XjDEeWLz9_fOdUDAA" name="UMLVisualTypeProvider">
+      <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_250ZkHjDEeWLz9_fOdUDAA" name="• • •" client="_Yxmo0XjDEeWLz9_fOdUDAA" supplier="_FKN54HjAEeWLz9_fOdUDAA" contract="_FKN54HjAEeWLz9_fOdUDAA"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_3mb44HjMEeWLz9_fOdUDAA" name="gmfgenextension">
+    <packagedElement xmi:type="uml:Class" xmi:id="_-SgIQHjMEeWLz9_fOdUDAA" name="CommentedElement">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_v4gucHjNEeWLz9_fOdUDAA" name="comment">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YbtQUHjOEeWLz9_fOdUDAA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YbwToHjOEeWLz9_fOdUDAA" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="__o4sYHjMEeWLz9_fOdUDAA" name="GenVisualTypeProvider">
+      <generalization xmi:type="uml:Generalization" xmi:id="_SEZI8HjOEeWLz9_fOdUDAA" general="_-SgIQHjMEeWLz9_fOdUDAA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_5r0bkHjNEeWLz9_fOdUDAA" name="className">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2-onIHjOEeWLz9_fOdUDAA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2-p1QHjOEeWLz9_fOdUDAA" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_e5fMEHjOEeWLz9_fOdUDAA" value="UMLVisualTypeProvider"/>
+      </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_CmWtoHjOEeWLz9_fOdUDAA" name="getClassName" isStatic="true" isQuery="true">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_G0hXMHjOEeWLz9_fOdUDAA" name="diagram" type="_Aj2DUHjOEeWLz9_fOdUDAA" effect="read"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_JcVG8HjOEeWLz9_fOdUDAA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_MF4jIHjOEeWLz9_fOdUDAA" name="getQualifiedClassName" isStatic="true" isQuery="true">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_MF4jIXjOEeWLz9_fOdUDAA" name="diagram" type="_Aj2DUHjOEeWLz9_fOdUDAA" effect="read"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_MF4jInjOEeWLz9_fOdUDAA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Aj2DUHjOEeWLz9_fOdUDAA" name="GenDiagram"/>
+  </packagedElement>
+</uml:Model>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_8Mp0IIk1EeWBadfj_-2HEQ" name="CSS" label="CSS in Diagrams">
+  <tabs xmi:id="_8Mp0IYk1EeWBadfj_-2HEQ" label="Style" id="style" category="org.eclipse.papyrus" image="" priority="70">
+    <sections xmi:id="_8Mp0Iok1EeWBadfj_-2HEQ" name="SingleStylableElement" sectionFile="ui/SingleStylableElement.xwt">
+      <widget href="ui/SingleStylableElement.xwt#/"/>
+    </sections>
+    <sections xmi:id="_8MqbMIk1EeWBadfj_-2HEQ" name="MultipleStylableElement" sectionFile="ui/MultipleStylableElement.xwt">
+      <widget href="ui/MultipleStylableElement.xwt#/"/>
+    </sections>
+    <sections xmi:id="_8MqbMYk1EeWBadfj_-2HEQ" name="SingleDiagram" sectionFile="ui/SingleDiagram.xwt">
+      <widget href="ui/SingleDiagram.xwt#/"/>
+    </sections>
+    <sections xmi:id="_8MqbMok1EeWBadfj_-2HEQ" name="SingleStyleSheetReference" sectionFile="ui/SingleStyleSheetReference.xwt">
+      <widget href="ui/SingleStyleSheetReference.xwt#//@widgets.0"/>
+    </sections>
+    <sections xmi:id="_8MqbM4k1EeWBadfj_-2HEQ" name="SingleEmbeddedStyleSheet" sectionFile="ui/SingleEmbeddedStyleSheet.xwt">
+      <widget href="ui/SingleEmbeddedStyleSheet.xwt#//@widgets.0"/>
+    </sections>
+    <sections xmi:id="_8MqbNIk1EeWBadfj_-2HEQ" name="SingleTheme" sectionFile="ui/SingleTheme.xwt">
+      <widget href="ui/SingleTheme.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_8MqbNYk1EeWBadfj_-2HEQ" name="SingleStylableElement" sections="_8Mp0Iok1EeWBadfj_-2HEQ">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8MqbNok1EeWBadfj_-2HEQ" name="isSingleStylableElement" overrideable="false" overriddenConstraints="_8MqbOok1EeWBadfj_-2HEQ">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.properties/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbN4k1EeWBadfj_-2HEQ" name="nsUri" value="http://www.eclipse.org/gmf/runtime/1.0.3/notation"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbOIk1EeWBadfj_-2HEQ" name="className" value="View"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8MqbOYk1EeWBadfj_-2HEQ" elementMultiplicity="-1" name="MultipleStylableElement" sections="_8MqbMIk1EeWBadfj_-2HEQ">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8MqbOok1EeWBadfj_-2HEQ" name="isMultipleStylableElement" overrideable="false">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.properties/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbO4k1EeWBadfj_-2HEQ" name="nsUri" value="http://www.eclipse.org/gmf/runtime/1.0.3/notation"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbPIk1EeWBadfj_-2HEQ" name="className" value="View"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8MqbPYk1EeWBadfj_-2HEQ" name="Diagram" sections="_8MqbMYk1EeWBadfj_-2HEQ">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8MqbPok1EeWBadfj_-2HEQ" name="isDiagram" overrideable="false" overriddenConstraints="_8MqbNok1EeWBadfj_-2HEQ _8MqbOok1EeWBadfj_-2HEQ">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.properties/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbP4k1EeWBadfj_-2HEQ" name="nsUri" value="http://www.eclipse.org/gmf/runtime/1.0.3/notation"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbQIk1EeWBadfj_-2HEQ" name="className" value="Diagram"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8MqbQYk1EeWBadfj_-2HEQ" name="SingleStyleSheetReference" sections="_8MqbMok1EeWBadfj_-2HEQ">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8MqbQok1EeWBadfj_-2HEQ" name="isStyleSheetReference">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbQ4k1EeWBadfj_-2HEQ" name="nsUri" value="http://www.eclipse.org/papyrus/infra/gmfdiag/css"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbRIk1EeWBadfj_-2HEQ" name="className" value="StyleSheetReference"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8MqbRYk1EeWBadfj_-2HEQ" name="SingleEmbeddedStyleSheet" sections="_8MqbM4k1EeWBadfj_-2HEQ">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8MqbRok1EeWBadfj_-2HEQ" name="isEmbeddedStyleSheet">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbR4k1EeWBadfj_-2HEQ" name="nsUri" value="http://www.eclipse.org/papyrus/infra/gmfdiag/css"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbSIk1EeWBadfj_-2HEQ" name="className" value="EmbeddedStyleSheet"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8MqbSYk1EeWBadfj_-2HEQ" name="SingleTheme" sections="_8MqbNIk1EeWBadfj_-2HEQ">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8MqbSok1EeWBadfj_-2HEQ" name="isTheme">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.constraints/Model/ConstraintEnvironment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbS4k1EeWBadfj_-2HEQ" name="nsUri" value="http://www.eclipse.org/papyrus/infra/gmfdiag/css"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8MqbTIk1EeWBadfj_-2HEQ" name="className" value="Theme"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_8MrCQIk1EeWBadfj_-2HEQ" name="CSS" label="CSS">
+    <elements xmi:id="_8MrCQYk1EeWBadfj_-2HEQ" name="PapyrusCSSStyle">
+      <properties xmi:id="_8MrCQok1EeWBadfj_-2HEQ" name="cssId" label="CSS ID" description="The CSS ID of this element. The ID should be unique within a Diagram. It can be used to retrieve the style properties applied to this element."/>
+      <properties xmi:id="_8MrCQ4k1EeWBadfj_-2HEQ" name="cssClass" label="Applied styles" multiplicity="-1" description="The list of CSS Classes associated to this element. Classes are string identifiers, used by the CSS Stylesheets to identify a set of elements on which styles should be applied."/>
+      <properties xmi:id="_8MrCRIk1EeWBadfj_-2HEQ" name="cssStyle" label="CSS Style" description="The list of CSS properties applied to this element. This is a local style, which will only be applied on the selected element."/>
+    </elements>
+    <elements xmi:id="_8MrCRYk1EeWBadfj_-2HEQ" name="DiagramStyle" supertypes="_8MrCQYk1EeWBadfj_-2HEQ">
+      <properties xmi:id="_8MrCRok1EeWBadfj_-2HEQ" name="css_stylesheets" label="Diagram style sheets" type="Reference" multiplicity="-1" description="The style sheets associated to this diagram"/>
+    </elements>
+    <elements xmi:id="_8MrCR4k1EeWBadfj_-2HEQ" name="ModelStyle">
+      <properties xmi:id="_8MrCSIk1EeWBadfj_-2HEQ" name="modelStyleSheets" label="Model style sheets" type="Reference" multiplicity="-1" description="The style sheets associated to this model"/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.css.properties/model/Environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+  <dataContexts xmi:id="_8MrCSYk1EeWBadfj_-2HEQ" name="WorkspaceThemes" label="Themes">
+    <elements xmi:id="_8MrCSok1EeWBadfj_-2HEQ" name="Theme">
+      <properties xmi:id="_8MrCS4k1EeWBadfj_-2HEQ" name="label" label="Label" description="Theme label"/>
+      <properties xmi:id="_8MrCTIk1EeWBadfj_-2HEQ" name="icon" label="Icon" description="Theme icon"/>
+      <properties xmi:id="_8MrCTYk1EeWBadfj_-2HEQ" name="stylesheets" label="Theme style sheets" type="Reference" multiplicity="-1"/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.css.properties/model/Environment.xmi#//@modelElementFactories.2"/>
+  </dataContexts>
+  <dataContexts xmi:id="_8MrCTok1EeWBadfj_-2HEQ" name="modelstylesheets" label="StyleSheets">
+    <elements xmi:id="_8MrCT4k1EeWBadfj_-2HEQ" name="StyleSheetReference">
+      <properties xmi:id="_8MrCUIk1EeWBadfj_-2HEQ" name="path" label="Path" description="The path to an external style sheet file"/>
+    </elements>
+    <elements xmi:id="_8MrCUYk1EeWBadfj_-2HEQ" name="EmbeddedStyleSheet">
+      <properties xmi:id="_8MrCUok1EeWBadfj_-2HEQ" name="label" label="" description="The stylesheet's label"/>
+      <properties xmi:id="_8MrCU4k1EeWBadfj_-2HEQ" name="content" label="Contents" description="The style sheet contents"/>
+    </elements>
+    <elements xmi:id="_8MrCVIk1EeWBadfj_-2HEQ" name="ModelStyleSheet">
+      <properties xmi:id="_8MrCVYk1EeWBadfj_-2HEQ" name="stylesheets" label="Model style sheets" type="Reference" multiplicity="-1" description="The style sheets associated to the model"/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+  <dataContexts xmi:id="_8MrCVok1EeWBadfj_-2HEQ" name="Preferences" label="Preferences">
+    <elements xmi:id="_8MrCV4k1EeWBadfj_-2HEQ" name="org.eclipse.papyrus.infra.gmfdiag.css">
+      <properties xmi:id="_8MrCWIk1EeWBadfj_-2HEQ" name="currentTheme" label="" description="The theme currently applied to all Papyrus Diagrams in your workspace. The theme can be changed in the preferences."/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.css.properties/model/Environment.xmi#//@modelElementFactories.1"/>
+  </dataContexts>
+</contexts:Context>

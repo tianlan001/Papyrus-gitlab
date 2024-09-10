@@ -1,0 +1,18 @@
+/**
+ * Test literal and name expressions.
+ **/
+active class Expressions_Literal_Name {
+
+	enum Empty { }
+
+	enum E { A, B, C, D }
+
+	test(in a: Integer, out i: any, out j: any, out k: any, out l: any,
+		out m: any, out n: any, out x: any, out y: any, out b: Integer,
+		out c: Integer, out d: Integer, out e: E);
+	@Create
+	public Expressions_Literal_Name();
+	@Destroy
+	public destroy();
+
+} do 'Expressions_Literal_Name$behavior$1'

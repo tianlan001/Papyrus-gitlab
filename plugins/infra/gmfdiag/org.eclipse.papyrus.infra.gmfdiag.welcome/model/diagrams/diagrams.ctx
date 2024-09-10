@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_MPALcI7eEeWNa5T2Agi7uA" name="welcome-diagrams" label="List of Notation Views">
+  <tabs xmi:id="_SsfbQcElEeS_u7hIvAIReA" label="Notation Views" id="diagrams" category="org.eclipse.papyrus" priority="70">
+    <sections xmi:id="_SsgCV8ElEeS_u7hIvAIReA" name="Single Diagrams" sectionFile="ui/SingleDiagrams.xwt">
+      <widget href="ui/SingleDiagrams.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_Ssiem8ElEeS_u7hIvAIReA" name="Single Diagrams" sections="_SsgCV8ElEeS_u7hIvAIReA" automaticContext="true" datacontexts="_SsmJGsElEeS_u7hIvAIReA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_SskT2cElEeS_u7hIvAIReA" name="isWelcomeElement">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.editor.welcome/model/environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_SskT2sElEeS_u7hIvAIReA" name="metaclassName" value="Welcome"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_SsmI-cElEeS_u7hIvAIReA" name="welcomeDiagrams" label="Welcome">
+    <elements xmi:id="_SsmJGsElEeS_u7hIvAIReA" name="Welcome">
+      <properties xmi:id="_SsmJG8ElEeS_u7hIvAIReA" name="views" label="Views" type="Reference" multiplicity="-1" description="All of the diagrams, tables, and other notation views available in the model."/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.gmfdiag.welcome/model/environment.xmi#//@modelElementFactories.0"/>
+  </dataContexts>
+</contexts:Context>

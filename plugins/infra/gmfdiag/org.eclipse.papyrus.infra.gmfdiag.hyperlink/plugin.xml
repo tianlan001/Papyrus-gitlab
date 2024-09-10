@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.gmf.runtime.diagram.ui.editpolicyProviders">
+      <editpolicyProvider
+            class="org.eclipse.papyrus.infra.gmfdiag.hyperlink.providers.HyperlinkEditPolicyProvider">
+         <Priority
+               name="Lowest">
+         </Priority>
+      </editpolicyProvider>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.gmfdiag.dnd.dropStrategy">
+      <strategy
+            strategy="org.eclipse.papyrus.infra.gmfdiag.hyperlink.dnd.HyperlinkDropStrategy">
+      </strategy>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.hyperlink.specificHyperLinks">
+      <specificHyperLink
+            contentProvider="org.eclipse.papyrus.infra.gmfdiag.hyperlink.providers.SpecificViewContentProvider">
+      </specificHyperLink>
+      
+   </extension>
+
+   <extension
+         point="org.eclipse.papyrus.infra.hyperlink.registration">
+      <hyperlink
+            helper="org.eclipse.papyrus.infra.gmfdiag.hyperlink.helper.EditorHyperLinkHelper"
+            position="50"
+            tabId="org.eclipse.papyrus.infra.hyperlink.editor">
+      </hyperlink>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.services.labelprovider.labelProvider">
+      <!-- Priority 35 is higher than the core's priority-40 label provider for the same type. -->
+      <labelProvider
+            priority="35"
+            provider="org.eclipse.papyrus.infra.gmfdiag.hyperlink.providers.EditorHyperlinkLabelProvider">
+      </labelProvider>
+   </extension>
+   
+   
+  <extension point="org.eclipse.ui.commands">
+      <command
+            id="org.eclipse.papyrus.infra.gmfdiag.hyperlink.commands.hyperlinkManagerCommand"
+            name="Modify hyperlinks">
+      </command>
+      <command
+            id="org.eclipse.papyrus.infra.gmfdiag.hyperlink.commands.hyperlinkDiagramCommand"
+            name="Create hyperlinked diagram">
+      </command>
+      <command
+            id="org.eclipse.papyrus.infra.gmfdiag.hyperlink.commands.hyperlinkTableCommand"
+            name="Create hyperlinked table">
+      </command>              
+   </extension>
+   <extension point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.papyrus.infra.gmfdiag.hyperlink.handler.ManageHyperLinksHandler"
+            commandId="org.eclipse.papyrus.infra.gmfdiag.hyperlink.commands.hyperlinkManagerCommand">
+      </handler>
+      <handler
+            class="org.eclipse.papyrus.infra.gmfdiag.hyperlink.handler.CreateHyperlinkedDiagramHandler"
+            commandId="org.eclipse.papyrus.infra.gmfdiag.hyperlink.commands.hyperlinkDiagramCommand">
+      </handler>  
+      <handler
+            class="org.eclipse.papyrus.infra.gmfdiag.hyperlink.handler.CreateHyperlinkedTableHandler"
+            commandId="org.eclipse.papyrus.infra.gmfdiag.hyperlink.commands.hyperlinkTableCommand">
+      </handler>            
+   </extension>
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution locationURI="popup:navigateMenu">    
+            <command
+            	  id="org.eclipse.papyrus.infra.gmfdiag.hyperlink.menu.toolbars.hyperlinkDiagramCommand"
+                  commandId="org.eclipse.papyrus.infra.gmfdiag.hyperlink.commands.hyperlinkDiagramCommand"
+                  icon="platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/icons/NewDiagram.gif"
+                  tooltip="Create hyperlinked diagram...">
+            </command>
+            <command
+            	  id="org.eclipse.papyrus.infra.gmfdiag.hyperlink.menu.toolbars.hyperlinkTableCommand"
+                  commandId="org.eclipse.papyrus.infra.gmfdiag.hyperlink.commands.hyperlinkTableCommand"
+                  icon="platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/icons/NewTable.gif"
+                  tooltip="Create hyperlinked table...">
+            </command> 
+            <command
+            	  id="org.eclipse.papyrus.infra.gmfdiag.hyperlink.menu.toolbars.hyperlinkManagerCommand"
+                  commandId="org.eclipse.papyrus.infra.gmfdiag.hyperlink.commands.hyperlinkManagerCommand"
+                  icon="icons/hyperlink_icon.png"
+                  tooltip="Modify hyperlinks...">
+            </command>
+      </menuContribution>
+   </extension>
+   
+<!-- commands and their bindings
+NOTE:
+M1 = CTRL/COMMAND 
+M2 = SHIFT 
+M3 = ALT 
+M4 = Platform-specific fourth key
+-->
+<extension
+        point="org.eclipse.ui.bindings">
+     <key
+           commandId="org.eclipse.papyrus.infra.gmfdiag.hyperlink.commands.hyperlinkManagerCommand"
+           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+           sequence="M1+L"/>
+  </extension>
+
+
+</plugin>

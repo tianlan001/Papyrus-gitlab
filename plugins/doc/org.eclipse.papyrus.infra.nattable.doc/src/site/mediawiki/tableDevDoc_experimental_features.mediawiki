@@ -1,0 +1,174 @@
+=Experimental features=
+==Column actions==
+An action column is a column that provides an action on single left click with an image displayed in the cell (or others configuration) for each cells of the column.
+
+On the Papyrus git repository, in the ''example'' folder, you will find the plugin '''org.eclipse.papyrus.example.uml.nattable.actions''' which provides an example of column actions.
+This example contributes the table '''Example Generic Tree Table with Actions''' to the Papyrus Architecture Framework. Here, the illustration of the creation and the result of the table example when you installed it in your Eclipse.
+
+[[File:images/experimental/column_actions/CreateTableWithColumnActionsExample.png|frame|none]]
+
+[[File:images/experimental/column_actions/TableWithColumnActions.png|frame|none]]
+
+===How to create a table configuration with column actions?===
+In your TableConfiguration, you must create a '''AxisManagerRepresentation''' for columns, with these values
+*''id:'' '''org.eclipse.papyrus.infra.nattable.action.axis.manager''',
+*''Header Label Configuration'': create a new ObjectLabelConfiguration if you don't get have one for columns and reference it here,
+*''Label Provider Context'':set this id '''org.eclipse.papyrus.infra.nattable.header.action.laovider'''
+Now you can declare columns for this action in your Column Provider. 
+*create a new '''Feature Id Axis'''
+*define the action using the ''element'' field and setting '''action:/''' followed by the name of your action in order to get something like that: '''action:/deleteAction''' for example. 
+*define an alias if you want
+*reference the '''AxisManagerRepresentation''' you created at the previous step in the '''manager''' field
+
+If you want to define a smaller width for your column, create a new '''Int Value Style''' for it, with ''name'' field set to '''axisWidth''' and filling the ''Int Value'' field as you want. 
+
+Now, you just need to define the behavior and the appearance of the cell. You need to create a new CellEditorConfiguration (extending '''org.eclipse.papyrus.infra.nattable.celleditor.action.AbstractSingleClickActionCellEditorConfiguration''' for a single click action with an image displayed in cell. Then, you need to register this file in the plugin.xml with the extension point '''org.eclipse.papyrus.infra.nattable.celleditor.configuration'''.
+
+The others required classes for label manager and cell manager are already provided by Papyrus for the standart usecases, so nothing is required for them. 
+
+==Which column actions are provided by Papyrus ?==
+Papyrus doesn't yet integrate actions to its provided table configuration. 
+Nevertheless, the required java code for some actions is available in Papyrus. Existing actions are: 
+*destroy row element (column declared as '''action:/destroyAxisElement''')
+*move up a row, its changes its index in its containing feature (column declared as '''action:/moveUp''')
+*move down a row (its changes its index in its containing feature) (column declared as '''action:/moveDown''')
+The code for these actions is in the plugin <code>org.eclipse.papyrus.infra.nattable</code> in the java package <code>org.eclipse.papyrus.infra.nattable.celleditor.action</code>
+
+
+==Empty rows/empty lines in the TreeTable==
+Some projects using Papyrus requires to display some empty lines in their table to allow to the user to create new element from a single click. 
+
+On the Papyrus git repository, in the ''example'' folder, you will find the plugin '''org.eclipse.papyrus.example.uml.nattable.empty.line''' which provides an example of column actions.
+This example contributes the table '''Example Generic Tree Table with Actions''' to the Papyrus Architecture Framework. Here, the illustration of the creation and the result of the table example when you installed it in your Eclipse. This illustration shows an empty line with an action declared on the row header.
+
+[[File:images/experimental/empty_lines/CreateTableWithEmptyLinesExample.png|frame|none]]
+
+[[File:images/experimental/empty_lines/TableWithEmptyLines.png|frame|none]]
+
+===How to create a table configuration with empty line?===
+You should start from an existing tree table configuration, but in this case, you will need to delete the axis manager defined for rows.
+*create a new class extending <code>EmptyLineUMLElementTreeAxisManagerForEventList</code> and add the instruction <code>setCreateEmptyRow</code> in the constructor.
+*register this class in the plugin.xml, throw the extension point '''org.eclipse.papyrus.infra.nattable.axismanager''' and define an ''id'' for it
+*in your TableConfiguration, you must create a '''AxisManagerRepresentation''' for rows, and set it the ''id'' previously defined in the plugin.xml.
+*''Header Label Configuration'': create a new ObjectLabelConfiguration if you don't get have one for rows and reference it here,
+*''Label Provider Context'': set this id '''org.eclipse.papyrus.infra.nattable.header.labelprovider'''
+
+That's all for the TableConfiguration. You can register it in your Papyrus *.architecture file and remember the ''id'' value you defined for this table in this file.
+
+Now you need to create and register several java classes. 
+*label provider in row header:
+**create a new class extending <code>AbstractEmptyLineRowHeaderLabelProvider</code>. You need give to the super class constructor the ''id'' of the table declared in your Architecture Framework (*.architecture file).
+**register it in the plugin.xml file with the extension point '''org.eclipse.papyrus.example.uml.nattable.empty.line.providers.CustomRowHeaderLabelProvider'''. 
+***declare '''org.eclipse.papyrus.infra.nattable.header.labelprovider''' as context for this label provider
+*cell manager for cells of the empty row
+**create a java class extending <code>org.eclipse.papyrus.infra.nattable.manager.cell.AbstractEmptyAxisCellManager</code>. You need give to the super class constructor the ''id'' of the table declared in your Architecture Framework (*.architecture file).
+**register it in the plugin.xml file with the extension point '''org.eclipse.papyrus.infra.nattable.cellmanager'''. 
+
+From this point, you will obtain a tree table with an empty line for each level/categories of the tree, but with no behavior associated to this line. 
+
+Here, you will find some additional instructions to declare a creation action on the row header of these empty line. We assume, it is more a hack than a real API. 
+
+*ensure your table configuration hide the categories rows. Your TableConfiguration must contains an '''Int List Value Style''' with the name '''hiddenCategoriesByDepth''' at the root, to hide the categories (if not it won't work).
+
+[[File:images/experimental/empty_lines/HideCategories.png|frame|none]]
+
+*Create a new class extending <code>ICellAxisConfiguration</code>. Usually these classes need to be registered in the plugin.xml, but it is not required for the special usage we will do here.
+*always for this special usage, only the method <code>configureCellEditor</code> need to be implemented. In this method you need to get the <code>UIBindingRegistry</code>, to register a new <code>SingleClickBinding</code>, like done in this java code:
+
+<source>
+@Override
+	public void configureCellEditor(IConfigRegistry configRegistry, Object axis, String configLabel) {
+		final INattableModelManager manager = configRegistry.getConfigAttribute(NattableConfigAttributes.NATTABLE_MODEL_MANAGER_CONFIG_ATTRIBUTE, DisplayMode.NORMAL, NattableConfigAttributes.NATTABLE_MODEL_MANAGER_ID);
+		final NatTable natTable = manager.getAdapter(NatTable.class);
+		final UiBindingRegistry uiBindingRegistry = natTable.getUiBindingRegistry();
+		uiBindingRegistry.registerSingleClickBinding(getMouseEventMatcher(), getMouseAction());
+	}
+</source>
+
+*create the method <code>getMouseEventMatcher()</code>
+<source>
+	private IMouseEventMatcher getMouseEventMatcher() {
+		return new org.eclipse.papyrus.infra.nattable.mouse.action.EmptyLineRowHeaderEventMatch(SWT.None, GridRegion.ROW_HEADER, MouseEventMatcher.LEFT_BUTTON);
+	}
+</source>
+
+*create the method <code>getMouseAction()</code>, which return an <code>org.eclipse.nebula.widgets.nattable.ui.action.IMouseAction</code>. You should extend <code>org.eclipse.papyrus.infra.nattable.mouse.action.AbstractCellMouseAction</code> in order to just have the creation element to implement. At the end your class will looks like that, for a TreeTable with only one category, representing classes:
+<source>
+public class CreateElementCellMouseAction extends AbstractCellMouseAction {
+
+		/**
+		 * @see org.eclipse.papyrus.infra.nattable.mouse.action.AbstractCellMouseAction#doRun(org.eclipse.nebula.widgets.nattable.NatTable, org.eclipse.swt.events.MouseEvent, java.lang.Object, java.lang.Object)
+		 *
+		 * @param natTable
+		 * @param event
+		 * @param rowElement
+		 * @param columnElement
+		 */
+		@Override
+		public void doRun(NatTable natTable, MouseEvent event, final Object rowElement, final Object columnElement) {
+			if (rowElement instanceof ITreeItemAxis && ((ITreeItemAxis) rowElement).getElement() == null) {
+				final ITreeItemAxis currentAxis = (ITreeItemAxis) rowElement;
+				final ITreeItemAxis parentAxis = currentAxis.getParent();
+
+				final Object parentElement = parentAxis.getElement();
+				if (parentElement instanceof TreeFillingConfiguration) {
+					IAxis axisProvider = ((TreeFillingConfiguration) parentElement).getAxisUsedAsAxisProvider();
+					Object representedElement = AxisUtils.getRepresentedElement(axisProvider);
+
+					// for a real usage, a check about the filter configuration could be better to be sure the created class
+					// will appears in the table
+					if (UMLPackage.eINSTANCE.getPackage_PackagedElement().equals(representedElement)) {
+						// we will create a new class
+						final INattableModelManager manager = natTable.getConfigRegistry().getConfigAttribute(NattableConfigAttributes.NATTABLE_MODEL_MANAGER_CONFIG_ATTRIBUTE, DisplayMode.NORMAL, NattableConfigAttributes.NATTABLE_MODEL_MANAGER_ID);
+						final EObject creationParent = manager.getTable().getContext();
+						if (creationParent instanceof Package) {
+							final CreateElementRequest request = new CreateElementRequest(creationParent, org.eclipse.papyrus.uml.service.types.element.UMLElementTypes.CLASS);
+							final IElementEditService service = ElementEditServiceUtils.getCommandProvider(creationParent);
+
+							final ICommand cmd = service.getEditCommand(request);
+							request.getEditingDomain().getCommandStack().execute(new GMFtoEMFCommandWrapper(cmd));
+
+						}
+					}
+				}
+			}
+		}
+	}
+</source>
+*last point, you need to declare the usage of this class for your new table, unfortunately the declaration of action on row header is not a usecase managed by Papyrus Table. That's why, we use a trick declaring this action throws your axis manager created at the first point of this chapter and using its method <code>managedHideShowCategoriesForDepth(List<Integer>, List<Integer>)</code> to configure the action like this: 
+<source>
+public class CustomEmptyLineUMLElementTreeAxisManagerForEventList extends EmptyLineUMLElementTreeAxisManagerForEventList {
+
+
+	/**
+	 *
+	 * Constructor.
+	 *
+	 */
+	public CustomEmptyLineUMLElementTreeAxisManagerForEventList() {
+		setCreateEmptyRow(true);
+	}
+
+
+	/**
+	 * the action used to create element from single left click on row header
+	 */
+	private static final ICellAxisConfiguration conf = new CreateClassFromHeaderCellEditorConfiguration();
+
+
+	/**
+	 * @see org.eclipse.papyrus.infra.nattable.manager.axis.AbstractTreeAxisManagerForEventList#managedHideShowCategoriesForDepth(java.util.List, java.util.List)
+	 *
+	 * @param depthToHide
+	 * @param depthToShow
+	 */
+	@Override
+	public void managedHideShowCategoriesForDepth(List<Integer> depthToHide, List<Integer> depthToShow) {
+		super.managedHideShowCategoriesForDepth(depthToHide, depthToShow);
+		// trick to be able to register action on row header on single left click
+		// warning, it requires to hide categories in the table, if not, this method is not called
+		conf.configureCellEditor(((NatTable) getTableManager().getAdapter(NatTable.class)).getConfigRegistry(), null, "");
+	}
+}
+
+</source>

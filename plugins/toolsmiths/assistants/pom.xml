@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.eclipse.papyrus.uml-assistants</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+	    <groupId>org.eclipse.papyrus</groupId>
+	    <artifactId>org.eclipse.papyrus-toolsmiths</artifactId>
+	    <version>7.0.0-SNAPSHOT</version>
+    </parent>
+	<name>Papyrus UML Assistants</name>
+	<description>Diagram Assistant model generators and support for UML Profile-based DSMLs.</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.uml.profile.assistants.generator</module>
+		<module>org.eclipse.papyrus.uml.profile.assistants.generator.ui</module>
+		<module>org.eclipse.papyrus.uml.profile.types.generator</module>
+		<module>org.eclipse.papyrus.uml.profile.types.generator.ui</module>
+		<module>org.eclipse.papyrus.uml.profile.newchildmenu.generator</module>
+		<module>org.eclipse.papyrus.uml.profile.newchildmenu.generator.ui</module>
+	</modules>
+</project>

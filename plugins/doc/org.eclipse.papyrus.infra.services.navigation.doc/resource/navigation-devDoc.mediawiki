@@ -1,0 +1,151 @@
+Sections below show how to use the API to contribute to the navigation menus and hyperlinks proposition strategies.
+
+= Navigation API =
+
+The navigation API has the following:
+* Interface org.eclipse.papyrus.infra.services.navigation.service.ExtendedNavigableElement
+** Classes that implement this interface are navigable elements, i.e. something that wraps a semantic element, that let us navigate to some other object
+** You probably shouldn't implement this directly, but the following class:
+* Class org.eclipse.papyrus.uml.navigation.navigableElement.GenericNavigableElement
+** A generic navigable element. Your own navigable element should probably extend this class, unless you know what you are doing. :)
+* Extension point org.eclipse.papyrus.infra.services.navigation.navigationContributor
+** Specify extensions that will contribute navigable elements
+* Interface org.eclipse.papyrus.infra.services.navigation.service.NavigationContributor
+** Classes that implement this interface contribute navigable elements
+** The "getNavigableElements(Object)" method returns navigable elements according to the context represented by the object passed as parameter. (You do not need to handle how to pass the object, only what to do with it)
+
+== Step-by-step Guide ==
+
+The following instructions allow you to create a new hyperlink contributor:
+* Create a plugin
+* Add the following dependencies to MANIFEST.MF:
+<source lang="java">
+org.eclipse.papyrus.infra.gmfdiag.navigation
+org.eclipse.papyrus.uml.navigation
+</source>
+* Create a navigable element:
+<source lang="java">
+public class SpecialTargetNavigableElement extends GenericNavigableElement {
+  public SpecialTargetNavigableElement(/*...*/) { // Write a constructor that will call "super(Element elt)" where "elt" is the semantic element that this navigable element wraps
+    super(/*...*/);
+  }
+
+  @Override
+  public String getLabel() {
+    return "Go to special target" + getElementLabel() + "..."; // The convention is to return a string like this
+  }
+
+  @Override
+  public String getDescription() {
+    return "Go to the special target:" + getElementLabel(); // The convention is to return a string like this
+  }
+
+  // You can also overwrite other methods of GenericNavigableElement
+}
+</source>
+* Create a navigation contributor:
+<source lang="java">
+public class SpecialTargetNavigationContributor implements NavigationContributor {
+  public List<NavigableElement> getNavigableElements(Object fromElement) {
+    List<NavigableElement> result = new LinkedList<NavigableElement>();
+
+    /* You can check if fromElement is a particular UML type for example.
+       You can then add instances of "SpecialTargetNavigableElement" to the list
+       of navigable elements that will be returned. What you wrap with
+       the navigable element is up to you. Usually we wrap an element related to
+       fromElement. */
+    
+    return result;
+  }
+}
+</source>
+* In plugin.xml, add the following extension:
+<source lang="java">
+org.eclipse.papyrus.infra.services.navigation.navigationContributor
+</source>
+* Right click > New > contributor
+* Fill info
+** Id: an arbitrary string
+** Contributor: reference to the class that will contribute navigable elements. Example: "SpecialTargetNavigationContributor" created beforehand.
+** Label: how this contributor is displayed in preferences (for activation/deactivation)
+** Description: tooltip displayed when the mouse hovers over this contributor in the preferences
+* (Optional) Activate/deactivate a hyperlink contributor programmatically (example for "SpecialTargetNavigationContributor" whose id is "oep.specialTargetNavigationContributor"):
+<source lang="java">
+IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
+String key = "oep.specialTargetNavigationContributor" + ".isActive";
+preferences.setValue(key, true); // or false  to deactivate
+</source>
+
+=== Real Example ===
+
+An example of a hyperlink contributor is available below. This contributor creates automatic hyperlinks for a class that has inner classes shown in its inner class diagrams.
+* /org.eclipse.papyrus.uml.navigation/src/org/eclipse/papyrus/uml/navigation/navigableElement/TargetNavigableElement.java
+* /org.eclipse.papyrus.uml.navigation/src/org/eclipse/papyrus/uml/navigation/navigableElement/RelationshipNavigationContributor.java
+* /org.eclipse.papyrus.uml.navigation/plugin.xml (line 48)
+
+= Hyperlink API =
+== API Overview ==
+
+The hyperlink API has the following:
+* Extension point org.eclipse.papyrus.infra.hyperlink.hyperlinkContributor
+** Specify extensions that will contribute hyperlinks
+* Interface org.eclipse.papyrus.infra.hyperlink.service.HyperlinkContributor
+** Classes that implement this interface may contribute hyperlinks
+** The "getHyperlink(Object)" method returns a list of hyperlinks according to the context represented by the object that is passed as parameter. (You do not need to handle how to pass the object, only what to do with it)
+
+== Step-by-step Guide ==
+
+The following instructions allow you to create a new hyperlink contributor:
+* Create a plugin
+* Add the following dependency to MANIFEST.MF:
+<source lang="java">org.eclipse.papyrus.infra.gmfdiag.hyperlink</source>
+* Create a hyperlink contributor:
+<source lang="java">
+public class MyHyperlinkContributor implements HyperlinkContributor {
+  public List<HyperLinkObject> getHyperlinks(Object fromElement) {
+    ArrayList<HyperLinkObject> hyperlinks = new ArrayList<HyperLinkObject>();
+    /* You can check if fromElement is a particular UML type for example.
+       You can use the org.eclipse.papyrus.infra.services.viewersearch.impl.ViewerSearchService
+       to search views containing a particular semantic element.
+       See Real Example section for an example on how to use the ViewerSearchService */
+    return hyperlinks;
+  }
+}
+</source>
+* In plugin.xml, add the following extension:
+<source lang="java">org.eclipse.papyrus.infra.hyperlink.hyperlinkContributor</source>
+* Right click > New > contributor
+* Fill info
+** Id: an arbitrary text
+** Contributor: reference to the class that will contribute hyperlinks. Example: "MyHyperlinkContributor" created beforehand.
+** Label: how this contributor is displayed in preferences (for activation/deactivation)
+** Description: tooltip displayed when the mouse hovers over this contributor in the preferences
+* (Optional) Activate/deactivate a hyperlink contributor programmatically (example for MyHyperlinkContributor whose id is "oep.myHyperlinkContributor"):
+<source lang="java">
+IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
+String key = "oep.myHyperlinkContributor" + ".isActive";
+preferences.setValue(key, true) // or false  to deactivate
+</source>
+
+=== Real Example ===
+
+An example of a hyperlink contributor is available below. This contributor creates automatic hyperlinks for a class that has inner classes shown in its inner class diagrams.
+* /org.eclipse.papyrus.uml.diagram.clazz/custom-src/org/eclipse/papyrus/uml/diagram/clazz/custom/hyperlink/InnerClassHyperlinkContributor.java
+* /org.eclipse.papyrus.uml.diagram.clazz/plugin.xml (line 1733)
+
+= Bugzilla References =
+
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=463589 Bug 463589 - Navigation Alt Menu]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=462005 Bug 462005 - Navigation to baseclass and subclass missing]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=461746 Bug 461746 - The navigation service should browse all available diagrams - not only the current one]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=407733 Bug 407733 - Papyrus shall support navigation history with back and next buttons]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=463687 Bug 463687 - Not possible to see and click-to-navigate to opposite elements across links in Model Explorer]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=471697 Bug 471697 - Toolbar buttons to go to next/previous diagram in active window]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=465122 Bug 465122 - Keys to traverse opened tabs in editor]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=465886 Bug 465886 - Double-click default action]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=466294 Bug 466294 - Preview on mouse hover]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=467017 Bug 467017 - Local file URI should be relative]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=473763 Bug 473763 - Clicking on a ModelMatch should navigate to the Model Explorer rather than a View]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=465697 Bug 465697 - AbstractNattableWidgetManager does not compare real objects in revealElement]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=473763 Bug 473763 - Clicking on a ModelMatch should navigate to the Model Explorer rather than a View]
+* [https://bugs.eclipse.org/bugs/show_bug.cgi?id=491077 Bug 491077 - Make the current alt-navigation menu easier to access]

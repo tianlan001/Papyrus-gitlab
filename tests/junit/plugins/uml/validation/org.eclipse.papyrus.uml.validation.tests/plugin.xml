@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.services.validation.validationHooks">
+      <validationHook
+            filter="org.eclipse.papyrus.uml.validation.tests.rules.TestOCLValidationRuleFromFile$HookFilter"
+            hook="org.eclipse.papyrus.uml.validation.tests.rules.TestOCLValidationRuleFromFile$Hook"
+            id="org.eclipse.papyrus.uml.validation.tests.OCLRulesFromFile">
+      </validationHook>
+   </extension>
+
+</plugin>

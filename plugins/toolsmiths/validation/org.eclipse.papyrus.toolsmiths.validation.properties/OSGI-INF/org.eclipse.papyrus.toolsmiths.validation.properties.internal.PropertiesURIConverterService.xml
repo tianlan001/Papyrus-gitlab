@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.eclipse.papyrus.toolsmiths.validation.properties.internal.PropertiesURIConverterService">
+   <property name="papyrus.toolsmiths.uri.scheme" value="ppe"/>
+   <service>
+      <provide interface="org.eclipse.papyrus.toolsmiths.validation.common.URIConverterService"/>
+   </service>
+   <implementation class="org.eclipse.papyrus.toolsmiths.validation.properties.internal.PropertiesURIConverterService"/>
+</scr:component>

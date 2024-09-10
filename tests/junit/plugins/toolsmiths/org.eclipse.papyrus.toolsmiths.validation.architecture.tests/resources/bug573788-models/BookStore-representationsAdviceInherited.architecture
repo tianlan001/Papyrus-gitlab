@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architecture:ArchitectureDomain xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.2" xmlns:gmfdiagrepresentation="http://www.eclipse.org/papyrus/infra/gmfdiag/representation" xmlns:paletteconfiguration="http://www.eclipse.org/papyrus/diagram/paletteconfiguration/0.8" xmlns:representation="http://www.eclipse.org/papyrus/infra/core/architecture/representation" xmi:id="_W0vj0FG2EeuXzM4mqVly4g" id="org.eclipse.papyrus.toolsmiths.validation.architecture.example.bookstore" name="BookStore" description="Example architecture domain for testing: a book store modeling language." icon="platform:/plugin/org.eclipse.papyrus.toolsmiths.validation.architecture.example/icons/full/obj16/bookstore.png">
+  <stakeholders xmi:type="architecture:Stakeholder" xmi:id="_zYz54FG5EeuXzM4mqVly4g" id="org.eclipse.papyrus.toolsmiths.validation.architecture.example.bookvendor" name="Book Vendor" description="A seeler of books, in a bookstore." icon="platform:/plugin/org.eclipse.papyrus.toolsmiths.validation.architecture.example/icons/full/obj16/book_vendor.png" concerns="_95r3oFG5EeuXzM4mqVly4g"/>
+  <concerns xmi:type="architecture:Concern" xmi:id="_95r3oFG5EeuXzM4mqVly4g" id="org.eclipse.papyrus.toolsmiths.validation.architecture.example.bookselling" name="Book Selling" description="The concern of selling books, in a book store." icon="platform:/plugin/org.eclipse.papyrus.toolsmiths.validation.architecture.example/icons/full/obj16/bookstore.png"/>
+  <contexts xmi:type="architecture:ArchitectureDescriptionLanguage" xmi:id="_Ty_tQFG6EeuXzM4mqVly4g" id="org.eclipse.papyrus.toolsmiths.validation.architecture.example.bookstorelang" name="BookStore" icon="platform:/plugin/org.eclipse.papyrus.toolsmiths.validation.architecture.example/icons/full/obj16/bookstore.png" defaultViewpoints="_fnEJgFHAEeuwtJo37XL9OQ" extensionPrefix="bookstore" creationCommandClass="org.eclipse.papyrus.toolsmiths.validation.architecture.example.internal.commands.CreateBookstoreModelCommand" generalContext="_ZtaEYL8iEeuhfp4rJgXr8w">
+    <viewpoints xmi:type="architecture:ArchitectureViewpoint" xmi:id="_fnEJgFHAEeuwtJo37XL9OQ" id="org.eclipse.papyrus.toolsmiths.validation.architecture.example.bookstoremanagement" name="BookStore Management" description="The viewpoint of the book store manager who needs to track inventory." icon="platform:/plugin/org.eclipse.papyrus.toolsmiths.validation.architecture.example/icons/full/obj16/book_vendor.png" concerns="_95r3oFG5EeuXzM4mqVly4g" representationKinds="_u1T1UFHAEeuwtJo37XL9OQ"/>
+    <elementTypes xmi:type="elementtypesconfigurations:ElementTypeSetConfiguration" href="platform:/plugin/org.eclipse.papyrus.toolsmiths.validation.architecture.example/resources/BookStore.elementtypesconfigurations#_c0DGsGBhEemoFuWBTUmJOQ"/>
+    <representationKinds xmi:type="gmfdiagrepresentation:PapyrusDiagram" xmi:id="_u1T1UFHAEeuwtJo37XL9OQ" id="org.eclipse.papyrus.toolsmiths.validation.architecture.example.inventory" name="InventoryDiagram" description="Book store inventory diagram." icon="platform:/plugin/org.eclipse.papyrus.toolsmiths.validation.architecture.example/icons/full/obj16/bookstore.png" concerns="_95r3oFG5EeuXzM4mqVly4g" grayedIcon="platform:/plugin/org.eclipse.papyrus.toolsmiths.validation.architecture.example/icons/full/obj16/bookstore_d.png" implementationID="org.eclipse.papyrus.toolsmiths.validation.architecture.example.InventoryDiagram" creationCommandClass="org.eclipse.papyrus.toolsmiths.validation.architecture.example.internal.commands.CreateInventoryDiagramCommand">
+      <modelRules xmi:type="representation:ModelRule" xmi:id="__8BXQFHDEeuwtJo37XL9OQ" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+        <stereotypes xmi:type="ecore:EClass" href="http://www.eclipse.org/Papyrus/test/toolsmiths/architecturebuilder/BookStore#_e24cBFG7EeuXzM4mqVly4g"/>
+      </modelRules>
+      <owningRules xmi:type="representation:OwningRule" xmi:id="_GnAokFHEEeuwtJo37XL9OQ" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+        <stereotypes xmi:type="ecore:EClass" href="http://www.eclipse.org/Papyrus/test/toolsmiths/architecturebuilder/BookStore#_e24cBFG7EeuXzM4mqVly4g"/>
+      </owningRules>
+      <childRules xmi:type="gmfdiagrepresentation:ChildRule" xmi:id="_LyaWcFHEEeuwtJo37XL9OQ" permit="true">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        <stereotypes xmi:type="ecore:EClass" href="http://www.eclipse.org/Papyrus/test/toolsmiths/architecturebuilder/BookStore#_e24cDFG7EeuXzM4mqVly4g"/>
+        <origin xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </childRules>
+      <childRules xmi:type="gmfdiagrepresentation:ChildRule" xmi:id="_TjwL0FHEEeuwtJo37XL9OQ" permit="true">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        <stereotypes xmi:type="ecore:EClass" href="http://www.eclipse.org/Papyrus/test/toolsmiths/architecturebuilder/BookStore#_e24cCFG7EeuXzM4mqVly4g"/>
+        <origin xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </childRules>
+      <palettes xmi:type="paletteconfiguration:PaletteConfiguration" href="platform:/plugin/org.eclipse.papyrus.toolsmiths.validation.architecture.example/resources/BookStore.paletteconfiguration#/"/>
+    </representationKinds>
+    <metamodel xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+    <profiles xmi:type="ecore:EPackage" href="http://www.eclipse.org/Papyrus/test/toolsmiths/architecturebuilder/BookStore#_e24cAVG7EeuXzM4mqVly4g"/>
+  </contexts>
+  <contexts xmi:type="architecture:ArchitectureDescriptionLanguage" xmi:id="_ZtaEYL8iEeuhfp4rJgXr8w" name="General">
+    <elementTypes xmi:type="elementtypesconfigurations:ElementTypeSetConfiguration" href="pathmap://PAPYRUS_VIEWPOINTS_POLICY/representations/advice#_A5utQL5PEeuDXfdzV8a7zA"/>
+  </contexts>
+</architecture:ArchitectureDomain>

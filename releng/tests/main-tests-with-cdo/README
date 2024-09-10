@@ -1,0 +1,8 @@
+In order to run the Papyrus Tests, with CDO installed, we need to define the target platform in the Eclipse launch config:
+<listEntry value="target.platform=org.eclipse.papyrus.main.tests.cdo.portable.target"/>
+
+On Hudson, we must configure the job with the same information.
+
+We are not able to run the job with the expected target platform due to the current Papyrus pom architecture. 
+Without this information, maven uses the 'normal' target platform defined for the Papyrus tests.
+ 

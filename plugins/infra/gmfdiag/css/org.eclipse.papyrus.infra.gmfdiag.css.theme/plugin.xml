@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.papyrus.infra.gmfdiag.css.theme">
+      <themeDefinition
+            icon="icons/papyrus.png"
+            id="org.eclipse.papyrus.css.papyrus_theme"
+            label="Papyrus Theme">
+      </themeDefinition>
+      <themeContribution
+            id="org.eclipse.papyrus.css.papyrus_theme">
+         <stylesheet
+               stylesheetPath="theme/papyrus_theme.css">
+         </stylesheet>
+      </themeContribution>
+      <themeDefinition
+            icon="icons/papyrus.png"
+            id="org.eclipse.papyrus.css.blacknwhite_theme"
+            label="Black &amp; White">
+      </themeDefinition>
+      <themeDefinition
+            icon="icons/papyrus.png"
+            id="org.eclipse.papyrus.css.frame_theme"
+            label="Frame Theme">
+      </themeDefinition>
+      <themeContribution
+            id="org.eclipse.papyrus.css.frame_theme">
+         <stylesheet
+               stylesheetPath="theme/papyrus_theme.css">
+         </stylesheet>
+      </themeContribution>
+      <themeContribution
+            id="org.eclipse.papyrus.css.frame_theme">
+         <stylesheet
+               stylesheetPath="theme/frame_theme.css">
+         </stylesheet>
+      </themeContribution>
+   </extension>
+
+</plugin>

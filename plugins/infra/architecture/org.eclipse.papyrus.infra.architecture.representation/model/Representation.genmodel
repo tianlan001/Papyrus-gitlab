@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText=" Copyright (c) 2016 CEA LIST and others.&#xA;&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License 2.0&#xA; which accompanies this distribution, and is available at&#xA; https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA; SPDX-License-Identifier: EPL-2.0&#xA;&#xA; Contributors:&#xA; Maged Elaasar - Initial API and implementation"
+    modelDirectory="/org.eclipse.papyrus.infra.architecture.representation/src-gen"
+    editDirectory="/org.eclipse.papyrus.infra.architecture.representation.edit/src-gen"
+    editorDirectory="/org.eclipse.papyrus.infra.architecture.representation.editor/src-gen"
+    modelPluginID="org.eclipse.papyrus.infra.architecture.representation" modelName="Representation"
+    nonNLSMarkers="true" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/org.eclipse.papyrus.infra.architecture.representation.tests/src-gen"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    editorPluginID="org.eclipse.papyrus.infra.architecture.representation.editor"
+    usedGenPackages="../../org.eclipse.papyrus.infra.core.architecture/model/Architecture.genmodel#//architecture ../../org.eclipse.papyrus.infra.constraints/Model/Constraints.genmodel#//constraints ../../org.eclipse.papyrus.infra.types/model/ElementTypesConfigurations.genmodel#//types ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>Representation.ecore</foreignModel>
+  <genPackages prefix="Representation" basePackage="org.eclipse.papyrus.infra.architecture"
+      disposableProviderFactory="true" extensibleProviderFactory="true" childCreationExtenders="true"
+      ecorePackage="Representation.ecore#/">
+    <genClasses image="false" ecoreClass="Representation.ecore#//PapyrusRepresentationKind">
+      <genFeatures notify="false" createChild="false" propertyCategory="Representation Kind"
+          propertyDescription="The parent representation kind from which this representation kind inherits"
+          propertySortChoices="true" ecoreFeature="ecore:EReference Representation.ecore#//PapyrusRepresentationKind/parent"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory="Representation Kind"
+          propertyDescription="The set of rules that determine which model elements can be the semantic element behind this diagram"
+          ecoreFeature="ecore:EReference Representation.ecore#//PapyrusRepresentationKind/modelRules"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory="Representation Kind"
+          propertyDescription="The set of rules that determine which elements can be the syntactic owner of this diagram"
+          ecoreFeature="ecore:EReference Representation.ecore#//PapyrusRepresentationKind/owningRules"/>
+      <genFeatures createChild="false" propertyCategory="Representation Kind" propertyDescription="The id of the underlying implementation of this representation kind"
+          ecoreFeature="ecore:EAttribute Representation.ecore#//PapyrusRepresentationKind/implementationID"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Representation.ecore#//Rule">
+      <genFeatures createChild="false" propertyDescription="Whether the rule permits or forbids the action it represents"
+          ecoreFeature="ecore:EAttribute Representation.ecore#//Rule/permit"/>
+    </genClasses>
+    <genClasses ecoreClass="Representation.ecore#//ModelRule">
+      <genFeatures notify="false" createChild="false" propertyDescription="The type (from the language's metamodel) that a model element must have for a representation of this kind to apply to."
+          propertySortChoices="true" ecoreFeature="ecore:EReference Representation.ecore#//ModelRule/element"/>
+      <genFeatures notify="false" createChild="false" propertyDescription="The set of stereotypes (from the language's profiles) that a model element must have for a representation of this kind to apply to."
+          propertySortChoices="true" ecoreFeature="ecore:EReference Representation.ecore#//ModelRule/stereotypes"/>
+      <genFeatures createChild="false" propertyDescription="The maximum number of representations of this kind that a model element can have. -1 represents an unbounded number."
+          ecoreFeature="ecore:EAttribute Representation.ecore#//ModelRule/multiplicity"/>
+    </genClasses>
+    <genClasses ecoreClass="Representation.ecore#//OwningRule">
+      <genFeatures notify="false" createChild="false" propertyDescription="The type (from the language's metamodel) that a model element must have to own a representation of this kind."
+          propertySortChoices="true" ecoreFeature="ecore:EReference Representation.ecore#//OwningRule/element"/>
+      <genFeatures notify="false" createChild="false" propertyDescription="The set of stereotypes (from the language's profiles) that a model element must have to own a representation of this kind."
+          propertySortChoices="true" ecoreFeature="ecore:EReference Representation.ecore#//OwningRule/stereotypes"/>
+      <genFeatures createChild="false" propertyDescription="The maximum number of representations of this kind that a model element can own. -1 represents an unbounded number."
+          ecoreFeature="ecore:EAttribute Representation.ecore#//OwningRule/multiplicity"/>
+      <genFeatures property="None" children="true" createChild="true" propertyDescription="The settings of auto creating model elements with this representation kind"
+          ecoreFeature="ecore:EReference Representation.ecore#//OwningRule/newModelPath"/>
+      <genFeatures property="None" children="true" createChild="true" propertyDescription="The settings of selecting a model element that is the root of this representation kind"
+          ecoreFeature="ecore:EReference Representation.ecore#//OwningRule/selectDiagramRoot"/>
+    </genClasses>
+    <genClasses ecoreClass="Representation.ecore#//ModelAutoCreate">
+      <genFeatures notify="false" createChild="false" propertyDescription="A reference in the origin type that will contain the newly created model element with this representation kind."
+          propertySortChoices="true" ecoreFeature="ecore:EReference Representation.ecore#//ModelAutoCreate/feature"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertyDescription="The type (from the language's metamodel) that will own the newly created model element"
+          ecoreFeature="ecore:EReference Representation.ecore#//ModelAutoCreate/origin"/>
+      <genFeatures createChild="false" propertyDescription="The element type (from the element type registry) that will used to created the new model element."
+          ecoreFeature="ecore:EAttribute Representation.ecore#//ModelAutoCreate/creationType"/>
+    </genClasses>
+    <genClasses ecoreClass="Representation.ecore#//RootAutoSelect">
+      <genFeatures notify="false" createChild="false" propertyDescription="A reference from the newly created element type that is used to get the root of a representation of this kind"
+          propertySortChoices="true" ecoreFeature="ecore:EReference Representation.ecore#//RootAutoSelect/feature"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

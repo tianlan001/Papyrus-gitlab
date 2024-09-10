@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_CPYnoPA5EeWJjOCbWbsQPg" name="SetValues" label="Set Values For Properties View">
+  <tabs xmi:id="_SsUUIPA5EeWJjOCbWbsQPg" label="SetValues" id="values" priority="100">
+    <sections xmi:id="_SsaawPA5EeWJjOCbWbsQPg" name="Single SetValuesAdviceConfiguration" sectionFile="ui/SingleSetValuesAdviceConfiguration.xwt">
+      <widget href="ui/SingleSetValuesAdviceConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_Ssbo4PA5EeWJjOCbWbsQPg" name="Single FeatureToSet" sectionFile="ui/SingleFeatureToSet.xwt">
+      <widget href="ui/SingleFeatureToSet.xwt#/"/>
+    </sections>
+    <sections xmi:id="_SscP8PA5EeWJjOCbWbsQPg" name="Single FeatureValue" sectionFile="ui/SingleFeatureValue.xwt">
+      <widget href="ui/SingleFeatureValue.xwt#/"/>
+    </sections>
+    <sections xmi:id="_SscP8fA5EeWJjOCbWbsQPg" name="Single DynamicValue" sectionFile="ui/SingleDynamicValue.xwt">
+      <widget href="ui/SingleDynamicValue.xwt#/"/>
+    </sections>
+    <sections xmi:id="_SscP8vA5EeWJjOCbWbsQPg" name="Single ConstantValue" sectionFile="ui/SingleConstantValue.xwt">
+      <widget href="ui/SingleConstantValue.xwt#/"/>
+    </sections>
+    <sections xmi:id="_SscP8_A5EeWJjOCbWbsQPg" name="Single ListValue" sectionFile="ui/SingleListValue.xwt">
+      <widget href="ui/SingleListValue.xwt#/"/>
+    </sections>
+    <sections xmi:id="_SscP9PA5EeWJjOCbWbsQPg" name="Single QueryExecutionValue" sectionFile="ui/SingleQueryExecutionValue.xwt">
+      <widget href="ui/SingleQueryExecutionValue.xwt#/"/>
+    </sections>
+    <sections xmi:id="_SscP9fA5EeWJjOCbWbsQPg" name="Multiple SetValuesAdviceConfiguration" sectionFile="ui/MultipleSetValuesAdviceConfiguration.xwt">
+      <widget href="ui/MultipleSetValuesAdviceConfiguration.xwt#/"/>
+    </sections>
+    <sections xmi:id="_SscP9vA5EeWJjOCbWbsQPg" name="Multiple FeatureToSet" sectionFile="ui/MultipleFeatureToSet.xwt">
+      <widget href="ui/MultipleFeatureToSet.xwt#/"/>
+    </sections>
+    <sections xmi:id="_SscP9_A5EeWJjOCbWbsQPg" name="Multiple FeatureValue" sectionFile="ui/MultipleFeatureValue.xwt">
+      <widget href="ui/MultipleFeatureValue.xwt#/"/>
+    </sections>
+    <sections xmi:id="_SscP-PA5EeWJjOCbWbsQPg" name="Multiple DynamicValue" sectionFile="ui/MultipleDynamicValue.xwt">
+      <widget href="ui/MultipleDynamicValue.xwt#/"/>
+    </sections>
+    <sections xmi:id="_Ssc3APA5EeWJjOCbWbsQPg" name="Multiple ConstantValue" sectionFile="ui/MultipleConstantValue.xwt">
+      <widget href="ui/MultipleConstantValue.xwt#/"/>
+    </sections>
+    <sections xmi:id="_Ssc3AfA5EeWJjOCbWbsQPg" name="Multiple ListValue" sectionFile="ui/MultipleListValue.xwt">
+      <widget href="ui/MultipleListValue.xwt#/"/>
+    </sections>
+    <sections xmi:id="_Ssc3AvA5EeWJjOCbWbsQPg" name="Multiple QueryExecutionValue" sectionFile="ui/MultipleQueryExecutionValue.xwt">
+      <widget href="ui/MultipleQueryExecutionValue.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_CPYnofA5EeWJjOCbWbsQPg" name="Single SetValuesAdviceConfiguration" sections="_SsaawPA5EeWJjOCbWbsQPg" automaticContext="true" datacontexts="_CPYn2vA5EeWJjOCbWbsQPg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_CPYnovA5EeWJjOCbWbsQPg" name="isSingleSetValuesAdviceConfiguration">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYno_A5EeWJjOCbWbsQPg" name="nsUri" value="http://www.eclipse.org/papyrus/emf/types/setvaluesadvice/1.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYnpPA5EeWJjOCbWbsQPg" name="className" value="SetValuesAdviceConfiguration"/>
+    </constraints>
+  </views>
+  <views xmi:id="_CPYnpfA5EeWJjOCbWbsQPg" name="Single FeatureToSet" sections="_Ssbo4PA5EeWJjOCbWbsQPg" automaticContext="true" datacontexts="_CPYn3PA5EeWJjOCbWbsQPg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_CPYnpvA5EeWJjOCbWbsQPg" name="isSingleFeatureToSet">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYnp_A5EeWJjOCbWbsQPg" name="className" value="FeatureToSet"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYnqPA5EeWJjOCbWbsQPg" name="nsUri" value="http://www.eclipse.org/papyrus/emf/types/setvaluesadvice/1.1"/>
+    </constraints>
+  </views>
+  <views xmi:id="_CPYnqfA5EeWJjOCbWbsQPg" name="Single FeatureValue" sections="_SscP8PA5EeWJjOCbWbsQPg" automaticContext="true" datacontexts="_CPYn3_A5EeWJjOCbWbsQPg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_CPYnqvA5EeWJjOCbWbsQPg" name="isSingleFeatureValue">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYnq_A5EeWJjOCbWbsQPg" name="className" value="FeatureValue"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYnrPA5EeWJjOCbWbsQPg" name="nsUri" value="http://www.eclipse.org/papyrus/emf/types/setvaluesadvice/1.1"/>
+    </constraints>
+  </views>
+  <views xmi:id="_CPYnrfA5EeWJjOCbWbsQPg" name="Single DynamicValue" sections="_SscP8fA5EeWJjOCbWbsQPg" automaticContext="true" datacontexts="_CPYn4PA5EeWJjOCbWbsQPg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_CPYnrvA5EeWJjOCbWbsQPg" name="isSingleDynamicValue">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYnr_A5EeWJjOCbWbsQPg" name="nsUri" value="http://www.eclipse.org/papyrus/emf/types/setvaluesadvice/1.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYnsPA5EeWJjOCbWbsQPg" name="className" value="DynamicValue"/>
+    </constraints>
+  </views>
+  <views xmi:id="_CPYnsfA5EeWJjOCbWbsQPg" name="Single ConstantValue" sections="_SscP8vA5EeWJjOCbWbsQPg" automaticContext="true" datacontexts="_CPYn4fA5EeWJjOCbWbsQPg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_CPYnsvA5EeWJjOCbWbsQPg" name="isSingleConstantValue">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYns_A5EeWJjOCbWbsQPg" name="nsUri" value="http://www.eclipse.org/papyrus/emf/types/setvaluesadvice/1.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYntPA5EeWJjOCbWbsQPg" name="className" value="ConstantValue"/>
+    </constraints>
+  </views>
+  <views xmi:id="_CPYntfA5EeWJjOCbWbsQPg" name="Single ListValue" sections="_SscP8_A5EeWJjOCbWbsQPg" automaticContext="true" datacontexts="_CPYn4_A5EeWJjOCbWbsQPg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_CPYntvA5EeWJjOCbWbsQPg" name="isSingleListValue">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYnt_A5EeWJjOCbWbsQPg" name="className" value="ListValue"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYnuPA5EeWJjOCbWbsQPg" name="nsUri" value="http://www.eclipse.org/papyrus/emf/types/setvaluesadvice/1.1"/>
+    </constraints>
+  </views>
+  <views xmi:id="_CPYnufA5EeWJjOCbWbsQPg" name="Single QueryExecutionValue" sections="_SscP9PA5EeWJjOCbWbsQPg" automaticContext="true" datacontexts="_CPYn5fA5EeWJjOCbWbsQPg">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_CPYnuvA5EeWJjOCbWbsQPg" name="isSingleQueryExecutionValue">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.infra.properties.ui/model/Environment.xmi#//@constraintTypes.0"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYnu_A5EeWJjOCbWbsQPg" name="nsUri" value="http://www.eclipse.org/papyrus/emf/types/setvaluesadvice/1.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_CPYnvPA5EeWJjOCbWbsQPg" name="className" value="QueryExecutionValue"/>
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_CPYn2fA5EeWJjOCbWbsQPg" name="SetValues" label="SetValues">
+    <elements xmi:id="_CPYn2vA5EeWJjOCbWbsQPg" name="SetValuesAdviceConfiguration">
+      <properties xmi:id="_CPYn2_A5EeWJjOCbWbsQPg" name="featuresToSet" type="Reference" multiplicity="-1"/>
+    </elements>
+    <elements xmi:id="_CPYn3PA5EeWJjOCbWbsQPg" name="FeatureToSet">
+      <properties xmi:id="_CPYn3fA5EeWJjOCbWbsQPg" name="featureName"/>
+      <properties xmi:id="_CPYn3vA5EeWJjOCbWbsQPg" name="value" type="Reference"/>
+    </elements>
+    <elements xmi:id="_CPYn3_A5EeWJjOCbWbsQPg" name="FeatureValue"/>
+    <elements xmi:id="_CPYn4PA5EeWJjOCbWbsQPg" name="DynamicValue" supertypes="_CPYn3_A5EeWJjOCbWbsQPg"/>
+    <elements xmi:id="_CPYn4fA5EeWJjOCbWbsQPg" name="ConstantValue" supertypes="_CPYn3_A5EeWJjOCbWbsQPg">
+      <properties xmi:id="_CPYn4vA5EeWJjOCbWbsQPg" name="valueInstance" type="Reference"/>
+    </elements>
+    <elements xmi:id="_CPYn4_A5EeWJjOCbWbsQPg" name="ListValue" supertypes="_CPYn3_A5EeWJjOCbWbsQPg">
+      <properties xmi:id="_CPYn5PA5EeWJjOCbWbsQPg" name="values" type="Reference" multiplicity="-1"/>
+    </elements>
+    <elements xmi:id="_CPYn5fA5EeWJjOCbWbsQPg" name="QueryExecutionValue" supertypes="_CPYn4PA5EeWJjOCbWbsQPg"/>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.infra.emf.types.ui.properties/model/environment.xmi#//@modelElementFactories.1"/>
+  </dataContexts>
+</contexts:Context>

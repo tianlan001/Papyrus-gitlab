@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="org.eclipse.papyrus.infra.newchild.deploy"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.core.resources.IFile">
+                        <or>
+                           <test
+                                 property="org.eclipse.core.resources.extension"
+                                 value="creationmenumodel">
+                           </test>
+                        </or>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.papyrus.infra.newchild.undeploy"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.core.resources.IFile">
+                        <or>
+                           <test
+                                 property="org.eclipse.core.resources.extension"
+                                 value="creationmenumodel">
+                           </test>
+                        </or>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+ <extension
+       point="org.eclipse.ui.commands">
+    <command
+          defaultHandler="org.eclipse.papyrus.infra.newchild.ui.handler.DeployCreationMenuModelHandler"
+          id="org.eclipse.papyrus.infra.newchild.deploy"
+          name="Deploy Creation Menu Model">
+    </command>
+    <command
+          defaultHandler="org.eclipse.papyrus.infra.newchild.ui.handler.UndeployCreationMenuModelHandler"
+          id="org.eclipse.papyrus.infra.newchild.undeploy"
+          name="Undeploy Creation Menu Model">
+    </command>
+ </extension>
+ <extension
+       point="org.eclipse.ui.preferencePages">
+    <page
+          category="org.eclipse.papyrus.infra.core.sasheditor.preferences.generalcategory"
+          class="org.eclipse.papyrus.infra.newchild.ui.preferences.Preferences"
+          id="org.eclipse.papyrus.infra.newchild.preferences"
+          name="New Child">
+    </page>
+ </extension>
+
+
+   
+   <!-- COMPATIBILITY -->
+</plugin>
+
+

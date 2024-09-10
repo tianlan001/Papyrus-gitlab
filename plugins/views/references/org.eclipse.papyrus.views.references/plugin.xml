@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=showPropertiesViewAction">
+         <command
+               commandId="org.eclipse.papyrus.views.references.ShowReferencesView"
+               icon="icons/scopeset_obj.gif"
+               label="Show References View"
+               style="push">
+            <visibleWhen>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.emf.ecore.EObject">
+                        <instanceof
+                              value="java.lang.Object">
+                        </instanceof>
+                     </adapt>
+                  </iterate>
+               </and>
+            </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.papyrus.views.references.handlers.ReferencesViewHandler"
+            commandId="org.eclipse.papyrus.views.references.ShowReferencesView">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.eclipse.papyrus.views.references.ShowReferencesView"
+            name="Show References View Command">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+      		category="org.eclipse.papyrus.views.category"
+            class="org.eclipse.papyrus.views.references.views.ReferencesView"
+            icon="icons/scopeset_obj.gif"
+            id="org.eclipse.papyrus.views.references.ReferencesView"
+            name="References">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.infra.services.labelprovider.labelProvider">
+      <context
+            description="The References view label provider context (Header)"
+            id="org.eclipse.papyrus.view.references.header.labelProvider.context">
+      </context>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.papyrus.infra.core.perspective">
+         <view
+               id="org.eclipse.papyrus.views.references.ReferencesView"
+               relationship="stack"
+               relative="org.eclipse.papyrus.perspective.folder.bottom">
+         </view>
+         <view
+               id="org.eclipse.papyrus.views.references.view1"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.papyrus.perspective.folder.bottom">
+         </view>
+      </perspectiveExtension>
+   </extension>
+
+</plugin>
