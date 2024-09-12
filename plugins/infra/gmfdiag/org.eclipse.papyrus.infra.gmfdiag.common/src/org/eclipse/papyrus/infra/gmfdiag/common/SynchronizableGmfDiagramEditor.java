@@ -15,7 +15,8 @@
  *  Christian W. Damus - bug 465416
  *  Simon Delisle - Move ReconcilerHelper to a separate class
  *  Fanch BONNABESSE (ALL4TEC) fanch.bonnabesse@all4tec.net - Bug 491816
- *  Pauline DEVILLE (CEA LIST) pauline.deville@cea.fr - Bug 583091
+ *  Pauline DEVILLE (CEA LIST) pauline.deville@cea.fr - Bug 583091 
+ *  Pauline DEVILLE (CEA LIST) pauline.deville@cea.fr - Issue #4
  *
  *****************************************************************************/
 package org.eclipse.papyrus.infra.gmfdiag.common;
@@ -60,7 +61,6 @@ import org.eclipse.papyrus.infra.gmfdiag.common.preferences.PreferencesConstants
 import org.eclipse.papyrus.infra.gmfdiag.common.reconciler.DiagramVersioningUtils;
 import org.eclipse.papyrus.infra.gmfdiag.common.utils.CommandIds;
 import org.eclipse.papyrus.infra.gmfdiag.common.utils.ServiceUtilsForEditPart;
-import org.eclipse.papyrus.infra.gmfdiag.tooling.runtime.linklf.router.LinkLFDiagramRootEditPart;
 import org.eclipse.papyrus.infra.sync.service.ISyncService;
 import org.eclipse.papyrus.infra.ui.editor.reload.IReloadContextProvider;
 import org.eclipse.papyrus.infra.ui.util.EclipseCommandUtils;
@@ -110,13 +110,12 @@ public class SynchronizableGmfDiagramEditor extends DiagramDocumentEditor implem
 	@Override
 	public void dispose() {
 		DiagramEditPart diagramEP = getDiagramEditPart();
-
-		if (diagramEP.getParent() instanceof LinkLFDiagramRootEditPart srep) {
+		if (diagramEP != null) {
 			if (diagramEP.getParent() instanceof DiagramRootEditPart parent) {
 				parent.removeNotify();
 			}
+			deactivateNodeEditParts(diagramEP);
 		}
-		deactivateNodeEditParts(diagramEP);
 		super.dispose();
 		if (palettePages != null) {
 			palettePages.forEach(p -> p.dispose());
