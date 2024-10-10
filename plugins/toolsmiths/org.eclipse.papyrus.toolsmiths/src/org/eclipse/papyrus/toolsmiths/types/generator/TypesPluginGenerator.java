@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020, 2024 EclipseSource and others.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
@@ -10,6 +10,7 @@
  *
  * Contributors:
  *   Camille Letavernier - Bug 569354
+ *   Pauline Deville - Issue 3
  *
  *****************************************************************************/
 package org.eclipse.papyrus.toolsmiths.types.generator;
@@ -173,7 +174,7 @@ public class TypesPluginGenerator {
 	}
 
 	private Version getTypesCorePluginVersion() {
-		IPluginModelBase[] pluginModels = PluginRegistry.findModels(TYPES_CORE_PLUGIN, null, null);
+		List<IPluginModelBase> pluginModels = PluginRegistry.findModels(TYPES_CORE_PLUGIN, null).toList();
 		for (IPluginModelBase next : pluginModels) {
 			if (next.getBundleDescription() != null) {
 				return next.getBundleDescription().getVersion();

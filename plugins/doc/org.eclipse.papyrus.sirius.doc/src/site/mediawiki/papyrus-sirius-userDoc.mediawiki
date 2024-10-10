@@ -1,0 +1,483 @@
+=Papyrus-SiriusDiag Integration Introduction=
+This part of the documentation deals with features provided by the integration to Papyrus. 
+
+For a better experience, you should activate the Papyrus Perspective before reading this documentation.
+
+=How to create a new Sirius Diagram in my UML model=
+
+Once a UML model is created, go into the ''Model Explorer'', select a UML element from which to start the document, then ''Right-Click''->''New Class Diagram''.
+
+[[File:../../../image/user/9_NewSiriusDiagram.png]]
+
+The corresponding sirius diagram is opened inside Papyrus.
+
+Or from the View Explorer, click on the create view, select the root element and finally the view to create.
+
+[[File:../../../image/user/2_NotationView.png]]
+
+=How to show/hide Sirius Diagram in the ModelExplorer=
+
+The created DSemanticDiagram are displayed in the ModelExplorer as children of the element .
+This customization is not loaded by default.
+
+Open the ''Model Explorer'' view and use the customize model explorer to load the ''Sirius Diagram'' customization:
+
+[[File:../../../image/user/3_ModelExplorer.png]]
+
+= How to use sirius diagram =
+
+== Sirius diagram ==
+
+To have a global overview of sirius diagram. You can have a look at the sirius diagram documentation.
+See https://www.eclipse.org/sirius/doc/user/diagrams/Diagrams.html
+
+While most part is similar to the former GMF diagram. There are some small differences between both.
+
+Sirius Diagram provides a synchronization mechanism. The user can Synchronize/Unsynchronize each diagram using the contextual menu.
+
+
+[[File:../../../image/user/SiriusDiagram_UnsynchronizedMenu.png]]
+
+In addition, Sirius is able to display the status (Synchronized/Unsynchronized) of the diagram in its bottom right corner.
+
+NB: At the startup, Papyrus activates these two Sirius preferences: 
+- new diagram are unsynchronized
+- the diagram status is displayed for the new diagram
+
+The Unsynchronized status:
+[[File:../../../image/user/unsynchronized_status.png]]
+
+The synchronized status:
+[[File:../../../image/user/synchronized_status.png]]
+
+=== Layers ===
+
+Layers can be defined to hide or show several mapping and/or several tools in the palette in a diagram.
+We also use this feature to show/hide applied stereotypes and qualified name in the labels of the elements displayed in the diagram.
+
+[[File:../../../image/user/4_Layer.png]]
+
+= Common =
+
+== Palette tools ==
+
+Palette tools is divided in two categories, one for the creation of element represented has nodes and the other for the creation of edge elements.
+
+[[File:../../../image/user/5_Palette.png]]
+
+== Drag and drop from explorer ==
+
+Drag and drop tools have been implemented to allow to create views for existing element that are not represented yet in the diagram.
+
+== Drag and drop inside diagram ==
+
+Drag and drop inside diagram is also available, but depending of the kind of element that is drag and drop, the behavior can be different.
+
+When the Drag and Drop of a Node or BorderNode is authorized on a NodeContainer or Node, the target appears highlighted. Otherwise, if Drag and Drop is not authorized for a Node or BorderNode, the target NodeContainer or Node is not highlighted. 
+For BorderNodes, the phantom of the moved graphical element always appears on Drag and Drop compatible zones (i.e. the border of a NodeContainer or Node), but this does not mean that Drag and Drop is possible if the target element is not highlighted.
+
+[[File:../../../image/user/BorderNode_DnD.png|1200px]]
+
+On the left image, Drag and Drop is allowed. On the right, Drag and Drop is not allowed.
+
+== Deletion (from diagram or model)==
+
+To delete element from diagram only, user selects first the element on diagram to remove and then he can click on "Delete from Diagram" button in the toolbar. This button is only available when diagram is unsynchronized.
+To delete element from model, user selects first the element to remove and then he can click on "Delete from Model" button in the toolbar. The element will be removed semantically  and from diagram whatever activated synchronize mode.
+
+[[File:../../../image/user/DeleteButtons.png]]
+
+Deletion of graphical element (only the view, not the semantic element) can be done using the shortcut (SHITF + DEL)
+
+Deletion from the model can be done using a simple delete with DEL key.
+
+== Show / Hide ==
+
+Using the shortcut CTRL + H, you can simply show or hide and element from the diagram.
+
+[[File:../../../image/user/5_ShowHide.png]]
+
+== Diagram Synchronization with the ModelExplorer ==
+When the user selects an element in a Sirius Diagram, this element is selected in the Papyrus ModelExplorer.
+
+== Diagram Synchronization with the Property View ==
+When the user selects an element in a Sirius Diagram, the property view of this element is displayed.
+
+== ModelExplorer Synchronization with a Papyrus Sirius Diagram ==
+When the user selects an element in the ModelExplorer, if the open Diagram contains a graphical representation of this element, this one is selected.
+
+== Pin / Unpin ==
+
+Pinning an element makes it protected from any action which can modify the position of this element in the diagram, such as arrange all.
+
+== Xtext ==
+
+Xtext autocompletion is available when renaming an element using direct edition with F2 shortcut. When using Ctrl + Space key, the auto completion tool propose a list of label to use.
+
+[[File:../../../image/user/10_Xtext.png]]
+
+== Rotative Images ==
+
+Rotative images can be applied to Bordered Nodes. These Bordered Nodes use an image whose orientation depends on the position of the Bordered Node regarding its parent Node or Container. For example, with the InputPin and OutputPin on the Activity diagram, the arrow image used in these Bordered Nodes rotates according to the North/South/East/West position of the Bordered Node.
+
+[[File:../../../image/user/rotative_images1.png]]
+[[File:../../../image/user/rotative_images2.png]]
+
+[[File:../../../image/user/rotative_images3.png]]
+[[File:../../../image/user/rotative_images4.png]]
+
+
+== Popup Bar ==
+
+Since Sirius 7.2.0, the popup bar is now displayed when the mouse is hover a diagram element. This popup displays available tools for this specific element.
+
+[[File:../../../image/user/popupBar.png]]
+
+= Activity Diagram = 
+
+[[File:../../../image/user/ADdiagram.png]]
+
+== Representation ==
+
+=== Label ===
+
+Same format as for the Composite Structure diagram is used here.
+
+=== Specific Features ===
+
+* Label of UML element with the isAbstract feature set to true is displayed in italic
+* On the Sirius ''ActivityDiagram'', when creating an ''ActivityPartition'' in an ''Activity'', the partition is added in the ''Activity#partition'' feature of the ''Activity''. This feature is a subset of the ''Activity#OwnedGroup'' containment feature.
+* An ''AcceptEventAction'' is represented with an hourglass when it has exactly one ''Trigger'' that references a ''TimeEvent'' in its ''Trigger#event'' feature.
+
+==== Pins ====
+Here are some specific behavior about the Pin in the Sirius based ActivityDiagram:
+* The Pin creation tool is deactivated if several containment features are possible to own the Pin.
+* On an UML element, if the feature multiplicity is <nowiki>[0..1] or [1..1] or [1..*]</nowiki>, a Pin is created at the same time as the element creation. 
+* The Pin name is set with the name of the feature, if the feature is <nowiki>[0..1] or [1..1]</nowiki>.
+
+==== Graphical Container ====
+
+Some containers do not contain semantically their graphical nodes. This is the case for <code>ActivityPartition</code> and <code>InterruptibleActivityRegion</code>.
+
+ActivityNodes contained in those containers are owned by the first parent <code>Activity</code>.
+
+[[File:../../../image/user/activityNodeGraphicalContainer.png]]
+[[File:../../../image/user/activityNodeSemanticContainer.png]]
+
+
+==== Decision Node ====
+
+[[File:../../../image/user/decisionNode.png]]
+
+A note attached to the <code>DecisionNode</code> is displayed when the <code>DecisionNode#decisionInput</code> feature is set.
+
+Note that when deleting the <code>DecisionNode</code> from the diagram, the note might still be present. Indeed, the delete from diagram action does not trigger the refresh of the diagram.
+
+You need to manually perform the refresh to make the note disappear (F5 or the refresh tab-bar button).
+
+== Edge creation ==
+
+Edges are allowed between Nodes with their type matching the correct type of source and target. If Edge is not authorized, a forbidden decorator will appear.
+It is not possible for now to create an edge between two Edges or between an Edge and a Node. 
+
+== Direct Edit ==
+DirectEdit on this diagram only authorizes to edit the name of the element on which DirectEdit tool is activated. Remember that direct Edit can be launched with F2 key or double click on label. 
+
+== Graphical Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here.
+* Border nodes in general cannot be drag and dropped. (Pin, ExpansionNode, ActivityParameterNode)
+
+== Semantic Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here.
+No specific cases have been implemented here.
+
+== Reconnection ==
+Same rules as for the Composite Structure diagram are used here.
+
+= Class Diagram = 
+== Features ==
+*Label of UML element with the isAbstract feature set to true are displayed in italic
+*Label of UML element with the isStatic feature set to true are underlined.
+===UML::Property===
+*Specific menu to create a default value on a UML::Property from the diagram
+[[File:../../../image/user/ClassDiagram_Property_CreateDefaultValue.png]]
+*Specific menu to delete a default value on a UML::Property directly from the diagram
+[[File:../../../image/user/ClassDiagram_Property_DeleteDefaultValue.png]]
+
+= Communication Diagram = 
+
+[[File:../../../image/user/CODdiagram.png]]
+
+== Representation ==
+
+=== Label ===
+
+Same format as for the Composite Structure diagram is used here.
+
+=== Specific Features ===
+
+* Label of UML element with the isAbstract feature set to true is displayed in italic
+* Label of Lifeline which represent a Property will display the Property name instead of the Lifeline name.
+
+== Edge creation ==
+
+* Edges are usually allowed between Nodes with their type matching the correct type of source and target. If Edge is not authorized, a forbidden decorator will appear. It is not possible for now to create an edge between two Edges or between an Edge and a Node. 
+
+* Messages can only be created between Lifelines and the message orientation is displayed with a target arrow on the edge. 
+
+* Links can only be created to link a Comment or Constraint to an other element.
+
+== Direct Edit ==
+DirectEdit on this diagram only authorizes to edit the name of the element on which DirectEdit tool is activated. Remember that direct Edit can be launched with F2 key or double click on label. 
+
+== Graphical Drag and Drop ==
+No graphical drop is authorized on this diagram because there is no Container node.
+
+== Semantic Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here.
+Some specific cases have been implemented:
+* A '''Type can be drag and drop on the Interaction''' root of the digram. A new Property will be semantically created and this Property will be typed with the Type. Then a Lifeline will be semantically created and this Lifeline will represent the new Property (feature represents is used). Finally, the node to represent the Lifeline will be created on the Interaction root of the diagram.
+* A '''Property can be drag and drop on a Lifeline node'''. Then, the Lifeline will represent this Property (feature represents is used).
+* A '''Type can be drag and drop on a Lifeline node'''. A new Property will be semantically created and this Property will be typed with the Type. Then the Lifeline will represent the new Property.  
+
+== Reconnection ==
+Same rules as for the Composite Structure diagram are used here.
+
+= Component Diagram = 
+
+[[File:../../../image/user/CPDdiagram.png]]
+
+== Representation ==
+
+=== Label ===
+
+Same format as for the Composite Structure diagram is used here.
+
+=== Specific Features ===
+
+* Label of UML elements with the isAbstract feature set to true are displayed in italic
+* Label of Properties with the isStatic feature set to true are underlined. 
+* Label of Ports with the isConjugated feature set to true are displayed with "~" as prefix.
+* Properties in Components with the aggregation feature set to AggregationKind::shared are displayed with a dashed border. 
+* Interfaces have a "receptions" compartment to store Reception elements.
+* Connector edges are represented with cardinalities, as in the Composite Structure diagram.
+
+== Edge creation ==
+
+* Edges are usually allowed between Nodes with their type matching the correct type of source and target. If Edge is not authorized, a forbidden decorator will appear. It is not possible for now to create an edge between two Edges or between an Edge and a Node. 
+
+== Direct Edit ==
+DirectEdit on this diagram only authorizes to edit the name of the element on which DirectEdit tool is activated. Remember that direct Edit can be launched with F2 key or double click on label. 
+
+== Graphical Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here.
+* Ports cannot be drag and dropped on another container (like Border nodes in other diagrams)
+
+== Semantic Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here.
+Some specific cases have been implemented here:
+* Type can be drag and drop on Property or Port to type its associated semantic element.
+* Property/Port contained in Type can be drag and drop on Property/Port typed by this Type.
+
+== Reconnection ==
+Same rules as for the Composite Structure diagram are used here.
+
+= Composite Structure Diagram = 
+
+[[File:../../../image/user/CSDdiagram.png]]
+
+== Representation ==
+
+=== Label ===
+
+Keywords on Node and Edge are displayed in the first separate line of the label.
+If the semantic element is stereotyped, the stereotype is displayed in a second separate line (only when the stereotype layer is activated).
+Finally, the internationalized label will be displayed on the third line.
+The internationalized label displayed can be the qualified label if the corresponding layer is activated. It also can be the simple name of the element if there is no internationalized label and for specific case, the label can be more complex. For example, on Property, the label can contain Direction and name and type.
+
+[[File:../../../image/user/LabelDisplay.png]]
+
+Each created NamedElement is automatically named. Strategy used to build the name of new element is the same than the third option in Papyrus preference naming strategy called "Unique index". 
+The name convention forces a unique index by looking at all the contents of the current parent and looking for all elements that have the same name without the suffix (i.e. name of the Metaclass to create without any number). Finally the name of the new element is given by its Metaclass name suffixed by the number of element with the same name incremented by one.
+
+=== Specific Features ===
+
+* Label of UML element with the isAbstract feature set to true is displayed in italic
+* Label of UML element with the isStatic feature set to true is underlined.
+* Label of Port with the isConjugated feature set to true is displayed with "~" as prefix.
+* Property Node with feature aggregation equals to ''shared'' is represented with a dash line border.
+
+== Edge creation ==
+
+Edges are allowed between Nodes with their type matching the correct type of source and target. If Edge is not authorized, a forbidden decorator will appear.
+It is not possible for now to create an edge between two Edges or between an Edge and a Node. 
+
+== Direct Edit ==
+DirectEdit on this diagram only authorizes to edit the name of the element on which DirectEdit tool is activated. Remember that direct Edit can be launched with F2 key or double click on label. 
+
+== Graphical Drag and Drop ==
+If a user want to drag and drop a graphical element in another one, he has to select an element on the diagram and drag and drop it in a new element.
+
+General rule for graphical drag and drop is the following one.
+
+You can drag and drop an element in a new container where the drag and drop element type is accepted as a child of the new container. For example, you can drag and drop an Activity from its container into Classifier or Package. 
+
+Some specific cases have been implemented :
+* Property can only be drag and drop on Structured Classifier or typed Property,
+* Ports are not authorized to be drag and drop,
+* Comment can only be drag and drop on an Element different from a Comment.
+
+== Semantic Drag and Drop ==
+If a user want to drag and drop an element from the model explorer view on the diagram, he has to select the element from ModelExplorer view and drag and drop it into its container Node in the diagram (no semantic modification). 
+Semantic drag and drop will always be authorized in its container representation except for specific case :
+* Type can be drag and drop on Property or Port to type its associated semantic element.
+* Collaboration can be drag and drop on CollaborationUse to type its associated semantic element.
+Semantic drag and drop of Edge will drag and drop Edge on diagram if it does not already exist. If source Edge or target Edge or both are not represented on diagram, source and/or target will be drag and drop too.
+
+[[File:../../../image/user/DragAndDropEdge.png]]
+
+== Reconnection ==
+To reconnect an Edge, users can click on the source or target of the Edge to reconnect and drag and drop this end Edge on a new element. If the new source or target is an element represented with a compartment, the user can drag and drop the end Edge on the compartment of the element or on the header of the element, reconnection will work in both cases. 
+
+== Representation loop on typed property ==
+
+On a synchronized diagram, it is possible to create infinity representation loop on property typed with its container directly or indirectly. Indeed, on property typed in synchronized diagram, content of the type is represented in the property. So if a port is type by its container, the port is represented on the port and so on.
+
+[[File:../../../image/user/CSD_LoopOnTypedPort.png]]
+
+To avoid this configuration, every Node detected in the infinity loop will not be represented and an error message will be display in the Error Log. 
+
+This message warn user that "A potential infinity loop has been detected: The port XXX is typed by XXX which directly or indirectly references XXX through ports type hierarchy."
+
+[[File:../../../image/user/CSD_FixLoopOnTypedPort.png]]
+
+= Deployment Diagram = 
+
+[[File:../../../image/user/DDdiagram.png]]
+
+== Representation ==
+
+=== Label ===
+
+Same format as for the Composite Structure diagram is used here.
+
+=== Specific Features ===
+
+* Label of UML elements with the isAbstract feature set to true are displayed in italic
+
+== Edge creation ==
+
+* Edges are usually allowed between Nodes with their type matching the correct type of source and target. If Edge is not authorized, a forbidden decorator will appear. It is not possible for now to create an edge between two Edges or between an Edge and a Node. 
+
+== Direct Edit ==
+DirectEdit on this diagram only authorizes to edit the name of the element on which DirectEdit tool is activated. Remember that direct Edit can be launched with F2 key or double click on label. 
+
+== Graphical Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here.
+
+== Semantic Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here. No specific cases have been implemented here. 
+
+== Reconnection ==
+Same rules as for the Composite Structure diagram are used here.
+
+
+= Package Diagram = 
+
+[[File:../../../image/user/PADdiagram.png]]
+
+== Representation ==
+
+=== Label ===
+
+Same format as for the Composite Structure diagram is used here.
+
+== Edge creation ==
+
+* Edges are usually allowed between Nodes with their type matching the correct type of source and target. If Edge is not authorized, a forbidden decorator will appear. It is not possible for now to create an edge between two Edges or between an Edge and a Node. 
+
+* Links can only be created to link a Comment or Constraint to an other element.
+
+== Direct Edit ==
+DirectEdit on this diagram only authorizes to edit the name of the element on which DirectEdit tool is activated. Remember that direct Edit can be launched with F2 key or double click on label. 
+
+== Graphical Drag and Drop ==
+No graphical drop is authorized on this diagram because there is no Container node.
+
+== Semantic Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here. No specific cases have been implemented here. 
+
+== Reconnection ==
+Same rules as for the Composite Structure diagram are used here.
+
+= Profile Diagram = 
+
+[[File:../../../image/user/PRDdiagram.png]]
+
+== Representation ==
+
+=== Label ===
+
+Same format as for the Composite Structure diagram is used here.
+
+=== Specific Features ===
+
+* Label of UML element with the isAbstract feature set to true is displayed in italic
+
+== Edge creation ==
+
+Edges are allowed between Nodes with their type matching the correct type of source and target. If Edge is not authorized, a forbidden decorator will appear.
+It is not possible for now to create an edge between two Edges or between an Edge and a Node. 
+
+== Direct Edit ==
+DirectEdit on this diagram only authorizes to edit the name of the element on which DirectEdit tool is activated. Remember that direct Edit can be launched with F2 key or double click on label. 
+It is not possible to activate the direct edit on an imported metaclass.
+
+== Graphical Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here.
+No specific cases have been implemented here.
+
+== Semantic Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here.
+No specific cases have been implemented here.
+
+== Reconnection ==
+Same rules as for the Composite Structure diagram are used here.
+When reconnecting an Extension target to another Class, the Stereotype property type is updated.
+
+= Use Case Diagram = 
+
+[[File:../../../image/user/UCDdiagram.png]]
+
+== Representation ==
+
+=== Label ===
+
+Same format as for the Composite Structure diagram is used here.
+
+=== Specific Features ===
+
+* Label of UML element with the isAbstract feature set to true is displayed in italic
+
+== Edge creation ==
+
+Edges are allowed between Nodes with their type matching the correct type of source and target. If Edge is not authorized, a forbidden decorator will appear.
+It is not possible for now to create an edge between two Edges or between an Edge and a Node. 
+
+== Direct Edit ==
+DirectEdit on this diagram only authorizes to edit the name of the element on which DirectEdit tool is activated. Remember that direct Edit can be launched with F2 key or double click on label. 
+
+== Graphical Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here.
+
+Some specific cases have been implemented :
+* Actors are not authorized to be drag and drop into Subject, Subject can only contains UseCase
+* when UseCase is drag and drop inside Subject, subject feature of UseCase is updated with its new Subject container and feature ownedUseCase of the Subject Container is filled with the UseCase
+* when UseCase is drag and drop outside of Subject, the former Subject container is removed from the subject feature of UseCase and the UseCase is removed from the ownedUseCase feature of the former Subject container.
+
+== Semantic Drag and Drop ==
+Same rules as for the Composite Structure diagram are used here.
+No specific cases have been implemented here.
+
+== Reconnection ==
+Same rules as for the Composite Structure diagram are used here.

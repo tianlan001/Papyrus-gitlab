@@ -1,0 +1,79 @@
+target "Papyrus-Sirius - 2024-09" with source requirements
+// build with simrel commit e014ee7948cbdea3d3eea7591de339b4bc25d0ed
+
+// manualUpdate
+location orbit "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-09/" {
+//	com.google.guava [33.2.0,33.3.0)
+	//	com.google.guava.source [33.2.0,33.3.0)
+	// update batik to be in adequation with latest gmf runtime https://www.eclipse.org/lists/mdt-papyrus.dev/msg04486.html 
+	//	org.apache.batik.anim [1.17.0,1.18.0)
+	//	org.apache.batik.dom [1.17.0,1.18.0)
+	//	org.apache.batik.dom.svg [1.17.0,1.18.0)
+	//	org.apache.batik.xml [1.17.0,1.18.0)
+	org.hamcrest.core [1.3.0,1.4.0)
+
+	//apachae POI for specs extractors
+	org.apache.poi [5.3.0, 5.4.0) 
+	org.apache.poi.ooxml [5.3.0, 5.4.0) 
+	org.apache.poi.ooxml.schemas [5.3.0, 5.4.0)
+	
+//	org.eclipse.orbit.xml-apis-ext [1.0.0,2.0.0] // for org.w3c.css.sac + org.w3c.dom.svg package
+}
+
+// manualUpdate
+location orbit_202203 "https://download.eclipse.org/tools/orbit/downloads/drops/R20220302172233/repository" {
+    org.easymock lazy //required by the dependencies to org.eclipse.sirius.tests.junit.support 
+}
+
+
+// manualUpdate
+location Papyrus-Uml-Services-release "https://download.eclipse.org/modeling/mdt/papyrus/components/domainservices/2024-06/" {
+	org.eclipse.papyrus.uml.domain.services.feature.feature.group lazy
+}
+
+// manualUpdate
+location release-2024-09 "https://download.eclipse.org/releases/2024-09" {
+	org.eclipse.emf.workspace.feature.group lazy
+	org.eclipse.emf.mwe.core.feature.feature.group lazy
+}
+
+// manualUpdate Sirius uses this version
+location swtbot-3.1 "https://download.eclipse.org/technology/swtbot/releases/3.1.0/" {
+	org.eclipse.swtbot.feature.group lazy
+}
+
+// manualUpdate
+location EEF-2.1.6 "https://download.eclipse.org/modeling/emft/eef/updates/releases/2.1/R202302240839/" {
+    org.eclipse.eef.sdk.feature.feature.group lazy
+    org.eclipse.eef.sdk.feature.source.feature.group lazy
+    org.eclipse.eef.ext.widgets.reference.feature.feature.group lazy
+    org.eclipse.eef.ext.widgets.reference.feature.source.feature.group lazy
+}
+
+// updateFrom("M2T ACCELEO",0)
+location acceleo "https://download.eclipse.org/acceleo/updates/releases/3.7/R202408201303" {
+	org.eclipse.acceleo.feature.group lazy
+	org.eclipse.acceleo.runtime.feature.group lazy
+}
+
+// manualUpdate
+location sirius "https://download.eclipse.org/sirius/updates/releases/7.4.3/2023-03/" {
+	org.eclipse.sirius.aql.feature.group lazy
+	org.eclipse.sirius.doc.feature.feature.group lazy
+	org.eclipse.sirius.interpreter.feature.feature.group lazy
+	org.eclipse.sirius.properties.feature.feature.group lazy
+	org.eclipse.sirius.runtime.acceleo.feature.group lazy
+	org.eclipse.sirius.runtime.feature.group lazy
+	org.eclipse.sirius.runtime.ide.ui.acceleo.feature.group lazy
+	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
+	org.eclipse.sirius.runtime.ide.xtext.feature.group lazy
+	org.eclipse.sirius.runtime.ocl.feature.group lazy
+	org.eclipse.sirius.specifier.feature.group lazy
+	org.eclipse.sirius.specifier.ide.ui.acceleo.feature.group lazy
+	org.eclipse.sirius.specifier.ide.ui.aql.feature.group lazy
+	org.eclipse.sirius.specifier.ide.ui.feature.group lazy
+	org.eclipse.sirius.specifier.properties.feature.feature.group lazy
+	org.eclipse.sirius.tests.feature.group lazy
+	org.eclipse.sirius.tests.support.feature.group lazy
+}
+

@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" documentation="Copyright (c) 2023 CEA LIST, Obeo.&#xD;&#xA;&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License 2.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;https://www.eclipse.org/legal/epl-2.0/&#xD;&#xA;&#xD;&#xA;SPDX-License-Identifier: EPL-2.0&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;     Obeo - initial API and implementation" name="papyrus" version="12.0.0.2017041100">
+  <ownedViewpoints name="ProfileDiagram" modelFileExtension="uml">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommentDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticConstraintDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticClassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDataTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticEnumerationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPackageDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticProfileDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPrimitiveTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticStereotypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticElementImportDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalClassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalConstraintDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDataTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalEnumerationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalMetaclassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPackageDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPrimitiveTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalProfileDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalStereotypeDrop']" documentation="Representation to edit Profile diagrams" name="ProfileDiagram" titleExpression="aql:self.name +' Profile Diagram'" domainClass="uml::Package" rootExpression="var:self" enablePopupBars="true">
+      <metamodel href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+      <defaultLayer name="Profile">
+        <nodeMappings name="PRD_Comment" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='Comment_body_EditionTool']" semanticCandidatesExpression="aql:self.ownedComment" domainClass="uml::Comment">
+          <style xsi:type="style:NoteDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT" sizeComputationExpression="9" labelPosition="node" resizeKind="NSEW" color="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CommentColor']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="PRD_Constraint" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getConstraintCandidates()" domainClass="uml::Constraint">
+          <style xsi:type="style:NoteDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" sizeComputationExpression="9" labelPosition="node" resizeKind="NSEW" color="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='ConstraintColor']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="PRD_Metaclass" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_Metaclass']" semanticCandidatesExpression="aql:if self.oclIsKindOf(uml::Namespace) then self.oclAsType(uml::Namespace).elementImport.importedElement else Sequence{} endif" domainClass="uml::Class">
+          <style xsi:type="style:SquareDescription" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelPosition="node" resizeKind="NSEW" width="15" height="6" color="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="PRD_PrimitiveType" preconditionExpression="aql:self.isTypeOf('uml::PrimitiveType')" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.packagedElement" domainClass="uml::PrimitiveType">
+          <style xsi:type="style:SquareDescription" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelPosition="node" resizeKind="NSEW" width="15" height="6" color="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="PRD_Association" preconditionExpression="aql:self.oclIsTypeOf(uml::Association) and not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getAssociationCandidates()" sourceMapping="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']/@subContainerMappings[name='PRD_DataTypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']/@subContainerMappings[name='PRD_DataTypeOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment']/@subNodeMappings[name='PRD_EnumerationLiteralLabelNode'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeOperationsCompartment']" targetMapping="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']/@subContainerMappings[name='PRD_DataTypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']/@subContainerMappings[name='PRD_DataTypeOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment']/@subNodeMappings[name='PRD_EnumerationLiteralLabelNode'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeOperationsCompartment']" targetFinderExpression="aql:self.getTargets()" sourceFinderExpression="aql:self.getSource()" domainClass="uml::Association" useDomainElement="true" reconnections="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectAssociationSource'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectAssociationTarget']">
+          <style targetArrow="NoDecoration">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <beginLabelStyleDescription labelSize="9" showIcon="false" labelExpression="aql:self.renderEdgeSourceLabel(view.sourceNode.oclAsType(viewpoint::DSemanticDecorator).target)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </beginLabelStyleDescription>
+            <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+            <endLabelStyleDescription labelSize="9" showIcon="false" labelExpression="aql:self.renderEdgeTargetLabel(view.targetNode.oclAsType(viewpoint::DSemanticDecorator).target)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </endLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="PRD_Extension" preconditionExpression="aql:self.oclIsTypeOf(uml::Extension) and not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getExtensionCandidates()" sourceMapping="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeOperationsCompartment']" targetMapping="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Metaclass']" targetFinderExpression="aql:self.getTargets()" sourceFinderExpression="aql:self.getSource()" domainClass="uml::Extension" useDomainElement="true" reconnections="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectExtensionSource'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectExtensionTarget']">
+          <style targetArrow="InputFillClosedArrow">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="9">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="PRD_Generalization" preconditionExpression="aql:self.oclIsTypeOf(uml::Generalization) and not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getGeneralizationCandidates()" sourceMapping="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']/@subContainerMappings[name='PRD_DataTypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']/@subContainerMappings[name='PRD_DataTypeOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeOperationsCompartment']" targetMapping="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']/@subContainerMappings[name='PRD_DataTypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']/@subContainerMappings[name='PRD_DataTypeOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Metaclass']" targetFinderExpression="aql:self.getTargets()" sourceFinderExpression="aql:self.getSource()" domainClass="uml::Generalization" useDomainElement="true" reconnections="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectGeneralizationSource'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectGeneralizationTarget']">
+          <style targetArrow="InputClosedArrow">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="PRD_Link" preconditionExpression="aql:not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_Link']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" sourceMapping="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Comment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Constraint']" targetMapping="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@subContainerMappings[name='PRD_ClassOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Comment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Constraint'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']/@subContainerMappings[name='PRD_DataTypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']/@subContainerMappings[name='PRD_DataTypeOperationsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment']/@subNodeMappings[name='PRD_EnumerationLiteralLabelNode'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Metaclass'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Package'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Package']/@subContainerMappings[name='PRD_PackagePackagedElementsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Profile'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Profile']/@subContainerMappings[name='PRD_ProfilePackagedElementsCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedAttribute'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedAttribute']/@subNodeMappings[name='PRD_PropertyLabelNode'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedOperation'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedOperation']/@subNodeMappings[name='PRD_OperationLabelNode'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeAttributesCompartment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@subContainerMappings[name='PRD_StereotypeOperationsCompartment']" targetFinderExpression="aql:if self.oclIsKindOf(uml::Constraint) then self.oclAsType(uml::Constraint).constrainedElement else (if self.oclIsKindOf(uml::Comment) then self.oclAsType(uml::Comment).annotatedElement else null endif) endif" reconnections="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectLinkSource'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectLinkTarget']">
+          <style lineStyle="dot" targetArrow="NoDecoration">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </edgeMappings>
+        <containerMappings name="PRD_Class" preconditionExpression="aql:self.oclIsTypeOf(uml::Class)" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.packagedElement" domainClass="uml::Class" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="PRD_ClassAttributesCompartment" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Class" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPropertyDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPropertyDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']" reusedNodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedAttribute']/@subNodeMappings[name='PRD_PropertyLabelNode']" childrenPresentation="List">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="attributes" hideLabelByDefault="true" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </subContainerMappings>
+          <subContainerMappings name="PRD_ClassOperationsCompartment" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Class" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticOperationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalOperationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']" reusedNodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedOperation']/@subNodeMappings[name='PRD_OperationLabelNode']" childrenPresentation="List">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="operations" hideLabelByDefault="true" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="PRD_DataType" preconditionExpression="aql:self.oclIsTypeOf(uml::DataType)" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.packagedElement" domainClass="uml::DataType" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="PRD_DataTypeAttributesCompartment" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::DataType" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPropertyDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPropertyDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']" reusedNodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedAttribute']/@subNodeMappings[name='PRD_PropertyLabelNode']" childrenPresentation="List">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="attributes" hideLabelByDefault="true" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </subContainerMappings>
+          <subContainerMappings name="PRD_DataTypeOperationsCompartment" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::DataType" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticOperationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalOperationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']" reusedNodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedOperation']/@subNodeMappings[name='PRD_OperationLabelNode']" childrenPresentation="List">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="operations" hideLabelByDefault="true" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="PRD_Enumeration" preconditionExpression="aql:self.oclIsTypeOf(uml::Enumeration)" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.packagedElement" domainClass="uml::Enumeration" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="PRD_EnumerationLiteralsCompartment" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Enumeration" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticEnumerationLiteralDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalEnumerationLiteralDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']" childrenPresentation="List">
+            <subNodeMappings name="PRD_EnumerationLiteralLabelNode" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.ownedLiteral" domainClass="uml.EnumerationLiteral">
+              <style xsi:type="style:SquareDescription" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+              </style>
+            </subNodeMappings>
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="literals" hideLabelByDefault="true" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="PRD_Package" preconditionExpression="aql:self.oclIsTypeOf(uml::Package)" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:if self.oclIsKindOf(uml::Package) then self.oclAsType(uml::Package).packagedElement else Sequence{} endif" domainClass="uml::Package" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommentDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticConstraintDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticClassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDataTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticEnumerationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPackageDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticProfileDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPrimitiveTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticStereotypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalClassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalConstraintDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDataTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalEnumerationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPackageDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPrimitiveTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalProfileDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalStereotypeDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="PRD_PackagePackagedElementsCompartment" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Package" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommentDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticConstraintDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticClassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDataTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticEnumerationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPackageDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticProfileDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPrimitiveTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticStereotypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalClassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalConstraintDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDataTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalEnumerationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPackageDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPrimitiveTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalProfileDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalStereotypeDrop']" reusedNodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Comment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Constraint'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType']" reusedContainerMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Package'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Profile'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="aql:'packaged elements'" hideLabelByDefault="true" widthComputationExpression="15" heightComputationExpression="12">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.2"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.0"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="PRD_Profile" preconditionExpression="aql:self.oclIsTypeOf(uml::Profile)" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:if self.oclIsKindOf(uml::Package) then self.oclAsType(uml::Package).packagedElement else Sequence{} endif" domainClass="uml::Profile" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommentDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticConstraintDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticClassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDataTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticEnumerationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPackageDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticProfileDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPrimitiveTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticStereotypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticElementImportDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalClassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalConstraintDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDataTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalEnumerationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalMetaclassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPackageDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPrimitiveTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalProfileDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalStereotypeDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="PRD_ProfilePackagedElementsCompartment" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Profile" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommentDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticConstraintDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticClassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDataTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticEnumerationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPackageDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticProfileDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPrimitiveTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticStereotypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticElementImportDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalClassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalConstraintDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDataTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalEnumerationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalMetaclassDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPackageDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPrimitiveTypeDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalProfileDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalStereotypeDrop']" reusedNodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Comment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Constraint'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Metaclass']" reusedContainerMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Package'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Profile'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="aql:'packaged elements'" hideLabelByDefault="true" widthComputationExpression="15" heightComputationExpression="12" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.2"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.0"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="PRD_Stereotype" preconditionExpression="aql:self.oclIsTypeOf(uml::Stereotype)" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:if self.oclIsKindOf(uml::Package) then self.oclAsType(uml::Package).packagedElement else Sequence{} endif" domainClass="uml::Stereotype" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="PRD_StereotypeAttributesCompartment" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Stereotype" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPropertyDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPropertyDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']" reusedNodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedAttribute']/@subNodeMappings[name='PRD_PropertyLabelNode']" childrenPresentation="List">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="attributes" hideLabelByDefault="true" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </subContainerMappings>
+          <subContainerMappings name="PRD_StereotypeOperationsCompartment" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Stereotype" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticOperationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalOperationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']" reusedNodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedOperation']/@subNodeMappings[name='PRD_OperationLabelNode']" childrenPresentation="List">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="operations" hideLabelByDefault="true" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" foregroundColor="//@userColorsPalettes[name='PRD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="PRD_SHARED_OwnedAttribute" semanticCandidatesExpression="aql:null" domainClass="uml::Class" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']">
+          <subNodeMappings name="PRD_PropertyLabelNode" preconditionExpression="aql:self.association = null" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:if(self.oclIsKindOf(uml::Class) or self.oclIsKindOf(uml::DataType) or self.oclIsTypeOf(uml::Interface) or self.oclIsTypeOf(uml::Signal)) then self.ownedAttribute else null endif" domainClass="uml::Property">
+            <style xsi:type="style:SquareDescription" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="PRD_SHARED_OwnedOperation" semanticCandidatesExpression="aql:null" domainClass="uml::Class" dropDescriptions="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticAssociationDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExtensionDrop'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop']">
+          <subNodeMappings name="PRD_OperationLabelNode" deletionDescription="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='PRD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:if(self.oclIsKindOf(uml::Class) or self.oclIsKindOf(uml::DataType)) then self.ownedOperation else null endif" domainClass="uml::Operation">
+            <style xsi:type="style:SquareDescription" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+            <conditionnalStyles predicateExpression="aql:self.isStatic and not(self.isAbstract)">
+              <style xsi:type="style:SquareDescription" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelFormat>underline</labelFormat>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+              </style>
+            </conditionnalStyles>
+            <conditionnalStyles predicateExpression="aql:self.isAbstract and not(self.isStatic)">
+              <style xsi:type="style:SquareDescription" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelFormat>italic</labelFormat>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+              </style>
+            </conditionnalStyles>
+            <conditionnalStyles predicateExpression="aql:self.isAbstract and self.isStatic">
+              <style xsi:type="style:SquareDescription" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelFormat>italic</labelFormat>
+                <labelFormat>underline</labelFormat>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+              </style>
+            </conditionnalStyles>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+          </style>
+        </containerMappings>
+        <toolSections name="Nodes" icon="/org.eclipse.gmf.runtime.diagram.ui/icons/group.gif">
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateClassTool" label="Class" containerMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Class','packagedElement',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateCommentTool" label="Comment" nodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Comment']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('Comment','ownedComment',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateConstraintTool" label="Constraint" nodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Constraint']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('Constraint','ownedRule',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateDataTypeTool" label="DataType" containerMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::DataType','packagedElement',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateEnumerationTool" label="Enumeration" containerMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Enumeration','packagedElement',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateEnumerationLiteralTool" label="EnumerationLiteral" precondition="aql:container.oclIsTypeOf(uml::Enumeration)" nodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment']/@subNodeMappings[name='PRD_EnumerationLiteralLabelNode']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::EnumerationLiteral','ownedLiteral',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateImportMetaclassTool" label="Import Metaclass" precondition="aql:container.oclIsKindOf(uml::Profile)" nodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Metaclass']" iconPath="/org.eclipse.papyrus.sirius.uml.diagram.profile/icons/Metaclass.gif">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.oclAsType(uml::Profile).importMetaClass(containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateOperationTool" label="Operation" precondition="aql:container.oclIsKindOf(uml::Class) or container.oclIsKindOf(uml::DataType))" nodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedOperation']/@subNodeMappings[name='PRD_OperationLabelNode']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Operation','ownedOperation',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreatePackageTool" label="Package" containerMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Package']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Package','packagedElement',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateProfileTool" label="Profile" containerMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Profile']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Profile','packagedElement',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreatePrimitiveTypeTool" label="PrimitiveType" nodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::PrimitiveType','packagedElement',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreatePropertyTool" label="Property" precondition="aql:container.oclIsKindOf(uml::Class) or container.oclIsKindOf(uml::DataType))" nodeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedAttribute']/@subNodeMappings[name='PRD_PropertyLabelNode']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Property','ownedAttribute',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateStereotypeTool" label="Stereotype" containerMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Stereotype','packagedElement',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="Edges" icon="/org.eclipse.gmf.runtime.diagram.ui/icons/group.gif">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateAssociationTool" label="Association" precondition="aql:preSource.canCreateDomainBasedEdge(preTarget,'Association','packagedElement',preSourceView,preTargetView)" edgeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@edgeMappings[name='PRD_Association']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.createDomainBasedEdge(target,'Association','packagedElement',sourceView,targetView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateExtensionTool" label="Extension" precondition="aql:preSource.canCreateDomainBasedEdge(preTarget,'Extension','packagedElement',preSourceView,preTargetView)" edgeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@edgeMappings[name='PRD_Extension']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.createDomainBasedEdge(target,'Extension','packagedElement',sourceView,targetView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateGeneralizationTool" label="Generalization" precondition="aql:preSource.canCreateDomainBasedEdge(preTarget,'Generalization','generalization',preSourceView,preTargetView)" edgeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@edgeMappings[name='PRD_Generalization']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.createDomainBasedEdge(target,'Generalization','generalization',sourceView,targetView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateLinkTool" label="Link" edgeMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@edgeMappings[name='PRD_Link']" iconPath="/org.eclipse.papyrus.sirius.uml.diagram.common/icons/obj16/Link.gif">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.setLinkTarget(target, sourceView,'PRD_Link')"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="DeleteAction">
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="PRD_Delete_All">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.delete()"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="PRD_Delete_Link">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.deleteLink(elementView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="PRD_Delete_Metaclass" precondition="aql:false">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.delete()"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="Reconnect">
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectAssociationSource" precondition="aql:self.canReconnectSource(edgeView, source, target, targetView)" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectSource(source,target,targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectAssociationTarget" precondition="aql:self.canReconnectTarget(edgeView, source, target, targetView)" forceRefresh="true">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectTarget(source,target,targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectExtensionSource" precondition="aql:self.canReconnectSource(edgeView, source, target, targetView)" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectSource(source,target,targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectExtensionTarget" precondition="aql:self.canReconnectTarget(edgeView, source, target, targetView)" forceRefresh="true">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectTarget(source,target,targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectGeneralizationSource" precondition="aql:self.canReconnectSource(edgeView, source, target, targetView)" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectSource(source,target,targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectGeneralizationTarget" precondition="aql:self.canReconnectTarget(edgeView, source, target, targetView)" forceRefresh="true">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectTarget(source,target,targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectLinkSource" precondition="aql:self.canReconnectLinkSource(target)" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.reconnectLinkSource(target,edgeView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectLinkTarget" forceRefresh="true">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.reconnectLinkTarget(sourceView,source,target,'PRD_Link')"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="SemanticDrop">
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticAssociationDrop" precondition="aql:self.oclIsTypeOf(uml::Association)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticClassDrop" precondition="aql:self.oclIsTypeOf(uml::Class) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticCommentDrop" precondition="aql:self.oclIsTypeOf(uml::Comment) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticConstraintDrop" precondition="aql:self.oclIsTypeOf(uml::Constraint) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticDataTypeDrop" precondition="aql:self.oclIsTypeOf(uml::DataType) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticElementImportDrop" precondition="aql:self.oclIsTypeOf(uml::ElementImport) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticEnumerationDrop" precondition="aql:self.oclIsTypeOf(uml::Enumeration) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticEnumerationLiteralDrop" precondition="aql:self.oclIsTypeOf(uml::EnumerationLiteral) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticExtensionDrop" precondition="aql:self.oclIsTypeOf(uml::Extension)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticGeneralizationDrop" precondition="aql:self.oclIsTypeOf(uml::Generalization)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticOperationDrop" precondition="aql:self.oclIsTypeOf(uml::Operation) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticPackageDrop" precondition="aql:self.oclIsTypeOf(uml::Package) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticPrimitiveTypeDrop" precondition="aql:self.oclIsTypeOf(uml::PrimitiveType) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticProfileDrop" precondition="aql:self.oclIsTypeOf(uml::Profile) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticPropertyDrop" precondition="aql:self.oclIsTypeOf(uml::Property) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticStereotypeDrop" precondition="aql:self.oclIsTypeOf(uml::Stereotype) and self.canDragAndDropSemanticPRD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticPRD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="GraphicalDrop">
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalClassDrop" precondition="aql:self.oclIsTypeOf(uml::Class) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalCommentDrop" precondition="aql:self.oclIsTypeOf(uml::Comment) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Comment']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalConstraintDrop" precondition="aql:self.oclIsTypeOf(uml::Constraint) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Constraint']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalDataTypeDrop" precondition="aql:self.oclIsTypeOf(uml::DataType) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalEnumerationDrop" precondition="aql:self.oclIsTypeOf(uml::Enumeration) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalEnumerationLiteralDrop" precondition="aql:self.oclIsTypeOf(uml::EnumerationLiteral) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment']/@subNodeMappings[name='PRD_EnumerationLiteralLabelNode']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalMetaclassDrop" precondition="aql:self.oclIsTypeOf(uml::Class) and newContainer.oclIsTypeOf(uml::Profile)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Metaclass']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.metaClassDragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalOperationDrop" precondition="aql:self.oclIsTypeOf(uml::Operation) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedOperation']/@subNodeMappings[name='PRD_OperationLabelNode']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalPackageDrop" precondition="aql:self.oclIsTypeOf(uml::Package) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Package']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalPrimitiveTypeDrop" precondition="aql:self.oclIsTypeOf(uml::PrimitiveType) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalProfileDrop" precondition="aql:self.oclIsTypeOf(uml::Profile) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Profile']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalPropertyDrop" precondition="aql:self.oclIsTypeOf(uml::Property) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedAttribute']/@subNodeMappings[name='PRD_PropertyLabelNode']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalStereotypeDrop" precondition="aql:self.oclIsTypeOf(uml::Stereotype) and self.canDragAndDropGraphicPRD(newContainer)" mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicPRD(oldSemanticContainer,newSemanticContainer,newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="F2_Edition">
+          <ownedTools xsi:type="tool:DirectEditLabel" name="Comment_body_EditionTool" precondition="aql:self.oclIsKindOf(uml::Comment)" inputLabelExpression="aql:self.getDirectEditInputValue()">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.consumeNewLabel(arg0)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DirectEditLabel" name="NamedElement_name_EditionTool" precondition="aql:self.oclIsKindOf(uml::NamedElement)" inputLabelExpression="aql:self.getDirectEditInputValue()">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.consumeNewLabel(arg0)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <decorationDescriptionsSet>
+          <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="PRD_isMetaclass_Decoration" position="NORTH_EAST" distributionDirection="HORIZONTAL" preconditionExpression="aql:true" imageExpression="org.eclipse.papyrus.sirius.uml.diagram.common/icons/decorators/oustideOfTheContext.gif" tooltipExpression="This element is represented outside of its semantic container." mappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Metaclass']"/>
+        </decorationDescriptionsSet>
+        <customization>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.oclIsKindOf(uml::Classifier) and self.oclAsType(uml::Classifier).isAbstract">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class']/@style //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType']/@style //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@style //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Metaclass']/@style //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Package']/@style //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType']/@style //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedAttribute']/@subNodeMappings[name='PRD_PropertyLabelNode']/@style //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedOperation']/@subNodeMappings[name='PRD_OperationLabelNode']/@style //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']/@style" attributeName="labelFormat" value="aql:'italic'"/>
+          </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.oclIsKindOf(uml::Property) and self.oclAsType(uml::Property).isStatic">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedAttribute']/@subNodeMappings[name='PRD_PropertyLabelNode']/@style //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedOperation']/@subNodeMappings[name='PRD_OperationLabelNode']/@style" attributeName="labelFormat" value="aql:'underline'"/>
+          </vsmElementCustomizations>
+        </customization>
+      </defaultLayer>
+      <additionalLayers name="QualifiedNameLayer" label="Display Qualified Name" reusedMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Comment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Constraint'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment']/@subNodeMappings[name='PRD_EnumerationLiteralLabelNode'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Metaclass'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Package'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Profile'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedAttribute']/@subNodeMappings[name='PRD_PropertyLabelNode'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedOperation']/@subNodeMappings[name='PRD_OperationLabelNode'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']"/>
+      <additionalLayers name="AppliedStereotypeLayer" label="Display Applied Stereotypes" reusedMappings="//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Class'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Comment'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Constraint'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_DataType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Enumeration']/@subContainerMappings[name='PRD_EnumerationLiteralsCompartment']/@subNodeMappings[name='PRD_EnumerationLiteralLabelNode'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_Metaclass'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Package'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@nodeMappings[name='PRD_PrimitiveType'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Profile'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedAttribute']/@subNodeMappings[name='PRD_PropertyLabelNode'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_SHARED_OwnedOperation']/@subNodeMappings[name='PRD_OperationLabelNode'] //@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']/@defaultLayer/@containerMappings[name='PRD_Stereotype']" activeByDefault="true"/>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.DeleteServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.DomainBasedEdgeServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.LinkRelationServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.ReconnectServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.SemanticCandidatesServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.UMLLabelServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.profile.services.ProfileDiagramDropBehaviorProvider"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.profile.services.ProfileDiagramServices"/>
+  </ownedViewpoints>
+  <userColorsPalettes name="PRD_ColorPalette">
+    <entries xsi:type="description:UserFixedColor" red="195" green="215" blue="221" name="CustomBlue"/>
+    <entries xsi:type="description:UserFixedColor" red="255" green="255" blue="204" name="CommentColor"/>
+    <entries xsi:type="description:UserFixedColor" red="200" green="255" blue="230" name="ConstraintColor"/>
+  </userColorsPalettes>
+</description:Group>

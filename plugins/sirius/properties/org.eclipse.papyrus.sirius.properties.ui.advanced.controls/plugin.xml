@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+
+<!--
+ Copyright (c) 2022, 2023 CEA LIST, Obeo
+
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+ 
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+    Obeo - Initial API and implementation
+ 
+-->
+
+<plugin>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionConverter">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.ExtEditableReferenceDescriptionConverter"
+            description="%editableReferenceDescriptionConverter.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionConverter.editablereference"
+            label="%editableReferenceDescriptionConverter.Label">
+      </descriptor>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionPreprocessor">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.ExtEditableReferenceDescriptionPreprocessor"
+            description="%editableReferenceDescriptionPreprocessor.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionPreprocessor.editablereference"
+            label="%editableReferenceDescriptionPreprocessor.Label">
+      </descriptor>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionConverter">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.ContainerBorderDescriptionConverter"
+            description="%containerBorderDescriptionConverter.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionConverter.containerborder"
+            label="%containerBorderDescriptionConverter.Label">
+      </descriptor>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionPreprocessor">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.ContainerBorderDescriptionPreprocessor"
+            description="%containerBorderDescriptionPreprocessor.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionPreprocessor.containerborder"
+            label="%containerBorderDescriptionPreprocessor.Label">
+      </descriptor>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionConverter">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.LanguageExpressionDescriptionConverter"
+            description="%languageExpressionDescriptionConverter.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionConverter.languageexpression"
+            label="%languageExpressionDescriptionConverter.Label">
+      </descriptor>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionPreprocessor">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.LanguageExpressionDescriptionPreprocessor"
+            description="%languageExpressionDescriptionPreprocessor.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionPreprocessor.languageexpression"
+            label="%languageExpressionDescriptionPreprocessor.Label">
+      </descriptor>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionConverter">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.ProfileApplicationDescriptionConverter"
+            description="%profileApplicationDescriptionConverter.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionConverter.profileapplication"
+            label="%profileApplicationDescriptionConverter.Label">
+      </descriptor>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionPreprocessor">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.ProfileApplicationDescriptionPreprocessor"
+            description="%profileApplicationDescriptionPreprocessor.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionPreprocessor.profileapplication"
+            label="%profileApplicationDescriptionPreprocessor.Label">
+      </descriptor>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionConverter">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.StereotypeApplicationDescriptionConverter"
+            description="%stereotypeApplicationDescriptionConverter.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionConverter.stereotypeapplication"
+            label="%stereotypeApplicationDescriptionConverter.Label">
+      </descriptor>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionPreprocessor">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.StereotypeApplicationDescriptionPreprocessor"
+            description="%stereotypeApplicationDescriptionPreprocessor.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionPreprocessor.stereotypeapplication"
+            label="%stereotypeApplicationDescriptionPreprocessor.Label">
+      </descriptor>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionPreprocessor">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.InputContentPapyrusReferenceDescriptionPreprocessor"
+            description="%inputContentPapyrusReferenceDescriptionPreprocessor.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionPreprocessor.inputcontent"
+            label="%inputContentPapyrusReferenceDescriptionPreprocessor.Label">
+      </descriptor>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.properties.core.descriptionConverter">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.internal.InputContentPapyrusReferenceDescriptionConverter"
+            description="%inputContentPapyrusReferenceDescriptionConverter.Description"
+            id="org.eclipse.papyrus.sirius.properties.ui.advanced.controls.descriptionConverter.inputcontent"
+            label="%inputContentPapyrusReferenceDescriptionConverter.Label">
+      </descriptor>
+   </extension>
+</plugin>

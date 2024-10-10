@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="__uoDEBdHEe6vvOLa6IqC4Q" name="EdgeDeleteSemanticTest">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="__zmpsBdHEe6vvOLa6IqC4Q">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Device" xmi:id="_DB7m4BdIEe6vvOLa6IqC4Q" name="Device1">
+    <generalization xmi:type="uml:Generalization" xmi:id="_jPiW0BdIEe6vvOLa6IqC4Q" general="_Dik10BdIEe6vvOLa6IqC4Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Device" xmi:id="_Dik10BdIEe6vvOLa6IqC4Q" name="Device2"/>
+  <packagedElement xmi:type="uml:CommunicationPath" xmi:id="_EElWsBdIEe6vvOLa6IqC4Q" memberEnd="_EEoaABdIEe6vvOLa6IqC4Q _EEq2QBdIEe6vvOLa6IqC4Q">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_EEmk0BdIEe6vvOLa6IqC4Q" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_EEmk0RdIEe6vvOLa6IqC4Q" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <name xsi:nil="true"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_EEoaABdIEe6vvOLa6IqC4Q" name="device2" type="_Dik10BdIEe6vvOLa6IqC4Q" association="_EElWsBdIEe6vvOLa6IqC4Q"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_EEq2QBdIEe6vvOLa6IqC4Q" name="device1" type="_DB7m4BdIEe6vvOLa6IqC4Q" association="_EElWsBdIEe6vvOLa6IqC4Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_Pc2PcBdIEe6vvOLa6IqC4Q" client="_DB7m4BdIEe6vvOLa6IqC4Q" supplier="_Dik10BdIEe6vvOLa6IqC4Q">
+    <name xsi:nil="true"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:ExecutionEnvironment" xmi:id="_UCGjUBdIEe6vvOLa6IqC4Q" name="ExecutionEnvironment1">
+    <deployment xmi:type="uml:Deployment" xmi:id="_W_rHsBdIEe6vvOLa6IqC4Q" client="_UCGjUBdIEe6vvOLa6IqC4Q _We3gsBdIEe6vvOLa6IqC4Q" supplier="_We3gsBdIEe6vvOLa6IqC4Q _UCGjUBdIEe6vvOLa6IqC4Q" deployedArtifact="_We3gsBdIEe6vvOLa6IqC4Q">
+      <name xsi:nil="true"/>
+    </deployment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Artifact" xmi:id="_We3gsBdIEe6vvOLa6IqC4Q" name="Artifact1"/>
+  <packagedElement xmi:type="uml:Manifestation" xmi:id="_reEegBdIEe6vvOLa6IqC4Q" client="_DB7m4BdIEe6vvOLa6IqC4Q" supplier="_Dik10BdIEe6vvOLa6IqC4Q" utilizedElement="_Dik10BdIEe6vvOLa6IqC4Q">
+    <name xsi:nil="true"/>
+  </packagedElement>
+</uml:Model>

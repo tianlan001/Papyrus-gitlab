@@ -1,8 +1,9 @@
 target "Papyrus Tests" with source requirements
 
 include "../../../main/targetPlatform/org.eclipse.papyrus.main.targetplatform.tpd"
+include "./org.eclipse.papyrus.sirius.releng.main.dev.targetplatform.tpd"
 
 // updateFrom("EMF Compare",0)
 location emfCompare "https://download.eclipse.org/modeling/emf/compare/updates/releases/3.3/R202401051648" {
-	org.eclipse.emf.compare.source.feature.group
+	org.eclipse.emf.compare.source.feature.group lazy
 }

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_5HjS4JjLEe2Me7sellAvUQ" name="Edge_ReconnectionTest">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_I5LYkJjMEe2Me7sellAvUQ">
+    <body>comment1</body>
+  </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_J7WAMJjMEe2Me7sellAvUQ">
+    <body>comment2</body>
+  </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_EvFI0JzAEe2DKdtWAHdvHw">
+    <body>commentNewEnd</body>
+  </ownedComment>
+  <ownedRule xmi:type="uml:Constraint" xmi:id="_IDBzsJjMEe2Me7sellAvUQ" name="Constraint1">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="_IDBzsZjMEe2Me7sellAvUQ" name="constraintSpec">
+      <language>OCL</language>
+      <body>true</body>
+    </specification>
+  </ownedRule>
+  <ownedRule xmi:type="uml:Constraint" xmi:id="_IRDBkJjMEe2Me7sellAvUQ" name="Constraint2">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="_IRDooJjMEe2Me7sellAvUQ" name="constraintSpec">
+      <language>OCL</language>
+      <body>true</body>
+    </specification>
+  </ownedRule>
+  <ownedRule xmi:type="uml:Constraint" xmi:id="_DebZQJzAEe2DKdtWAHdvHw" name="ConstraintNewEnd">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="_DebZQZzAEe2DKdtWAHdvHw" name="constraintSpec">
+      <language>OCL</language>
+      <body>true</body>
+    </specification>
+  </ownedRule>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_5Jsn8JjLEe2Me7sellAvUQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_8wGG4JjLEe2Me7sellAvUQ" name="Package1">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_lPfuQLjTEe2QTZafkbhuMA" importedPackage="_9x0poJjLEe2Me7sellAvUQ"/>
+    <packageMerge xmi:type="uml:PackageMerge" xmi:id="_kqzFwLjTEe2QTZafkbhuMA" mergedPackage="_9x0poJjLEe2Me7sellAvUQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_9x0poJjLEe2Me7sellAvUQ" name="Package2"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="__4bw0JjLEe2Me7sellAvUQ" name="Class1">
+    <generalization xmi:type="uml:Generalization" xmi:id="_owQYYJy9Ee2DKdtWAHdvHw" general="_AYAowJjMEe2Me7sellAvUQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_AYAowJjMEe2Me7sellAvUQ" name="Class2"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_Bi5HgJjMEe2Me7sellAvUQ" name="Activity1"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_CEy6sJjMEe2Me7sellAvUQ" name="Activity2"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_DIZFsJjMEe2Me7sellAvUQ" name="Component1">
+    <packagedElement xmi:type="uml:Realization" xmi:id="_ORHN0JzCEe2DKdtWAHdvHw" client="_DIZFsJjMEe2Me7sellAvUQ" supplier="_Dy1w4JjMEe2Me7sellAvUQ">
+      <name xsi:nil="true"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_Dy1w4JjMEe2Me7sellAvUQ" name="Component2"/>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_EgycAJjMEe2Me7sellAvUQ" name="Interaction1"/>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_FS8RsJjMEe2Me7sellAvUQ" name="Interaction2"/>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_GIrm4JjMEe2Me7sellAvUQ" name="StateMachine1"/>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_GmN3cJjMEe2Me7sellAvUQ" name="StateMachine2"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_G4ALAJjMEe2Me7sellAvUQ" name="Actor1">
+    <generalization xmi:type="uml:Generalization" xmi:id="_Mke-0JzAEe2DKdtWAHdvHw" general="_HMSY8JjMEe2Me7sellAvUQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_HMSY8JjMEe2Me7sellAvUQ" name="Actor2"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_He_5kJjMEe2Me7sellAvUQ" name="UseCase1">
+    <extend xmi:type="uml:Extend" xmi:id="_LJVdsLjTEe2QTZafkbhuMA" extendedCase="_HxYqEJjMEe2Me7sellAvUQ" extensionLocation="_LJYhALjTEe2QTZafkbhuMA">
+      <name xsi:nil="true"/>
+    </extend>
+    <include xmi:type="uml:Include" xmi:id="_KPJtYLjTEe2QTZafkbhuMA" addition="_HxYqEJjMEe2Me7sellAvUQ">
+      <name xsi:nil="true"/>
+    </include>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_HxYqEJjMEe2Me7sellAvUQ" name="UseCase2">
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_LJYhALjTEe2QTZafkbhuMA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_qxM8cJy9Ee2DKdtWAHdvHw" name="ClassNewEnd"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_u64csJy_Ee2DKdtWAHdvHw" name="ActivityNewEnd"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_ySq34Jy_Ee2DKdtWAHdvHw" name="ComponentNewEnd"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_z64y4Jy_Ee2DKdtWAHdvHw" name="PackageNewEnd"/>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_3ZV2wJy_Ee2DKdtWAHdvHw" name="InteractionNewEnd"/>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_6aCAkJy_Ee2DKdtWAHdvHw" name="StateMachineNewEnd"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_9pgNQJy_Ee2DKdtWAHdvHw" name="ActorNewEnd"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_BBfcwJzAEe2DKdtWAHdvHw" name="UseCaseNewEnd"/>
+  <packagedElement xmi:type="uml:Abstraction" xmi:id="_MeXd0JzCEe2DKdtWAHdvHw" client="_Bi5HgJjMEe2Me7sellAvUQ" supplier="_CEy6sJjMEe2Me7sellAvUQ">
+    <name xsi:nil="true"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_PaR1UJzCEe2DKdtWAHdvHw" client="_EgycAJjMEe2Me7sellAvUQ" supplier="_FS8RsJjMEe2Me7sellAvUQ">
+    <name xsi:nil="true"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_RjSwQJzCEe2DKdtWAHdvHw" memberEnd="_RjVzkJzCEe2DKdtWAHdvHw _RjXowJzCEe2DKdtWAHdvHw">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_RjT-YJzCEe2DKdtWAHdvHw" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_RjT-YZzCEe2DKdtWAHdvHw" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <name xsi:nil="true"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_RjVzkJzCEe2DKdtWAHdvHw" name="statemachine2" type="_GmN3cJjMEe2Me7sellAvUQ" association="_RjSwQJzCEe2DKdtWAHdvHw"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_RjXowJzCEe2DKdtWAHdvHw" name="statemachine1" type="_GIrm4JjMEe2Me7sellAvUQ" association="_RjSwQJzCEe2DKdtWAHdvHw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_T7QGIJzCEe2DKdtWAHdvHw" name="Class3"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_URElIJzCEe2DKdtWAHdvHw" name="Class4"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_VD8zkJzCEe2DKdtWAHdvHw" client="_T7QGIJzCEe2DKdtWAHdvHw" supplier="_URElIJzCEe2DKdtWAHdvHw">
+    <name xsi:nil="true"/>
+  </packagedElement>
+</uml:Model>

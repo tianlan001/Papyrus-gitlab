@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -83,7 +84,7 @@ public class Utils {
 		if (diagramPart == null) {
 			return Collections.emptyList();
 		}
-		Set<IGraphicalEditPart> groupParts = new HashSet<IGraphicalEditPart>();
+		Set<IGraphicalEditPart> groupParts = new HashSet<>();
 		// For all object in diagram, find edit parts
 		for (Object view : diagramPart.getViewer().getEditPartRegistry().keySet()) {
 			if (view instanceof View) {
@@ -103,7 +104,7 @@ public class Utils {
 				}
 			}
 		}
-		return new ArrayList<IGraphicalEditPart>(groupParts);
+		return new ArrayList<>(groupParts);
 	}
 
 	/**
@@ -119,9 +120,12 @@ public class Utils {
 	 *            if true compute the list of all graphical and model parent after moving and false compute the list before moving
 	 * @return true if succeed
 	 */
-	@SuppressWarnings("unchecked")
 	public static boolean createComputedListsOfParents(List<IGraphicalEditPart> graphicalParentsToComplete, List<IGraphicalEditPart> modelParentsToComplete, IGraphicalEditPart childPart, ChangeBoundsRequest request, boolean doTransalte) {
-		Collection<View> diagramViews = new ArrayList<View>(childPart.getViewer().getEditPartRegistry().keySet());
+		Collection<Object> diagramViewsAsObject = new ArrayList<>(childPart.getViewer().getEditPartRegistry().keySet());
+		Collection<View> diagramViews = diagramViewsAsObject.stream()
+				.filter(View.class::isInstance)
+				.map(View.class::cast)
+				.collect(Collectors.toList());
 		Object _elementView = childPart.getModel();
 		if (_elementView instanceof View) {
 			diagramViews.remove(_elementView);
@@ -157,9 +161,12 @@ public class Utils {
 	 *            Name of the element to be created (name used to look for default size FIXME)
 	 * @return true if succeed
 	 */
-	@SuppressWarnings("unchecked")
 	public static boolean createComputedListsOfParents(List<IGraphicalEditPart> graphicalParentsToComplete, List<IGraphicalEditPart> modelParentsToComplete, CreateViewAndElementRequest creationRequest, IGraphicalEditPart anyPart, EClass child) {
-		Collection<View> diagramViews = new ArrayList<View>(anyPart.getViewer().getEditPartRegistry().keySet());
+		Collection<Object> diagramViewsAsObject = new ArrayList<>(anyPart.getViewer().getEditPartRegistry().keySet());
+		Collection<View> diagramViews = diagramViewsAsObject.stream()
+				.filter(View.class::isInstance)
+				.map(View.class::cast)
+				.collect(Collectors.toList());
 		Dimension size = creationRequest.getSize();
 		// FIXME : Add a correct default size
 		// If size == null then a default size is used to create the bounds of the new elements
@@ -245,7 +252,11 @@ public class Utils {
 	 * @return true if succeed
 	 */
 	public static boolean createComputedListsOfVisualYRelatedElements(List<IGraphicalEditPart> childsToComplete, CreateViewAndElementRequest creationRequest, IGraphicalEditPart anyPart, AbstractContainerNodeDescriptor descriptor) {
-		Collection<View> diagramViews = new ArrayList<View>(anyPart.getViewer().getEditPartRegistry().keySet());
+		Collection<Object> diagramViewsAsObject = new ArrayList<>(anyPart.getViewer().getEditPartRegistry().keySet());
+		Collection<View> diagramViews = diagramViewsAsObject.stream()
+				.filter(View.class::isInstance)
+				.map(View.class::cast)
+				.collect(Collectors.toList());
 		Dimension size = creationRequest.getSize();
 		// FIXME : Add a correct default size
 		// If size == null then a default size is used to create the bounds of the new elements
@@ -273,7 +284,11 @@ public class Utils {
 	 * @return true is succeed
 	 */
 	public static boolean createComputedListsOfVisuallyRelatedElements(List<IGraphicalEditPart> childsToComplete, ChangeBoundsRequest request, IGraphicalEditPart parentPart, AbstractContainerNodeDescriptor descriptor, boolean doTransalte) {
-		Collection<View> diagramViews = new ArrayList<View>(parentPart.getViewer().getEditPartRegistry().keySet());
+		Collection<Object> diagramViewsAsObject = new ArrayList<>(parentPart.getViewer().getEditPartRegistry().keySet());
+		Collection<View> diagramViews = diagramViewsAsObject.stream()
+				.filter(View.class::isInstance)
+				.map(View.class::cast)
+				.collect(Collectors.toList());
 		diagramViews.remove(parentPart.getModel());
 		Rectangle bounds = null;
 
@@ -304,7 +319,7 @@ public class Utils {
 	 * @return The list of {@link IGraphicalEditPart} group that which has their compartment edit part which intersect the compartment of my
 	 */
 	public static List<IGraphicalEditPart> createComputeListsOfAllGroupContainerVisually(IGraphicalEditPart element, ChangeBoundsRequest request, boolean doTranslate, IGraphicalEditPart movingParent) {
-		List<IGraphicalEditPart> result = new ArrayList<IGraphicalEditPart>();
+		List<IGraphicalEditPart> result = new ArrayList<>();
 		EditPartViewer viewer = element.getViewer();
 		Map editPartRegistry = null;
 		if (viewer != null) {
@@ -414,7 +429,7 @@ public class Utils {
 		 * 3 - Withdraw useless elements
 		 */
 		// Set<AbstractContainerNodeDescriptor> descriptors = GroupContainmentRegistry.getDescriptorsWithContainerEClass(parentEclass);
-		List<EClass> possibleChildrenEClass = new ArrayList<EClass>(descriptor.getPossibleGraphicalChildren());
+		List<EClass> possibleChildrenEClass = new ArrayList<>(descriptor.getPossibleGraphicalChildren());
 		if (!possibleChildrenEClass.isEmpty()) {
 			for (Object view : views) {
 				if (view instanceof View) {
@@ -547,8 +562,8 @@ public class Utils {
 		 * 1 - Select all references which are Group Framework concerned and which represent a reference to a parent
 		 */
 		Set<EReference> groupFrameworkReferences = GroupContainmentRegistry.getAllERefencesFromNodeToGroup();
-		HashMap<EObject, EReference> referencingGroupsAndTheirRelation = new HashMap<EObject, EReference>();
-		Set<EObject> elementToVosit = new HashSet<EObject>();
+		HashMap<EObject, EReference> referencingGroupsAndTheirRelation = new HashMap<>();
+		Set<EObject> elementToVosit = new HashSet<>();
 		for (EReference ref : groupFrameworkReferences) {
 			if (object.eClass().getEAllReferences().contains(ref)) {
 				// list of groups containing the object
@@ -575,7 +590,7 @@ public class Utils {
 				}
 			}
 		}
-		Set<EObject> elementAlreadyVisited = new HashSet<EObject>();
+		Set<EObject> elementAlreadyVisited = new HashSet<>();
 		for (EObject visitingElement : elementToVosit) {
 			withDrawRedundantElementReferenced(object, groupFrameworkReferences, referencingGroupsAndTheirRelation, elementAlreadyVisited, visitingElement);
 		}
@@ -706,7 +721,7 @@ public class Utils {
 		if (diagramPart == null || descriptor == null) {
 			return Collections.emptyList();
 		}
-		Set<IGraphicalEditPart> groupParts = new HashSet<IGraphicalEditPart>();
+		Set<IGraphicalEditPart> groupParts = new HashSet<>();
 		for (Object view : diagramPart.getViewer().getEditPartRegistry().keySet()) {
 			if (view instanceof View) {
 				Object editpart = diagramPart.getViewer().getEditPartRegistry().get(view);
@@ -737,7 +752,7 @@ public class Utils {
 				}
 			}
 		}
-		return new ArrayList<IGraphicalEditPart>(groupParts);
+		return new ArrayList<>(groupParts);
 	}
 
 	// Debug purpose
@@ -934,7 +949,7 @@ public class Utils {
 	 * @return null if no reference is found
 	 */
 	public static EReference getContainmentEReference(EClass parentType, EClass childType) {
-		List<EReference> result = new ArrayList<EReference>();
+		List<EReference> result = new ArrayList<>();
 		EReference usedReference = null;
 		for (EReference reference : parentType.getEAllContainments()) {
 			if (reference.getEReferenceType().isSuperTypeOf(childType) && !reference.isDerived()) {
@@ -994,7 +1009,7 @@ public class Utils {
 			resultCompartmentEditPart = parentEditPart;
 			return resultCompartmentEditPart;
 		} else {
-			List<EditPart> potentialCompartementPart = new ArrayList<EditPart>();
+			List<EditPart> potentialCompartementPart = new ArrayList<>();
 			for (Object _child : parentEditPart.getChildren()) {
 				if (isAGoodCompartementEditPart(editPartRegistry, _child)) {
 					potentialCompartementPart.add((EditPart) _child);

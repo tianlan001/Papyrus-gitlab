@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_g1fgkKeaEe2FnazSili6uw" name="edgesDeleteSemanticTest">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_g4OrgKeaEe2FnazSili6uw">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_s5dowKeaEe2FnazSili6uw" name="Class1"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_tKjYwKeaEe2FnazSili6uw" name="Class2"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_tfjYYKeaEe2FnazSili6uw" name="association" memberEnd="_tfl0oKeaEe2FnazSili6uw _tfnCwKeaEe2FnazSili6uw">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_tfkmgKeaEe2FnazSili6uw" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_tfkmgaeaEe2FnazSili6uw" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_tfl0oKeaEe2FnazSili6uw" name="class2" type="_tKjYwKeaEe2FnazSili6uw" association="_tfjYYKeaEe2FnazSili6uw"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_tfnCwKeaEe2FnazSili6uw" name="class1" type="_s5dowKeaEe2FnazSili6uw" association="_tfjYYKeaEe2FnazSili6uw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_v_Y34KeaEe2FnazSili6uw" name="Class3"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_wYkM4KeaEe2FnazSili6uw" name="Class4"/>
+  <packagedElement xmi:type="uml:Realization" xmi:id="_w9dCoKeaEe2FnazSili6uw" name="realization" client="_v_Y34KeaEe2FnazSili6uw" supplier="_wYkM4KeaEe2FnazSili6uw"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_zKHHcKeaEe2FnazSili6uw" name="Class5">
+    <generalization xmi:type="uml:Generalization" xmi:id="_zyvNsKeaEe2FnazSili6uw" general="_zc3EUKeaEe2FnazSili6uw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_zc3EUKeaEe2FnazSili6uw" name="Class6"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_0OYn4KeaEe2FnazSili6uw" name="Class7"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_0eoqYKeaEe2FnazSili6uw" name="Class8"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_0-LGEKeaEe2FnazSili6uw" name="dependency" client="_0OYn4KeaEe2FnazSili6uw" supplier="_0eoqYKeaEe2FnazSili6uw"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_2AvWUKeaEe2FnazSili6uw" name="Class9"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_2STAYKeaEe2FnazSili6uw" name="Class10"/>
+  <packagedElement xmi:type="uml:Abstraction" xmi:id="_2vkLMKeaEe2FnazSili6uw" name="abstraction" client="_2AvWUKeaEe2FnazSili6uw" supplier="_2STAYKeaEe2FnazSili6uw"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_4UEq4KeaEe2FnazSili6uw" name="Class11"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_4oEk8KeaEe2FnazSili6uw" name="Class12"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_47ZJkKeaEe2FnazSili6uw" name="usage" client="_4UEq4KeaEe2FnazSili6uw" supplier="_4oEk8KeaEe2FnazSili6uw"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_5xiucKeaEe2FnazSili6uw" name="Package1">
+    <packageMerge xmi:type="uml:PackageMerge" xmi:id="_6-FaEKeaEe2FnazSili6uw" mergedPackage="_5-pWUKeaEe2FnazSili6uw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_5-pWUKeaEe2FnazSili6uw" name="Package2"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_6PcLYKeaEe2FnazSili6uw" name="Package3">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_7ty_wKeaEe2FnazSili6uw" importedPackage="_6idOAKeaEe2FnazSili6uw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_6idOAKeaEe2FnazSili6uw" name="Package4"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_-j_w0KeaEe2FnazSili6uw" name="UseCase1">
+    <include xmi:type="uml:Include" xmi:id="__XWgYKeaEe2FnazSili6uw" name="include" addition="_-9kHYKeaEe2FnazSili6uw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_-9kHYKeaEe2FnazSili6uw" name="UseCase2"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_A9zg0KebEe2FnazSili6uw" name="UseCase3">
+    <extend xmi:type="uml:Extend" xmi:id="_ChtjkKebEe2FnazSili6uw" name="extend" extendedCase="_Bnv1sKebEe2FnazSili6uw" extensionLocation="_ChuxsKebEe2FnazSili6uw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_Bnv1sKebEe2FnazSili6uw" name="UseCase4">
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_ChuxsKebEe2FnazSili6uw"/>
+  </packagedElement>
+</uml:Model>

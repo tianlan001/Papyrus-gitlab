@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" documentation="Copyright (c) 2023 CEA LIST, Obeo.&#xD;&#xA;&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License 2.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;https://www.eclipse.org/legal/epl-2.0/&#xD;&#xA;&#xD;&#xA;SPDX-License-Identifier: EPL-2.0&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;     Obeo - initial API and implementation" name="papyrus_deployment" version="12.0.0.2017041100">
+  <ownedViewpoints name="DeploymentDiagram" modelFileExtension="uml">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticConstraintDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeviceDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExecutionEnvironmentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticModelDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticNodeDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPackageDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalConstraintDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeviceDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalExecutionEnvironmentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalModelDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalNodeDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPackageDrop']" documentation="Representation to edit Deployment diagrams" name="DeploymentDiagram" titleExpression="aql:self.oclAsType(uml::NamedElement).name +' Deployment Diagram'" domainClass="uml::Package" rootExpression="var:self" enablePopupBars="true">
+      <metamodel href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+      <defaultLayer name="Deployment">
+        <nodeMappings name="DD_Comment" preconditionExpression="aql:self.oclIsTypeOf(uml::Comment)" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='Comment_body_EditionTool']" semanticCandidatesExpression="aql:self.ownedComment" domainClass="uml::Comment" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop']">
+          <style xsi:type="style:NoteDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT" sizeComputationExpression="9" labelPosition="node" resizeKind="NSEW" color="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CommentColor']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="DD_Constraint" preconditionExpression="aql:self.oclIsTypeOf(uml::Constraint)" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql: if self.oclIsKindOf(uml::Namespace) then self.oclAsType(uml::Namespace).ownedRule else self.eAllContents() endif" domainClass="uml::Constraint" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop']">
+          <style xsi:type="style:NoteDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" sizeComputationExpression="9" labelPosition="node" resizeKind="NSEW" color="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='ConstraintColor']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="DD_DeploymentSpecification" preconditionExpression="aql:self.oclIsTypeOf(uml::DeploymentSpecification)" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getArtifactCandidates()->filter(uml::DeploymentSpecification)" domainClass="uml::DeploymentSpecification" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop']">
+          <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelPosition="node" resizeKind="NSEW" width="17" height="7" color="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="DD_CommunicationPath" preconditionExpression="aql:self.oclIsTypeOf(uml::CommunicationPath) and not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getAssociationCandidates()" sourceMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']/@subContainerMappings[name='DD_DeviceNestedNodesCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']/@subContainerMappings[name='DD_ExecutionEnvironmentContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']/@subContainerMappings[name='DD_NodeContentCompartment']" targetMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']/@subContainerMappings[name='DD_DeviceNestedNodesCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']/@subContainerMappings[name='DD_ExecutionEnvironmentContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']/@subContainerMappings[name='DD_NodeContentCompartment']" targetFinderExpression="aql:self.getTargets()" sourceFinderExpression="aql:self.getSource()" domainClass="uml::CommunicationPath" useDomainElement="true" reconnections="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectCommunicationPathSource'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectCommunicationPathTarget']">
+          <style targetArrow="NoDecoration">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <beginLabelStyleDescription labelSize="9" showIcon="false" labelExpression="aql:self.renderEdgeSourceLabel(view.sourceNode.oclAsType(viewpoint::DSemanticDecorator).target)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </beginLabelStyleDescription>
+            <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+            <endLabelStyleDescription labelSize="9" showIcon="false" labelExpression="aql:self.renderEdgeTargetLabel(view.targetNode.oclAsType(viewpoint::DSemanticDecorator).target)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </endLabelStyleDescription>
+          </style>
+          <conditionnalStyles predicateExpression="aql:self.isAbstract">
+            <style targetArrow="NoDecoration">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <beginLabelStyleDescription labelSize="9" showIcon="false" labelExpression="aql:self.renderEdgeSourceLabel(view.sourceNode.oclAsType(viewpoint::DSemanticDecorator).target)">
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </beginLabelStyleDescription>
+              <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
+                <labelFormat>italic</labelFormat>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+              <endLabelStyleDescription labelSize="9" showIcon="false" labelExpression="aql:self.renderEdgeTargetLabel(view.targetNode.oclAsType(viewpoint::DSemanticDecorator).target)">
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </endLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
+        </edgeMappings>
+        <edgeMappings name="DD_Dependency" preconditionExpression="aql:self.oclIsTypeOf(uml::Dependency) and not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getDependencyCandidates()" sourceMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']/@subContainerMappings[name='DD_ArtifactNestedArtifactsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']/@subContainerMappings[name='DD_DeviceNestedNodesCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']/@subContainerMappings[name='DD_ExecutionEnvironmentContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model']/@subContainerMappings[name='DD_ModelPackagedElementsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']/@subContainerMappings[name='DD_NodeContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package']/@subContainerMappings[name='DD_PackagePackagedElementsCompartment']" targetMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']/@subContainerMappings[name='DD_ArtifactNestedArtifactsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']/@subContainerMappings[name='DD_DeviceNestedNodesCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']/@subContainerMappings[name='DD_ExecutionEnvironmentContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model']/@subContainerMappings[name='DD_ModelPackagedElementsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']/@subContainerMappings[name='DD_NodeContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package']/@subContainerMappings[name='DD_PackagePackagedElementsCompartment']" targetFinderExpression="aql:self.getTargets()" sourceFinderExpression="aql:self.getSource()" domainClass="uml::Dependency" useDomainElement="true" reconnections="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectDependencySource'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectDependencyTarget']">
+          <style lineStyle="dash">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="DD_Deployment" preconditionExpression="aql:self.oclIsTypeOf(uml::Deployment) and not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getDependencyCandidates()" sourceMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']/@subContainerMappings[name='DD_ArtifactNestedArtifactsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification']" targetMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']/@subContainerMappings[name='DD_DeviceNestedNodesCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']/@subContainerMappings[name='DD_ExecutionEnvironmentContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']/@subContainerMappings[name='DD_NodeContentCompartment']" targetFinderExpression="aql:self.getTargets()" sourceFinderExpression="aql:self.getSource()" domainClass="uml::Deployment" useDomainElement="true" reconnections="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectDeploymentSource'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectDeploymentTarget']">
+          <style lineStyle="dash">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="DD_Generalization" preconditionExpression="aql:self.oclIsTypeOf(uml::Generalization) and not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getGeneralizationCandidates()" sourceMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']/@subContainerMappings[name='DD_ArtifactNestedArtifactsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']/@subContainerMappings[name='DD_DeviceNestedNodesCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']/@subContainerMappings[name='DD_ExecutionEnvironmentContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']/@subContainerMappings[name='DD_NodeContentCompartment']" targetMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']/@subContainerMappings[name='DD_ArtifactNestedArtifactsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']/@subContainerMappings[name='DD_DeviceNestedNodesCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']/@subContainerMappings[name='DD_ExecutionEnvironmentContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']/@subContainerMappings[name='DD_NodeContentCompartment']" targetFinderExpression="aql:self.getTargets()" sourceFinderExpression="aql:self.getSource()" domainClass="uml::Generalization" useDomainElement="true" reconnections="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectGeneralizationSource'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectGeneralizationTarget']">
+          <style targetArrow="InputClosedArrow">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="DD_Link" preconditionExpression="aql:not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_Link']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" sourceMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Comment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint']" targetMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']/@subContainerMappings[name='DD_ArtifactNestedArtifactsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Comment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']/@subContainerMappings[name='DD_DeviceNestedNodesCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']/@subContainerMappings[name='DD_ExecutionEnvironmentContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model']/@subContainerMappings[name='DD_ModelPackagedElementsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']/@subContainerMappings[name='DD_NodeContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package']/@subContainerMappings[name='DD_PackagePackagedElementsCompartment']" targetFinderExpression="aql:if self.oclIsKindOf(uml::Constraint) then self.oclAsType(uml::Constraint).constrainedElement else (if self.oclIsKindOf(uml::Comment) then self.oclAsType(uml::Comment).annotatedElement else null endif) endif" reconnections="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectLinkSource'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectLinkTarget']">
+          <style lineStyle="dot" targetArrow="NoDecoration">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="DD_Manifestation" preconditionExpression="aql:self.oclIsTypeOf(uml::Manifestation) and not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getDependencyCandidates()" sourceMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']/@subContainerMappings[name='DD_ArtifactNestedArtifactsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']/@subContainerMappings[name='DD_DeviceNestedNodesCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']/@subContainerMappings[name='DD_ExecutionEnvironmentContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model']/@subContainerMappings[name='DD_ModelPackagedElementsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']/@subContainerMappings[name='DD_NodeContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package']/@subContainerMappings[name='DD_PackagePackagedElementsCompartment']" targetMapping="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']/@subContainerMappings[name='DD_ArtifactNestedArtifactsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']/@subContainerMappings[name='DD_DeviceNestedNodesCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']/@subContainerMappings[name='DD_ExecutionEnvironmentContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model']/@subContainerMappings[name='DD_ModelPackagedElementsCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']/@subContainerMappings[name='DD_NodeContentCompartment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package']/@subContainerMappings[name='DD_PackagePackagedElementsCompartment']" targetFinderExpression="aql:self.getTargets()" sourceFinderExpression="aql:self.getSource()" domainClass="uml::Manifestation" useDomainElement="true" reconnections="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectManifestationSource'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectManifestationTarget']">
+          <style lineStyle="dash">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings name="DD_Artifact" preconditionExpression="aql:self.oclIsTypeOf(uml::Artifact)" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getArtifactCandidates()->filter(uml::Artifact)" domainClass="uml::Artifact" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="DD_ArtifactNestedArtifactsCompartment" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Artifact" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeploymentSpecificationDrop']" reusedNodeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification']" reusedContainerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="aql:'ArtifactCompositeCompartment'" hideLabelByDefault="true" foregroundColor="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.2"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" foregroundColor="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.2"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="DD_Device" preconditionExpression="aql:self.oclIsTypeOf(uml::Device)" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getNodeCandidates()->filter(uml::Device)" domainClass="uml::Device" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="DD_DeviceNestedNodesCompartment" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Device" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeviceDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExecutionEnvironmentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticNodeDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeviceDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalExecutionEnvironmentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalNodeDrop']" reusedNodeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification']" reusedContainerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="aql:'DeviceCompositeCompartment'" hideLabelByDefault="true" foregroundColor="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.2"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" foregroundColor="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.0"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="DD_ExecutionEnvironment" preconditionExpression="aql:self.oclIsTypeOf(uml::ExecutionEnvironment)" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getNodeCandidates()->filter(uml::ExecutionEnvironment)" domainClass="uml::ExecutionEnvironment" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="DD_ExecutionEnvironmentContentCompartment" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::ExecutionEnvironment" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExecutionEnvironmentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalExecutionEnvironmentDrop']" reusedNodeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification']" reusedContainerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="aql:'ExecutionEnvironmentCompositeCompartment'" hideLabelByDefault="true" foregroundColor="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.2"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" foregroundColor="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.0"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="DD_Model" preconditionExpression="aql:self.oclIsTypeOf(uml::Model)" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getPackageCandidates()->filter(uml::Model)" domainClass="uml::Model" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="DD_ModelPackagedElementsCompartment" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Model" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticConstraintDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeviceDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExecutionEnvironmentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticModelDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticNodeDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPackageDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalConstraintDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeviceDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalExecutionEnvironmentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalModelDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalNodeDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPackageDrop']" reusedNodeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Comment']" reusedContainerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package']">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="aql:'ModelCompartment'" hideLabelByDefault="true" widthComputationExpression="15" heightComputationExpression="12" foregroundColor="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.2"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT" foregroundColor="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.0"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="DD_Node" preconditionExpression="aql:self.oclIsTypeOf(uml::Node)" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getNodeCandidates().oclAsType(uml::Node)" domainClass="uml::Node" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="DD_NodeContentCompartment" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Node" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeviceDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExecutionEnvironmentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticNodeDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeviceDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalExecutionEnvironmentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalNodeDrop']" reusedNodeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification']" reusedContainerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="aql:'CompositeCompartment'" hideLabelByDefault="true" foregroundColor="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CustomBlue']">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.2"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" foregroundColor="//@userColorsPalettes[name='DD_ColorPalette']/@entries[name='CustomBlue']">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.0"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="DD_Package" preconditionExpression="aql:self.oclIsTypeOf(uml::Package)" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getPackageCandidates()" domainClass="uml::Package" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop']" childrenPresentation="VerticalStack">
+          <subContainerMappings name="DD_PackagePackagedElementsCompartment" deletionDescription="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='DD_Delete_All']" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Package" dropDescriptions="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticConstraintDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeviceDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticExecutionEnvironmentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticModelDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticNodeDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticPackageDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticCommunicationPathDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDependencyDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticDeploymentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticGeneralizationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='SemanticManifestationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalConstraintDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalArtifactDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeploymentSpecificationDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalDeviceDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalExecutionEnvironmentDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalModelDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalNodeDrop'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalPackageDrop']" reusedNodeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Comment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification']" reusedContainerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package']">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="aql:'PackagableElementCompartment'" hideLabelByDefault="true" widthComputationExpression="15" heightComputationExpression="12">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.2"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.0"/>
+          </style>
+        </containerMappings>
+        <toolSections name="Nodes" icon="/org.eclipse.gmf.runtime.diagram.ui/icons/group.gif">
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateArtifactTool" label="Artifact" precondition="aql:container.canCreateArtifactDD(uml::Artifact)" containerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createArtifactDD(uml::Artifact, containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateCommentTool" label="Comment" precondition="aql:container.canCreate(uml::Comment,'ownedComment')" nodeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Comment']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Comment','ownedComment',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateConstraintTool" label="Constraint" precondition="aql:container.canCreate(uml::Constraint,'ownedRule')" nodeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Constraint','ownedRule',containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateDeviceTool" label="Device" precondition="aql:container.canCreateNodeDD(uml::Device)" containerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createNodeDD(uml::Device, containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateDeploymentSpecificationTool" label="Deployment Specification" precondition="aql:container.canCreateArtifactDD(uml::DeploymentSpecification)" nodeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createArtifactDD(uml::DeploymentSpecification, containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateExecutionEnvironmentTool" label="Execution Environment" precondition="aql:container.canCreateNodeDD(uml::ExecutionEnvironment)" containerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createNodeDD(uml::ExecutionEnvironment, containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateModelTool" label="Model" precondition="aql:container.canCreate(uml::Model, 'packagedElement')" containerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Model', 'packagedElement', containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateNodeTool" label="Node" precondition="aql:container.canCreateNodeDD(uml::Node)" containerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createNodeDD(uml::Node, containerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreatePackageTool" label="Package" precondition="aql:container.canCreate(uml::Package, 'packagedElement')" containerMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Package', 'packagedElement', containerView)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="Edges" icon="/org.eclipse.gmf.runtime.diagram.ui/icons/group.gif">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateCommunicationPathTool" label="Communication Path" precondition="aql:preSource.canCreateDomainBasedEdge(preTarget,'CommunicationPath','packagedElements',preSourceView,preTargetView)" edgeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_CommunicationPath']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.createDomainBasedEdge(target,'CommunicationPath', 'packagedElement', sourceView,targetView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateDependencyTool" label="Dependency" precondition="aql:preSource.canCreateDomainBasedEdge(preTarget,'Dependency','packagedElement',preSourceView,preTargetView)" edgeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Dependency']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.createDomainBasedEdge(target, 'Dependency', 'packagedElement', sourceView, targetView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateDeploymentTool" label="Deployment" precondition="aql:preSource.canCreateDomainBasedEdge(preTarget,'Deployment','deployment',preSourceView,preTargetView)" edgeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Deployment']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.createDomainBasedEdge(target, 'Deployment', 'deployment', sourceView, targetView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateGeneralizationTool" label="Generalization" precondition="aql:preSource.canCreateDomainBasedEdge(preTarget,'Generalization','generalization',preSourceView,preTargetView)" edgeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Generalization']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.createDomainBasedEdge(target,'Generalization','generalization',sourceView,targetView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateLinkTool" label="Link" edgeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Link']" iconPath="/org.eclipse.papyrus.sirius.uml.diagram.common/icons/obj16/Link.gif">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.setLinkTarget(target, sourceView, 'DD_Link')"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateManifestationTool" label="Manifestation" precondition="aql:preSource.canCreateManifestationDD(preTarget,preSourceView,preTargetView)" edgeMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Manifestation']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.createManifestationDD(target,sourceView,targetView)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="DeleteAction">
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="DD_Delete_All">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.delete()"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="DD_Delete_Link">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.deleteLink(elementView)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="Reconnect">
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectCommunicationPathSource" precondition="aql:self.canReconnectSource(edgeView, source, target, targetView)" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectSource(source, target, targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectCommunicationPathTarget" precondition="aql:self.canReconnectTarget(edgeView, source, target, targetView)" forceRefresh="true">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectTarget(source, target, targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectDependencySource" precondition="aql:self.canReconnectSource(edgeView, source, target, targetView)" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectSource(source, target, targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectDependencyTarget" precondition="aql:self.canReconnectTarget(edgeView, source, target, targetView)" forceRefresh="true">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectTarget(source, target, targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectDeploymentSource" precondition="aql:self.canReconnectSource(edgeView, source, target, targetView)" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectSource(source, target, targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectDeploymentTarget" precondition="aql:self.canReconnectTarget(edgeView, source, target, targetView)" forceRefresh="true">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectTarget(source, target, targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectGeneralizationSource" precondition="aql:self.canReconnectSource(edgeView, source, target, targetView)" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectSource(source, target, targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectGeneralizationTarget" precondition="aql:self.canReconnectTarget(edgeView, source, target, targetView)" forceRefresh="true">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectTarget(source, target, targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectLinkSource" precondition="aql:self.canReconnectLinkSource(target)" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.reconnectLinkSource(target,edgeView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectLinkTarget" forceRefresh="true">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.reconnectLinkTarget(sourceView,source,target,'DD_Link')"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectManifestationSource" precondition="aql:self.canReconnectSource(edgeView, source, target, targetView)" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectSource(source, target, targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectManifestationTarget" precondition="aql:self.canReconnectTarget(edgeView, source, target, targetView)" forceRefresh="true">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.reconnectTarget(source, target, targetView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="SemanticDrop">
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticArtifactDrop" precondition="aql:self.oclIsTypeOf(uml::Artifact) and self.canDragAndDropSemanticDD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticCommentDrop" precondition="aql:self.oclIsTypeOf(uml::Comment) and self.canDragAndDropSemanticDD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticCommunicationPathDrop" precondition="aql:self.oclIsTypeOf(uml::CommunicationPath)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticConstraintDrop" precondition="aql:self.oclIsTypeOf(uml::Constraint) and self.canDragAndDropSemanticDD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticDependencyDrop" precondition="aql:self.oclIsTypeOf(uml::Dependency)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticDeploymentDrop" precondition="aql:self.oclIsTypeOf(uml::Deployment)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticDeploymentSpecificationDrop" precondition="aql:self.oclIsTypeOf(uml::DeploymentSpecification) and self.canDragAndDropSemanticDD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticDeviceDrop" precondition="aql:self.oclIsTypeOf(uml::Device) and self.canDragAndDropSemanticDD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticExecutionEnvironmentDrop" precondition="aql:self.oclIsTypeOf(uml::ExecutionEnvironment) and self.canDragAndDropSemanticDD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticGeneralizationDrop" precondition="aql:self.oclIsTypeOf(uml::Generalization)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticManifestationDrop" precondition="aql:self.oclIsTypeOf(uml::Manifestation)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticModelDrop" precondition="aql:self.oclIsTypeOf(uml::Model) and self.canDragAndDropSemanticDD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticNodeDrop" precondition="aql:self.oclIsTypeOf(uml::Node) and self.canDragAndDropSemanticDD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="SemanticPackageDrop" precondition="aql:self.oclIsTypeOf(uml::Package) and self.canDragAndDropSemanticDD(newContainer)" dragSource="PROJECT_EXPLORER">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropSemanticDD(newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="GraphicalDrop">
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalArtifactDrop" precondition="aql:self.oclIsTypeOf(uml::Artifact) and self.canDragAndDropGraphicDD(newContainer)" mappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicDD(oldSemanticContainer, newSemanticContainer, newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalCommentDrop" precondition="aql:self.oclIsTypeOf(uml::Comment) and self.canDragAndDropGraphicDD(newContainer)" mappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Comment']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicDD(oldSemanticContainer, newSemanticContainer, newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalConstraintDrop" precondition="aql:self.oclIsTypeOf(uml::Constraint) and self.canDragAndDropGraphicDD(newContainer)" mappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicDD(oldSemanticContainer, newSemanticContainer, newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalDeploymentSpecificationDrop" precondition="aql:self.oclIsTypeOf(uml::DeploymentSpecification) and self.canDragAndDropGraphicDD(newContainer)" mappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicDD(oldSemanticContainer, newSemanticContainer, newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalDeviceDrop" precondition="aql:self.oclIsTypeOf(uml::Device) and self.canDragAndDropGraphicDD(newContainer)" mappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicDD(oldSemanticContainer, newSemanticContainer, newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalExecutionEnvironmentDrop" precondition="aql:self.oclIsTypeOf(uml::ExecutionEnvironment) and self.canDragAndDropGraphicDD(newContainer)" mappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicDD(oldSemanticContainer, newSemanticContainer, newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalModelDrop" precondition="aql:self.oclIsTypeOf(uml::Model) and self.canDragAndDropGraphicDD(newContainer)" mappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicDD(oldSemanticContainer, newSemanticContainer, newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalNodeDrop" precondition="aql:self.oclIsTypeOf(uml::Node) and self.canDragAndDropGraphicDD(newContainer)" mappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicDD(oldSemanticContainer, newSemanticContainer, newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="GraphicalPackageDrop" precondition="aql:self.oclIsTypeOf(uml::Package) and self.canDragAndDropGraphicDD(newContainer)" mappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package']">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.dragAndDropGraphicDD(oldSemanticContainer, newSemanticContainer, newContainerView)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="F2_Edition">
+          <ownedTools xsi:type="tool:DirectEditLabel" name="Comment_body_EditionTool" precondition="aql:self.oclIsKindOf(uml::Comment)" inputLabelExpression="aql:self.oclAsType(uml::Element).getDirectEditInputValue()">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.oclAsType(uml::Element).consumeNewLabel(arg0)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DirectEditLabel" name="NamedElement_name_EditionTool" precondition="aql:self.oclIsKindOf(uml::NamedElement)" inputLabelExpression="aql:self.oclAsType(uml::Element).getDirectEditInputValue()">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.oclAsType(uml::Element).consumeNewLabel(arg0)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <customization>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.oclIsKindOf(uml::Classifier) and self.oclAsType(uml::Classifier).isAbstract">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node']/@style //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment']/@style //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification']/@style //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device']/@style //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact']/@style" attributeName="labelFormat" value="aql:'italic'"/>
+          </vsmElementCustomizations>
+        </customization>
+      </defaultLayer>
+      <additionalLayers name="QualifiedNameLayer" label="Display Qualified Name" reusedMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Comment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_CommunicationPath'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Dependency'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Deployment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Generalization'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Manifestation'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Link']"/>
+      <additionalLayers name="AppliedStereotypeLayer" label="Display Applied Stereotypes" reusedMappings="//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Comment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_Constraint'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Artifact'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@nodeMappings[name='DD_DeploymentSpecification'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Device'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_ExecutionEnvironment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Model'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Node'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='DD_Package'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_CommunicationPath'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Dependency'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Deployment'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Generalization'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Link'] //@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@edgeMappings[name='DD_Manifestation']" activeByDefault="true"/>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.DeleteServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.DomainBasedEdgeServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.LinkRelationServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.ReconnectServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.SemanticCandidatesServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.UMLLabelServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.deployment.services.DeploymentDiagramServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.deployment.services.DeploymentDropBehaviorProvider"/>
+  </ownedViewpoints>
+  <userColorsPalettes name="DD_ColorPalette">
+    <entries xsi:type="description:UserFixedColor" red="195" green="215" blue="221" name="CustomBlue"/>
+    <entries xsi:type="description:UserFixedColor" red="255" green="255" blue="204" name="CommentColor"/>
+    <entries xsi:type="description:UserFixedColor" red="200" green="255" blue="230" name="ConstraintColor"/>
+  </userColorsPalettes>
+</description:Group>

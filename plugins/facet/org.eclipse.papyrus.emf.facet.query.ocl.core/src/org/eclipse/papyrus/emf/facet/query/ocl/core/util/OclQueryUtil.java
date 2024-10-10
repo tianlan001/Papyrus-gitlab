@@ -45,7 +45,7 @@ import org.eclipse.ocl.helper.OCLHelper;
 public final class OclQueryUtil {
 
 	private static OCL<EPackage, EClassifier, EOperation, EStructuralFeature, EEnumLiteral, EParameter, EObject, CallOperationAction, SendSignalAction, Constraint, EClass, EObject> oclEnvironment = OCL
-			.newInstance(EcoreEnvironmentFactory.INSTANCE);
+			.newInstanceAbstract(EcoreEnvironmentFactory.INSTANCE);
 	private static OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper = getOCLEnvironment()
 			.createOCLHelper();
 

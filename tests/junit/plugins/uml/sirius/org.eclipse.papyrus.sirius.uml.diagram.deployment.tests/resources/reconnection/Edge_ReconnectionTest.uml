@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_m_NykBmCEe6iTILE7EBwTQ" name="Edge_ReconnectionTest">
+  <ownedRule xmi:type="uml:Constraint" xmi:id="_ScVLEBmHEe6iTILE7EBwTQ" name="Constraint1">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="_ScVyIBmHEe6iTILE7EBwTQ" name="constraintSpec">
+      <language>OCL</language>
+      <body>true</body>
+    </specification>
+  </ownedRule>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_nCiMUBmCEe6iTILE7EBwTQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Artifact" xmi:id="_pwV2YBmCEe6iTILE7EBwTQ" name="Artifact2">
+    <generalization xmi:type="uml:Generalization" xmi:id="_y44IMBmCEe6iTILE7EBwTQ" general="_ryOOkBmCEe6iTILE7EBwTQ"/>
+    <manifestation xmi:type="uml:Manifestation" xmi:id="_3N6OwBmCEe6iTILE7EBwTQ" client="_pwV2YBmCEe6iTILE7EBwTQ" supplier="_ryOOkBmCEe6iTILE7EBwTQ" utilizedElement="_ryOOkBmCEe6iTILE7EBwTQ">
+      <name xsi:nil="true"/>
+    </manifestation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Device" xmi:id="_qWQm4BmCEe6iTILE7EBwTQ" name="Device2"/>
+  <packagedElement xmi:type="uml:DeploymentSpecification" xmi:id="_qvNSYBmCEe6iTILE7EBwTQ" name="DeploymentSpecification1"/>
+  <packagedElement xmi:type="uml:ExecutionEnvironment" xmi:id="_rFUsUBmCEe6iTILE7EBwTQ" name="ExecutionEnvironment1"/>
+  <packagedElement xmi:type="uml:Model" xmi:id="_rPdfwBmCEe6iTILE7EBwTQ" name="Model1"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_rnlr4BmCEe6iTILE7EBwTQ" name="Package1"/>
+  <packagedElement xmi:type="uml:Node" xmi:id="_ryOOkBmCEe6iTILE7EBwTQ" name="Node2">
+    <deployment xmi:type="uml:Deployment" xmi:id="_vWNSsBmCEe6iTILE7EBwTQ" client="_ryOOkBmCEe6iTILE7EBwTQ _pwV2YBmCEe6iTILE7EBwTQ" supplier="_ryOOkBmCEe6iTILE7EBwTQ _pwV2YBmCEe6iTILE7EBwTQ" deployedArtifact="_pwV2YBmCEe6iTILE7EBwTQ">
+      <name xsi:nil="true"/>
+    </deployment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:CommunicationPath" xmi:id="_t-Vg0BmCEe6iTILE7EBwTQ" memberEnd="_t-YkIBmCEe6iTILE7EBwTQ _t-bAYBmCEe6iTILE7EBwTQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_t-Wu8BmCEe6iTILE7EBwTQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_t-Wu8RmCEe6iTILE7EBwTQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <name xsi:nil="true"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_t-YkIBmCEe6iTILE7EBwTQ" name="device1" type="_qWQm4BmCEe6iTILE7EBwTQ" association="_t-Vg0BmCEe6iTILE7EBwTQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_t-bAYBmCEe6iTILE7EBwTQ" name="node1" type="_ryOOkBmCEe6iTILE7EBwTQ" association="_t-Vg0BmCEe6iTILE7EBwTQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_u5VwgBmCEe6iTILE7EBwTQ" client="_pwV2YBmCEe6iTILE7EBwTQ" supplier="_ryOOkBmCEe6iTILE7EBwTQ">
+    <name xsi:nil="true"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Artifact" xmi:id="_KTib0BmDEe6iTILE7EBwTQ" name="Artifact1"/>
+  <packagedElement xmi:type="uml:Node" xmi:id="_QHds0BmEEe6iTILE7EBwTQ" name="Node1"/>
+  <packagedElement xmi:type="uml:Device" xmi:id="_g1o6UBmEEe6iTILE7EBwTQ" name="Device1"/>
+</uml:Model>

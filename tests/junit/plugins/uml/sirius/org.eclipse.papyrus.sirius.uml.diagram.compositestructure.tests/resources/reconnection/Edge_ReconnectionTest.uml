@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="__7s-YLxFEe2Ps4i5F0wy3A" name="Edge_ReconnectionTest">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_iQ0NYLxGEe2Ps4i5F0wy3A" annotatedElement="_iyhMQLxGEe2Ps4i5F0wy3A">
+    <body>comment1</body>
+  </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_iyhMQLxGEe2Ps4i5F0wy3A">
+    <body>comment2</body>
+  </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_i7TU0LxGEe2Ps4i5F0wy3A">
+    <body>commentNewEnd</body>
+  </ownedComment>
+  <ownedRule xmi:type="uml:Constraint" xmi:id="_nAYT0LxGEe2Ps4i5F0wy3A" name="Constraint1" constrainedElement="_oM6YYLxGEe2Ps4i5F0wy3A">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="_nAY64LxGEe2Ps4i5F0wy3A" name="constraintSpec">
+      <language>OCL</language>
+      <body>true</body>
+    </specification>
+  </ownedRule>
+  <ownedRule xmi:type="uml:Constraint" xmi:id="_oM6YYLxGEe2Ps4i5F0wy3A" name="Constraint2">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="_oM6_cLxGEe2Ps4i5F0wy3A" name="constraintSpec">
+      <language>OCL</language>
+      <body>true</body>
+    </specification>
+  </ownedRule>
+  <ownedRule xmi:type="uml:Constraint" xmi:id="_oqly4LxGEe2Ps4i5F0wy3A" name="ConstraintNewEnd">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="_oqmZ8LxGEe2Ps4i5F0wy3A" name="constraintSpec">
+      <language>OCL</language>
+      <body>true</body>
+    </specification>
+  </ownedRule>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="__-ho4LxFEe2Ps4i5F0wy3A">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_FugqgLxGEe2Ps4i5F0wy3A" name="Class1">
+    <generalization xmi:type="uml:Generalization" xmi:id="_4zyjsLxJEe2Ps4i5F0wy3A" general="_GYwhYLxGEe2Ps4i5F0wy3A"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_YDlkYLxGEe2Ps4i5F0wy3A" name="Port1" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_GYwhYLxGEe2Ps4i5F0wy3A" name="Class2">
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_ZG9F4LxGEe2Ps4i5F0wy3A" name="Port2" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_HHq10LxGEe2Ps4i5F0wy3A" name="ClassNewEnd">
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_a531ALxGEe2Ps4i5F0wy3A" name="PortNewEnd" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Collaboration" xmi:id="_cuqMYLxGEe2Ps4i5F0wy3A" name="Collaboration1">
+    <collaborationUse xmi:type="uml:CollaborationUse" xmi:id="_fZBg4LxGEe2Ps4i5F0wy3A" name="CollaborationUse1"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Collaboration" xmi:id="_dXaOcLxGEe2Ps4i5F0wy3A" name="Collaboration2">
+    <collaborationUse xmi:type="uml:CollaborationUse" xmi:id="_gHB2YLxGEe2Ps4i5F0wy3A" name="CollaborationUse2"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Collaboration" xmi:id="_d-66YLxGEe2Ps4i5F0wy3A" name="CollaborationNewEnd">
+    <collaborationUse xmi:type="uml:CollaborationUse" xmi:id="_g-GoULxGEe2Ps4i5F0wy3A" name="CollaborationUseNewEnd"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:InformationItem" xmi:id="_qltbwLxGEe2Ps4i5F0wy3A" name="InformationItem1"/>
+  <packagedElement xmi:type="uml:InformationItem" xmi:id="_rDaEYLxGEe2Ps4i5F0wy3A" name="InformationItem2"/>
+  <packagedElement xmi:type="uml:InformationItem" xmi:id="_rbgbULxGEe2Ps4i5F0wy3A" name="InformationItemNewEnd"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_t2srYLxGEe2Ps4i5F0wy3A" name="Activity1"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_vWiGcLxGEe2Ps4i5F0wy3A" name="Activity2"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_wE5oULxGEe2Ps4i5F0wy3A" name="ActivityNewEnd"/>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_xagwYLxGEe2Ps4i5F0wy3A" name="Interaction1"/>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_xxBy8LxGEe2Ps4i5F0wy3A" name="Interaction2"/>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_yJt_wLxGEe2Ps4i5F0wy3A" name="InteractionNewEnd"/>
+  <packagedElement xmi:type="uml:ProtocolStateMachine" xmi:id="_0XuIYLxGEe2Ps4i5F0wy3A" name="ProtocolStateMachine1"/>
+  <packagedElement xmi:type="uml:ProtocolStateMachine" xmi:id="_01214LxGEe2Ps4i5F0wy3A" name="ProtocolStateMachine2"/>
+  <packagedElement xmi:type="uml:ProtocolStateMachine" xmi:id="_1GFqQLxGEe2Ps4i5F0wy3A" name="ProtocolStateMachineNewEnd"/>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_4Ly28LxGEe2Ps4i5F0wy3A" name="StateMachine1">
+    <substitution xmi:type="uml:Substitution" xmi:id="_I3yTILxHEe2Ps4i5F0wy3A" client="_4Ly28LxGEe2Ps4i5F0wy3A" supplier="_4sV_QLxGEe2Ps4i5F0wy3A" contract="_4sV_QLxGEe2Ps4i5F0wy3A">
+      <name xsi:nil="true"/>
+    </substitution>
+  </packagedElement>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_4sV_QLxGEe2Ps4i5F0wy3A" name="StateMachine2"/>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_5Ms6ULxGEe2Ps4i5F0wy3A" name="StateMachineNewEnd"/>
+  <packagedElement xmi:type="uml:FunctionBehavior" xmi:id="_6dRxYLxGEe2Ps4i5F0wy3A" name="FunctionBehavior1"/>
+  <packagedElement xmi:type="uml:FunctionBehavior" xmi:id="_68_zQLxGEe2Ps4i5F0wy3A" name="FunctionBehavior2"/>
+  <packagedElement xmi:type="uml:FunctionBehavior" xmi:id="_7Z2uYLxGEe2Ps4i5F0wy3A" name="FunctionBehaviorNewEnd"/>
+  <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_9IjE0LxGEe2Ps4i5F0wy3A" name="OpaqueBehavior1">
+    <ownedParameter xmi:type="uml:Parameter" xmi:id="__uoWQLxGEe2Ps4i5F0wy3A" name="Parameter1"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_9soCQLxGEe2Ps4i5F0wy3A" name="OpaqueBehavior2">
+    <ownedParameter xmi:type="uml:Parameter" xmi:id="_A8w9ULxHEe2Ps4i5F0wy3A" name="Parameter2"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_-QlD4LxGEe2Ps4i5F0wy3A" name="OpaqueBehaviorNewEnd">
+    <ownedParameter xmi:type="uml:Parameter" xmi:id="_BpZZ0LxHEe2Ps4i5F0wy3A" name="ParameterNewEnd"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Realization" xmi:id="_IO68ULxHEe2Ps4i5F0wy3A" client="_0XuIYLxGEe2Ps4i5F0wy3A" supplier="_01214LxGEe2Ps4i5F0wy3A">
+    <name xsi:nil="true"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Abstraction" xmi:id="_Ja-fwLxHEe2Ps4i5F0wy3A" client="_6dRxYLxGEe2Ps4i5F0wy3A" supplier="_68_zQLxGEe2Ps4i5F0wy3A">
+    <name xsi:nil="true"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_J_wn0LxHEe2Ps4i5F0wy3A" client="_9IjE0LxGEe2Ps4i5F0wy3A" supplier="_9soCQLxGEe2Ps4i5F0wy3A">
+    <name xsi:nil="true"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_TV6e4LxHEe2Ps4i5F0wy3A" name="Class3">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_TvKFULxHEe2Ps4i5F0wy3A" name="Property1" type="_FugqgLxGEe2Ps4i5F0wy3A"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_aIoI0LxHEe2Ps4i5F0wy3A" name="Property2" type="_GYwhYLxGEe2Ps4i5F0wy3A"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_aqCMwLxHEe2Ps4i5F0wy3A" name="PropertyNewEnd" type="_HHq10LxGEe2Ps4i5F0wy3A"/>
+    <ownedConnector xmi:type="uml:Connector" xmi:id="_pDPuALxHEe2Ps4i5F0wy3A" name="Connector1">
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_pDTYYLxHEe2Ps4i5F0wy3A" partWithPort="_TvKFULxHEe2Ps4i5F0wy3A" role="_YDlkYLxGEe2Ps4i5F0wy3A"/>
+      <end xmi:type="uml:ConnectorEnd" xmi:id="_pDTYYbxHEe2Ps4i5F0wy3A" partWithPort="_aIoI0LxHEe2Ps4i5F0wy3A" role="_ZG9F4LxGEe2Ps4i5F0wy3A"/>
+    </ownedConnector>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_6Y-_4LxJEe2Ps4i5F0wy3A" client="_t2srYLxGEe2Ps4i5F0wy3A" supplier="_vWiGcLxGEe2Ps4i5F0wy3A">
+    <name xsi:nil="true"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:InformationFlow" xmi:id="_7JblYLxJEe2Ps4i5F0wy3A" informationSource="_xagwYLxGEe2Ps4i5F0wy3A" informationTarget="_xxBy8LxGEe2Ps4i5F0wy3A">
+    <name xsi:nil="true"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Manifestation" xmi:id="_8fOToLxJEe2Ps4i5F0wy3A" client="_cuqMYLxGEe2Ps4i5F0wy3A" supplier="_dXaOcLxGEe2Ps4i5F0wy3A" utilizedElement="_dXaOcLxGEe2Ps4i5F0wy3A">
+    <name xsi:nil="true"/>
+  </packagedElement>
+</uml:Model>

@@ -1,0 +1,200 @@
+= Introduction =
+
+Starting from version 6.4, Papyrus supports the definition of properties view by using EEF technology.
+
+EEF Properties view display same properties view to user than by using Papyrus Properties View. 
+Same tabs and same sections will be retrieve in EEF properties View.
+
+=Apply EEF properties view=
+
+Papyrus provide a preference to activate EEF properties view instead of Papyrus properties view. To activate EEF property view, user needs to open the Papyrus preferences, from ''Window>Preferences''.
+
+Then, user has to display ''Papyrus>Properties UI'' preference page.
+
+[[File:../../../image/user/activateEEFpreference.png|500px]]
+
+If user wants to display EEF Properties view, he has to check the preference ''EEF''.
+Eclipse will take into account the new choice after a restart.
+
+= Legacy Semantic Tabs =
+
+''Advanced'' tab given by EMF is displayed in properties view when an element is selected in the model Explorer view. 
+
+[[File:../../../image/user/modelExplorer_advancedTab.png|1000px]]
+
+This tab is also displayed in properties view when an element is selected in a Sirius representation. In this case, this tab is called ''semantic''.
+
+[[File:../../../image/user/siriusRepresentation_semanticTab.png|1000px]]
+
+In case of properties view displayed on element from Sirius representation, user can hide this tab by unchecking preference ''Show semantic tab'' from Sirius preferences (''Sirius>Sirius Properties view'').
+
+[[File:../../../image/user/semanticTabPreference.png|500px]]
+
+= Custom widgets =
+
+In the properties view, there are various types of widgets to manipulate and display values of semantic elements: text widgets, checkboxes, combo boxes, radio buttons, ...
+
+Some of Sirius specifiers need to build custom or complex Properties view to match their designers and their needs.
+These new Properties View are defined with advanced controls described in the following parts.
+
+== Papyrus Reference widget ==
+
+A new Papyrus Reference Widgets is available specifically to handle various relations between elements of the UML model.
+The reference widget is used to edit four kind of references:
+
+* Multi-valued references with containment.
+* Multi-valued references without containment.
+* Mono-valued references with containment.
+* Mono-valued references without containment.
+
+=== Multi-valued references with containment ===
+Multi-valued references with containment are represented by a widget with a table that contains the list of elements of the relation and some buttons to manage the reference.
+
+[[File:../../../image/user/multi-valuedReferenceWithContainment_example.png]]
+
+The user can double-click on each element of the list to display properties of this element in a new properties dialog.
+Several buttons are displayed in column on the right side of the list :
+
+* '''Up and Down''' buttons : they allow to change the order of the list by moving the selected elements. These buttons do not appear if the reference is not ordered. If no element is selected in the list, these buttons are grayed.
+* '''Add''' button : it allows to create a new element in the list. It is grayed if the list contains the maximum number of items allowed by the reference.
+** After clicking on the button, if the type of the element is simple (only one type can be contained by the reference), a properties dialog is displayed. This dialog allows to fill all the fields of the object to create.
+*** [[File:../../../image/user/addButtonDialog.png]]
+** If the type of the element is complex (several types can be contained by the reference), a wizard is invoked before the display of the properties dialog. This wizard allow the user to choose the type of the object he wants to create.
+*** [[File:../../../image/user/addWizardDialog.png]]
+
+* '''Remove''' button : it removes the selected element from the reference. If none element is selected in the list, this button is grayed.
+* '''Edit''' button : it displays the properties dialog used to edit values of the selected element. If none element is selected in the list, this button is grayed.
+
+[[File:../../../image/user/editButtonDialog.png]]
+
+=== Multi-valued references without containment ===
+Multi-valued references without containment are represented by the same widget, but with the ''Browse'' button in addition and a different behavior on the ''Add'' button.
+
+[[File:../../../image/user/multi-valuedReferenceWithoutContainment_example.png]]
+
+* '''Browse''' button : it allows the user to select an element in the model to add to the reference. If no element is selected in the list, this button is grayed.
+
+[[File:../../../image/user/browseButtonMultiRefWithoutContainment.png]]
+
+* '''Add''' button : it still allows to create a new element in the list but a wizard is invoked each time you click on the button before displaying properties dialog. This wizard allows the user to choose the container of the new object, the reference used to contain this element and its type.
+** The first page of the wizard allows to choose the type of the element to create. {{.}}<br/>[[File:../../../image/user/addButtonMultiRefWithoutContainmentPage1.png]]
+** The second page of the wizard allows to choose the container and its reference under which the element will be created. {{.}}<br/>[[File:../../../image/user/addButtonMultiRefWithoutContainmentPage2.png]]
+** Finally, the properties dialog appears and allows to edit the element to create. {{.}}<br/>[[File:../../../image/user/addButtonMultiRefWithoutContainmentPage3.png]]
+
+=== Mono-valued references with containment ===
+Mono-valued references with containment are represented by a widget with one element and some buttons to manage the reference.
+
+[[File:../../../image/user/mono-valuedReferenceWithContainment_example.png]]
+
+User can double-click on the element to display properties of this element in a new properties dialog.
+Several buttons are displayed horizontally on the right side of the element :
+
+* '''Add''' button : the behavior is the same as that of the Multi-valued references with containment.
+* '''Remove''' button : it removes the element targeted by the reference. Note that this button may be not available if the reference is required or is a container.
+* '''Edit''' button : the behavior is the same as that of the Multi-valued references with containment.
+
+=== Mono-valued references without containment ===
+Mono-valued references without containment are represented by the same widget as above, but with the ''Browse'' button in addition.
+
+[[File:../../../image/user/mono-valuedReferenceWithoutContainment_example.png]]
+
+* '''Browse''' button : it allows to browse the set of elements that can be assigned for the selected property using a specific dialog.
+
+[[File:../../../image/user/mono-valuedReferenceWithoutContainment_browse.png]]
+* '''Add''' button : it invokes the same Dialog as the ''Add'' button for Multi-valued references without containment.
+
+
+== Input Content Papyrus Reference Widget ==
+
+The Input Content Papyrus Reference Widget is similar to the Papyrus Reference widget with multi-valued references. It displays a table with a set of buttons to manage the content of the table. The difference with the Papyrus Reference Widget is the content displayed in the table: The Papyrus Reference Widget displays the feature content of the selected object, whereas the Input Content Papyrus Reference Widget displays objects that are not necessarily a feature content.
+
+[[File:../../../image/user/InputContentReferenceWidget_example.png]]
+
+For example in the above screenshot, the widget with the label "Applied comments" is an '''Input Content Papyrus Reference Widget''' that displays all comments that reference the selected object through an annotation (Class10), and the widget with the label "Owned comments" is a '''Papyrus Reference Widget''' that displays all comments from the "ownedComment" feature on the selected object.
+
+== Language Expression widget ==
+
+The Language Expression Widget has been specifically created to handle UML "BodyOwner" elements such as OpaqueExpressions, OpaqueActions, OpaqueBehaviors and FunctionBehaviors. This Widget allows to create a list of expressions that are described by a language and a text field.
+
+[[File:../../../image/user/expressionLanguageWidget_OCL_example.png]]
+
+According to the language selected on the left part of the widget, a specific editor is displayed on the right part.
+
+For the OCL language, an Xtext editor is displayed with several functionalities to assist user. For example, syntax highlighting and auto-completion are provided for the OCL language using the Xtext technology.
+
+For other languages, NaturalLanguageEditor is used. This Papyrus editor is a multi-String editor.
+
+Several buttons are displayed horizontally on the right side of the languages list:
+* '''Up''' and '''Down''' buttons allow to change the order of the list by moving the selected elements. If no element is selected in the list, these buttons are grayed.
+* '''Browse''' button allows to browse existing languages from the "Language Registry" and add one or many languages to the languages list of the Language Expression widget.
+
+[[File:../../../image/user/expressionLanguageWidget_browseDialog.png]]
+
+* '''Add''' button allows to add a new custom language to the languages list of the Language Expression widget.
+* '''Remove''' button removes the selected language and its body. This button is grayed if no element is selected.
+* '''Edit''' button allows to edit the name of the selected language. This button is grayed if no element is selected. The user can also double-click on the language to edit its name.
+
+[[File:../../../image/user/expressionLanguageWidget_editDialog.png]]
+
+== Profile Application Widget ==
+
+The "Profile Application" Widget has been created to display all Profiles and Profile Applications of a Package in the "Profile" tab. It allows to add existing profiles to the table of the Widget and also to remove them.
+
+[[File:../../../image/user/profileApplicationWidget_example.png]]
+
+Several buttons are displayed horizontally on the right side of the table: 
+* '''Apply profile''' button invokes the "Apply Profiles..." dialog . It allows to browse existing profiles in the workspace by filtering file extensions (UML files "*.uml", UML Profiles files "*.profile.uml", or All files "*"). When clicking OK, selected profiles are "applied" to the Package and added to the table.
+[[File:../../../image/user/profileApplicationWidget_applyProfileDialog.png]]
+* '''Remove''' button allows to remove profile from the view and "unapply" it from the Package. Externalized profiles cannot be removed, they must be internalized before.
+* '''Apply registered profiles''' button invokes the "Apply profiles from Papyrus repository" dialog, which allows to browse profiles registered in the Papyrus repository.
+[[File:../../../image/user/profileApplicationWidget_applyRegisteredProfileDialog.png]]
+* '''Reapply profile''' button refreshes the table if the selected profile has been changed since last application.
+Remember that the Externalize and Internalize actions are available with a right click on a Package of the Model Explorer > Model refactor > Externalize/Internalize Profile Applications.
+
+== Multiplicity Widget ==
+
+The "Multiplicity" Widget is a standard EEF Text Widget which uses specific services in the VSM to force the user to type a valid data format in order to set the lower and upper bounds of the Multiplicity Element with Integers.
+
+For example, valid formats for this Widget are: '''0..1''', '''2..2''', '''3''', '''5..*'''.
+
+[[File:../../../image/user/multiplicityWidget_example.png]]
+
+If the user types an invalid String, changes are aborted and the multiplicity value of element is displayed.
+
+== Stereotype Application Widget ==
+
+Stereotypes applied on elements are managed by the "Applied stereotypes" widget in the "Profile" tab. This widget displays the list of stereotypes applied to an element in a tree view. The user can add or remove stereotypes. He can also edit its properties with the dynamic display (right side of the widget) adapted to the element selected in the tree.
+
+[[File:../../../image/user/stereotypeApplication_example.png]]
+
+= Simultaneous multiple selection =
+
+It is possible to select several UML elements simultaneously in a representation or in the Model Explorer in order to display and edit the common properties of these elements in the Properties view.
+This multiple selection can be done with the shortcut "Shift+click" or "Ctrl+click" on the elements.
+The contents of the Properties view is updated according to the common properties of the selected elements.
+Only the common properties such as Checkbox or Drop-down list are displayed. Common properties displayed are the one already displayed for single selection.
+
+[[File:../../../image/user/multipleSelection_example1.png]]
+
+For Checkboxes, their display depends on the value of all elements for this same property:
+* If all elements have the value of the property set to '''true''', the box is checked.
+* If all elements have the value of the property set to '''false''', the box is unchecked.
+* Otherwise if all elements don't have the same value for this property, the box is unchecked and the label is suffixed with '''(mixed values)''' and displayed in bold.
+In the case of the Drop-down lists:
+* If all elements have the same value for this property, the common value is selected.
+* Otherwise if the selected elements don't have the same value for this property, no value is selected.
+
+[[File:../../../image/user/multipleSelection_example2.png]]
+
+= Syntax validation =
+
+A validation is performed when completing some properties:
+* For the input of a name, a Warning may be displayed if the name of an element is modified and is the same as one of its siblings. {{.}}<br/>[[File:../../../image/user/syntax_validation_example_name.png]]
+
+* For the input of the "Value" field in a LiteralInteger, an Error may be displayed and the modification is reverted if the value is not an integer. {{.}}<br/>[[File:../../../image/user/syntax_validation_example_integer.png]]
+
+* For the input of the "Value" field in a LiteraReal, an Error may be displayed and the modification is reverted if the value is not a real number. {{.}}<br/>[[File:../../../image/user/syntax_validation_example_real.png]]
+
+* For the input of the "Value" field in a LiteralUnlimitedNatural, an Error may be displayed and the modification is reverted if the value is not an integer or a wildcard "*". {{.}}<br/>[[File:../../../image/user/syntax_validation_example_unlimited_natural.png]]
+
+* For the input of the "Multiplicity" field in a MultiplicityElement, an Error may be displayed and the modification is reverted if the value is not an integer or a wildcard "*" or a combinaison of both with ".." (ex.: 2..5). {{.}}<br/>[[File:../../../image/user/syntax_validation_example_multiplicity_element.png]]

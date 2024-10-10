@@ -1,0 +1,135 @@
+= Introduction =
+Starting from version 6.4, Papyrus supports the definition of properties view by using EEF technology.
+The Eclipse Extended Editing Framework (EEF) is a presentation framework for the Eclipse Modeling Framework. It allows user to create rich user interfaces to edit EMF models. 
+
+EEF Properties view display same properties view to user than by using Papyrus Properties View. Same tabs and same sections will be retrieve in EEF properties View. The only difference between the two Properties View is the framework used to configure them. Indeed EEF technology is completely independent of XWT technology (technology used in Papyrus properties view).
+
+The EEF Properties View can be configured by editing the viewpoint specification model (VSM) available in ''org.eclipse.papyrus.sirius.properties.uml/description/umlProperties.odesign''. 
+Fore more details about configuration, developer can see documentation about Sirius Properties view in Help content (Sirius>Sirius Specifier Manual>Properties View).
+
+Given the fact that some controls displayed in properties are very specific for some element, some specific widget have been created.
+In this way, complex Properties view will match exactly with the need of specifiers.
+The next part will detail all these new controls (general controls usable with EEF (Text, Checkbox, Radio, Select, List, Hyperlink, Button, Reference, ...) are described in the EEF documentation: EEF > Language > Widgets)
+
+= Papyrus Reference Widget =
+
+In order to edit mono-valued and multi-valued references with some specific behaviors, an advanced widget has been created.
+This "Papyrus Reference" advanced widget is an implementation of the Sirius "Reference" Widget.
+Compared to the existing Sirius widget, this widget brings some new evolutions by overriding some user behaviors:
+
+* User can double click on an element of the reference to display its properties in a new properties dialog.
+* After clicking on ''Add'' button, a new properties dialog is systematically displayed.
+* A new ''"Edit"'' button has been added to allow user to display properties dialog of the selected element in the widget.
+* ''Up/Down (Move)'', ''Add'', ''Remove'' and ''Edit' buttons can be visible or grayed out under certain conditions.
+* Some design evolutions (size of the element list is adapted to the number of buttons displayed...).
+
+[[File:../../../image/dev/papyrusReferenceWidget.png]]
+
+[[File:../../../image/dev/papyrusReferenceWidget_PropertiesView.png]]
+
+This "Papyrus Reference" advanced widget has several properties used to configure its behavior.
+Some of these properties are the same as those of the existing reference widget (see documentation Sirius > Sirius Specifier Manual > Properties View>Properties View description > Reference).
+Three properties have been added to the Papyrus Reference:
+* '''Remove Expression'''  allows to call an external service when the user clicks on the Remove button of the "Papyrus Reference" widget. If no service is called, the EMF API will be used to delete the element. Remove expression can use the following variables :
+** ''selection'' : list of EObject selected in the widget reference intented to be removed.
+* '''Create Expression''' allows to call an external service when the user clicks on the Add button of the "Papyrus Reference" widget. If no service is called, the EMF API will be used to create the element in the proper feature. Create expression can use the following variables :
+** ''newElementContainer'' : the EObject container of the element to create,
+** ''newElementTypeName'' : the type name of the element to create,
+** ''newElementContainerFeatureName'' : the container feature name used to refer the Element to create.
+* '''Browse Expression''' allows to call an external service when the user clicks on the Browse button of the "Papyrus reference" widget. If no service is called, the EMF API will be used to update the reference. Browse expression can use the following variables :
+** ''selection'' : list of EObject to set in the reference.
+
+= Input Content Papyrus Reference Widget =
+
+The Input Content Papyrus Reference Widget is similar to the Papyrus Reference Widget used with multi-valued references. It allows to manage the content displayed in the table by using an additional property:
+* '''Input Content Expression''' allows to call an external service to replace or filter the content of the table displayed in the widget. 
+With the '''Reference Name Expression''', these two properties are required to allow the widget to work properly. Even if the content is replaced by the service called by the Input Content Expression, it is required to use an existing feature in the Reference Name Expression. For example, the reference used to set new created object in container. See documentation in ''Sirius > Sirius Specifier Manual > Properties View> Properties View description > Reference'' for further information about the Reference Name Expression.
+
+[[File:../../../image/dev/inputContentPapyrusReferenceWidget.png]]
+
+= Container Border Control =
+
+An advanced control has been created, to meet the specific need of having a set of elements grouped in a container laid out with a border.
+The "Container Border" advanced control is an implementation of the Sirius "Container" Control.
+
+[[File:../../../image/dev/containerBorderControl.png]]
+
+The definition of "container Border" control follows the rules described for the Sirius "Container" Control with the exception of adding a property. Indeed for the "container Border" control, you can define :
+
+* The ''Label Expression'' which allow the user to set a label to the border.
+
+[[File:../../../image/dev/containerBorderControl_PropertiesView.png]]
+
+* Here is an example of the resulted Control:
+
+[[File:../../../image/dev/containerBorderControl_result.png]]
+
+Note that the ''Label Expression'' may be an empty String if it is not set or if specified by the expression, in which case the border will not be labeled.
+
+[[File:../../../image/dev/containerBorderControl_emptyStringResult.png]]
+
+= Language Expression Widget =
+
+The "Language Expression" Widget has been specifically created to manage "language" and "body" features of "BodyOwner" UML elements such as OpaqueExpression, OpaqueAction, OpaqueBehavior and FunctionBehavior.
+
+[[File:../../../image/dev/languageExpression_popupWidget_VSM.png]]
+
+This Widget displays, on the left part, the list of languages associated to their "body", on the right part, which is a text editor. 
+
+[[File:../../../image/user/expressionLanguageWidget_OCL_example.png]]
+
+Inspired by the reference widget, the left part of the Language Expression Widget provides the same buttons as the Papyrus Reference one: '''Up''', '''Down''', '''Browse''', '''Add''', '''Remove''' and '''Edit''' buttons. See the related user documentation for more information about the behavior of these buttons.
+
+According to the selected language, the body editor is updated. For example, for the OCL language, a Xtext editor is displayed and for the JAVA language, a kind of multi-string editor is displayed.
+
+A language expression can be added in a group or a container.
+The definition of the language expression widget follows different rules to configure it:
+
+* '''Id''' used to distinguish elements of the same type in the VSM editor,
+* '''Label Expression''' used to compute the text of the label describing the element,
+* '''Help Expression''' used to display help as tooltip on the question-mark icon,
+* '''Is Enabled Expression''' used to enabled or disabled the widget.
+These general rules are more described in documentation ''Sirius > Sirius Specifier Manual > Properties View > Properties View Description''.
+
+= Profile Application Widget =
+
+The "Profile Application" Widget has been created to display all Profiles and Profile Applications of a Package in the "Profile" tab.
+
+[[File:../../../image/dev/profileApplication_popupWidget_VSM.png]]
+
+It displays the list of all Profiles and Profile Applications in a table, Profile Applications are suffixed with "(profile application)". The Profile Application Widget provides 4 buttons to manage Profiles.: '''Apply profile''', '''Remove''', '''Apply registered profiles''' and '''Reapply profile'''. The Externalize and Internalize actions are available with a right click on a Package of the Model Explorer > Model refactor > Externalize/Internalize Profile Applications.
+
+[[File:../../../image/user/profileApplicationWidget_example.png]]
+
+The definition of the Profile Application Widget follows different rules to configure it:
+
+* '''Id''' used to distinguish elements of the same type in the VSM editor,
+* '''Label Expression''' used to compute the text of the label describing the element,
+* '''Help Expression''' used to display help as tooltip on the question-mark icon,
+* '''Is Enabled Expression''' used to enabled or disabled the widget.
+These general rules are more described in documentation ''Sirius > Sirius Specifier Manual > Properties View > Properties View Description''.
+
+= Multiplicity Widget =
+
+The "Multiplicity" Widget is a standard EEF Text Widget which uses specific services in the VSM to force the user to type a valid data format in order to set the lower and upper bounds of the Multiplicity Element with a LiteralInteger and a LiteralUnlimitedNatural with the specified values.
+
+= Stereotype Application Widget =
+
+The "Stereotype Application" widget has been created to display all applied stereotypes on UML elements in the "Profile" tab.
+In the VSM, you can add a "Stereotype Application" widget under a Property group.
+
+[[File:../../../image/dev/stereotypeApplication_popupWidget_VSM.png]]
+
+The definition of the stereotype application widget follows different rules to configure it:
+
+* '''Id''' used to distinguish elements of the same type in the VSM editor,
+* '''Label Expression''' used to compute the text of the label describing the feature of the element,
+* '''Help Expression''' used to display help as tooltip on the question-mark icon,
+These general rules are more described in documentation ''Sirius > Sirius Specifier Manual > Properties View > Properties View Description''.
+
+= Handling conflicts with model changes =
+
+When modifying certain model properties with the EEF Properties views, "conflicts" may occur, especially when the user types a value in a Text Widget.
+
+For example in the Multiplicity Widget if the user types a String like '''*''' or '''5..5''', the displayed String will be updated with '''0..*''' and '''5''' respectively.
+These conflicts are handled by EEF with the default mode '''ASK_USER''' to display a popup that allows the user to choose the value to use. The preference ''org.eclipse.eef.ide.ui.internal.preferences.EEFPreferences.TEXT_CONFLICT_RESOLUTION_MODE'' allows to modify this choice if needed. In Papyrus, the value to display during conflicts is always the value used in the model. The EEF preference has been modified to use the '''USE_MODEL_VERSION''' mode to directly update the displayed value rather than letting the user choose the value to display.

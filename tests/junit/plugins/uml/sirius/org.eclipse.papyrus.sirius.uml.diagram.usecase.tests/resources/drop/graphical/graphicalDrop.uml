@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_J6jhcMitEe2Rk4W6VnSGNQ" name="graphicalDrop">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_UK_PcMitEe2Rk4W6VnSGNQ"/>
+  <ownedRule xmi:type="uml:Constraint" xmi:id="_T6WLYMitEe2Rk4W6VnSGNQ" name="Constraint1">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="_T6WLYcitEe2Rk4W6VnSGNQ" name="constraintSpec">
+      <language>OCL</language>
+      <body>true</body>
+    </specification>
+  </ownedRule>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_J8uEoMitEe2Rk4W6VnSGNQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_P7AoAMitEe2Rk4W6VnSGNQ" name="Actor1"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_QPUrIMitEe2Rk4W6VnSGNQ" name="Class1"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_Qvk4gMitEe2Rk4W6VnSGNQ" name="Activity1"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_RZTyAMitEe2Rk4W6VnSGNQ" name="Component1"/>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_R-_5AMitEe2Rk4W6VnSGNQ" name="Interaction1"/>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_Sv05AMitEe2Rk4W6VnSGNQ" name="StateMachine1"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_TVz68MitEe2Rk4W6VnSGNQ" name="UseCase1"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_V0XBAMitEe2Rk4W6VnSGNQ" name="Package_NewContainer"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_XupjcMitEe2Rk4W6VnSGNQ" name="Package1"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_ZXPR4MitEe2Rk4W6VnSGNQ" name="Class_NewContainer"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_cYWScMitEe2Rk4W6VnSGNQ" name="Activity_NewContainer"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_eHWx8MitEe2Rk4W6VnSGNQ" name="Component_NewContainer"/>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_f2hpgMitEe2Rk4W6VnSGNQ" name="Interaction_NewContainer"/>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_h_sVcMitEe2Rk4W6VnSGNQ" name="StateMachine_NewContainer"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_gjIwgMiwEe2Rk4W6VnSGNQ" name="Class_Container" useCase="_gzPCAMiwEe2Rk4W6VnSGNQ">
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_xlrrgMiwEe2Rk4W6VnSGNQ" name="Constraint_FromSubject">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_xlrrgciwEe2Rk4W6VnSGNQ" name="constraintSpec">
+        <language>OCL</language>
+        <body>true</body>
+      </specification>
+    </ownedRule>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_gzPCAMiwEe2Rk4W6VnSGNQ" name="UseCase_FromSubject" subject="_gjIwgMiwEe2Rk4W6VnSGNQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_JXhJAMixEe2Rk4W6VnSGNQ" name="Package_Container">
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_T9heYMixEe2Rk4W6VnSGNQ" name="Constraint_FromPackage">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_T9heYcixEe2Rk4W6VnSGNQ" name="constraintSpec">
+        <language>OCL</language>
+        <body>true</body>
+      </specification>
+    </ownedRule>
+    <packagedElement xmi:type="uml:Package" xmi:id="_L1-vgMixEe2Rk4W6VnSGNQ" name="Package_FromPackage"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_NpGS8MixEe2Rk4W6VnSGNQ" name="Class_FromPackage"/>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_Obwe8MixEe2Rk4W6VnSGNQ" name="Activity_FromPackage"/>
+    <packagedElement xmi:type="uml:Component" xmi:id="_PchYYMixEe2Rk4W6VnSGNQ" name="Component_FromPackage"/>
+    <packagedElement xmi:type="uml:Interaction" xmi:id="_Qi3VYMixEe2Rk4W6VnSGNQ" name="Interaction_FromPackage"/>
+    <packagedElement xmi:type="uml:StateMachine" xmi:id="_Re1OYMixEe2Rk4W6VnSGNQ" name="StateMachine_FromPackage"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_SQIIcMixEe2Rk4W6VnSGNQ" name="Actor_FromPackage"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_TIIHcMixEe2Rk4W6VnSGNQ" name="UseCase_FromPackage"/>
+  </packagedElement>
+</uml:Model>

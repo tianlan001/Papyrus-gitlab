@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_qzVs0MGQEe2gfZgxWp7E-w" name="EdgeDeleteSemanticTest" metaclassReference="_x7c_AMGQEe2gfZgxWp7E-w">
+  <elementImport xmi:type="uml:ElementImport" xmi:id="_x7c_AMGQEe2gfZgxWp7E-w" alias="Activity">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Activity"/>
+  </elementImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_q2MMgMGQEe2gfZgxWp7E-w">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_q2NaoMGQEe2gfZgxWp7E-w">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_vgPg0MGQEe2gfZgxWp7E-w" name="Class1"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_v5d5IMGQEe2gfZgxWp7E-w" name="Class2"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_w2e7AMGQEe2gfZgxWp7E-w" memberEnd="_w2gwMMGQEe2gfZgxWp7E-w _w2h-UMGQEe2gfZgxWp7E-w">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w2gJIMGQEe2gfZgxWp7E-w" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_w2gJIcGQEe2gfZgxWp7E-w" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <name xsi:nil="true"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_w2gwMMGQEe2gfZgxWp7E-w" name="class2" type="_v5d5IMGQEe2gfZgxWp7E-w" association="_w2e7AMGQEe2gfZgxWp7E-w"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_w2h-UMGQEe2gfZgxWp7E-w" name="class1" type="_vgPg0MGQEe2gfZgxWp7E-w" association="_w2e7AMGQEe2gfZgxWp7E-w"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_zOfUMMGQEe2gfZgxWp7E-w" name="Stereotype1">
+    <generalization xmi:type="uml:Generalization" xmi:id="_1hGQAMGQEe2gfZgxWp7E-w" general="_v5d5IMGQEe2gfZgxWp7E-w"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_zohk0MGQEe2gfZgxWp7E-w" name="base_Activity" association="_zog9wMGQEe2gfZgxWp7E-w">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Activity"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_zohk0cGQEe2gfZgxWp7E-w"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_zog9wMGQEe2gfZgxWp7E-w" name="E_Stereotype1_Activity1" memberEnd="_zog9wcGQEe2gfZgxWp7E-w _zohk0MGQEe2gfZgxWp7E-w">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_zog9wcGQEe2gfZgxWp7E-w" name="extension_Stereotype1" type="_zOfUMMGQEe2gfZgxWp7E-w" aggregation="composite" association="_zog9wMGQEe2gfZgxWp7E-w"/>
+  </packagedElement>
+</uml:Profile>

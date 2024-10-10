@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.sirius.componentization">
+      <component
+            class="org.eclipse.papyrus.sirius.uml.diagram.deployment.Activator"
+            id="org.eclipse.papyrus.sirius.uml.diagram.deployment"
+            name="Deployment Diagram">
+      </component>
+   </extension>
+     <extension
+        point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+     <editpartProvider
+           class="org.eclipse.papyrus.sirius.uml.diagram.deployment.container.DeploymentDiagramContainerEditPartProvider">
+        <Priority
+              name="Highest">
+        </Priority>
+     </editpartProvider>
+  </extension>
+</plugin>

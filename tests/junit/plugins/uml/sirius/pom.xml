@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.eclipse.papyrus.tests</groupId>
+		<artifactId>org.eclipse.papyrus.uml.tests.releng</artifactId>
+		<version>7.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.eclipse.papyrus.sirius.tests.junit.plugins-uml</groupId>
+	<artifactId>org.eclipse.papyrus.sirius.tests.junit.plugins.uml</artifactId>
+	<version>7.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Papyrus-Sirius JUnit UML Tests Plugins</name>
+	<description>Container of the Papyrus-Sirius JUnit UML Tests Plugins</description>
+
+	<modules>
+		<module>org.eclipse.papyrus.sirius.properties.common.tests</module>
+		<module>org.eclipse.papyrus.sirius.properties.uml.tests</module>
+		<module>org.eclipse.papyrus.sirius.uml.diagram.activity.tests</module>
+		<module>org.eclipse.papyrus.sirius.uml.diagram.clazz.tests</module>
+		<module>org.eclipse.papyrus.sirius.uml.diagram.common.tests</module>
+		<module>org.eclipse.papyrus.sirius.uml.diagram.communication.tests</module>
+		<module>org.eclipse.papyrus.sirius.uml.diagram.component.tests</module>
+		<module>org.eclipse.papyrus.sirius.uml.diagram.compositestructure.tests</module>
+		<module>org.eclipse.papyrus.sirius.uml.diagram.deployment.tests</module>
+		<module>org.eclipse.papyrus.sirius.uml.diagram.pkg.tests</module>
+		<module>org.eclipse.papyrus.sirius.uml.diagram.profile.tests</module>
+		<module>org.eclipse.papyrus.sirius.uml.diagram.statemachine.tests</module>
+		<module>org.eclipse.papyrus.sirius.uml.diagram.usecase.tests</module>
+	</modules>
+</project>

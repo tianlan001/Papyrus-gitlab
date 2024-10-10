@@ -9,45 +9,45 @@ location "https://download.eclipse.org/justj/jres/21/updates/release" justj {
 
 // manualUpdate
 location mylyn "https://download.eclipse.org/mylyn/drops/3.25.2/v20200831-1956" {
-	org.eclipse.mylyn.ide_feature.feature.group
-	org.eclipse.mylyn.java_feature.feature.group
-	org.eclipse.mylyn.pde_feature.feature.group
-	org.eclipse.mylyn.bugzilla_feature.feature.group
-	org.eclipse.mylyn.context_feature.feature.group
-	org.eclipse.mylyn_feature.feature.group
+	org.eclipse.mylyn.ide_feature.feature.group lazy
+	org.eclipse.mylyn.java_feature.feature.group lazy
+	org.eclipse.mylyn.pde_feature.feature.group lazy
+	org.eclipse.mylyn.bugzilla_feature.feature.group lazy
+	org.eclipse.mylyn.context_feature.feature.group lazy
+	org.eclipse.mylyn_feature.feature.group lazy
 }
 
 /*** Updates from the Simrel repository ***/
 // updateFrom("EGit",0)
-location egit "https://download.eclipse.org/egit/updates-6.10" {
-	org.eclipse.egit.feature.group
+location egit "https://download.eclipse.org/egit/updates-7.0" {
+	org.eclipse.egit.feature.group lazy
 }
 
 // updateFrom("Eclipse",0)
-location platform "https://download.eclipse.org/eclipse/updates/4.32/R-4.32-202406010610" {
+location platform "https://download.eclipse.org/eclipse/updates/4.33/R-4.33-202409030240" {
 	org.eclipse.e4.core.tools.feature.feature.group
-	org.eclipse.rcp.configuration.feature.group
-	org.eclipse.equinox.executable.feature.group
+	//org.eclipse.rcp.configuration.feature.group - not yet available ? 
+	org.eclipse.equinox.executable.feature.group lazy
 }
 
 // updateFrom("EMF Compare",0) 
 location emfCompare "https://download.eclipse.org/modeling/emf/compare/updates/releases/3.3/R202401051648" {
-	org.eclipse.emf.compare.source.feature.group
-	org.eclipse.emf.compare.ide.ui.source.feature.group
+	org.eclipse.emf.compare.source.feature.group lazy
+	org.eclipse.emf.compare.ide.ui.source.feature.group lazy
 }
 
 // updateFrom("EMF (Core)",0)
-location emf "https://download.eclipse.org/modeling/emf/emf/builds/release/2.38.0" {
-	org.eclipse.xsd.sdk.feature.group
+location emf "https://download.eclipse.org/modeling/emf/emf/builds/release/2.39.0" {
+	org.eclipse.xsd.sdk.feature.group lazy
 }
 
 // updateFrom("EPP Marketplace Client",0)
-location marketPlace "https://download.eclipse.org/mpc/drops/1.10.3/v20240228-1000" {
-	org.eclipse.epp.mpc.feature.group
+location marketPlace "https://download.eclipse.org/mpc/drops/1.11.0/v20240709-1650/" {
+	org.eclipse.epp.mpc.feature.group lazy
 }
 
 // updateFrom("User Storage SDK",0)
 location userstorage "https://download.eclipse.org/usssdk/drops/release/1.2.2/" {
-	org.eclipse.userstorage.feature.group
+	org.eclipse.userstorage.feature.group lazy
 }
 

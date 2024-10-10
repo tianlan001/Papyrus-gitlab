@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_36mOcBmqEe6S4PjaClk48w" name="graphicalDrop">
+  <ownedRule xmi:type="uml:Constraint" xmi:id="__wnvgBmqEe6S4PjaClk48w" name="Constraint1">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="__woWkBmqEe6S4PjaClk48w" name="constraintSpec">
+      <language>OCL</language>
+      <body>true</body>
+    </specification>
+  </ownedRule>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_3-srUBmqEe6S4PjaClk48w">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Artifact" xmi:id="_66zQEBmqEe6S4PjaClk48w" name="Artifact1">
+    <nestedArtifact xmi:type="uml:Artifact" xmi:id="_HCGZEBmrEe6S4PjaClk48w" name="ArtifactInArtifact"/>
+    <nestedArtifact xmi:type="uml:DeploymentSpecification" xmi:id="_JQ9dUBmrEe6S4PjaClk48w" name="DeploymentSpecificationInArtifact"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Device" xmi:id="_CpXeQBmrEe6S4PjaClk48w" name="Device1">
+    <nestedClassifier xmi:type="uml:DeploymentSpecification" xmi:id="_RQccYBmrEe6S4PjaClk48w" name="DeploymentSpecificationInDevice"/>
+    <nestedNode xmi:type="uml:Device" xmi:id="_R80aMBmrEe6S4PjaClk48w" name="DeviceInDevice"/>
+    <nestedNode xmi:type="uml:ExecutionEnvironment" xmi:id="_Ssp7sBmrEe6S4PjaClk48w" name="ExecutionEnvironmentInDevice"/>
+    <nestedNode xmi:type="uml:Node" xmi:id="_UpGHUBm4Ee6S4PjaClk48w" name="NodeInDevice"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DeploymentSpecification" xmi:id="_C3hPABmrEe6S4PjaClk48w" name="DeploymentSpecification1"/>
+  <packagedElement xmi:type="uml:ExecutionEnvironment" xmi:id="_DBPywBmrEe6S4PjaClk48w" name="ExecutionEnvironment1">
+    <nestedClassifier xmi:type="uml:Artifact" xmi:id="_WAK64BmrEe6S4PjaClk48w" name="ArtifactInExecutionEnvironment"/>
+    <nestedClassifier xmi:type="uml:DeploymentSpecification" xmi:id="_XSGc0BmrEe6S4PjaClk48w" name="DeploymentSpecificationInExecutionEnvironment"/>
+    <nestedNode xmi:type="uml:ExecutionEnvironment" xmi:id="_YgcfQBmrEe6S4PjaClk48w" name="ExecutionEnvironmentInExecutionEnvironment"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Model" xmi:id="_DMgAgBmrEe6S4PjaClk48w" name="Model1">
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_kcmvQBmrEe6S4PjaClk48w" name="ConstraintInModel">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_kcmvQRmrEe6S4PjaClk48w" name="constraintSpec">
+        <language>OCL</language>
+        <body>true</body>
+      </specification>
+    </ownedRule>
+    <packagedElement xmi:type="uml:Artifact" xmi:id="_j-dasBmrEe6S4PjaClk48w" name="ArtifactInModel"/>
+    <packagedElement xmi:type="uml:Device" xmi:id="_lLtQ8BmrEe6S4PjaClk48w" name="DeviceInModel"/>
+    <packagedElement xmi:type="uml:DeploymentSpecification" xmi:id="_ldPF0BmrEe6S4PjaClk48w" name="DeploymentSpecificationInModel"/>
+    <packagedElement xmi:type="uml:ExecutionEnvironment" xmi:id="_lsoMsBmrEe6S4PjaClk48w" name="ExecutionEnvironmentInModel"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="_mi7ikBmrEe6S4PjaClk48w" name="ModelInModel"/>
+    <packagedElement xmi:type="uml:Node" xmi:id="_my1m0BmrEe6S4PjaClk48w" name="NodeInModel"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nA54ABmrEe6S4PjaClk48w" name="PackageInModel"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Node" xmi:id="_DXaQABmrEe6S4PjaClk48w" name="Node1">
+    <nestedClassifier xmi:type="uml:Artifact" xmi:id="_dPaIwBmrEe6S4PjaClk48w" name="ArtifactInNode"/>
+    <nestedClassifier xmi:type="uml:DeploymentSpecification" xmi:id="_ecxTwBmrEe6S4PjaClk48w" name="DeploymentSpecificationInNode"/>
+    <nestedNode xmi:type="uml:Device" xmi:id="_exPu8BmrEe6S4PjaClk48w" name="DeviceInNode"/>
+    <nestedNode xmi:type="uml:ExecutionEnvironment" xmi:id="_gEdDQBmrEe6S4PjaClk48w" name="ExecutionEnvironmentInNode"/>
+    <nestedNode xmi:type="uml:Node" xmi:id="_hXHlABmrEe6S4PjaClk48w" name="NodeInNode"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_DjWaQBmrEe6S4PjaClk48w" name="Package1">
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_v588UBmrEe6S4PjaClk48w" name="ConstraintInPackage">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_v588URmrEe6S4PjaClk48w" name="constraintSpec">
+        <language>OCL</language>
+        <body>true</body>
+      </specification>
+    </ownedRule>
+    <packagedElement xmi:type="uml:Artifact" xmi:id="_vpXioBmrEe6S4PjaClk48w" name="ArtifactInPackage"/>
+    <packagedElement xmi:type="uml:Device" xmi:id="_wJz9QBmrEe6S4PjaClk48w" name="DeviceInPackage"/>
+    <packagedElement xmi:type="uml:DeploymentSpecification" xmi:id="_wYiVwBmrEe6S4PjaClk48w" name="DeploymentSpecificationInPackage"/>
+    <packagedElement xmi:type="uml:ExecutionEnvironment" xmi:id="_wtX9UBmrEe6S4PjaClk48w" name="ExecutionEnvironmentInPackage"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="_w9Bi4BmrEe6S4PjaClk48w" name="ModelInPackage"/>
+    <packagedElement xmi:type="uml:Node" xmi:id="_xQClgBmrEe6S4PjaClk48w" name="NodeInPackage"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_xgW5cBmrEe6S4PjaClk48w" name="PackageInPackage"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Artifact" xmi:id="_Mo3NQBmrEe6S4PjaClk48w" name="ArtifactToDropElements"/>
+  <packagedElement xmi:type="uml:Device" xmi:id="_TFfScBmrEe6S4PjaClk48w" name="DeviceToDropElements"/>
+  <packagedElement xmi:type="uml:ExecutionEnvironment" xmi:id="_ZVJSoBmrEe6S4PjaClk48w" name="ExecutionEnvironmentToDropElements"/>
+  <packagedElement xmi:type="uml:Node" xmi:id="_hmk9UBmrEe6S4PjaClk48w" name="NodeToDropElements"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_nWl0IBmrEe6S4PjaClk48w" name="PackageToDropElements"/>
+  <packagedElement xmi:type="uml:Model" xmi:id="_nuIKYBmrEe6S4PjaClk48w" name="ModelToDropElements"/>
+</uml:Model>

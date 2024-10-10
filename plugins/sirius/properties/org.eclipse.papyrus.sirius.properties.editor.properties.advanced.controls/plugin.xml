@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+
+<!--
+ Copyright (c) 2022, 2023 CEA LIST, Obeo
+
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License 2.0
+ which accompanies this distribution, and is available at
+ https://www.eclipse.org/legal/epl-2.0/
+ 
+ SPDX-License-Identifier: EPL-2.0
+ 
+ Contributors:
+    Obeo - Initial API and implementation
+ 
+-->
+
+<plugin>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="org.eclipse.sirius.editor.editorPlugin.SiriusEditorContributor">
+         <propertySection
+               afterSection="description.section.identifiedElement.Name"
+               class="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.containerborder.internal.ContainerBorderDescriptionLabelExpressionPropertySection"
+               filter="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.containerborder.internal.ContainerBorderDescriptionLabelExpressionFilter"
+               id="properties.section.containerBorderDescription.LabelExpression"
+               tab="viewpoint.tab.general">
+            <input
+                  type="org.eclipse.papyrus.sirius.properties.advanced.controls.propertiesadvancedcontrols.ContainerBorderDescription">
+            </input>
+         </propertySection>
+         <propertySection
+               afterSection="properties.section.extReferenceDescription.referenceOwnerExpression"
+               class="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.editablereference.internal.ExtEditableReferenceDescriptionRemoveExpressionPropertySection"
+               filter="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.editablereference.internal.ExtEditableReferenceDescriptionRemoveExpressionFilter"
+               id="properties.section.extEditableReferenceDescription.RemoveExpression"
+               tab="viewpoint.tab.general">
+            <input
+                  type="org.eclipse.papyrus.sirius.properties.advanced.controls.propertiesadvancedcontrols.ExtEditableReferenceDescription">
+            </input>
+         </propertySection>
+         <propertySection
+               afterSection="properties.section.extEditableReferenceDescription.RemoveExpression"
+               class="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.editablereference.internal.ExtEditableReferenceDescriptionCreateExpressionPropertySection"
+               filter="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.editablereference.internal.ExtEditableReferenceDescriptionCreateExpressionFilter"
+               id="properties.section.extEditableReferenceDescription.CreateExpression"
+               tab="viewpoint.tab.general">
+            <input
+                  type="org.eclipse.papyrus.sirius.properties.advanced.controls.propertiesadvancedcontrols.ExtEditableReferenceDescription">
+            </input>
+         </propertySection>
+         <propertySection
+               afterSection="properties.section.extEditableReferenceDescription.CreateExpression"
+               class="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.editablereference.internal.ExtEditableReferenceDescriptionBrowseExpressionPropertySection"
+               filter="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.editablereference.internal.ExtEditableReferenceDescriptionBrowseExpressionFilter"
+               id="properties.section.extEditableReferenceDescription.BrowseExpression"
+               tab="viewpoint.tab.general">
+            <input
+                  type="org.eclipse.papyrus.sirius.properties.advanced.controls.propertiesadvancedcontrols.ExtEditableReferenceDescription">
+            </input>
+         </propertySection>
+         <propertySection
+               afterSection="description.section.identifiedElement.Name"
+               class="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.stereotypeapplication.StereotypeApplicationDescriptionLabelExpressionPropertySection"
+               filter="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.stereotypeapplication.StereotypeApplicationDescriptionLabelExpressionFilter"
+               id="properties.section.stereotypeApplicationDescription.LabelExpression"
+               tab="viewpoint.tab.general">
+            <input
+                  type="org.eclipse.papyrus.sirius.properties.advanced.controls.propertiesadvancedcontrols.StereotypeApplicationDescription">
+            </input>
+         </propertySection>
+         <propertySection
+               afterSection="properties.section.stereotypeApplicationDescription.LabelExpression"
+               class="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.stereotypeapplication.StereotypeApplicationDescriptionHelpExpressionPropertySection"
+               filter="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.stereotypeapplication.StereotypeApplicationDescriptionHelpExpressionFilter"
+               id="properties.section.stereotypeApplicationDescription.HelpExpression"
+               tab="viewpoint.tab.general">
+            <input
+                  type="org.eclipse.papyrus.sirius.properties.advanced.controls.propertiesadvancedcontrols.StereotypeApplicationDescription">
+            </input>
+         </propertySection>
+         <propertySection
+               afterSection="properties.section.extReferenceDescription.referenceOwnerExpression"
+               class="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.inputcontent.internal.InputContentPapyrusReferenceDescriptionInputContentExpressionPropertySection"
+               filter="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.inputcontent.internal.InputContentPapyrusReferenceDescriptionInputContentExpressionFilter"
+               id="properties.section.inputContentPapyrusReferenceDescription.InputContentExpression"
+               tab="viewpoint.tab.general">
+            <input
+                  type="org.eclipse.papyrus.sirius.properties.advanced.controls.propertiesadvancedcontrols.InputContentPapyrusReferenceDescription">
+            </input>
+         </propertySection>
+      </propertySections>
+   </extension>
+   <extension
+         point="org.eclipse.sirius.interpretedExpressionQueryProvider">
+      <interpretedExpressionProvider
+            class="org.eclipse.papyrus.sirius.properties.editor.properties.advanced.controls.expressions.AdvancedControlsExpressionQueryProvider">
+      </interpretedExpressionProvider>
+   </extension>
+</plugin>

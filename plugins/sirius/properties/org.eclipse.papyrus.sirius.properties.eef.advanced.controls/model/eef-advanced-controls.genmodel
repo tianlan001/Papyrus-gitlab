@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2022, 2023 CEA LIST, Obeo&#xA;&#xA; All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License 2.0&#xA;which accompanies this distribution, and is available at&#xA;https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA;SPDX-License-Identifier: EPL-2.0&#xA;&#xA;Contributors:&#xA;   Obeo - Initial API and implementation"
+    modelDirectory="/org.eclipse.papyrus.sirius.properties.eef.advanced.controls/src-gen"
+    editDirectory="/org.eclipse.papyrus.sirius.properties.eef.advanced.controls.edit/src-gen"
+    editorDirectory="/org.eclipse.papyrus.sirius.properties.eef.advanced.controls.editor/src-gen"
+    modelPluginID="org.eclipse.papyrus.sirius.properties.eef.advanced.controls" modelName="eef-advanced-controls"
+    nonNLSMarkers="true" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/org.eclipse.papyrus.sirius.properties.eef.advanced.controls.tests/src-gen"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipse.eef/model/eef.genmodel#//eef ../../org.eclipse.eef.ext.widgets.reference/model/eef-ext-widgets-reference.genmodel#//eefextwidgetsreference"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>eef-advanced-controls.ecore</foreignModel>
+  <genPackages prefix="EefAdvancedControls" basePackage="org.eclipse.papyrus.sirius.properties.eef.advanced.controls"
+      disposableProviderFactory="true" ecorePackage="eef-advanced-controls.ecore#/">
+    <genClasses ecoreClass="eef-advanced-controls.ecore#//EEFExtEditableReferenceDescription">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eef-advanced-controls.ecore#//EEFExtEditableReferenceDescription/removeExpression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eef-advanced-controls.ecore#//EEFExtEditableReferenceDescription/createExpression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eef-advanced-controls.ecore#//EEFExtEditableReferenceDescription/browseExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="eef-advanced-controls.ecore#//EEFContainerBorderDescription">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eef-advanced-controls.ecore#//EEFContainerBorderDescription/labelExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="eef-advanced-controls.ecore#//EEFLanguageExpressionDescription"/>
+    <genClasses ecoreClass="eef-advanced-controls.ecore#//EEFProfileApplicationDescription"/>
+    <genClasses ecoreClass="eef-advanced-controls.ecore#//EEFStereotypeApplicationDescription">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eef-advanced-controls.ecore#//EEFStereotypeApplicationDescription/labelExpression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eef-advanced-controls.ecore#//EEFStereotypeApplicationDescription/helpExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="eef-advanced-controls.ecore#//EEFInputContentPapyrusReferenceDescription">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eef-advanced-controls.ecore#//EEFInputContentPapyrusReferenceDescription/inputContentExpression"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

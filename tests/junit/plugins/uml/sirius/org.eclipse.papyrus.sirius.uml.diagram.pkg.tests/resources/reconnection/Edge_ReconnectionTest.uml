@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_6wYsIA6vEe6TWpJ0rDD0pw" name="Edge_ReconnectionTest">
+  <ownedRule xmi:type="uml:Constraint" xmi:id="_mCCYUA6wEe6TWpJ0rDD0pw" name="Constraint_WithDependency">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="_mCCYUQ6wEe6TWpJ0rDD0pw" name="constraintSpec">
+      <language>OCL</language>
+      <body>true</body>
+    </specification>
+  </ownedRule>
+  <ownedRule xmi:type="uml:Constraint" xmi:id="_DZ_w0A6xEe6TWpJ0rDD0pw" name="ConstraintNewEnd">
+    <specification xmi:type="uml:OpaqueExpression" xmi:id="_DZ_w0Q6xEe6TWpJ0rDD0pw" name="constraintSpec">
+      <language>OCL</language>
+      <body>true</body>
+    </specification>
+  </ownedRule>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_6yp9AA6vEe6TWpJ0rDD0pw">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Model" xmi:id="_ikZz0A6wEe6TWpJ0rDD0pw" name="Model_WithAbstraction">
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_jQEnAA6wEe6TWpJ0rDD0pw" client="_ikZz0A6wEe6TWpJ0rDD0pw" supplier="_i0p2UA6wEe6TWpJ0rDD0pw">
+      <name xsi:nil="true"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_i0p2UA6wEe6TWpJ0rDD0pw" name="Package_WithAbstraction"/>
+  <packagedElement xmi:type="uml:Model" xmi:id="_zvHzYA6wEe6TWpJ0rDD0pw" name="Model_WithPackageImport"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_236JQA6wEe6TWpJ0rDD0pw" name="Package_WithDependency">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_4ZROUA6wEe6TWpJ0rDD0pw" client="_236JQA6wEe6TWpJ0rDD0pw" supplier="_mCCYUA6wEe6TWpJ0rDD0pw">
+      <name xsi:nil="true"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="__LTi0A6wEe6TWpJ0rDD0pw" name="Package_WithPackageImport">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_BXAlYA6xEe6TWpJ0rDD0pw" importedPackage="_zvHzYA6wEe6TWpJ0rDD0pw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Model" xmi:id="_DoBlwA6xEe6TWpJ0rDD0pw" name="ModelNewEnd"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_DzjgUA6xEe6TWpJ0rDD0pw" name="PackageNewEnd"/>
+</uml:Model>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.papyrus.sirius.editor.feature"
+      label="%featureName"
+      version="7.0.0.qualifier"
+      provider-name="Eclipse Modeling Project"
+      license-feature="org.eclipse.license"
+      license-feature-version="2.0.2">
+
+   <description url="https://eclipse.org/papyrus/">
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.sirius.properties.feature" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.runtime" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.runtime.ide.ui" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.runtime.ide.xtext" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.aql" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.interpreter.feature" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.runtime.ocl" version="7.4.1" match="compatible"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.papyrus.sirius.editor.representation.architecture"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.papyrus.sirius.editor.sirius"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.papyrus.sirius.editor.representation.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.papyrus.sirius.editor.properties"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.papyrus.sirius.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.papyrus.sirius.editor.modelexplorer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.papyrus.sirius.editor.representation"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

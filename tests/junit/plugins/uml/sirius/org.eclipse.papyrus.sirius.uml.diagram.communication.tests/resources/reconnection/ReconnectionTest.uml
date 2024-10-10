@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0LQfIPO8Ee2gksD9U5kdDA" name="ReconnectionTest">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_0PHrcPO8Ee2gksD9U5kdDA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_2nDMIPO8Ee2gksD9U5kdDA" name="Interaction1">
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_3BIgEPO8Ee2gksD9U5kdDA" name="Lifeline1" coveredBy="_37_l0PO8Ee2gksD9U5kdDA"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_3Rf3UPO8Ee2gksD9U5kdDA" name="Lifeline2" coveredBy="_38AM4PO8Ee2gksD9U5kdDA"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_3iHtQPO8Ee2gksD9U5kdDA" name="Lifeline3"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_37_l0PO8Ee2gksD9U5kdDA" name="Message1SendEvent" covered="_3BIgEPO8Ee2gksD9U5kdDA" message="_373qAPO8Ee2gksD9U5kdDA"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_38AM4PO8Ee2gksD9U5kdDA" name="Message1ReceiveEvent" covered="_3Rf3UPO8Ee2gksD9U5kdDA" message="_373qAPO8Ee2gksD9U5kdDA"/>
+    <message xmi:type="uml:Message" xmi:id="_373qAPO8Ee2gksD9U5kdDA" name="Message1" messageSort="asynchCall" receiveEvent="_38AM4PO8Ee2gksD9U5kdDA" sendEvent="_37_l0PO8Ee2gksD9U5kdDA"/>
+  </packagedElement>
+</uml:Model>

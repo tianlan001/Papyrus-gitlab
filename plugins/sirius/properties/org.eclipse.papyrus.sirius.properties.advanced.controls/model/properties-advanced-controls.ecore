@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="propertiesadvancedcontrols" nsURI="http://www.eclipse.org/papyrus/sirius/properties/advanced/controls"
+    nsPrefix="properties-advanced-controls">
+  <eClassifiers xsi:type="ecore:EClass" name="ExtEditableReferenceDescription" eSuperTypes="platform:/plugin/org.eclipse.sirius.properties.ext.widgets.reference/model/properties-ext-widgets-reference.ecore#//ExtReferenceDescription">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="removeExpression" eType="ecore:EDataType platform:/plugin/org.eclipse.sirius.model/model/viewpoint.ecore#//description/InterpretedExpression"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="createExpression" eType="ecore:EDataType platform:/plugin/org.eclipse.sirius.model/model/viewpoint.ecore#//description/InterpretedExpression"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="browseExpression" eType="ecore:EDataType platform:/plugin/org.eclipse.sirius.model/model/viewpoint.ecore#//description/InterpretedExpression"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContainerBorderDescription" eSuperTypes="platform:/plugin/org.eclipse.sirius.properties/model/properties.ecore#//ContainerDescription">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelExpression" eType="ecore:EDataType platform:/plugin/org.eclipse.sirius.model/model/viewpoint.ecore#//description/InterpretedExpression"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LanguageExpressionDescription" eSuperTypes="platform:/plugin/org.eclipse.sirius.properties/model/properties.ecore#//WidgetDescription platform:/plugin/org.eclipse.sirius.properties/model/properties.ecore#//AbstractWidgetDescription"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProfileApplicationDescription" eSuperTypes="platform:/plugin/org.eclipse.sirius.properties/model/properties.ecore#//WidgetDescription platform:/plugin/org.eclipse.sirius.properties/model/properties.ecore#//AbstractWidgetDescription"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StereotypeApplicationDescription" eSuperTypes="platform:/plugin/org.eclipse.sirius.properties/model/properties.ecore#//WidgetDescription platform:/plugin/org.eclipse.sirius.properties/model/properties.ecore#//ContainerDescription">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelExpression" eType="ecore:EDataType platform:/plugin/org.eclipse.sirius.model/model/viewpoint.ecore#//description/InterpretedExpression"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="helpExpression" eType="ecore:EDataType platform:/plugin/org.eclipse.sirius.model/model/viewpoint.ecore#//description/InterpretedExpression"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InputContentPapyrusReferenceDescription"
+      eSuperTypes="#//ExtEditableReferenceDescription">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="inputContentExpression"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.sirius.model/model/viewpoint.ecore#//description/InterpretedExpression"/>
+  </eClassifiers>
+</ecore:EPackage>

@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name
+Bundle-SymbolicName: org.eclipse.papyrus.sirius.log;singleton:=true
+Bundle-Version: 7.0.0.qualifier
+Export-Package: org.slf4j,
+ org.slf4j.simple
+Bundle-Activator: org.eclipse.papyrus.sirius.log.internal.Activator
+Bundle-ClassPath: .,
+ lib/slf4j-api-2.0.9.jar,
+ lib/slf4j-simple-2.0.9.jar
+Bundle-Vendor: %Bundle-Vendor
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.25.0,4.0.0)",
+ org.eclipse.ui;bundle-version="[3.201.0,4.0.0)"
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: org.eclipse.papyrus.sirius.log
+Bundle-ActivationPolicy: lazy

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.papyrus.sirius.toolsmiths.feature"
+      label="%featureName"
+      version="7.0.0.qualifier"
+      provider-name="Eclipse Modeling Project"
+      license-feature="org.eclipse.license"
+      license-feature-version="2.0.2">
+
+   <description url="https://eclipse.org/papyrus/">
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <includes
+         id="org.eclipse.papyrus.sirius.editor.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.papyrus.sirius.uml.feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import feature="org.eclipse.sirius.doc.feature" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.runtime.acceleo" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.runtime.ide.ui.acceleo" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.specifier.ide.ui" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.specifier.ide.ui.acceleo" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.specifier.ide.ui.aql" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.specifier" version="7.4.1" match="compatible"/>
+      <import feature="org.eclipse.sirius.specifier.properties.feature" version="7.4.1" match="compatible"/>
+   </requires>
+
+</feature>

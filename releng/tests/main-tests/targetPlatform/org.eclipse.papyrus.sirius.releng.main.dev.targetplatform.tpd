@@ -1,0 +1,8 @@
+target "Papyrus-Sirius Dev - 2024-09" with source requirements
+
+include "../../../main/targetPlatform/org.eclipse.papyrus.sirius.releng.main.targetplatform.tpd"
+
+location orbitJupiter "https://download.eclipse.org/tools/orbit/downloads/drops/S20230516204213/repository" {
+	org.junit.jupiter.api lazy
+	org.junit.jupiter.params lazy
+}

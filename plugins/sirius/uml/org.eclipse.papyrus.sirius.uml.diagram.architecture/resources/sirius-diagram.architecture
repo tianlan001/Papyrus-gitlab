@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architecture:ArchitectureDomain xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:architecture="http://www.eclipse.org/papyrus/infra/core/architecture" xmlns:description="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:representation="http://www.eclipse.org/papyrus/sirius/1.0.0/emf/siriusdiagram/representation" xmlns:representation_1="http://www.eclipse.org/papyrus/infra/core/architecture/representation" xmi:id="_pNW38LaHEeiKuPQLywy7Og" id="org.eclipse.papyrus.softwareEngineering" name="Software Engineering" description="The domain of developing software systems" icon="platform:/plugin/org.eclipse.papyrus.uml.architecture/icons/domain.gif">
+  <contexts xmi:type="architecture:ArchitectureDescriptionLanguage" xmi:id="_-tAb0Lp2EeiViqj5DY8SRQ" id="org.eclipse.papyrus.infra.services.edit.TypeContext" name="UML" creationCommandClass="org.eclipse.papyrus.uml.diagram.common.commands.CreateUMLModelCommand">
+    <viewpoints xmi:type="architecture:ArchitectureViewpoint" xmi:id="_1tp4cOEIEeiLVapXeWCJtQ" id="org.eclipse.papyrus.uml.analysis" name="Software Analysis" icon="platform:/plugin/org.eclipse.papyrus.uml.architecture/icons/viewpoint.gif" representationKinds="_v6j60Ci7EeuXVsN3JsOSRg _Lt0sUA68EeyT-6l_Qn7xWQ _vX3LMEM8Ee2mJbDd0VC45Q _r9KXMENCEe2tq-35UjP4PA _IoYccL58Ee2t_tMRqONCXg _hyVM4N68Ee2NmP_t8YXABQ _QQ2hEAOFEe6uyp68Z597cQ _kLnYgO8PEe2JjZDTppzUSg _3AOo8ARWEe65KcPvZ4H-QA"/>
+    <viewpoints xmi:type="architecture:ArchitectureViewpoint" xmi:id="_dmWHgLp3EeiViqj5DY8SRQ" id="org.eclipse.papyrus.uml.design" name="Software Design" description="" icon="platform:/plugin/org.eclipse.papyrus.uml.architecture/icons/viewpoint.gif" representationKinds="_v6j60Ci7EeuXVsN3JsOSRg _Lt0sUA68EeyT-6l_Qn7xWQ _vX3LMEM8Ee2mJbDd0VC45Q _r9KXMENCEe2tq-35UjP4PA _IoYccL58Ee2t_tMRqONCXg _hyVM4N68Ee2NmP_t8YXABQ _kLnYgO8PEe2JjZDTppzUSg _QQ2hEAOFEe6uyp68Z597cQ _3AOo8ARWEe65KcPvZ4H-QA"/>
+    <representationKinds xmi:type="representation:SiriusDiagramPrototype" xmi:id="_IoYccL58Ee2t_tMRqONCXg" id="org.eclipse.papyrus.sirius.uml.diagram.activity" name="New Activity Diagram" description="Create a new activity diagram." icon="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.architecture/resources/icons/Diagram_Activity.png" implementationID="Sirius" creationCommandClass="org.eclipse.papyrus.sirius.editor.representation.architecture.CreatePapyrusSiriusActivityDiagramEditorCommand">
+      <modelRules xmi:type="representation_1:ModelRule" xmi:id="_fVg7sL58Ee2t_tMRqONCXg" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Activity"/>
+      </modelRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_fuAUML58Ee2t_tMRqONCXg" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Activity"/>
+      </owningRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_gCTwQL58Ee2t_tMRqONCXg" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+        <newModelPath xmi:type="representation_1:ModelAutoCreate" xmi:id="_qar5UL58Ee2t_tMRqONCXg" creationType="org.eclipse.papyrus.uml.Activity">
+          <feature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier/classifierBehavior"/>
+        </newModelPath>
+      </owningRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_wyo54L58Ee2t_tMRqONCXg" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+        <newModelPath xmi:type="representation_1:ModelAutoCreate" xmi:id="_0n0bsL58Ee2t_tMRqONCXg" creationType="org.eclipse.papyrus.uml.Activity">
+          <feature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier/ownedBehavior"/>
+        </newModelPath>
+      </owningRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_xHuZEL58Ee2t_tMRqONCXg" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+        <newModelPath xmi:type="representation_1:ModelAutoCreate" xmi:id="_6Rxt0L58Ee2t_tMRqONCXg" creationType="org.eclipse.papyrus.uml.Activity">
+          <feature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package/packagedElement"/>
+        </newModelPath>
+      </owningRules>
+      <diagramDescription xmi:type="description:DiagramDescription" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.activity/description/papyrus_activity.odesign#//@ownedViewpoints[name='ActivityDiagram']/@ownedRepresentations[name='ActivityDiagram']"/>
+    </representationKinds>
+    <representationKinds xmi:type="representation:SiriusDiagramPrototype" xmi:id="_v6j60Ci7EeuXVsN3JsOSRg" id="org.eclipse.papyrus.sirius.uml.diagram.class" name="New Class Diagram" description="Create a new class diagram." icon="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.architecture/resources/icons/Diagram_Class.png" grayedIcon="" implementationID="Sirius" creationCommandClass="org.eclipse.papyrus.sirius.editor.representation.architecture.CreatePapyrusSiriusClassDiagramEditorCommand">
+      <modelRules xmi:type="representation_1:ModelRule" xmi:id="_yQX7oCi7EeuXVsN3JsOSRg" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </modelRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_zeWKoCi7EeuXVsN3JsOSRg" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </owningRules>
+      <diagramDescription xmi:type="description:DiagramDescription" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.clazz/description/papyrus_class.odesign#//@ownedViewpoints[name='ClassDiagram']/@ownedRepresentations[name='ClassDiagram']"/>
+    </representationKinds>
+    <representationKinds xmi:type="representation:SiriusDiagramPrototype" xmi:id="_hyVM4N68Ee2NmP_t8YXABQ" id="org.eclipse.papyrus.sirius.uml.diagram.communication" name="New Communication Diagram" description="Create a new communication diagram." icon="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.architecture/resources/icons/Diagram_Communication.png" implementationID="Sirius" creationCommandClass="org.eclipse.papyrus.sirius.editor.representation.architecture.CreatePapyrusSiriusCommunicationDiagramEditorCommand">
+      <modelRules xmi:type="representation_1:ModelRule" xmi:id="_u9mUUN68Ee2NmP_t8YXABQ" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Activity"/>
+      </modelRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_u9mUUd68Ee2NmP_t8YXABQ" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Activity"/>
+      </owningRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_ndVLYN69Ee2NmP_t8YXABQ" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+        <newModelPath xmi:type="representation_1:ModelAutoCreate" xmi:id="_uksPoN69Ee2NmP_t8YXABQ" creationType="org.eclipse.papyrus.uml.Interaction">
+          <feature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier/classifierBehavior"/>
+        </newModelPath>
+      </owningRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_n4WTcN69Ee2NmP_t8YXABQ" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier"/>
+        <newModelPath xmi:type="representation_1:ModelAutoCreate" xmi:id="_2lmLAN69Ee2NmP_t8YXABQ" creationType="org.eclipse.papyrus.uml.Interaction">
+          <feature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//BehavioredClassifier/ownedBehavior"/>
+        </newModelPath>
+      </owningRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_oW5QoN69Ee2NmP_t8YXABQ" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+        <newModelPath xmi:type="representation_1:ModelAutoCreate" xmi:id="_5e1pAN69Ee2NmP_t8YXABQ" creationType="org.eclipse.papyrus.uml.Interaction">
+          <feature xmi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package/packagedElement"/>
+        </newModelPath>
+      </owningRules>
+      <diagramDescription xmi:type="description:DiagramDescription" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.communication/description/papyrus_communication.odesign#//@ownedViewpoints[name='CommunicationDiagram']/@ownedRepresentations[name='CommunicationDiagram']"/>
+    </representationKinds>
+    <representationKinds xmi:type="representation:SiriusDiagramPrototype" xmi:id="_kLnYgO8PEe2JjZDTppzUSg" id="org.eclipse.papyrus.sirius.uml.diagram.component" name="New Component Diagram" description="Create a new component diagram." icon="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.architecture/resources/icons/Diagram_Component.png" implementationID="Sirius" creationCommandClass="org.eclipse.papyrus.sirius.editor.representation.architecture.CreatePapyrusSiriusComponentDiagramEditorCommand">
+      <modelRules xmi:type="representation_1:ModelRule" xmi:id="_t1vUcO8PEe2JjZDTppzUSg" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+      </modelRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_uS5KgO8PEe2JjZDTppzUSg" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+      </owningRules>
+      <diagramDescription xmi:type="description:DiagramDescription" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.component/description/papyrus_component.odesign#//@ownedViewpoints[name='ComponentDiagram']/@ownedRepresentations[name='ComponentDiagram']"/>
+    </representationKinds>
+    <representationKinds xmi:type="representation:SiriusDiagramPrototype" xmi:id="_vX3LMEM8Ee2mJbDd0VC45Q" id="org.eclipse.papyrus.sirius.uml.diagram.compositestructure" name="New Composite Structure Diagram" description="Create a new composite structure diagram." icon="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.architecture/resources/icons/Diagram_CompositeStructure.png" implementationID="Sirius" creationCommandClass="org.eclipse.papyrus.sirius.editor.representation.architecture.CreatePapyrusSiriusCompositeStructureDiagramEditorCommand">
+      <modelRules xmi:type="representation_1:ModelRule" xmi:id="_aMj1oEM9Ee2mJbDd0VC45Q" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+      </modelRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_afjqIEM9Ee2mJbDd0VC45Q" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+      </owningRules>
+      <diagramDescription xmi:type="description:DiagramDescription" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.compositestructure/description/papyrus_compositestructure.odesign#//@ownedViewpoints[name='CompositeStructureDiagram']/@ownedRepresentations[name='CompositeStructureDiagram']"/>
+    </representationKinds>
+    <representationKinds xmi:type="representation:SiriusDiagramPrototype" xmi:id="_QQ2hEAOFEe6uyp68Z597cQ" id="org.eclipse.papyrus.sirius.uml.diagram.deployment" name="New Deployment Diagram" description="Create a new deployment diagram." icon="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.architecture/resources/icons/Diagram_Deployment.png" implementationID="Sirius" creationCommandClass="org.eclipse.papyrus.sirius.editor.representation.architecture.CreatePapyrusSiriusDeploymentDiagramEditorCommand">
+      <modelRules xmi:type="representation_1:ModelRule" xmi:id="_QQ2hEQOFEe6uyp68Z597cQ" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </modelRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_QQ2hEgOFEe6uyp68Z597cQ" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </owningRules>
+      <diagramDescription xmi:type="description:DiagramDescription" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.deployment/description/papyrus_deployment.odesign#//@ownedViewpoints[name='DeploymentDiagram']/@ownedRepresentations[name='DeploymentDiagram']"/>
+    </representationKinds>
+    <representationKinds xmi:type="representation:SiriusDiagramPrototype" xmi:id="_3AOo8ARWEe65KcPvZ4H-QA" id="org.eclipse.papyrus.sirius.uml.diagram.pkg" name="New Package Diagram" description="Create a new package diagram." icon="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.architecture/resources/icons/Diagram_Package.png" implementationID="Sirius" creationCommandClass="org.eclipse.papyrus.sirius.editor.representation.architecture.CreatePapyrusSiriusPackageDiagramEditorCommand">
+      <modelRules xmi:type="representation_1:ModelRule" xmi:id="_3APQAARWEe65KcPvZ4H-QA" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </modelRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_3APQAQRWEe65KcPvZ4H-QA" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </owningRules>
+      <diagramDescription xmi:type="description:DiagramDescription" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.pkg/description/papyrus_package.odesign#//@ownedViewpoints[name='PackageDiagram']/@ownedRepresentations[name='PackageDiagram']"/>
+    </representationKinds>
+    <representationKinds xmi:type="representation:SiriusDiagramPrototype" xmi:id="_I0RjgKb7Ee2_c7jCfUbKnw" id="org.eclipse.papyrus.sirius.uml.diagram.profile" name="New Profile Diagram" description="Create a new profile diagram." icon="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.architecture/resources/icons/Diagram_Profile.png" grayedIcon="" implementationID="Sirius" creationCommandClass="org.eclipse.papyrus.sirius.editor.representation.architecture.CreatePapyrusSiriusProfileDiagramEditorCommand">
+      <modelRules xmi:type="representation_1:ModelRule" xmi:id="_I0SKkKb7Ee2_c7jCfUbKnw" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </modelRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_I0SKkab7Ee2_c7jCfUbKnw" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </owningRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_WwEvsKheEe2QOoQEvj3C0w" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Profile"/>
+      </owningRules>
+      <diagramDescription xmi:type="description:DiagramDescription" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.profile/description/papyrus_profile.odesign#//@ownedViewpoints[name='ProfileDiagram']/@ownedRepresentations[name='ProfileDiagram']"/>
+    </representationKinds>
+    <representationKinds xmi:type="representation:SiriusDiagramPrototype" xmi:id="_Lt0sUA68EeyT-6l_Qn7xWQ" id="org.eclipse.papyrus.sirius.uml.diagram.statemachine" name="New State Machine Diagram" description="Create a new state machine diagram." icon="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.architecture/resources/icons/Diagram_StateMachine.png" grayedIcon="" implementationID="Sirius" creationCommandClass="org.eclipse.papyrus.sirius.editor.representation.architecture.CreatePapyrusSiriusStateMachineDiagramEditorCommand">
+      <modelRules xmi:type="representation_1:ModelRule" xmi:id="_Lt0sUQ68EeyT-6l_Qn7xWQ" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+      </modelRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_Lt0sUg68EeyT-6l_Qn7xWQ" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+      </owningRules>
+      <diagramDescription xmi:type="description:DiagramDescription" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.statemachine/description/papyrus_statemachine.odesign#//@ownedViewpoints[name='StateMachineDiagram']/@ownedRepresentations[name='StateMachineDiagram']"/>
+    </representationKinds>
+    <representationKinds xmi:type="representation:SiriusDiagramPrototype" xmi:id="_r9KXMENCEe2tq-35UjP4PA" id="org.eclipse.papyrus.sirius.uml.diagram.usecase" name="New Use Case Diagram" description="Create a new use case diagram." icon="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.architecture/resources/icons/Diagram_UseCase.png" implementationID="Sirius" creationCommandClass="org.eclipse.papyrus.sirius.editor.representation.architecture.CreatePapyrusSiriusUseCaseDiagramEditorCommand">
+      <modelRules xmi:type="representation_1:ModelRule" xmi:id="_VAfxsENDEe2tq-35UjP4PA" permit="true" elementMultiplicity="1" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+      </modelRules>
+      <owningRules xmi:type="representation_1:OwningRule" xmi:id="_VWU3wENDEe2tq-35UjP4PA" permit="true" multiplicity="-1">
+        <element xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//NamedElement"/>
+      </owningRules>
+      <diagramDescription xmi:type="description:DiagramDescription" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.usecase/description/papyrus_usecase.odesign#//@ownedViewpoints[name='UseCaseDiagram']/@ownedRepresentations[name='UseCaseDiagram']"/>
+    </representationKinds>
+    <metamodel xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  </contexts>
+  <contexts xmi:type="architecture:ArchitectureFramework" xmi:id="_sMsQ4KxREe2tbOHy6yjn_w" id="org.eclipse.papyrus.uml.architecture.Profile" name="Profile" description="The Profile Definition Framework" icon="platform:/plugin/org.eclipse.papyrus.uml.architecture/icons/profile.gif" extensionPrefix="profile" creationCommandClass="org.eclipse.papyrus.uml.diagram.profile.CreateProfileModelCommand">
+    <viewpoints xmi:type="architecture:ArchitectureViewpoint" xmi:id="_xQ2uUKxREe2tbOHy6yjn_w" id="org.eclipse.papyrus.uml.profile.definition" name="Profile Definition" description="A viewpoint allowing profile definition with UML" icon="platform:/plugin/org.eclipse.papyrus.uml.architecture/icons/viewpoint.gif" representationKinds="_I0RjgKb7Ee2_c7jCfUbKnw _3AOo8ARWEe65KcPvZ4H-QA"/>
+  </contexts>
+</architecture:ArchitectureDomain>

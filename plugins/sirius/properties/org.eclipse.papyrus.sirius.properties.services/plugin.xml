@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.eclipse.papyrus.sirius.properties.services.internal.Startup">
+      </startup>
+   </extension>
+   <extension
+         point="org.eclipse.eef.properties.ui.eefTabDescriptorFilter">
+      <descriptor
+            class="org.eclipse.papyrus.sirius.properties.services.internal.EEFTabDescriptorFilter"
+            description="Filter used to hide tab from Properties view"
+            id="org.eclipse.papyrus.sirius.properties.services.descriptor"
+            label="hideTabs">
+      </descriptor>
+   </extension>
+
+</plugin>

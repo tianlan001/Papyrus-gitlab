@@ -1,0 +1,784 @@
+=Papyrus-Sirius Developer Guides=
+Basically, the developement rules are the same than for Papyrus.
+==Java Code Style==
+The recommendation are almost the same than for Papyrus. We reuse its Code Style configurations for '''Clean Up''' and '''Formatter'''.
+Concerning the '''Code Templates''', we did these changes: 
+* Comment > Files : we register the Papyrus default file header
+* Comment > Types : we removed the @{user} 
+* Comment > Modules : we removed the @{user} 
+* Code > Constructor, we removed the todo
+
+These 3 templates files are stored into the git org.eclipse.papyrus-sirius, into the folder '''releng-sirius/templates'''.
+
+==Plug-in Preferences==
+We provide pre-configured preferences files to copy in the .settings folder (it is a hidden folder by default) in each new plugin. There are 6 files to copy: 
+* org.eclipse.core.resources.prefs
+* org.eclipse.core.runtime.prefs
+* org.eclipse.jdt.core.prefs
+* org.eclipse.jdt.ui.prefs
+* org.eclipse.pde.api.tools.prefs
+* org.eclipse.pde.prefs
+These preferences files can be copied from '''releng-sirius/preferences''' into the '''.setting''' folder of your new plugin.
+
+==Eclipse.ini==
+Add your user name as vmargs argument like that in order to get a nice file header for the new creted file: 
+
+
+''-vmargs''
+
+''-Duser.name=John Doe (Company) <john.doe@company.com>''
+
+==Manifest.ini==
+Rules:
+*we avoid to use '''Import Package'''
+*each dependency is defined with a min and max values
+*the dependencies are sorted by alphabetical order
+
+
+= Architecture of Papyrus-Sirius =
+This framework has been developed to be used only when a sirius diagram is opened.
+
+==Git Architecture==
+*'''plugins/editor'''
+**'''org.eclipse.papyrus.sirius.editor''': plugin handling sirius diagram views and session management
+**'''modelexplorer''':contains code allowing to display and use sirius diagram in the papyrus model explorer
+**'''properties''': contains code to visualize the properties of sirius diagrams 
+**'''representation''': contains the code to create sirius diagram views
+**'''representation.architecture''': contains the code to create specific sirius diagram
+**'''representation.edit''': plugin defining sirius diagram prototype
+**'''sirius''': plugin containing sirius services to handle session
+
+
+*'''plugins/uml/'''
+**'''org.eclipse.papyrus.sirius.uml''': contains Papyrus Architecture contributions for UML and Sirius: elementTypes and EMF-Facet customization for Sirius Diagram 
+**'''org.eclipse.papyrus.sirius.uml.diagram.activity''': contains activity diagram description and services
+**'''org.eclipse.papyrus.sirius.uml.diagram.architecture''': contains the UML Sirius diagram contributions for the Papyrus Architecture Framework
+**'''org.eclipse.papyrus.sirius.uml.diagram.clazz''': contains class diagram description and services
+**'''org.eclipse.papyrus.sirius.uml.diagram.common''': contains all the common services that can be used by all diagrams 
+**'''org.eclipse.papyrus.sirius.uml.diagram.communication''': contains communication diagram description and services 
+**'''org.eclipse.papyrus.sirius.uml.diagram.component''': contains component diagram description and services
+**'''org.eclipse.papyrus.sirius.uml.diagram.compositestructure''': contains composite structure diagram description and services
+**'''org.eclipse.papyrus.sirius.uml.diagram.deployment''': contains deployment diagram description and services
+**'''org.eclipse.papyrus.sirius.uml.diagram.pkg''': contains package diagram description and services
+**'''org.eclipse.papyrus.sirius.uml.diagram.profile''': contains profile diagram description and services
+**'''org.eclipse.papyrus.sirius.uml.diagram.statemachine''': contains statemachine diagram description and services
+**'''org.eclipse.papyrus.sirius.uml.diagram.textedit''': contains customization to use Papyrus XText grammar inside Papyrus Sirius Diagram
+**'''org.eclipse.papyrus.sirius.uml.diagram.usecase''': contains use case diagram description and services
+
+= odesign file conception rules =
+The Papyrus user is used to non-synchronized diagrams. Hence, while developing the Sirius Diagram, we must consider them as not synchronized by default. We advise you to set the Sirius synchronization preferences to false and to show the synchronization marker to always display the status (synchronized/unsynchronized) of the diagram.
+
+[[File:../../../image/dev/Sirius_Diagram_Synchonization_Preference.png]]
+
+To ease development and review, we decided to follow conception rules for odesign file: 
+*structure of the odesign:
+**almost all elements are organized by alphabetical order (following the label displayed in the odesign editor)
+
+*''id'' field rules:
+** doesn't contents space
+** contains the name of the semantic element
+** tool for creation must be named following this pattern ''CreateXXXTool''
+** tool for semantic drop must be named following this pattern ''SemanticXXXDrop''
+** tool for graphical drop must be named following this pattern ''GraphicalXXXDrop''
+** mapping representing a label node must be suffixed with ''LabelNode''
+** mapping representing a compartment node must be named like this: ''parentMappingName'' + ''ElementNames''(plural form) + ''Compartment'', example: '''CD_ClassAttributesCompartment'''
+
+*''label expression'' field rule:
+** create an optional layer, applied by default, named '''AppliedStereotypeLayer''',
+** create an optional layer named '''QualifiedNameLayer''',
+** declares the Sirius Service '''org.eclipse.papyrus.sirius.uml.diagram.common.core.services.UMLLabelService''',
+*** this service uses the previous layer to build a label with/without the applied stereotypes and the qualified name of the element
+*** this service uses the internationalization feature provided by Papyrus
+***this service build complex label like : '<<keyword>> <appliedStereotype> labelOfTheElement', where 'labelOfTheElement' can also be a specific construction, like for UML Property: 'name: type [0..*]',
+** for nodes used inside a ''Compartment List'', we want a single line label, so we use the service method '''buildSingleLineLabel(Element element, DDiagram diagram)''', 
+*** in this case, we never use the qualified name label,
+** for others figures, we want a multiline label, so we use '''buildMultilineLabel(Element element, DDiagram diagram)''',
+**this service uses the internationalization feature provided by Papyrus
+
+*''icon'' rules:
+**the path of the icon of semantic UML element must be something like '''/org.eclipse.uml2.uml.edit/icons/full/obj16/xxx.yyy''' each time it exists. We must avoid duplicate icons when it is not necessary.
+
+*''node'' rules:
+** Nodes must be defined as ''Unsynchronizable'', documented exceptions are allowed.
+** The field ''semantic candidates expression'' must be filled (avoiding eAllContents).
+*** Typically for ClassDiagram, the expression returns all Constraints found in the Package (diagram background) and in its sub-elements to avoid that a Constraint disappears after creating a ContextLink (ContextLink changes the containments of the Constraint).
+** All nodes containing objects must have compartments, these compartments are synchronized when they represent the contents of a feature.
+** Each semantic element represented as a node must have its own mapping (we want to avoid reuse at this level,e.g. Interface and Class have their own mapping).
+** Nodes must be defined at root level (or in a fake container for validation purposes). We avoid defining nodes inside another nodes. We want to avoid to reuse a mapping defined inside another element. The fake containers be named like this : '''DIAGRAM_TRIGRAM + _SHARED_ + xxx'''. In ClassDiagram '''xxx''' represents the name of the owningFeature, ie '''CD_SHARED_OwnedAttribute'''.
+
+*''edge'' rules:
+** all edges must be declared ''Unsynchronizable'' (documented exceptions are allowed).
+** the field ''semantic candidates expression'' must be filled (avoiding eAllContents) and provides owned edges (and sometimes indirectly) by the element represented by the diagram background.
+
+*''palette'' rules:
+** the palette description is given by two folders, one for nodes, named '''Nodes''', one for edges, named '''Edges'''.
+** in these folders, the tools should be sorted alphabetically, but the organization also depends on the frequency of use of each element.
+** the label of elements in the palette must have spaces when they have a composed name: '''Data Type''' instead of '''DataType''', '''Duration Observation''' instead of '''DurationObservation'''
+
+*''reconnect'' rules:
+**The reconnect tools are defined in a folder called ''Reconnect''.
+**The id of each tool follows this pattern: ''ReconnectXXXSource'' for the tool reconnecting the source of an XXX element, and ''ReconnectXXXTarget'' for a the tool reconnecting its target.
+**The reconnect tool must also update the containment of the reconnected link when required. We decided that the owner of a link is given by its source (the source itself, or its nearest ''Package'' or an other element, depending of the containement feature of the link).
+
+*'drop' rules:
+**There are 2 kinds of drop : the semantic drop (from the ModelExplorer) and the graphical drop (inside the diagram).
+**The drop tools are defined inside 2 folders : the ''SemanticDrop'' folder and the ''GraphicalDrop'' folder.
+**The id of each tool follows this patten : ''SemanticXXXDrop'' or ''GraphicalXXXDrop''.
+**Only one semantic drop per semantic element is accepted, the tool can work on several mapping (in ClassDiagram, '''SemanticPrimitiveTypeDrop''', works with 2 mappings representing a '''PrimitiveType'''.
+**Only one graphical drop per semantic element is accepted.
+**The ''precondition'' rule must check the type of dropped element with self.oclIsTypeof(uml::XXX), to ensure that only one drop tool can be activated for the element.
+
+*''edition'' rules:
+**The tools used for edition are described in the folder ''F2_Edition''.
+**The id of these tools follows this pattern: ''metaclassName'' + ''_'' + ''editedFeature'' + ''_'' + ''EditionTool'', example : '''Comment_body_EditionTool''' and '''NamedElement_name_EditionTool'''.
+
+*''delete'' rules:
+**delete actions are defined in the folder ''DeleteActions''
+**the odesign declares the java service '''org.eclipse.papyrus.sirius.uml.diagram.common.services.SemanticDeletionService#''' in charge of the semantic deletion
+**each diagram must provide a Delete action using the previous service with the call '''element.deleteElement(elementView)'''
+
+*''validation'' rules:
+**the *.odesign files must be valid (using EMF Validation)
+
+
+*Sirius Services rules:
+Developing the class diagram it appeared that it is often easier to call a java service instead of writing aql rules. As we created the same methods for each semantic element, we follow a common pattern for the naming of these methods. Each method must be prefixed by the managed metaclass (see '''org.eclipse.papyrus.sirius.uml.diagram.clazz.services.ClassDiagramServices'''). For the ''UML::Abstraction'' we have these methods:
+**abstraction_getSemanticCandidates(EObject)
+**abstraction_canReconnectSource(Element, Element)
+**abstraction_canReconnectTarget(Element, Element)
+**abstraction_reconnectSource(Element, Element, Element)
+**abstraction_reconnectTarget(Element, Element, Element)
+**association_getSemanticCandidates(EObject)
+
+NB: Currently these methods, for each UML Element, are in the ClassDiagramServices. In the future, we will probably create a java class for each semantic element, and the '''ClassDiagramServices''' will delegate to these classes. This point is still open for a discussion, because we are also thinking about a connection to the Papyrus Edition Service and it could be redundant.
+
+==Mapping for elements defined outside of the current diagram context==
+To be able to represent UML Elements located outside of the diagram context, we created specific mappings. These mappings are defined as ''Not Synchronized'' in order to avoid to reveal all outside elements on the diagram when the user uses a ''Synchronized'' diagram. To get the expected result, we created:
+*a new service providing methods named '''getOutside{MetaclassName}''', used by the field ''semantic Candidates Expression'' (named ''org.eclipse.papyrus.sirius.uml.diagram.clazz.services.ClassDiagramOutsideMappingServices'' for ClassDiagram);
+*new ''Not Synchronized'' mappings for nodes, named '''CD_NOT_SYNC_{MetaclassName}''';
+*all these mapping re-use the compartments used by their equivalent ''Unsynchronizable'' version;
+*all these mapping use a specific ''semantic Candidates Expression'' called '''getOutside{MetaclassName}''';
+*all previous semantic drops have been modified to include this condition '''not self.isOutsideOfTheDiagramContext(newViewContainer)''';
+*new semantic drops have been added and use this condition: '''self.isOutsideOfTheDiagramContext(newViewContainer)''';
+*we don't provide graphical drop for these nodes (because dropping them into an ''inside'' node will change the mapping to use and the dropped element will disappear of the diagram!).
+
+In addition, we propose a specific appearance to these elements: 
+*the mapping takes the same appearance than others, but with a ''white'' background and a ''bold'' and ''gray'' label;
+*a ''Style Customization'' is defined, to get all borders in ''gray'' when the element is read-only;
+*a ''Generic Decoration'' is defined to display a specific icon when the element is defined outside of the context of the diagram;
+*a ''Generic Decoration'' is defined to display a specific icon when the element is read-only;
+
+We also configure these new mappings in order to use the ''DirectEdit'':
+*the ''precondition'' becomes : '''aql:self.oclIsKindOf(uml::NamedElement) and not self.isReadOnly()'''
+
+= Sirius viewpoint =
+
+Each new diagram contribution is added in a new plugin, which contains the description of the mapping, the filters and the tools available for this diagram.
+
+For more information about viewpoint description, you can have a look at the sirius documentation available here:
+https://www.eclipse.org/sirius/doc/specifier/general/Specifying_Viewpoints.html
+
+= Adding a new diagram to the architecture file =
+
+The editor provided to edit the DocumentStructureTemplate metamodel is not exactly the version generated by EMF. We customized it in order to use a TransactionalEditingDomain (to ease the Papyrus integration). 
+
+When we add a new Sirius diagram, we shall create a new Sirius diagram prototype:
+ 
+[[File:../../../image/dev/1_ViewCreation.png]]
+
+Once the Sirius Diagram Prototype has been created, it shall be defined as in the following picture:
+
+[[File:../../../image/dev/5_DefineRepresentation.png]]
+
+To be able to reference the corresponding Diagram Description, it shall first be loaded in order to reference it. This can be done as in the following image:
+
+[[File:../../../image/dev/2_LoadViewpoint.png]]
+
+And select the corresponding *.odesign file using the Browse Workspace:
+
+[[File:../../../image/dev/2_SelectOdesign.png]]
+
+Once the Sirius Diagram Prototype has been created. We shall select on which viewpoint this representation shall be allowed. To do this, select the viewpoint and add a Representation Kinds:
+
+[[File:../../../image/dev/4_AddRespresentation.png]]
+
+And simply select the diagram prototype that was created on the previous step.
+
+[[File:../../../image/dev/3_RegisterRepresentation.png]]
+
+This shall be done for both Analysis and Design viewpoint.
+
+== Adding the creation command==
+
+In the org.eclipse.papyrus.sirius.editor.representation.architecture plugin, a new class extending the AbstractCreateSiriusDiagramEditorCommand shall be created. This class will manage the condition of the creation of the diagram and the action to execute before creating it depending on the context.
+
+= Sirius session management =
+==Initialization==
+We created the Papyrus service '''org.eclipse.papyrus.sirius.editor.internal.sessions.SessionService''' initialized during Papyrus' launch. This service is in charge creating the Sirius Session and attaching it to the edited semantic resource (uml file). This way a Sirius Session will always be accesible even if the user didn't yet created a Sirius diagram.
+
+== EditingDomain ==
+To use the same transactional editing domain as other Papyrus services, we had to override the default Sirius Session and its creation process. This is done by the '''PapyrusSessionFactory''' which creates the '''PapyrusSession''' (which is just a Sirius session with the Papyrus TransactionalEditingDomain).
+
+For new services using session, it is recommanded to use the SessionService provided in the org.eclipse.papyrus.sirius.editor plugin. 
+= API To find creatable Sirius Diagram Prototype =
+From a selected EObject, we want to find all SiriusDiagramViewPrototype and store them into a list:
+
+<source>
+List<ViewPrototype> data = new ArrayList<>();
+for (final ViewPrototype proto : PolicyChecker.getFor(selection).getPrototypesFor(selection)) {
+	if (proto instanceof SiriusDiagramViewPrototype && proto.getRepresentationKind() instanceof SiriusDiagramPrototype) {
+		final SiriusDiagramViewPrototype siriusPrototype = (SiriusDiagramViewPrototype) proto;
+
+		//additional check not yet done by the PolicyChecker
+		if (siriusPrototype.canInstantianteOn(selection)) {
+			data.add(proto);
+		}
+	}
+}</source>
+
+
+= Common Diagram =
+== How to get the semantic EObject from a Sirius EditPart==
+Initially, for an Editpart selected in a Sirius Diagram,  the method '''org.eclipse.papyrus.infra.emf.utils.EMFHelper.getEObject(Object)''' returns as EObject the Sirius diagram element representation (from the Sirius DDiagram metamodel) instead of the semantic EObject. We get this problem, because Sirius uses an intermediate metamodel (DDiagram) between the semantic element and the GMF metamodel. Consequently, the selection in the ModelExplorer and the displayed property view were never synchronized with a Sirius Diagram.
+
+To solve this problem, our class '''org.eclipse.papyrus.sirius.editor.Activator''' contributes to the OSGi Service '''EObjectResolverService''' defined by the Papyrus plugin '''org.eclipse.papyrus.infra.emf'''. Our resolver is the class '''org.eclipse.papyrus.sirius.editor.internal.emf.SiriusEditPartEObjectResolver'''.
+
+== ModelExplorer Synchronization with a Papyrus Sirius Diagram ==
+The selection of the ModelExplorer is propagated to the Papyrus Sirius Diagram editor (class '''org.eclipse.papyrus.sirius.editor.internal.editor.NestedSiriusDiagramViewEditor''') using the interface '''org.eclipse.papyrus.infra.widgets.util.IRevealSemanticElement'''.
+
+
+== Common concepts ==
+
+=== Common services ===
+
+* '''PapyrusSiriusTabbarContributor''' allows to enable or deactivate tools in the sirius tabbar.
+
+[[File:../../../image/dev/6_SiriusTabbar.png]]
+
+* '''AbstractDiagramServices''' is used to manage Label node label, node creation and node drag and drop tools.
+
+* '''AddElementToDiagramServices''' handles precondition for creation tool.
+
+* '''LabelServices''' handles direct edition of labels.
+
+* '''TooltipServices''' helps to provide a tooltip for each tools of the palette.
+
+* '''DeleteFromModelHandler''' handles the deletion of semantic element.
+
+Some services class have been implemented for VSM use in AQL configuration field :
+
+* '''CommonDiagramServices''' provides common services for all the diagrams (type verification, element creation, etc). This class extends ''AbstractDiagramServices''.
+
+* '''DeleteServices handle''' the deletion from model.
+
+* '''DomainBasedEdgeServices''' contains services used in VSM to represent edges. 
+
+* '''LinkRelationServices''' contains services related to the Link relation which represents the Annotated feature relation and commented feature relation.
+
+* '''NamedElementQualifiedNameProvider''' is a provider used for QualifiedName layer to display qualified label.
+
+* '''ReconnectServices''' contains services used to check reconnection and reconnect edges. 
+
+* '''SemanticCandidatesServices''' contains services used to retrieve semantic node and edges candidates to use for representations described in VSM.
+
+* '''UMLLabelServices''' contains services to display of label (with qualified name or not, with stereotype or not ...).
+
+== Rotative Images ==
+
+An EditPart and Figure have been created to allow using a Custom Style with Bordered Nodes in the VSM (*.odesign file) in order to rotate the associated image according to the position of the Bordered Node regarding its parent. To use it, a Custom Style must be used and the id filled with the prefix "rotative:", then the page of the image. Note that only non-SVG images can be used. For instance, PNG, GIF and JPEG formats are accepted. Here is an example with the InputPin Bordered Node, by using the id "rotative:/org.eclipse.papyrus.sirius.uml.diagram.activity/icons/InputPin.png":
+
+[[File:../../../image/dev/rotativeImage_CustomStyle.png]]
+
+== Type Verification ==
+The ''CommonDiagramServices'' class contains the isTypeOf(Element, String) method that checks if the provided element is an instance of the provided type. This method is similar to AQL's ''oclIsTypeOf'' service, but it also ensures that the EPackage containing the provided element's type is the UML package. This additional check prevents clashes between classes that have the same name and are defined in package with the same name. For example, it is used to check instances of ''PrimitiveType'', which is defined in both the standard UML package and the UML package from OCL (also named ''uml'').
+
+This service is not necessary to specify ''Domain Class'' in the VSM. Domain classes are only checked against the EPackages specified in the ''Metamodels'' section of the representation.
+
+
+= Activity Diagram =
+
+The Activity diagram code is located in the 
+<code>org.eclipse.papyrus.sirius.uml.diagram.activity</code> plugin. Services and diagram tools are tested in the <code>org.eclipse.papyrus.sirius.uml.diagram.activity.tests</code> plugin.
+
+== Services==
+
+=== ActivityDiagramServices ===
+
+ActivityDiagramServices class handles services used by tools of the Activity diagram for the creation of some specific element. 
+
+The creation is mainly handled by the UML-Service API. Sometimes, we needed to implement some logic in that class to determine the proper containing feature according the the selected parent element.
+
+Note that the service <code>ActivityDiagramServices.createExpansionNode</code> implements a part of the business logic that cannot be fully handled in UML-Service. 
+Indeed, the <code>ExpansionNode</code> is referenced as input or output according to the executed tool (create InputExpansionNode or OutputExpansionNode). That reference cannot be determined in UML-Service: the UML-Service API does not allow to provide the tool being executed.
+
+This class also provides services to retrieve semantic candidates and compute some preconditions expressions.
+
+=== ActivityDomainBasedEdgeServices ===
+
+This service is a specific implementation of <code>org.eclipse.papyrus.sirius.uml.diagram.common.services.DomainBasedEdgeServices</code> to make possible the creation of InputPin and OutputPin nodes when selecting an '''OpaqueAction''' as source or target of the ObjectFlow.
+
+=== ActivityDropBehaviorProvider ===
+
+ActivityDropBehaviorProvider class handles services used by drag and drop tools (semantic or graphical). It will check drag and drop authorization and it will execute drag and drop action.  
+
+=== ActivityFeatureProvider ===
+
+This class provides an implementation of UMLSwitch to retrieve the feature to use according to the semantic context and the type of the element to create.
+
+This provider is mainly used to get the Pin feature to use according to the parent and the type of the Pin to create (input/output).
+
+== Description ==
+
+The diagram description (VSM) is located in the papyrus_activity.odesign and contains 3 layers :
+
+=== Activity ===
+
+The "Activity" layer defines all the mapping and tools specific to the Activity diagram:
+* NodeContainer, Node and Edge mappings.
+* The style of each node.
+* The Nodes tool section defines the Nodes palette tools behavior, which are mostly creation tools.
+* The Edges tool section defines the Edges palette tools behavior, which are mostly creation tools.
+* The DeleteAction tool section defines deletion actions.
+* The Reconnect tool section defines the reconnection tools from source and target.
+* The SemanticDrop and GraphicalDrop tool sections define the drag and drop from model (semantic) and from representations (graphical).
+* The F2-Edition tool defines direct edit for the label. 
+* The Style customization section defines customized style for label or node (for example, abstract classifier label is in italic format). 
+
+As done in Composite Structure Diagram for instance, to allow creation and reconnection of '''Edge on compartment''' of container, these compartments of container should be added in Source mapping and/or Target mapping of the Edge configuration (see Composite Structure section for more details).
+
+=== Display Qualified Name ===
+
+The "Display Qualified Name" layer allows displaying qualified labels on Nodes or Edges.
+
+=== Display Applied Stereotypes ===
+
+The "Display Applied Stereotypes" layer allows to display the label with Stereotype on Nodes or Edges.
+
+== Pin synchronization ==
+
+All Pins border nodes mappings are synchronized. That allows to make them visible automatically since some of them are created at the same time as the parent action.
+
+== Note on DecisionNode ==
+
+A specific mapping '''AD_DecisionNodeComment''' has been defined to display a note attached to the DecisionNode if the feature <code>DecisionNode#decisionInput</code> is set. 
+This mapping is always synchronized. To prevent displaying the note when the DecisionNode is not visible, a precondition checks the visibility of this one.
+
+
+''Limitation: '' When performing a ''"Delete from diagram"'' on a DecisionNode with a note attached to him, the '''AD_DecisionNodeComment''' precondition is not evaluated since Sirius does not trigger a refresh.
+That means the Note will still be visible and need to be removed from the diagram manually with the ''"Delete from diagram"'' action.
+
+== Container mappings for nodes ==
+
+Since Sirius cannot represent node mappings with rounded corners, we have represented most of the Action UML types (often represented with rounded corners) by containers without internal compartments.
+The container mapping allows defining styles with rounded corners.
+
+== DirectEdit on ActivityEdge ==
+
+The ActivityEdge (ControlFlow and ObjectFlow) label displays the name, guard and weight of the ActivityEdge but the direct edit allows the name editing only.
+
+= Class Diagram =
+
+The class diagram code is located in the 
+org.eclipse.papyrus.sirius.uml.diagram.clazz plugin.
+
+== Services==
+
+* ClassDiagramServices handles services used by tools of the class diagram for creation, reconnection, etc.
+
+== Description ==
+
+The diagram description is located in the papyrus_class.odesign:
+
+The Class layer defines all the mapping and tools specific to the class diagram:
+* NodeContainer, Node, Edge and BorderedNode mapping.
+* The style of each node
+* The Nodes tool section defines the Nodes palette tools behavior, which are mostly creation tools.
+* The Edges tool section defines the Edges palette tools behavior, which are mostly creation tools.
+* The Features tool section defines the drag and drop from model and from representations, tools for the label edition and tools for deletion. 
+* The Relationships tool section defines the reconnection tools and some deletion tools.
+
+= Communication Diagram =
+
+The Communication diagram code is located in the 
+<code>org.eclipse.papyrus.sirius.uml.diagram.communication</code> plugin. Services and diagram tools are tested in the <code>org.eclipse.papyrus.sirius.uml.diagram.communication.tests</code> plugin.
+
+== Services==
+
+=== CommunicationDiagramServices ===
+
+CommunicationDiagramServices class handles services used by tools of the Communication diagram for the creation of some specific element. 
+It also provides services to retrieve semantic candidates and compute some preconditions expressions.
+
+=== CommunicationDropBehaviorProvider ===
+
+CommunicationDropBehaviorProvider class handles services used by drag and drop tools (semantic or graphical). It will check drag and drop authorization and it will execute drag and drop action.  
+
+== Description ==
+
+The diagram description (VSM) is located in the papyrus_communication.odesign and contains 3 layers :
+
+=== Communication ===
+
+The "Communication" layer defines all the mapping and tools specific to the Communication diagram:
+* NodeContainer, Node and Edge mappings.
+* The style of each node.
+* The Nodes tool section defines the Nodes palette tools behavior, which are mostly creation tools.
+* The Edges tool section defines the Edges palette tools behavior, which are mostly creation tools.
+* The DeleteAction tool section defines deletion actions.
+* The Reconnect tool section defines the reconnection tools from source and target.
+* The SemanticDrop and GraphicalDrop tool sections define the drag and drop from model (semantic) and from representations (graphical).
+* The F2-Edition tool defines direct edit for the label. 
+* The Style customization section defines customize style for label or node (for example, abstract classifier label is in italic format). 
+
+As done in Composite Structure diagram, to allow creation and reconnection of '''Edge on compartment''' of container, these compartments of container should be added in Source mapping and/or Target mapping of the Edge configuration (see Composite Structure section for more details).
+
+=== Display Qualified Name ===
+
+The "Display Qualified Name" layer allows displaying qualified labels on Nodes or Edges.
+
+=== Display Applied Stereotypes ===
+
+The "Display Applied Stereotypes" layer allows to display the label with Stereotype on Nodes or Edges.
+
+= Component Diagram =
+
+The Component diagram code is located in the 
+<code>org.eclipse.papyrus.sirius.uml.diagram.component</code> plugin. Services and diagram tools are tested in the <code>org.eclipse.papyrus.sirius.uml.diagram.component.tests</code> plugin.
+
+== Services==
+
+=== ComponentDiagramServices ===
+
+ComponentDiagramServices class handles services used by tools of the Component diagram for the creation of some specific element. 
+It also provides services to retrieve semantic candidates and compute some preconditions expressions.
+
+=== ComponentDiagramDropBehaviorProvider ===
+
+ComponentDiagramDropBehaviorProvider class handles services used by drag and drop tools (semantic or graphical). It will check drag and drop authorization and it will execute drag and drop action.  
+
+== Description ==
+
+The diagram description (VSM) is located in the papyrus_component.odesign and contains 3 layers :
+
+=== Component ===
+
+The "Component" layer defines all the mapping and tools specific to the Component diagram:
+* NodeContainer, Node and Edge mappings.
+* The style of each node.
+* The Nodes tool section defines the Nodes palette tools behavior, which are mostly creation tools.
+* The Edges tool section defines the Edges palette tools behavior, which are mostly creation tools.
+* The DeleteAction tool section defines deletion actions.
+* The Reconnect tool section defines the reconnection tools from source and target.
+* The SemanticDrop and GraphicalDrop tool sections define the drag and drop from model (semantic) and from representations (graphical).
+* The F2-Edition tool defines direct edit for the label. 
+* The Style customization section defines customize style for label or node (for example, abstract classifier label is in italic format). 
+
+As done in Composite Structure diagram, to allow creation and reconnection of '''Edge on compartment''' of container, these compartments of container should be added in Source mapping and/or Target mapping of the Edge configuration (see Composite Structure section for more details).
+
+=== Display Qualified Name ===
+
+The "Display Qualified Name" layer allows displaying qualified labels on Nodes or Edges.
+
+=== Display Applied Stereotypes ===
+
+The "Display Applied Stereotypes" layer allows to display the label with Stereotype on Nodes or Edges.
+
+= Composite Structure Diagram =
+
+The Composite Structure diagram code is located in the 
+<code>org.eclipse.papyrus.sirius.uml.diagram.compositestructure</code> plugin. Services and diagram tools are tested in the <code>org.eclipse.papyrus.sirius.uml.diagram.compositestructure.tests plugin</code>.
+
+== Services==
+
+=== CompositeStructureDiagramServices ===
+
+CompositeStructureDiagramServices class handles services used by tools of the Composite Structure diagram for :
+* general creation of Node,
+* creation of specific Node (representing StructuredClassifier),
+* general creation of Edge,
+* creation of specific Edge (representing Dependency)
+* checking creation of Edge,
+* displaying of connector which is more complex than other edge,
+* detecting Port loop.
+
+Service to '''detect Port loop''' will check that no infinity loop exists starting from the current port.
+A loop exists if the current port is reachable from its type, by navigation through its ports hierarchy.For instance Port 1 is owned by Class1 and it is typed by Class2 that owns a port typed by Class1.
+
+Service to detect Port loop will also display error message in error log to prevent user of the infinity loop.
+
+=== CompositeStructureDropBehaviorProvider ===
+
+CompositeStructureDropBehaviorProvider class handles services used by Drag and drop tools (semantic or graphical). It will check drag and drop authorization and it will execute drag and drop action.  
+
+== Description ==
+
+The diagram description (VSM) is located in the papyrus_compositestructure.odesign and contains 3 layers :
+
+=== Composite structure ===
+
+The "Composite structure" layer defines all the mapping and tools specific to the CompositeStructure diagram:
+* NodeContainer, Node, Edge and BorderedNode mapping.
+* The style of each node
+* The Nodes tool section defines the Nodes palette tools behavior, which are mostly creation tools.
+* The Edges tool section defines the Edges palette tools behavior, which are mostly creation tools.
+* The DeleteAction tool section defines deletion actions.
+* The Reconnect tool section defines the reconnection tools from source and target.
+* The SemanticDrop and Graphical tool sections define the drag and drop from model (semantic) and from representations (graphical).
+* The F2-Edition tool defines direct edit for the label. 
+* the Style customization section defines customize style for label or node (for example, abstract classifier label is in italic format). 
+
+To allow creation and reconnection of '''Edge on compartment''' of container, these compartment of container should be added in Source mapping and/or Target mapping of the Edge configuration.
+This mechanism will display two edges on diagram :
+* one edge between container which represent Source and/or Target,
+* one edge between compartment of container which also represent Source and/or Target.
+To avoid this double representation, Precondition expression in advanced tab of the edge configuration should be completer with the following AQL expression : <code>aql:not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())</code>.
+
+=== Display Qualified Name ===
+
+The "Display Qualified Name" layer allows displaying qualified labels on Nodes or Edges.
+
+=== Display Applied Stereotypes ===
+
+The "Display Applied Stereotypes" layer allows to display label with Stereotype on Nodes or Edges.
+
+= Deployment Diagram =
+
+The Deployment diagram code is located in the 
+<code>org.eclipse.papyrus.sirius.uml.diagram.deployment</code> plugin. Services and diagram tools are tested in the <code>org.eclipse.papyrus.sirius.uml.diagram.deployment.tests</code> plugin.
+
+== Specific Figure and EditParts ==
+
+[[File:../../../image/dev/3DContainer.png]]
+
+To represent ExecutionEnvironment, Device and Node as a 3D box, we provided a specific draw2D figure: <code>CuboidSiriusDefaultSizeNodeFigure</code>. This figure overrides the <code>SiriusDefaultSizeNodeFigure</code>.
+To achieve that, two Sirius EditPart are overriden:
+* <code>CuboidDNodeContainerEditPart</code>
+* <code>CuboidDNodeContainerInContainerEditPart</code>
+
+Indeed, because of some specific behaviors following if the container is represented on the diagram or within another container, two specific EditParts implementations are defined in Sirius.
+
+These EditParts are provided by the <code>DeploymentDiagramContainerEditPartProvider</code> through the <code>org.eclipse.gmf.runtime.diagram.ui.editpartProviders</code> extension point.
+
+The <code>DeploymentDiagramContainerEditPartProvider</code> provides these EditPart only if the represented element type is ExecutionEnvironment, Device or a Node.
+
+== Services==
+
+=== DeploymentDiagramServices ===
+
+DeploymentDiagramServices class handles services used by tools of the Deployment diagram for the creation of some specific element. 
+It also provides services to retrieve semantic candidates and compute some preconditions expressions.
+
+=== DeploymentDropBehaviorProvider ===
+
+DeploymentDropBehaviorProvider class handles services used by drag and drop tools (semantic or graphical). It will check drag and drop authorization and it will execute drag and drop action.  
+
+== Description ==
+
+The diagram description (VSM) is located in the papyrus_deployment.odesign and contains 3 layers :
+
+=== Deployment ===
+
+The "Deployment" layer defines all the mapping and tools specific to the Deployment diagram:
+* NodeContainer, Node and Edge mappings.
+* The style of each node.
+* The Nodes tool section defines the Nodes palette tools behavior, which are mostly creation tools.
+* The Edges tool section defines the Edges palette tools behavior, which are mostly creation tools.
+* The DeleteAction tool section defines deletion actions.
+* The Reconnect tool section defines the reconnection tools from source and target.
+* The SemanticDrop and GraphicalDrop tool sections define the drag and drop from model (semantic) and from representations (graphical).
+* The F2-Edition tool defines direct edit for the label. 
+* The Style customization section defines customize style for label or node (for example, abstract classifier label is in italic format). 
+
+As done in Composite Structure diagram, to allow creation and reconnection of '''Edge on compartment''' of container, these compartments of container should be added in Source mapping and/or Target mapping of the Edge configuration (see Composite Structure section for more details).
+
+=== Display Qualified Name ===
+
+The "Display Qualified Name" layer allows displaying qualified labels on Nodes or Edges.
+
+=== Display Applied Stereotypes ===
+
+The "Display Applied Stereotypes" layer allows to display the label with Stereotype on Nodes or Edges.
+
+= Package Diagram =
+
+The Package diagram code is located in the 
+<code>org.eclipse.papyrus.sirius.uml.diagram.pkg</code> plugin. Services and diagram tools are tested in the <code>org.eclipse.papyrus.sirius.uml.diagram.pkg.tests</code> plugin.
+
+== Services==
+
+=== PackageDiagramDropBehaviorProvider ===
+
+PackageDiagramDropBehaviorProvider class handles services used by drag and drop tools (semantic or graphical). It will check drag and drop authorization and it will execute drag and drop action.  
+
+== Description ==
+
+The diagram description (VSM) is located in the papyrus_package.odesign and contains 3 layers :
+
+=== Package ===
+
+The "Package" layer defines all the mapping and tools specific to the Package diagram:
+* NodeContainer, Node and Edge mappings.
+* The style of each node.
+* The Nodes tool section defines the Nodes palette tools behavior, which are mostly creation tools.
+* The Edges tool section defines the Edges palette tools behavior, which are mostly creation tools.
+* The DeleteAction tool section defines deletion actions.
+* The Reconnect tool section defines the reconnection tools from source and target.
+* The SemanticDrop and GraphicalDrop tool sections define the drag and drop from model (semantic) and from representations (graphical).
+* The F2-Edition tool defines direct edit for the label. 
+
+As done in Composite Structure diagram, to allow creation and reconnection of '''Edge on compartment''' of container, these compartments of container should be added in Source mapping and/or Target mapping of the Edge configuration (see Composite Structure section for more details).
+
+=== Display Qualified Name ===
+
+The "Display Qualified Name" layer allows displaying qualified labels on Nodes or Edges.
+
+=== Display Applied Stereotypes ===
+
+The "Display Applied Stereotypes" layer allows to display the label with Stereotype on Nodes or Edges.
+
+= Profile Diagram =
+
+The Profile diagram code is located in the 
+<code>org.eclipse.papyrus.sirius.uml.diagram.profile</code> plugin. Services and diagram tools are tested in the <code>org.eclipse.papyrus.sirius.uml.diagram.profile.tests plugin</code>.
+
+== Services==
+
+=== ProfileDiagramServices ===
+
+ProfileDiagramServices class handles services used by tools of the Profile diagram for the creation of specific nodes as the Metaclass for instance.
+
+=== ProfileDropBehaviorProvider ===
+
+ProfileDropBehaviorProvider class handles services used by Drag and drop tools (semantic or graphical). It will check drag and drop authorization and it will execute drag and drop action.  
+
+== Description ==
+
+The diagram description (VSM) is located in the papyrus_profile.odesign and contains 3 layers :
+
+=== Profile ===
+
+The "Profile" layer defines all the mapping and tools specific to the Profile diagram:
+* NodeContainer, Node and Edge mappings.
+* The style of each node
+* The Nodes tool section defines the Nodes palette tools behavior, which are mostly creation tools.
+* The Edges tool section defines the Edges palette tools behavior, which are mostly creation tools.
+* The DeleteAction tool section defines deletion actions.
+* The Reconnect tool section defines the reconnection tools from source and target.
+* The SemanticDrop and Graphical tool sections define the drag and drop from model (semantic) and from representations (graphical).
+* The F2-Edition tool defines direct edit for the label. 
+* the Style customization section defines customize style for label or node (for example, abstract classifier label is in italic format). 
+
+As done in Composite Structure diagram or UseCase Diagram, to allow creation and reconnection of '''Edge on compartment''' of container, these compartments of container should be added in Source mapping and/or Target mapping of the Edge configuration (see Composite Structure section for more details).
+
+The Import Metaclass tool delegates to a service to open the MetaClass selection dialog. (see ProfileDiagramServices)
+
+The ''PRD_PrimitiveType'' mapping uses the ''isTypeOf'' service in its precondition to check that the element is an instance of ''PrimitiveType'' and that its metaclass is defined in the UML package. This prevents clashes with the UML package defined in the OCL metamodel, which has the same name as the standard UML package (name is ''uml''), and also defines a ''PrimitiveType'' metaclass.
+
+=== Display Qualified Name ===
+
+The "Display Qualified Name" layer allows displaying qualified labels on Nodes or Edges.
+
+=== Display Applied Stereotypes ===
+
+The "Display Applied Stereotypes" layer allows to display label with Stereotype on Nodes or Edges.
+
+= State Machine Diagram =
+
+The State Machine diagram code is located in the 
+org.eclipse.papyrus.sirius.uml.diagram.statemachine plugin.
+
+== Services ==
+
+To handle the specific behavior of Region, since both VerticalStack or HorizontalStack children presentations could not handle the mixed behavior of region (sometimes vertical and sometimes horizontal). Hence, the Freeform children presentation is used combined to a manageRegionPresentation and setChildRepresentation method that allows to chose between either horizontal and vertical.
+
+== Description ==
+
+The diagram description is located in the papyrus_statemachine.odesign:
+
+The State Machine layer defines all the mapping and tools specific to the state machine diagram:
+* NodeContainer, Node, Edge and BorderedNode mapping.
+* The style of each node.
+* The Nodes tool section defines the Nodes palette tools behavior (mostly creation tools), drag and drop from model or from representation tools, label edition tools and deletion tools.
+* The Edges tool section defines the Edges palette tools behavior (mostly creation tools) and reconnection tools.
+
+= Use Case Diagram =
+
+The Use Case diagram code is located in the 
+<code>org.eclipse.papyrus.sirius.uml.diagram.usecase</code> plugin. Services and diagram tools are tested in the <code>org.eclipse.papyrus.sirius.uml.diagram.usecase.tests plugin</code>.
+
+== Services==
+
+=== UseCaseDiagramServices ===
+
+UseCaseDiagramServices class handles services used by tools of the UseCase diagram for :
+* general creation of Node,
+* creation of specific Node (UseCase and Actor).
+
+=== UseCaseDropBehaviorProvider ===
+
+UseCaseDropBehaviorProvider class handles services used by Drag and drop tools (semantic or graphical). It will check drag and drop authorization and it will execute drag and drop action.  
+
+== Description ==
+
+The diagram description (VSM) is located in the papyrus_usecase.odesign and contains 3 layers :
+
+=== Use Case ===
+
+The "Use Case" layer defines all the mapping and tools specific to the UseCase diagram:
+* NodeContainer, Node and Edge mappings.
+* The style of each node
+* The Nodes tool section defines the Nodes palette tools behavior, which are mostly creation tools.
+* The Edges tool section defines the Edges palette tools behavior, which are mostly creation tools.
+* The DeleteAction tool section defines deletion actions.
+* The Reconnect tool section defines the reconnection tools from source and target.
+* The SemanticDrop and Graphical tool sections define the drag and drop from model (semantic) and from representations (graphical).
+* The F2-Edition tool defines direct edit for the label. 
+* the Style customization section defines customize style for label or node (for example, abstract classifier label is in italic format). 
+
+As done in Composite Structure diagram, to allow creation and reconnection of '''Edge on compartment''' of container, these compartments of container should be added in Source mapping and/or Target mapping of the Edge configuration (see Composite Structure section for more details).
+
+Unlike most representations in this diagram, Actor and UseCase are represented with SVG image. 
+
+To represent all different "Subject" to create in the palette node, a Group has been used in the VSM and each Subject is represented by a container tool inside the Group.  
+
+=== Display Qualified Name ===
+
+The "Display Qualified Name" layer allows displaying qualified labels on Nodes or Edges.
+
+=== Display Applied Stereotypes ===
+
+The "Display Applied Stereotypes" layer allows to display label with Stereotype on Nodes or Edges.
+
+
+
+= Xtext integration =
+
+Code in org.eclipse.papyrus.sirius.uml.diagram.textedit override classic editpart to add an xtext parser on each label edition.
+
+= Tests =
+==How to ensure new plugins/features are well configured?==
+Each new feature must be added as extra requirements in the pom.xml of the plugin '''org.eclipse.papyrus.sirius.bundles.tests''' to ensure that all plugins provided by the new feature is well configured (about.xml, min/max for dependencies ...) 
+
+== Test coverage ==
+The common method to create new tests for sirius diagram is located in org.eclipse.papyrus.sirius.junit.utils. In this plugin, the SiriusDiagramEditorFixture provide all the method to load model, ope session, tests tools that will be used in the several test case.
+
+Each specific diagram is tested in a specific plugin. Those tests include:
+* Diagram creation
+* Diagram deletion
+* Creation tools tests
+* Drag and Drop tools tests
+* Deletion
+
+Each test should check the state of the tested diagram (synchronized/unsynchronized), to ensure that the test is executed on the expected diagram configuration.
+
+= ClassDiagram =
+==AssociationClass==
+This element is quite difficult to represent. Its representation is composed with two edges and one node:
+* '''CD_AssociationClass_Link''', a link with the same behavior than '''CD_Association'''. This link is ''Unsynchronizable''
+* '''CD_AssociationClass_Node''', a node with the same behavior than '''CD_Class'''. This node can only be owned by the diagram background. This node is ''Synchronized'' in order to appear automatically when a '''CD_AssociationClass_Link''' is represented on the diagram.
+* '''CD_AssociationClass_NodeToLink''', this link relies the two previous elements. It is also ''Synchronized'' in order to appear automatically when a '''CD_AssociationClass_Link''' is represented on the diagram.
+
+The '''AssociationClass''' is owned by the nearest '''Package''' of the source.
+The '''AssociationClass''' owns 2 '''Property''' referenced by the feature ''memberEnds''.
+* the first '''Property''' (index 0) is typed by the target of the '''AssociationClass''',
+* the second '''Property''' (index 1) is typed by the source of the '''AssociationClass'''.

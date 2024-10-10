@@ -19,30 +19,30 @@ location cbiAggregator "https://download.eclipse.org/cbi/updates/p2-aggregator/t
 /*** Updates from the Simrel repository ***/
 
 // updateFrom("Oomph",0)
-location oomph "https://download.eclipse.org/oomph/drops/release/1.33.0" {
-	org.eclipse.oomph.version.feature.group
-	org.eclipse.oomph.setup.workingsets.feature.group
-	org.eclipse.oomph.projectconfig.feature.group
-	org.eclipse.oomph.setup.targlets.feature.group
-	org.eclipse.oomph.setup.mylyn.feature.group
-	org.eclipse.oomph.setup.workbench.feature.group
-	org.eclipse.oomph.setup.projectset.feature.group
-	org.eclipse.oomph.setup.pde.feature.group
-	org.eclipse.oomph.targlets.feature.group
-	org.eclipse.oomph.setup.jdt.feature.group
-	org.eclipse.oomph.setup.projects.feature.group
-	org.eclipse.oomph.setup.git.feature.group
-	org.eclipse.oomph.setup.maven.feature.group
-	org.eclipse.oomph.p2.feature.group
-	org.eclipse.oomph.setup.feature.group
-	org.eclipse.oomph.preferences.feature.group
+location oomph "https://download.eclipse.org/oomph/drops/release/1.34.0-a" {
+	org.eclipse.oomph.version.feature.group lazy
+	org.eclipse.oomph.setup.workingsets.feature.group lazy
+	org.eclipse.oomph.projectconfig.feature.group lazy
+	org.eclipse.oomph.setup.targlets.feature.group lazy
+	org.eclipse.oomph.setup.mylyn.feature.group lazy
+	org.eclipse.oomph.setup.workbench.feature.group lazy
+	org.eclipse.oomph.setup.projectset.feature.group lazy
+	org.eclipse.oomph.setup.pde.feature.group lazy
+	org.eclipse.oomph.targlets.feature.group lazy
+	org.eclipse.oomph.setup.jdt.feature.group lazy
+	org.eclipse.oomph.setup.projects.feature.group lazy
+	org.eclipse.oomph.setup.git.feature.group lazy
+	org.eclipse.oomph.setup.maven.feature.group lazy
+	org.eclipse.oomph.p2.feature.group lazy
+	org.eclipse.oomph.setup.feature.group lazy
+	org.eclipse.oomph.preferences.feature.group lazy
 }
 
 // updateFrom("EGit",0) 
-location egit "https://download.eclipse.org/egit/updates-6.10" // oomph
+location egit "https://download.eclipse.org/egit/updates-7.0" // oomph
 
 // updateFrom("m2e",0) 
-location m2e "https://download.eclipse.org/technology/m2e/releases/2.6.1/" // oomph
+location m2e "https://download.eclipse.org/technology/m2e/releases/2.6.2/" // oomph
 
 // Mylyn is disabled in the current Sirmrel repo
 // manualUpdate 
@@ -51,5 +51,5 @@ location mylyn "https://download.eclipse.org/mylyn/drops/3.25.2/v20200831-1956" 
 // updateFrom("EMF Compare",0)
 location emfCompare "https://download.eclipse.org/modeling/emf/compare/updates/releases/3.3/R202401051648" {
 	org.eclipse.emf.compare.ide.ui.feature.group lazy
-	org.eclipse.emf.compare.source.feature.group
+	org.eclipse.emf.compare.source.feature.group lazy
 }

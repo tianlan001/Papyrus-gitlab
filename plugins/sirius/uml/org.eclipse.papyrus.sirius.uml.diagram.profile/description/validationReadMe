@@ -1,0 +1,14 @@
+Two validation problems are reported when developer validate the VSM papyrus_profile.odesign
+
+They are both false validation problems and developers should not take them into account.
+
+* First false validation problem : 
+newContainer variable is unknown from the validation mechanism on drop tools.
+The Sirius interpreter can use this variable without problem, it is just unknown from validation.
+A Bugzilla ticket has been created to trace it : https://bugs.eclipse.org/bugs/show_bug.cgi?id=580996
+
+* Second false validation problem :
+importMetaClass service is unknown from the validation mechanism on importMetaclass creation tool
+If you import in your workspace org.eclipse.papyrus.infra.core and org.eclipse.papyrus.infra.widgets plugins, validation will be OK.
+Another solution is to validate your VSM in the runtime of your eclipse environment.
+A Bugzilla ticket has been created to trace it : https://bugs.eclipse.org/bugs/show_bug.cgi?id=581746

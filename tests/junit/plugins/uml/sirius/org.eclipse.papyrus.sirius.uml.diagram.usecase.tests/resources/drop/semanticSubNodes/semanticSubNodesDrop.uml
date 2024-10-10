@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_LNu-YMieEe2Rk4W6VnSGNQ" name="semanticSubNodesDrop">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_LQUYUMieEe2Rk4W6VnSGNQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_b1roEMieEe2Rk4W6VnSGNQ" name="Package_Container">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_L4b2UMigEe2Rk4W6VnSGNQ">
+      <body>Comment_FromPackage</body>
+    </ownedComment>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_Lh17QMigEe2Rk4W6VnSGNQ" name="Constraint_FromPackage">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_Lh17QcigEe2Rk4W6VnSGNQ" name="constraintSpec">
+        <language>OCL</language>
+        <body>true</body>
+      </specification>
+    </ownedRule>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_5Kr9wMifEe2Rk4W6VnSGNQ" name="Actor_FromPackage"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_9LuxUMifEe2Rk4W6VnSGNQ" name="Class_FromPackage"/>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_9xH9YMifEe2Rk4W6VnSGNQ" name="Activity_FromPackage"/>
+    <packagedElement xmi:type="uml:Component" xmi:id="_-VRzUMifEe2Rk4W6VnSGNQ" name="Component_FromPackage"/>
+    <packagedElement xmi:type="uml:Interaction" xmi:id="__CW7wMifEe2Rk4W6VnSGNQ" name="Interaction_FromPackage"/>
+    <packagedElement xmi:type="uml:StateMachine" xmi:id="__rQHwMifEe2Rk4W6VnSGNQ" name="StateMachine_FromPackage"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_RjNn0MigEe2Rk4W6VnSGNQ" name="Package_FromPackage"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_TmbcwMigEe2Rk4W6VnSGNQ" name="UseCase_FromPackage"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_ed1WEMieEe2Rk4W6VnSGNQ" name="Class_Container" useCase="_YtzmQMigEe2Rk4W6VnSGNQ">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_X_a2QMigEe2Rk4W6VnSGNQ">
+      <body>Comment_FromClass</body>
+    </ownedComment>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_YauSMMigEe2Rk4W6VnSGNQ" name="Constraint_FromClass">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_YauSMcigEe2Rk4W6VnSGNQ" name="constraintSpec">
+        <language>OCL</language>
+        <body>true</body>
+      </specification>
+    </ownedRule>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_YtzmQMigEe2Rk4W6VnSGNQ" name="UseCase_FromClass" subject="_ed1WEMieEe2Rk4W6VnSGNQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_nGlUkMieEe2Rk4W6VnSGNQ" name="Activity_Container" useCase="_fHqrUMigEe2Rk4W6VnSGNQ">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_eM5sMMigEe2Rk4W6VnSGNQ">
+      <body>Comment_FromActivity</body>
+    </ownedComment>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_dU_MwMigEe2Rk4W6VnSGNQ" name="Constraint_FromActivity">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_dU_z0MigEe2Rk4W6VnSGNQ" name="constraintSpec">
+        <language>OCL</language>
+        <body>true</body>
+      </specification>
+    </ownedRule>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_fHqrUMigEe2Rk4W6VnSGNQ" name="UseCase_FromActivity" subject="_nGlUkMieEe2Rk4W6VnSGNQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_ozwBAMieEe2Rk4W6VnSGNQ" name="Component_Container" useCase="_e85lwMigEe2Rk4W6VnSGNQ">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_eGuywMigEe2Rk4W6VnSGNQ">
+      <body>Comment_FromComponent</body>
+    </ownedComment>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_dcPrUMigEe2Rk4W6VnSGNQ" name="Constraint_FromComponent">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_dcPrUcigEe2Rk4W6VnSGNQ" name="constraintSpec">
+        <language>OCL</language>
+        <body>true</body>
+      </specification>
+    </ownedRule>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_e85lwMigEe2Rk4W6VnSGNQ" name="UseCase_FromComponent" subject="_ozwBAMieEe2Rk4W6VnSGNQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_qQnAkMieEe2Rk4W6VnSGNQ" name="Interaction_Container" useCase="_ezXPQMigEe2Rk4W6VnSGNQ">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_d-Mh0MigEe2Rk4W6VnSGNQ">
+      <body>Comment_FromInteraction</body>
+    </ownedComment>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_diA8IMigEe2Rk4W6VnSGNQ" name="Constraint_FromInteraction">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_diA8IcigEe2Rk4W6VnSGNQ" name="constraintSpec">
+        <language>OCL</language>
+        <body>true</body>
+      </specification>
+    </ownedRule>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_ezXPQMigEe2Rk4W6VnSGNQ" name="UseCase_FromInteraction" subject="_qQnAkMieEe2Rk4W6VnSGNQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_r0xiAMieEe2Rk4W6VnSGNQ" name="StateMachine_Container" useCase="_ensKwMigEe2Rk4W6VnSGNQ">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_d4YNsMigEe2Rk4W6VnSGNQ">
+      <body>Comment_FromStateMachine</body>
+    </ownedComment>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_dqC2wMigEe2Rk4W6VnSGNQ" name="Constraint_FromStateMachine">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_dqDd0MigEe2Rk4W6VnSGNQ" name="constraintSpec">
+        <language>OCL</language>
+        <body>true</body>
+      </specification>
+    </ownedRule>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_ensKwMigEe2Rk4W6VnSGNQ" name="UseCase_FromStateMachine" subject="_r0xiAMieEe2Rk4W6VnSGNQ"/>
+  </packagedElement>
+</uml:Model>

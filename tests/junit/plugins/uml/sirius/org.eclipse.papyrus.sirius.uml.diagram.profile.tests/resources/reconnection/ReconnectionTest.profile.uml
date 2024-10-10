@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_ZuLQ8MG3Ee2gfZgxWp7E-w" name="ReconnectionTest" metaclassReference="_kakiMMG3Ee2gfZgxWp7E-w _kalwUMG3Ee2gfZgxWp7E-w">
+  <elementImport xmi:type="uml:ElementImport" xmi:id="_kakiMMG3Ee2gfZgxWp7E-w" alias="Activity">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Activity"/>
+  </elementImport>
+  <elementImport xmi:type="uml:ElementImport" xmi:id="_kalwUMG3Ee2gfZgxWp7E-w" alias="Actor">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Actor"/>
+  </elementImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_Zxm_cMG3Ee2gfZgxWp7E-w">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_Zxo0oMG3Ee2gfZgxWp7E-w">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_gpHCwMG3Ee2gfZgxWp7E-w" name="Class1">
+    <generalization xmi:type="uml:Generalization" xmi:id="_q1TxAMG3Ee2gfZgxWp7E-w" general="_hpkaMMG3Ee2gfZgxWp7E-w"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_hpkaMMG3Ee2gfZgxWp7E-w" name="Class2"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_iYn4kMG3Ee2gfZgxWp7E-w" name="DataType1"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_imKlUMG3Ee2gfZgxWp7E-w" name="DataType2"/>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_nraA0MG3Ee2gfZgxWp7E-w" name="Stereotype1">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_psPQIMG3Ee2gfZgxWp7E-w" name="base_Actor" association="_psOCAMG3Ee2gfZgxWp7E-w">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Actor"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_psPQIcG3Ee2gfZgxWp7E-w"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_ojQ14MG3Ee2gfZgxWp7E-w" name="Stereotype2"/>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_psOCAMG3Ee2gfZgxWp7E-w" name="E_Stereotype1_Actor1" memberEnd="_psOpEMG3Ee2gfZgxWp7E-w _psPQIMG3Ee2gfZgxWp7E-w">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_psOpEMG3Ee2gfZgxWp7E-w" name="extension_Stereotype1" type="_nraA0MG3Ee2gfZgxWp7E-w" aggregation="composite" association="_psOCAMG3Ee2gfZgxWp7E-w"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_qTrDkMG3Ee2gfZgxWp7E-w" memberEnd="_qTrqosG3Ee2gfZgxWp7E-w _qTsRsMG3Ee2gfZgxWp7E-w">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qTrqoMG3Ee2gfZgxWp7E-w" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_qTrqocG3Ee2gfZgxWp7E-w" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <name xsi:nil="true"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_qTrqosG3Ee2gfZgxWp7E-w" name="class2" type="_hpkaMMG3Ee2gfZgxWp7E-w" association="_qTrDkMG3Ee2gfZgxWp7E-w"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_qTsRsMG3Ee2gfZgxWp7E-w" name="class1" type="_gpHCwMG3Ee2gfZgxWp7E-w" association="_qTrDkMG3Ee2gfZgxWp7E-w"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="_sBaXwMG3Ee2gfZgxWp7E-w" name="Enumeration1"/>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="_sVkC0MG3Ee2gfZgxWp7E-w" name="Enumeration2"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_v_8C0MG3Ee2gfZgxWp7E-w" name="PrimitiveType1"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_wX5P0MG3Ee2gfZgxWp7E-w" name="PrimitiveType2"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_5n8HgMTbEe2RiJkKZVqfnA" name="Class3"/>
+</uml:Profile>

@@ -64,7 +64,6 @@ public class AllTests {
 		suiteClasses.add(new PluginTestSuiteClass(org.eclipse.papyrus.uml.profile.drafter.tests.AllTests.class));
 
 		suiteClasses.add(new PluginTestSuiteClass(org.eclipse.papyrus.uml.internationalization.tests.tests.AllTests.class));
-		suiteClasses.add(new PluginTestSuiteClass(org.eclipse.papyrus.uml.alf.tests.AllTests.class));
 		suiteClasses.add(new PluginTestSuiteClass(org.eclipse.papyrus.uml.expressions.tests.AllTests.class));
 		suiteClasses.add(new PluginTestSuiteClass(org.eclipse.papyrus.uml.architecture.tests.AllTests.class));
 		suiteClasses.add(new PluginTestSuiteClass(org.eclipse.papyrus.uml.types.core.tests.AllTests.class));
