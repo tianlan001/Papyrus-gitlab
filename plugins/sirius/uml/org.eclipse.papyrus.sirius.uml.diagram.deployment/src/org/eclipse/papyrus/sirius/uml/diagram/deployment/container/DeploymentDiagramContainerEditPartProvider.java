@@ -13,10 +13,14 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.deployment.container;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.runtime.common.core.service.IOperation;
+import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.business.api.query.ContainerMappingQuery;
 import org.eclipse.sirius.diagram.description.ContainerMapping;
@@ -35,6 +39,9 @@ import org.eclipse.uml2.uml.Node;
  */
 @SuppressWarnings("restriction")
 public class DeploymentDiagramContainerEditPartProvider extends SiriusEditPartProvider {
+	
+	private static final String DEPLOYMENT_DIAGRAM_NAME = "DeploymentDiagram"; //$NON-NLS-1$
+	
 	/**
 	 * Default constructor.
 	 */
@@ -78,5 +85,19 @@ public class DeploymentDiagramContainerEditPartProvider extends SiriusEditPartPr
 				return isRegion;
 			}
 		});
+	}
+	
+	@Override
+	public synchronized boolean provides(IOperation operation) {
+		if(operation instanceof IEditPartOperation editPartOperation) {
+			if(editPartOperation.getView().getDiagram().getElement() instanceof DDiagram diagram) {
+				if(Objects.equals(diagram.getDescription().getName(), DEPLOYMENT_DIAGRAM_NAME)) {
+					return super.provides(editPartOperation);
+				} else {
+					return false;
+				}
+			}
+		}
+		return super.provides(operation);
 	}
 }

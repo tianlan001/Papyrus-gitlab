@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/sequence/description/2.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/sequence/description/tool/2.0.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" xmlns:tool_2="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" documentation="Copyright (c) 2024 CEA LIST.&#xD;&#xA;&#xD;&#xA;This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License 2.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;https://www.eclipse.org/legal/epl-2.0/&#xD;&#xA;&#xD;&#xA;SPDX-License-Identifier: EPL-2.0&#xD;&#xA;&#xD;&#xA; Contributors:&#xD;&#xA;  Obeo - Initial API and implementation" name="papyrus_sequence" version="12.0.0.2017041100">
+  <ownedViewpoints name="SequenceDiagram" modelFileExtension="uml">
+    <ownedRepresentations xsi:type="description_1:SequenceDiagramDescription" documentation="Representation to edit sequence diagrams" name="SequenceDiagram" domainClass="uml::PackageableElement" enablePopupBars="true" endsOrdering="service:getEndsOrdering(eventEnds)" instanceRolesOrdering="aql:self.oclAsType(uml::Interaction).lifeline">
+      <metamodel href="platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#/"/>
+      <defaultLayer name="Sequence">
+        <nodeMappings xsi:type="description_1:InstanceRoleMapping" name="SD_Lifeline" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.oclAsType(uml::Interaction).lifeline" synchronizationLock="true" domainClass="uml::Lifeline">
+          <borderedNodeMappings xsi:type="description_1:ExecutionMapping" name="SD_Lifeline_Execution" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='SD_Delete_All']" semanticCandidatesExpression="aql:self" semanticElements="var:self" synchronizationLock="true" domainClass="uml::Lifeline" startingEndFinderExpression="aql:self" finishingEndFinderExpression="aql:self">
+            <style xsi:type="style:SquareDescription" labelSize="9" labelExpression="" labelPosition="node" resizeKind="NSEW" width="1" height="40">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </borderedNodeMappings>
+          <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelPosition="node" resizeKind="NSEW" width="10" height="4">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </nodeMappings>
+        <toolSections name="Nodes">
+          <ownedTools xsi:type="tool:InstanceRoleCreationTool" name="CreateLifelineTool" label="Lifeline" precondition="aql:container.oclIsKindOf(uml::Interaction)" nodeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createLifeline(containerView, predecessor)"/>
+            </initialOperation>
+            <predecessor name="predecessor"/>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="DeleteAction">
+          <ownedTools xsi:type="tool_2:DeleteElementDescription" name="SD_Delete_All">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.delete()"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="F2_Edition">
+          <ownedTools xsi:type="tool_2:DirectEditLabel" name="NamedElement_name_EditionTool" precondition="aql:self.oclIsKindOf(uml::NamedElement)" inputLabelExpression="aql:self.getDirectEditInputValue()">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.consumeNewLabel(arg0)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="Reorder">
+          <ownedTools xsi:type="tool:InstanceRoleReorderTool" name="ReorderLifelineTool" label="Reorder Lifeline" mappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']">
+            <predecessorBefore name="predecessorBefore"/>
+            <predecessorAfter name="predecessorAfter"/>
+            <instanceRoleMoved>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.eContainer().reorderLifeline(self, predecessorAfter)"/>
+            </instanceRoleMoved>
+          </ownedTools>
+        </toolSections>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.DeleteServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.UMLLabelServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramReorderServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramServices"/>
+  </ownedViewpoints>
+</description:Group>
