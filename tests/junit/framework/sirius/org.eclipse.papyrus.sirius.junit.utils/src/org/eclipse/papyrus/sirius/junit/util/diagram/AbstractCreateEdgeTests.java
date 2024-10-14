@@ -1,7 +1,7 @@
 /*****************************************************************************
- * Copyright (c) 2023 CEA LIST, Obeo.
+ * Copyright (c) 2023, 2024 CEA LIST.
  *
- * All rights reserved. This program and the accompanying materials
+ * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
  * https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.checker.SemanticAndGraphicalCreationChecker;
+import org.eclipse.papyrus.sirius.junit.utils.rules.SiriusDiagramEditorFixture;
+import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.EdgeTarget;
 import org.eclipse.uml2.uml.Package;
@@ -92,7 +94,7 @@ public abstract class AbstractCreateEdgeTests extends AbstractSiriusDiagramTests
 		checkSiriusDiagramSynchronization(isSynchronized);
 
 		Diagram diagram = getDiagram();
-		boolean result = fixture.applyEdgeCreationTool(creationToolId, getDDiagram(), (EdgeTarget) getEdgeSource(), (EdgeTarget) getEdgeTarget());
+		boolean result = this.applyCreationTool(creationToolId, getDDiagram(), (EdgeTarget) getEdgeSource(), (EdgeTarget) getEdgeTarget());
 		Assert.assertTrue("The creation of edge failed", result); //$NON-NLS-1$
 		fixture.flushDisplayEvents();
 
@@ -197,5 +199,27 @@ public abstract class AbstractCreateEdgeTests extends AbstractSiriusDiagramTests
 	 */
 	public void setEdgeTarget(EObject edgeTarget) {
 		this.edgeTarget = edgeTarget;
+	}
+
+	/**
+	 * Applies the {@code creationToolId} tool on the provided {@code diagram} between {@code edgeSource} and {@code edgeTarget}.
+	 * <p>
+	 * This method can be overridden to change how the tool is actually invoked. For example, it can be overridden to use
+	 * {@link SiriusDiagramEditorFixture#applyEdgeCreationToolFromPalette(String, DDiagram, EdgeTarget, EdgeTarget, org.eclipse.draw2d.geometry.Point, org.eclipse.draw2d.geometry.Point)}
+	 * instead of the default tool creation process.
+	 * </p>
+	 * 
+	 * @param creationToolId
+	 *            the identifier of the creation tool
+	 * @param diagram
+	 *            the diagram
+	 * @param edgeSource
+	 *            the source of the edge to create
+	 * @param edgeTarget
+	 *            the target of the edge to create
+	 * @return {@code true} if the tool could be applied, {@code false} otherwise
+	 */
+	protected boolean applyCreationTool(String creationToolId, DDiagram diagram, EdgeTarget edgeSource, EdgeTarget edgeTarget) {
+		return fixture.applyEdgeCreationTool(creationToolId, getDDiagram(), edgeSource, edgeTarget);
 	}
 }

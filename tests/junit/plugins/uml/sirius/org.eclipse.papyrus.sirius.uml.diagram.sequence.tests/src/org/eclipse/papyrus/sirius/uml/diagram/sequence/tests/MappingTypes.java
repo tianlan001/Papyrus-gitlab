@@ -31,4 +31,8 @@ public class MappingTypes {
 	public static final String LIFELINE_EXECUTION_NODE_TYPE = "SD_Lifeline_Execution"; //$NON-NLS-1$
 
 	public static final String EXECUTION_SPECIFICATION_NODE_TYPE = "SD_ExecutionSpecification"; //$NON-NLS-1$
+
+	/*----------------------------------------------The Edge mapping IDs----------------------------------------------*/
+
+	public static final String MESSAGE_EDGE_TYPE = "SD_Message"; //$NON-NLS-1$
 }
