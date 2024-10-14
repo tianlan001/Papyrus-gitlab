@@ -27,6 +27,8 @@ import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.Lifeline;
+import org.eclipse.uml2.uml.Message;
+import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.OccurrenceSpecification;
 
 /**
@@ -111,30 +113,98 @@ public class SequenceDiagramReorderServices {
 	}
 
 	/**
-	 * Moves {@code fragment} between {@code semanticStartingEndPredecessor} and {@code semanticFinishingEndPredecessor}.
+	 * Moves {@code fragment} between {@code startingEndPredecessorSemanticElement} and {@code finishingEndPredecessorSemanticElement}.
 	 * <p>
 	 * This method operates at the <b>semantic</b> level. See {@link SequenceDiagramServices#graphicalReorderFragment(InteractionFragment, org.eclipse.sirius.diagram.sequence.ordering.EventEnd, org.eclipse.sirius.diagram.sequence.ordering.EventEnd)} to perform
-	 * a
-	 * reorder at the graphical level.
+	 * a reorder at the graphical level.
 	 * 
 	 * @param fragment
 	 *            the fragment to move
-	 * @param semanticStartingEndPredecessor
-	 *            the semantic predecessor of the fragment's starting end
-	 * @param semanticFinishingEndPredecessor
-	 *            the semantic predecessor of the fragment's finishing end
+	 * @param startingEndPredecessorSemanticElement
+	 *            the semantic element preceding the starting end of the {@code fragment}
+	 * @param finishingEndPredecessorSemanticElement
+	 *            the semantic element preceding the finishing end of the {@code fragment}
 	 * 
 	 * @see SequenceDiagramServices#graphicalReorderFragment(InteractionFragment, org.eclipse.sirius.diagram.sequence.ordering.EventEnd, org.eclipse.sirius.diagram.sequence.ordering.EventEnd)
 	 * @throws NullPointerException
 	 *             if {@code fragment} is {@code null}
 	 */
-	public void reorderFragment(InteractionFragment fragment, EObject semanticStartingEndPredecessor,
-			EObject semanticFinishingEndPredecessor) {
+	public void reorderFragment(InteractionFragment fragment, EObject startingEndPredecessorSemanticElement,
+			EObject finishingEndPredecessorSemanticElement) {
 		Objects.requireNonNull(fragment);
 		if (fragment instanceof ExecutionSpecification) {
-			reorder((ExecutionSpecification) fragment, semanticStartingEndPredecessor,
-					semanticFinishingEndPredecessor);
+			reorder((ExecutionSpecification) fragment, startingEndPredecessorSemanticElement,
+					finishingEndPredecessorSemanticElement);
 		}
+	}
+
+	/**
+	 * Moves {@code message} between {@code startingEndPredecessorSemanticElement} and {@code finishingEndPredecessorSemanticElement}.
+	 * <p>
+	 * This method operates at the <b>semantic</b> level. See {@link SequenceDiagramServices#graphicalReorderMessage(Message, org.eclipse.sirius.diagram.sequence.ordering.EventEnd, org.eclipse.sirius.diagram.sequence.ordering.EventEnd)} to perform a reorder at
+	 * the graphical level.
+	 * 
+	 * @param message
+	 *            the message to move
+	 * @param startingEndPredecessorSemanticElement
+	 *            the semantic element preceding the starting end of the {@code message}
+	 * @param finishingEndPredecessorSemanticElement
+	 *            the semantic element preceding the finishing end of the {@code message}
+	 * @see SequenceDiagramServices#graphicalReorderMessage(Message, org.eclipse.sirius.diagram.sequence.ordering.EventEnd, org.eclipse.sirius.diagram.sequence.ordering.EventEnd)
+	 * @throws NullPointerException
+	 *             if {@code message} is {@code null}
+	 */
+	public void reorderMessage(Message message, EObject startingEndPredecessorSemanticElement, EObject finishingEndPredecessorSemanticElement) {
+		Objects.requireNonNull(message);
+		List<InteractionFragment> interactionFragments = message.getInteraction().getFragments();
+		if (message.getSendEvent() instanceof MessageOccurrenceSpecification) {
+			if (interactionFragments.contains((MessageOccurrenceSpecification) message.getSendEvent())) {
+				interactionFragments.remove((MessageOccurrenceSpecification) message.getSendEvent());
+				EObject sourcePredecessor = asPredecessor(startingEndPredecessorSemanticElement);
+				int sourcePredecessorIndex = interactionFragments.indexOf(sourcePredecessor);
+				interactionFragments.add(sourcePredecessorIndex + 1, (MessageOccurrenceSpecification) message.getSendEvent());
+			} else {
+				Activator.log.warn("The enclosing interaction doesn't contain the send event end of " + message); //$NON-NLS-1$
+				return;
+			}
+		}
+		if (message.getReceiveEvent() instanceof MessageOccurrenceSpecification) {
+			if (interactionFragments.contains((MessageOccurrenceSpecification) message.getReceiveEvent())) {
+				interactionFragments.remove((MessageOccurrenceSpecification) message.getReceiveEvent());
+				EObject targetPredecessor = asPredecessor(finishingEndPredecessorSemanticElement);
+				int finishingPredecessorIndex = interactionFragments.indexOf(targetPredecessor);
+				if (startingEndPredecessorSemanticElement == finishingEndPredecessorSemanticElement) {
+					// If the start and finish element are the same we want to ensure the receive event is placed after the start event.
+					finishingPredecessorIndex++;
+				}
+				interactionFragments.add(finishingPredecessorIndex + 1, (MessageOccurrenceSpecification) message.getReceiveEvent());
+			} else {
+				Activator.log.warn("The enclosing interaction doesn't contain the receive event end of " + message); //$NON-NLS-1$
+				return;
+			}
+		}
+
+	}
+
+	/**
+	 * Adapts the provided {@code eObject} as an {@link InteractionFragment} predecessor.
+	 * <p>
+	 * This method ensures that the returned element can be used as a predecessor when reordering fragments. The returned element can be different from the provided {@code eObject} if {@code eObject} isn't a valid predecessor.
+	 * 
+	 * @param eObject
+	 *            the element to adapt to an {@link InteractionFragment} predecessor
+	 * @return the element to use as predecessor
+	 */
+	private EObject asPredecessor(EObject eObject) {
+		EObject result = eObject;
+		if (eObject instanceof ExecutionOccurrenceSpecification) {
+			ExecutionOccurrenceSpecification occurrence = (ExecutionOccurrenceSpecification) eObject;
+			if (isStartOccurrence(occurrence)) {
+				// The occurrence is the start of an execution, but we want to enforce that an execution start is always followed by the execution itself. We return the execution to make sure this is always the case.
+				result = occurrence.getExecution();
+			}
+		}
+		return result;
 	}
 
 	/**

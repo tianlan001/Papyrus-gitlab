@@ -1,7 +1,7 @@
 /*****************************************************************************
- * Copyright (c) 2022, 2023 CEA LIST, Obeo.
+ * Copyright (c) 2022, 2024 CEA LIST.
  *
- * All rights reserved. This program and the accompanying materials
+ * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
  * https://www.eclipse.org/legal/epl-2.0/
@@ -33,8 +33,10 @@ import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Extend;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Include;
+import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Manifestation;
+import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Realization;
@@ -487,6 +489,21 @@ public class SemanticCandidatesServicesTest extends AbstractServicesTest {
 		// test getExtendCandidates from a non {@link Package}
 		extendsList = this.semanticCandidatesServices.getExtendCandidates(this.create(Comment.class));
 		assertEquals(0, extendsList.size());
+	}
+
+	@Test
+	public void testGetMessageCandidates() {
+		Interaction interaction = create(Interaction.class);
+		assertTrue(semanticCandidatesServices.getMessageCandidates(interaction).isEmpty());
+		Message message1 = create(Message.class);
+		interaction.getMessages().add(message1);
+		Message message2 = create(Message.class);
+		interaction.getMessages().add(message2);
+		// Test getMessageCandidates from an Interaction context
+		Collection<Message> messagesList = semanticCandidatesServices.getMessageCandidates(interaction);
+		assertEquals(2, messagesList.size());
+		assertTrue(messagesList.contains(message1));
+		assertTrue(messagesList.contains(message2));
 	}
 
 }

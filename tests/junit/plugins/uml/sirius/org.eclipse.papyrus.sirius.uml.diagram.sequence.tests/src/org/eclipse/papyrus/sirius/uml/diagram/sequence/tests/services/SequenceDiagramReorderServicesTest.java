@@ -29,6 +29,7 @@ import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.Lifeline;
+import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.OccurrenceSpecification;
 import org.junit.Before;
@@ -342,6 +343,118 @@ public class SequenceDiagramReorderServicesTest extends AbstractServicesTest {
 				enclosingExecutionSpecification.getFinish()));
 	}
 
+	/**
+	 * Reorders a {@link Message} below another message inside its enclosing {@link ExecutionSpecification} (source and target).
+	 * <p>
+	 * Both messages have the same source and target {@link ExecutionSpecification}.
+	 */
+	@Test
+	public void testReorderMessageBelowOtherMessageInsideEnclosingExecutionSpecifications() {
+		ExecutionSpecification executionSpecification1 = addOrderedExecutionSpecificationToInteraction();
+		ExecutionSpecification executionSpecification2 = addOrderedExecutionSpecificationToInteraction(executionSpecification1);
+		Message message1 = createMessage(executionSpecification2);
+		Message message2 = createMessage((MessageOccurrenceSpecification) message1.getReceiveEvent());
+		reorderServices.reorderMessage(message1, message2.getReceiveEvent(), message1.getSendEvent());
+		assertContains(interaction.getFragments(), List.of(
+				executionSpecification1.getStart(),
+				executionSpecification1,
+				executionSpecification2.getStart(),
+				executionSpecification2,
+				message2.getSendEvent(),
+				message2.getReceiveEvent(),
+				message1.getSendEvent(),
+				message1.getReceiveEvent(),
+				executionSpecification2.getFinish(),
+				executionSpecification1.getFinish()));
+		// Messages aren't reordered, only the send/receive events.
+		assertContains(interaction.getMessages(), List.of(
+				message1,
+				message2));
+	}
+
+	/**
+	 * Reorders a {@link Message} (with its send/receive not in the interaction's fragments) below another message inside its enclosing {@link ExecutionSpecification}.
+	 * <p>
+	 * The messages aren't reordered: their send/receive events have to be in the interaction's fragments.
+	 */
+	@Test
+	public void testReorderMessageSendReceiveOccurrencesNotInInteraction() {
+		ExecutionSpecification executionSpecification1 = addOrderedExecutionSpecificationToInteraction();
+		ExecutionSpecification executionSpecification2 = addOrderedExecutionSpecificationToInteraction(executionSpecification1);
+		Message message1 = createMessage(executionSpecification2);
+		Message message2 = createMessage((MessageOccurrenceSpecification) message1.getReceiveEvent());
+		assertTrue(message1.getSendEvent() instanceof OccurrenceSpecification);
+		assertTrue(message1.getReceiveEvent() instanceof OccurrenceSpecification);
+		message1.getInteraction().getFragments().remove((OccurrenceSpecification) message1.getSendEvent());
+		message1.getInteraction().getFragments().remove((OccurrenceSpecification) message1.getReceiveEvent());
+		reorderServices.reorderMessage(message1, message2.getReceiveEvent(), message1.getSendEvent());
+		assertContains(interaction.getFragments(), List.of(
+				executionSpecification1.getStart(),
+				executionSpecification1,
+				executionSpecification2.getStart(),
+				executionSpecification2,
+				message2.getSendEvent(),
+				message2.getReceiveEvent(),
+				executionSpecification2.getFinish(),
+				executionSpecification1.getFinish()));
+		// Messages aren't reordered, only the send/receive events.
+		assertContains(interaction.getMessages(), List.of(
+				message1,
+				message2));
+	}
+
+	/**
+	 * Reorders a {@link Message} below its enclosing executions (source and target).
+	 * <p>
+	 * The message send/receive events are moved below the {@link ExecutionSpecification} finish occurrence.
+	 */
+	@Test
+	public void testReorderMessageBelowEnclosingExecutions() {
+		ExecutionSpecification executionSpecification1 = addOrderedExecutionSpecificationToInteraction();
+		ExecutionSpecification executionSpecification2 = addOrderedExecutionSpecificationToInteraction(executionSpecification1);
+		Message message1 = createMessage(executionSpecification2);
+		Message message2 = createMessage((MessageOccurrenceSpecification) message1.getReceiveEvent());
+		reorderServices.reorderMessage(message1, executionSpecification1.getFinish(), message1.getSendEvent());
+		assertContains(interaction.getFragments(), List.of(
+				executionSpecification1.getStart(),
+				executionSpecification1,
+				executionSpecification2.getStart(),
+				executionSpecification2,
+				message2.getSendEvent(),
+				message2.getReceiveEvent(),
+				executionSpecification2.getFinish(),
+				executionSpecification1.getFinish(),
+				message1.getSendEvent(),
+				message1.getReceiveEvent()));
+		// Messages aren't reordered, only the send/receive events.
+		assertContains(interaction.getMessages(), List.of(
+				message1,
+				message2));
+	}
+
+	/**
+	 * Reorders a {@link Message} inside enclosing executions (source and target).
+	 * <p>
+	 * The message is originally below the executions.
+	 */
+	@Test
+	public void testReorderMessageInsideEnclosingExecutions() {
+		ExecutionSpecification executionSpecification1 = addOrderedExecutionSpecificationToInteraction();
+		ExecutionSpecification executionSpecification2 = addOrderedExecutionSpecificationToInteraction(executionSpecification1);
+		Message message1 = createMessage(executionSpecification1.getFinish());
+		reorderServices.reorderMessage(message1, executionSpecification2.getStart(), message1.getSendEvent());
+		assertContains(interaction.getFragments(), List.of(
+				executionSpecification1.getStart(),
+				executionSpecification1,
+				executionSpecification2.getStart(),
+				executionSpecification2,
+				message1.getSendEvent(),
+				message1.getReceiveEvent(),
+				executionSpecification2.getFinish(),
+				executionSpecification1.getFinish()));
+		assertContains(interaction.getMessages(), List.of(message1));
+	}
+
 	private void assertContains(List<?> from, List<?> content) {
 		assertEquals(content.size(), from.size());
 		for (int i = 0; i < content.size(); i++) {
@@ -408,6 +521,21 @@ public class SequenceDiagramReorderServicesTest extends AbstractServicesTest {
 			interaction.getFragments().add(enclosingExecutionIndex + 3, finish);
 		}
 		return executionSpecification;
+	}
+
+	private Message createMessage(InteractionFragment fragmentAbove) {
+		Message message = create(Message.class);
+		MessageOccurrenceSpecification messageSendEvent = create(MessageOccurrenceSpecification.class);
+		message.setSendEvent(messageSendEvent);
+		messageSendEvent.setMessage(message);
+		MessageOccurrenceSpecification messageReceiveEvent = create(MessageOccurrenceSpecification.class);
+		message.setReceiveEvent(messageReceiveEvent);
+		messageReceiveEvent.setMessage(message);
+		fragmentAbove.getEnclosingInteraction().getMessages().add(message);
+		int executionIndex = interaction.getFragments().indexOf(fragmentAbove);
+		interaction.getFragments().add(executionIndex + 1, messageSendEvent);
+		interaction.getFragments().add(executionIndex + 2, messageReceiveEvent);
+		return message;
 	}
 
 }

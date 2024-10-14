@@ -1,7 +1,7 @@
 /*****************************************************************************
- * Copyright (c) 2022, 2023 CEA LIST, Obeo.
+ * Copyright (c) 2022, 2024 CEA LIST.
  *
- * All rights reserved. This program and the accompanying materials
+ * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
  * https://www.eclipse.org/legal/epl-2.0/
@@ -32,6 +32,7 @@ import org.eclipse.uml2.uml.CollaborationUse;
 import org.eclipse.uml2.uml.Component;
 import org.eclipse.uml2.uml.ComponentRealization;
 import org.eclipse.uml2.uml.Connector;
+import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.DeploymentTarget;
 import org.eclipse.uml2.uml.Extend;
@@ -39,8 +40,10 @@ import org.eclipse.uml2.uml.Extension;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Include;
 import org.eclipse.uml2.uml.InformationFlow;
+import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Manifestation;
+import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Package;
@@ -652,6 +655,17 @@ public class SemanticCandidatesServices {
 				.map(Usage.class::cast)
 				.collect(Collectors.toList());
 		// @formatter:on
+	}
+
+	/**
+	 * Get all {@link Message} form the given {@code interaction}.
+	 * 
+	 * @param interaction
+	 *            the {@link Interaction} to search into
+	 * @return the messages contained in the interaction
+	 */
+	public Collection<Message> getMessageCandidates(final Interaction interaction) {
+		return interaction.getMessages();
 	}
 
 	/**

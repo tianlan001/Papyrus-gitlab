@@ -31,6 +31,9 @@ import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.Lifeline;
+import org.eclipse.uml2.uml.Message;
+import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
+import org.eclipse.uml2.uml.MessageSort;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.UMLPackage;
 
@@ -67,6 +70,135 @@ public class SequenceDiagramServices {
 			reorderServices.reorderLifeline(parent, result, predecessor);
 		}
 		return result;
+	}
+
+	/**
+	 * Creates a new semantic <i>synchronous</i> {@link Message}, initializes and creates a view.
+	 * <p>
+	 * The new message connects {@code source} and {@code target}, and is placed after (i.e. below) the provided {@startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * 
+	 * @param parent
+	 *            the semantic parent
+	 * @param source
+	 *            the source element of the message
+	 * @param target
+	 *            the target element of the message
+	 * @param startingEndPredecessor
+	 *            the {@link EventEnd} preceding the starting end of the message
+	 * @param finishingEndPredecessor
+	 *            the {@link EventEnd} preceding the finishing end of the message
+	 * @param parentView
+	 *            the view of the semantic parent
+	 * @return a new instance or {@code null} if the creation failed
+	 */
+	public EObject createSynchronousMessage(Element parent, Element source, Element target, EObject startingEndPredecessor, EObject finishingEndPredecessor, DSemanticDecorator parentView) {
+		return this.createMessage(parent, MessageType.COMPLETE_SYNCH_CALL, source, target, startingEndPredecessor, finishingEndPredecessor, parentView);
+	}
+
+	/**
+	 * Creates a new semantic <i>asynchronous</i> {@link Message}, initializes and creates a view.
+	 * <p>
+	 * The new message connects {@code source} and {@code target}, and is placed after (i.e. below) the provided {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * 
+	 * @param parent
+	 *            the semantic parent
+	 * @param source
+	 *            the source element of the message
+	 * @param target
+	 *            the target element of the message
+	 * @param startingEndPredecessor
+	 *            the {@link EventEnd} preceding the starting end of the message
+	 * @param finishingEndPredecessor
+	 *            the {@link EventEnd} preceding the finishing end of the message
+	 * @param parentView
+	 *            the view of the semantic parent
+	 * @return a new instance or {@code null} if the creation failed
+	 */
+	public EObject createAsynchronousMessage(Element parent, Element source, Element target, EObject startingEndPredecessor, EObject finishingEndPredecessor, DSemanticDecorator parentView) {
+		return this.createMessage(parent, MessageType.COMPLETE_ASYNCH_CALL, source, target, startingEndPredecessor, finishingEndPredecessor, parentView);
+	}
+
+	/**
+	 * Creates a new semantic <i>reply</i> {@link Message}, initializes and creates a view.
+	 * <p>
+	 * The new message connects {@code source} and {@code target}, and is placed after (i.e. below) the provided {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * 
+	 * @param parent
+	 *            the semantic parent
+	 * @param source
+	 *            the source element of the message
+	 * @param target
+	 *            the target element of the message
+	 * @param startingEndPredecessor
+	 *            the {@link EventEnd} preceding the starting end of the message
+	 * @param finishingEndPredecessor
+	 *            the {@link EventEnd} preceding the finishing end of the message
+	 * @param parentView
+	 *            the view of the semantic parent
+	 * @return a new instance or {@code null} if the creation failed
+	 */
+	public EObject createReplyMessage(Element parent, Element source, Element target, EObject startingEndPredecessor, EObject finishingEndPredecessor, DSemanticDecorator parentView) {
+		return this.createMessage(parent, MessageType.COMPLETE_REPLY, source, target, startingEndPredecessor, finishingEndPredecessor, parentView);
+	}
+
+	private EObject createMessage(Element parent, MessageType type, Element source, Element target, EObject startingEndPredecessor, EObject finishingEndPredecessor, DSemanticDecorator parentView) {
+		EObject result = null;
+		if (parent == null) {
+			Activator.log.warn(MessageFormat.format(CREATE_ERROR_NO_PARENT, UMLPackage.eINSTANCE.getMessage().getName()));
+		} else {
+			CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
+			result = commonDiagramServices.createElement(parent, UMLPackage.eINSTANCE.getMessage().getName(), UMLPackage.eINSTANCE.getInteraction_Message().getName(), parentView);
+			Message message = (Message) result;
+			if (MessageType.COMPLETE_SYNCH_CALL.equals(type)) {
+				message.setMessageSort(MessageSort.SYNCH_CALL_LITERAL);
+				createSendEvent(message, source, parentView);
+				createReceiveEvent(message, target, parentView);
+			} else if (MessageType.COMPLETE_REPLY.equals(type)) {
+				message.setMessageSort(MessageSort.REPLY_LITERAL);
+				createSendEvent(message, source, parentView);
+				createReceiveEvent(message, target, parentView);
+			} else if (MessageType.COMPLETE_ASYNCH_CALL.equals(type)) {
+				message.setMessageSort(MessageSort.ASYNCH_CALL_LITERAL);
+				createSendEvent(message, source, parentView);
+				createReceiveEvent(message, target, parentView);
+			}
+			SequenceDiagramReorderServices reorderServices = new SequenceDiagramReorderServices();
+			EObject startingEndPredecessorSemanticElement = getSemanticEnd((EventEnd) startingEndPredecessor);
+			EObject finishingEndPredecessorSemanticElement = getSemanticEnd((EventEnd) finishingEndPredecessor);
+			reorderServices.reorderMessage(message, startingEndPredecessorSemanticElement, finishingEndPredecessorSemanticElement);
+		}
+		return result;
+	}
+
+	private void createSendEvent(Message message, Element source, DSemanticDecorator parentView) {
+		if (source instanceof Lifeline || source instanceof ExecutionSpecification) {
+			MessageOccurrenceSpecification sendEvent = UMLFactory.eINSTANCE.createMessageOccurrenceSpecification();
+			message.getInteraction().getFragments().add(sendEvent);
+			sendEvent.setName(message.getName() + "SendEvent"); //$NON-NLS-1$
+			sendEvent.setMessage(message);
+			message.setSendEvent(sendEvent);
+			if (source instanceof Lifeline) {
+				sendEvent.setCovered((Lifeline) source);
+			} else if (source instanceof ExecutionSpecification) {
+				sendEvent.setCovered(((ExecutionSpecification) source).getCovereds().get(0));
+			}
+		}
+	}
+
+	private void createReceiveEvent(Message message, Element target, DSemanticDecorator parentView) {
+		if (target instanceof Lifeline || target instanceof ExecutionSpecification) {
+			MessageOccurrenceSpecification receiveEvent = UMLFactory.eINSTANCE
+					.createMessageOccurrenceSpecification();
+			message.getInteraction().getFragments().add(receiveEvent);
+			receiveEvent.setName(message.getName() + "ReceiveEvent"); //$NON-NLS-1$
+			receiveEvent.setMessage(message);
+			message.setReceiveEvent(receiveEvent);
+			if (target instanceof Lifeline) {
+				receiveEvent.setCovered((Lifeline) target);
+			} else if (target instanceof ExecutionSpecification) {
+				receiveEvent.setCovered(((ExecutionSpecification) target).getCovereds().get(0));
+			}
+		}
 	}
 
 	/**
@@ -189,6 +321,7 @@ public class SequenceDiagramServices {
 	 *            the predecessor of the fragment's finishing end
 	 * 
 	 * @see SequenceDiagramReorderServices#reorderFragment(InteractionFragment, EObject, EObject)
+	 * @see #graphicalReorderMessage(Message, EventEnd, EventEnd)
 	 */
 	public void graphicalReorderFragment(InteractionFragment fragment, EObject startingEndPredecessor,
 			EObject finishingEndPredecessor) {
@@ -201,6 +334,33 @@ public class SequenceDiagramServices {
 		final EObject semanticFinishingEndPredecessor = Optional.ofNullable((EventEnd) finishingEndPredecessor).map(EventEnd::getSemanticEnd).orElse(null);
 		SequenceDiagramReorderServices reorderServices = new SequenceDiagramReorderServices();
 		reorderServices.reorderFragment(fragment, semanticStartingEndPredecessor, semanticFinishingEndPredecessor);
+	}
+
+	/**
+	 * Moves {@code message} between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * <p>
+	 * This method operates at the <b>graphical</b> level, see {@link SequenceDiagramReorderServices#reorderMessage(Message, EObject, EObject)} to perform a reorder at the semantic level.
+	 * 
+	 * @param message
+	 *            the message to move
+	 * @param startingEndPredecessor
+	 *            the predecessor of the message's starting end
+	 * @param finishingEndPredecessor
+	 *            the predecessor of the fragment's finishing end
+	 * 
+	 * @see SequenceDiagramReorderServices#reorderMessage(Message, EObject, EObject)
+	 * @see #graphicalReorderFragment(InteractionFragment, EventEnd, EventEnd)
+	 */
+	public void graphicalReorderMessage(Message message, EObject startingEndPredecessor, EObject finishingEndPredecessor) {
+		// Non-null, non-EventEnd starting and finishing end predecessors aren't supported by this method.
+		if ((startingEndPredecessor != null && !(startingEndPredecessor instanceof EventEnd))
+				|| (finishingEndPredecessor != null && !(finishingEndPredecessor instanceof EventEnd))) {
+			return;
+		}
+		final EObject semanticStartingEndPredecessor = Optional.ofNullable((EventEnd) startingEndPredecessor).map(EventEnd::getSemanticEnd).orElse(null);
+		final EObject semanticFinishingEndPredecessor = Optional.ofNullable((EventEnd) finishingEndPredecessor).map(EventEnd::getSemanticEnd).orElse(null);
+		SequenceDiagramReorderServices reorderServices = new SequenceDiagramReorderServices();
+		reorderServices.reorderMessage(message, semanticStartingEndPredecessor, semanticFinishingEndPredecessor);
 	}
 
 	/**
@@ -232,6 +392,11 @@ public class SequenceDiagramServices {
 		return Optional.ofNullable(eventEnd)
 				.map(EventEnd::getSemanticEnd)
 				.orElse(null);
+	}
+
+	// Copied from org.eclipse.papyrus.uml.service.types.element.UMLElementTypes to avoid a dependency to papyrus.uml.service
+	private static enum MessageType {
+		COMPLETE_SYNCH_CALL, COMPLETE_ASYNCH_CALL, COMPLETE_REPLY
 	}
 
 }
