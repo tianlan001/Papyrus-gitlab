@@ -1,7 +1,7 @@
 /*****************************************************************************
- * Copyright (c) 2022 CEA LIST
+ * Copyright (c) 2022, 2024 CEA LIST.
  *
- * All rights reserved. This program and the accompanying materials
+ * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
  * https://www.eclipse.org/legal/epl-2.0/
@@ -10,6 +10,7 @@
  *
  * Contributors:
  *  Vincent Lorenzo (CEA LIST) <vincent.lorenzo@cea.fr> - Initial API and implementation
+ *  Obeo - Improvement of the checker
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.junit.utils.diagram.creation.semantic.checker;
 
@@ -80,7 +81,7 @@ public abstract class AbstractSemanticNodeCreationChecker implements ISemanticRe
 	protected void validateSemanticOwner(final EObject semanticElement) {
 		Assert.assertTrue("The semantic owner doesn't contains the created element.", getContainmentFeatureValue().contains(semanticElement)); //$NON-NLS-1$
 		Assert.assertTrue("The created element is not owned by the expected feature.", getContainmentFeatureValue().contains(semanticElement)); //$NON-NLS-1$
-		Assert.assertEquals("The owner contains more than one additional element after the creation.", this.nbChildren + 1, getContainmentFeatureValue().size()); //$NON-NLS-1$
+		Assert.assertEquals("The owner contains more than one additional element after the creation.", this.nbChildren + this.getNumberOfExpectedCreatedElement(), getContainmentFeatureValue().size()); //$NON-NLS-1$
 	}
 
 	/**
@@ -92,6 +93,16 @@ public abstract class AbstractSemanticNodeCreationChecker implements ISemanticRe
 	 */
 	protected abstract void validateSemanticElementInstance(final EObject createdElement);
 
+	/**
+	 * Returns the number of created elements in the checked {@code containmentFeature}.
+	 * 
+	 * @return
+	 *         the number of created elements in the checked {@code containmentFeature}
+	 */
+	protected int getNumberOfExpectedCreatedElement() {
+		return 1;
+	}
+	
 	/**
 	 * @see org.eclipse.papyrus.sirius.junit.utils.diagram.creation.semantic.checker.ISemanticRepresentationElementChecker#validateAfterUndo()
 	 *
@@ -105,7 +116,7 @@ public abstract class AbstractSemanticNodeCreationChecker implements ISemanticRe
 	 *
 	 */
 	public void validateAfterRedo() {
-		Assert.assertEquals("The owner contains more than one additional element after the redo.", this.nbChildren + 1, getContainmentFeatureValue().size()); //$NON-NLS-1$
+		Assert.assertEquals("The owner contains more than one additional element after the redo.", this.nbChildren + this.getNumberOfExpectedCreatedElement(), getContainmentFeatureValue().size()); //$NON-NLS-1$
 	}
 
 	/**

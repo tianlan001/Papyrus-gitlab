@@ -1,7 +1,7 @@
 /*****************************************************************************
- * Copyright (c) 2022 CEA LIST
+ * Copyright (c) 2022, 2024 CEA LIST.
  *
- * All rights reserved. This program and the accompanying materials
+ * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
  * https://www.eclipse.org/legal/epl-2.0/
@@ -10,14 +10,18 @@
  *
  * Contributors:
  *  Vincent Lorenzo (CEA LIST) <vincent.lorenzo@cea.fr> - Initial API and implementation
+ *  Obeo - Improvement on creation checks
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.junit.util.diagram;
+
+import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.checker.SemanticAndGraphicalCreationChecker;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.GraphicalOwnerUtils;
 import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.DDiagramElement;
+import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.DNodeContainer;
 import org.eclipse.sirius.viewpoint.DMappingBased;
 import org.eclipse.sirius.viewpoint.DRepresentationElement;
@@ -77,6 +81,13 @@ public abstract class AbstractCreateNodeTests extends AbstractSiriusDiagramTests
 				}
 			}
 		}
+		if(container instanceof DNode) {
+			for(final DDiagramElement diagramElement : ((DNode) container).getOwnedBorderedNodes()) {
+				if(mappingID.equals(diagramElement.getMapping().getName())) {
+					return diagramElement;
+				}
+			}
+		}
 		return null;
 	}
 
@@ -115,7 +126,9 @@ public abstract class AbstractCreateNodeTests extends AbstractSiriusDiagramTests
 		fixture.flushDisplayEvents();
 
 		Assert.assertEquals("The graphical container must contains only 1 additional element after the creation of the node.", initialChildrenNumber + 1, GraphicalOwnerUtils.getGraphicalOwnerChildrenSize(graphicalContainer)); //$NON-NLS-1$
-		final EObject createdElementRepresentation = GraphicalOwnerUtils.getChildren(graphicalContainer).get(0);
+		// Use the last element in the list if the graphical container already contains elements.
+		final List<? extends EObject> graphicalContainerChildren = GraphicalOwnerUtils.getChildren(graphicalContainer);
+		final EObject createdElementRepresentation = graphicalContainerChildren.get(graphicalContainerChildren.size() - 1);
 		Assert.assertTrue(createdElementRepresentation instanceof DRepresentationElement);
 
 		checker.validateRepresentationElement((DRepresentationElement) createdElementRepresentation);
