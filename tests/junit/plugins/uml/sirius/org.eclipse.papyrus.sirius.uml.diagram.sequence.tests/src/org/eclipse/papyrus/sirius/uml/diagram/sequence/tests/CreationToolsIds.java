@@ -27,4 +27,8 @@ public class CreationToolsIds {
 	/*----------------------------------------------The Node creation tools IDs----------------------------------------------*/
 
 	public static final String CREATE_LIFELINE_TOOL = "CreateLifelineTool"; //$NON-NLS-1$
+
+	public static final String CREATE_ACTION_EXECUTION_SPECIFICATION_TOOL = "CreateActionExecutionSpecification"; //$NON-NLS-1$
+
+	public static final String CREATE_BEHAVIOR_EXECUTION_SPECIFICATION_TOOL = "CreateBehaviorExecutionSpecification"; //$NON-NLS-1$
 }

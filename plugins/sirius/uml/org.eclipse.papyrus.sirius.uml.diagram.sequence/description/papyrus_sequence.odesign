@@ -6,6 +6,12 @@
       <defaultLayer name="Sequence">
         <nodeMappings xsi:type="description_1:InstanceRoleMapping" name="SD_Lifeline" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.oclAsType(uml::Interaction).lifeline" synchronizationLock="true" domainClass="uml::Lifeline">
           <borderedNodeMappings xsi:type="description_1:ExecutionMapping" name="SD_Lifeline_Execution" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='SD_Delete_All']" semanticCandidatesExpression="aql:self" semanticElements="var:self" synchronizationLock="true" domainClass="uml::Lifeline" startingEndFinderExpression="aql:self" finishingEndFinderExpression="aql:self">
+            <borderedNodeMappings xsi:type="description_1:ExecutionMapping" name="SD_ExecutionSpecification" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.1/@ownedTools[name='SD_Delete_All']" semanticCandidatesExpression="aql:self.getExecutionSpecificationCandidates()" synchronizationLock="true" domainClass="uml::ExecutionSpecification" startingEndFinderExpression="aql:self.start" finishingEndFinderExpression="aql:self.finish">
+              <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NSEW" width="2" height="5" color="//@userColorsPalettes[name='SD_ColorPalette']/@entries[name='CustomBlue']">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </style>
+            </borderedNodeMappings>
             <style xsi:type="style:SquareDescription" labelSize="9" labelExpression="" labelPosition="node" resizeKind="NSEW" width="1" height="40">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -26,6 +32,24 @@
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createLifeline(containerView, predecessor)"/>
             </initialOperation>
             <predecessor name="predecessor"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ExecutionCreationTool" documentation="Create an Action Execution Specification" name="CreateActionExecutionSpecification" label="Action Execution Specification" precondition="aql:container.oclIsTypeOf(uml::Lifeline)" nodeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/ActionExecutionSpecification.gif">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createActionExecutionSpecification(startingEndPredecessor, finishingEndPredecessor, containerView)"/>
+            </initialOperation>
+            <startingEndPredecessor name="startingEndPredecessor"/>
+            <finishingEndPredecessor name="finishingEndPredecessor"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ExecutionCreationTool" documentation="Create a Behavior Execution Specification" name="CreateBehaviorExecutionSpecification" label="Behavior Execution Specification" precondition="aql:container.oclIsTypeOf(uml::Lifeline)" nodeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/BehaviorExecutionSpecification.gif">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createBehaviorExecutionSpecification(startingEndPredecessor, finishingEndPredecessor, containerView)"/>
+            </initialOperation>
+            <startingEndPredecessor name="startingEndPredecessor"/>
+            <finishingEndPredecessor name="finishingEndPredecessor"/>
           </ownedTools>
         </toolSections>
         <toolSections name="DeleteAction">
@@ -54,6 +78,15 @@
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.eContainer().reorderLifeline(self, predecessorAfter)"/>
             </instanceRoleMoved>
           </ownedTools>
+          <ownedTools xsi:type="tool:ReorderTool" name="ReorderInteractionFragment" label="Reorder Interaction Fragment" mappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']">
+            <startingEndPredecessorBefore name="startingEndPredecessorBefore"/>
+            <startingEndPredecessorAfter name="startingEndPredecessorAfter"/>
+            <finishingEndPredecessorBefore name="finishingEndPredecessorBefore"/>
+            <finishingEndPredecessorAfter name="finishingEndPredecessorAfter"/>
+            <onEventMovedOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.graphicalReorderFragment(startingEndPredecessorAfter, finishingEndPredecessorAfter)"/>
+            </onEventMovedOperation>
+          </ownedTools>
         </toolSections>
       </defaultLayer>
     </ownedRepresentations>
@@ -63,4 +96,7 @@
     <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramReorderServices"/>
     <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramServices"/>
   </ownedViewpoints>
+  <userColorsPalettes name="SD_ColorPalette">
+    <entries xsi:type="description:UserFixedColor" red="195" green="215" blue="221" name="CustomBlue"/>
+  </userColorsPalettes>
 </description:Group>

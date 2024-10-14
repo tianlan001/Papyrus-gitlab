@@ -27,4 +27,8 @@ public class MappingTypes {
 	/*----------------------------------------------The Node mapping IDs----------------------------------------------*/
 
 	public static final String LIFELINE_NODE_TYPE = "SD_Lifeline"; //$NON-NLS-1$
+
+	public static final String LIFELINE_EXECUTION_NODE_TYPE = "SD_Lifeline_Execution"; //$NON-NLS-1$
+
+	public static final String EXECUTION_SPECIFICATION_NODE_TYPE = "SD_ExecutionSpecification"; //$NON-NLS-1$
 }
