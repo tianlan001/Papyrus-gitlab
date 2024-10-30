@@ -30,6 +30,7 @@ import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionOperand;
+import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
@@ -345,6 +346,83 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 				executionSpecification2.getFinish()));
 	}
 
+	@Test
+	public void testReorderInteractionUseFirst() {
+		ExecutionSpecification executionSpecification = createExecutionSpecification(interaction, lifeline1);
+		InteractionUse interactionUse = createInteractionUse(interaction, lifeline1);
+		new SequenceDiagramReorderElementSwitch(null, null)
+				.doSwitch(interactionUse);
+		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
+				this.orderService.getStartingEnd(interactionUse),
+				this.orderService.getFinishingEnd(interactionUse),
+				this.orderService.getStartingEnd(executionSpecification),
+				this.orderService.getFinishingEnd(executionSpecification)));
+		assertListEquals(interaction.getFragments(), List.of(
+				interactionUse,
+				executionSpecification.getStart(),
+				executionSpecification,
+				executionSpecification.getFinish()));
+	}
+
+	@Test
+	public void testReorderInteractionUseAfterExecution() {
+		InteractionUse interactionUse = createInteractionUse(interaction, lifeline1);
+		ExecutionSpecification executionSpecification = createExecutionSpecification(interaction, lifeline1);
+		new SequenceDiagramReorderElementSwitch(this.orderService.getFinishingEnd(executionSpecification), this.orderService.getStartingEnd(interactionUse))
+				.doSwitch(interactionUse);
+		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
+				this.orderService.getStartingEnd(executionSpecification),
+				this.orderService.getFinishingEnd(executionSpecification),
+				this.orderService.getStartingEnd(interactionUse),
+				this.orderService.getFinishingEnd(interactionUse)));
+		assertListEquals(interaction.getFragments(), List.of(
+				executionSpecification.getStart(),
+				executionSpecification,
+				executionSpecification.getFinish(),
+				interactionUse));
+	}
+
+	@Test
+	public void testReorderInteractionUseBetweenExecutions() {
+		ExecutionSpecification executionSpecification1 = createExecutionSpecification(interaction, lifeline1);
+		ExecutionSpecification executionSpecification2 = createExecutionSpecification(interaction, lifeline1);
+		InteractionUse interactionUse = createInteractionUse(interaction, lifeline1);
+		new SequenceDiagramReorderElementSwitch(this.orderService.getFinishingEnd(executionSpecification1), this.orderService.getStartingEnd(interactionUse))
+				.doSwitch(interactionUse);
+		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
+				this.orderService.getStartingEnd(executionSpecification1),
+				this.orderService.getFinishingEnd(executionSpecification1),
+				this.orderService.getStartingEnd(interactionUse),
+				this.orderService.getFinishingEnd(interactionUse),
+				this.orderService.getStartingEnd(executionSpecification2),
+				this.orderService.getFinishingEnd(executionSpecification2)));
+		assertListEquals(interaction.getFragments(), List.of(
+				executionSpecification1.getStart(),
+				executionSpecification1,
+				executionSpecification1.getFinish(),
+				interactionUse,
+				executionSpecification2.getStart(),
+				executionSpecification2,
+				executionSpecification2.getFinish()));
+	}
+
+	@Test
+	public void testReorderInteractionUseInsideInteractionOperand() {
+		CombinedFragment combinedFragment = createCombinedFragment(interaction, lifeline1, lifeline2);
+		InteractionUse interactionUse = createInteractionUse(interaction, lifeline1);
+		assertEquals(1, combinedFragment.getOperands().size());
+		new SequenceDiagramReorderElementSwitch(this.orderService.getStartingEnd(combinedFragment.getOperands().get(0)), this.orderService.getStartingEnd(interactionUse))
+				.doSwitch(interactionUse);
+		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
+				this.orderService.getStartingEnd(combinedFragment),
+				this.orderService.getStartingEnd(combinedFragment.getOperands().get(0)),
+				this.orderService.getStartingEnd(interactionUse),
+				this.orderService.getFinishingEnd(interactionUse),
+				this.orderService.getFinishingEnd(combinedFragment)));
+		assertListEquals(interaction.getFragments(), List.of(combinedFragment));
+		assertListEquals(combinedFragment.getOperands().get(0).getFragments(), List.of(interactionUse));
+	}
+
 	private void assertListEquals(List<?> source, List<?> target) {
 		assertArrayEquals(source.toArray(), target.toArray());
 	}
@@ -416,6 +494,18 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		this.orderService.createStartingEnd(interactionOperand);
 		this.orderService.createFinishingEnd(combinedFragment);
 		return combinedFragment;
+	}
 
+	private InteractionUse createInteractionUse(Element parent, Lifeline... lifelines) {
+		InteractionUse interactionUse = create(InteractionUse.class);
+		interactionUse.getCovereds().addAll(Arrays.asList(lifelines));
+		if (parent instanceof Interaction interaction) {
+			interaction.getFragments().add(interactionUse);
+		} else if (parent instanceof InteractionOperand operand) {
+			operand.getFragments().add(interactionUse);
+		}
+		this.orderService.createStartingEnd(interactionUse);
+		this.orderService.createFinishingEnd(interactionUse);
+		return interactionUse;
 	}
 }

@@ -36,6 +36,7 @@ import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionOperand;
+import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
@@ -100,7 +101,7 @@ public class SequenceDiagramServices {
 	}
 
 	/**
-	 * Initializes a semantic {@link Message} in the provided {@code parent}.
+	 * Initializes a semantic {@link Message}.
 	 * <p>
 	 * This method configures the provided {@code newMessage}, {@code newSendEventMessageOccurrenceSpecification},
 	 * {@code newReceiveEventMessageOccurrenceSpecification}. In particular, it adds the provided
@@ -111,12 +112,10 @@ public class SequenceDiagramServices {
 	 * The initialized elements are moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
 	 * </p>
 	 * 
-	 * @param parent
-	 *            the semantic parent of the {@link Message}
-	 * @param type
-	 *            the type of the {@link Message} to set
 	 * @param message
 	 *            the {@link Message} to initialize
+	 * @param type
+	 *            the type of the {@link Message} to set
 	 * @param sendEvent
 	 *            the sendEvent {@link MessageOccurrenceSpecification} to initialize
 	 * @param receiveEvent
@@ -131,9 +130,8 @@ public class SequenceDiagramServices {
 	 *            the graphical predecessor of the message's finishing end
 	 * @return the initialized {@link Message}
 	 */
-	public EObject initializeMessage(Element parent, MessageSort type, Message message, MessageOccurrenceSpecification sendEvent, MessageOccurrenceSpecification receiveEvent, Element source,
+	public EObject initializeMessage(Message message, MessageSort type, MessageOccurrenceSpecification sendEvent, MessageOccurrenceSpecification receiveEvent, Element source,
 			Element target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
-		Objects.requireNonNull(parent);
 		this.setDefaultName(message);
 		message.setMessageSort(type);
 		configureMessageEvent(message, sendEvent, "SendEvent", UMLPackage.eINSTANCE.getMessage_SendEvent(), source); //$NON-NLS-1$
@@ -176,7 +174,7 @@ public class SequenceDiagramServices {
 	}
 
 	/**
-	 * Initializes a semantic {@link ExecutionSpecification} in the provided {@code parent}.
+	 * Initializes a semantic {@link ExecutionSpecification}.
 	 * <p>
 	 * This method configures the provided {@code newActionExecutionSpecification}, {@code newStartExecutionOccurrenceSpecification},
 	 * and {@code newFinishExecutionOccurrenceSpecification}. In particular, it adds the provided
@@ -189,8 +187,6 @@ public class SequenceDiagramServices {
 	 * This method is used to initialize both {@link ActionExecutionSpecification} and {@link BehaviorExecutionSpecification}.
 	 * </p>
 	 * 
-	 * @param parent
-	 *            the semantic parent of the {@link ActionExecutionSpecification}
 	 * @param execution
 	 *            the {@link ExecutionSpecification} to initialize
 	 * @param start
@@ -201,9 +197,11 @@ public class SequenceDiagramServices {
 	 *            the graphical predecessor of the execution's starting end
 	 * @param finishingEndPredecessor
 	 *            the graphical predecessor of the execution's finishing end
+	 * @param parent
+	 *            the semantic parent of the {@link ActionExecutionSpecification}
 	 * @return the initialized {@link ExecutionSpecification}
 	 */
-	public EObject initializeExecutionSpecification(Element parent, ExecutionSpecification execution, ExecutionOccurrenceSpecification start, ExecutionOccurrenceSpecification finish, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
+	public EObject initializeExecutionSpecification(ExecutionSpecification execution, ExecutionOccurrenceSpecification start, ExecutionOccurrenceSpecification finish, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, Element parent) {
 		if(parent instanceof Lifeline lifeline) {
 			this.setDefaultName(execution);
 			execution.getCovereds().add(lifeline);
@@ -230,7 +228,39 @@ public class SequenceDiagramServices {
 	}
 
 	/**
-	 * Initializes a semantic {@link CombinedFragment} in the provided {@code parent}.
+	 * Initialize a semantic {@link InteractionUse}.
+	 * <p>
+	 * This method configures the provided {@code interactionUse}. In particular, it sets its name and the {@link Lifeline}s it
+	 * covers.
+	 * </p>
+	 * <p>
+	 * The created element is moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * </p>
+	 * 
+	 * @param interactionUse
+	 *            the {@link InteractionUse} to initialize
+	 * @param startingEndPredecessor
+	 *            the graphical predecessor of the interaction use's starting end
+	 * @param finishingEndPredecessor
+	 *            the graphical predecessor of the interaction use's finishing end
+	 * @param coveredLifelines
+	 *            the {@link Lifeline}s covered by the {@link InteractionUse} to create
+	 * @return the initialized {@link InteractionUse}
+	 */
+	public EObject initializeInteractionUse(InteractionUse interactionUse, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, List<Lifeline> coveredLifelines) {
+		this.setDefaultName(interactionUse);
+		interactionUse.getCovereds().addAll(coveredLifelines);
+		this.orderService.createStartingEnd(interactionUse);
+		this.orderService.createFinishingEnd(interactionUse);
+		EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
+		EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
+		new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
+				.doSwitch(interactionUse);
+		return interactionUse;
+	}
+
+	/**
+	 * Initializes a semantic {@link CombinedFragment}.
 	 * <p>
 	 * This method configures the provided {@code newCombinedFragment} and {@code newInteractionOperand}. In particular, it sets their
 	 * names and the {@link Lifeline}s they cover.
@@ -238,8 +268,6 @@ public class SequenceDiagramServices {
 	 * The initialized elements are moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
 	 * </p>
 	 * 
-	 * @param parent
-	 *            the semantic parent of the {@link CombinedFragment}
 	 * @param combinedFragment
 	 *            the {@link CombinedFragment} to initialize
 	 * @param operand
@@ -252,7 +280,7 @@ public class SequenceDiagramServices {
 	 *            the {@link Lifeline}s covered by the {@link CombinedFragment} to create
 	 * @return the initialized {@link CombinedFragment}
 	 */
-	public EObject initializeCombinedFragment(Element parent, CombinedFragment combinedFragment, InteractionOperand operand, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, List<Lifeline> coveredLifelines) {
+	public EObject initializeCombinedFragment(CombinedFragment combinedFragment, InteractionOperand operand, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, List<Lifeline> coveredLifelines) {
 		this.setDefaultName(combinedFragment);
 		this.setDefaultName(operand);
 		operand.createGuard("guard"); //$NON-NLS-1$
@@ -281,20 +309,19 @@ public class SequenceDiagramServices {
 	 * The initialized element is moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
 	 * </p>
 	 * 
-	 * @param parent
-	 *            the semantic parent of the {@link InteractionOperand}
 	 * @param operand
 	 *            the {@link InteractionOperand} to initialize
 	 * @param startingEndPredecessor
 	 *            the graphical predecessor of the interaction operand's starting end
 	 * @param finishingEndPredecessor
 	 *            the graphical predecessor of the interaction operand's finishing end
-	 * 
 	 * @param parentView
 	 *            the graphical container of the created element
+	 * @param parent
+	 *            the semantic parent of the {@link InteractionOperand}
 	 * @return the initialized {@link InteractionOperand}
 	 */
-	public EObject initializeInteractionOperand(Element parent, InteractionOperand operand, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
+	public EObject initializeInteractionOperand(InteractionOperand operand, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, Element parent) {
 		if (parent instanceof CombinedFragment combinedFragment) {
 			this.setDefaultName(operand);
 			operand.createGuard("guard"); //$NON-NLS-1$
@@ -307,7 +334,6 @@ public class SequenceDiagramServices {
 		}
 		return operand;
 	}
-
 
 	/**
 	 * Deletes the provided {@code eObject}.

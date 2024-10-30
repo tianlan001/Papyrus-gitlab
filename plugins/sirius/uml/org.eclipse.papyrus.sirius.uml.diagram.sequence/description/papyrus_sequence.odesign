@@ -65,6 +65,15 @@
             <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.0"/>
           </style>
         </containerMappings>
+        <containerMappings xsi:type="description_1:InteractionUseMapping" name="SD_InteractionUse" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" semanticCandidatesExpression="aql:self.getInteractionUseCandidates()" synchronizationLock="true" domainClass="uml::InteractionUse" startingEndFinderExpression="aql:self.getStartingEnd()" finishingEndFinderExpression="aql:self.getFinishingEnd()" coveredLifelinesExpression="aql:self.covered" centerLabelExpression="aql:self.renderReferredInteractionLabelSD()">
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.0"/>
+          </style>
+        </containerMappings>
         <toolSections name="Nodes">
           <ownedTools xsi:type="tool:InstanceRoleCreationTool" name="CreateLifelineTool" label="Lifeline" precondition="aql:container.oclIsKindOf(uml::Interaction)" nodeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']">
             <variable name="container"/>
@@ -82,7 +91,7 @@
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newStartExecutionOccurrenceSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ActionExecutionSpecification" referenceName="fragment" variableName="newActionExecutionSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newFinishExecutionOccurrenceSpecification"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.initializeExecutionSpecification(newActionExecutionSpecification, newStartExecutionOccurrenceSpecification, newFinishExecutionOccurrenceSpecification, startingEndPredecessor, finishingEndPredecessor)"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newActionExecutionSpecification.initializeExecutionSpecification(newStartExecutionOccurrenceSpecification, newFinishExecutionOccurrenceSpecification, startingEndPredecessor, finishingEndPredecessor, container)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
@@ -96,11 +105,24 @@
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newStartExecutionOccurrenceSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::BehaviorExecutionSpecification" referenceName="fragment" variableName="newBehaviorExecutionSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newFinishExecutionOccurrenceSpecification"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.initializeExecutionSpecification(newBehaviorExecutionSpecification, newStartExecutionOccurrenceSpecification, newFinishExecutionOccurrenceSpecification, startingEndPredecessor, finishingEndPredecessor)"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newBehaviorExecutionSpecification.initializeExecutionSpecification(newStartExecutionOccurrenceSpecification, newFinishExecutionOccurrenceSpecification, startingEndPredecessor, finishingEndPredecessor, container)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:InteractionUseCreationTool" name="CreateInteractionUseTool" label="Interaction Use" containerMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_InteractionUse']">
+            <variable name="variable"/>
+            <viewVariable name="viewVariable"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:variable.getOwningInteraction()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::InteractionUse" referenceName="fragment" variableName="newInteractionUse"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newInteractionUse.initializeInteractionUse(startingEndPredecessor, finishingEndPredecessor, coveredLifelines)"/>
+              </firstModelOperations>
+            </initialOperation>
+            <startingEndPredecessor name="startingEndPredecessor"/>
+            <finishingEndPredecessor name="finishingEndPredecessor"/>
+            <coveredLifelines name="coveredLifelines"/>
           </ownedTools>
           <ownedTools xsi:type="tool:CombinedFragmentCreationTool" name="CreateCombinedFragmentTool" label="Combined Fragment" containerMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_CombinedFragment']">
             <variable name="variable"/>
@@ -110,7 +132,7 @@
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::CombinedFragment" referenceName="fragment" variableName="newCombinedFragment">
                   <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newCombinedFragment">
                     <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::InteractionOperand" referenceName="operand" variableName="newInteractionOperand"/>
-                    <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:variable.initializeCombinedFragment(newCombinedFragment, newInteractionOperand, startingEndPredecessor, finishingEndPredecessor, coveredLifelines)"/>
+                    <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newCombinedFragment.initializeCombinedFragment(newInteractionOperand, startingEndPredecessor, finishingEndPredecessor, coveredLifelines)"/>
                   </subModelOperations>
                 </subModelOperations>
               </firstModelOperations>
@@ -124,7 +146,7 @@
             <viewVariable name="viewVariable"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::InteractionOperand" referenceName="operand" variableName="newInteractionOperand">
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:variable.initializeInteractionOperand(newInteractionOperand, startingEndPredecessor, finishingEndPredecessor)"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newInteractionOperand.initializeInteractionOperand(startingEndPredecessor, finishingEndPredecessor, variable)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
@@ -142,7 +164,7 @@
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newSendEventMessageOccurrenceSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newReceiveEventMessageOccurrenceSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.initializeMessage(uml::MessageSort::synchCall, newMessage, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::synchCall, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
@@ -158,7 +180,7 @@
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newSendEventMessageOccurrenceSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newReceiveEventMessageOccurrenceSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.initializeMessage(uml::MessageSort::asynchCall, newMessage, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::asynchCall, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
@@ -174,7 +196,7 @@
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newSendEventMessageOccurrenceSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newReceiveEventMessageOccurrenceSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.initializeMessage(uml::MessageSort::reply, newMessage, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::reply, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
@@ -192,7 +214,7 @@
           </ownedTools>
         </toolSections>
         <toolSections name="Reorder">
-          <ownedTools xsi:type="tool:ReorderTool" name="SD_ReorderInteractionFragment" mappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_CombinedFragment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_CombinedFragment']/@subContainerMappings[name='SD_InteractionOperand']">
+          <ownedTools xsi:type="tool:ReorderTool" name="SD_ReorderInteractionFragment" mappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_CombinedFragment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_CombinedFragment']/@subContainerMappings[name='SD_InteractionOperand'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_InteractionUse']">
             <startingEndPredecessorBefore name="startingEndPredecessorBefore"/>
             <startingEndPredecessorAfter name="startingEndPredecessorAfter"/>
             <finishingEndPredecessorBefore name="finishingEndPredecessorBefore"/>

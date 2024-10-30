@@ -22,6 +22,7 @@ import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
+import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Lifeline;
 
 /**
@@ -82,6 +83,17 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 */
 	public Collection<InteractionOperand> getInteractionOperandCandidates(CombinedFragment combinedFragment) {
 		return combinedFragment.getOperands();
+	}
+
+	/**
+	 * Returns the {@link InteractionUse} contained in the provided {@code interaction}.
+	 * 
+	 * @param interaction
+	 *            the {@link Interaction} to search into
+	 * @return the {@link InteractionUse} contained in the provided {@code interaction}
+	 */
+	public Collection<InteractionUse> getInteractionUseCandidates(Interaction interaction) {
+		return this.getInteractionFragments(InteractionUse.class, interaction);
 	}
 
 	/**

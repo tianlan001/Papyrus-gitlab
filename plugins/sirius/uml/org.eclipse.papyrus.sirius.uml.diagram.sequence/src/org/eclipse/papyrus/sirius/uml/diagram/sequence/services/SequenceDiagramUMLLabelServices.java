@@ -21,6 +21,8 @@ import org.eclipse.papyrus.sirius.uml.diagram.common.services.UMLLabelServices;
 import org.eclipse.papyrus.uml.domain.services.labels.INamedElementNameProvider;
 import org.eclipse.papyrus.uml.domain.services.labels.UMLCharacters;
 import org.eclipse.sirius.diagram.DDiagram;
+import org.eclipse.uml2.uml.Interaction;
+import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
@@ -75,6 +77,24 @@ public class SequenceDiagramUMLLabelServices {
 			label = buffer.toString();
 		}
 		return label;
+	}
+
+	/**
+	 * Computes the label of the referred {@link Interaction} from the provided {@code interactionUse}.
+	 * <p>
+	 * This method is typically used to compute the <i>Center Label Expression</i> of interaction uses.
+	 * </p>
+	 * 
+	 * @param interactionUse
+	 *            the {@link InteractionUse} to compute the referred {@link Interaction} label from
+	 * @return the referred {@link Interaction} label, or an empty String if there is no referred interaction in the provided {@code interactionUse}
+	 */
+	public String renderReferredInteractionLabelSD(InteractionUse interactionUse) {
+		String result = UMLCharacters.EMPTY;
+		if (interactionUse.getRefersTo() != null) {
+			result = interactionUse.getRefersTo().getName();
+		}
+		return result;
 	}
 
 	private String computeOperationLabel(Operation operation) {

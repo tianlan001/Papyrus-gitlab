@@ -21,6 +21,8 @@ import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramU
 import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.DiagramFactory;
 import org.eclipse.uml2.uml.Expression;
+import org.eclipse.uml2.uml.Interaction;
+import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.LiteralString;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.Operation;
@@ -44,8 +46,6 @@ public class SequenceDiagramUMLLabelServicesTest extends AbstractServicesTest {
 
 	private SequenceDiagramUMLLabelServices labelServices;
 
-	private Message message;
-
 	private DDiagram testDiagram = DiagramFactory.eINSTANCE.createDDiagram();
 
 	@Before
@@ -60,7 +60,7 @@ public class SequenceDiagramUMLLabelServicesTest extends AbstractServicesTest {
 
 	@Test
 	public void testRenderMessageLabelNoSignatureNoArgument() {
-		message = create(Message.class);
+		Message message = create(Message.class);
 		message.setName(MESSAGE_NAME);
 		String label = this.labelServices.renderMessageLabelSD(message, testDiagram);
 		assertEquals(MESSAGE_NAME, label);
@@ -68,7 +68,7 @@ public class SequenceDiagramUMLLabelServicesTest extends AbstractServicesTest {
 
 	@Test
 	public void testRenderMessageLabelNoSignatureWithArguments() {
-		message = create(Message.class);
+		Message message = create(Message.class);
 		message.setName(MESSAGE_NAME);
 
 		ValueSpecification argument1 = create(LiteralString.class);
@@ -89,7 +89,7 @@ public class SequenceDiagramUMLLabelServicesTest extends AbstractServicesTest {
 
 	@Test
 	public void testRenderMessageLabelOperationSignature() {
-		message = create(Message.class);
+		Message message = create(Message.class);
 		message.setName(MESSAGE_NAME);
 		Operation operation = create(Operation.class);
 		operation.setName("Operation"); //$NON-NLS-1$
@@ -131,7 +131,7 @@ public class SequenceDiagramUMLLabelServicesTest extends AbstractServicesTest {
 
 	@Test
 	public void testRenderMessageLabelSignalSignature() {
-		message = create(Message.class);
+		Message message = create(Message.class);
 		message.setName(MESSAGE_NAME);
 		Signal signal = create(Signal.class);
 		signal.setName("Signal"); //$NON-NLS-1$
@@ -156,7 +156,7 @@ public class SequenceDiagramUMLLabelServicesTest extends AbstractServicesTest {
 
 	@Test
 	public void testRenderMessageLabelClassSignature() {
-		message = create(Message.class);
+		Message message = create(Message.class);
 		message.setName(MESSAGE_NAME);
 		org.eclipse.uml2.uml.Class clazz = create(org.eclipse.uml2.uml.Class.class);
 		clazz.setName("Class"); //$NON-NLS-1$
@@ -164,5 +164,22 @@ public class SequenceDiagramUMLLabelServicesTest extends AbstractServicesTest {
 
 		String label = labelServices.renderMessageLabelSD(message, testDiagram);
 		assertEquals("Class", label); //$NON-NLS-1$
+	}
+
+	@Test
+	public void testRenderInteractionUseReferredInteractionLabel() {
+		InteractionUse interactionUse = create(InteractionUse.class);
+		Interaction referredInteraction = create(Interaction.class);
+		referredInteraction.setName("TestInteraction"); //$NON-NLS-1$
+		interactionUse.setRefersTo(referredInteraction);
+		String label = labelServices.renderReferredInteractionLabelSD(interactionUse);
+		assertEquals("TestInteraction", label); //$NON-NLS-1$
+	}
+
+	@Test
+	public void testRenderInteractionUseNullReferredInteractionLabel() {
+		InteractionUse interactionUse = create(InteractionUse.class);
+		String label = labelServices.renderReferredInteractionLabelSD(interactionUse);
+		assertEquals("", label); //$NON-NLS-1$
 	}
 }

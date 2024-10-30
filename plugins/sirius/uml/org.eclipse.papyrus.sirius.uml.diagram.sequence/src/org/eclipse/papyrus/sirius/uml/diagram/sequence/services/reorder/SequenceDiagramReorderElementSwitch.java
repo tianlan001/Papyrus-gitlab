@@ -14,7 +14,6 @@
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramOrderServices;
@@ -26,6 +25,7 @@ import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
+import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.OccurrenceSpecification;
@@ -107,13 +107,9 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 * 
 	 * @param combinedFragment
 	 *            the combined fragment to move
-	 * 
-	 * @throws NullPointerException
-	 *             if {@code combinedFragment} is {@code null}
 	 */
 	@Override
 	public Element caseCombinedFragment(CombinedFragment combinedFragment) {
-		Objects.requireNonNull(combinedFragment);
 		Interaction rootInteraction = this.umlHelper.getOwningInteraction(combinedFragment);
 		List<EAnnotation> endsOrdering = this.orderService.getEndsOrdering(rootInteraction);
 		this.endReorderHelper.applyEndReorder(combinedFragment, this.startingEndPredecessor, this.finishingEndPredecessor, endsOrdering);
@@ -157,13 +153,9 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 * 
 	 * @param execution
 	 *            the execution specification to move
-	 * 
-	 * @throws NullPointerException
-	 *             if {@code execution} is {@code null}
 	 */
 	@Override
 	public Element caseExecutionSpecification(ExecutionSpecification execution) {
-		Objects.requireNonNull(execution);
 		Interaction rootInteraction = this.umlHelper.getOwningInteraction(execution);
 		List<EAnnotation> endsOrdering = this.orderService.getEndsOrdering(rootInteraction);
 		this.endReorderHelper.applyEndReorder(execution, this.startingEndPredecessor, this.finishingEndPredecessor, endsOrdering);
@@ -215,7 +207,6 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 */
 	@Override
 	public Element caseInteractionOperand(InteractionOperand interactionOperand) {
-		Objects.requireNonNull(interactionOperand);
 		Interaction rootInteraction = this.umlHelper.getOwningInteraction(interactionOperand);
 		List<EAnnotation> endsOrdering = this.orderService.getEndsOrdering(rootInteraction);
 		// Don't use applyGraphicalReorder here: operand are a special case that do not have its own finishing end. It is computed
@@ -231,6 +222,24 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	}
 
 	/**
+	 * Moves the {@code interactionUse} between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * <p>
+	 * The semantic {@code interactionUse} can be moved too to reflect the graphical change.
+	 * </p>
+	 * 
+	 * @param interactionUse
+	 *            the interaction use to move
+	 */
+	public Element caseInteractionUse(InteractionUse interactionUse) {
+		Interaction rootInteraction = this.umlHelper.getOwningInteraction(interactionUse);
+		List<EAnnotation> endsOrdering = this.orderService.getEndsOrdering(rootInteraction);
+		this.endReorderHelper.applyEndReorder(interactionUse, startingEndPredecessor, finishingEndPredecessor, endsOrdering);
+		SequenceDiagramSemanticReorderEntry startReorderEntry = this.semanticReorderHelper.createSemanticReorderEntry(interactionUse, startingEndPredecessor, endsOrdering);
+		this.semanticReorderHelper.applySemanticReorder(startReorderEntry);
+		return interactionUse;
+	}
+
+	/**
 	 * Moves {@code message} between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
 	 * <p>
 	 * The ordering ends of the {@code message} are moved between {@code startingEndPredecessor} and
@@ -240,13 +249,9 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 * 
 	 * @param message
 	 *            the message to move
-	 * 
-	 * @throws NullPointerException
-	 *             if {@code message} is {@code null}
 	 */
 	@Override
 	public Element caseMessage(Message message) {
-		Objects.requireNonNull(message);
 		Interaction rootInteraction = message.getInteraction();
 		List<EAnnotation> endsOrdering = this.orderService.getEndsOrdering(rootInteraction);
 		this.endReorderHelper.applyEndReorder(message, this.startingEndPredecessor, this.finishingEndPredecessor, endsOrdering);
