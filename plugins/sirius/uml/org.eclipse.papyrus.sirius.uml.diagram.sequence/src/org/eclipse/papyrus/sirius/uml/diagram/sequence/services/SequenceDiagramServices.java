@@ -18,8 +18,10 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.papyrus.sirius.uml.diagram.common.core.services.AbstractDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.DeleteServices;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramReorderElementSwitch;
@@ -71,7 +73,7 @@ import org.eclipse.uml2.uml.UMLPackage;
  * 
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
-public class SequenceDiagramServices {
+public class SequenceDiagramServices extends AbstractDiagramServices {
 
 	/**
 	 * The order service used to create and manage graphical ordering ends.
@@ -98,6 +100,21 @@ public class SequenceDiagramServices {
 		EObject result = commonDiagramServices.createElement(parent, UMLPackage.eINSTANCE.getLifeline().getName(), UMLPackage.eINSTANCE.getInteraction_Lifeline().getName(), parentView);
 		new SequenceDiagramSemanticReorderHelper().reorderLifeline(parent, result, predecessor);
 		return result;
+	}
+
+	/**
+	 * Service used to check if an object can be created under the specified container.
+	 *
+	 * @param container
+	 *            the container that should contains the new object to create.
+	 * @param objectToCreate
+	 *            the EClass defining the type of the object to create .
+	 * @param containmentReferenceName
+	 *            the name of the containment reference to use to attach the new element to the model
+	 * @return <code>true</code> if the object can be created; <code>false</code> otherwise.
+	 */
+	public boolean canCreateSD(EObject container, EClass objectToCreate, String containmentReferenceName) {
+		return super.canCreate(container, objectToCreate, containmentReferenceName);
 	}
 
 	/**
