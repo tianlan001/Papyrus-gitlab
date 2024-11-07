@@ -13,17 +13,19 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 
-import java.text.MessageFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.DeleteServices;
-import org.eclipse.papyrus.sirius.uml.diagram.sequence.Activator;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramReorderElementSwitch;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramSemanticReorderHelper;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
+import org.eclipse.papyrus.uml.domain.services.labels.ElementDefaultNameProvider;
 import org.eclipse.sirius.diagram.sequence.ordering.EventEnd;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.uml2.uml.ActionExecutionSpecification;
@@ -33,13 +35,12 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
-import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.MessageSort;
-import org.eclipse.uml2.uml.UMLFactory;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.UMLPackage;
 
 /**
@@ -47,7 +48,7 @@ import org.eclipse.uml2.uml.UMLPackage;
  * <p>
  * This class provides services to:
  * <ul>
- * <li>Create semantic elements and position them on the diagram</li>
+ * <li>Initialize semantic elements and position them on the diagram</li>
  * <li>Delete semantic elements</li>
  * <li>Reorder lifelines</li>
  * <li>Reorder interaction fragments</li>
@@ -61,20 +62,15 @@ import org.eclipse.uml2.uml.UMLPackage;
  * This class is the entry point for reordering services, but note that the reordering logic is defined in the package
  * {@code org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder}.
  * </p>
+ * <p>
+ * This class <i>initializes</i> semantic elements but do not create them. This is handled by the VSM, and is required by the Sequence
+ * Diagram framework to correctly position created elements. As a result, the Sequence Diagram VSM differs from other VSM as it contains
+ * both {@code CreateInstance} operations as well as {@code ChangeContext}s.
+ * </p>
  * 
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
 public class SequenceDiagramServices {
-
-	/**
-	 * The error message to log when attempting to create an element on a {@code null} parent.
-	 */
-	private final static String CREATE_ERROR_NO_PARENT = "Unable to create a {0} with no parent"; //$NON-NLS-1$
-
-	/**
-	 * The error message to log when the creation of a graphical ordering end failed.
-	 */
-	private final static String ORDERING_ERROR_UNKNOWN_TYPE = "Cannot set ordering end for {0}"; //$NON-NLS-1$
 
 	/**
 	 * The order service used to create and manage graphical ordering ends.
@@ -96,329 +92,174 @@ public class SequenceDiagramServices {
 	 * @return the created {@link Lifeline}
 	 */
 	public EObject createLifeline(Element parent, DSemanticDecorator parentView, EObject predecessor) {
-		EObject result = null;
-		if (parent == null) {
-			Activator.log.warn(MessageFormat.format(CREATE_ERROR_NO_PARENT, UMLPackage.eINSTANCE.getLifeline().getName()));
-		} else {
-			CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
-			result = commonDiagramServices.createElement(parent, UMLPackage.eINSTANCE.getLifeline().getName(), UMLPackage.eINSTANCE.getInteraction_Lifeline().getName(), parentView);
-			new SequenceDiagramSemanticReorderHelper().reorderLifeline(parent, result, predecessor);
-		}
+		Objects.requireNonNull(parent);
+		CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
+		EObject result = commonDiagramServices.createElement(parent, UMLPackage.eINSTANCE.getLifeline().getName(), UMLPackage.eINSTANCE.getInteraction_Lifeline().getName(), parentView);
+		new SequenceDiagramSemanticReorderHelper().reorderLifeline(parent, result, predecessor);
 		return result;
 	}
 
 	/**
-	 * Creates a semantic <i>synchronous</i> {@link Message} in the provided {@code parent}.
-	 * 
-	 * @param parent
-	 *            the semantic parent of the {@link Message}
-	 * @param source
-	 *            the source element of the message
-	 * @param target
-	 *            the target element of the message
-	 * @param startingEndPredecessor
-	 *            the starting end of the created element's predecessor
-	 * @param finishingEndPredecessor
-	 *            the finishing end of the created element's predecessor
-	 * @param parentView
-	 *            the graphical container of the created element
-	 * @return the created {@link Message}
-	 * 
-	 * @see #createMessage(Element, MessageType, Element, Element, EObject, EObject, DSemanticDecorator)
-	 */
-	public EObject createSynchronousMessage(Element parent, Element source, Element target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, DSemanticDecorator parentView) {
-		return this.createMessage(parent, MessageType.COMPLETE_SYNCH_CALL, source, target, startingEndPredecessor, finishingEndPredecessor, parentView);
-	}
-
-	/**
-	 * Creates a semantic <i>asynchronous</i> {@link Message} in the provided {@code parent}.
-	 * 
-	 * @param parent
-	 *            the semantic parent of the {@link Message}
-	 * @param source
-	 *            the source element of the message
-	 * @param target
-	 *            the target element of the message
-	 * @param startingEndPredecessor
-	 *            the starting end of the created element's predecessor
-	 * @param finishingEndPredecessor
-	 *            the finishing end of the created element's predecessor
-	 * @param parentView
-	 *            the graphical container of the created element
-	 * @return the created {@link Message}
-	 * 
-	 * @see #createMessage(Element, MessageType, Element, Element, EObject, EObject, DSemanticDecorator)
-	 */
-	public EObject createAsynchronousMessage(Element parent, Element source, Element target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, DSemanticDecorator parentView) {
-		return this.createMessage(parent, MessageType.COMPLETE_ASYNCH_CALL, source, target, startingEndPredecessor, finishingEndPredecessor, parentView);
-	}
-
-	/**
-	 * Creates a semantic <i>reply</i> {@link Message} in the provided {@code parent}.
-	 * 
-	 * @param parent
-	 *            the semantic parent of the {@link Message}
-	 * @param source
-	 *            the source element of the message
-	 * @param target
-	 *            the target element of the message
-	 * @param startingEndPredecessor
-	 *            the starting end of the created element's predecessor
-	 * @param finishingEndPredecessor
-	 *            the finishing end of the created element's predecessor
-	 * @param parentView
-	 *            the graphical container of the created element
-	 * @return the created {@link Message}
-	 * 
-	 * @see #createMessage(Element, MessageType, Element, Element, EObject, EObject, DSemanticDecorator)
-	 */
-	public EObject createReplyMessage(Element parent, Element source, Element target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, DSemanticDecorator parentView) {
-		return this.createMessage(parent, MessageType.COMPLETE_REPLY, source, target, startingEndPredecessor, finishingEndPredecessor, parentView);
-	}
-
-
-	/**
-	 * Creates a semantic {@link Message} in the provided {@code parent}.
+	 * Initializes a semantic {@link Message} in the provided {@code parent}.
 	 * <p>
-	 * The new element connects {@code source} and {@code target}, and is initialized with a <i>send</i> and <i>receive</i>
-	 * {@link MessageOccurrenceSpecification} when appropriate. The created element is moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * This method configures the provided {@code newMessage}, {@code newSendEventMessageOccurrenceSpecification},
+	 * {@code newReceiveEventMessageOccurrenceSpecification}. In particular, it adds the provided
+	 * {@code newSendEventMessageOccurrenceSpecification} and {@code newReceiveEventMessageOccurrenceSpecification} as <i>sendEvent</i>
+	 * and <i>receiveEvent</i> or the provided {@code newMessage}, initialize their names, and the {@link Lifeline}s they cover.
+	 * </p>
+	 * <p>
+	 * The initialized elements are moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * </p>
 	 * 
 	 * @param parent
 	 *            the semantic parent of the {@link Message}
+	 * @param type
+	 *            the type of the {@link Message} to set
+	 * @param message
+	 *            the {@link Message} to initialize
+	 * @param sendEvent
+	 *            the sendEvent {@link MessageOccurrenceSpecification} to initialize
+	 * @param receiveEvent
+	 *            the receiveEvent {@link MessageOccurrenceSpecification} to initialize
 	 * @param source
 	 *            the source element of the message
 	 * @param target
 	 *            the target element of the message
 	 * @param startingEndPredecessor
-	 *            the starting end of the created element's predecessor
+	 *            the graphical predecessor of the message's starting end
 	 * @param finishingEndPredecessor
-	 *            the finishing end of the created element's predecessor
-	 * @param parentView
-	 *            the graphical container of the created element
-	 * @return the created {@link Message}
+	 *            the graphical predecessor of the message's finishing end
+	 * @return the initialized {@link Message}
 	 */
-	private EObject createMessage(Element parent, MessageType type, Element source, Element target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, DSemanticDecorator parentView) {
-		Message result = null;
-		if (parent == null) {
-			Activator.log.warn(MessageFormat.format(CREATE_ERROR_NO_PARENT, UMLPackage.eINSTANCE.getMessage().getName()));
-		} else {
-			CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
-			result = (Message) commonDiagramServices.createElement(parent, UMLPackage.eINSTANCE.getMessage().getName(), UMLPackage.eINSTANCE.getInteraction_Message().getName(), parentView);
-			Message message = (Message) result;
-			if (MessageType.COMPLETE_SYNCH_CALL.equals(type)) {
-				message.setMessageSort(MessageSort.SYNCH_CALL_LITERAL);
-				createSendEvent(message, source, parentView);
-				createReceiveEvent(message, target, parentView);
-			} else if (MessageType.COMPLETE_REPLY.equals(type)) {
-				message.setMessageSort(MessageSort.REPLY_LITERAL);
-				createSendEvent(message, source, parentView);
-				createReceiveEvent(message, target, parentView);
-			} else if (MessageType.COMPLETE_ASYNCH_CALL.equals(type)) {
-				message.setMessageSort(MessageSort.ASYNCH_CALL_LITERAL);
-				createSendEvent(message, source, parentView);
-				createReceiveEvent(message, target, parentView);
-			}
-			if (message.getSendEvent() instanceof InteractionFragment sendEventFragment) {
-				this.orderService.createStartingEnd(sendEventFragment, result);
-			} else {
-				Activator.log.warn(MessageFormat.format(ORDERING_ERROR_UNKNOWN_TYPE, message.getSendEvent()));
-			}
-			if (message.getReceiveEvent() instanceof InteractionFragment receiveEventFragment) {
-				this.orderService.createFinishingEnd(receiveEventFragment, result);
-			} else {
-				Activator.log.warn(MessageFormat.format(ORDERING_ERROR_UNKNOWN_TYPE, message.getReceiveEvent()));
-			}
-			EAnnotation startingEndPredecessorSemanticElement = getSemanticEnd(startingEndPredecessor);
-			EAnnotation finishingEndPredecessorSemanticElement = getSemanticEnd(finishingEndPredecessor);
-			new SequenceDiagramReorderElementSwitch(startingEndPredecessorSemanticElement, finishingEndPredecessorSemanticElement)
+	public EObject initializeMessage(Element parent, MessageSort type, Message message, MessageOccurrenceSpecification sendEvent, MessageOccurrenceSpecification receiveEvent, Element source,
+			Element target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
+		Objects.requireNonNull(parent);
+		this.setDefaultName(message);
+		message.setMessageSort(type);
+		configureMessageEvent(message, sendEvent, "SendEvent", UMLPackage.eINSTANCE.getMessage_SendEvent(), source); //$NON-NLS-1$
+		configureMessageEvent(message, receiveEvent, "ReceiveEvent", UMLPackage.eINSTANCE.getMessage_ReceiveEvent(), target); //$NON-NLS-1$
+		this.orderService.createStartingEnd(sendEvent, message);
+		this.orderService.createFinishingEnd(receiveEvent, message);
+
+		EAnnotation startingEndPredecessorSemanticElement = getSemanticEnd(startingEndPredecessor);
+		EAnnotation finishingEndPredecessorSemanticElement = getSemanticEnd(finishingEndPredecessor);
+		new SequenceDiagramReorderElementSwitch(startingEndPredecessorSemanticElement, finishingEndPredecessorSemanticElement)
 				.doSwitch(message);
-		}
-		return result;
+		return message;
 	}
 
 	/**
-	 * Creates the send event {@link MessageOccurrenceSpecification} for {@code message} and set it in the provided {@code source}.
+	 * Configures the {@code event} {@link MessageOccurrenceSpecification} for {@code message}.
 	 * 
 	 * @param message
-	 *            the {@link Message} to create the send event from
-	 * @param source
-	 *            the element to attach the created send event to
-	 * @param parentView
-	 *            the graphical element representing the source
+	 *            the {@link Message} to add the {@code sendEvent} into
+	 * @param event
+	 *            the {@link MessageOccurrenceSpecification} to add as event of the message
+	 * @param suffix
+	 *            the suffix to append to the {@code event} name
+	 * @param eventReference
+	 *            the reference to use to store the event in the message
+	 * @param eventTarget
+	 *            the target of the event
 	 */
-	private void createSendEvent(Message message, Element source, DSemanticDecorator parentView) {
-		if (source instanceof Lifeline || source instanceof ExecutionSpecification) {
-			MessageOccurrenceSpecification sendEvent = UMLFactory.eINSTANCE.createMessageOccurrenceSpecification();
-			message.getInteraction().getFragments().add(sendEvent);
-			sendEvent.setName(message.getName() + "SendEvent"); //$NON-NLS-1$
-			sendEvent.setMessage(message);
-			message.setSendEvent(sendEvent);
-			if (source instanceof Lifeline) {
-				sendEvent.setCovered((Lifeline) source);
-			} else if (source instanceof ExecutionSpecification) {
-				sendEvent.setCovered(((ExecutionSpecification) source).getCovereds().get(0));
+	private void configureMessageEvent(Message message, MessageOccurrenceSpecification event, String suffix, EReference eventReference, Element eventTarget) {
+		if (eventTarget instanceof Lifeline || eventTarget instanceof ExecutionSpecification) {
+			event.setName(message.getName() + suffix);
+			event.setMessage(message);
+			message.eSet(eventReference, event);
+			if (eventTarget instanceof Lifeline lifeline) {
+				event.setCovered(lifeline);
+			} else if (eventTarget instanceof ExecutionSpecification executionSpecification) {
+				event.setCovered(executionSpecification.getCovereds().get(0));
 			}
 		}
 	}
 
 	/**
-	 * Creates the receive event {@link MessageOccurrenceSpecification} for {@code message} and set it in the provided {@code target}.
-	 * 
-	 * @param message
-	 *            the {@link Message} to create the send event from
-	 * @param target
-	 *            the element to attach the created receive event to
-	 * @param parentView
-	 *            the graphical element representing the target
-	 */
-	private void createReceiveEvent(Message message, Element target, DSemanticDecorator parentView) {
-		if (target instanceof Lifeline || target instanceof ExecutionSpecification) {
-			MessageOccurrenceSpecification receiveEvent = UMLFactory.eINSTANCE
-					.createMessageOccurrenceSpecification();
-			message.getInteraction().getFragments().add(receiveEvent);
-			receiveEvent.setName(message.getName() + "ReceiveEvent"); //$NON-NLS-1$
-			receiveEvent.setMessage(message);
-			message.setReceiveEvent(receiveEvent);
-			if (target instanceof Lifeline) {
-				receiveEvent.setCovered((Lifeline) target);
-			} else if (target instanceof ExecutionSpecification) {
-				receiveEvent.setCovered(((ExecutionSpecification) target).getCovereds().get(0));
-			}
-		}
-	}
-
-	/**
-	 * Creates a semantic {@link ActionExecutionSpecification} in the provided {@code parent}.
+	 * Initializes a semantic {@link ExecutionSpecification} in the provided {@code parent}.
 	 * <p>
-	 * The new element is initialized with a <i>start</i> and <i>finish</i> {@link ExecutionOccurrenceSpecification}.
-	 * See {@link ExecutionSpecification#getStart()} and {@link ExecutionSpecification#getFinish()}. The created
-	 * element is moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * This method configures the provided {@code newActionExecutionSpecification}, {@code newStartExecutionOccurrenceSpecification},
+	 * and {@code newFinishExecutionOccurrenceSpecification}. In particular, it adds the provided
+	 * {@link ExecutionOccurrenceSpecification}s as <i>start</i> and <i>finish</i> of the provided
+	 * {@code newActionExecutionSpecification}, initializes their names, and the {@link Lifeline} they cover.
+	 * <p>
+	 * The initialized elements are moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * </p>
+	 * <p>
+	 * This method is used to initialize both {@link ActionExecutionSpecification} and {@link BehaviorExecutionSpecification}.
+	 * </p>
 	 * 
 	 * @param parent
 	 *            the semantic parent of the {@link ActionExecutionSpecification}
+	 * @param execution
+	 *            the {@link ExecutionSpecification} to initialize
+	 * @param start
+	 *            the start {@link ExecutionOccurrenceSpecification} to initialize
+	 * @param finish
+	 *            the finish {@link ExecutionOccurrenceSpecification} to initialize
 	 * @param startingEndPredecessor
-	 *            the starting end of the created element's predecessor
+	 *            the graphical predecessor of the execution's starting end
 	 * @param finishingEndPredecessor
-	 *            the finishing end of the created element's predecessor
-	 * @param parentView
-	 *            the graphical container of the created element
-	 * @return the created {@link ActionExecutionSpecification}
+	 *            the graphical predecessor of the execution's finishing end
+	 * @return the initialized {@link ExecutionSpecification}
 	 */
-	public EObject createActionExecutionSpecification(Element parent, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, DSemanticDecorator parentView) {
-		ExecutionSpecification result = null;
-		if (parent == null) {
-			Activator.log.warn(MessageFormat.format(CREATE_ERROR_NO_PARENT, UMLPackage.eINSTANCE.getActionExecutionSpecification().getName()));
-		} else {
-			Element container = null;
-			Lifeline lifeline = null;
-			if (parent instanceof Lifeline) {
-				lifeline = (Lifeline) parent;
-				container = lifeline.getInteraction();
-			}
+	public EObject initializeExecutionSpecification(Element parent, ExecutionSpecification execution, ExecutionOccurrenceSpecification start, ExecutionOccurrenceSpecification finish, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
+		if(parent instanceof Lifeline lifeline) {
+			this.setDefaultName(execution);
+			execution.getCovereds().add(lifeline);
 
-			CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
-			result = (ExecutionSpecification) commonDiagramServices.createElement(container, UMLPackage.eINSTANCE.getActionExecutionSpecification().getName(), UMLPackage.eINSTANCE.getInteraction_Fragment().getName(), parentView);
+			start.setName(execution.getName() + "Start"); //$NON-NLS-1$
+			start.setExecution(execution);
+			start.getCovereds().add(lifeline);
+			execution.setStart(start);
 
-			// No need to create the ExecutionOccurrenceSpecifications here, they are created by CommonDiagramServices for ActionExecutionSpecifications.
-			result.getCovereds().add(lifeline);
-			result.getStart().getCovereds().add(lifeline);
-			result.getFinish().getCovereds().add(lifeline);
+			finish.setName(execution.getName() + "Finish"); //$NON-NLS-1$
+			finish.setExecution(execution);
+			finish.getCovereds().add(lifeline);
+			execution.setFinish(finish);
 
-			this.orderService.createStartingEnd(result.getStart(), result);
-			this.orderService.createFinishingEnd(result.getFinish(), result);
+			this.orderService.createStartingEnd(start, execution);
+			this.orderService.createFinishingEnd(finish, execution);
 
 			EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
 			EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
 			new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
-					.doSwitch(result);
+					.doSwitch(execution);
 		}
-		return result;
+		return execution;
 	}
 
 	/**
-	 * Creates a semantic {@link BehaviorExecutionSpecification} in the provided {@code parent}.
+	 * Initializes a semantic {@link CombinedFragment} in the provided {@code parent}.
 	 * <p>
-	 * The new element is initialized with a <i>start</i> and <i>finish</i> {@link ExecutionOccurrenceSpecification}.
-	 * See {@link ExecutionSpecification#getStart()} and {@link ExecutionSpecification#getFinish()}. The created
-	 * element is moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
-	 * 
-	 * @param parent
-	 *            the semantic parent of the {@link BehaviorExecutionSpecification}
-	 * @param startingEndPredecessor
-	 *            the starting end of the created element's predecessor
-	 * @param finishingEndPredecessor
-	 *            the finishing end of the created element's predecessor
-	 * @param parentView
-	 *            the graphical container of the created element
-	 * @return the created {@link BehaviorExecutionSpecification}
-	 */
-	public EObject createBehaviorExecutionSpecification(Element parent, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, DSemanticDecorator parentView) {
-		ExecutionSpecification result = null;
-		if (parent == null) {
-			Activator.log.warn(MessageFormat.format(CREATE_ERROR_NO_PARENT, UMLPackage.eINSTANCE.getBehaviorExecutionSpecification().getName()));
-		} else {
-			Element container = null;
-			Lifeline lifeline = null;
-			if (parent instanceof Lifeline) {
-				lifeline = (Lifeline) parent;
-				container = lifeline.getInteraction();
-			}
-			CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
-			result = (ExecutionSpecification) commonDiagramServices.createElement(container, UMLPackage.eINSTANCE.getBehaviorExecutionSpecification().getName(), UMLPackage.eINSTANCE.getInteraction_Fragment().getName(), parentView);
-			// ExecutionOccurrenceSpecifications aren't created by CommonDiagramServices for BehaviorExecutionSpecifications.
-			ExecutionOccurrenceSpecification start = UMLFactory.eINSTANCE.createExecutionOccurrenceSpecification();
-			((Interaction) result.getOwner()).getFragments().add(start);
-			start.setName(result.getName() + "Start"); //$NON-NLS-1$
-			start.setExecution(result);
-			result.setStart(start);
-			ExecutionOccurrenceSpecification finish = UMLFactory.eINSTANCE.createExecutionOccurrenceSpecification();
-			((Interaction) result.getOwner()).getFragments().add(finish);
-			finish.setName(result.getName() + "Finish"); //$NON-NLS-1$
-			finish.setExecution(result);
-			result.setFinish(finish);
-
-			result.getCovereds().add(lifeline);
-			result.getStart().getCovereds().add(lifeline);
-			result.getFinish().getCovereds().add(lifeline);
-
-			this.orderService.createStartingEnd(start, result);
-			this.orderService.createFinishingEnd(finish, result);
-
-			EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
-			EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
-			new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
-					.doSwitch(result);
-		}
-		return result;
-	}
-
-	/**
-	 * Creates a semantic {@link CombinedFragment} in the provided {@code parent}.
+	 * This method configures the provided {@code newCombinedFragment} and {@code newInteractionOperand}. In particular, it sets their
+	 * names and the {@link Lifeline}s they cover.
 	 * <p>
-	 * The created element is moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * The initialized elements are moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
 	 * </p>
 	 * 
 	 * @param parent
 	 *            the semantic parent of the {@link CombinedFragment}
+	 * @param combinedFragment
+	 *            the {@link CombinedFragment} to initialize
+	 * @param operand
+	 *            the {@link InteractionOperand} to initialize
 	 * @param startingEndPredecessor
-	 *            the starting end of the created element's predecessor
+	 *            the graphical predecessor of the combined fragment's starting end
 	 * @param finishingEndPredecessor
-	 *            the finishing end of the created element's predecessor
+	 *            the graphical predecessor of the combined fragment's finishing end
 	 * @param coveredLifelines
 	 *            the {@link Lifeline}s covered by the {@link CombinedFragment} to create
-	 * @param parentView
-	 *            the graphical container of the created element
-	 * @return the created {@link CombinedFragment}
+	 * @return the initialized {@link CombinedFragment}
 	 */
-	public EObject createCombinedFragment(Element parent, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, List<Lifeline> coveredLifelines, DSemanticDecorator parentView) {
-		CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
-		CombinedFragment combinedFragment = (CombinedFragment) commonDiagramServices.createElement(parent, UMLPackage.eINSTANCE.getCombinedFragment().getName(), UMLPackage.eINSTANCE.getInteraction_Fragment().getName(), parentView);
+	public EObject initializeCombinedFragment(Element parent, CombinedFragment combinedFragment, InteractionOperand operand, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, List<Lifeline> coveredLifelines) {
+		this.setDefaultName(combinedFragment);
+		this.setDefaultName(operand);
+		operand.createGuard("guard"); //$NON-NLS-1$
 		this.orderService.createStartingEnd(combinedFragment);
-
 		combinedFragment.getCovereds().addAll(coveredLifelines);
-		InteractionOperand interactionOperand = (InteractionOperand) commonDiagramServices.createElement(combinedFragment, UMLPackage.eINSTANCE.getInteractionOperand().getName(), UMLPackage.eINSTANCE.getCombinedFragment_Operand().getName(), parentView);
-		interactionOperand.getCovereds().addAll(coveredLifelines);
-		this.orderService.createStartingEnd(interactionOperand);
+		operand.getCovereds().addAll(coveredLifelines);
+		this.orderService.createStartingEnd(operand);
 		// There is no end annotation for InteractionOperand. It is defined by either its containing combined fragment
 		// end, or the start of the next InteractionOperand in the CombinedFragment.
 		this.orderService.createFinishingEnd(combinedFragment);
@@ -431,38 +272,42 @@ public class SequenceDiagramServices {
 	}
 
 	/**
-	 * Creates a semantic {@link InteractionOperand} in the provided {@code parent}.
+	 * Initializes a semantic {@link InteractionOperand} in the provided {@code parent}.
 	 * <p>
-	 * The created element is moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * This method configures the provided {@code newInteractionOperand}. In particular, it sets its name and the {@link Lifeline}s it
+	 * covers.
+	 * </p>
+	 * <p>
+	 * The initialized element is moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
 	 * </p>
 	 * 
 	 * @param parent
 	 *            the semantic parent of the {@link InteractionOperand}
+	 * @param operand
+	 *            the {@link InteractionOperand} to initialize
 	 * @param startingEndPredecessor
-	 *            the starting end of the created element's predecessor
+	 *            the graphical predecessor of the interaction operand's starting end
 	 * @param finishingEndPredecessor
-	 *            the finishing end of the created element's predecessor
+	 *            the graphical predecessor of the interaction operand's finishing end
+	 * 
 	 * @param parentView
 	 *            the graphical container of the created element
-	 * @return the created {@link InteractionOperand}
+	 * @return the initialized {@link InteractionOperand}
 	 */
-	public EObject createInteractionOperand(Element parent, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, DSemanticDecorator parentView) {
-		final InteractionOperand result;
+	public EObject initializeInteractionOperand(Element parent, InteractionOperand operand, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
 		if (parent instanceof CombinedFragment combinedFragment) {
-			CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
-			result = (InteractionOperand) commonDiagramServices.createElement(combinedFragment, UMLPackage.eINSTANCE.getInteractionOperand().getName(), UMLPackage.eINSTANCE.getCombinedFragment_Operand().getName(), parentView);
-			result.getCovereds().addAll(combinedFragment.getCovereds());
-			this.orderService.createStartingEnd(result);
+			this.setDefaultName(operand);
+			operand.createGuard("guard"); //$NON-NLS-1$
+			operand.getCovereds().addAll(combinedFragment.getCovereds());
+			this.orderService.createStartingEnd(operand);
 			EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
 			EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
 			new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
-					.doSwitch(result);
-		} else {
-			Activator.log.warn("Cannot create an {0} on the provided parent ({1})", InteractionOperand.class.getSimpleName(), parent); //$NON-NLS-1$
-			result = null;
+					.doSwitch(operand);
 		}
-		return result;
+		return operand;
 	}
+
 
 	/**
 	 * Deletes the provided {@code eObject}.
@@ -513,6 +358,19 @@ public class SequenceDiagramServices {
 	}
 
 	/**
+	 * Retrieves the owning {@link Interaction} of the provided {@code element}.
+	 * 
+	 * @param element
+	 *            the element to retrieve the owning {@link Interaction} from
+	 * @return the owning {@link Interaction}
+	 * 
+	 * @see SequenceDiagramUMLHelper#getOwningInteraction(Element)
+	 */
+	public Interaction getOwningInteraction(Element element) {
+		return new SequenceDiagramUMLHelper().getOwningInteraction(element);
+	}
+
+	/**
 	 * Returns the semantic {@link EAnnotation} corresponding to the provided {@link EventEnd}.
 	 * <p>
 	 * This method returns an {@link EAnnotation} used to represent the graphical ordering of the Sequence Diagram.
@@ -532,9 +390,16 @@ public class SequenceDiagramServices {
 				.orElse(null);
 	}
 
-	// Copied from org.eclipse.papyrus.uml.service.types.element.UMLElementTypes to avoid a dependency to papyrus.uml.service
-	private static enum MessageType {
-		COMPLETE_SYNCH_CALL, COMPLETE_ASYNCH_CALL, COMPLETE_REPLY
+	/**
+	 * Sets the default name of the {@code element}.
+	 * 
+	 * @param element
+	 *            the element to set the name of
+	 * @see ElementDefaultNameProvider
+	 */
+	private void setDefaultName(NamedElement element) {
+		String name = new ElementDefaultNameProvider()
+				.getDefaultName(element, element.getOwner());
+		element.setName(name);
 	}
-
 }

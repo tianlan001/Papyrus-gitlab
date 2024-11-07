@@ -7,7 +7,7 @@
         <nodeMappings xsi:type="description_1:InstanceRoleMapping" name="SD_Lifeline" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getLifelineCandidates()" synchronizationLock="true" domainClass="uml::Lifeline">
           <borderedNodeMappings xsi:type="description_1:ExecutionMapping" name="SD_Lifeline_Execution" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" semanticCandidatesExpression="aql:self" semanticElements="var:self" synchronizationLock="true" domainClass="uml::Lifeline" startingEndFinderExpression="aql:self" finishingEndFinderExpression="aql:self">
             <borderedNodeMappings xsi:type="description_1:ExecutionMapping" name="SD_ExecutionSpecification" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" semanticCandidatesExpression="aql:self.getExecutionSpecificationCandidates()" synchronizationLock="true" domainClass="uml::ExecutionSpecification" startingEndFinderExpression="aql:self.getStartingEnd()" finishingEndFinderExpression="aql:self.getFinishingEnd()">
-              <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NSEW" width="2" height="5" color="//@userColorsPalettes[name='SD_ColorPalette']/@entries[name='CustomBlue']">
+              <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NORTH_SOUTH" width="2" height="5" color="//@userColorsPalettes[name='SD_ColorPalette']/@entries[name='CustomBlue']">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               </style>
@@ -78,7 +78,12 @@
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createActionExecutionSpecification(startingEndPredecessor, finishingEndPredecessor, containerView)"/>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.getOwningInteraction()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newStartExecutionOccurrenceSpecification"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ActionExecutionSpecification" referenceName="fragment" variableName="newActionExecutionSpecification"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newFinishExecutionOccurrenceSpecification"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.initializeExecutionSpecification(newActionExecutionSpecification, newStartExecutionOccurrenceSpecification, newFinishExecutionOccurrenceSpecification, startingEndPredecessor, finishingEndPredecessor)"/>
+              </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
@@ -87,7 +92,12 @@
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createBehaviorExecutionSpecification(startingEndPredecessor, finishingEndPredecessor, containerView)"/>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.getOwningInteraction()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newStartExecutionOccurrenceSpecification"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::BehaviorExecutionSpecification" referenceName="fragment" variableName="newBehaviorExecutionSpecification"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newFinishExecutionOccurrenceSpecification"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.initializeExecutionSpecification(newBehaviorExecutionSpecification, newStartExecutionOccurrenceSpecification, newFinishExecutionOccurrenceSpecification, startingEndPredecessor, finishingEndPredecessor)"/>
+              </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
@@ -96,7 +106,14 @@
             <variable name="variable"/>
             <viewVariable name="viewVariable"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.createCombinedFragment(startingEndPredecessor, finishingEndPredecessor, coveredLifelines, viewVariable)"/>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:variable.getOwningInteraction()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::CombinedFragment" referenceName="fragment" variableName="newCombinedFragment">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newCombinedFragment">
+                    <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::InteractionOperand" referenceName="operand" variableName="newInteractionOperand"/>
+                    <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:variable.initializeCombinedFragment(newCombinedFragment, newInteractionOperand, startingEndPredecessor, finishingEndPredecessor, coveredLifelines)"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
@@ -106,7 +123,9 @@
             <variable name="variable"/>
             <viewVariable name="viewVariable"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.createInteractionOperand(startingEndPredecessor, finishingEndPredecessor, viewVariable)"/>
+              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::InteractionOperand" referenceName="operand" variableName="newInteractionOperand">
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:variable.initializeInteractionOperand(newInteractionOperand, startingEndPredecessor, finishingEndPredecessor)"/>
+              </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
@@ -119,7 +138,12 @@
             <sourceViewVariable name="sourceView"/>
             <targetViewVariable name="targetView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.eContainer(uml::Interaction).createSynchronousMessage(source, target, startingEndPredecessor, finishingEndPredecessor, sourceView)"/>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.getOwningInteraction()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newSendEventMessageOccurrenceSpecification"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newReceiveEventMessageOccurrenceSpecification"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.initializeMessage(uml::MessageSort::synchCall, newMessage, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+              </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
@@ -130,7 +154,12 @@
             <sourceViewVariable name="sourceView"/>
             <targetViewVariable name="targetView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.eContainer(uml::Interaction).createAsynchronousMessage(source, target, startingEndPredecessor, finishingEndPredecessor, sourceView)"/>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.getOwningInteraction()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newSendEventMessageOccurrenceSpecification"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newReceiveEventMessageOccurrenceSpecification"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.initializeMessage(uml::MessageSort::asynchCall, newMessage, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+              </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
@@ -141,7 +170,12 @@
             <sourceViewVariable name="sourceView"/>
             <targetViewVariable name="targetView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.eContainer(uml::Interaction).createReplyMessage(source, target, startingEndPredecessor, finishingEndPredecessor, sourceView)"/>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.getOwningInteraction()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newSendEventMessageOccurrenceSpecification"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newReceiveEventMessageOccurrenceSpecification"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.initializeMessage(uml::MessageSort::reply, newMessage, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+              </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>

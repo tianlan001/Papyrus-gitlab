@@ -19,6 +19,7 @@ import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
+import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.OccurrenceSpecification;
@@ -47,9 +48,13 @@ public class SequenceDiagramUMLHelper {
 				result = this.getOwningInteraction(fragment.getEnclosingOperand());
 			} else if (fragment.getOwner() instanceof CombinedFragment combinedFragment) {
 				result = this.getOwningInteraction(combinedFragment);
+			} else if (fragment instanceof Interaction interaction) {
+				result = interaction;
 			}
 		} else if (element instanceof Message message) {
 			result = message.getInteraction();
+		} else if (element instanceof Lifeline lifeline) {
+			result = lifeline.getInteraction();
 		}
 		return result;
 	}
