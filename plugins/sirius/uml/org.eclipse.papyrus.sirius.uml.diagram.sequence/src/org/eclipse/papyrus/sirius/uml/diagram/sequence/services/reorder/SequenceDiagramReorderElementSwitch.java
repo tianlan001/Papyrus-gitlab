@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramOrderServices;
-import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramSemanticReorderHelper.Reordering;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
 import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.Element;
@@ -27,8 +26,6 @@ import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Message;
-import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
-import org.eclipse.uml2.uml.OccurrenceSpecification;
 import org.eclipse.uml2.uml.StateInvariant;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.util.UMLSwitch;
@@ -156,27 +153,9 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	@Override
 	public Element caseExecutionSpecification(ExecutionSpecification execution) {
 		List<EAnnotation> endsOrdering = reorderEnds(execution);
-		Reordering startReorderEntry = semanticReorderHelper.reorderElements(execution.getStart(), startingEndPredecessor, endsOrdering);
+		semanticReorderHelper.reorderElements(execution.getStart(), startingEndPredecessor, endsOrdering);
 		semanticReorderHelper.reorderElements(execution.getFinish(), getApplicableFinishEnd(execution), endsOrdering);
 
-		// Move the messages that are connected to the execution.
-		int executionStartIndex = endsOrdering.indexOf(orderService.getStartingEnd(execution));
-		int executionEndIndex = endsOrdering.indexOf(orderService.getFinishingEnd(execution));
-		InteractionFragment lastPredecessorElement = execution;
-		for (int i = executionStartIndex + 1; i < executionEndIndex; i++) {
-			EAnnotation end = endsOrdering.get(i);
-			InteractionFragment semanticEnd = orderService.getEndFragment(end);
-			if (semanticEnd instanceof MessageOccurrenceSpecification messageOccurrenceSpecification) {
-				OccurrenceSpecification otherEnd = umlHelper.getOtherEnd(messageOccurrenceSpecification);
-				if (umlHelper.isCoveringASubsetOf(messageOccurrenceSpecification, execution)
-						|| umlHelper.isCoveringASubsetOf(otherEnd, execution)) {
-					// Move the message after the last element in the execution (to replicate the original order).
-					semanticReorderHelper.removeFromOwner(semanticEnd);
-					semanticReorderHelper.addInteractionFragment(semanticEnd, startReorderEntry.newOwner(), startReorderEntry.newContainmentReference(), lastPredecessorElement);
-					lastPredecessorElement = semanticEnd;
-				}
-			}
-		}
 		return execution;
 	}
 
