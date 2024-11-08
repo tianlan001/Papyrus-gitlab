@@ -14,18 +14,16 @@
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.DeleteServices;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.Activator;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramReorderElementSwitch;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramSemanticReorderHelper;
 import org.eclipse.sirius.diagram.sequence.ordering.EventEnd;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.uml2.uml.ActionExecutionSpecification;
@@ -45,30 +43,43 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.UMLPackage;
 
 /**
- * Services for the "Sequence" diagram.
+ * Generic Services for the Sequence Diagram.
+ * <p>
+ * This class provides services to:
+ * <ul>
+ * <li>Create semantic elements and position them on the diagram</li>
+ * <li>Delete semantic elements</li>
+ * <li>Reorder lifelines</li>
+ * <li>Reorder interaction fragments</li>
+ * </ul>
+ * Note that this class doesn't provide graphical order-related services (e.g. to compute the starting/finishing end of an element),
+ * see {@link SequenceDiagramOrderServices}. It also doesn't provide semantic candidate-related services, which are available in
+ * {@link SequenceDiagramSemanticCandidatesServices}. Finally, see {@link SequenceDiagramUMLLabelServices} for Sequence Diagram-specific
+ * label services.
+ * </p>
+ * <p>
+ * This class is the entry point for reordering services, but note that the reordering logic is defined in the package
+ * {@code org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder}.
+ * </p>
  * 
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
 public class SequenceDiagramServices {
 
+	/**
+	 * The error message to log when attempting to create an element on a {@code null} parent.
+	 */
 	private final static String CREATE_ERROR_NO_PARENT = "Unable to create a {0} with no parent"; //$NON-NLS-1$
 
+	/**
+	 * The error message to log when the creation of a graphical ordering end failed.
+	 */
 	private final static String ORDERING_ERROR_UNKNOWN_TYPE = "Cannot set ordering end for {0}"; //$NON-NLS-1$
 
-	public static final String START_ANNOTATION_SOURCE = "org.eclipse.papyrus.sirius.uml.diagram.sequence.start"; //$NON-NLS-1$
-
-	public static final String END_ANNOTATION_SOURCE = "org.eclipse.papyrus.sirius.uml.diagram.sequence.end"; //$NON-NLS-1$
-
-	public static final String ORDERING_ANNOTATION_SOURCE = "org.eclipse.papyrus.sirius.uml.diagram.sequence.end"; //$NON-NLS-1$
-
 	/**
-	 * The service used to reorder elements.
-	 * <p>
-	 * This service is used after element creation to move them at the correct location (graphically and semantically),
-	 * as well as to handle reorder tools.
-	 * </p>
+	 * The order service used to create and manage graphical ordering ends.
 	 */
-	private SequenceDiagramReorderServices reorderServices = new SequenceDiagramReorderServices();
+	private final SequenceDiagramOrderServices orderService = new SequenceDiagramOrderServices();
 
 	/**
 	 * Creates a semantic {@link Lifeline} in the provided {@code parent}.
@@ -91,7 +102,7 @@ public class SequenceDiagramServices {
 		} else {
 			CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
 			result = commonDiagramServices.createElement(parent, UMLPackage.eINSTANCE.getLifeline().getName(), UMLPackage.eINSTANCE.getInteraction_Lifeline().getName(), parentView);
-			reorderServices.reorderLifeline(parent, result, predecessor);
+			new SequenceDiagramSemanticReorderHelper().reorderLifeline(parent, result, predecessor);
 		}
 		return result;
 	}
@@ -207,25 +218,34 @@ public class SequenceDiagramServices {
 				createSendEvent(message, source, parentView);
 				createReceiveEvent(message, target, parentView);
 			}
-			Interaction rootInteraction = message.getInteraction();
-			EAnnotation orderingAnnotation = getOrCreateOrderingAnnotation(rootInteraction);
 			if (message.getSendEvent() instanceof InteractionFragment sendEventFragment) {
-				orderingAnnotation.getContents().add(this.createStartAnnotation(sendEventFragment, result));
+				this.orderService.createStartingEnd(sendEventFragment, result);
 			} else {
 				Activator.log.warn(MessageFormat.format(ORDERING_ERROR_UNKNOWN_TYPE, message.getSendEvent()));
 			}
 			if (message.getReceiveEvent() instanceof InteractionFragment receiveEventFragment) {
-				orderingAnnotation.getContents().add(this.createEndAnnotation(receiveEventFragment, result));
+				this.orderService.createFinishingEnd(receiveEventFragment, result);
 			} else {
 				Activator.log.warn(MessageFormat.format(ORDERING_ERROR_UNKNOWN_TYPE, message.getReceiveEvent()));
 			}
 			EAnnotation startingEndPredecessorSemanticElement = getSemanticEnd(startingEndPredecessor);
 			EAnnotation finishingEndPredecessorSemanticElement = getSemanticEnd(finishingEndPredecessor);
-			reorderServices.reorderMessage(message, startingEndPredecessorSemanticElement, finishingEndPredecessorSemanticElement);
+			new SequenceDiagramReorderElementSwitch(startingEndPredecessorSemanticElement, finishingEndPredecessorSemanticElement)
+				.doSwitch(message);
 		}
 		return result;
 	}
 
+	/**
+	 * Creates the send event {@link MessageOccurrenceSpecification} for {@code message} and set it in the provided {@code source}.
+	 * 
+	 * @param message
+	 *            the {@link Message} to create the send event from
+	 * @param source
+	 *            the element to attach the created send event to
+	 * @param parentView
+	 *            the graphical element representing the source
+	 */
 	private void createSendEvent(Message message, Element source, DSemanticDecorator parentView) {
 		if (source instanceof Lifeline || source instanceof ExecutionSpecification) {
 			MessageOccurrenceSpecification sendEvent = UMLFactory.eINSTANCE.createMessageOccurrenceSpecification();
@@ -241,6 +261,16 @@ public class SequenceDiagramServices {
 		}
 	}
 
+	/**
+	 * Creates the receive event {@link MessageOccurrenceSpecification} for {@code message} and set it in the provided {@code target}.
+	 * 
+	 * @param message
+	 *            the {@link Message} to create the send event from
+	 * @param target
+	 *            the element to attach the created receive event to
+	 * @param parentView
+	 *            the graphical element representing the target
+	 */
 	private void createReceiveEvent(Message message, Element target, DSemanticDecorator parentView) {
 		if (target instanceof Lifeline || target instanceof ExecutionSpecification) {
 			MessageOccurrenceSpecification receiveEvent = UMLFactory.eINSTANCE
@@ -294,14 +324,13 @@ public class SequenceDiagramServices {
 			result.getStart().getCovereds().add(lifeline);
 			result.getFinish().getCovereds().add(lifeline);
 
-			Interaction rootInteraction = reorderServices.getOwningInteraction(result);
-			EAnnotation orderingAnnotation = getOrCreateOrderingAnnotation(rootInteraction);
-			orderingAnnotation.getContents().add(this.createStartAnnotation(result.getStart(), result));
-			orderingAnnotation.getContents().add(this.createEndAnnotation(result.getFinish(), result));
+			this.orderService.createStartingEnd(result.getStart(), result);
+			this.orderService.createFinishingEnd(result.getFinish(), result);
 
 			EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
 			EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
-			reorderServices.reorderFragment(result, semanticStartingEndPredecessor, semanticFinishingEndPredecessor);
+			new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
+					.doSwitch(result);
 		}
 		return result;
 	}
@@ -352,14 +381,13 @@ public class SequenceDiagramServices {
 			result.getStart().getCovereds().add(lifeline);
 			result.getFinish().getCovereds().add(lifeline);
 
-			Interaction rootInteraction = reorderServices.getOwningInteraction(result);
-			EAnnotation orderingAnnotation = this.getOrCreateOrderingAnnotation(rootInteraction);
-			orderingAnnotation.getContents().add(this.createStartAnnotation(start, result));
-			orderingAnnotation.getContents().add(this.createEndAnnotation(finish, result));
+			this.orderService.createStartingEnd(start, result);
+			this.orderService.createFinishingEnd(finish, result);
 
 			EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
 			EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
-			reorderServices.reorderFragment(result, semanticStartingEndPredecessor, semanticFinishingEndPredecessor);
+			new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
+					.doSwitch(result);
 		}
 		return result;
 	}
@@ -385,21 +413,20 @@ public class SequenceDiagramServices {
 	public EObject createCombinedFragment(Element parent, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, List<Lifeline> coveredLifelines, DSemanticDecorator parentView) {
 		CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
 		CombinedFragment combinedFragment = (CombinedFragment) commonDiagramServices.createElement(parent, UMLPackage.eINSTANCE.getCombinedFragment().getName(), UMLPackage.eINSTANCE.getInteraction_Fragment().getName(), parentView);
-		Interaction rootInteraction = reorderServices.getOwningInteraction(combinedFragment);
-		EAnnotation orderingAnnotation = this.getOrCreateOrderingAnnotation(rootInteraction);
-		orderingAnnotation.getContents().add(this.createStartAnnotation(combinedFragment));
+		this.orderService.createStartingEnd(combinedFragment);
 
 		combinedFragment.getCovereds().addAll(coveredLifelines);
 		InteractionOperand interactionOperand = (InteractionOperand) commonDiagramServices.createElement(combinedFragment, UMLPackage.eINSTANCE.getInteractionOperand().getName(), UMLPackage.eINSTANCE.getCombinedFragment_Operand().getName(), parentView);
 		interactionOperand.getCovereds().addAll(coveredLifelines);
-		orderingAnnotation.getContents().add(this.createStartAnnotation(interactionOperand));
+		this.orderService.createStartingEnd(interactionOperand);
 		// There is no end annotation for InteractionOperand. It is defined by either its containing combined fragment
 		// end, or the start of the next InteractionOperand in the CombinedFragment.
-		orderingAnnotation.getContents().add(this.createEndAnnotation(combinedFragment));
+		this.orderService.createFinishingEnd(combinedFragment);
 
 		EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
 		EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
-		reorderServices.reorderFragment(combinedFragment, semanticStartingEndPredecessor, semanticFinishingEndPredecessor);
+		new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
+				.doSwitch(combinedFragment);
 		return combinedFragment;
 	}
 
@@ -425,11 +452,11 @@ public class SequenceDiagramServices {
 			CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
 			result = (InteractionOperand) commonDiagramServices.createElement(combinedFragment, UMLPackage.eINSTANCE.getInteractionOperand().getName(), UMLPackage.eINSTANCE.getCombinedFragment_Operand().getName(), parentView);
 			result.getCovereds().addAll(combinedFragment.getCovereds());
-			EAnnotation orderingAnnotation = getOrCreateOrderingAnnotation(reorderServices.getOwningInteraction(parent));
-			orderingAnnotation.getContents().add(this.createStartAnnotation(result));
+			this.orderService.createStartingEnd(result);
 			EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
 			EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
-			reorderServices.reorderFragment(result, semanticStartingEndPredecessor, semanticFinishingEndPredecessor);
+			new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
+					.doSwitch(result);
 		} else {
 			Activator.log.warn("Cannot create an {0} on the provided parent ({1})", InteractionOperand.class.getSimpleName(), parent); //$NON-NLS-1$
 			result = null;
@@ -437,6 +464,9 @@ public class SequenceDiagramServices {
 		return result;
 	}
 
+	/**
+	 * Deletes the provided {@code eObject}.
+	 */
 	public boolean deleteSD(EObject eObject) {
 		DeleteServices deleteServices = new DeleteServices();
 		return deleteServices.delete(eObject);
@@ -456,108 +486,30 @@ public class SequenceDiagramServices {
 	 * @param finishingEndPredecessor
 	 *            the predecessor of the fragment's finishing end
 	 * 
-	 * @see SequenceDiagramReorderServices#reorderFragment(InteractionFragment, EAnnotation, EAnnotation)
+	 * @see SequenceDiagramReorderElementSwitch
 	 */
 	public void graphicalReorderElement(Element element, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
 		final EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
 		final EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
-		if (element instanceof InteractionFragment fragment) {
-			reorderServices.reorderFragment(fragment, semanticStartingEndPredecessor, semanticFinishingEndPredecessor);
-		} else if (element instanceof Message message) {
-			reorderServices.reorderMessage(message, semanticStartingEndPredecessor, semanticFinishingEndPredecessor);
-		}
+		new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
+				.doSwitch(element);
 	}
 
 	/**
-	 * Returns the {@link ExecutionSpecification}s covering the provided {@code lifeline}
+	 * Moves the provided {@code lifeline} after {@code predecessor} in {@code container}.
+	 * <p>
+	 * The lifeline is placed first if {@code predecessor} is {@code null}.
+	 * </p>
 	 * 
+	 * @param container
+	 *            the element containing the lifeline
 	 * @param lifeline
-	 *            the lifeline in which we are looking for {@link ExecutionSpecification}
-	 * @return the list of {@link ExecutionSpecification}
+	 *            the lifeline to move
+	 * @param predecessor
+	 *            the element preceding the lifeline in the container
 	 */
-	public Collection<ExecutionSpecification> getExecutionSpecificationCandidates(Lifeline lifeline) {
-		Interaction interaction = lifeline.getInteraction();
-		List<ExecutionSpecification> result = new ArrayList<>();
-		for (InteractionFragment fragment : interaction.getFragments()) {
-			if (fragment instanceof ExecutionSpecification executionSpecification) {
-				result.add(executionSpecification);
-			} else if (fragment instanceof CombinedFragment combinedFragment) {
-				result.addAll(this.getExecutionSpecificationCandidates(combinedFragment));
-			}
-		}
-		return result.stream()
-				.filter(executionSpecification -> executionSpecification.getCovereds().contains(lifeline))
-				.toList();
-	}
-
-	/**
-	 * Returns the {@link ExecutionSpecification}s in the provided {@code combinedFragment}.
-	 * 
-	 * @param combinedFragment
-	 *            the {@link CombinedFragment} to search into
-	 * @return the list of {@link ExecutionSpecification}
-	 */
-	private Collection<ExecutionSpecification> getExecutionSpecificationCandidates(CombinedFragment combinedFragment) {
-		List<ExecutionSpecification> result = new ArrayList<>();
-		for (InteractionOperand operand : combinedFragment.getOperands()) {
-			for (InteractionFragment fragment : operand.getFragments()) {
-				if (fragment instanceof ExecutionSpecification executionSpecification) {
-					result.add(executionSpecification);
-				} else if (fragment instanceof CombinedFragment childCombinedFragment) {
-					result.addAll(this.getExecutionSpecificationCandidates(childCombinedFragment));
-				}
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * Returns the {@link CombinedFragment} contained in the provided {@code interaction}.
-	 * 
-	 * @param interaction
-	 *            the {@link Interaction} to search into
-	 * @return the {@link CombinedFragment} contained in the provided {@code interaction}
-	 */
-	public Collection<CombinedFragment> getCombinedFragmentCandidates(Interaction interaction) {
-		List<CombinedFragment> result = new ArrayList<>();
-		for (InteractionFragment fragment : interaction.getFragments()) {
-			if (fragment instanceof CombinedFragment combinedFragment) {
-				result.add(combinedFragment);
-				result.addAll(this.getCombinedFragmentCandidates(combinedFragment));
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * Returns the {@link CombinedFragment} contained in the provided {@code combinedFragment}.
-	 * 
-	 * @param combinedFragment
-	 *            the {@link CombinedFragment} to search into
-	 * @return the {@link CombinedFragment} contained in the provided {@code combinedFragment}
-	 */
-	private Collection<CombinedFragment> getCombinedFragmentCandidates(CombinedFragment combinedFragment) {
-		List<CombinedFragment> result = new ArrayList<>();
-		for (InteractionOperand operand : combinedFragment.getOperands()) {
-			for (InteractionFragment fragment : operand.getFragments()) {
-				if (fragment instanceof CombinedFragment childCombinedFragment) {
-					result.add(childCombinedFragment);
-					result.addAll(this.getCombinedFragmentCandidates(childCombinedFragment));
-				}
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * Returns the {@link InteractionOperand} contained in the provided {@code combinedFragment}.
-	 * 
-	 * @param combinedFragment
-	 *            the {@link CombinedFragment} to search into
-	 * @return the {@link InteractionOperand} contained in the provided {@code combinedFragment}
-	 */
-	public Collection<InteractionOperand> getInteractionOperandCandidates(CombinedFragment combinedFragment) {
-		return combinedFragment.getOperands();
+	public void graphicalReorderLifeline(Element container, EObject lifeline, EObject predecessor) {
+		new SequenceDiagramSemanticReorderHelper().reorderLifeline(container, lifeline, predecessor);
 	}
 
 	/**
@@ -578,119 +530,6 @@ public class SequenceDiagramServices {
 				.filter(EAnnotation.class::isInstance)
 				.map(EAnnotation.class::cast)
 				.orElse(null);
-	}
-
-	/**
-	 * Gets the {@link Interaction}'s {@link EAnnotation} containing the general ordering of the Sequence Diagram.
-	 * <p>
-	 * Sequence Diagram graphical ordering is stored in an {@link EAnnotation} on the root {@link Interaction} of the diagram.
-	 * This annotation contains itself the {@link EAnnotation}s representing the ordered starting/finishing ends of the
-	 * graphical elements.
-	 * </p>
-	 * <p>
-	 * This method creates the {@link EAnnotation} if it does not exist.
-	 * </p>
-	 * 
-	 * @param interaction
-	 *            the {@link Interaction} to retrieve the ordering from
-	 * @return the ordering {@link EAnnotation}
-	 */
-	private EAnnotation getOrCreateOrderingAnnotation(Interaction interaction) {
-		EAnnotation orderingAnnotation = interaction.getEAnnotation(ORDERING_ANNOTATION_SOURCE);
-		if (orderingAnnotation == null) {
-			orderingAnnotation = interaction.createEAnnotation(ORDERING_ANNOTATION_SOURCE);
-		}
-		return orderingAnnotation;
-	}
-
-	/**
-	 * Creates a <i>starting end</i> {@link EAnnotation} for the given {@code fragment}.
-	 * <p>
-	 * The provided {@code fragment} is stored in {@link EAnnotation#getReferences()}.
-	 * </p>
-	 * 
-	 * @param fragment
-	 *            the {@link InteractionFragment}
-	 * @return the created {@link EAnnotation}
-	 * 
-	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
-	 */
-	private EAnnotation createStartAnnotation(InteractionFragment fragment) {
-		return this.createStartAnnotation(fragment, null);
-	}
-
-	/**
-	 * Creates a <i>starting end</i> {@link EAnnotation} for the given {@code fragment} and {@code baseElement}.
-	 * 
-	 * @param fragment
-	 *            the {@link InteractionFragment}
-	 * @param baseElement
-	 *            the base element of the fragment
-	 * @return the created {@link EAnnotation}
-	 * 
-	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
-	 */
-	private EAnnotation createStartAnnotation(InteractionFragment fragment, Element baseElement) {
-		return this.createAnnotationWithReference(fragment, baseElement, START_ANNOTATION_SOURCE);
-	}
-
-	/**
-	 * Creates a <i>finishing end</i> {@link EAnnotation} for the given {@code fragment}.
-	 * 
-	 * @param fragment
-	 *            the {@link InteractionFragment}
-	 * @return the created {@link EAnnotation}
-	 * 
-	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
-	 */
-	private EAnnotation createEndAnnotation(InteractionFragment fragment) {
-		return this.createEndAnnotation(fragment, null);
-	}
-
-	/**
-	 * Creates a <i>finishing end</i> {@link EAnnotation} for the given {@code fragment} and {@code baseElement}.
-	 * 
-	 * @param fragment
-	 *            the {@link InteractionFragment}
-	 * @param baseElement
-	 *            the base element of the fragment
-	 * @return the created {@link EAnnotation}
-	 * 
-	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
-	 */
-	private EAnnotation createEndAnnotation(InteractionFragment fragment, Element baseElement) {
-		return this.createAnnotationWithReference(fragment, baseElement, END_ANNOTATION_SOURCE);
-	}
-
-	/**
-	 * Creates a {@code source} {@link EAnnotation} for the given {@code fragment} and {@code baseElement}.
-	 * <p>
-	 * This method is typically used to create an ordering end for an element that already has a semantic start (e.g. an
-	 * execution). In this case, the semantic start is stored as the first reference in the annotation, and the base element
-	 * is stored as the second element.
-	 * </p>
-	 * <p>
-	 * The provided {@code [fragment, baseElement]} are stored in {@link EAnnotation#getReferences()}.
-	 * </p>
-	 * 
-	 * @param fragment
-	 *            the {@link InteractionFragment}
-	 * @param baseElement
-	 *            the base element of the fragment
-	 * @param source
-	 *            the source of the {@link EAnnotation}
-	 * @return the created {@link EAnnotation}
-	 */
-	private EAnnotation createAnnotationWithReference(InteractionFragment fragment, Element baseElement, String source) {
-		Objects.requireNonNull(fragment);
-		Objects.requireNonNull(source);
-		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-		annotation.setSource(source);
-		annotation.getReferences().add(fragment);
-		if (baseElement != null) {
-			annotation.getReferences().add(baseElement);
-		}
-		return annotation;
 	}
 
 	// Copied from org.eclipse.papyrus.uml.service.types.element.UMLElementTypes to avoid a dependency to papyrus.uml.service

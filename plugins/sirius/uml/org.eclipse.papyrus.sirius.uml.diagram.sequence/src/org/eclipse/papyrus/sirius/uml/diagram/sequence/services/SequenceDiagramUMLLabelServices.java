@@ -38,9 +38,9 @@ import org.eclipse.uml2.uml.ValueSpecification;
  */
 public class SequenceDiagramUMLLabelServices {
 
-	private UMLLabelServices labelServices = new UMLLabelServices();
+	private final UMLLabelServices labelServices = new UMLLabelServices();
 
-	private INamedElementNameProvider namedElementNameProvider = new LabelElementNameProvider();
+	private final INamedElementNameProvider namedElementNameProvider = new LabelElementNameProvider();
 
 	private static final String UNDEFINED = "<Undefined>"; //$NON-NLS-1$
 

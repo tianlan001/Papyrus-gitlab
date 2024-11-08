@@ -28,13 +28,13 @@ public class CreationToolsIds {
 
 	public static final String CREATE_LIFELINE_TOOL = "CreateLifelineTool"; //$NON-NLS-1$
 
-	public static final String CREATE_ACTION_EXECUTION_SPECIFICATION_TOOL = "CreateActionExecutionSpecification"; //$NON-NLS-1$
+	public static final String CREATE_ACTION_EXECUTION_SPECIFICATION_TOOL = "CreateActionExecutionSpecificationTool"; //$NON-NLS-1$
 
-	public static final String CREATE_BEHAVIOR_EXECUTION_SPECIFICATION_TOOL = "CreateBehaviorExecutionSpecification"; //$NON-NLS-1$
+	public static final String CREATE_BEHAVIOR_EXECUTION_SPECIFICATION_TOOL = "CreateBehaviorExecutionSpecificationTool"; //$NON-NLS-1$
 
 	/*----------------------------------------------The Edge creation tools IDs----------------------------------------------*/
 
-	public static final String CREATE_MESSAGE_SYNC_TOOL = "CreateMessageSync"; //$NON-NLS-1$
+	public static final String CREATE_MESSAGE_SYNC_TOOL = "CreateMessageSyncTool"; //$NON-NLS-1$
 
-	public static final String CREATE_MESSAGE_REPLY_TOOL = "CreateMessageReply"; //$NON-NLS-1$
+	public static final String CREATE_MESSAGE_REPLY_TOOL = "CreateMessageReplyTool"; //$NON-NLS-1$
 }
