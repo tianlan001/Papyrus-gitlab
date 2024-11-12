@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/sequence/description/2.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/sequence/description/tool/2.0.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" xmlns:tool_2="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" documentation="Copyright (c) 2024 CEA LIST.&#xD;&#xA;&#xD;&#xA;This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License 2.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;https://www.eclipse.org/legal/epl-2.0/&#xD;&#xA;&#xD;&#xA;SPDX-License-Identifier: EPL-2.0&#xD;&#xA;&#xD;&#xA; Contributors:&#xD;&#xA;  Obeo - Initial API and implementation" name="papyrus_sequence" version="12.0.0.2017041100">
   <ownedViewpoints name="SequenceDiagram" modelFileExtension="uml">
-    <ownedRepresentations xsi:type="description_1:SequenceDiagramDescription" dropDescriptions="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='GraphicalConstraintDrop']" documentation="Representation to edit sequence diagrams" name="SequenceDiagram" titleExpression="aql:self.name + ' Sequence Diagram'" domainClass="uml::PackageableElement" rootExpression="aql:self" enablePopupBars="true" endsOrdering="aql:self.getEndsOrdering(eventEnds)" instanceRolesOrdering="aql:self.getLifelineCandidates()">
+    <ownedRepresentations xsi:type="description_1:SequenceDiagramDescription" dropDescriptions="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalConstraintDrop']" documentation="Representation to edit sequence diagrams" name="SequenceDiagram" titleExpression="aql:self.name + ' Sequence Diagram'" domainClass="uml::PackageableElement" rootExpression="aql:self" enablePopupBars="true" endsOrdering="aql:self.getEndsOrdering(eventEnds)" instanceRolesOrdering="aql:self.getLifelineCandidates()">
       <metamodel href="platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#/"/>
       <defaultLayer name="Sequence">
-        <nodeMappings xsi:type="description_1:InstanceRoleMapping" name="SD_Lifeline" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getLifelineCandidates()" synchronizationLock="true" domainClass="uml::Lifeline">
+        <nodeMappings xsi:type="description_1:InstanceRoleMapping" name="SD_Lifeline" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getLifelineCandidates()" synchronizationLock="true" domainClass="uml::Lifeline">
           <borderedNodeMappings xsi:type="description_1:ExecutionMapping" name="SD_Lifeline_Execution" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" semanticCandidatesExpression="aql:self" semanticElements="var:self" synchronizationLock="true" domainClass="uml::Lifeline" startingEndFinderExpression="aql:self" finishingEndFinderExpression="aql:self">
             <borderedNodeMappings xsi:type="description_1:ExecutionMapping" name="SD_ExecutionSpecification" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" semanticCandidatesExpression="aql:self.getExecutionSpecificationCandidates()" synchronizationLock="true" domainClass="uml::ExecutionSpecification" startingEndFinderExpression="aql:self.getStartingEnd()" finishingEndFinderExpression="aql:self.getFinishingEnd()">
               <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" labelSize="9" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NORTH_SOUTH" width="2" height="5" color="//@userColorsPalettes[name='SD_ColorPalette']/@entries[name='CustomBlue']">
@@ -24,19 +24,19 @@
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </nodeMappings>
-        <nodeMappings name="SD_Comment" preconditionExpression="aql:self.oclIsTypeOf(uml::Comment)" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='Comment_body_EditionTool']" semanticCandidatesExpression="aql:self.ownedComment" domainClass="uml::Comment">
+        <nodeMappings name="SD_Comment" preconditionExpression="aql:self.oclIsTypeOf(uml::Comment)" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='Comment_body_EditionTool']" semanticCandidatesExpression="aql:self.ownedComment" domainClass="uml::Comment">
           <style xsi:type="style:NoteDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT" sizeComputationExpression="9" labelPosition="node" resizeKind="NSEW" color="//@userColorsPalettes[name='SD_ColorPalette']/@entries[name='CommentColor']">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
         </nodeMappings>
-        <nodeMappings name="SD_Constraint" preconditionExpression="aql:self.oclIsTypeOf(uml::Constraint)" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql: if self.oclIsKindOf(uml::Namespace) then self.oclAsType(uml::Namespace).ownedRule else self.eAllContents() endif" domainClass="uml::Constraint">
+        <nodeMappings name="SD_Constraint" preconditionExpression="aql:self.oclIsTypeOf(uml::Constraint)" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql: if self.oclIsKindOf(uml::Namespace) then self.oclAsType(uml::Namespace).ownedRule else self.eAllContents() endif" domainClass="uml::Constraint">
           <style xsi:type="style:NoteDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" sizeComputationExpression="9" labelPosition="node" resizeKind="NSEW" color="//@userColorsPalettes[name='SD_ColorPalette']/@entries[name='ConstraintColor']">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
         </nodeMappings>
-        <edgeMappings xsi:type="description_1:BasicMessageMapping" name="SD_Message" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getMessageCandidates()" synchronizationLock="true" sourceMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" targetMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" targetFinderExpression="aql:self.getTargets()" sourceFinderExpression="aql:self.getSource()" domainClass="uml::Message" useDomainElement="true" sendingEndFinderExpression="aql:self.getStartingEnd()" receivingEndFinderExpression="aql:self.getFinishingEnd()">
+        <edgeMappings xsi:type="description_1:BasicMessageMapping" name="SD_Message" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getMessageCandidates()" synchronizationLock="true" sourceMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" targetMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" targetFinderExpression="aql:self.getTargets()" sourceFinderExpression="aql:self.getSource()" domainClass="uml::Message" useDomainElement="true" sendingEndFinderExpression="aql:self.getStartingEnd()" receivingEndFinderExpression="aql:self.getFinishingEnd()">
           <style targetArrow="InputFillClosedArrow">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderMessageLabelSD(diagram)">
@@ -60,8 +60,13 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
+        <edgeMappings name="SD_Link" preconditionExpression="aql:not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_Link']" sourceMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Comment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Constraint']" targetMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_CombinedFragment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_CombinedFragment']/@subContainerMappings[name='SD_InteractionOperand'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Comment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Constraint'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_InteractionUse']" targetFinderExpression="aql:if self.oclIsKindOf(uml::Constraint) then self.oclAsType(uml::Constraint).constrainedElement else (if self.oclIsKindOf(uml::Comment) then self.oclAsType(uml::Comment).annotatedElement else null endif) endif" reconnections="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectLinkSource'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectLinkTarget']">
+          <style lineStyle="dot" targetArrow="NoDecoration">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </edgeMappings>
         <containerMappings xsi:type="description_1:CombinedFragmentMapping" name="SD_CombinedFragment" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" semanticCandidatesExpression="aql:self.getCombinedFragmentCandidates()" synchronizationLock="true" domainClass="uml::CombinedFragment" startingEndFinderExpression="aql:self.getStartingEnd()" finishingEndFinderExpression="aql:self.getFinishingEnd()" coveredLifelinesExpression="aql:self.covered">
-          <subContainerMappings xsi:type="description_1:OperandMapping" name="SD_InteractionOperand" semanticCandidatesExpression="aql:self.getInteractionOperandCandidates()" synchronizationLock="true" domainClass="uml::InteractionOperand" dropDescriptions="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.4/@ownedTools[name='GraphicalConstraintDrop']" reusedNodeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Comment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Constraint']" startingEndFinderExpression="aql:self.getStartingEnd()" finishingEndFinderExpression="aql:self.getFinishingEnd()">
+          <subContainerMappings xsi:type="description_1:OperandMapping" name="SD_InteractionOperand" semanticCandidatesExpression="aql:self.getInteractionOperandCandidates()" synchronizationLock="true" domainClass="uml::InteractionOperand" dropDescriptions="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalCommentDrop'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.5/@ownedTools[name='GraphicalConstraintDrop']" reusedNodeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Comment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Constraint']" startingEndFinderExpression="aql:self.getStartingEnd()" finishingEndFinderExpression="aql:self.getFinishingEnd()">
             <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -228,6 +233,15 @@
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
           </ownedTools>
+          <ownedTools xsi:type="tool_2:EdgeCreationDescription" name="CreateLinkTool" label="Link" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Link']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.setLinkTarget(target, sourceView,'SD_Link')"/>
+            </initialOperation>
+          </ownedTools>
         </toolSections>
         <toolSections name="DeleteAction">
           <ownedTools xsi:type="tool_2:DeleteElementDescription" name="SD_Delete_All">
@@ -237,6 +251,38 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.deleteSD()"/>
             </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_2:DeleteElementDescription" name="SD_Delete_Link">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.deleteLink(elementView)"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="Reconnect">
+          <ownedTools xsi:type="tool_2:ReconnectEdgeDescription" name="ReconnectLinkSource" precondition="aql:self.canReconnectLinkSource(target)" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.reconnectLinkSource(target,edgeView)"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool_2:ReconnectEdgeDescription" name="ReconnectLinkTarget" forceRefresh="true">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.reconnectLinkTarget(sourceView,source,target,'SD_Link')"/>
+            </initialOperation>
+            <edgeView name="edgeView"/>
           </ownedTools>
         </toolSections>
         <toolSections name="Reorder">
@@ -296,6 +342,7 @@
     <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices"/>
     <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.DeleteServices"/>
     <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.DomainBasedEdgeServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.LinkRelationServices"/>
     <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.common.services.SemanticCandidatesServices"/>
     <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramDropBehaviorProvider"/>
     <ownedJavaExtensions qualifiedClassName="org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramOrderServices"/>
