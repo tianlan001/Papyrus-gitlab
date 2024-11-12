@@ -31,7 +31,6 @@ import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
-import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 
 /**
@@ -344,53 +343,9 @@ public class SequenceDiagramOrderServices {
 	private Element getSemanticEnd(String source, Element element) {
 		Element result = null;
 		if (START_ANNOTATION_SOURCE.equals(source)) {
-			result = getSemanticStart(element);
+			result = this.umlHelper.getSemanticStart(element);
 		} else if (FINISH_ANNOTATION_SOURCE.equals(source)) {
-			result = getSemanticFinish(element);
-		}
-		return result;
-	}
-
-	/**
-	 * Returns the semantic element representing the start end of the provided {@code element}.
-	 * <p>
-	 * This method returns the provided {@code element} if it doesn't reference a semantic start.
-	 * </p>
-	 *
-	 * @param element
-	 *            the element to retrieve the semantic start from
-	 * @return the semantic start
-	 */
-	private Element getSemanticStart(Element element) {
-		Element result = null;
-		if (element instanceof ExecutionSpecification executionSpecification) {
-			result = executionSpecification.getStart();
-		} else if (element instanceof Message message) {
-			result = message.getSendEvent();
-		} else {
-			result = element;
-		}
-		return result;
-	}
-
-	/**
-	 * Returns the semantic element representing the finishing end of the provided {@code element}.
-	 * <p>
-	 * This method returns the provided {@code element} if it doesn't reference a semantic finish.
-	 * </p>
-	 *
-	 * @param element
-	 *            the element to retrieve the semantic finish from
-	 * @return the semantic finish
-	 */
-	private Element getSemanticFinish(Element element) {
-		Element result = null;
-		if (element instanceof ExecutionSpecification executionSpecification) {
-			result = executionSpecification.getFinish();
-		} else if (element instanceof Message message) {
-			result = message.getReceiveEvent();
-		} else {
-			result = element;
+			result = this.umlHelper.getSemanticFinish(element);
 		}
 		return result;
 	}

@@ -16,8 +16,10 @@ package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.LabelElementNameProvider;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.UMLLabelServices;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
 import org.eclipse.papyrus.uml.domain.services.labels.INamedElementNameProvider;
 import org.eclipse.papyrus.uml.domain.services.labels.UMLCharacters;
 import org.eclipse.sirius.diagram.DDiagram;
@@ -30,12 +32,13 @@ import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Signal;
+import org.eclipse.uml2.uml.TimeObservation;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.ValueSpecification;
 
 /**
  * Provides Sequence Diagram-specific labels for semantic elements.
- * 
+ *
  * @author <a href="mailto:gwendal.daniel@obeosoft.com">Gwendal Daniel</a>
  */
 public class SequenceDiagramUMLLabelServices {
@@ -43,6 +46,10 @@ public class SequenceDiagramUMLLabelServices {
 	private final UMLLabelServices labelServices = new UMLLabelServices();
 
 	private final INamedElementNameProvider namedElementNameProvider = new LabelElementNameProvider();
+
+	private final SequenceDiagramUMLHelper umlHelper = new SequenceDiagramUMLHelper();
+
+	private final SequenceDiagramOrderServices orderService = new SequenceDiagramOrderServices();
 
 	private static final String UNDEFINED = "<Undefined>"; //$NON-NLS-1$
 
@@ -52,7 +59,7 @@ public class SequenceDiagramUMLLabelServices {
 	 * The label contains either the name of the {@link Message}, or its signature if it contains one.
 	 * <p>
 	 * <b>Note</b>: the formatting of the signature is specific to the sequence diagram.
-	 * 
+	 *
 	 * @param message
 	 *            the {@link Message} to compute the label from
 	 * @return the computed label
@@ -84,7 +91,7 @@ public class SequenceDiagramUMLLabelServices {
 	 * <p>
 	 * This method is typically used to compute the <i>Center Label Expression</i> of interaction uses.
 	 * </p>
-	 * 
+	 *
 	 * @param interactionUse
 	 *            the {@link InteractionUse} to compute the referred {@link Interaction} label from
 	 * @return the referred {@link Interaction} label, or an empty String if there is no referred interaction in the provided {@code interactionUse}
@@ -95,6 +102,21 @@ public class SequenceDiagramUMLLabelServices {
 			result = interactionUse.getRefersTo().getName();
 		}
 		return result;
+	}
+
+	/**
+	 * Computes the label of a {@link TimeObservation} represented by the provided {@code event}.
+	 *
+	 * @param event
+	 *            the {@link EAnnotation} representing the ordering end where the {@link TimeObservation} is attached
+	 * @param diagram
+	 *            the diagram
+	 * @return the label of the {@link TimeObservation} represented by the provided {@code event}
+	 */
+	public String renderTimeObservationLabelSD(EAnnotation event, DDiagram diagram) {
+		return umlHelper.getTimeObservationFromEnd(event)
+				.map(timeObsevation -> labelServices.renderLabel(timeObsevation, diagram))
+				.orElse(UMLCharacters.EMPTY);
 	}
 
 	private String computeOperationLabel(Operation operation) {

@@ -13,6 +13,14 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.util.ECrossReferenceAdapter;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramOrderServices;
+import org.eclipse.papyrus.uml.domain.services.internal.helpers.TimeObservationHelper;
 import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
@@ -22,7 +30,9 @@ import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.OccurrenceSpecification;
+import org.eclipse.uml2.uml.TimeObservation;
 
 /**
  * Helper that performs Sequence-related semantic operation on UML models.
@@ -34,7 +44,7 @@ public class SequenceDiagramUMLHelper {
 	 * <p>
 	 * This method returns the first interaction in the owner hierarchy of {@code element}.
 	 * </p>
-	 * 
+	 *
 	 * @param element
 	 *            the element to retrieve the interaction from
 	 * @return the parent {@link Interaction}
@@ -61,7 +71,7 @@ public class SequenceDiagramUMLHelper {
 
 	/**
 	 * Returns {@code true} if the provided {@code occurrence} is the starting occurrence of an execution.
-	 * 
+	 *
 	 * @param occurrence
 	 *            the {@link OccurrenceSpecification} to check
 	 * @return {@code true} if the provided {@code occurrence} is the starting occurrence of an execution
@@ -78,7 +88,7 @@ public class SequenceDiagramUMLHelper {
 	 * The opposite end of an execution's start occurrence is the finish occurrence of the same execution. The opposite
 	 * end of a message's send event is the receive event of the same message.
 	 * </p>
-	 * 
+	 *
 	 * @param occurrenceSpecification
 	 *            the {@link OccurrenceSpecification} to check
 	 * @return the opposite end of the provided {@code occurrenceSpecification}
@@ -105,7 +115,7 @@ public class SequenceDiagramUMLHelper {
 
 	/**
 	 * Checks that {@code source} covers a subset (or all) of {@code target}'s lifelines.
-	 * 
+	 *
 	 * @param source
 	 *            the source element to check
 	 * @param target
@@ -123,7 +133,7 @@ public class SequenceDiagramUMLHelper {
 	 * This method is typically used to retrieve parent element of a semantic end. For example, it returns
 	 * the parent execution of a start/finish execution occurrence.
 	 * </p>
-	 * 
+	 *
 	 * @param interactionFragment
 	 *            the fragment
 	 * @return the base element
@@ -138,4 +148,79 @@ public class SequenceDiagramUMLHelper {
 		return result;
 	}
 
+	/**
+	 * Returns the semantic element representing the start end of the provided {@code element}.
+	 * <p>
+	 * This method returns the provided {@code element} if it doesn't reference a semantic start.
+	 * </p>
+	 *
+	 * @param element
+	 *            the element to retrieve the semantic start from
+	 * @return the semantic start
+	 */
+	public Element getSemanticStart(Element element) {
+		Element result = null;
+		if (element instanceof ExecutionSpecification executionSpecification) {
+			result = executionSpecification.getStart();
+		} else if (element instanceof Message message) {
+			result = message.getSendEvent();
+		} else {
+			result = element;
+		}
+		return result;
+	}
+
+	/**
+	 * Returns the semantic element representing the finishing end of the provided {@code element}.
+	 * <p>
+	 * This method returns the provided {@code element} if it doesn't reference a semantic finish.
+	 * </p>
+	 *
+	 * @param element
+	 *            the element to retrieve the semantic finish from
+	 * @return the semantic finish
+	 */
+	public Element getSemanticFinish(Element element) {
+		Element result = null;
+		if (element instanceof ExecutionSpecification executionSpecification) {
+			result = executionSpecification.getFinish();
+		} else if (element instanceof Message message) {
+			result = message.getReceiveEvent();
+		} else {
+			result = element;
+		}
+		return result;
+	}
+
+	/**
+	 * Returns the {@link TimeObservation}s associated to the provided {@code event}.
+	 *
+	 * @param event
+	 *            the event to retrieve the {@link TimeObservation}s from
+	 * @return the {@link TimeObservation}s associated to the provided {@code event}
+	 */
+	public List<TimeObservation> getTimeObservationFromEvent(Element event) {
+		List<TimeObservation> result = new ArrayList<>();
+		if (event instanceof NamedElement namedElement) {
+			ECrossReferenceAdapter crossReferencer = ECrossReferenceAdapter.getCrossReferenceAdapter(namedElement);
+			result = TimeObservationHelper.getTimeObservations(namedElement, crossReferencer);
+		}
+		return result;
+	}
+
+	/**
+	 * Returns the {@link TimeObservation} associated to the provided {@code end}.
+	 *
+	 * @param end
+	 *            the event end to retrieve the {@link TimeObservation} from
+	 * @return the {@link TimeObservation} associated to the provided {@code end}
+	 */
+	public Optional<TimeObservation> getTimeObservationFromEnd(EAnnotation end) {
+		Optional<TimeObservation> result = Optional.empty();
+		InteractionFragment fragment = new SequenceDiagramOrderServices().getEndFragment(end);
+		if (fragment != null) {
+			result = getTimeObservationFromEvent(fragment).stream().findFirst();
+		}
+		return result;
+	}
 }

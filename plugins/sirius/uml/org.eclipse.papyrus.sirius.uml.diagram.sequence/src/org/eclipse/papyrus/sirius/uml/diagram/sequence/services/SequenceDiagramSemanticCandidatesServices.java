@@ -16,7 +16,10 @@ package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.papyrus.uml.domain.services.EMFUtils;
 import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
@@ -24,7 +27,10 @@ import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Lifeline;
+import org.eclipse.uml2.uml.OccurrenceSpecification;
+import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.StateInvariant;
+import org.eclipse.uml2.uml.TimeObservation;
 
 /**
  * Services to compute the semantic candidates of the Sequence Diagram.
@@ -32,6 +38,11 @@ import org.eclipse.uml2.uml.StateInvariant;
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
 public class SequenceDiagramSemanticCandidatesServices {
+
+	/**
+	 * The order service used to manage graphical ordering ends.
+	 */
+	private final SequenceDiagramOrderServices orderService = new SequenceDiagramOrderServices();
 
 	/**
 	 * Returns the {@link Lifeline}s in the provided {@code interaction}.
@@ -101,6 +112,58 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 */
 	public Collection<InteractionUse> getInteractionUseCandidates(Interaction interaction) {
 		return this.getInteractionFragments(InteractionUse.class, interaction);
+	}
+
+	/**
+	 * Returns the {@link EAnnotation} that aren't associated to an existing observation point.
+	 * <p>
+	 * This method is used to represent all the event ends that aren't already represented by another observation
+	 * point mapping. This allows to represent them on the diagram, and create tool (e.g. bracket edges) that
+	 * target them.
+	 * </p>
+	 *
+	 * @param interaction
+	 *            the {@link Interaction} represented by the Sequence Diagram
+	 * @return the {@link EAnnotation} that aren't associated to an existing observation point
+	 */
+	public Collection<EAnnotation> getEmptyObservationCandidates(Interaction interaction) {
+		Collection<EAnnotation> timeObservationCandidates = this.getTimeObservationCandidates(interaction);
+		// Empty observation points are all the EAnnotations that aren't represented by another Observation
+		// Point mapping (e.g. TimeObservation), and represent the start/finish of a message or execution.
+		// They are represented with invisible circles that allow end user to select them and target them
+		// with tools.
+		return this.orderService.getEndsOrdering(interaction).stream()
+				.filter(eAnnotation -> orderService.getEndFragment(eAnnotation) instanceof OccurrenceSpecification)
+				.filter(eAnnotation -> !timeObservationCandidates.contains(eAnnotation))
+				.toList();
+	}
+
+	/**
+	 * Returns the {@link TimeObservation}s that have an event on an element displayed on the {@code interaction} Sequence Diagram.
+	 * <p>
+	 * This method searches for {@link TimeObservation}s in the {@link Package} hierarchy of the provided {@code interaction}.
+	 * </p>
+	 *
+	 * @param interaction
+	 *            the {@link Interaction} represented by the Sequence Diagram
+	 * @return the {@link TimeObservation}s that have an event on an element displayed on the {@code interaction} Sequence Diagram.
+	 */
+	public Collection<EAnnotation> getTimeObservationCandidates(Interaction interaction) {
+		List<EAnnotation> result = new ArrayList<>();
+		Collection<TimeObservation> timeObservations = EMFUtils.getAncestors(Package.class, interaction).stream()
+				.flatMap(pack -> pack.getOwnedElements().stream())
+				.filter(TimeObservation.class::isInstance)
+				.map(TimeObservation.class::cast)
+				.toList();
+		for (TimeObservation timeObservation : timeObservations) {
+			if (timeObservation.getEvent() != null) {
+				Optional.ofNullable(this.orderService.getStartingEnd(timeObservation.getEvent()))
+						.ifPresent(result::add);
+				Optional.ofNullable(this.orderService.getFinishingEnd(timeObservation.getEvent()))
+						.ifPresent(result::add);
+			}
+		}
+		return result;
 	}
 
 	/**
