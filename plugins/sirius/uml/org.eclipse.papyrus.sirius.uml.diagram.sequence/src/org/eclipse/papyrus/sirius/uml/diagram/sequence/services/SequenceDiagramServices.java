@@ -43,6 +43,7 @@ import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.MessageSort;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.StateInvariant;
 import org.eclipse.uml2.uml.UMLPackage;
 
 /**
@@ -351,6 +352,35 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	}
 
 	/**
+	 * Initializes a semantic {@link StateInvariant} in the provided {@code parent}.
+	 * <p>
+	 * The initialized elements are moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * </p>
+	 *
+	 * @param parent
+	 *            the semantic parent of the {@link StateInvariant}
+	 * @param stateInvariant
+	 *            the {@link StateInvariant} to initialize
+	 * @param startingEndPredecessor
+	 *            the graphical predecessor of the execution's starting end
+	 * @param finishingEndPredecessor
+	 *            the graphical predecessor of the execution's finishing end
+	 * @return the initialized {@link StateInvariant}
+	 */
+	public StateInvariant initializeStateInvariant(Lifeline parent, StateInvariant stateInvariant, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
+
+		this.setDefaultName(stateInvariant);
+		stateInvariant.getCovereds().add(parent);
+
+		this.orderService.createStartingEnd(stateInvariant);
+		this.orderService.createFinishingEnd(stateInvariant);
+
+		updateElementOrderWithEvents(stateInvariant, startingEndPredecessor, finishingEndPredecessor);
+
+		return stateInvariant;
+	}
+
+	/**
 	 * Deletes the provided {@code eObject}.
 	 *
 	 * @param eObject
@@ -431,7 +461,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	private EAnnotation getSemanticEnd(EventEnd eventEnd) {
 		return eventEnd != null && eventEnd.getSemanticEnd() instanceof EAnnotation result
 				? result
-				: null;
+						: null;
 	}
 
 	/**

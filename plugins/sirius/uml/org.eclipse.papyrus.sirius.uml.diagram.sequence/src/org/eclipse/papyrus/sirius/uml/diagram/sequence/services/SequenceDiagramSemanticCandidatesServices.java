@@ -24,10 +24,11 @@ import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Lifeline;
+import org.eclipse.uml2.uml.StateInvariant;
 
 /**
  * Services to compute the semantic candidates of the Sequence Diagram.
- * 
+ *
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
 public class SequenceDiagramSemanticCandidatesServices {
@@ -38,7 +39,7 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 * This method returns an ordered list of {@link Lifeline} (i.e. the order in the list matches the graphical ordering
 	 * of the lifelines on the diagram).
 	 * </p>
-	 * 
+	 *
 	 * @param interaction
 	 *            the {@link Interaction} to search into
 	 * @return the ordered list of {@link Lifeline}s
@@ -48,24 +49,30 @@ public class SequenceDiagramSemanticCandidatesServices {
 	}
 
 	/**
+	 * Returns the {@link StateInvariant}s covering the provided {@code lifeline}
+	 *
+	 * @param lifeline
+	 *            the lifeline in which we are looking for {@link StateInvariant}
+	 * @return the list of {@link StateInvariant}
+	 */
+	public Collection<StateInvariant> getStateInvariantCandidates(Lifeline lifeline) {
+		return getCoveredFragments(StateInvariant.class, lifeline);
+	}
+
+	/**
 	 * Returns the {@link ExecutionSpecification}s covering the provided {@code lifeline}
-	 * 
+	 *
 	 * @param lifeline
 	 *            the lifeline in which we are looking for {@link ExecutionSpecification}
 	 * @return the list of {@link ExecutionSpecification}
 	 */
 	public Collection<ExecutionSpecification> getExecutionSpecificationCandidates(Lifeline lifeline) {
-		Interaction interaction = lifeline.getInteraction();
-		Collection<ExecutionSpecification> result = new ArrayList<>();
-		result = this.getInteractionFragments(ExecutionSpecification.class, interaction);
-		return result.stream()
-				.filter(executionSpecification -> executionSpecification.getCovereds().contains(lifeline))
-				.toList();
+		return getCoveredFragments(ExecutionSpecification.class, lifeline);
 	}
 
 	/**
 	 * Returns the {@link CombinedFragment} contained in the provided {@code interaction}.
-	 * 
+	 *
 	 * @param interaction
 	 *            the {@link Interaction} to search into
 	 * @return the {@link CombinedFragment} contained in the provided {@code interaction}
@@ -76,7 +83,7 @@ public class SequenceDiagramSemanticCandidatesServices {
 
 	/**
 	 * Returns the {@link InteractionOperand} contained in the provided {@code combinedFragment}.
-	 * 
+	 *
 	 * @param combinedFragment
 	 *            the {@link CombinedFragment} to search into
 	 * @return the {@link InteractionOperand} contained in the provided {@code combinedFragment}
@@ -87,7 +94,7 @@ public class SequenceDiagramSemanticCandidatesServices {
 
 	/**
 	 * Returns the {@link InteractionUse} contained in the provided {@code interaction}.
-	 * 
+	 *
 	 * @param interaction
 	 *            the {@link Interaction} to search into
 	 * @return the {@link InteractionUse} contained in the provided {@code interaction}
@@ -101,7 +108,7 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 * <p>
 	 * This method searches for nested fragments contained in {@link CombinedFragment}s.
 	 * </p>
-	 * 
+	 *
 	 * @param <T>
 	 *            the type of the fragments to retrieve
 	 * @param type
@@ -128,7 +135,7 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 * <p>
 	 * This method searches for nested fragments contained in child {@link CombinedFragment}s.
 	 * </p>
-	 * 
+	 *
 	 * @param <T>
 	 *            the type of the fragments to retrieve
 	 * @param type
@@ -150,5 +157,28 @@ public class SequenceDiagramSemanticCandidatesServices {
 			}
 		}
 		return results;
+	}
+
+
+	/**
+	 * Returns all the {@code type} fragments contained in the provided {@code CombinedFragment}.
+	 * <p>
+	 * This method searches for nested fragments contained in child {@link CombinedFragment}s.
+	 * </p>
+	 *
+	 * @param <T>
+	 *            the type of the fragments to retrieve
+	 * @param type
+	 *            the type of the fragments to retrieve
+	 * @param combinedFragment
+	 *            the combined fragment to search into
+	 * @return the {@code type} fragments contained in the provided {@code combinedFragment}
+	 */
+	private <T extends InteractionFragment> Collection<T> getCoveredFragments(Class<T> type, Lifeline owner) {
+		Collection<T> results = getInteractionFragments(type, owner.getInteraction());
+		return results.stream()
+				.filter(fragment -> !fragment.getCovereds().isEmpty()
+						&& fragment.getCovereds().get(0) == owner)
+				.toList();
 	}
 }

@@ -29,6 +29,7 @@ import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.OccurrenceSpecification;
+import org.eclipse.uml2.uml.StateInvariant;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.util.UMLSwitch;
 
@@ -243,6 +244,13 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 		semanticReorderHelper.reorderElements((InteractionFragment) message.getSendEvent(), startingEndPredecessor, endsOrdering);
 		semanticReorderHelper.reorderElements((InteractionFragment) message.getReceiveEvent(), getApplicableFinishEnd(message), endsOrdering);
 		return message;
+	}
+
+	@Override
+	public Element caseStateInvariant(StateInvariant stateInvariant) {
+		List<EAnnotation> endsOrdering = reorderEnds(stateInvariant);
+		this.semanticReorderHelper.reorderElements(stateInvariant, this.startingEndPredecessor, endsOrdering);
+		return stateInvariant;
 	}
 
 	private EAnnotation getApplicableFinishEnd(Element element) {
