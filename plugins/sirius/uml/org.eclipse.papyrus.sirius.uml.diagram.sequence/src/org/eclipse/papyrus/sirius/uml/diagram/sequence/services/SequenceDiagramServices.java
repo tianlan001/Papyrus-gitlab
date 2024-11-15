@@ -15,7 +15,6 @@ package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
@@ -70,22 +69,37 @@ import org.eclipse.uml2.uml.UMLPackage;
  * Diagram framework to correctly position created elements. As a result, the Sequence Diagram VSM differs from other VSM as it contains
  * both {@code CreateInstance} operations as well as {@code ChangeContext}s.
  * </p>
- * 
+ *
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
 public class SequenceDiagramServices extends AbstractDiagramServices {
 
 	/**
-	 * The order service used to create and manage graphical ordering ends.
+	 * The order service used to create and manage ends order.
 	 */
 	private final SequenceDiagramOrderServices orderService = new SequenceDiagramOrderServices();
+
+	/**
+	 * Provider of default name for UML elements.
+	 */
+	private final ElementDefaultNameProvider nameProvider = new ElementDefaultNameProvider();
+
+	/**
+	 * Service to delete elements.
+	 */
+	private final DeleteServices deleteServices = new DeleteServices();
+
+	/**
+	 * Helper to reorder ends.
+	 */
+	private final SequenceDiagramSemanticReorderHelper reorderHelper = new SequenceDiagramSemanticReorderHelper();
 
 	/**
 	 * Creates a semantic {@link Lifeline} in the provided {@code parent}.
 	 * <p>
 	 * The new element is placed after (i.e. on the right) of the provided {@code predecessor}. The element is placed first if {@code predecessor} is {@code null}.
 	 * </p>
-	 * 
+	 *
 	 * @param parent
 	 *            the semantic parent of the {@link Lifeline}
 	 * @param parentView
@@ -98,7 +112,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 		Objects.requireNonNull(parent);
 		CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
 		EObject result = commonDiagramServices.createElement(parent, UMLPackage.eINSTANCE.getLifeline().getName(), UMLPackage.eINSTANCE.getInteraction_Lifeline().getName(), parentView);
-		new SequenceDiagramSemanticReorderHelper().reorderLifeline(parent, result, predecessor);
+		reorderHelper.reorderLifeline(parent, result, predecessor);
 		return result;
 	}
 
@@ -128,7 +142,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * <p>
 	 * The initialized elements are moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
 	 * </p>
-	 * 
+	 *
 	 * @param message
 	 *            the {@link Message} to initialize
 	 * @param type
@@ -156,16 +170,12 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 		this.orderService.createStartingEnd(sendEvent, message);
 		this.orderService.createFinishingEnd(receiveEvent, message);
 
-		EAnnotation startingEndPredecessorSemanticElement = getSemanticEnd(startingEndPredecessor);
-		EAnnotation finishingEndPredecessorSemanticElement = getSemanticEnd(finishingEndPredecessor);
-		new SequenceDiagramReorderElementSwitch(startingEndPredecessorSemanticElement, finishingEndPredecessorSemanticElement)
-				.doSwitch(message);
-		return message;
+		return updateElementOrderWithEvents(message, startingEndPredecessor, finishingEndPredecessor);
 	}
 
 	/**
 	 * Configures the {@code event} {@link MessageOccurrenceSpecification} for {@code message}.
-	 * 
+	 *
 	 * @param message
 	 *            the {@link Message} to add the {@code sendEvent} into
 	 * @param event
@@ -203,7 +213,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * <p>
 	 * This method is used to initialize both {@link ActionExecutionSpecification} and {@link BehaviorExecutionSpecification}.
 	 * </p>
-	 * 
+	 *
 	 * @param execution
 	 *            the {@link ExecutionSpecification} to initialize
 	 * @param start
@@ -236,10 +246,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 			this.orderService.createStartingEnd(start, execution);
 			this.orderService.createFinishingEnd(finish, execution);
 
-			EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
-			EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
-			new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
-					.doSwitch(execution);
+			updateElementOrderWithEvents(execution, startingEndPredecessor, finishingEndPredecessor);
 		}
 		return execution;
 	}
@@ -253,7 +260,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * <p>
 	 * The created element is moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
 	 * </p>
-	 * 
+	 *
 	 * @param interactionUse
 	 *            the {@link InteractionUse} to initialize
 	 * @param startingEndPredecessor
@@ -269,11 +276,8 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 		interactionUse.getCovereds().addAll(coveredLifelines);
 		this.orderService.createStartingEnd(interactionUse);
 		this.orderService.createFinishingEnd(interactionUse);
-		EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
-		EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
-		new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
-				.doSwitch(interactionUse);
-		return interactionUse;
+
+		return updateElementOrderWithEvents(interactionUse, startingEndPredecessor, finishingEndPredecessor);
 	}
 
 	/**
@@ -284,7 +288,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * <p>
 	 * The initialized elements are moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
 	 * </p>
-	 * 
+	 *
 	 * @param combinedFragment
 	 *            the {@link CombinedFragment} to initialize
 	 * @param operand
@@ -309,11 +313,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 		// end, or the start of the next InteractionOperand in the CombinedFragment.
 		this.orderService.createFinishingEnd(combinedFragment);
 
-		EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
-		EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
-		new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
-				.doSwitch(combinedFragment);
-		return combinedFragment;
+		return updateElementOrderWithEvents(combinedFragment, startingEndPredecessor, finishingEndPredecessor);
 	}
 
 	/**
@@ -325,7 +325,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * <p>
 	 * The initialized element is moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
 	 * </p>
-	 * 
+	 *
 	 * @param operand
 	 *            the {@link InteractionOperand} to initialize
 	 * @param startingEndPredecessor
@@ -344,19 +344,21 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 			operand.createGuard("guard"); //$NON-NLS-1$
 			operand.getCovereds().addAll(combinedFragment.getCovereds());
 			this.orderService.createStartingEnd(operand);
-			EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
-			EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
-			new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
-					.doSwitch(operand);
+
+			updateElementOrderWithEvents(operand, startingEndPredecessor, finishingEndPredecessor);
 		}
 		return operand;
 	}
 
 	/**
 	 * Deletes the provided {@code eObject}.
+	 *
+	 * @param eObject
+	 *            element to delete
+	 * @return <code>true</code> if the element is removed, <code>false</code> otherwise.
 	 */
 	public boolean deleteSD(EObject eObject) {
-		DeleteServices deleteServices = new DeleteServices();
+		// Expose this API to VSM keeping limited the number of exposed function.
 		return deleteServices.delete(eObject);
 	}
 
@@ -366,21 +368,22 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * This method moves the graphical ends of {@code element} between {@code startingEndPredecessor} and
 	 * {@code finishingEndPredecessor}, and update the semantic model to reflect this change.
 	 * </p>
-	 * 
+	 *
 	 * @param element
 	 *            the element to move
 	 * @param startingEndPredecessor
 	 *            the predecessor of the fragment's starting end
 	 * @param finishingEndPredecessor
 	 *            the predecessor of the fragment's finishing end
-	 * 
+	 *
 	 * @see SequenceDiagramReorderElementSwitch
 	 */
-	public void graphicalReorderElement(Element element, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
+	public <T extends Element> T updateElementOrderWithEvents(T element, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
 		final EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
 		final EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
 		new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
-				.doSwitch(element);
+		.doSwitch(element);
+		return element;
 	}
 
 	/**
@@ -388,7 +391,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * <p>
 	 * The lifeline is placed first if {@code predecessor} is {@code null}.
 	 * </p>
-	 * 
+	 *
 	 * @param container
 	 *            the element containing the lifeline
 	 * @param lifeline
@@ -396,17 +399,17 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * @param predecessor
 	 *            the element preceding the lifeline in the container
 	 */
-	public void graphicalReorderLifeline(Element container, EObject lifeline, EObject predecessor) {
-		new SequenceDiagramSemanticReorderHelper().reorderLifeline(container, lifeline, predecessor);
+	public void updateLifelineOrder(Element container, EObject lifeline, EObject predecessor) {
+		reorderHelper.reorderLifeline(container, lifeline, predecessor);
 	}
 
 	/**
 	 * Retrieves the owning {@link Interaction} of the provided {@code element}.
-	 * 
+	 *
 	 * @param element
 	 *            the element to retrieve the owning {@link Interaction} from
 	 * @return the owning {@link Interaction}
-	 * 
+	 *
 	 * @see SequenceDiagramUMLHelper#getOwningInteraction(Element)
 	 */
 	public Interaction getOwningInteraction(Element element) {
@@ -420,29 +423,26 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * It does not return an UML element. The UML element corresponding to an ordering {@link EAnnotation} can be
 	 * accessed through {@link EAnnotation#getReferences()}.
 	 * </p>
-	 * 
+	 *
 	 * @param eventEnd
 	 *            the event end to retrieve the semantic element from
 	 * @return the semantic element if it exists, or {@code null} if it doesn't exist or {@code eventEnd} is {@code null}
 	 */
 	private EAnnotation getSemanticEnd(EventEnd eventEnd) {
-		return Optional.ofNullable(eventEnd)
-				.map(EventEnd::getSemanticEnd)
-				.filter(EAnnotation.class::isInstance)
-				.map(EAnnotation.class::cast)
-				.orElse(null);
+		return eventEnd != null && eventEnd.getSemanticEnd() instanceof EAnnotation result
+				? result
+				: null;
 	}
 
 	/**
 	 * Sets the default name of the {@code element}.
-	 * 
+	 *
 	 * @param element
 	 *            the element to set the name of
 	 * @see ElementDefaultNameProvider
 	 */
 	private void setDefaultName(NamedElement element) {
-		String name = new ElementDefaultNameProvider()
-				.getDefaultName(element, element.getOwner());
+		String name = nameProvider.getDefaultName(element, element.getOwner());
 		element.setName(name);
 	}
 }

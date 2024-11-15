@@ -51,7 +51,7 @@ import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
  * This class does not perform graphical reordering. See {@link SequenceDiagramReorderElementSwitch} for element-specific
  * reordering logic.
  * </p>
- * 
+ *
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
 public class SequenceDiagramOrderServices {
@@ -82,15 +82,15 @@ public class SequenceDiagramOrderServices {
 	 * The created {@link EAnnotation} is appended to the general end ordering of the diagram, and can be retrieved via
 	 * {@link #getEndsOrdering(Interaction)}.
 	 * </p>
-	 * 
+	 *
 	 * @param fragment
 	 *            the {@link InteractionFragment}
 	 * @return the created {@link EAnnotation}
-	 * 
+	 *
 	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
 	 */
 	public EAnnotation createStartingEnd(InteractionFragment fragment) {
-		return this.createStartingEnd(fragment, null);
+		return createStartingEnd(fragment, null);
 	}
 
 	/**
@@ -99,17 +99,17 @@ public class SequenceDiagramOrderServices {
 	 * The created {@link EAnnotation} is appended to the general end ordering of the diagram, and can be retrieved via
 	 * {@link #getEndsOrdering(Interaction)}.
 	 * </p>
-	 * 
+	 *
 	 * @param fragment
 	 *            the {@link InteractionFragment}
 	 * @param baseElement
 	 *            the base element of the fragment
 	 * @return the created {@link EAnnotation}
-	 * 
+	 *
 	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
 	 */
 	public EAnnotation createStartingEnd(InteractionFragment fragment, Element baseElement) {
-		return this.createAnnotationWithReference(fragment, baseElement, START_ANNOTATION_SOURCE);
+		return createAnnotationWithReference(fragment, baseElement, START_ANNOTATION_SOURCE);
 	}
 
 	/**
@@ -118,15 +118,15 @@ public class SequenceDiagramOrderServices {
 	 * The created {@link EAnnotation} is appended to the general end ordering of the diagram, and can be retrieved via
 	 * {@link #getEndsOrdering(Interaction)}.
 	 * </p>
-	 * 
+	 *
 	 * @param fragment
 	 *            the {@link InteractionFragment}
 	 * @return the created {@link EAnnotation}
-	 * 
+	 *
 	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
 	 */
 	public EAnnotation createFinishingEnd(InteractionFragment fragment) {
-		return this.createFinishingEnd(fragment, null);
+		return createFinishingEnd(fragment, null);
 	}
 
 	/**
@@ -135,17 +135,17 @@ public class SequenceDiagramOrderServices {
 	 * The created {@link EAnnotation} is appended to the general end ordering of the diagram, and can be retrieved via
 	 * {@link #getEndsOrdering(Interaction)}.
 	 * </p>
-	 * 
+	 *
 	 * @param fragment
 	 *            the {@link InteractionFragment}
 	 * @param baseElement
 	 *            the base element of the fragment
 	 * @return the created {@link EAnnotation}
-	 * 
+	 *
 	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
 	 */
 	public EAnnotation createFinishingEnd(InteractionFragment fragment, Element baseElement) {
-		return this.createAnnotationWithReference(fragment, baseElement, FINISH_ANNOTATION_SOURCE);
+		return createAnnotationWithReference(fragment, baseElement, FINISH_ANNOTATION_SOURCE);
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class SequenceDiagramOrderServices {
 	 * The created {@link EAnnotation} is appended to the general end ordering of the diagram, and can be retrieved via
 	 * {@link #getEndsOrdering(Interaction)}.
 	 * </p>
-	 * 
+	 *
 	 * @param fragment
 	 *            the {@link InteractionFragment}
 	 * @param baseElement
@@ -180,32 +180,54 @@ public class SequenceDiagramOrderServices {
 		if (baseElement != null) {
 			annotation.getReferences().add(baseElement);
 		}
-		Interaction owningInteraction = this.umlHelper.getOwningInteraction(fragment);
-		EAnnotation orderingAnnotation = this.getOrCreateOrderingAnnotation(owningInteraction);
+		Interaction owningInteraction = umlHelper.getOwningInteraction(fragment);
+		EAnnotation orderingAnnotation = getOrCreateOrderingAnnotation(owningInteraction);
 		orderingAnnotation.getContents().add(annotation);
 		return annotation;
 	}
 
 	/**
+	 * Returns the fragment from Event End.
+	 *
+	 * @param end
+	 *            the {@link EAnnotation} used for an end
+	 * @return associated fragment
+	 */
+	public InteractionFragment getEndFragment(EAnnotation end) {
+		return (InteractionFragment) end.getReferences().get(0);
+	}
+
+	/**
+	 * Returns the BaseElement from Event End if available.
+	 *
+	 * @param end
+	 *            the {@link EAnnotation} used for an end
+	 * @return associated base element if provided or null
+	 */
+	public Element getEndBaseElement(EAnnotation end) {
+		return end.getReferences().size() > 1 ? (InteractionFragment) end.getReferences().get(1) : null;
+	}
+
+	/**
 	 * Returns {@code true} if the provided {@code annotation} represents a starting end.
-	 * 
+	 *
 	 * @param annotation
 	 *            the {@link EAnnotation} to check
 	 * @return {@code true} if the provided {@code annotation} represents a graphical start, {@code false} otherwise
 	 */
 	public boolean isStartingEnd(EAnnotation annotation) {
-		return Objects.equals(annotation.getSource(), START_ANNOTATION_SOURCE);
+		return START_ANNOTATION_SOURCE.equals(annotation.getSource());
 	}
 
 	/**
 	 * Returns {@code true} if the provided {@code annotation} represents a finishing end.
-	 * 
+	 *
 	 * @param annotation
 	 *            the {@link EAnnotation} to check
 	 * @return {@code true} if the provided {@code annotation} represents a graphical finish, {@code false} otherwise
 	 */
 	public boolean isFinishingEnd(EAnnotation annotation) {
-		return Objects.equals(annotation.getSource(), FINISH_ANNOTATION_SOURCE);
+		return FINISH_ANNOTATION_SOURCE.equals(annotation.getSource());
 	}
 
 	/**
@@ -218,16 +240,16 @@ public class SequenceDiagramOrderServices {
 	 * The returned {@link EAnnotation} may reference another element than the provided {@code element}
 	 * (e.g. if {@code element} has a semantic start).
 	 * </p>
-	 * 
+	 *
 	 * @param element
 	 *            the element to retrieve the starting end from
 	 * @return the starting end
-	 * 
+	 *
 	 * @see #getFinishingEnd(EObject)
 	 */
 	public EAnnotation getStartingEnd(Element element) {
 		Objects.requireNonNull(element);
-		return this.getEAnnotation(element, START_ANNOTATION_SOURCE);
+		return getEAnnotation(element, START_ANNOTATION_SOURCE);
 	}
 
 	/**
@@ -240,11 +262,11 @@ public class SequenceDiagramOrderServices {
 	 * The returned {@link EAnnotation} may reference another element than the provided {@code element}
 	 * (e.g. if {@code element} has a semantic finish).
 	 * </p>
-	 * 
+	 *
 	 * @param element
 	 *            the element to retrieve the finishing end from
 	 * @return the finishing end
-	 * 
+	 *
 	 * @see #getStartingEnd(Element)
 	 */
 	public EAnnotation getFinishingEnd(Element element) {
@@ -257,11 +279,11 @@ public class SequenceDiagramOrderServices {
 				// starting end of the next operand in the combined fragment, or the end of the combined fragment
 				// itself (if it is the last operand in it). This is required by Sirius Sequence to ensure there is
 				// no gap between operands.
-				result = this.getFinishingEnd(combinedFragment);
+				result = getFinishingEnd(combinedFragment);
 				InteractionOperand prev = null;
 				for (InteractionOperand childOperand : combinedFragment.getOperands()) {
 					if (interactionOperand.equals(prev)) {
-						result = this.getStartingEnd(childOperand);
+						result = getStartingEnd(childOperand);
 						break;
 					} else {
 						prev = childOperand;
@@ -269,7 +291,7 @@ public class SequenceDiagramOrderServices {
 				}
 			}
 		} else {
-			result = this.getEAnnotation(element, FINISH_ANNOTATION_SOURCE);
+			result = getEAnnotation(element, FINISH_ANNOTATION_SOURCE);
 		}
 		return result;
 	}
@@ -281,7 +303,7 @@ public class SequenceDiagramOrderServices {
 	 * returned annotation may contain the semantic end of the provided {@code element} corresponding to the given {@code source}
 	 * (e.g. if the element is an execution, the annotation will contain its semantic start/finish).
 	 * </p>
-	 * 
+	 *
 	 * @param element
 	 *            the element to retrieve the annotation from
 	 * @param source
@@ -290,11 +312,11 @@ public class SequenceDiagramOrderServices {
 	 */
 	private EAnnotation getEAnnotation(Element element, String source) {
 		EAnnotation result = null;
-		Interaction rootInteraction = this.umlHelper.getOwningInteraction(element);
-		for (EAnnotation end : this.getEndsOrdering(rootInteraction)) {
+		Interaction rootInteraction = umlHelper.getOwningInteraction(element);
+		for (EAnnotation end : getEndsOrdering(rootInteraction)) {
 			if (Objects.equals(end.getSource(), source)) {
-				Element semanticEnd = this.getSemanticEnd(source, element);
-				if (end.getReferences().get(0) == semanticEnd) {
+				Element semanticEnd = getSemanticEnd(source, element);
+				if (getEndFragment(end) == semanticEnd) {
 					result = end;
 					break;
 				}
@@ -309,22 +331,22 @@ public class SequenceDiagramOrderServices {
 	 * This method returns the semantic start/finish of the element (e.g. the start occurrence of an {@link ExecutionSpecification}),
 	 * or the element itself if it doesn't reference a semantic start/finish.
 	 * </p>
-	 * 
+	 *
 	 * @param source
 	 *            the type of end to retrieve (start or finish)
 	 * @param element
 	 *            the element to retrieve the semantic end from
 	 * @return the semantic end
-	 * 
+	 *
 	 * @see #getSemanticStart(Element)
 	 * @see #getSemanticFinish(Element)
 	 */
 	private Element getSemanticEnd(String source, Element element) {
 		Element result = null;
-		if (Objects.equals(source, START_ANNOTATION_SOURCE)) {
-			result = this.getSemanticStart(element);
-		} else if (Objects.equals(source, FINISH_ANNOTATION_SOURCE)) {
-			result = this.getSemanticFinish(element);
+		if (START_ANNOTATION_SOURCE.equals(source)) {
+			result = getSemanticStart(element);
+		} else if (FINISH_ANNOTATION_SOURCE.equals(source)) {
+			result = getSemanticFinish(element);
 		}
 		return result;
 	}
@@ -334,7 +356,7 @@ public class SequenceDiagramOrderServices {
 	 * <p>
 	 * This method returns the provided {@code element} if it doesn't reference a semantic start.
 	 * </p>
-	 * 
+	 *
 	 * @param element
 	 *            the element to retrieve the semantic start from
 	 * @return the semantic start
@@ -356,7 +378,7 @@ public class SequenceDiagramOrderServices {
 	 * <p>
 	 * This method returns the provided {@code element} if it doesn't reference a semantic finish.
 	 * </p>
-	 * 
+	 *
 	 * @param element
 	 *            the element to retrieve the semantic finish from
 	 * @return the semantic finish
@@ -383,7 +405,7 @@ public class SequenceDiagramOrderServices {
 	 * called by the Sequence Diagram framework as part of the rendering process. See {@link #getEndsOrdering(Interaction)} to
 	 * get the un-filtered list of graphical ends.
 	 * </p>
-	 * 
+	 *
 	 * @param interaction
 	 *            the interaction containing the elements to retrieve the ordering from
 	 * @param eventEnds
@@ -393,7 +415,7 @@ public class SequenceDiagramOrderServices {
 	public List<EObject> getEndsOrdering(Interaction interaction, List<EObject> eventEnds) {
 		Objects.requireNonNull(interaction);
 		Objects.requireNonNull(eventEnds);
-		List<EObject> endsOrdering = new ArrayList<>(this.getEndsOrdering(interaction));
+		List<EObject> endsOrdering = new ArrayList<>(getEndsOrdering(interaction));
 		// Copy the general ordering list, we don't want to change it.
 		endsOrdering.retainAll(eventEnds);
 		return endsOrdering;
@@ -404,17 +426,17 @@ public class SequenceDiagramOrderServices {
 	 * <p>
 	 * Ordering ends are represented by a list of {@link EAnnotation}s.
 	 * </p>
-	 * 
+	 *
 	 * @param interaction
 	 *            the interaction containing the elements to retrieve the ordering from
 	 * @return the ordered list of elements
 	 */
 	public List<EAnnotation> getEndsOrdering(Interaction interaction) {
-		EAnnotation orderingAnnotation = this.getOrCreateOrderingAnnotation(interaction);
+		EAnnotation orderingAnnotation = getOrCreateOrderingAnnotation(interaction);
 		// Delete annotations that aren't referencing the correct semantic elements. This may be
 		// the case if the element has been delete from the explorer.
 		List<EObject> invalidOrderingContent = orderingAnnotation.getContents().stream()
-				.filter(eObject -> !this.isValidOrderingContent(eObject))
+				.filter(eObject -> !isValidOrderingContent(eObject))
 				.toList();
 
 		EcoreUtil.deleteAll(invalidOrderingContent, false);
@@ -431,7 +453,7 @@ public class SequenceDiagramOrderServices {
 	 * Valid ordering contents are {@link EAnnotation}s that contain one reference to most {@link InteractionFragment}s,
 	 * and two references for message and execution occurrences.
 	 * </p>
-	 * 
+	 *
 	 * @param eObject
 	 *            the object to check
 	 * @return {@code true} if {@code eObject} is a valid ordering content
@@ -440,9 +462,13 @@ public class SequenceDiagramOrderServices {
 		boolean result = false;
 		if (eObject instanceof EAnnotation annotation
 				&& !annotation.getReferences().isEmpty()
-				&& annotation.getReferences().get(0) instanceof InteractionFragment) {
-			if (annotation.getReferences().get(0) instanceof MessageOccurrenceSpecification
-					|| annotation.getReferences().get(0) instanceof ExecutionOccurrenceSpecification) {
+				&& annotation.getReferences().get(0) instanceof InteractionFragment head
+				// Reminder: 'getEndFragment' is not applicable here:
+				// we want to evaluate if the content is valid
+				// before using 'getEndFragment'
+				) {
+			if (head instanceof MessageOccurrenceSpecification
+					|| head instanceof ExecutionOccurrenceSpecification) {
 				// Annotation for message and execution occurrence should have a second reference to the base element.
 				result = annotation.getReferences().size() == 2;
 			} else {
@@ -462,7 +488,7 @@ public class SequenceDiagramOrderServices {
 	 * <p>
 	 * This method creates the {@link EAnnotation} if it does not exist.
 	 * </p>
-	 * 
+	 *
 	 * @param interaction
 	 *            the {@link Interaction} to retrieve the ordering from
 	 * @return the ordering {@link EAnnotation}

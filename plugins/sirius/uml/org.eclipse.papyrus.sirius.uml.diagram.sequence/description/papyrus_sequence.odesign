@@ -292,14 +292,14 @@
             <finishingEndPredecessorBefore name="finishingEndPredecessorBefore"/>
             <finishingEndPredecessorAfter name="finishingEndPredecessorAfter"/>
             <onEventMovedOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.graphicalReorderElement(startingEndPredecessorAfter, finishingEndPredecessorAfter)"/>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.updateElementOrderWithEvents(startingEndPredecessorAfter, finishingEndPredecessorAfter)"/>
             </onEventMovedOperation>
           </ownedTools>
           <ownedTools xsi:type="tool:InstanceRoleReorderTool" name="SD_ReorderLifeline" mappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']">
             <predecessorBefore name="predecessorBefore"/>
             <predecessorAfter name="predecessorAfter"/>
             <instanceRoleMoved>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.eContainer().graphicalReorderLifeline(self, predecessorAfter)"/>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.eContainer().updateLifelineOrder(self, predecessorAfter)"/>
             </instanceRoleMoved>
           </ownedTools>
         </toolSections>

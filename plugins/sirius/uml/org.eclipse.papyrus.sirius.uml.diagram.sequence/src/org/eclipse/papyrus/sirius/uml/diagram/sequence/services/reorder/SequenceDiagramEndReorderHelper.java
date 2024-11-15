@@ -13,6 +13,7 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,9 +32,9 @@ import org.eclipse.uml2.uml.OccurrenceSpecification;
  * reflect the operations performed by the end user. This class doesn't handle the reordering of the semantic elements, see
  * {@link SequenceDiagramSemanticReorderHelper} for that.
  * </p>
- * 
+ *
  * @see SequenceDiagramSemanticReorderHelper
- * 
+ *
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
 public class SequenceDiagramEndReorderHelper {
@@ -55,7 +56,7 @@ public class SequenceDiagramEndReorderHelper {
 	 * ends of the provided {@code interactionElement} are moved if necessary (e.g. when moving a combined fragment, its
 	 * content is also moved).
 	 * </p>
-	 * 
+	 *
 	 * @param interactionElement
 	 *            the semantic element to move
 	 * @param newStartingEndPredecessor
@@ -66,31 +67,16 @@ public class SequenceDiagramEndReorderHelper {
 	 *            the global end ordering
 	 */
 	public void applyEndReorder(Element interactionElement, EAnnotation newStartingEndPredecessor, EAnnotation newFinishingEndPredecessor, List<EAnnotation> endsOrdering) {
-		EAnnotation startEnd = this.orderService.getStartingEnd(interactionElement);
-		Objects.requireNonNull(startEnd);
-		EAnnotation finishEnd = this.orderService.getFinishingEnd(interactionElement);
-		Objects.requireNonNull(finishEnd);
+		EAnnotation startEnd = Objects.requireNonNull(this.orderService.getStartingEnd(interactionElement));
+		EAnnotation finishEnd = Objects.requireNonNull(this.orderService.getFinishingEnd(interactionElement));
 
-		List<EAnnotation> innerEndsToMove = endsOrdering.subList(endsOrdering.indexOf(startEnd) + 1, endsOrdering.indexOf(finishEnd)).stream()
-				.filter(EAnnotation.class::isInstance)
-				.map(EAnnotation.class::cast)
-				.filter(eAnnotation -> {
-					InteractionFragment semanticEnd = (InteractionFragment) eAnnotation.getReferences().get(0);
-					if (interactionElement instanceof InteractionFragment fragment) {
-						if (semanticEnd instanceof MessageOccurrenceSpecification messageOccurrenceSpecification) {
-							// A message should be moved if any of its end covers the same lifeline as the fragment being reordered.
-							OccurrenceSpecification otherEnd = this.umlHelper.getOtherEnd(messageOccurrenceSpecification);
-							return this.umlHelper.isCoveringASubsetOf(messageOccurrenceSpecification, fragment) || this.umlHelper.isCoveringASubsetOf(otherEnd, fragment);
-						} else {
-							// Elements should be moved iff they cover the same lifeline as the fragment being reordered.
-							return this.umlHelper.isCoveringASubsetOf(semanticEnd, fragment);
-						}
-					} else {
-						// interactionElement is not a fragment (e.g. a message). In this case we don't want to move the semanticEnd.
-						return false;
-					}
-				})
-				.toList();
+		List<EAnnotation> innerEndsToMove = Collections.emptyList();
+		if (interactionElement instanceof InteractionFragment fragment) {
+			// When not a fragment (e.g. a message), don't move the semanticEnd.
+			innerEndsToMove = endsOrdering.subList(endsOrdering.indexOf(startEnd) + 1, endsOrdering.indexOf(finishEnd)).stream()
+					.filter(end -> isEndInFragment(end, fragment))
+					.toList();
+		}
 
 		endsOrdering.remove(startEnd);
 		endsOrdering.remove(finishEnd);
@@ -105,6 +91,19 @@ public class SequenceDiagramEndReorderHelper {
 			endsOrdering.add(newStartEndIndex + innerEndsToMove.size() + 1, finishEnd);
 		} else {
 			endsOrdering.add(endsOrdering.indexOf(newFinishingEndPredecessor) + 1, finishEnd);
+		}
+	}
+
+	private boolean isEndInFragment(EAnnotation end, InteractionFragment fragment) {
+		InteractionFragment semanticEnd = orderService.getEndFragment(end);
+
+		if (semanticEnd instanceof MessageOccurrenceSpecification messageOccurrenceSpecification) {
+			// A message should be moved if any of its end covers the same lifeline as the fragment being reordered.
+			OccurrenceSpecification otherEnd = this.umlHelper.getOtherEnd(messageOccurrenceSpecification);
+			return this.umlHelper.isCoveringASubsetOf(messageOccurrenceSpecification, fragment) || this.umlHelper.isCoveringASubsetOf(otherEnd, fragment);
+		} else {
+			// Elements should be moved iff they cover the same lifeline as the fragment being reordered.
+			return this.umlHelper.isCoveringASubsetOf(semanticEnd, fragment);
 		}
 	}
 

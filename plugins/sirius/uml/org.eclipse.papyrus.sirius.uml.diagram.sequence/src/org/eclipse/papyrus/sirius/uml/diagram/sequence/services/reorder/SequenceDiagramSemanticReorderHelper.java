@@ -46,9 +46,9 @@ import org.eclipse.uml2.uml.UMLPackage;
  * </ol>
  * This process allows caller to access the reorder operation information, and perform additional reordering actions if necessary.
  * </p>
- * 
+ *
  * @see SequenceDiagramEndReorderHelper
- * 
+ *
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
 public class SequenceDiagramSemanticReorderHelper {
@@ -70,7 +70,7 @@ public class SequenceDiagramSemanticReorderHelper {
 	 * {@code newEndPredecessor}. For example, an element moved in a combined fragment will be moved to another containment
 	 * reference, with a potential new sibling element.
 	 * </p>
-	 * 
+	 *
 	 * @param semanticElement
 	 *            the semantic element to reorder
 	 * @param newEndPredecessor
@@ -79,23 +79,32 @@ public class SequenceDiagramSemanticReorderHelper {
 	 *            the global graphical ordering
 	 * @return the information required to perform the semantic reordering
 	 */
-	public SequenceDiagramSemanticReorderEntry createSemanticReorderEntry(InteractionFragment semanticElement, EAnnotation newEndPredecessor, List<EAnnotation> endsOrdering) {
+	public Reordering createSemanticReorderEntry(InteractionFragment semanticElement, EAnnotation newEndPredecessor, List<EAnnotation> endsOrdering) {
 		Element newOwner = this.findNewOwner(semanticElement, newEndPredecessor, endsOrdering);
 		EReference newContainmentReference = this.findInteractionFragmentContainmentReference(newOwner);
 		InteractionFragment newSemanticPredecessor = this.findNewSemanticPredecessor(newOwner, newEndPredecessor, endsOrdering);
-		return new SequenceDiagramSemanticReorderEntry(semanticElement, newOwner, newContainmentReference, newSemanticPredecessor);
+		return new Reordering(semanticElement, newOwner, newContainmentReference, newSemanticPredecessor);
 	}
 
 	/**
-	 * Performs the semantic reordering described by {@code semanticReorderEntry}.
-	 * 
-	 * @param semanticReorderEntry
-	 *            the semantic reordering information
+	 * Performs semantic Elements according provided ends orders.
+	 *
+	 * @param semanticElement
+	 *            the semantic element to reorder
+	 * @param newEndPredecessor
+	 *            the graphical predecessor of the element
+	 * @param endsOrdering
+	 *            the global graphical ordering
+	 * @return the information required to perform the semantic reordering
 	 * @see #createSemanticReorderEntry(InteractionFragment, EAnnotation, List)
 	 */
-	public void applySemanticReorder(SequenceDiagramSemanticReorderEntry semanticReorderEntry) {
-		this.removeFromOwner(semanticReorderEntry.semanticElement());
-		this.addInteractionFragment(semanticReorderEntry.semanticElement(), semanticReorderEntry.newOwner(), semanticReorderEntry.newContainmentReference(), semanticReorderEntry.newSemanticPredecessor());
+
+	public Reordering reorderElements(InteractionFragment semanticElement, EAnnotation newEndPredecessor, List<EAnnotation> endsOrdering) {
+		Reordering context = createSemanticReorderEntry(semanticElement, newEndPredecessor, endsOrdering);
+
+		this.removeFromOwner(context.semanticElement());
+		this.addInteractionFragment(context.semanticElement(), context.newOwner(), context.newContainmentReference(), context.newSemanticPredecessor());
+		return context;
 	}
 
 
@@ -104,7 +113,7 @@ public class SequenceDiagramSemanticReorderHelper {
 	 * <p>
 	 * The lifeline is placed first if {@code predecessor} is {@code null}.
 	 * </p>
-	 * 
+	 *
 	 * @param container
 	 *            the element containing the lifeline
 	 * @param lifeline
@@ -145,7 +154,7 @@ public class SequenceDiagramSemanticReorderHelper {
 	 * This method can return an {@link InteractionFragment} or an {@link Interaction} (if there is no fragment that can
 	 * contain the element).
 	 * </p>
-	 * 
+	 *
 	 * @param semanticElement
 	 *            the element to retrieve the owner from
 	 * @param newEndPredecessor
@@ -163,7 +172,7 @@ public class SequenceDiagramSemanticReorderHelper {
 			if (!end.getReferences().contains(this.umlHelper.getBaseElement(semanticElement)) && this.orderService.isStartingEnd(end)) {
 				// Discard other ends of the same semantic element (e.g. we are reordering an execution finish and we found
 				// its start. The semantic element cannot be its new owner.
-				InteractionFragment semanticEnd = (InteractionFragment) end.getReferences().get(0);
+				InteractionFragment semanticEnd = orderService.getEndFragment(end);
 				if (endsOrdering.indexOf(this.orderService.getFinishingEnd(this.umlHelper.getBaseElement(semanticEnd))) >= semanticElementFinishingEnd
 						&& this.findInteractionFragmentContainmentReference(semanticEnd) != null) {
 					// We found a start annotation, we check that the associated finish annotation is after the finishing
@@ -185,7 +194,7 @@ public class SequenceDiagramSemanticReorderHelper {
 
 	/**
 	 * Returns the {@link EReference} of {@code owner} that can contain {@link InteractionFragment}.
-	 * 
+	 *
 	 * @param owner
 	 *            the element to retrieve the reference from
 	 * @return the reference
@@ -215,7 +224,7 @@ public class SequenceDiagramSemanticReorderHelper {
 	 * <p>
 	 * This method can return {@code null} to indicate that the element should be the first in its owner.
 	 * </p>
-	 * 
+	 *
 	 * @param newOwner
 	 *            the semantic owner of the element to find
 	 * @param newEndPredecessor
@@ -230,11 +239,9 @@ public class SequenceDiagramSemanticReorderHelper {
 		InteractionFragment result = null;
 		for (int i = endsOrdering.indexOf(newEndPredecessor); i >= 0; i--) {
 			EAnnotation end = endsOrdering.get(i);
-			final InteractionFragment endFragment;
-			if (this.orderService.isStartingEnd(end) && end.getReferences().get(0) instanceof ExecutionOccurrenceSpecification) {
-				endFragment = (InteractionFragment) end.getReferences().get(1);
-			} else {
-				endFragment = (InteractionFragment) end.getReferences().get(0);
+			InteractionFragment endFragment = orderService.getEndFragment(end);
+			if (this.orderService.isStartingEnd(end) && endFragment instanceof ExecutionOccurrenceSpecification) {
+				endFragment = (InteractionFragment) orderService.getEndBaseElement(end);
 			}
 			if (newOwnerFragments.contains(endFragment)) {
 				result = endFragment;
@@ -249,7 +256,7 @@ public class SequenceDiagramSemanticReorderHelper {
 	 * <p>
 	 * The provided {@code fragment} is added after the given {@code semanticPredecessor}.
 	 * </p>
-	 * 
+	 *
 	 * @param fragment
 	 *            the element to add
 	 * @param newOwner
@@ -274,7 +281,7 @@ public class SequenceDiagramSemanticReorderHelper {
 
 	/**
 	 * Removes the provided {@code fragment} from its owner.
-	 * 
+	 *
 	 * @param fragment
 	 *            the fragment to remove
 	 */
@@ -292,10 +299,10 @@ public class SequenceDiagramSemanticReorderHelper {
 
 	/**
 	 * Holds the information required to perform a semantic reordering.
-	 * 
+	 *
 	 * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
 	 */
-	public record SequenceDiagramSemanticReorderEntry(InteractionFragment semanticElement, Element newOwner, EReference newContainmentReference, InteractionFragment newSemanticPredecessor) {
+	public record Reordering(InteractionFragment semanticElement, Element newOwner, EReference newContainmentReference, InteractionFragment newSemanticPredecessor) {
 
 	}
 }
