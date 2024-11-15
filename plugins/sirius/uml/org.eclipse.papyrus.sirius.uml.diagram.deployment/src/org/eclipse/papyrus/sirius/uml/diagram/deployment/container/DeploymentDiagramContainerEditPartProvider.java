@@ -39,9 +39,9 @@ import org.eclipse.uml2.uml.Node;
  */
 @SuppressWarnings("restriction")
 public class DeploymentDiagramContainerEditPartProvider extends SiriusEditPartProvider {
-	
+
 	private static final String DEPLOYMENT_DIAGRAM_NAME = "DeploymentDiagram"; //$NON-NLS-1$
-	
+
 	/**
 	 * Default constructor.
 	 */
@@ -86,11 +86,13 @@ public class DeploymentDiagramContainerEditPartProvider extends SiriusEditPartPr
 			}
 		});
 	}
-	
+
 	@Override
 	public synchronized boolean provides(IOperation operation) {
 		if(operation instanceof IEditPartOperation editPartOperation) {
-			if(editPartOperation.getView().getDiagram().getElement() instanceof DDiagram diagram) {
+			if (editPartOperation.getView() != null
+					&& editPartOperation.getView().getDiagram() != null
+					&& editPartOperation.getView().getDiagram().getElement() instanceof DDiagram diagram) {
 				if(Objects.equals(diagram.getDescription().getName(), DEPLOYMENT_DIAGRAM_NAME)) {
 					return super.provides(editPartOperation);
 				} else {
