@@ -31,7 +31,7 @@ import org.junit.Test;
 
 /**
  * Tests the {@link SequenceDiagramOrderServices} services.
- * 
+ *
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
 public class SequenceDiagramOrderServiceTest extends AbstractServicesTest {
@@ -46,11 +46,16 @@ public class SequenceDiagramOrderServiceTest extends AbstractServicesTest {
 
 	private EAnnotation executionSpecificationFinishAnnotation;
 
+	private Interaction createInteraction() {
+		Interaction result = create(Interaction.class);
+		orderService.refreshEndsModel(result);
+		return result;
+	}
 
 	@Before
 	public void setUp() {
 		orderService = new SequenceDiagramOrderServices();
-		interaction = create(Interaction.class);
+		interaction = createInteraction();
 		executionSpecification = create(BehaviorExecutionSpecification.class);
 		interaction.getFragments().add(executionSpecification);
 		executionSpecificationStartAnnotation = orderService.createStartingEnd(executionSpecification);
@@ -65,13 +70,13 @@ public class SequenceDiagramOrderServiceTest extends AbstractServicesTest {
 
 	@Test
 	public void testGetEndsOrderingNullEventEnds() {
-		interaction = create(Interaction.class);
+		interaction = createInteraction();
 		assertThrows(NullPointerException.class, () -> orderService.getEndsOrdering(interaction, null));
 	}
 
 	@Test
 	public void testGetEndsOrderingEmptyInteraction() {
-		Interaction emptyInteraction = create(Interaction.class);
+		Interaction emptyInteraction = createInteraction();
 		List<EObject> result = orderService.getEndsOrdering(emptyInteraction, List.of(executionSpecificationStartAnnotation, executionSpecificationFinishAnnotation));
 		assertTrue(result.isEmpty());
 	}

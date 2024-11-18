@@ -180,7 +180,7 @@ public class SequenceDiagramOrderServices {
 			annotation.getReferences().add(baseElement);
 		}
 		Interaction owningInteraction = umlHelper.getOwningInteraction(fragment);
-		EAnnotation orderingAnnotation = getOrCreateOrderingAnnotation(owningInteraction);
+		EAnnotation orderingAnnotation = getOrderingAnnotation(owningInteraction);
 		orderingAnnotation.getContents().add(annotation);
 		return annotation;
 	}
@@ -370,10 +370,10 @@ public class SequenceDiagramOrderServices {
 	public List<EObject> getEndsOrdering(Interaction interaction, List<EObject> eventEnds) {
 		Objects.requireNonNull(interaction);
 		Objects.requireNonNull(eventEnds);
-		List<EObject> endsOrdering = new ArrayList<>(getEndsOrdering(interaction));
+		List<EObject> result = new ArrayList<>(getEndsOrdering(interaction));
 		// Copy the general ordering list, we don't want to change it.
-		endsOrdering.retainAll(eventEnds);
-		return endsOrdering;
+		result.retainAll(eventEnds);
+		return result;
 	}
 
 	/**
@@ -387,18 +387,11 @@ public class SequenceDiagramOrderServices {
 	 * @return the ordered list of elements
 	 */
 	public List<EAnnotation> getEndsOrdering(Interaction interaction) {
-		EAnnotation orderingAnnotation = getOrCreateOrderingAnnotation(interaction);
-		// Delete annotations that aren't referencing the correct semantic elements. This may be
-		// the case if the element has been delete from the explorer.
-		List<EObject> invalidOrderingContent = orderingAnnotation.getContents().stream()
-				.filter(eObject -> !isValidOrderingContent(eObject))
-				.toList();
-
-		EcoreUtil.deleteAll(invalidOrderingContent, false);
+		// In Diagram operation lifecycle, this method can only be called once 'refreshEndsModel' is called.
 
 		@SuppressWarnings("unchecked")
 		// The cast is safe: isInvalidOrderingContent filters out all the non-annotation elements.
-		List<EAnnotation> result = (List<EAnnotation>) (Object) orderingAnnotation.getContents();
+		List<EAnnotation> result = (List<EAnnotation>) (Object) getOrderingAnnotation(interaction).getContents();
 		return result;
 	}
 
@@ -448,12 +441,36 @@ public class SequenceDiagramOrderServices {
 	 *            the {@link Interaction} to retrieve the ordering from
 	 * @return the ordering {@link EAnnotation}
 	 */
-	private EAnnotation getOrCreateOrderingAnnotation(Interaction interaction) {
-		EAnnotation orderingAnnotation = interaction.getEAnnotation(ORDERING_ANNOTATION_SOURCE);
-		if (orderingAnnotation == null) {
-			orderingAnnotation = interaction.createEAnnotation(ORDERING_ANNOTATION_SOURCE);
+	private EAnnotation getOrderingAnnotation(Interaction interaction) {
+		return interaction.getEAnnotation(ORDERING_ANNOTATION_SOURCE);
+	}
+
+
+	/**
+	 * Refreshes the annotations dealing with ends order.
+	 * <p>
+	 * UML model does not contain enough information regarding event sequence.
+	 * This implementation uses the
+	 * </p>
+	 *
+	 * @param root
+	 *            interaction element
+	 * @return provided root
+	 */
+	public Interaction refreshEndsModel(Interaction root) {
+		EAnnotation ordering = getOrderingAnnotation(root);
+		if (ordering == null) {
+			ordering = root.createEAnnotation(ORDERING_ANNOTATION_SOURCE);
 		}
-		return orderingAnnotation;
+		// Delete annotations that aren't referencing the correct semantic elements.
+		// This may be the case if the element has been delete from the explorer.
+		List<EObject> invalidOrderingContent = ordering.getContents().stream()
+				.filter(eObject -> !isValidOrderingContent(eObject))
+				.toList();
+
+		EcoreUtil.deleteAll(invalidOrderingContent, false);
+
+		return root;
 	}
 
 }
