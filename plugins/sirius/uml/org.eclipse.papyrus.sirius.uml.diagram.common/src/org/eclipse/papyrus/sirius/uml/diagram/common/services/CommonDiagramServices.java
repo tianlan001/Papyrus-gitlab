@@ -40,6 +40,30 @@ import org.eclipse.uml2.uml.UMLPackage;
  */
 public class CommonDiagramServices extends AbstractDiagramServices {
 
+	/**
+	 * Prints an element and its context to Standard Stream.
+	 * <p>
+	 * This method should ONLY be used in Sirius VSM during development phase. <br/>
+	 * To prevent misuse, it is indicated as deprecated.
+	 * </p>
+	 *
+	 * @param it
+	 *            current object
+	 * @param hint
+	 *            text to display with details
+	 * @return it
+	 */
+	@Deprecated
+	public static EObject debugVsm(EObject it, String hint) {
+		String message = "Debug VSM[" + hint + "]: " + it; //$NON-NLS-1$ //$NON-NLS-2$
+		System.out.println(message);
+		Session.of(it).get().getInterpreter().getVariables() // fails if not in Session
+				.forEach((key, value) -> {
+					String variable = "\t" + key + " = " + value; //$NON-NLS-1$ //$NON-NLS-2$
+					System.out.println(variable);
+				});
+		return it;
+	}
 
 	/**
 	 * Check if the given view is a compartment.
