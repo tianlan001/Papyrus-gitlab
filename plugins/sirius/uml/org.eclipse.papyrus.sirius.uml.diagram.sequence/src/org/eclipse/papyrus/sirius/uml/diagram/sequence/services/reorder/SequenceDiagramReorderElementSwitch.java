@@ -16,6 +16,7 @@ package org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramOrderServices;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
 import org.eclipse.uml2.uml.CombinedFragment;
@@ -69,12 +70,27 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	/**
 	 * The ordering end preceding the starting end of the element to reorder.
 	 */
-	private EAnnotation startingEndPredecessor;
+	private final EAnnotation startingEndPredecessor;
 
 	/**
 	 * The ordering end preceding the finishing end of the element to reorder.
 	 */
-	private EAnnotation finishingEndPredecessor;
+	private final EAnnotation finishingEndPredecessor;
+
+	/**
+	 * Root interaction.
+	 */
+	private Interaction rootInteraction;
+
+	/**
+	 * Ends of Root interaction.
+	 */
+	private List<EAnnotation> ends;
+
+	/**
+	 * Current evaluated element.
+	 */
+	private Element current;
 
 	/**
 	 *
@@ -95,6 +111,19 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 		this.finishingEndPredecessor = finishingEndPredecessor;
 	}
 
+	@Override
+	public Element doSwitch(EObject eObject) {
+		if (eObject instanceof Element element) {
+			// Grab basic properties. It simplifies the code.
+			rootInteraction = umlHelper.getOwningInteraction(element);
+			if (rootInteraction != null) {
+				ends = orderService.getEndsOrdering(rootInteraction);
+			}
+			current = element;
+		}
+		return super.doSwitch(eObject);
+	}
+
 	/**
 	 * Moves {@code combinedFragment} between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
 	 * <p>
@@ -108,18 +137,18 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 */
 	@Override
 	public Element caseCombinedFragment(CombinedFragment combinedFragment) {
-		List<EAnnotation> endsOrdering = reorderEnds(combinedFragment);
-		semanticReorderHelper.reorderElements(combinedFragment, startingEndPredecessor, endsOrdering);
+		reorderEnds();
+		reorderInFragments(combinedFragment, startingEndPredecessor);
 
 		if (startingEndPredecessor != finishingEndPredecessor && combinedFragment.getOperands().size() == 1) {
 			// We are creating a combined fragment over multiple elements. The combined fragment has a single operand,
 			// move the covered elements inside it.
 			InteractionOperand operand = combinedFragment.getOperands().get(0);
 			// The combined fragment AND the operand are moved, use the operand to compute its new content
-			int combinedFragmentStartIndex = endsOrdering.indexOf(orderService.getStartingEnd(operand));
-			int combinedFragmentEndIndex = endsOrdering.indexOf(orderService.getFinishingEnd(operand));
+			int combinedFragmentStartIndex = ends.indexOf(orderService.getStartingEnd(operand));
+			int combinedFragmentEndIndex = ends.indexOf(orderService.getFinishingEnd(operand));
 			for (int i = combinedFragmentStartIndex + 1; i < combinedFragmentEndIndex; i++) {
-				EAnnotation end = endsOrdering.get(i);
+				EAnnotation end = ends.get(i);
 				InteractionFragment semanticEnd = orderService.getEndFragment(end);
 				if (umlHelper.isCoveringASubsetOf(semanticEnd, combinedFragment) && semanticEnd.getOwner() == combinedFragment.getOwner()) {
 					// The elements are on the same lifeline and the semanticEnd is a direct children of the new owner of the combinedFragment. This prevents moving elements inside covered combined fragments.
@@ -152,9 +181,10 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 */
 	@Override
 	public Element caseExecutionSpecification(ExecutionSpecification execution) {
-		List<EAnnotation> endsOrdering = reorderEnds(execution);
-		semanticReorderHelper.reorderElements(execution.getStart(), startingEndPredecessor, endsOrdering);
-		semanticReorderHelper.reorderElements(execution.getFinish(), getApplicableFinishEnd(execution), endsOrdering);
+		reorderEnds();
+
+		reorderInFragments(execution.getStart(), startingEndPredecessor);
+		reorderInFragments(execution.getFinish(), getApplicableFinishEnd());
 
 		return execution;
 	}
@@ -176,17 +206,16 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 */
 	@Override
 	public Element caseInteractionOperand(InteractionOperand interactionOperand) {
-		Interaction rootInteraction = umlHelper.getOwningInteraction(interactionOperand);
-		List<EAnnotation> endsOrdering = orderService.getEndsOrdering(rootInteraction);
+
 		// Don't use endReorderHelper.applyEndReorder here:
 		// operand are a special case that do not have its own finishing end.
 		// It is computed from its sibling operand or its containing combined fragment.
 		// The reorder method attempts to move both ends.
-		EAnnotation interactionOperandStartingEnd = orderService.getStartingEnd(interactionOperand);
-		endsOrdering.remove(interactionOperandStartingEnd);
-		endsOrdering.add(endsOrdering.indexOf(startingEndPredecessor) + 1, interactionOperandStartingEnd);
+		EAnnotation start = orderService.getStartingEnd(interactionOperand);
+		ends.remove(start);
+		ends.add(ends.indexOf(startingEndPredecessor) + 1, start);
 
-		semanticReorderHelper.reorderElements(interactionOperand, startingEndPredecessor, endsOrdering);
+		reorderInFragments(interactionOperand, startingEndPredecessor);
 		return interactionOperand;
 	}
 
@@ -201,8 +230,8 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 */
 	@Override
 	public Element caseInteractionUse(InteractionUse interactionUse) {
-		List<EAnnotation> endsOrdering = reorderEnds(interactionUse);
-		semanticReorderHelper.reorderElements(interactionUse, startingEndPredecessor, endsOrdering);
+		reorderEnds();
+		reorderInFragments(interactionUse, startingEndPredecessor);
 		return interactionUse;
 	}
 
@@ -219,26 +248,68 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 */
 	@Override
 	public Element caseMessage(Message message) {
-		List<EAnnotation> endsOrdering = reorderEnds(message);
-		semanticReorderHelper.reorderElements((InteractionFragment) message.getSendEvent(), startingEndPredecessor, endsOrdering);
-		semanticReorderHelper.reorderElements((InteractionFragment) message.getReceiveEvent(), getApplicableFinishEnd(message), endsOrdering);
+		reorderEnds();
+
+		reorderInFragments(umlHelper.getSemanticStart(message), startingEndPredecessor);
+		reorderInFragments(umlHelper.getSemanticFinish(message), getApplicableFinishEnd());
 		return message;
 	}
 
 	@Override
 	public Element caseStateInvariant(StateInvariant stateInvariant) {
-		List<EAnnotation> endsOrdering = reorderEnds(stateInvariant);
-		this.semanticReorderHelper.reorderElements(stateInvariant, this.startingEndPredecessor, endsOrdering);
+		reorderEnds();
+		reorderInFragments(stateInvariant, startingEndPredecessor);
 		return stateInvariant;
 	}
 
-	private EAnnotation getApplicableFinishEnd(Element element) {
-		return startingEndPredecessor == finishingEndPredecessor
-				// The element is created on an empty lifeline,
-				// we set its finishing predecessor to its start event
-				// to mimic what would happen in a regular reorder.
-				? orderService.getStartingEnd(element)
-						: finishingEndPredecessor;
+	private EAnnotation getApplicableFinishEnd() {
+		EAnnotation start = orderService.getStartingEnd(current);
+		int startIndex = ends.indexOf(start);
+
+		// Search for the proper predecessor.
+		// Some end exists only for graphical reason
+		// but have no semantic existence.
+		// To reorder fragment lists, we must ignore such
+		// virtual ends.
+		EAnnotation before = finishingEndPredecessor;
+		int beforeFinishIndex = ends.indexOf(before); // -1 if none
+		while (startIndex < beforeFinishIndex
+				&& isVirtualEnd(before)) {
+			// Consider previous chronological end.
+			beforeFinishIndex--;
+			before = ends.get(beforeFinishIndex);
+		}
+
+		// Sometimes finishingEndPredecessor is before startEvent (once moved).
+		// We need to consider the finish follows start.
+		if (beforeFinishIndex <= startIndex) { // illegal position
+			return start;
+		}
+		return before;
+	}
+
+	/**
+	 * Evaluates if a end has no semantic meaning.
+	 * <p>
+	 * Sequence diagram needs object to have a distinct ends to display
+	 * them. However, such end must be ignore when semantic reorder is
+	 * performed.
+	 * </p>
+	 *
+	 * @param end
+	 *            annotation used as end
+	 * @return true if virtual (only graphical)
+	 */
+	private boolean isVirtualEnd(EAnnotation end) {
+		// StateInvariant has no semantic end as its a single moment
+		// at the execution time.
+		return orderService.isFinishingEnd(end)
+				&& orderService.getEndFragment(end) instanceof StateInvariant
+				&& !(current instanceof StateInvariant);
+	}
+
+	private void reorderInFragments(InteractionFragment semanticEnd, EAnnotation endPredecessor) {
+		semanticReorderHelper.reorderElements(semanticEnd, endPredecessor, ends);
 	}
 
 	/**
@@ -250,12 +321,8 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 *            true if element is instantaneous
 	 * @return ends with new order
 	 */
-	private List<EAnnotation> reorderEnds(Element element) {
-		Interaction rootInteraction = umlHelper.getOwningInteraction(element);
-		List<EAnnotation> result = orderService.getEndsOrdering(rootInteraction);
-
-		endReorderHelper.applyEndReorder(element, startingEndPredecessor, finishingEndPredecessor, result);
-		return result;
+	private void reorderEnds() {
+		endReorderHelper.applyEndReorder(current, startingEndPredecessor, finishingEndPredecessor, ends);
 	}
 
 }

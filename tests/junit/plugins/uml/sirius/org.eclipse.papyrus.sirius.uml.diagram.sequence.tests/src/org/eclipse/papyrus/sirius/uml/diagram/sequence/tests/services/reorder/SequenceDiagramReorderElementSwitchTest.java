@@ -458,8 +458,8 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 			operand.getFragments().add(executionSpecification);
 			operand.getFragments().add(finish);
 		}
-		this.orderService.createStartingEnd(start, executionSpecification);
-		this.orderService.createFinishingEnd(finish, executionSpecification);
+		this.orderService.createStartingEnd(executionSpecification);
+		this.orderService.createFinishingEnd(executionSpecification);
 		return executionSpecification;
 	}
 
@@ -476,8 +476,8 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		interaction.getMessages().add(message);
 		interaction.getFragments().add(sendEvent);
 		interaction.getFragments().add(receiveEvent);
-		this.orderService.createStartingEnd(sendEvent, message);
-		this.orderService.createFinishingEnd(receiveEvent, message);
+		this.orderService.createStartingEnd(message);
+		this.orderService.createFinishingEnd(message);
 		return message;
 	}
 

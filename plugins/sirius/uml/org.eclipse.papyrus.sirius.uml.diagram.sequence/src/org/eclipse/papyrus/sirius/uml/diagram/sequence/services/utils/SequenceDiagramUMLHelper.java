@@ -36,6 +36,8 @@ import org.eclipse.uml2.uml.TimeObservation;
 
 /**
  * Helper that performs Sequence-related semantic operation on UML models.
+ *
+ * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
 public class SequenceDiagramUMLHelper {
 
@@ -158,14 +160,14 @@ public class SequenceDiagramUMLHelper {
 	 *            the element to retrieve the semantic start from
 	 * @return the semantic start
 	 */
-	public Element getSemanticStart(Element element) {
-		Element result = null;
+	public InteractionFragment getSemanticStart(Element element) {
+		InteractionFragment result = null;
 		if (element instanceof ExecutionSpecification executionSpecification) {
 			result = executionSpecification.getStart();
 		} else if (element instanceof Message message) {
-			result = message.getSendEvent();
+			result = (MessageOccurrenceSpecification) message.getSendEvent();
 		} else {
-			result = element;
+			result = (InteractionFragment) element;
 		}
 		return result;
 	}
@@ -180,14 +182,14 @@ public class SequenceDiagramUMLHelper {
 	 *            the element to retrieve the semantic finish from
 	 * @return the semantic finish
 	 */
-	public Element getSemanticFinish(Element element) {
-		Element result = null;
+	public InteractionFragment getSemanticFinish(Element element) {
+		InteractionFragment result = null;
 		if (element instanceof ExecutionSpecification executionSpecification) {
 			result = executionSpecification.getFinish();
 		} else if (element instanceof Message message) {
-			result = message.getReceiveEvent();
+			result = (MessageOccurrenceSpecification) message.getReceiveEvent();
 		} else {
-			result = element;
+			result = (InteractionFragment) element;
 		}
 		return result;
 	}
@@ -220,6 +222,44 @@ public class SequenceDiagramUMLHelper {
 		InteractionFragment fragment = new SequenceDiagramOrderServices().getEndFragment(end);
 		if (fragment != null) {
 			result = getTimeObservationFromEvent(fragment).stream().findFirst();
+		}
+		return result;
+	}
+
+	/**
+	 * Returns the lifeline covered by this fragment.
+	 * <p>
+	 * Many fragment expects to have one and only one lifeline. <br/>
+	 * This method provides it if it exists.
+	 * </p>
+	 *
+	 * @param element
+	 *            fragment for interaction
+	 * @return covered lifeline or null
+	 */
+	public Lifeline getCoveredLifeline(InteractionFragment element) {
+		if (!element.getCovereds().isEmpty()) {
+			return element.getCovereds().get(0);
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the lifeline covered by this element.
+	 * <p>
+	 * Element may be a lifeline or a fragment.
+	 * </p>
+	 *
+	 * @param element
+	 *            part for interaction
+	 * @return covered lifeline or null
+	 */
+	public Lifeline getCoveredLifeline(NamedElement element) {
+		Lifeline result = null;
+		if (element instanceof Lifeline lifeline) {
+			result = lifeline;
+		} else if (element instanceof InteractionFragment fragment) {
+			result = getCoveredLifeline(fragment);
 		}
 		return result;
 	}

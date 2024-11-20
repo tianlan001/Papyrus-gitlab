@@ -104,6 +104,11 @@ import org.eclipse.uml2.uml.UMLPackage;
 public class SequenceDiagramServices extends AbstractDiagramServices {
 
 	/**
+	 * Shortcut for Reflective EMF element of UML.
+	 */
+	private static final UMLPackage UML = UMLPackage.eINSTANCE;
+
+	/**
 	 * The order service used to create and manage ends order.
 	 */
 	private final SequenceDiagramOrderServices orderService = new SequenceDiagramOrderServices();
@@ -145,7 +150,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	public EObject createLifeline(Element parent, DSemanticDecorator parentView, EObject predecessor) {
 		Objects.requireNonNull(parent);
 		CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
-		EObject result = commonDiagramServices.createElement(parent, UMLPackage.eINSTANCE.getLifeline().getName(), UMLPackage.eINSTANCE.getInteraction_Lifeline().getName(), parentView);
+		EObject result = commonDiagramServices.createElement(parent, UML.getLifeline().getName(), UML.getInteraction_Lifeline().getName(), parentView);
 		reorderHelper.reorderLifeline(parent, result, predecessor);
 		return result;
 	}
@@ -195,14 +200,14 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the graphical predecessor of the message's finishing end
 	 * @return the initialized {@link Message}
 	 */
-	public EObject initializeMessage(Message message, MessageSort type, MessageOccurrenceSpecification sendEvent, MessageOccurrenceSpecification receiveEvent, Element source,
-			Element target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
+	public EObject initializeMessage(Message message, MessageSort type, MessageOccurrenceSpecification sendEvent, MessageOccurrenceSpecification receiveEvent, NamedElement source,
+			NamedElement target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
 		this.setDefaultName(message);
 		message.setMessageSort(type);
-		configureMessageEvent(message, sendEvent, "SendEvent", UMLPackage.eINSTANCE.getMessage_SendEvent(), source); //$NON-NLS-1$
-		configureMessageEvent(message, receiveEvent, "ReceiveEvent", UMLPackage.eINSTANCE.getMessage_ReceiveEvent(), target); //$NON-NLS-1$
-		this.orderService.createStartingEnd(sendEvent, message);
-		this.orderService.createFinishingEnd(receiveEvent, message);
+		initializeMessageEvent(message, sendEvent, UML.getMessage_SendEvent(), source);
+		initializeMessageEvent(message, receiveEvent, UML.getMessage_ReceiveEvent(), target);
+		orderService.createStartingEnd(message);
+		orderService.createFinishingEnd(message);
 
 		return updateElementOrderWithEvents(message, startingEndPredecessor, finishingEndPredecessor);
 	}
@@ -221,17 +226,11 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * @param eventTarget
 	 *            the target of the event
 	 */
-	private void configureMessageEvent(Message message, MessageOccurrenceSpecification event, String suffix, EReference eventReference, Element eventTarget) {
-		if (eventTarget instanceof Lifeline || eventTarget instanceof ExecutionSpecification) {
-			event.setName(message.getName() + suffix);
-			event.setMessage(message);
-			message.eSet(eventReference, event);
-			if (eventTarget instanceof Lifeline lifeline) {
-				event.setCovered(lifeline);
-			} else if (eventTarget instanceof ExecutionSpecification executionSpecification) {
-				event.setCovered(executionSpecification.getCovereds().get(0));
-			}
-		}
+	private void initializeMessageEvent(Message message, MessageOccurrenceSpecification event, EReference eventReference, NamedElement eventTarget) {
+		event.setName(message.getName() + eventReference.getName());
+		event.setMessage(message);
+		message.eSet(eventReference, event);
+		event.setCovered(umlHelper.getCoveredLifeline(eventTarget));
 	}
 
 	/**
@@ -262,27 +261,27 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the semantic parent of the {@link ActionExecutionSpecification}
 	 * @return the initialized {@link ExecutionSpecification}
 	 */
-	public EObject initializeExecutionSpecification(ExecutionSpecification execution, ExecutionOccurrenceSpecification start, ExecutionOccurrenceSpecification finish, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, Element parent) {
-		if(parent instanceof Lifeline lifeline) {
-			this.setDefaultName(execution);
-			execution.getCovereds().add(lifeline);
+	public EObject initializeExecutionSpecification(ExecutionSpecification execution, ExecutionOccurrenceSpecification start, ExecutionOccurrenceSpecification finish, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, NamedElement parent) {
+		setDefaultName(execution);
+		execution.getCovereds().add(umlHelper.getCoveredLifeline(parent));
 
-			start.setName(execution.getName() + "Start"); //$NON-NLS-1$
-			start.setExecution(execution);
-			start.getCovereds().add(lifeline);
-			execution.setStart(start);
+		initializeExecutionEvent(execution, start, UML.getExecutionSpecification_Start());
+		initializeExecutionEvent(execution, finish, UML.getExecutionSpecification_Finish());
 
-			finish.setName(execution.getName() + "Finish"); //$NON-NLS-1$
-			finish.setExecution(execution);
-			finish.getCovereds().add(lifeline);
-			execution.setFinish(finish);
+		orderService.createStartingEnd(execution);
+		orderService.createFinishingEnd(execution);
 
-			this.orderService.createStartingEnd(start, execution);
-			this.orderService.createFinishingEnd(finish, execution);
+		updateElementOrderWithEvents(execution, startingEndPredecessor, finishingEndPredecessor);
 
-			updateElementOrderWithEvents(execution, startingEndPredecessor, finishingEndPredecessor);
-		}
 		return execution;
+	}
+
+	private ExecutionOccurrenceSpecification initializeExecutionEvent(ExecutionSpecification execution, ExecutionOccurrenceSpecification occurence, EReference eventReference) {
+		occurence.setName(execution.getName() + eventReference.getName());
+		occurence.setExecution(execution);
+		execution.eSet(eventReference, occurence);
+		occurence.getCovereds().add(execution.getCovereds().get(0));
+		return occurence;
 	}
 
 	/**
@@ -399,11 +398,13 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the graphical predecessor of the execution's finishing end
 	 * @return the initialized {@link StateInvariant}
 	 */
-	public StateInvariant initializeStateInvariant(Lifeline parent, StateInvariant stateInvariant, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
-		this.setDefaultName(stateInvariant);
-		stateInvariant.getCovereds().add(parent);
-		this.orderService.createStartingEnd(stateInvariant);
-		this.orderService.createFinishingEnd(stateInvariant);
+	public StateInvariant initializeStateInvariant(StateInvariant stateInvariant, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, NamedElement parent) {
+		setDefaultName(stateInvariant);
+		stateInvariant.getCovereds().add(umlHelper.getCoveredLifeline(parent));
+
+		orderService.createStartingEnd(stateInvariant);
+		orderService.createFinishingEnd(stateInvariant);
+
 		updateElementOrderWithEvents(stateInvariant, startingEndPredecessor, finishingEndPredecessor);
 		return stateInvariant;
 	}
@@ -565,7 +566,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 			CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
 			// We can use the CommonDiagramServices to create TimeObservations: they aren't directly affected by
 			// reorders, and are always created at the right location.
-			result = (TimeObservation) commonDiagramServices.createElement(ancestorPackage, UMLPackage.eINSTANCE.getTimeObservation().getName(), UMLPackage.eINSTANCE.getPackage_PackagedElement().getName(), parentView);
+			result = (TimeObservation) commonDiagramServices.createElement(ancestorPackage, UML.getTimeObservation().getName(), UML.getPackage_PackagedElement().getName(), parentView);
 			result.setEvent(namedEvent);
 		}
 		return result;
@@ -672,9 +673,11 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * @return the semantic element if it exists, or {@code null} if it doesn't exist or {@code eventEnd} is {@code null}
 	 */
 	private EAnnotation getSemanticEnd(EventEnd eventEnd) {
-		return eventEnd != null && eventEnd.getSemanticEnd() instanceof EAnnotation result
-				? result
-						: null;
+		if (eventEnd != null
+				&& eventEnd.getSemanticEnd() instanceof EAnnotation result) {
+			return result;
+		}
+		return null;
 	}
 
 	/**

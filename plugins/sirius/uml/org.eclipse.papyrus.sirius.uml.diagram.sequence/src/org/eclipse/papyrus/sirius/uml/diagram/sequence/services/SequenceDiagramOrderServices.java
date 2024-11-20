@@ -14,6 +14,8 @@
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,7 +33,9 @@ import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
+import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
+import org.eclipse.uml2.uml.NamedElement;
 
 /**
  * Manages the global end ordering of the Sequence Diagram.
@@ -76,110 +80,74 @@ public class SequenceDiagramOrderServices {
 	private final SequenceDiagramUMLHelper umlHelper = new SequenceDiagramUMLHelper();
 
 	/**
-	 * Creates a <i>starting end</i> {@link EAnnotation} for the given {@code fragment}.
+	 * Creates a <i>starting end</i> {@link EAnnotation} for the given {@code baseElement}.
 	 * <p>
 	 * The created {@link EAnnotation} is appended to the general end ordering of the diagram, and can be retrieved via
 	 * {@link #getEndsOrdering(Interaction)}.
 	 * </p>
 	 *
-	 * @param fragment
-	 *            the {@link InteractionFragment}
-	 * @return the created {@link EAnnotation}
-	 *
-	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
-	 */
-	public EAnnotation createStartingEnd(InteractionFragment fragment) {
-		return createStartingEnd(fragment, null);
-	}
-
-	/**
-	 * Creates a <i>starting end</i> {@link EAnnotation} for the given {@code fragment} and {@code baseElement}.
-	 * <p>
-	 * The created {@link EAnnotation} is appended to the general end ordering of the diagram, and can be retrieved via
-	 * {@link #getEndsOrdering(Interaction)}.
-	 * </p>
-	 *
-	 * @param fragment
-	 *            the {@link InteractionFragment}
 	 * @param baseElement
 	 *            the base element of the fragment
 	 * @return the created {@link EAnnotation}
 	 *
 	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
 	 */
-	public EAnnotation createStartingEnd(InteractionFragment fragment, Element baseElement) {
-		return createAnnotationWithReference(fragment, baseElement, START_ANNOTATION_SOURCE);
+	public EAnnotation createStartingEnd(Element baseElement) {
+		return createEnd(baseElement, START_ANNOTATION_SOURCE);
 	}
 
 	/**
-	 * Creates a <i>finishing end</i> {@link EAnnotation} for the given {@code fragment}.
+	 * Creates a <i>finishing end</i> {@link EAnnotation} for the given {@code baseElement}.
 	 * <p>
 	 * The created {@link EAnnotation} is appended to the general end ordering of the diagram, and can be retrieved via
 	 * {@link #getEndsOrdering(Interaction)}.
 	 * </p>
 	 *
-	 * @param fragment
-	 *            the {@link InteractionFragment}
-	 * @return the created {@link EAnnotation}
-	 *
-	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
-	 */
-	public EAnnotation createFinishingEnd(InteractionFragment fragment) {
-		return createFinishingEnd(fragment, null);
-	}
-
-	/**
-	 * Creates a <i>finishing end</i> {@link EAnnotation} for the given {@code fragment} and {@code baseElement}.
-	 * <p>
-	 * The created {@link EAnnotation} is appended to the general end ordering of the diagram, and can be retrieved via
-	 * {@link #getEndsOrdering(Interaction)}.
-	 * </p>
-	 *
-	 * @param fragment
-	 *            the {@link InteractionFragment}
 	 * @param baseElement
 	 *            the base element of the fragment
 	 * @return the created {@link EAnnotation}
 	 *
 	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
 	 */
-	public EAnnotation createFinishingEnd(InteractionFragment fragment, Element baseElement) {
-		return createAnnotationWithReference(fragment, baseElement, FINISH_ANNOTATION_SOURCE);
+	public EAnnotation createFinishingEnd(Element baseElement) {
+		return createEnd(baseElement, FINISH_ANNOTATION_SOURCE);
 	}
 
 	/**
-	 * Creates a {@code source} {@link EAnnotation} for the given {@code fragment} and {@code baseElement}.
+	 * Creates a {@code source} {@link EAnnotation} for the given {@code baseElement}.
 	 * <p>
 	 * This method is typically used to create an ordering end for an element that already has a semantic start (e.g. an
 	 * execution). In this case, the semantic start is stored as the first reference in the annotation, and the base element
 	 * is stored as the second element.
 	 * </p>
 	 * <p>
-	 * The provided {@code [fragment, baseElement]} are stored in {@link EAnnotation#getReferences()}.
+	 * The provided {@code [fragment, baseElement]} are stored in {@link EAnnotation#getReferences()}
+	 * when semantic end is not the same baseElement. <br/>
+	 * Otherwise {@code baseElement} must be a {@link InteractionFragment} and only {@code [baseElement]} is stored.
 	 * </p>
 	 * <p>
 	 * The created {@link EAnnotation} is appended to the general end ordering of the diagram, and can be retrieved via
 	 * {@link #getEndsOrdering(Interaction)}.
 	 * </p>
 	 *
-	 * @param fragment
-	 *            the {@link InteractionFragment}
 	 * @param baseElement
 	 *            the base element of the fragment
-	 * @param source
+	 * @param endId
 	 *            the source of the {@link EAnnotation}
 	 * @return the created {@link EAnnotation}
 	 */
-	private EAnnotation createAnnotationWithReference(InteractionFragment fragment, Element baseElement, String source) {
-		Objects.requireNonNull(fragment);
-		Objects.requireNonNull(source);
+	private EAnnotation createEnd(Element baseElement, String endId) {
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-		annotation.setSource(source);
+		annotation.setSource(endId);
+
+		InteractionFragment fragment = getSemanticEnd(endId, baseElement);
+
 		annotation.getReferences().add(fragment);
-		if (baseElement != null) {
+		if (baseElement != fragment) {
 			annotation.getReferences().add(baseElement);
 		}
-		Interaction owningInteraction = umlHelper.getOwningInteraction(fragment);
+
+		Interaction owningInteraction = umlHelper.getOwningInteraction(baseElement);
 		EAnnotation orderingAnnotation = getOrderingAnnotation(owningInteraction);
 		orderingAnnotation.getContents().add(annotation);
 		return annotation;
@@ -197,6 +165,25 @@ public class SequenceDiagramOrderServices {
 	}
 
 	/**
+	 * Returns the semantic owner of this end.
+	 * <p>
+	 * Some element as a specific semantic element for start or end. <br/>
+	 * This method provides the main owner.
+	 * </p>
+	 *
+	 * @param end
+	 *            annotation used as event end
+	 * @return element
+	 */
+	public Element getEndOwner(EAnnotation end) {
+		List<EObject> refs = end.getReferences();
+		if (refs.size() > 1) {
+			return (Element) refs.get(1);
+		}
+		return (Element) refs.get(0);
+	}
+
+	/**
 	 * Returns the BaseElement from Event End if available.
 	 *
 	 * @param end
@@ -204,7 +191,10 @@ public class SequenceDiagramOrderServices {
 	 * @return associated base element if provided or null
 	 */
 	public Element getEndBaseElement(EAnnotation end) {
-		return end.getReferences().size() > 1 ? (InteractionFragment) end.getReferences().get(1) : null;
+		if (end.getReferences().size() > 1) {
+			return (InteractionFragment) end.getReferences().get(1);
+		}
+		return null;
 	}
 
 	/**
@@ -248,7 +238,7 @@ public class SequenceDiagramOrderServices {
 	 */
 	public EAnnotation getStartingEnd(Element element) {
 		Objects.requireNonNull(element);
-		return getEAnnotation(element, START_ANNOTATION_SOURCE);
+		return getEnd(element, START_ANNOTATION_SOURCE);
 	}
 
 	/**
@@ -290,7 +280,7 @@ public class SequenceDiagramOrderServices {
 				}
 			}
 		} else {
-			result = getEAnnotation(element, FINISH_ANNOTATION_SOURCE);
+			result = getEnd(element, FINISH_ANNOTATION_SOURCE);
 		}
 		return result;
 	}
@@ -305,16 +295,16 @@ public class SequenceDiagramOrderServices {
 	 *
 	 * @param element
 	 *            the element to retrieve the annotation from
-	 * @param source
+	 * @param endId
 	 *            the source of the annotation to retrieve
 	 * @return the {@link EAnnotation} representing the provided {@code element}
 	 */
-	private EAnnotation getEAnnotation(Element element, String source) {
+	private EAnnotation getEnd(Element element, String endId) {
 		EAnnotation result = null;
 		Interaction rootInteraction = umlHelper.getOwningInteraction(element);
 		for (EAnnotation end : getEndsOrdering(rootInteraction)) {
-			if (Objects.equals(end.getSource(), source)) {
-				Element semanticEnd = getSemanticEnd(source, element);
+			if (Objects.equals(end.getSource(), endId)) {
+				Element semanticEnd = getSemanticEnd(endId, element);
 				if (getEndFragment(end) == semanticEnd) {
 					result = end;
 					break;
@@ -340,15 +330,16 @@ public class SequenceDiagramOrderServices {
 	 * @see #getSemanticStart(Element)
 	 * @see #getSemanticFinish(Element)
 	 */
-	private Element getSemanticEnd(String source, Element element) {
-		Element result = null;
+	private InteractionFragment getSemanticEnd(String source, Element element) {
+		InteractionFragment result = null;
 		if (START_ANNOTATION_SOURCE.equals(source)) {
-			result = this.umlHelper.getSemanticStart(element);
+			result = umlHelper.getSemanticStart(element);
 		} else if (FINISH_ANNOTATION_SOURCE.equals(source)) {
-			result = this.umlHelper.getSemanticFinish(element);
+			result = umlHelper.getSemanticFinish(element);
 		}
 		return result;
 	}
+
 
 	/**
 	 * Returns the ordering of the elements contained in the {@code interaction}.
@@ -464,6 +455,11 @@ public class SequenceDiagramOrderServices {
 		}
 		// Delete annotations that aren't referencing the correct semantic elements.
 		// This may be the case if the element has been delete from the explorer.
+
+		// Illegal content:
+		// - Duplication Start or Finish,
+		// - Finishing without/before Start
+		// - Start without Finish
 		List<EObject> invalidOrderingContent = ordering.getContents().stream()
 				.filter(eObject -> !isValidOrderingContent(eObject))
 				.toList();
@@ -471,6 +467,86 @@ public class SequenceDiagramOrderServices {
 		EcoreUtil.deleteAll(invalidOrderingContent, false);
 
 		return root;
+	}
+
+	/**
+	 * Selects the fragment contains directly by the lifeline or an Execution Specification.
+	 * <p>
+	 * There is no indication of containment between some fragments, so real containment is
+	 * based on event order on a lifeline.
+	 * </p>
+	 *
+	 * @param <T>
+	 *            type of selected elements
+	 * @param parent
+	 *            semantic owner of elements
+	 * @param type
+	 *            type of selected elements
+	 * @return selected elements.
+	 */
+	public <T extends InteractionFragment> Collection<T> selectIncludedFragments(NamedElement parent, Class<T> type) {
+		Lifeline covered = umlHelper.getCoveredLifeline(parent);
+		if (covered == null) {
+			return Collections.emptyList();
+		}
+
+		List<T> result = new ArrayList<>();
+
+		int depth = -1; // Not at expected level
+		if (parent == covered) {
+			depth = 0; // Root events
+		}
+
+		for (EAnnotation end : getEndsOrdering(covered.getInteraction())) {
+			Element element = getEndOwner(end);
+
+			if (!(element instanceof InteractionFragment fragment)
+					|| umlHelper.getCoveredLifeline(fragment) != covered) {
+				continue; // not lifeline or relevant element.
+			}
+
+			if (isStartingEnd(end)) {
+				if (element == parent) {
+					if (depth == -1) {
+						depth = 0;
+					} // else duplicated start (ignored).
+				} else if (0 <= depth) { // in parent
+					if (depth == 0 // proper level
+							&& type.isInstance(fragment)) { // expected kind
+						@SuppressWarnings("unchecked")
+						T targetedElement = (T) fragment;
+						result.add(targetedElement);
+					}
+					if (isIncludingFragment(fragment)) {
+						depth++;
+					}
+				}
+			} else if (isFinishingEnd(end)) {
+				if (element == parent) {
+					break; // no need to go further
+				} else if (0 <= depth && isIncludingFragment(fragment)) { // in parent
+					depth--;
+					if (depth < 0) {
+						// Inclusion is ill-formed.
+						// Going further is dangerous.
+						break;
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * Evaluates if a fragment is container of events.
+	 *
+	 * @param element
+	 *            fragment to evaluate
+	 * @return true if container.
+	 */
+	private boolean isIncludingFragment(InteractionFragment element) {
+		return element instanceof ExecutionSpecification;
 	}
 
 }

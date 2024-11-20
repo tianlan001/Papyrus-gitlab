@@ -27,6 +27,7 @@ import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Lifeline;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.OccurrenceSpecification;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.StateInvariant;
@@ -42,7 +43,7 @@ public class SequenceDiagramSemanticCandidatesServices {
 	/**
 	 * The order service used to manage graphical ordering ends.
 	 */
-	private final SequenceDiagramOrderServices orderService = new SequenceDiagramOrderServices();
+	private final SequenceDiagramOrderServices orderServices = new SequenceDiagramOrderServices();
 
 	/**
 	 * Returns the {@link Lifeline}s in the provided {@code interaction}.
@@ -60,25 +61,31 @@ public class SequenceDiagramSemanticCandidatesServices {
 	}
 
 	/**
-	 * Returns the {@link StateInvariant}s covering the provided {@code lifeline}
+	 * Returns the {@link StateInvariant}s covering the provided {@code NamedElement}.
+	 * <p>
+	 * State Invariant can be owned directly by a {@link Lifeline} or by an {@link ExecutionSpecification}.
+	 * </p>
 	 *
-	 * @param lifeline
-	 *            the lifeline in which we are looking for {@link StateInvariant}
+	 * @param owner
+	 *            the semantic owner in which we are looking for {@link StateInvariant}
 	 * @return the list of {@link StateInvariant}
 	 */
-	public Collection<StateInvariant> getStateInvariantCandidates(Lifeline lifeline) {
-		return getCoveredFragments(StateInvariant.class, lifeline);
+	public Collection<StateInvariant> getStateInvariantCandidates(NamedElement owner) {
+		return orderServices.selectIncludedFragments(owner, StateInvariant.class);
 	}
 
 	/**
-	 * Returns the {@link ExecutionSpecification}s covering the provided {@code lifeline}
+	 * Returns the {@link ExecutionSpecification}s covering the provided {@code NamedElement}.
+	 * <p>
+	 * Execution Specification can be owned directly by a {@link Lifeline} or by an {@link ExecutionSpecification}.
+	 * </p>
 	 *
-	 * @param lifeline
-	 *            the lifeline in which we are looking for {@link ExecutionSpecification}
+	 * @param owner
+	 *            the semantic owner in which we are looking for {@link ExecutionSpecification}
 	 * @return the list of {@link ExecutionSpecification}
 	 */
-	public Collection<ExecutionSpecification> getExecutionSpecificationCandidates(Lifeline lifeline) {
-		return getCoveredFragments(ExecutionSpecification.class, lifeline);
+	public Collection<ExecutionSpecification> getExecutionSpecificationCandidates(NamedElement owner) {
+		return orderServices.selectIncludedFragments(owner, ExecutionSpecification.class);
 	}
 
 	/**
@@ -127,13 +134,13 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 * @return the {@link EAnnotation} that aren't associated to an existing observation point
 	 */
 	public Collection<EAnnotation> getEmptyObservationCandidates(Interaction interaction) {
-		Collection<EAnnotation> timeObservationCandidates = this.getTimeObservationCandidates(interaction);
+		Collection<EAnnotation> timeObservationCandidates = getTimeObservationCandidates(interaction);
 		// Empty observation points are all the EAnnotations that aren't represented by another Observation
 		// Point mapping (e.g. TimeObservation), and represent the start/finish of a message or execution.
 		// They are represented with invisible circles that allow end user to select them and target them
 		// with tools.
-		return this.orderService.getEndsOrdering(interaction).stream()
-				.filter(eAnnotation -> orderService.getEndFragment(eAnnotation) instanceof OccurrenceSpecification)
+		return orderServices.getEndsOrdering(interaction).stream()
+				.filter(eAnnotation -> orderServices.getEndFragment(eAnnotation) instanceof OccurrenceSpecification)
 				.filter(eAnnotation -> !timeObservationCandidates.contains(eAnnotation))
 				.toList();
 	}
@@ -157,10 +164,10 @@ public class SequenceDiagramSemanticCandidatesServices {
 				.toList();
 		for (TimeObservation timeObservation : timeObservations) {
 			if (timeObservation.getEvent() != null) {
-				Optional.ofNullable(this.orderService.getStartingEnd(timeObservation.getEvent()))
-						.ifPresent(result::add);
-				Optional.ofNullable(this.orderService.getFinishingEnd(timeObservation.getEvent()))
-						.ifPresent(result::add);
+				Optional.ofNullable(orderServices.getStartingEnd(timeObservation.getEvent()))
+				.ifPresent(result::add);
+				Optional.ofNullable(orderServices.getFinishingEnd(timeObservation.getEvent()))
+				.ifPresent(result::add);
 			}
 		}
 		return result;
@@ -223,25 +230,4 @@ public class SequenceDiagramSemanticCandidatesServices {
 	}
 
 
-	/**
-	 * Returns all the {@code type} fragments contained in the provided {@code CombinedFragment}.
-	 * <p>
-	 * This method searches for nested fragments contained in child {@link CombinedFragment}s.
-	 * </p>
-	 *
-	 * @param <T>
-	 *            the type of the fragments to retrieve
-	 * @param type
-	 *            the type of the fragments to retrieve
-	 * @param combinedFragment
-	 *            the combined fragment to search into
-	 * @return the {@code type} fragments contained in the provided {@code combinedFragment}
-	 */
-	private <T extends InteractionFragment> Collection<T> getCoveredFragments(Class<T> type, Lifeline owner) {
-		Collection<T> results = getInteractionFragments(type, owner.getInteraction());
-		return results.stream()
-				.filter(fragment -> !fragment.getCovereds().isEmpty()
-						&& fragment.getCovereds().get(0) == owner)
-				.toList();
-	}
 }
