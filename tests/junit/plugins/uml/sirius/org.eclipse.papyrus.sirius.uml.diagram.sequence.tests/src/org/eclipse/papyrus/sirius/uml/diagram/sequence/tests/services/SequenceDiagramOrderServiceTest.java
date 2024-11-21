@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.tests.AbstractServicesTest;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramOrderServices;
 import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
+import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.junit.Before;
@@ -57,10 +58,21 @@ public class SequenceDiagramOrderServiceTest extends AbstractServicesTest {
 		orderService = new SequenceDiagramOrderServices();
 		interaction = createInteraction();
 		executionSpecification = create(BehaviorExecutionSpecification.class);
+
+		ExecutionOccurrenceSpecification start = create(ExecutionOccurrenceSpecification.class);
+		start.setExecution(executionSpecification);
+		executionSpecification.setStart(start);
+		interaction.getFragments().add(start);
+
 		interaction.getFragments().add(executionSpecification);
+
+		ExecutionOccurrenceSpecification finish = create(ExecutionOccurrenceSpecification.class);
+		finish.setExecution(executionSpecification);
+		executionSpecification.setFinish(finish);
+		interaction.getFragments().add(finish);
+
 		executionSpecificationStartAnnotation = orderService.createStartingEnd(executionSpecification);
 		executionSpecificationFinishAnnotation = orderService.createFinishingEnd(executionSpecification);
-
 	}
 
 	@Test
