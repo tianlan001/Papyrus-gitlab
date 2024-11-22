@@ -42,7 +42,7 @@ import org.junit.Test;
  */
 public class SequenceDiagramUMLLabelServicesTest extends AbstractServicesTest {
 
-	private final static String MESSAGE_NAME = "message"; //$NON-NLS-1$
+	private static final String MESSAGE_NAME = "message"; //$NON-NLS-1$
 
 	private SequenceDiagramUMLLabelServices labelServices;
 

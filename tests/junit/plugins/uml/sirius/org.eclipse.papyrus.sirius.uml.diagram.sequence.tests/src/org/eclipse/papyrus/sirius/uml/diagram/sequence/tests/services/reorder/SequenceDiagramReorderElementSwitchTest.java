@@ -449,10 +449,10 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		finish.getCovereds().add(lifeline);
 		finish.setExecution(executionSpecification);
 		executionSpecification.setFinish(finish);
-		if (parent instanceof Interaction interaction) {
-			interaction.getFragments().add(start);
-			interaction.getFragments().add(executionSpecification);
-			interaction.getFragments().add(finish);
+		if (parent instanceof Interaction parentInteraction) {
+			parentInteraction.getFragments().add(start);
+			parentInteraction.getFragments().add(executionSpecification);
+			parentInteraction.getFragments().add(finish);
 		} else if (parent instanceof InteractionOperand operand) {
 			operand.getFragments().add(start);
 			operand.getFragments().add(executionSpecification);
@@ -487,8 +487,8 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		InteractionOperand interactionOperand = create(InteractionOperand.class);
 		interactionOperand.getCovereds().addAll(Arrays.asList(lifelines));
 		combinedFragment.getOperands().add(interactionOperand);
-		if (parent instanceof Interaction interaction) {
-			interaction.getFragments().add(combinedFragment);
+		if (parent instanceof Interaction parentInteraction) {
+			parentInteraction.getFragments().add(combinedFragment);
 		} else if (parent instanceof InteractionOperand operand) {
 			operand.getFragments().add(interactionOperand);
 		}
@@ -501,8 +501,8 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 	private InteractionUse createInteractionUse(Element parent, Lifeline... lifelines) {
 		InteractionUse interactionUse = create(InteractionUse.class);
 		interactionUse.getCovereds().addAll(Arrays.asList(lifelines));
-		if (parent instanceof Interaction interaction) {
-			interaction.getFragments().add(interactionUse);
+		if (parent instanceof Interaction parentInteraction) {
+			parentInteraction.getFragments().add(interactionUse);
 		} else if (parent instanceof InteractionOperand operand) {
 			operand.getFragments().add(interactionUse);
 		}

@@ -37,6 +37,8 @@ import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.EdgeTarget;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
+import org.eclipse.uml2.uml.ActionExecutionSpecification;
+import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -59,14 +61,18 @@ public class SDEdgeCreationTest extends AbstractCreateEdgeTests {
 
 	private static final String LIFELINE_2 = "Lifeline2"; //$NON-NLS-1$
 
-	private static final String ACTION_EXECUTION_SPECIFICATION = "ActionExecutionSpecification"; //$NON-NLS-1$
+	private static final String ACTION_EXECUTION_SPECIFICATION = ActionExecutionSpecification.class.getSimpleName();
 
 	// @formatter:off
 	private static final Map<String, String> elementTypeToMapping = Map.of(
-			ACTION_EXECUTION_SPECIFICATION, MappingTypes.EXECUTION_SPECIFICATION_NODE_TYPE);
+			ACTION_EXECUTION_SPECIFICATION, MappingTypes.getMappingType(ExecutionSpecification.class));
 	// @formatter:on
 
 	private static final String DIAGRAM_NAME = "Edge_SequenceDiagramSirius"; //$NON-NLS-1$
+
+	private static final String MESSAGE_SYNC = "MessageSync"; //$NON-NLS-1$
+
+	private static final String LIFELINE_EXECUTION = "Lifeline_Execution"; //$NON-NLS-1$
 
 	private final String sourceName;
 
@@ -102,7 +108,7 @@ public class SDEdgeCreationTest extends AbstractCreateEdgeTests {
 		final DNode lifelineElement = optionalDSemanticDecorator.get();
 		Assert.assertEquals(owner, lifelineElement.getTarget());
 		Assert.assertEquals(1, lifelineElement.getOwnedBorderedNodes().size());
-		Assert.assertEquals(MappingTypes.LIFELINE_EXECUTION_NODE_TYPE, lifelineElement.getOwnedBorderedNodes().get(0).getMapping().getName());
+		Assert.assertEquals(MappingTypes.getMappingType(LIFELINE_EXECUTION), lifelineElement.getOwnedBorderedNodes().get(0).getMapping().getName());
 		return lifelineElement.getOwnedBorderedNodes().get(0);
 	}
 
@@ -145,7 +151,7 @@ public class SDEdgeCreationTest extends AbstractCreateEdgeTests {
 	@ActiveDiagram(DIAGRAM_NAME)
 	public void createSyncMessageTest() {
 		SemanticEdgeCreationChecker semanticChecker = new SemanticEdgeCreationChecker(getMainInteraction(), UMLPackage.eINSTANCE.getInteraction_Message(), Message.class);
-		DEdgeCreationChecker graphicalChecker = new DEdgeCreationChecker(getDiagram(), getDDiagram(), MappingTypes.getMappingType(Message.class.getSimpleName()));
+		DEdgeCreationChecker graphicalChecker = new DEdgeCreationChecker(getDiagram(), getDDiagram(), MappingTypes.getMappingType(Message.class));
 
 		// TODO: Adapt the following values depending the development of "Message" concepts.
 		// The following lines are commented to keep the test as "failure" and avoid forgetting to adapt this test.
@@ -153,7 +159,7 @@ public class SDEdgeCreationTest extends AbstractCreateEdgeTests {
 		// graphicalChecker.setExpectedAdditionalChildren(3); // From the representation, an Edge and 2 ObservationPoints will be created
 		// graphicalChecker.setExpectedAdditionalEdges(1); // One Edge will be created when applying the tool "CreateMessageSyncTool"
 		// graphicalChecker.setExpectedCreatedElements(3); // An Edge and 2 ObservationPoints will be created
-		testEdgeCreation(CreationToolsIds.CREATE_MESSAGE_SYNC_TOOL, semanticChecker, graphicalChecker);
+		testEdgeCreation(CreationToolsIds.getCreationToolId(MESSAGE_SYNC), semanticChecker, graphicalChecker);
 	}
 
 	private void testEdgeCreation(String toolId, ISemanticRepresentationElementCreationChecker semanticChecker, IGraphicalRepresentationElementCreationChecker graphicalChecker) {

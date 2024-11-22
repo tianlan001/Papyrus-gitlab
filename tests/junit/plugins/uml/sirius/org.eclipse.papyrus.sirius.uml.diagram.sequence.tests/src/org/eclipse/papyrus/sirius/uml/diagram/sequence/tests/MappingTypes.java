@@ -13,39 +13,78 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.tests;
 
+import java.util.List;
+
+import org.eclipse.uml2.uml.Comment;
+import org.eclipse.uml2.uml.Constraint;
+import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.ExecutionSpecification;
+import org.eclipse.uml2.uml.Message;
+
 /**
  * This class provides mapping types for Sirius Sequence Diagram odesign.
  * 
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
-public class MappingTypes {
+public final class MappingTypes {
 
 	private static final String SD_PREFIX = "SD_"; //$NON-NLS-1$
-
-	/*----------------------------------------------The Node mapping IDs----------------------------------------------*/
-
-	public static final String LIFELINE_NODE_TYPE = "SD_Lifeline"; //$NON-NLS-1$
-
-	public static final String LIFELINE_EXECUTION_NODE_TYPE = "SD_Lifeline_Execution"; //$NON-NLS-1$
-
-	public static final String EXECUTION_SPECIFICATION_NODE_TYPE = "SD_ExecutionSpecification"; //$NON-NLS-1$
-
-	/*----------------------------------------------The Edge mapping IDs----------------------------------------------*/
-
-	public static final String MESSAGE_EDGE_TYPE = "SD_Message"; //$NON-NLS-1$
 
 	private MappingTypes() {
 		// to prevent instantiation
 	}
 
 	/**
-	 * Get the mapping type (container, node or edge) for the given element type name;
+	 * Get the mapping type (container, node or edge) for the given element type name.
 	 *
 	 * @param elementTypeName
 	 *            the represented element type name.
 	 * @return the mapping id.
 	 */
-	public static final String getMappingType(String elementTypeName) {
+	public static String getMappingType(String elementTypeName) {
 		return SD_PREFIX + elementTypeName;
+	}
+
+	/**
+	 * Get the mapping type (container, node or edge) for the given element type.
+	 * 
+	 * @param elementType
+	 *            the represented element type
+	 * @return the mapping id.
+	 */
+	public static String getMappingType(Class<? extends Element> elementType) {
+		Class<? extends Element> associatedType = elementType;
+		if (Message.class.isAssignableFrom(elementType)) {
+			associatedType = Message.class;
+		}
+		if (ExecutionSpecification.class.isAssignableFrom(elementType)) {
+			associatedType = ExecutionSpecification.class;
+		}
+		return getMappingType(associatedType.getSimpleName());
+	}
+
+	/**
+	 * Returns whether the given Mapping type is a border node or not.
+	 *
+	 * @param mappingType
+	 *            the mapping type.
+	 * @return true if the mapping type is a border node, false otherwise.
+	 */
+	public static boolean isBorderNode(String mappingType) {
+		return List.of()
+				.contains(mappingType);
+	}
+
+	/**
+	 * Returns whether the given Mapping type is a node or not.
+	 *
+	 * @param mappingType
+	 *            the mapping type.
+	 * @return true if the mapping type is a node, false otherwise.
+	 */
+	public static boolean isNode(String mappingType) {
+		return List.of(getMappingType(Comment.class),
+				getMappingType(Constraint.class))
+				.contains(mappingType);
 	}
 }

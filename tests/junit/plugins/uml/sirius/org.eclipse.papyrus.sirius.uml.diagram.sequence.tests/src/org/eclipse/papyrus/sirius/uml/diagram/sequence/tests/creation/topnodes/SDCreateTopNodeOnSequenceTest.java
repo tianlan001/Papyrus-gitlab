@@ -13,8 +13,7 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.tests.creation.topnodes;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.ecore.EObject;
@@ -27,13 +26,15 @@ import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.checker.SemanticA
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.DNodeCreationChecker;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.semantic.checker.ISemanticRepresentationElementCreationChecker;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.semantic.checker.SemanticNodeCreationChecker;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.tests.ContainmentFeatureHelper;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.tests.CreationToolsIds;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.tests.MappingTypes;
 import org.eclipse.sirius.diagram.DDiagram;
+import org.eclipse.uml2.uml.Comment;
+import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.Lifeline;
-import org.eclipse.uml2.uml.UMLPackage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -60,24 +61,23 @@ public class SDCreateTopNodeOnSequenceTest extends AbstractCreateTopNodeOnDiagra
 
 	/**
 	 * Constructor.
-	 *
 	 */
-	public SDCreateTopNodeOnSequenceTest(String creationToolId, String nodeMappingType, EReference containmentFeature, Class<? extends Element> expectedType) {
-		this.creationToolId = creationToolId;
-		this.nodeMappingType = nodeMappingType;
-		this.containmentFeature = containmentFeature;
+	public SDCreateTopNodeOnSequenceTest(Class<? extends Element> expectedType/* , EReference containmentFeature */) {
+		this.creationToolId = CreationToolsIds.getCreationToolId(expectedType);
+		this.nodeMappingType = MappingTypes.getMappingType(expectedType);
+		this.containmentFeature = ContainmentFeatureHelper.getContainmentFeature(expectedType);
 		this.expectedType = expectedType;
 	}
 
 	@Override
-	protected boolean applyCreationTool(String creationToolId, DDiagram diagram, EObject graphicalContainer) {
-		if (nodeMappingType.equals(MappingTypes.LIFELINE_NODE_TYPE)) {
+	protected boolean applyCreationTool(String toolId, DDiagram diagram, EObject graphicalContainer) {
+		if (MappingTypes.getMappingType(Lifeline.class).equals(nodeMappingType)) {
 			/*
 			 * Lifeline tests require a custom tool creation invocation.
 			 */
-			return fixture.applyNodeCreationToolFromPalette(creationToolId, getDDiagram(), graphicalContainer, new Point(100, 100), null);
+			return fixture.applyNodeCreationToolFromPalette(toolId, getDDiagram(), graphicalContainer, new Point(100, 100), null);
 		} else {
-			return super.applyCreationTool(creationToolId, diagram, graphicalContainer);
+			return super.applyCreationTool(toolId, diagram, graphicalContainer);
 		}
 	}
 
@@ -87,7 +87,7 @@ public class SDCreateTopNodeOnSequenceTest extends AbstractCreateTopNodeOnDiagra
 		final Diagram diagram = getDiagram();
 		final ISemanticRepresentationElementCreationChecker semanticChecker = new SemanticNodeCreationChecker(((org.eclipse.uml2.uml.Package) getSemanticOwner()).getPackagedElements().get(0), this.containmentFeature, this.expectedType);
 		DNodeCreationChecker graphicalNodeCreationChecker = new DNodeCreationChecker(diagram, getTopGraphicalContainer(), nodeMappingType);
-		if (nodeMappingType.equals(MappingTypes.LIFELINE_NODE_TYPE)) {
+		if (MappingTypes.getMappingType(Lifeline.class).equals(nodeMappingType)) {
 			/*
 			 * Lifeline tests require a custom graphical checker: when a Lifeline is created, the header and the line are created.
 			 */
@@ -100,11 +100,7 @@ public class SDCreateTopNodeOnSequenceTest extends AbstractCreateTopNodeOnDiagra
 	}
 
 	@Parameters(name = "{index} Test {0} tool")
-	public static Collection<Object[]> data() {
-		return Arrays.asList(new Object[][] {
-				{
-						CreationToolsIds.CREATE_LIFELINE_TOOL, MappingTypes.LIFELINE_NODE_TYPE, UMLPackage.eINSTANCE.getInteraction_Lifeline(), Lifeline.class
-				}
-		});
+	public static List<Class<? extends Element>> data() {
+		return List.of(Lifeline.class, Constraint.class, Comment.class);
 	}
 }

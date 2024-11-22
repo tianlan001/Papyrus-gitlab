@@ -13,28 +13,42 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.tests;
 
+import org.eclipse.uml2.uml.Element;
+
 /**
  * This class provides creation tools ids for Sirius Sequence Diagram odesign.
  * 
  * @author <a href="mailto:gwendal.daniel@obeosoft.com>Gwendal Daniel</a>
  */
-public class CreationToolsIds {
+public final class CreationToolsIds {
+
+	private static final String CREATE_PREFIX = "Create"; //$NON-NLS-1$
+
+	private static final String TOOL_SUFFIX = "Tool"; //$NON-NLS-1$
 
 	private CreationToolsIds() {
 		// to prevent instantiation
 	}
 
-	/*----------------------------------------------The Node creation tools IDs----------------------------------------------*/
+	/**
+	 * Get the creation tool id for the given element type name.
+	 * 
+	 * @param elementTypeName
+	 *            the type name of the element to create.
+	 * @return the creation tool id.
+	 */
+	public static String getCreationToolId(String elementTypeName) {
+		return CREATE_PREFIX + elementTypeName + TOOL_SUFFIX;
+	}
 
-	public static final String CREATE_LIFELINE_TOOL = "CreateLifelineTool"; //$NON-NLS-1$
-
-	public static final String CREATE_ACTION_EXECUTION_SPECIFICATION_TOOL = "CreateActionExecutionSpecificationTool"; //$NON-NLS-1$
-
-	public static final String CREATE_BEHAVIOR_EXECUTION_SPECIFICATION_TOOL = "CreateBehaviorExecutionSpecificationTool"; //$NON-NLS-1$
-
-	/*----------------------------------------------The Edge creation tools IDs----------------------------------------------*/
-
-	public static final String CREATE_MESSAGE_SYNC_TOOL = "CreateMessageSyncTool"; //$NON-NLS-1$
-
-	public static final String CREATE_MESSAGE_REPLY_TOOL = "CreateMessageReplyTool"; //$NON-NLS-1$
+	/**
+	 * Get the creation tool id for the given element type.
+	 * 
+	 * @param elementType
+	 *            the type of the element to create.
+	 * @return the creation tool id.
+	 */
+	public static String getCreationToolId(Class<? extends Element> elementType) {
+		return getCreationToolId(elementType.getSimpleName());
+	}
 }

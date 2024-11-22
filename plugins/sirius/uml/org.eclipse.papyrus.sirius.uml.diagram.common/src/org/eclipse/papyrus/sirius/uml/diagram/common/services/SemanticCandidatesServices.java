@@ -159,7 +159,7 @@ public class SemanticCandidatesServices {
 	}
 
 	/**
-	 * Get Constrains candidates to display in representations.
+	 * Get {@link Constraint} candidates to display in representations.
 	 *
 	 * @param semanticContext
 	 *            the context in which we are looking for {@link Constraint}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_ToZHwKXIEe-Nq5kPQXepFA" name="graphicalDrop">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_Tq5pMKXIEe-Nq5kPQXepFA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_YQIu8KXIEe-Nq5kPQXepFA" name="RootInteraction">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YR6QkKXIEe-Nq5kPQXepFA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.end">
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_fFSo4aXIEe-Nq5kPQXepFA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.start" references="_fFRawKXIEe-Nq5kPQXepFA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_fFSo4qXIEe-Nq5kPQXepFA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.start" references="_fFRawaXIEe-Nq5kPQXepFA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_fFSo46XIEe-Nq5kPQXepFA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.finish" references="_fFRawKXIEe-Nq5kPQXepFA"/>
+    </eAnnotations>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_hhAdYKXIEe-Nq5kPQXepFA">
+      <body>Comment_InDiagram</body>
+    </ownedComment>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_h_ESYKXIEe-Nq5kPQXepFA" name="Constraint_InDiagram">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_h_E5cKXIEe-Nq5kPQXepFA" name="constraintSpec">
+        <language>OCL</language>
+        <body>true</body>
+      </specification>
+    </ownedRule>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_bP0zMKXIEe-Nq5kPQXepFA" name="Lifeline_InDiagram" coveredBy="_fFRawKXIEe-Nq5kPQXepFA _fFRawaXIEe-Nq5kPQXepFA"/>
+    <fragment xmi:type="uml:CombinedFragment" xmi:id="_fFRawKXIEe-Nq5kPQXepFA" name="CombinedFragment_InDiagram" covered="_bP0zMKXIEe-Nq5kPQXepFA">
+      <operand xmi:type="uml:InteractionOperand" xmi:id="_fFRawaXIEe-Nq5kPQXepFA" name="InteractionOperand_InCombinedFragment" covered="_bP0zMKXIEe-Nq5kPQXepFA">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_i0OYwKXIEe-Nq5kPQXepFA">
+          <body>Comment_InInteractionOperand</body>
+        </ownedComment>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="_khsnMKXIEe-Nq5kPQXepFA" name="Constraint_InInteractionOperand">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_kht1UKXIEe-Nq5kPQXepFA" name="constraintSpec">
+            <language>OCL</language>
+            <body>true</body>
+          </specification>
+        </ownedRule>
+        <guard xmi:type="uml:InteractionConstraint" xmi:id="_fFSo4KXIEe-Nq5kPQXepFA" name="guard"/>
+      </operand>
+    </fragment>
+  </packagedElement>
+</uml:Model>
