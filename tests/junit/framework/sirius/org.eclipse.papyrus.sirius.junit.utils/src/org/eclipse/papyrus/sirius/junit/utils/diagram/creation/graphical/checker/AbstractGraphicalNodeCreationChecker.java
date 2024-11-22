@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright (c) 2022 CEA LIST
+ * Copyright (c) 2022, 2024. CEA LIST
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
@@ -25,35 +25,51 @@ import org.junit.Assert;
  * Abstract GraphicalNodeChecker for creation tests.
  */
 public abstract class AbstractGraphicalNodeCreationChecker implements IGraphicalRepresentationElementCreationChecker {
+
 	/**
-	 * the GMF Diagram
+	 * By default, when executing a creation tool, only one graphical element is created on the diagram.
+	 */
+	private static final int DEFAULT_CREATED_ELEMENTS_NUMBER = 1;
+
+	/**
+	 * The GMF Diagram.
 	 */
 	protected final Diagram diagram;
 
 	/**
-	 * THE Sirius Diagram representation
+	 * The Sirius Diagram representation.
 	 */
 	protected final DDiagram semanticDiagram;
 
 	/**
-	 * the initial number of elements owned by the Sirius Diagram
+	 * The initial number of elements owned by the Sirius Diagram.
 	 */
 	protected final int nbSiriusDiagramOwnedChildren;
 
 	/**
-	 * The initial total number of elements in the Sirius Diagram
+	 * The initial total number of elements in the Sirius Diagram.
 	 */
 	protected final int nbSiriusDiagramTotalElement;
 
 	/**
-	 * The graphical parent in which we will create a Node
+	 * The graphical parent in which we will create the edge.
 	 */
 	protected final EObject graphicalParent;
 
 	/**
-	 * the initial number of children inside the graphical parent
+	 * The initial number of children inside the graphical parent.
 	 */
 	protected final int nbGraphicalContainerChildren;
+
+	/**
+	 * The expected number of additional children in the container.
+	 */
+	protected int expectedAdditionalChildren;
+
+	/**
+	 * The expected number of additional created elements in the diagram.
+	 */
+	protected int expectedCreatedElements;
 
 
 	/**
@@ -74,6 +90,9 @@ public abstract class AbstractGraphicalNodeCreationChecker implements IGraphical
 
 		this.graphicalParent = graphicalParent;
 		this.nbGraphicalContainerChildren = getGraphicalOwnerChildrenSize();
+
+		this.expectedAdditionalChildren = DEFAULT_CREATED_ELEMENTS_NUMBER;
+		this.expectedCreatedElements = DEFAULT_CREATED_ELEMENTS_NUMBER;
 
 		Assert.assertNotEquals(-1, this.nbGraphicalContainerChildren);
 	}
@@ -135,7 +154,7 @@ public abstract class AbstractGraphicalNodeCreationChecker implements IGraphical
 		Assert.assertEquals("The parent of the created graphical element is not the expected one.", this.graphicalParent, createdElementRepresentation.eContainer()); //$NON-NLS-1$
 
 		// check we create only one node
-		Assert.assertEquals("The parent node must contain only one additional element.", this.nbGraphicalContainerChildren + 1, getGraphicalOwnerChildrenSize()); //$NON-NLS-1$
+		Assert.assertEquals("The parent node must contain only one additional element.", this.nbGraphicalContainerChildren + getExpectedAdditionalChildren(), getGraphicalOwnerChildrenSize()); //$NON-NLS-1$
 
 		// check the total number of created element in the diagram
 		List<?> semanticChildren = this.semanticDiagram.getDiagramElements();
@@ -143,12 +162,41 @@ public abstract class AbstractGraphicalNodeCreationChecker implements IGraphical
 	}
 
 	/**
+	 * Get the expected number of additional children in the container.
 	 * 
-	 * @return
-	 *         the total number of elements composing the node we are checking!
+	 * @return the expected number of additional children in the container.
 	 */
-	protected int getNumberOfExpectedCreatedElement() {
-		return 1;// just one for 1 node!
+	public int getExpectedAdditionalChildren() {
+		return this.expectedAdditionalChildren;
+	}
+
+	/**
+	 * Set the expected number of additional children in the container.
+	 * 
+	 * @param expectedChildren
+	 *            the expected number of additional children in the container.
+	 */
+	public void setExpectedAdditionalChildren(int expectedChildren) {
+		this.expectedAdditionalChildren = expectedChildren;
+	}
+
+	/**
+	 * Get the expected number of additional created elements in the diagram.
+	 * 
+	 * @return the expected number of additional created elements in the diagram.
+	 */
+	public int getNumberOfExpectedCreatedElement() {
+		return this.expectedCreatedElements;
+	}
+
+	/**
+	 * Set the expected number of additional created elements in the diagram.
+	 * 
+	 * @param expectedElements
+	 *            the expected number of additional created elements in the diagram.
+	 */
+	public void setExpectedCreatedElements(int expectedElements) {
+		this.expectedCreatedElements = expectedElements;
 	}
 
 	/**
@@ -169,7 +217,7 @@ public abstract class AbstractGraphicalNodeCreationChecker implements IGraphical
 	public void validateAfterRedo() {
 		Assert.assertEquals(this.nbSiriusDiagramTotalElement + getNumberOfExpectedCreatedElement(), this.semanticDiagram.getDiagramElements().size());
 		// check we create only one node
-		Assert.assertEquals("The parent node must contain only one additional element.", this.nbGraphicalContainerChildren + 1, getGraphicalOwnerChildrenSize()); //$NON-NLS-1$
+		Assert.assertEquals("The parent node must contain only one additional element.", this.nbGraphicalContainerChildren + getExpectedAdditionalChildren(), getGraphicalOwnerChildrenSize()); //$NON-NLS-1$
 
 	}
 

@@ -26,8 +26,6 @@ import org.eclipse.papyrus.junit.utils.rules.PluginResource;
 import org.eclipse.papyrus.sirius.junit.util.diagram.AbstractCreateNodeTests;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.checker.SemanticAndGraphicalCreationChecker;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.DNodeCreationChecker;
-import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.IGraphicalRepresentationElementCreationChecker;
-import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.semantic.checker.ISemanticRepresentationElementCreationChecker;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.semantic.checker.SemanticNodeCreationChecker;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.tests.CreationToolsIds;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.tests.MappingTypes;
@@ -36,9 +34,7 @@ import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.uml2.uml.ActionExecutionSpecification;
 import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
 import org.eclipse.uml2.uml.Element;
-import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
-import org.eclipse.uml2.uml.OccurrenceSpecification;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.junit.Assert;
 import org.junit.Test;
@@ -125,22 +121,23 @@ public class SDCreateSubNodesOnSequenceTest extends AbstractCreateNodeTests {
 		createNodeIntoContainer(INTERACTION_NAME, MappingTypes.EXECUTION_SPECIFICATION_NODE_TYPE, MappingTypes.LIFELINE_EXECUTION_NODE_TYPE);
 	}
 
-	private void createNodeIntoContainer(final String semanticOwnerName, final String nodeContainerType, final String nodeCompartmentContainerType) {
+	private void createNodeIntoContainer(final String ownerName, final String nodeContainerType, final String nodeCompartmentContainerType) {
 		final String containerType = nodeCompartmentContainerType;
-		this.semanticOwnerName = semanticOwnerName;
+		this.semanticOwnerName = ownerName;
 		final EObject graphicalContainer = getSubNodeOfGraphicalContainer(containerType);
-		ISemanticRepresentationElementCreationChecker semanticChecker;
-		List<String> executionSpecificationTools = List.of( //
+		SemanticNodeCreationChecker semanticChecker = new SemanticNodeCreationChecker(getSemanticOwner(), this.containmentFeature, this.expectedType);
+		DNodeCreationChecker graphicalChecker = new DNodeCreationChecker(getDiagram(), graphicalContainer, this.nodeMappingType);
+		List<String> executionSpecificationTools = List.of(//
 				CreationToolsIds.CREATE_ACTION_EXECUTION_SPECIFICATION_TOOL //
 				, CreationToolsIds.CREATE_BEHAVIOR_EXECUTION_SPECIFICATION_TOOL);
 		if (executionSpecificationTools.contains(this.creationToolId)) {
-			// Use a dedicated checker for ExecutionSpecification creation tools, because they create more than 1 element in the containment reference.
-			semanticChecker = new ExecutionSpecificationCreationChecker(getSemanticOwner(), this.containmentFeature, this.expectedType);
-		} else {
-			semanticChecker = new SemanticNodeCreationChecker(getSemanticOwner(), this.containmentFeature, this.expectedType);
+			semanticChecker.setExpectedCreatedElements(3); // ExecutionSpecification creation tools create 3 semantic elements in the same containment reference: the
+															// ExecutionSpecification itself plus the OccurrenceSpecification representing the start/finish of the execution.
+			graphicalChecker.setExpectedCreatedElements(3); // ExecutionSpecification creation tools create 3 graphical element: the node for the ExecutionSpecification and
+															// the transparent nodes associated to OccurrenceSpecification representing the semantic ends of the execution.
 		}
-		final IGraphicalRepresentationElementCreationChecker graphicalNodeCreationChecker = new DNodeCreationChecker(getDiagram(), graphicalContainer, this.nodeMappingType);
-		createNode(this.creationToolId, new SemanticAndGraphicalCreationChecker(semanticChecker, graphicalNodeCreationChecker), graphicalContainer, true);
+
+		createNode(this.creationToolId, new SemanticAndGraphicalCreationChecker(semanticChecker, graphicalChecker), graphicalContainer, true);
 	}
 
 	@Parameters(name = "{index} Test {0} tool")
@@ -150,44 +147,4 @@ public class SDCreateSubNodesOnSequenceTest extends AbstractCreateNodeTests {
 				{ CreationToolsIds.CREATE_BEHAVIOR_EXECUTION_SPECIFICATION_TOOL, MappingTypes.EXECUTION_SPECIFICATION_NODE_TYPE, UMLPackage.eINSTANCE.getInteraction_Fragment(), BehaviorExecutionSpecification.class }
 		});
 	}
-
-	/**
-	 * A dedicated semantic checker for {@link ExecutionSpecification}.
-	 * <p>
-	 * {@link ExecutionSpecification} creation tools create 3 semantic elements in the same containment reference: the {@link ExecutionSpecification} itself plus the {@link OccurrenceSpecification} representing the start/finish of the execution. This checker
-	 * ensures that the containment reference contains these 3 elements.
-	 * <p>
-	 * Note that the checker doesn't perform any check on the additional elements created along the expected one. This is the responsibility of the creation service.
-	 * 
-	 * @author <a href="mailto:gwendal.daniel@obeosoft.com">Gwendal Daniel</a>
-	 */
-	private static class ExecutionSpecificationCreationChecker extends SemanticNodeCreationChecker {
-
-		/**
-		 * Constructor.
-		 *
-		 * @param expectedOwner
-		 *            the owner of the created element
-		 * @param containmentFeature
-		 *            the feature containing the created element
-		 * @param expectedType
-		 *            the type of the created element
-		 */
-		public ExecutionSpecificationCreationChecker(final EObject expectedOwner, EReference containmentFeature, Class<? extends Element> expectedType) {
-			super(expectedOwner, containmentFeature, expectedType);
-		}
-
-		/**
-		 * 
-		 * @see org.eclipse.papyrus.sirius.junit.utils.diagram.creation.semantic.checker.AbstractSemanticNodeCreationChecker#getNumberOfExpectedCreatedElement()
-		 *
-		 * @return {@code 3}
-		 */
-		@Override
-		protected int getNumberOfExpectedCreatedElement() {
-			return 3;
-		}
-	}
-
-
 }

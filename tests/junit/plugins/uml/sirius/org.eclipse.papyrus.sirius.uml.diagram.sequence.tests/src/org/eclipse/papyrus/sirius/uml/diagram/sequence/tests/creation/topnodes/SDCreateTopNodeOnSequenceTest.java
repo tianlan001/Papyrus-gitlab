@@ -24,9 +24,7 @@ import org.eclipse.papyrus.junit.utils.rules.ActiveDiagram;
 import org.eclipse.papyrus.junit.utils.rules.PluginResource;
 import org.eclipse.papyrus.sirius.junit.util.diagram.AbstractCreateTopNodeOnDiagramTests;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.checker.SemanticAndGraphicalCreationChecker;
-import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.AbstractGraphicalNodeCreationChecker;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.DNodeCreationChecker;
-import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.IGraphicalRepresentationElementCreationChecker;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.semantic.checker.ISemanticRepresentationElementCreationChecker;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.semantic.checker.SemanticNodeCreationChecker;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.tests.CreationToolsIds;
@@ -88,14 +86,12 @@ public class SDCreateTopNodeOnSequenceTest extends AbstractCreateTopNodeOnDiagra
 	public void createTopNodeTest() {
 		final Diagram diagram = getDiagram();
 		final ISemanticRepresentationElementCreationChecker semanticChecker = new SemanticNodeCreationChecker(((org.eclipse.uml2.uml.Package) getSemanticOwner()).getPackagedElements().get(0), this.containmentFeature, this.expectedType);
-		IGraphicalRepresentationElementCreationChecker graphicalNodeCreationChecker;
+		DNodeCreationChecker graphicalNodeCreationChecker = new DNodeCreationChecker(diagram, getTopGraphicalContainer(), nodeMappingType);
 		if (nodeMappingType.equals(MappingTypes.LIFELINE_NODE_TYPE)) {
 			/*
-			 * Lifeline tests require a custom graphical checker.
+			 * Lifeline tests require a custom graphical checker: when a Lifeline is created, the header and the line are created.
 			 */
-			graphicalNodeCreationChecker = new LifelineCreationChecker(diagram, getTopGraphicalContainer(), nodeMappingType);
-		} else {
-			graphicalNodeCreationChecker = new DNodeCreationChecker(diagram, getTopGraphicalContainer(), nodeMappingType);
+			graphicalNodeCreationChecker.setExpectedCreatedElements(2);
 		}
 		/*
 		 * isSynchronize = true because Sequence diagrams have to be synchronized.
@@ -111,41 +107,4 @@ public class SDCreateTopNodeOnSequenceTest extends AbstractCreateTopNodeOnDiagra
 				}
 		});
 	}
-
-	/**
-	 * A dedicated graphical checker for Lifeline creation.
-	 * <p>
-	 * Lifeline creation tools produce 2 graphical elements. This checker provides a custom implementation of {@link AbstractGraphicalNodeCreationChecker#getNumberOfExpectedCreatedElement()} to check that the 2 elements have been created.
-	 */
-	private static class LifelineCreationChecker extends DNodeCreationChecker {
-
-		/**
-		 * 
-		 * Constructor.
-		 *
-		 * @param diagram
-		 *            the GMF diagram
-		 * @param container
-		 *            the graphical parent of the element to create
-		 * @param nodeMappingType
-		 *            the mapping of the element to create
-		 */
-		public LifelineCreationChecker(final Diagram diagram, final EObject container, String nodeMappingType) {
-			super(diagram, container, nodeMappingType);
-		}
-
-		/**
-		 * @see org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.AbstractGraphicalNodeCreationChecker#getNumberOfExpectedCreatedElement()
-		 *
-		 * @return <code>2</code>
-		 */
-		@Override
-		protected int getNumberOfExpectedCreatedElement() {
-			return 2;
-		}
-
-
-
-	}
-
 }

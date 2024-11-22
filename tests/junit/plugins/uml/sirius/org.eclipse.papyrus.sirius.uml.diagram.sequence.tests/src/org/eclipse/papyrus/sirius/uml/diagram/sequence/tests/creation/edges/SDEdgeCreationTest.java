@@ -20,7 +20,6 @@ import java.util.Optional;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.papyrus.junit.utils.rules.ActiveDiagram;
 import org.eclipse.papyrus.junit.utils.rules.PluginResource;
 import org.eclipse.papyrus.sirius.junit.util.diagram.AbstractCreateEdgeTests;
@@ -38,7 +37,6 @@ import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.EdgeTarget;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
-import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -91,7 +89,7 @@ public class SDEdgeCreationTest extends AbstractCreateEdgeTests {
 	private DSemanticDecorator getSDLifelineExecution(String lifelineName) {
 		final DDiagram ddiagram = getDDiagram();
 
-		EObject owner = ((Interaction) root.getMembers().get(0)).getMember(lifelineName);
+		EObject owner = getMainInteraction().getMember(lifelineName);
 
 		// @formatter:off
 		Optional<DNode> optionalDSemanticDecorator = ddiagram.getOwnedDiagramElements().stream()
@@ -111,7 +109,7 @@ public class SDEdgeCreationTest extends AbstractCreateEdgeTests {
 	@Override
 	protected AbstractDNode getNodeFromContainer(String elementNameNode, String mappingTypeName, EObject graphicalContainer) {
 		if (elementNameNode.startsWith(ACTION_EXECUTION_SPECIFICATION)) {
-			EObject element = ((Interaction) this.root.getMembers().get(0)).getMember(elementNameNode);
+			EObject element = getMainInteraction().getMember(elementNameNode);
 			for (EObject dDiagramElement : GraphicalOwnerUtils.getChildren(graphicalContainer)) {
 				if (dDiagramElement instanceof AbstractDNode && mappingTypeName.equals(((AbstractDNode) dDiagramElement).getMapping().getName())) {
 					AbstractDNode abstractNode = (AbstractDNode) dDiagramElement;
@@ -139,20 +137,31 @@ public class SDEdgeCreationTest extends AbstractCreateEdgeTests {
 		return new Point(boundsFilter.getX().intValue() + (boundsFilter.getWidth().intValue() / 2), boundsFilter.getY().intValue() + (boundsFilter.getHeight().intValue() / 2));
 	}
 
-	@Test
-	@ActiveDiagram(DIAGRAM_NAME)
-	public void createMessageTest() {
-		testEdgeCreation(CreationToolsIds.CREATE_MESSAGE_SYNC_TOOL, UMLPackage.eINSTANCE.getInteraction_Message(), Message.class, this.root.getMembers().get(0), MappingTypes.MESSAGE_EDGE_TYPE);
+	private Interaction getMainInteraction() {
+		return (Interaction) root.getMembers().get(0);
 	}
 
-	private void testEdgeCreation(String toolId, EReference containmentFeature, Class<? extends Element> expectedType, EObject expectedOwner, String expectedEdgeMappingType) {
-		this.setSemanticSource(this.root.getMember(sourceName));
-		this.setSemanticTarget(this.root.getMember(targetName));
+	@Test
+	@ActiveDiagram(DIAGRAM_NAME)
+	public void createSyncMessageTest() {
+		SemanticEdgeCreationChecker semanticChecker = new SemanticEdgeCreationChecker(getMainInteraction(), UMLPackage.eINSTANCE.getInteraction_Message(), Message.class);
+		DEdgeCreationChecker graphicalChecker = new DEdgeCreationChecker(getDiagram(), getDDiagram(), MappingTypes.getMappingType(Message.class.getSimpleName()));
+
+		// TODO: Adapt the following values depending the development of "Message" concepts.
+		// The following lines are commented to keep the test as "failure" and avoid forgetting to adapt this test.
+
+		// graphicalChecker.setExpectedAdditionalChildren(3); // From the representation, an Edge and 2 ObservationPoints will be created
+		// graphicalChecker.setExpectedAdditionalEdges(1); // One Edge will be created when applying the tool "CreateMessageSyncTool"
+		// graphicalChecker.setExpectedCreatedElements(3); // An Edge and 2 ObservationPoints will be created
+		testEdgeCreation(CreationToolsIds.CREATE_MESSAGE_SYNC_TOOL, semanticChecker, graphicalChecker);
+	}
+
+	private void testEdgeCreation(String toolId, ISemanticRepresentationElementCreationChecker semanticChecker, IGraphicalRepresentationElementCreationChecker graphicalChecker) {
+		this.setSemanticSource(getMainInteraction().getMember(sourceName));
+		this.setSemanticTarget(getMainInteraction().getMember(targetName));
 		this.setEdgeSource(getNodeFromContainer(sourceName, mappingSourceTypeName, this.getSDLifelineExecution(LIFELINE_1)));
 		this.setEdgeTarget(getNodeFromContainer(targetName, mappingTargetTypeName, this.getSDLifelineExecution(LIFELINE_2)));
-		final ISemanticRepresentationElementCreationChecker semanticChecker = new SemanticEdgeCreationChecker(expectedOwner, containmentFeature, expectedType);
-		final IGraphicalRepresentationElementCreationChecker graphicalEdgeCreationChecker = new DEdgeCreationChecker(getDiagram(), getDDiagram(), expectedEdgeMappingType);
-		createEdge(toolId, new SemanticAndGraphicalCreationChecker(semanticChecker, graphicalEdgeCreationChecker), true);
+		createEdge(toolId, new SemanticAndGraphicalCreationChecker(semanticChecker, graphicalChecker), true);
 	}
 
 	@Parameters(name = "{index} create edge between {0} and {1}")
@@ -166,5 +175,4 @@ public class SDEdgeCreationTest extends AbstractCreateEdgeTests {
 		}
 		return data;
 	}
-
 }

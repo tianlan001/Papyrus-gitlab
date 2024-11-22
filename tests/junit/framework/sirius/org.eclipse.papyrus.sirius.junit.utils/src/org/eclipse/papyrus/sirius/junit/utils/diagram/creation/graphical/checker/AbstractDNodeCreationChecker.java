@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright (c) 2022, 2023 CEA LIST
+ * Copyright (c) 2022, 2024 CEA LIST
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
@@ -54,12 +54,12 @@ public abstract class AbstractDNodeCreationChecker extends AbstractGraphicalNode
 	}
 
 	@Override
-	protected int getNumberOfExpectedCreatedElement() {
+	public int getNumberOfExpectedCreatedElement() {
 		// 1 node with the synchronized border nodes
 		Integer nbSynchronizedBorderNodes = Optional.ofNullable(this.getSynchronizedBorderNodes())
 				.map(List::size)
 				.orElse(Integer.valueOf(0));
-		return 1 + nbSynchronizedBorderNodes.intValue();
+		return super.getNumberOfExpectedCreatedElement() + nbSynchronizedBorderNodes.intValue();
 	}
 
 	/**

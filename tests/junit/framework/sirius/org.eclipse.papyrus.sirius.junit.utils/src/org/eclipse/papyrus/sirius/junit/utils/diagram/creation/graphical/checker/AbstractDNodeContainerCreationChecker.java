@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright (c) 2022, 2023 CEA LIST, Obeo.
+ * Copyright (c) 2022, 2024 CEA LIST, Obeo.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
@@ -92,7 +92,7 @@ public abstract class AbstractDNodeContainerCreationChecker extends AbstractGrap
 	 */
 
 	@Override
-	protected int getNumberOfExpectedCreatedElement() {
+	public int getNumberOfExpectedCreatedElement() {
 		// 1 node with its compartments and its borderNodes
 		// Get BorderNodes number
 		Integer nbSynchronizedBorderNodes = Optional.ofNullable(this.getSynchronizedBorderNodes())//
@@ -104,7 +104,7 @@ public abstract class AbstractDNodeContainerCreationChecker extends AbstractGrap
 				.map(List::size)//
 				.orElse(Integer.valueOf(0));
 
-		return 1 + nbNodeCompartmentTypes.intValue() + nbSynchronizedBorderNodes.intValue();
+		return super.getNumberOfExpectedCreatedElement() + nbNodeCompartmentTypes.intValue() + nbSynchronizedBorderNodes.intValue();
 	}
 
 	/**

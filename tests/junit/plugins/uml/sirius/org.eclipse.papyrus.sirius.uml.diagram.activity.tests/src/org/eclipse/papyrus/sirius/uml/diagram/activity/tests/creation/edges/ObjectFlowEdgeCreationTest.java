@@ -207,7 +207,7 @@ public class ObjectFlowEdgeCreationTest extends AbstractCreateEdgeTests {
 		 * @return the number of elements created when an ObjectFlow is created on an OpaqueAction.
 		 */
 		@Override
-		protected int getNumberOfExpectedCreatedElement() {
+		public int getNumberOfExpectedCreatedElement() {
 			int createdElement = 1;
 			if (this.mappingSourceTypeName.equals(MappingTypes.OPAQUE_ACTION_NODE_TYPE)) {
 				createdElement++;

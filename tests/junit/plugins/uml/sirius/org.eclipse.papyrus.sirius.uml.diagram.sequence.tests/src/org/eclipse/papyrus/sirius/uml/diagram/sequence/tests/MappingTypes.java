@@ -20,9 +20,7 @@ package org.eclipse.papyrus.sirius.uml.diagram.sequence.tests;
  */
 public class MappingTypes {
 
-	private MappingTypes() {
-		// to prevent instantiation
-	}
+	private static final String SD_PREFIX = "SD_"; //$NON-NLS-1$
 
 	/*----------------------------------------------The Node mapping IDs----------------------------------------------*/
 
@@ -35,4 +33,19 @@ public class MappingTypes {
 	/*----------------------------------------------The Edge mapping IDs----------------------------------------------*/
 
 	public static final String MESSAGE_EDGE_TYPE = "SD_Message"; //$NON-NLS-1$
+
+	private MappingTypes() {
+		// to prevent instantiation
+	}
+
+	/**
+	 * Get the mapping type (container, node or edge) for the given element type name;
+	 *
+	 * @param elementTypeName
+	 *            the represented element type name.
+	 * @return the mapping id.
+	 */
+	public static final String getMappingType(String elementTypeName) {
+		return SD_PREFIX + elementTypeName;
+	}
 }

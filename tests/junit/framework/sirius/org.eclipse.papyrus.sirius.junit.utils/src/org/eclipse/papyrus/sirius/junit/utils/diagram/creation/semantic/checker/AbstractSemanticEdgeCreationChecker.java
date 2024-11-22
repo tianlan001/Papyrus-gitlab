@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright (c) 2023 CEA LIST, Obeo.
+ * Copyright (c) 2023, 2024 CEA LIST, Obeo.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
@@ -29,7 +29,12 @@ import org.junit.Assert;
 public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRepresentationElementCreationChecker {
 
 	/**
-	 * the semantic owner of the created element
+	 * By default, when executing a creation tool, only one semantic element is created.
+	 */
+	private static final int DEFAULT_CREATED_ELEMENTS_NUMBER = 1;
+
+	/**
+	 * The semantic owner of the created element
 	 */
 	protected final EObject semanticOwner;
 
@@ -40,6 +45,16 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 	 * The number of children in the owning feature before the creation
 	 */
 	protected final int nbChildren;
+
+	/**
+	 * The expected number of additional created elements in the {@code containmentFeature}.
+	 */
+	protected int expectedCreatedElements;
+
+	/**
+	 * The expected number of associated semantic elements.
+	 */
+	protected int expectedAssociatedElements;
 
 	/**
 	 * 
@@ -54,6 +69,9 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 		this.semanticOwner = expectedOwner;
 		this.containmentFeature = containmentFeature;
 		this.nbChildren = getContainmentFeatureValue().size();
+
+		this.expectedCreatedElements = DEFAULT_CREATED_ELEMENTS_NUMBER;
+		this.expectedAssociatedElements = DEFAULT_CREATED_ELEMENTS_NUMBER;
 	}
 
 	/**
@@ -64,7 +82,7 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 	@Override
 	public void validateRepresentationElement(DRepresentationElement createdElementRepresentation) {
 		final List<EObject> semanticElements = createdElementRepresentation.getSemanticElements();
-		Assert.assertEquals("The created edge representation must have 1 associated semantic element", 1, semanticElements.size()); //$NON-NLS-1$
+		Assert.assertEquals("The created edge representation must have 1 associated semantic element", getExpectedAssociatedElements(), semanticElements.size()); //$NON-NLS-1$
 
 		final EObject element = semanticElements.get(0);
 		validateSemanticElementInstance(element);
@@ -79,7 +97,7 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 	 */
 	protected void validateSemanticOwner(final EObject semanticElement) {
 		Assert.assertTrue("The semantic owner doesn't contains the created element.", getContainmentFeatureValue().contains(semanticElement)); //$NON-NLS-1$
-		Assert.assertEquals("The owner contains more than one additional element after the creation.", this.nbChildren + 1, getContainmentFeatureValue().size()); //$NON-NLS-1$
+		Assert.assertEquals("The owner contains more than one additional element after the creation.", this.nbChildren + this.getNumberOfExpectedCreatedElement(), getContainmentFeatureValue().size()); //$NON-NLS-1$
 	}
 
 	/**
@@ -90,6 +108,44 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 	 * 
 	 */
 	protected abstract void validateSemanticElementInstance(final EObject createdElement);
+
+	/**
+	 * Get the expected number of associated semantic elements.
+	 * 
+	 * @return the expected number of associated semantic elements.
+	 */
+	public int getExpectedAssociatedElements() {
+		return this.expectedAssociatedElements;
+	}
+
+	/**
+	 * Set the expected number of associated semantic elements.
+	 * 
+	 * @param expectedAssociatedElements
+	 *            the expected number of associated semantic elements.
+	 */
+	public void setExpectedAssociatedElements(int expectedAssociatedElements) {
+		this.expectedAssociatedElements = expectedAssociatedElements;
+	}
+
+	/**
+	 * Get the expected number of additional created elements in the checked {@code containmentFeature}.
+	 * 
+	 * @return the expected number of additional created elements in the checked {@code containmentFeature}.
+	 */
+	public int getNumberOfExpectedCreatedElement() {
+		return this.expectedCreatedElements;
+	}
+
+	/**
+	 * Set the expected number of additional created elements in the checked {@code containmentFeature}.
+	 * 
+	 * @param expectedElements
+	 *            the expected number of additional created elements in the checked {@code containmentFeature}.
+	 */
+	public void setExpectedCreatedElements(int expectedElements) {
+		this.expectedCreatedElements = expectedElements;
+	}
 
 	/**
 	 * @see org.eclipse.papyrus.sirius.junit.utils.diagram.creation.semantic.checker.ISemanticRepresentationElementChecker#validateAfterUndo()
@@ -106,7 +162,7 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 	 */
 	@Override
 	public void validateAfterRedo() {
-		Assert.assertEquals("The owner contains more than one additional element after the redo.", this.nbChildren + 1, getContainmentFeatureValue().size()); //$NON-NLS-1$
+		Assert.assertEquals("The owner contains more than one additional element after the redo.", this.nbChildren + this.getNumberOfExpectedCreatedElement(), getContainmentFeatureValue().size()); //$NON-NLS-1$
 	}
 
 	/**
