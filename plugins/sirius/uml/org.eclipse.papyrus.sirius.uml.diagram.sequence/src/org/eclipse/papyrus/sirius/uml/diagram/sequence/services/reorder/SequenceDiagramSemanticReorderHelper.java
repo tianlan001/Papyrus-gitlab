@@ -14,11 +14,9 @@
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramOrderServices;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
@@ -80,9 +78,9 @@ public class SequenceDiagramSemanticReorderHelper {
 	 * @return the information required to perform the semantic reordering
 	 */
 	public Reordering createSemanticReorderEntry(InteractionFragment semanticElement, EAnnotation newEndPredecessor, List<EAnnotation> endsOrdering) {
-		Element newOwner = this.findNewOwner(semanticElement, newEndPredecessor, endsOrdering);
-		EReference newContainmentReference = this.findInteractionFragmentContainmentReference(newOwner);
-		InteractionFragment newSemanticPredecessor = this.findNewSemanticPredecessor(newOwner, newEndPredecessor, endsOrdering);
+		Element newOwner = findNewOwner(semanticElement, newEndPredecessor, endsOrdering);
+		EReference newContainmentReference = findInteractionFragmentContainmentReference(newOwner);
+		InteractionFragment newSemanticPredecessor = findNewSemanticPredecessor(newOwner, newEndPredecessor, endsOrdering);
 		return new Reordering(semanticElement, newOwner, newContainmentReference, newSemanticPredecessor);
 	}
 
@@ -109,38 +107,28 @@ public class SequenceDiagramSemanticReorderHelper {
 
 
 	/**
-	 * Moves the provided {@code lifeline} after {@code predecessor} in {@code container}.
+	 * Moves the provided {@code lifeline} after {@code predecessor} in its container.
 	 * <p>
-	 * The lifeline is placed first if {@code predecessor} is {@code null}.
+	 * If {@code predecessor} is {@code null}, the lifeline is placed first.
 	 * </p>
 	 *
-	 * @param container
-	 *            the element containing the lifeline
 	 * @param lifeline
 	 *            the lifeline to move
 	 * @param predecessor
-	 *            the element preceding the lifeline in the container
+	 *            the element preceding new position in the container
 	 */
-	public void reorderLifeline(Element container, EObject lifeline, EObject predecessor) {
-		Objects.requireNonNull(container);
-		Objects.requireNonNull(lifeline);
-		if (container instanceof Interaction) {
-			final Interaction interaction = (Interaction) container;
-			final EList<Lifeline> lifelines = interaction.getLifelines();
-			if (predecessor == null) {
-				lifelines.move(0, (Lifeline) lifeline);
-			} else {
-				int lifelinePosition = lifelines.indexOf(lifeline);
-				int predecessorPosition = lifelines.indexOf(predecessor);
-				if (lifelinePosition > predecessorPosition) {
-					// Move right to left
-					lifelines.move(predecessorPosition + 1, (Lifeline) lifeline);
-				} else {
-					// Move left to right
-					lifelines.move(predecessorPosition, (Lifeline) lifeline);
-				}
+	public void reorderLifeline(Lifeline lifeline, Lifeline predecessor) {
+		final EList<Lifeline> lifelines = lifeline.getInteraction().getLifelines();
+		int newPosition = 0; // First place by default.
+		if (predecessor != null) {
+			newPosition = lifelines.indexOf(predecessor) + 1;
+			int currentPosition = lifelines.indexOf(lifeline);
+			if (currentPosition < newPosition) {
+				// Moving from left side, predecessor will shift -1.
+				newPosition -= 1;
 			}
 		}
+		lifelines.move(newPosition, lifeline);
 	}
 
 	/**
@@ -164,20 +152,20 @@ public class SequenceDiagramSemanticReorderHelper {
 	 * @return the semantic owner of the element
 	 */
 	private Element findNewOwner(InteractionFragment semanticElement, EAnnotation newEndPredecessor, List<EAnnotation> endsOrdering) {
-		Element result = this.umlHelper.getOwningInteraction(semanticElement);
+		Element result = umlHelper.getOwningInteraction(semanticElement);
 		Element baseElement = umlHelper.getBaseElement(semanticElement);
 
-		int semanticElementFinishingEnd = endsOrdering.indexOf(this.orderService.getFinishingEnd(baseElement));
+		int semanticElementFinishingEnd = endsOrdering.indexOf(orderService.getFinishingEnd(baseElement));
 		int newEndPredecessorIndex = endsOrdering.indexOf(newEndPredecessor);
 		for (int i = newEndPredecessorIndex; i >= 0; i--) {
 			EAnnotation end = endsOrdering.get(i);
 
-			if (orderService.getEndOwner(end) != baseElement && this.orderService.isStartingEnd(end)) {
+			if (orderService.getEndOwner(end) != baseElement && orderService.isStartingEnd(end)) {
 				// Discard other ends of the same semantic element (e.g. we are reordering an execution finish and we found
 				// its start. The semantic element cannot be its new owner.
 				InteractionFragment semanticEnd = orderService.getEndFragment(end);
-				if (endsOrdering.indexOf(this.orderService.getFinishingEnd(this.umlHelper.getBaseElement(semanticEnd))) >= semanticElementFinishingEnd
-						&& this.findInteractionFragmentContainmentReference(semanticEnd) != null) {
+				if (endsOrdering.indexOf(orderService.getFinishingEnd(umlHelper.getBaseElement(semanticEnd))) >= semanticElementFinishingEnd
+						&& findInteractionFragmentContainmentReference(semanticEnd) != null) {
 					// We found a start annotation, we check that the associated finish annotation is after the finishing
 					// end of the semantic element we are moving. If it is not, this means that the element is entirely before
 					// the semantic element, and it cannot contain it. This is for example the case when moving an execution
@@ -185,7 +173,7 @@ public class SequenceDiagramSemanticReorderHelper {
 					// its owner.
 					// The semanticEnd can contain the element, it is the closest owner if it covers all the lifelines
 					// of the semanticElement.
-					if (this.umlHelper.isCoveringASubsetOf(semanticElement, semanticEnd)) {
+					if (umlHelper.isCoveringASubsetOf(semanticElement, semanticEnd)) {
 						result = semanticEnd;
 						break;
 					}
@@ -237,13 +225,13 @@ public class SequenceDiagramSemanticReorderHelper {
 	 * @return the semantic predecessor
 	 */
 	private InteractionFragment findNewSemanticPredecessor(Element newOwner, EAnnotation newEndPredecessor, List<EAnnotation> endsOrdering) {
-		EReference containmentReference = this.findInteractionFragmentContainmentReference(newOwner);
+		EReference containmentReference = findInteractionFragmentContainmentReference(newOwner);
 		List<?> newOwnerFragments = (List<?>) newOwner.eGet(containmentReference);
 		InteractionFragment result = null;
 		for (int i = endsOrdering.indexOf(newEndPredecessor); i >= 0; i--) {
 			EAnnotation end = endsOrdering.get(i);
 			InteractionFragment endFragment = orderService.getEndFragment(end);
-			if (this.orderService.isStartingEnd(end) && endFragment instanceof ExecutionOccurrenceSpecification) {
+			if (orderService.isStartingEnd(end) && endFragment instanceof ExecutionOccurrenceSpecification) {
 				endFragment = (InteractionFragment) orderService.getEndBaseElement(end);
 			}
 			if (newOwnerFragments.contains(endFragment)) {
@@ -292,7 +280,7 @@ public class SequenceDiagramSemanticReorderHelper {
 	 */
 	private void removeInteractionFragment(InteractionFragment fragment) {
 		Element owner = fragment.getOwner();
-		EReference containmentReference = this.findInteractionFragmentContainmentReference(owner);
+		EReference containmentReference = findInteractionFragmentContainmentReference(owner);
 		List<?> containment = (List<?>) owner.eGet(containmentReference);
 		containment.remove(fragment);
 		if (fragment instanceof ExecutionOccurrenceSpecification exeOccurence

@@ -147,10 +147,10 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the element preceding the lifeline to create (i.e. on the left)
 	 * @return the created {@link Lifeline}
 	 */
-	public EObject createLifeline(Element parent, DSemanticDecorator parentView, EObject predecessor) {
+	public Lifeline createLifeline(Interaction parent, DSemanticDecorator parentView, Lifeline predecessor) {
 		CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
-		EObject result = commonDiagramServices.createElement(parent, UML.getLifeline().getName(), UML.getInteraction_Lifeline().getName(), parentView);
-		reorderHelper.reorderLifeline(parent, result, predecessor);
+		Lifeline result = (Lifeline) commonDiagramServices.createElement(parent, UML.getLifeline().getName(), UML.getInteraction_Lifeline().getName(), parentView);
+		reorderHelper.reorderLifeline(result, predecessor);
 		return result;
 	}
 
@@ -277,6 +277,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 
 	private ExecutionOccurrenceSpecification initializeExecutionEvent(ExecutionSpecification execution, EReference eventReference) {
 		ExecutionOccurrenceSpecification result = UML.getUMLFactory().createExecutionOccurrenceSpecification();
+		execution.getEnclosingInteraction().getFragments().add(result);
 		result.setName(execution.getName() + eventReference.getName());
 		result.setExecution(execution);
 		execution.eSet(eventReference, result);
@@ -632,7 +633,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 		final EAnnotation startPrevious = getSemanticEnd(startingPreviousEnd);
 		final EAnnotation finishPrevious = getSemanticEnd(finishPreviousEnd);
 		new SequenceDiagramReorderElementSwitch(startPrevious, finishPrevious)
-		.doSwitch(element);
+				.doSwitch(element);
 		return element;
 	}
 
@@ -649,8 +650,8 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * @param predecessor
 	 *            the element preceding the lifeline in the container
 	 */
-	public void updateLifelineOrder(Element container, EObject lifeline, EObject predecessor) {
-		reorderHelper.reorderLifeline(container, lifeline, predecessor);
+	public void updateLifelineOrder(Interaction container, Lifeline lifeline, Lifeline predecessor) {
+		reorderHelper.reorderLifeline(lifeline, predecessor);
 	}
 
 	/**
