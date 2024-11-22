@@ -29,7 +29,6 @@ import org.eclipse.gef.tools.TargetingTool;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditDomain;
 import org.eclipse.papyrus.sirius.uml.diagram.common.core.services.AbstractDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.DeleteServices;
@@ -51,7 +50,6 @@ import org.eclipse.sirius.diagram.sequence.description.ObservationPointMapping;
 import org.eclipse.sirius.diagram.sequence.ordering.EventEnd;
 import org.eclipse.sirius.diagram.ui.business.api.view.SiriusGMFHelper;
 import org.eclipse.sirius.ext.gmf.runtime.editparts.GraphicalHelper;
-import org.eclipse.sirius.ui.business.api.dialect.DialectEditor;
 import org.eclipse.sirius.ui.business.api.session.IEditingSession;
 import org.eclipse.sirius.ui.business.api.session.SessionUIManager;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
@@ -62,6 +60,7 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
+import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Lifeline;
@@ -133,6 +132,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 */
 	private final SequenceDiagramUMLHelper umlHelper = new SequenceDiagramUMLHelper();
 
+
 	/**
 	 * Creates a semantic {@link Lifeline} in the provided {@code parent}.
 	 * <p>
@@ -148,7 +148,6 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * @return the created {@link Lifeline}
 	 */
 	public EObject createLifeline(Element parent, DSemanticDecorator parentView, EObject predecessor) {
-		Objects.requireNonNull(parent);
 		CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
 		EObject result = commonDiagramServices.createElement(parent, UML.getLifeline().getName(), UML.getInteraction_Lifeline().getName(), parentView);
 		reorderHelper.reorderLifeline(parent, result, predecessor);
@@ -200,9 +199,9 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the graphical predecessor of the message's finishing end
 	 * @return the initialized {@link Message}
 	 */
-	public EObject initializeMessage(Message message, MessageSort type, MessageOccurrenceSpecification sendEvent, MessageOccurrenceSpecification receiveEvent, NamedElement source,
+	public Message initializeMessage(Message message, MessageSort type, MessageOccurrenceSpecification sendEvent, MessageOccurrenceSpecification receiveEvent, NamedElement source,
 			NamedElement target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
-		this.setDefaultName(message);
+		setDefaultName(message);
 		message.setMessageSort(type);
 		initializeMessageEvent(message, sendEvent, UML.getMessage_SendEvent(), source);
 		initializeMessageEvent(message, receiveEvent, UML.getMessage_ReceiveEvent(), target);
@@ -261,12 +260,12 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the semantic parent of the {@link ActionExecutionSpecification}
 	 * @return the initialized {@link ExecutionSpecification}
 	 */
-	public EObject initializeExecutionSpecification(ExecutionSpecification execution, ExecutionOccurrenceSpecification start, ExecutionOccurrenceSpecification finish, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, NamedElement parent) {
+	public ExecutionSpecification initializeExecutionSpecification(ExecutionSpecification execution, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, NamedElement parent) {
 		setDefaultName(execution);
 		execution.getCovereds().add(umlHelper.getCoveredLifeline(parent));
 
-		initializeExecutionEvent(execution, start, UML.getExecutionSpecification_Start());
-		initializeExecutionEvent(execution, finish, UML.getExecutionSpecification_Finish());
+		initializeExecutionEvent(execution, UML.getExecutionSpecification_Start());
+		initializeExecutionEvent(execution, UML.getExecutionSpecification_Finish());
 
 		orderService.createStartingEnd(execution);
 		orderService.createFinishingEnd(execution);
@@ -276,12 +275,14 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 		return execution;
 	}
 
-	private ExecutionOccurrenceSpecification initializeExecutionEvent(ExecutionSpecification execution, ExecutionOccurrenceSpecification occurence, EReference eventReference) {
-		occurence.setName(execution.getName() + eventReference.getName());
-		occurence.setExecution(execution);
-		execution.eSet(eventReference, occurence);
-		occurence.getCovereds().add(execution.getCovereds().get(0));
-		return occurence;
+	private ExecutionOccurrenceSpecification initializeExecutionEvent(ExecutionSpecification execution, EReference eventReference) {
+		ExecutionOccurrenceSpecification result = UML.getUMLFactory().createExecutionOccurrenceSpecification();
+		result.setName(execution.getName() + eventReference.getName());
+		result.setExecution(execution);
+		execution.eSet(eventReference, result);
+		Lifeline owner = execution.getCovereds().get(0);
+		result.getCovereds().add(owner);
+		return result;
 	}
 
 	/**
@@ -304,11 +305,11 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the {@link Lifeline}s covered by the {@link InteractionUse} to create
 	 * @return the initialized {@link InteractionUse}
 	 */
-	public EObject initializeInteractionUse(InteractionUse interactionUse, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, List<Lifeline> coveredLifelines) {
-		this.setDefaultName(interactionUse);
+	public InteractionUse initializeInteractionUse(InteractionUse interactionUse, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, List<Lifeline> coveredLifelines) {
+		setDefaultName(interactionUse);
 		interactionUse.getCovereds().addAll(coveredLifelines);
-		this.orderService.createStartingEnd(interactionUse);
-		this.orderService.createFinishingEnd(interactionUse);
+		orderService.createStartingEnd(interactionUse);
+		orderService.createFinishingEnd(interactionUse);
 		return updateElementOrderWithEvents(interactionUse, startingEndPredecessor, finishingEndPredecessor);
 	}
 
@@ -333,17 +334,16 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the {@link Lifeline}s covered by the {@link CombinedFragment} to create
 	 * @return the initialized {@link CombinedFragment}
 	 */
-	public EObject initializeCombinedFragment(CombinedFragment combinedFragment, InteractionOperand operand, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, List<Lifeline> coveredLifelines) {
-		this.setDefaultName(combinedFragment);
-		this.setDefaultName(operand);
-		operand.createGuard("guard"); //$NON-NLS-1$
-		this.orderService.createStartingEnd(combinedFragment);
+	public CombinedFragment initializeCombinedFragment(CombinedFragment combinedFragment, InteractionOperand operand, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, List<Lifeline> coveredLifelines) {
+		setDefaultName(combinedFragment);
+		orderService.createStartingEnd(combinedFragment);
 		combinedFragment.getCovereds().addAll(coveredLifelines);
-		operand.getCovereds().addAll(coveredLifelines);
-		this.orderService.createStartingEnd(operand);
+
+		initializeOperandContent(operand, combinedFragment);
+
 		// There is no end annotation for InteractionOperand. It is defined by either its containing combined fragment
 		// end, or the start of the next InteractionOperand in the CombinedFragment.
-		this.orderService.createFinishingEnd(combinedFragment);
+		orderService.createFinishingEnd(combinedFragment);
 
 		return updateElementOrderWithEvents(combinedFragment, startingEndPredecessor, finishingEndPredecessor);
 	}
@@ -370,15 +370,16 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the semantic parent of the {@link InteractionOperand}
 	 * @return the initialized {@link InteractionOperand}
 	 */
-	public EObject initializeInteractionOperand(InteractionOperand operand, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, Element parent) {
-		if (parent instanceof CombinedFragment combinedFragment) {
-			this.setDefaultName(operand);
-			operand.createGuard("guard"); //$NON-NLS-1$
-			operand.getCovereds().addAll(combinedFragment.getCovereds());
-			this.orderService.createStartingEnd(operand);
+	public InteractionOperand initializeInteractionOperand(InteractionOperand operand, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, CombinedFragment parent) {
+		initializeOperandContent(operand, parent);
+		return updateElementOrderWithEvents(operand, startingEndPredecessor, finishingEndPredecessor);
+	}
 
-			updateElementOrderWithEvents(operand, startingEndPredecessor, finishingEndPredecessor);
-		}
+	private InteractionOperand initializeOperandContent(InteractionOperand operand, CombinedFragment parent) {
+		setDefaultName(operand);
+		operand.createGuard("guard"); //$NON-NLS-1$
+		operand.getCovereds().addAll(parent.getCovereds());
+		orderService.createStartingEnd(operand);
 		return operand;
 	}
 
@@ -419,8 +420,8 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	public boolean canCreateTimeObservation(Element parent) {
 		boolean result = false;
 		if (parent instanceof ExecutionSpecification || parent instanceof Message) {
-			result = this.umlHelper.getTimeObservationFromEvent(this.umlHelper.getSemanticStart(parent)).isEmpty()
-					|| this.umlHelper.getTimeObservationFromEvent(this.umlHelper.getSemanticFinish(parent)).isEmpty();
+			result = umlHelper.getTimeObservationFromEvent(umlHelper.getSemanticStart(parent)).isEmpty()
+					|| umlHelper.getTimeObservationFromEvent(umlHelper.getSemanticFinish(parent)).isEmpty();
 		}
 		return result;
 	}
@@ -438,26 +439,35 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * @see #canCreateTimeObservation(Element)
 	 */
 	public EObject createTimeObservation(Element parent, DSemanticDecorator parentView, DDiagram diagram) {
-		List<TimeObservation> startTimeObservations = this.umlHelper.getTimeObservationFromEvent(this.umlHelper.getSemanticStart(parent));
-		List<TimeObservation> finishTimeObservations = this.umlHelper.getTimeObservationFromEvent(this.umlHelper.getSemanticFinish(parent));
-		TimeObservation result = null;
+		InteractionFragment start = umlHelper.getSemanticStart(parent);
+		InteractionFragment finish = umlHelper.getSemanticFinish(parent);
+
+		List<TimeObservation> startTimeObservations = umlHelper.getTimeObservationFromEvent(start);
+		List<TimeObservation> finishTimeObservations = umlHelper.getTimeObservationFromEvent(finish);
+
 		// Check which side of the element has been clicked, and try to create a TimeObservation on the
 		// corresponding end. If there is already a TimeObservation on it, try to add it on the other side.
 		// Do nothing if the element already has the maximum number of TimeObservations attached to it.
+
+		Element event = null;
 		if (isActiveCreationToolInvokedOnStartSide(parent, parentView, diagram)) {
 			if (startTimeObservations.isEmpty()) {
-				result = this.createTimeObservationWithEvent(this.umlHelper.getSemanticStart(parent), parentView);
+				event = start;
 			} else if (finishTimeObservations.isEmpty()) {
-				result = this.createTimeObservationWithEvent(this.umlHelper.getSemanticFinish(parent), parentView);
+				event = finish;
 			}
-		} else {
+		} else // on finish side
 			if (finishTimeObservations.isEmpty()) {
-				result = this.createTimeObservationWithEvent(this.umlHelper.getSemanticFinish(parent), parentView);
+				event = finish;
 			} else if (startTimeObservations.isEmpty()) {
-				result = this.createTimeObservationWithEvent(this.umlHelper.getSemanticStart(parent), parentView);
+				event = start;
 			}
+
+		if (event == null) { // already created.
+			return null;
 		}
-		return result;
+
+		return createTimeObservationWithEvent(event, parentView);
 	}
 
 	/**
@@ -492,22 +502,21 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 		// This method relies on internal APIs to access the range of the elements on the diagram. This should be
 		// handled internally by Sirius and exposed as tool variables.
 		boolean result = true;
-		Optional<Point> optClickLocation = this.getActiveCreationToolClickLocation(diagram);
-		if (optClickLocation.isPresent()) {
+		Optional<Point> optClickLocation = getActiveCreationToolClickLocation(diagram);
+		if (optClickLocation.isPresent() && parentView instanceof DDiagramElement diagramElementParentView) {
 			Point clickLocation = optClickLocation.get();
-			if (parentView instanceof DDiagramElement diagramElementParentView) {
-				@SuppressWarnings({ "deprecation", "removal" })
-				ISequenceEvent sequenceEvent = ISequenceElementAccessor.getISequenceEvent(SiriusGMFHelper.getGmfView(diagramElementParentView)).get();
-				if (diagramElementParentView instanceof DNode && parent instanceof ExecutionSpecification) {
-					Range verticalRange = sequenceEvent.getVerticalRange();
-					result = clickLocation.y() <= ((verticalRange.getLowerBound() + verticalRange.getUpperBound()) / 2);
-				} else if (diagramElementParentView instanceof DEdge) {
-					Rectangle logicalBounds = sequenceEvent.getProperLogicalBounds();
-					if (logicalBounds.width() > 0) {
-						result = clickLocation.x() <= (logicalBounds.x() + logicalBounds.width() / 2);
-					} else {
-						result = clickLocation.x() >= (logicalBounds.x() + logicalBounds.width() / 2);
-					}
+
+			@SuppressWarnings({ "deprecation", "removal" })
+			ISequenceEvent sequenceEvent = ISequenceElementAccessor.getISequenceEvent(SiriusGMFHelper.getGmfView(diagramElementParentView)).get();
+			if (diagramElementParentView instanceof DNode && parent instanceof ExecutionSpecification) {
+				Range verticalRange = sequenceEvent.getVerticalRange();
+				result = clickLocation.y() <= ((verticalRange.getLowerBound() + verticalRange.getUpperBound()) / 2);
+			} else if (diagramElementParentView instanceof DEdge) {
+				Rectangle logicalBounds = sequenceEvent.getProperLogicalBounds();
+				if (logicalBounds.width() > 0) {
+					result = clickLocation.x() <= (logicalBounds.x() + logicalBounds.width() / 2);
+				} else {
+					result = clickLocation.x() >= (logicalBounds.x() + logicalBounds.width() / 2);
 				}
 			}
 		}
@@ -530,23 +539,20 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 		// This method relies on reflection and internal APIs to access the click location of the active tool.
 		// This should be handled internally by Sirius: the location should be available in the tool's variables.
 		Optional<Point> result = Optional.empty();
-		Session session = Session.of(diagram).orElse(null);
-		IEditingSession uiSession = SessionUIManager.INSTANCE.getUISession(session);
-		DialectEditor dialectEditor = uiSession.getEditor(diagram);
-		if (dialectEditor instanceof DiagramEditor diagramEditor) {
-			IDiagramEditDomain iDiagramEditDomain = diagramEditor.getDiagramEditDomain();
-			if (iDiagramEditDomain instanceof DiagramEditDomain diagramEditDomain) {
-				if (diagramEditDomain.getActiveTool() instanceof TargetingTool targetingTool) {
-					if (ReflectionHelper.getFieldValueWithoutException(targetingTool, "targetRequest").orElse(null) instanceof CreateRequest createRequest //$NON-NLS-1$
-							&& ReflectionHelper.getFieldValueWithoutException(targetingTool, "targetEditPart").orElse(null) instanceof EditPart editPart) { //$NON-NLS-1$
-						// Create a copy: we don't want to change the location when computing the logical point.
-						Point clickLocation = createRequest.getLocation().getCopy();
-						GraphicalHelper.screen2logical(clickLocation, (IGraphicalEditPart) editPart);
-						result = Optional.of(clickLocation);
-					}
-				}
+
+		IEditingSession uiSession = SessionUIManager.INSTANCE.getUISession(Session.of(diagram).get());
+		if (uiSession.getEditor(diagram) instanceof DiagramEditor editor
+				&& editor.getDiagramEditDomain() instanceof DiagramEditDomain editDomain
+				&& editDomain.getActiveTool() instanceof TargetingTool tool) {
+			if (ReflectionHelper.getFieldValueWithoutException(tool, "targetRequest").orElse(null) instanceof CreateRequest createRequest //$NON-NLS-1$
+					&& ReflectionHelper.getFieldValueWithoutException(tool, "targetEditPart").orElse(null) instanceof EditPart editPart) { //$NON-NLS-1$
+				// Create a copy: we don't want to change the location when computing the logical point.
+				Point clickLocation = createRequest.getLocation().getCopy();
+				GraphicalHelper.screen2logical(clickLocation, (IGraphicalEditPart) editPart);
+				result = Optional.of(clickLocation);
 			}
 		}
+
 		return result;
 	}
 
@@ -615,17 +621,17 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *
 	 * @param element
 	 *            the element to move
-	 * @param startingEndPredecessor
+	 * @param startingPreviousEnd
 	 *            the predecessor of the fragment's starting end
-	 * @param finishingEndPredecessor
+	 * @param finishPreviousEnd
 	 *            the predecessor of the fragment's finishing end
 	 *
 	 * @see SequenceDiagramReorderElementSwitch
 	 */
-	public <T extends Element> T updateElementOrderWithEvents(T element, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
-		final EAnnotation semanticStartingEndPredecessor = getSemanticEnd(startingEndPredecessor);
-		final EAnnotation semanticFinishingEndPredecessor = getSemanticEnd(finishingEndPredecessor);
-		new SequenceDiagramReorderElementSwitch(semanticStartingEndPredecessor, semanticFinishingEndPredecessor)
+	public <T extends Element> T updateElementOrderWithEvents(T element, EventEnd startingPreviousEnd, EventEnd finishPreviousEnd) {
+		final EAnnotation startPrevious = getSemanticEnd(startingPreviousEnd);
+		final EAnnotation finishPrevious = getSemanticEnd(finishPreviousEnd);
+		new SequenceDiagramReorderElementSwitch(startPrevious, finishPrevious)
 		.doSwitch(element);
 		return element;
 	}

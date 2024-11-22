@@ -124,10 +124,8 @@
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.getOwningInteraction()">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newStartExecutionOccurrenceSpecification"/>
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ActionExecutionSpecification" referenceName="fragment" variableName="newActionExecutionSpecification"/>
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newFinishExecutionOccurrenceSpecification"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newActionExecutionSpecification.initializeExecutionSpecification(newStartExecutionOccurrenceSpecification, newFinishExecutionOccurrenceSpecification, startingEndPredecessor, finishingEndPredecessor, container)"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ActionExecutionSpecification" referenceName="fragment" variableName="newElement"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newElement.initializeExecutionSpecification(startingEndPredecessor, finishingEndPredecessor, container)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
@@ -138,10 +136,8 @@
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.getOwningInteraction()">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newStartExecutionOccurrenceSpecification"/>
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::BehaviorExecutionSpecification" referenceName="fragment" variableName="newBehaviorExecutionSpecification"/>
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::ExecutionOccurrenceSpecification" referenceName="fragment" variableName="newFinishExecutionOccurrenceSpecification"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newBehaviorExecutionSpecification.initializeExecutionSpecification(newStartExecutionOccurrenceSpecification, newFinishExecutionOccurrenceSpecification, startingEndPredecessor, finishingEndPredecessor, container)"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::BehaviorExecutionSpecification" referenceName="fragment" variableName="newElement"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newElement.initializeExecutionSpecification(startingEndPredecessor, finishingEndPredecessor, container)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
@@ -193,8 +189,8 @@
             <viewVariable name="viewVariable"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:variable.getOwningInteraction()">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::StateInvariant" referenceName="fragment" variableName="newStateInvariant"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newStateInvariant.initializeStateInvariant(startingEndPredecessor, finishingEndPredecessor, variable)"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::StateInvariant" referenceName="fragment" variableName="newElement"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newElement.initializeStateInvariant(startingEndPredecessor, finishingEndPredecessor, variable)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>

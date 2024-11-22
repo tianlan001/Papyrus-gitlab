@@ -115,7 +115,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		ExecutionSpecification executionSpecification1 = createExecutionSpecification(interaction, lifeline1);
 		ExecutionSpecification executionSpecification2 = createExecutionSpecification(interaction, lifeline1);
 		new SequenceDiagramReorderElementSwitch(this.orderService.getFinishingEnd(executionSpecification2), this.orderService.getStartingEnd(executionSpecification1))
-		.doSwitch(executionSpecification1);
+				.doSwitch(executionSpecification1);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(executionSpecification2),
 				this.orderService.getFinishingEnd(executionSpecification2),
@@ -139,7 +139,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		ExecutionSpecification executionSpecification2 = createExecutionSpecification(interaction, lifeline1);
 		ExecutionSpecification executionSpecification3 = createExecutionSpecification(interaction, lifeline1);
 		new SequenceDiagramReorderElementSwitch(this.orderService.getFinishingEnd(executionSpecification1), this.orderService.getStartingEnd(executionSpecification3))
-		.doSwitch(executionSpecification3);
+				.doSwitch(executionSpecification3);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(executionSpecification1),
 				this.orderService.getFinishingEnd(executionSpecification1),
@@ -165,7 +165,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		ExecutionSpecification executionSpecification = createExecutionSpecification(interaction, lifeline1);
 		assertEquals(1, combinedFragment.getOperands().size());
 		new SequenceDiagramReorderElementSwitch(this.orderService.getStartingEnd(combinedFragment.getOperands().get(0)), this.orderService.getStartingEnd(executionSpecification))
-		.doSwitch(executionSpecification);
+				.doSwitch(executionSpecification);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(combinedFragment),
 				this.orderService.getStartingEnd(combinedFragment.getOperands().get(0)),
@@ -184,7 +184,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		ExecutionSpecification executionSpecification1 = createExecutionSpecification(interaction, lifeline1);
 		Message message = createMessage(interaction, lifeline1, lifeline2);
 		new SequenceDiagramReorderElementSwitch(null, null)
-		.doSwitch(message);
+				.doSwitch(message);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(message),
 				this.orderService.getFinishingEnd(message),
@@ -203,7 +203,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		Message message = createMessage(interaction, lifeline1, lifeline2);
 		ExecutionSpecification executionSpecification = createExecutionSpecification(interaction, lifeline1);
 		new SequenceDiagramReorderElementSwitch(this.orderService.getFinishingEnd(executionSpecification), this.orderService.getStartingEnd(message))
-		.doSwitch(message);
+				.doSwitch(message);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(executionSpecification),
 				this.orderService.getFinishingEnd(executionSpecification),
@@ -223,7 +223,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		ExecutionSpecification executionSpecification2 = createExecutionSpecification(interaction, lifeline1);
 		Message message = createMessage(interaction, lifeline1, lifeline2);
 		new SequenceDiagramReorderElementSwitch(this.orderService.getFinishingEnd(executionSpecification1), this.orderService.getStartingEnd(message))
-		.doSwitch(message);
+				.doSwitch(message);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(executionSpecification1),
 				this.orderService.getFinishingEnd(executionSpecification1),
@@ -248,7 +248,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		ExecutionSpecification executionSpecification1 = createExecutionSpecification(interaction, lifeline1);
 		Message message = createMessage(interaction, lifeline1, lifeline2);
 		new SequenceDiagramReorderElementSwitch(this.orderService.getStartingEnd(executionSpecification1), this.orderService.getStartingEnd(message))
-		.doSwitch(message);
+				.doSwitch(message);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(executionSpecification1),
 				this.orderService.getStartingEnd(message),
@@ -268,7 +268,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		Message message = createMessage(interaction, lifeline1, lifeline2);
 		assertEquals(1, combinedFragment.getOperands().size());
 		new SequenceDiagramReorderElementSwitch(this.orderService.getStartingEnd(combinedFragment.getOperands().get(0)), this.orderService.getStartingEnd(message))
-		.doSwitch(message);
+				.doSwitch(message);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(combinedFragment),
 				this.orderService.getStartingEnd(combinedFragment.getOperands().get(0)),
@@ -286,7 +286,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		ExecutionSpecification executionSpecification = createExecutionSpecification(interaction, lifeline1);
 		CombinedFragment combinedFragment = createCombinedFragment(interaction, lifeline1);
 		new SequenceDiagramReorderElementSwitch(null, null)
-		.doSwitch(combinedFragment);
+				.doSwitch(combinedFragment);
 		assertEquals(1, combinedFragment.getOperands().size());
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(combinedFragment),
@@ -306,7 +306,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		CombinedFragment combinedFragment = createCombinedFragment(interaction, lifeline1);
 		ExecutionSpecification executionSpecification = createExecutionSpecification(interaction, lifeline1);
 		new SequenceDiagramReorderElementSwitch(this.orderService.getFinishingEnd(executionSpecification), this.orderService.getStartingEnd(combinedFragment))
-		.doSwitch(combinedFragment);
+				.doSwitch(combinedFragment);
 		assertEquals(1, combinedFragment.getOperands().size());
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(executionSpecification),
@@ -327,7 +327,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		ExecutionSpecification executionSpecification2 = createExecutionSpecification(interaction, lifeline1);
 		CombinedFragment combinedFragment = createCombinedFragment(interaction, lifeline1);
 		new SequenceDiagramReorderElementSwitch(this.orderService.getFinishingEnd(executionSpecification1), this.orderService.getStartingEnd(combinedFragment))
-		.doSwitch(combinedFragment);
+				.doSwitch(combinedFragment);
 		assertEquals(1, combinedFragment.getOperands().size());
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(executionSpecification1),
@@ -352,7 +352,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		ExecutionSpecification executionSpecification = createExecutionSpecification(interaction, lifeline1);
 		InteractionUse interactionUse = createInteractionUse(interaction, lifeline1);
 		new SequenceDiagramReorderElementSwitch(null, null)
-		.doSwitch(interactionUse);
+				.doSwitch(interactionUse);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(interactionUse),
 				this.orderService.getFinishingEnd(interactionUse),
@@ -370,7 +370,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		InteractionUse interactionUse = createInteractionUse(interaction, lifeline1);
 		ExecutionSpecification executionSpecification = createExecutionSpecification(interaction, lifeline1);
 		new SequenceDiagramReorderElementSwitch(this.orderService.getFinishingEnd(executionSpecification), this.orderService.getStartingEnd(interactionUse))
-		.doSwitch(interactionUse);
+				.doSwitch(interactionUse);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(executionSpecification),
 				this.orderService.getFinishingEnd(executionSpecification),
@@ -389,7 +389,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		ExecutionSpecification executionSpecification2 = createExecutionSpecification(interaction, lifeline1);
 		InteractionUse interactionUse = createInteractionUse(interaction, lifeline1);
 		new SequenceDiagramReorderElementSwitch(this.orderService.getFinishingEnd(executionSpecification1), this.orderService.getStartingEnd(interactionUse))
-		.doSwitch(interactionUse);
+				.doSwitch(interactionUse);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(executionSpecification1),
 				this.orderService.getFinishingEnd(executionSpecification1),
@@ -413,7 +413,7 @@ public class SequenceDiagramReorderElementSwitchTest extends AbstractServicesTes
 		InteractionUse interactionUse = createInteractionUse(interaction, lifeline1);
 		assertEquals(1, combinedFragment.getOperands().size());
 		new SequenceDiagramReorderElementSwitch(this.orderService.getStartingEnd(combinedFragment.getOperands().get(0)), this.orderService.getStartingEnd(interactionUse))
-		.doSwitch(interactionUse);
+				.doSwitch(interactionUse);
 		assertListEquals(this.orderService.getEndsOrdering(interaction), List.of(
 				this.orderService.getStartingEnd(combinedFragment),
 				this.orderService.getStartingEnd(combinedFragment.getOperands().get(0)),
