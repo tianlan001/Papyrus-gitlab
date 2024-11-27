@@ -72,19 +72,6 @@ public class SequenceDiagramUMLHelper {
 	}
 
 	/**
-	 * Returns {@code true} if the provided {@code occurrence} is the starting occurrence of an execution.
-	 *
-	 * @param occurrence
-	 *            the {@link OccurrenceSpecification} to check
-	 * @return {@code true} if the provided {@code occurrence} is the starting occurrence of an execution
-	 */
-	public boolean isExecutionStartOccurrence(OccurrenceSpecification occurrence) {
-		return occurrence instanceof ExecutionOccurrenceSpecification executionOccurrence
-				&& executionOccurrence.getExecution() != null
-				&& executionOccurrence == executionOccurrence.getExecution().getStart();
-	}
-
-	/**
 	 * Returns the opposite end of the provided {@code occurrenceSpecification}.
 	 * <p>
 	 * The opposite end of an execution's start occurrence is the finish occurrence of the same execution. The opposite

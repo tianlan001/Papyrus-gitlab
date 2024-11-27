@@ -239,10 +239,10 @@
             <targetViewVariable name="targetView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.getOwningInteraction()">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newSendEventMessageOccurrenceSpecification"/>
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newReceiveEventMessageOccurrenceSpecification"/>
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::synchCall, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="call"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::BehaviorExecutionSpecification" referenceName="fragment" variableName="exec"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="reply"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:call.initializeSyncCall(exec, reply, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
@@ -255,10 +255,8 @@
             <targetViewVariable name="targetView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.getOwningInteraction()">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newSendEventMessageOccurrenceSpecification"/>
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newReceiveEventMessageOccurrenceSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::asynchCall, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::asynchCall, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
@@ -271,10 +269,8 @@
             <targetViewVariable name="targetView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.getOwningInteraction()">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newSendEventMessageOccurrenceSpecification"/>
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::MessageOccurrenceSpecification" referenceName="fragment" variableName="newReceiveEventMessageOccurrenceSpecification"/>
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::reply, newSendEventMessageOccurrenceSpecification, newReceiveEventMessageOccurrenceSpecification, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::reply, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>

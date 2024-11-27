@@ -141,14 +141,14 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 		reorderInFragments(combinedFragment, startingEndPredecessor);
 
 		if (startingEndPredecessor != finishingEndPredecessor && combinedFragment.getOperands().size() == 1) {
-			// We are creating a combined fragment over multiple elements. The combined fragment has a single operand,
+			// We are creating a combined fragment over multiple elements.
+			// The combined fragment has a single operand,
 			// move the covered elements inside it.
 			InteractionOperand operand = combinedFragment.getOperands().get(0);
 			// The combined fragment AND the operand are moved, use the operand to compute its new content
 			int combinedFragmentStartIndex = ends.indexOf(orderService.getStartingEnd(operand));
 			int combinedFragmentEndIndex = ends.indexOf(orderService.getFinishingEnd(operand));
-			for (int i = combinedFragmentStartIndex + 1; i < combinedFragmentEndIndex; i++) {
-				EAnnotation end = ends.get(i);
+			for (EAnnotation end : ends.subList(combinedFragmentStartIndex + 1, combinedFragmentEndIndex)) {
 				InteractionFragment semanticEnd = orderService.getEndFragment(end);
 				if (umlHelper.isCoveringASubsetOf(semanticEnd, combinedFragment) && semanticEnd.getOwner() == combinedFragment.getOwner()) {
 					// The elements are on the same lifeline and the semanticEnd is a direct children of the new owner of the combinedFragment. This prevents moving elements inside covered combined fragments.
@@ -301,11 +301,13 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 * @return true if virtual (only graphical)
 	 */
 	private boolean isVirtualEnd(EAnnotation end) {
-		// StateInvariant has no semantic end as its a single moment
-		// at the execution time.
-		return orderService.isFinishingEnd(end)
-				&& orderService.getEndFragment(end) instanceof StateInvariant
-				&& !(current instanceof StateInvariant);
+		boolean result = false;
+		if (orderService.getEndFragment(end) instanceof StateInvariant) {
+			// StateInvariant has no semantic end as its a single moment
+			// at the execution time.
+			result = orderService.isFinishingEnd(end) && !(current instanceof StateInvariant);
+		}
+		return result;
 	}
 
 	private void reorderInFragments(InteractionFragment semanticEnd, EAnnotation endPredecessor) {

@@ -15,7 +15,6 @@ package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +25,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramEndReorderHelper;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramReorderElementSwitch;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
+import org.eclipse.papyrus.uml.domain.services.internal.helpers.OccurrenceSpecificationHelper;
 import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
@@ -183,40 +183,47 @@ public class SequenceDiagramOrderServices {
 		return (Element) refs.get(0);
 	}
 
-	/**
-	 * Returns the BaseElement from Event End if available.
-	 *
-	 * @param end
-	 *            the {@link EAnnotation} used for an end
-	 * @return associated base element if provided or null
-	 */
-	public Element getEndBaseElement(EAnnotation end) {
-		if (end.getReferences().size() > 1) {
-			return (InteractionFragment) end.getReferences().get(1);
-		}
-		return null;
-	}
 
 	/**
 	 * Returns {@code true} if the provided {@code annotation} represents a starting end.
 	 *
-	 * @param annotation
+	 * @param end
 	 *            the {@link EAnnotation} to check
 	 * @return {@code true} if the provided {@code annotation} represents a graphical start, {@code false} otherwise
 	 */
-	public boolean isStartingEnd(EAnnotation annotation) {
-		return START_ANNOTATION_SOURCE.equals(annotation.getSource());
+	public boolean isStartingEnd(EAnnotation end) {
+		// Execution can borrow start end from message.
+		if (getEndFragment(end) instanceof MessageOccurrenceSpecification occurrence) {
+			boolean start = OccurrenceSpecificationHelper.isExecutionStartOccurrence(occurrence);
+			boolean finish = OccurrenceSpecificationHelper.isExecutionFinishOccurrence(occurrence);
+			if (start || finish) {
+				// Used as an occurrence end. Message order is ignored.
+				return start;
+			}
+		}
+
+		return START_ANNOTATION_SOURCE.equals(end.getSource());
 	}
 
 	/**
 	 * Returns {@code true} if the provided {@code annotation} represents a finishing end.
 	 *
-	 * @param annotation
+	 * @param end
 	 *            the {@link EAnnotation} to check
 	 * @return {@code true} if the provided {@code annotation} represents a graphical finish, {@code false} otherwise
 	 */
-	public boolean isFinishingEnd(EAnnotation annotation) {
-		return FINISH_ANNOTATION_SOURCE.equals(annotation.getSource());
+	public boolean isFinishingEnd(EAnnotation end) {
+		// Execution can borrow finish end from message.
+		if (getEndFragment(end) instanceof MessageOccurrenceSpecification occurrence) {
+			boolean start = OccurrenceSpecificationHelper.isExecutionStartOccurrence(occurrence);
+			boolean finish = OccurrenceSpecificationHelper.isExecutionFinishOccurrence(occurrence);
+			if (start || finish) {
+				// Used as an occurrence end. Message order is ignored.
+				return finish;
+			}
+		}
+
+		return FINISH_ANNOTATION_SOURCE.equals(end.getSource());
 	}
 
 	/**
@@ -237,7 +244,6 @@ public class SequenceDiagramOrderServices {
 	 * @see #getFinishingEnd(EObject)
 	 */
 	public EAnnotation getStartingEnd(Element element) {
-		Objects.requireNonNull(element);
 		return getEnd(element, START_ANNOTATION_SOURCE);
 	}
 
@@ -259,30 +265,7 @@ public class SequenceDiagramOrderServices {
 	 * @see #getStartingEnd(Element)
 	 */
 	public EAnnotation getFinishingEnd(Element element) {
-		Objects.requireNonNull(element);
-		EAnnotation result = null;
-		if (element instanceof InteractionOperand interactionOperand) {
-			Element owner = interactionOperand.getOwner();
-			if (owner instanceof CombinedFragment combinedFragment) {
-				// InteractionOperands don't have a dedicated finishing end: the end of an operand is either the
-				// starting end of the next operand in the combined fragment, or the end of the combined fragment
-				// itself (if it is the last operand in it). This is required by Sirius Sequence to ensure there is
-				// no gap between operands.
-				result = getFinishingEnd(combinedFragment);
-				InteractionOperand prev = null;
-				for (InteractionOperand childOperand : combinedFragment.getOperands()) {
-					if (interactionOperand.equals(prev)) {
-						result = getStartingEnd(childOperand);
-						break;
-					} else {
-						prev = childOperand;
-					}
-				}
-			}
-		} else {
-			result = getEnd(element, FINISH_ANNOTATION_SOURCE);
-		}
-		return result;
+		return getEnd(element, FINISH_ANNOTATION_SOURCE);
 	}
 
 	/**
@@ -300,15 +283,40 @@ public class SequenceDiagramOrderServices {
 	 * @return the {@link EAnnotation} representing the provided {@code element}
 	 */
 	private EAnnotation getEnd(Element element, String endId) {
+		Objects.requireNonNull(element);
 		EAnnotation result = null;
+
+		// InteractionOperands don't have a dedicated finishing end:
+		// the end of an operand is either
+		// - the starting end of the next operand in the combined fragment,
+		// - or the end of the combined fragment itself (if it is the last operand in it).
+		// This is required by Sirius Sequence to ensure there is no gap between operands.
+		if (FINISH_ANNOTATION_SOURCE.equals(endId)
+				&& element instanceof InteractionOperand operand
+				&& operand.getOwner() instanceof CombinedFragment owner) {
+
+			int index = owner.getOperands().indexOf(operand);
+			if (index == owner.getOperands().size() - 1) { // last on
+				result = getFinishingEnd(owner);
+			} else {
+				result = getStartingEnd(owner.getOperands().get(index + 1));
+			}
+			return result;
+		}
+
+		// Other cases
+
+		Element semanticEnd = getSemanticEnd(endId, element);
+		// ExecutionSpecification ends can be shared with message
+		// but is unique when access by its property.
+		boolean ignoreId = element instanceof ExecutionSpecification;
+
 		Interaction rootInteraction = umlHelper.getOwningInteraction(element);
 		for (EAnnotation end : getEndsOrdering(rootInteraction)) {
-			if (Objects.equals(end.getSource(), endId)) {
-				Element semanticEnd = getSemanticEnd(endId, element);
-				if (getEndFragment(end) == semanticEnd) {
-					result = end;
-					break;
-				}
+			boolean matchingId = ignoreId || endId.equals(end.getSource());
+			if (matchingId && getEndFragment(end) == semanticEnd) {
+				result = end;
+				break;
 			}
 		}
 		return result;
@@ -359,8 +367,6 @@ public class SequenceDiagramOrderServices {
 	 * @return the ordered list of elements
 	 */
 	public List<EObject> getEndsOrdering(Interaction interaction, List<EObject> eventEnds) {
-		Objects.requireNonNull(interaction);
-		Objects.requireNonNull(eventEnds);
 		List<EObject> result = new ArrayList<>(getEndsOrdering(interaction));
 		// Copy the general ordering list, we don't want to change it.
 		result.retainAll(eventEnds);
@@ -460,8 +466,9 @@ public class SequenceDiagramOrderServices {
 		// - Duplication Start or Finish,
 		// - Finishing without/before Start
 		// - Start without Finish
-		List<EObject> invalidOrderingContent = ordering.getContents().stream()
-				.filter(eObject -> !isValidOrderingContent(eObject))
+		List<EObject> invalidOrderingContent = ordering.getContents()
+				.stream()
+				.filter(content -> !isValidOrderingContent(content))
 				.toList();
 
 		EcoreUtil.deleteAll(invalidOrderingContent, false);
@@ -486,9 +493,6 @@ public class SequenceDiagramOrderServices {
 	 */
 	public <T extends InteractionFragment> Collection<T> selectIncludedFragments(NamedElement parent, Class<T> type) {
 		Lifeline covered = umlHelper.getCoveredLifeline(parent);
-		if (covered == null) {
-			return Collections.emptyList();
-		}
 
 		List<T> result = new ArrayList<>();
 
@@ -498,44 +502,63 @@ public class SequenceDiagramOrderServices {
 		}
 
 		for (EAnnotation end : getEndsOrdering(covered.getInteraction())) {
-			Element element = getEndOwner(end);
+			InteractionFragment element = getEndFragment(end);
 
-			if (!(element instanceof InteractionFragment fragment)
-					|| umlHelper.getCoveredLifeline(fragment) != covered) {
-				continue; // not lifeline or relevant element.
-			}
-
-			if (isStartingEnd(end)) {
-				if (element == parent) {
-					if (depth == -1) {
-						depth = 0;
-					} // else duplicated start (ignored).
-				} else if (0 <= depth) { // in parent
-					if (depth == 0 // proper level
-							&& type.isInstance(fragment)) { // expected kind
-						@SuppressWarnings("unchecked")
-						T targetedElement = (T) fragment;
-						result.add(targetedElement);
-					}
-					if (isIncludingFragment(fragment)) {
-						depth++;
-					}
-				}
-			} else if (isFinishingEnd(end)) {
-				if (element == parent) {
-					break; // no need to go further
-				} else if (0 <= depth && isIncludingFragment(fragment)) { // in parent
-					depth--;
-					if (depth < 0) {
-						// Inclusion is ill-formed.
-						// Going further is dangerous.
+			if (umlHelper.getCoveredLifeline(element) == covered) {
+				Element current = getIncludingFragment(end);
+				if (isStartingEnd(end)) {
+					depth = selectIncludedFragment(current, depth, parent, type, result);
+				} else if (isFinishingEnd(end)) {
+					boolean including = isIncludingFragment(current);
+					if (current == parent
+							|| depth == 0 && including) {
+						// no need to go further
 						break;
+					} else if (depth != -1 && including) {
+						// In expected fragment
+						depth--;
 					}
 				}
 			}
 		}
 
 		return result;
+	}
+
+	private InteractionFragment getIncludingFragment(EAnnotation end) {
+		InteractionFragment element = getEndFragment(end);
+
+		InteractionFragment result = null;
+		// Cannot used getEndOwner for messages.
+		// Execution is not the owner.
+		if (element instanceof MessageOccurrenceSpecification occurence) {
+			result = OccurrenceSpecificationHelper.getExecutionFromStartOccurrence(occurence)
+					.or(() -> OccurrenceSpecificationHelper.getExecutionFromFinishOccurrence(occurence))
+					.orElse(null);
+		} else if (getEndOwner(end) instanceof InteractionFragment fragment) {
+			result = fragment;
+		}
+		return result;
+	}
+
+	private <T extends InteractionFragment> int selectIncludedFragment(Element current, int depth, NamedElement parent, Class<T> type, List<T> result) {
+		int newDepth = depth;
+		if (current == parent) {
+			if (depth == -1) {
+				newDepth = 0;
+			} // else duplicated start (ignored).
+		} else if (0 <= depth) { // in parent
+			if (depth == 0 // proper level
+					&& type.isInstance(current)) { // expected kind
+				@SuppressWarnings("unchecked")
+				T targetedElement = (T) current;
+				result.add(targetedElement);
+			}
+			if (isIncludingFragment(current)) {
+				newDepth = depth + 1;
+			}
+		}
+		return newDepth;
 	}
 
 	/**
@@ -545,7 +568,7 @@ public class SequenceDiagramOrderServices {
 	 *            fragment to evaluate
 	 * @return true if container.
 	 */
-	private boolean isIncludingFragment(InteractionFragment element) {
+	private boolean isIncludingFragment(Element element) {
 		return element instanceof ExecutionSpecification;
 	}
 

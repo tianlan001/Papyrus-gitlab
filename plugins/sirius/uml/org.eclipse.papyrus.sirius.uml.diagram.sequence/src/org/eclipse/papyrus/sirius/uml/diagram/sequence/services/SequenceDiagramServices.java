@@ -48,6 +48,8 @@ import org.eclipse.sirius.diagram.sequence.business.internal.elements.ISequenceE
 import org.eclipse.sirius.diagram.sequence.business.internal.elements.ISequenceEvent;
 import org.eclipse.sirius.diagram.sequence.description.ObservationPointMapping;
 import org.eclipse.sirius.diagram.sequence.ordering.EventEnd;
+import org.eclipse.sirius.diagram.sequence.ordering.OrderingFactory;
+import org.eclipse.sirius.diagram.sequence.ordering.SingleEventEnd;
 import org.eclipse.sirius.diagram.ui.business.api.view.SiriusGMFHelper;
 import org.eclipse.sirius.ext.gmf.runtime.editparts.GraphicalHelper;
 import org.eclipse.sirius.ui.business.api.session.IEditingSession;
@@ -172,10 +174,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	/**
 	 * Initializes a semantic {@link Message}.
 	 * <p>
-	 * This method configures the provided {@code newMessage}, {@code newSendEventMessageOccurrenceSpecification},
-	 * {@code newReceiveEventMessageOccurrenceSpecification}. In particular, it adds the provided
-	 * {@code newSendEventMessageOccurrenceSpecification} and {@code newReceiveEventMessageOccurrenceSpecification} as <i>sendEvent</i>
-	 * and <i>receiveEvent</i> or the provided {@code newMessage}, initialize their names, and the {@link Lifeline}s they cover.
+	 * Default name is provided and send and receive {@link MessageOccurrenceSpecification} are created.
 	 * </p>
 	 * <p>
 	 * The initialized elements are moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
@@ -199,16 +198,81 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the graphical predecessor of the message's finishing end
 	 * @return the initialized {@link Message}
 	 */
-	public Message initializeMessage(Message message, MessageSort type, MessageOccurrenceSpecification sendEvent, MessageOccurrenceSpecification receiveEvent, NamedElement source,
+	public Message initializeMessage(Message message, MessageSort type, NamedElement source,
 			NamedElement target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
 		setDefaultName(message);
 		message.setMessageSort(type);
-		initializeMessageEvent(message, sendEvent, UML.getMessage_SendEvent(), source);
-		initializeMessageEvent(message, receiveEvent, UML.getMessage_ReceiveEvent(), target);
+		initializeMessageEvent(message, UML.getMessage_SendEvent(), source);
+		initializeMessageEvent(message, UML.getMessage_ReceiveEvent(), target);
 		orderService.createStartingEnd(message);
 		orderService.createFinishingEnd(message);
 
 		return updateElementOrderWithEvents(message, startingEndPredecessor, finishingEndPredecessor);
+	}
+
+	/**
+	 * Initializes a synchronous {@link Message}, its associated behavior and reply.
+	 * <p>
+	 * Both messages are fully initialized
+	 * </p>
+	 * <p>
+	 * The initialized elements are moved between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * </p>
+	 *
+	 * @param message
+	 *            the {@link Message} to initialize
+	 * @param type
+	 *            the type of the {@link Message} to set
+	 * @param sendEvent
+	 *            the sendEvent {@link MessageOccurrenceSpecification} to initialize
+	 * @param receiveEvent
+	 *            the receiveEvent {@link MessageOccurrenceSpecification} to initialize
+	 * @param source
+	 *            the source element of the message
+	 * @param target
+	 *            the target element of the message
+	 * @param startingEndPredecessor
+	 *            the graphical predecessor of the message's starting end
+	 * @param finishingEndPredecessor
+	 *            the graphical predecessor of the message's finishing end
+	 * @return the initialized {@link Message}
+	 */
+	public Message initializeSyncCall(Message invocation, ExecutionSpecification exec, Message reply, NamedElement source,
+			NamedElement target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
+		initializeMessage(invocation, MessageSort.SYNCH_CALL_LITERAL, source, target,
+				startingEndPredecessor, finishingEndPredecessor);
+
+		EventEnd invocationFinish = toEventEnd(orderService.getFinishingEnd(invocation));
+
+		initializeMessage(reply, MessageSort.REPLY_LITERAL, target, source,
+				invocationFinish, invocationFinish);
+
+		initializeExecutionContent(exec, target);
+		exec.setStart((MessageOccurrenceSpecification) invocation.getReceiveEvent());
+		exec.setFinish((MessageOccurrenceSpecification) reply.getSendEvent());
+
+		// Insert between invocation and reply.
+		// As (exec start == invocation.finish) then predecessor == invocation.start
+		EventEnd invocationStart = toEventEnd(orderService.getStartingEnd(invocation));
+		updateElementOrderWithEvents(exec, invocationStart, invocationStart);
+
+		return invocation;
+	}
+
+
+
+	/**
+	 * Creates an Sirius end for this end.
+	 *
+	 * @param end
+	 *            semantic end
+	 * @return created EventEnd
+	 */
+	private EventEnd toEventEnd(EAnnotation end) {
+		SingleEventEnd result = OrderingFactory.eINSTANCE.createSingleEventEnd();
+		result.setSemanticEnd(end);
+		result.setStart(false);
+		return result;
 	}
 
 	/**
@@ -225,11 +289,14 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * @param eventTarget
 	 *            the target of the event
 	 */
-	private void initializeMessageEvent(Message message, MessageOccurrenceSpecification event, EReference eventReference, NamedElement eventTarget) {
-		event.setName(message.getName() + eventReference.getName());
-		event.setMessage(message);
-		message.eSet(eventReference, event);
-		event.setCovered(umlHelper.getCoveredLifeline(eventTarget));
+	private MessageOccurrenceSpecification initializeMessageEvent(Message message, EReference eventReference, NamedElement eventTarget) {
+		MessageOccurrenceSpecification result = UML.getUMLFactory().createMessageOccurrenceSpecification();
+		message.getInteraction().getFragments().add(result);
+		result.setName(message.getName() + eventReference.getName());
+		result.setMessage(message);
+		message.eSet(eventReference, result);
+		result.setCovered(umlHelper.getCoveredLifeline(eventTarget));
+		return result;
 	}
 
 	/**
@@ -261,8 +328,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * @return the initialized {@link ExecutionSpecification}
 	 */
 	public ExecutionSpecification initializeExecutionSpecification(ExecutionSpecification execution, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor, NamedElement parent) {
-		setDefaultName(execution);
-		execution.getCovereds().add(umlHelper.getCoveredLifeline(parent));
+		initializeExecutionContent(execution, parent);
 
 		initializeExecutionEvent(execution, UML.getExecutionSpecification_Start());
 		initializeExecutionEvent(execution, UML.getExecutionSpecification_Finish());
@@ -272,6 +338,12 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 
 		updateElementOrderWithEvents(execution, startingEndPredecessor, finishingEndPredecessor);
 
+		return execution;
+	}
+
+	private ExecutionSpecification initializeExecutionContent(ExecutionSpecification execution, NamedElement parent) {
+		setDefaultName(execution);
+		execution.getCovereds().add(umlHelper.getCoveredLifeline(parent));
 		return execution;
 	}
 
@@ -450,7 +522,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 		// corresponding end. If there is already a TimeObservation on it, try to add it on the other side.
 		// Do nothing if the element already has the maximum number of TimeObservations attached to it.
 
-		Element event = null;
+		InteractionFragment event = null;
 		if (isActiveCreationToolInvokedOnStartSide(parent, parentView, diagram)) {
 			if (startTimeObservations.isEmpty()) {
 				event = start;
@@ -614,23 +686,23 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	}
 
 	/**
-	 * Moves {@code element} between {@code startingEndPredecessor} and {@code finishingEndPredecessor}.
+	 * Moves {@code element} between {@code startPreviousEnd} and {@code finishPreviousEnd}.
 	 * <p>
-	 * This method moves the graphical ends of {@code element} between {@code startingEndPredecessor} and
-	 * {@code finishingEndPredecessor}, and update the semantic model to reflect this change.
+	 * This method moves the graphical ends of {@code element} between {@code startPreviousEnd} and
+	 * {@code finishPreviousEnd}, and update the semantic model to reflect this change.
 	 * </p>
 	 *
 	 * @param element
 	 *            the element to move
-	 * @param startingPreviousEnd
+	 * @param startPreviousEnd
 	 *            the predecessor of the fragment's starting end
 	 * @param finishPreviousEnd
 	 *            the predecessor of the fragment's finishing end
 	 *
 	 * @see SequenceDiagramReorderElementSwitch
 	 */
-	public <T extends Element> T updateElementOrderWithEvents(T element, EventEnd startingPreviousEnd, EventEnd finishPreviousEnd) {
-		final EAnnotation startPrevious = getSemanticEnd(startingPreviousEnd);
+	public <T extends Element> T updateElementOrderWithEvents(T element, EventEnd startPreviousEnd, EventEnd finishPreviousEnd) {
+		final EAnnotation startPrevious = getSemanticEnd(startPreviousEnd);
 		final EAnnotation finishPrevious = getSemanticEnd(finishPreviousEnd);
 		new SequenceDiagramReorderElementSwitch(startPrevious, finishPrevious)
 				.doSwitch(element);

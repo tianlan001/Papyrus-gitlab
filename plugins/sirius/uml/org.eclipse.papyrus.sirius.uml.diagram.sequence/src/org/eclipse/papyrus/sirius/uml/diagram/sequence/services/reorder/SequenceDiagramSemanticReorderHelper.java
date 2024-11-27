@@ -20,13 +20,14 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramOrderServices;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
+import org.eclipse.papyrus.uml.domain.services.internal.helpers.OccurrenceSpecificationHelper;
 import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.Element;
-import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.Lifeline;
+import org.eclipse.uml2.uml.OccurrenceSpecification;
 import org.eclipse.uml2.uml.UMLPackage;
 
 /**
@@ -73,15 +74,18 @@ public class SequenceDiagramSemanticReorderHelper {
 	 *            the semantic element to reorder
 	 * @param newEndPredecessor
 	 *            the graphical predecessor of the element
-	 * @param endsOrdering
-	 *            the global graphical ordering
+	 * @param ends
+	 *            the global graphical ordering of ends
 	 * @return the information required to perform the semantic reordering
 	 */
-	public Reordering createSemanticReorderEntry(InteractionFragment semanticElement, EAnnotation newEndPredecessor, List<EAnnotation> endsOrdering) {
-		Element newOwner = findNewOwner(semanticElement, newEndPredecessor, endsOrdering);
-		EReference newContainmentReference = findInteractionFragmentContainmentReference(newOwner);
-		InteractionFragment newSemanticPredecessor = findNewSemanticPredecessor(newOwner, newEndPredecessor, endsOrdering);
-		return new Reordering(semanticElement, newOwner, newContainmentReference, newSemanticPredecessor);
+	public Reordering createSemanticReorderEntry(InteractionFragment semanticElement, EAnnotation newEndPredecessor, List<EAnnotation> ends) {
+		Element newOwner = findNewOwner(semanticElement, newEndPredecessor, ends);
+		EReference newContainment = findFragmentContainment(newOwner);
+
+		List<?> siblings = (List<?>) newOwner.eGet(newContainment);
+		InteractionFragment newPredecessor = findSemanticPredecessor(newEndPredecessor, siblings, ends);
+
+		return new Reordering(semanticElement, newOwner, newContainment, newPredecessor);
 	}
 
 	/**
@@ -143,29 +147,32 @@ public class SequenceDiagramSemanticReorderHelper {
 	 * contain the element).
 	 * </p>
 	 *
-	 * @param semanticElement
-	 *            the element to retrieve the owner from
+	 * @param element
+	 *            the semantic element to retrieve the owner from
 	 * @param newEndPredecessor
 	 *            the graphical predecessor of the element
-	 * @param endsOrdering
+	 * @param ends
 	 *            the global graphical ordering
 	 * @return the semantic owner of the element
 	 */
-	private Element findNewOwner(InteractionFragment semanticElement, EAnnotation newEndPredecessor, List<EAnnotation> endsOrdering) {
-		Element result = umlHelper.getOwningInteraction(semanticElement);
-		Element baseElement = umlHelper.getBaseElement(semanticElement);
+	private Element findNewOwner(InteractionFragment element, EAnnotation newEndPredecessor, List<EAnnotation> ends) {
+		Element baseElement = umlHelper.getBaseElement(element);
 
-		int semanticElementFinishingEnd = endsOrdering.indexOf(orderService.getFinishingEnd(baseElement));
-		int newEndPredecessorIndex = endsOrdering.indexOf(newEndPredecessor);
-		for (int i = newEndPredecessorIndex; i >= 0; i--) {
-			EAnnotation end = endsOrdering.get(i);
+		int finishIndex = ends.indexOf(orderService.getFinishingEnd(baseElement));
 
-			if (orderService.getEndOwner(end) != baseElement && orderService.isStartingEnd(end)) {
-				// Discard other ends of the same semantic element (e.g. we are reordering an execution finish and we found
-				// its start. The semantic element cannot be its new owner.
-				InteractionFragment semanticEnd = orderService.getEndFragment(end);
-				if (endsOrdering.indexOf(orderService.getFinishingEnd(umlHelper.getBaseElement(semanticEnd))) >= semanticElementFinishingEnd
-						&& findInteractionFragmentContainmentReference(semanticEnd) != null) {
+		// Search in predecessor if in a container.
+		for (int i = ends.indexOf(newEndPredecessor); 0 <= i; i--) {
+			EAnnotation previous = ends.get(i);
+
+			if (orderService.getEndOwner(previous) != baseElement && orderService.isStartingEnd(previous)) {
+				// Discard other ends of the same semantic element
+				// (e.g. we are reordering an execution finish and we found its start).
+				// The semantic element cannot be its new owner.
+				InteractionFragment semanticEnd = orderService.getEndFragment(previous);
+				EAnnotation beforeEnd = orderService.getFinishingEnd(umlHelper.getBaseElement(semanticEnd));
+
+				if (finishIndex <= ends.indexOf(beforeEnd)
+						&& findFragmentContainment(semanticEnd) != null) {
 					// We found a start annotation, we check that the associated finish annotation is after the finishing
 					// end of the semantic element we are moving. If it is not, this means that the element is entirely before
 					// the semantic element, and it cannot contain it. This is for example the case when moving an execution
@@ -173,14 +180,15 @@ public class SequenceDiagramSemanticReorderHelper {
 					// its owner.
 					// The semanticEnd can contain the element, it is the closest owner if it covers all the lifelines
 					// of the semanticElement.
-					if (umlHelper.isCoveringASubsetOf(semanticElement, semanticEnd)) {
-						result = semanticEnd;
-						break;
+					if (umlHelper.isCoveringASubsetOf(element, semanticEnd)) {
+						return semanticEnd;
 					}
 				}
 			}
 		}
-		return result;
+
+		// By default, the element is at root level (interaction).
+		return umlHelper.getOwningInteraction(element);
 	}
 
 	/**
@@ -190,7 +198,7 @@ public class SequenceDiagramSemanticReorderHelper {
 	 *            the element to retrieve the reference from
 	 * @return the reference
 	 */
-	private EReference findInteractionFragmentContainmentReference(Element owner) {
+	private EReference findFragmentContainment(Element owner) {
 		final EReference result;
 		if (owner instanceof Interaction) {
 			result = UMLPackage.eINSTANCE.getInteraction_Fragment();
@@ -216,30 +224,33 @@ public class SequenceDiagramSemanticReorderHelper {
 	 * This method can return {@code null} to indicate that the element should be the first in its owner.
 	 * </p>
 	 *
-	 * @param newOwner
+	 * @param siblings
 	 *            the semantic owner of the element to find
-	 * @param newEndPredecessor
-	 *            the graphical predecessor of the element
-	 * @param endsOrdering
-	 *            the global graphical ordering
+	 * @param previousEnd
+	 *            the displayed predecessor of the element
+	 * @param ends
+	 *            the global ordering of ends
 	 * @return the semantic predecessor
 	 */
-	private InteractionFragment findNewSemanticPredecessor(Element newOwner, EAnnotation newEndPredecessor, List<EAnnotation> endsOrdering) {
-		EReference containmentReference = findInteractionFragmentContainmentReference(newOwner);
-		List<?> newOwnerFragments = (List<?>) newOwner.eGet(containmentReference);
-		InteractionFragment result = null;
-		for (int i = endsOrdering.indexOf(newEndPredecessor); i >= 0; i--) {
-			EAnnotation end = endsOrdering.get(i);
-			InteractionFragment endFragment = orderService.getEndFragment(end);
-			if (orderService.isStartingEnd(end) && endFragment instanceof ExecutionOccurrenceSpecification) {
-				endFragment = (InteractionFragment) orderService.getEndBaseElement(end);
-			}
-			if (newOwnerFragments.contains(endFragment)) {
-				result = endFragment;
-				break;
+	private InteractionFragment findSemanticPredecessor(EAnnotation previousEnd, List<?> siblings, List<EAnnotation> ends) {
+		// Going backward in ends.
+		// (no native backward iterator in Java)
+		for (int i = ends.indexOf(previousEnd); 0 <= i; i--) {
+			EAnnotation end = ends.get(i);
+			InteractionFragment previous = orderService.getEndFragment(end);
+
+			if (siblings.contains(previous)) {
+				// fragment belongs to the same containment
+				InteractionFragment associated = getAssociatedFragment(previous);
+				if (associated != null) {
+					// When a fragment has associated element,
+					// keep them in grouped. (Associated is after fragment)
+					previous = associated;
+				}
+				return previous;
 			}
 		}
-		return result;
+		return null; // First element
 	}
 
 	/**
@@ -264,11 +275,13 @@ public class SequenceDiagramSemanticReorderHelper {
 		// Can be -1 if the element should be first in its parent. In this case the semanticPredecessor is usually null.
 		int newElementIndex = containment.indexOf(semanticPredecessor) + 1;
 		containment.add(newElementIndex, fragment);
-		if (fragment instanceof ExecutionOccurrenceSpecification exeOccurence
-				&& umlHelper.isExecutionStartOccurrence(exeOccurence)) {
-			// We are moving an execution start occurrence, we have to move the execution itself to ensure it is always
+
+		InteractionFragment associated = getAssociatedFragment(fragment);
+		if (associated != null) {
+			// We are moving an execution start occurrence,
+			// we have to move the execution itself to ensure it is always
 			// right after its start occurrence.
-			containment.add(newElementIndex + 1, exeOccurence.getExecution());
+			containment.add(newElementIndex + 1, associated);
 		}
 	}
 
@@ -280,14 +293,35 @@ public class SequenceDiagramSemanticReorderHelper {
 	 */
 	private void removeInteractionFragment(InteractionFragment fragment) {
 		Element owner = fragment.getOwner();
-		EReference containmentReference = findInteractionFragmentContainmentReference(owner);
+		EReference containmentReference = findFragmentContainment(owner);
 		List<?> containment = (List<?>) owner.eGet(containmentReference);
 		containment.remove(fragment);
-		if (fragment instanceof ExecutionOccurrenceSpecification exeOccurence
-				&& umlHelper.isExecutionStartOccurrence(exeOccurence)) {
+
+		InteractionFragment associated = getAssociatedFragment(fragment);
+		if (associated != null) {
 			// We are removing an execution start occurrence, we have to remove the execution itself.
-			containment.remove(exeOccurence.getExecution());
+			containment.remove(associated);
 		}
+	}
+
+	/**
+	 * Finds the associated fragment if any.
+	 * <p>
+	 * Some fragments are related to other. Typically, an ExecutionSpecification is attached
+	 * to start occurrence. <br/>
+	 * We need to keep such element in a specific order in their containment.
+	 * </p>
+	 *
+	 * @param it
+	 *            fragment of an interaction
+	 * @return associated fragment or null
+	 */
+	private InteractionFragment getAssociatedFragment(InteractionFragment it) {
+		// hint Java 21: replace with 'switch'.
+		if (it instanceof OccurrenceSpecification occurence) {
+			return OccurrenceSpecificationHelper.getExecutionFromStartOccurrence(occurence).orElse(null);
+		}
+		return null;
 	}
 
 	/**
@@ -299,11 +333,10 @@ public class SequenceDiagramSemanticReorderHelper {
 	 *            the new owner of the element
 	 * @param containmentReference
 	 *            the containment reference to use to store the fragment
-
 	 * @param newPredecessor
 	 *            predecessor in list (first if null)
 	 */
-	public static record Reordering(InteractionFragment semanticElement, Element newOwner, EReference newContainmentReference, InteractionFragment newSemanticPredecessor) {
+	public record Reordering(InteractionFragment semanticElement, Element newOwner, EReference newContainmentReference, InteractionFragment newSemanticPredecessor) {
 
 	}
 }
