@@ -16,9 +16,11 @@ package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
 import org.eclipse.papyrus.uml.domain.services.EMFUtils;
 import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.ExecutionSpecification;
@@ -44,6 +46,9 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 * The order service used to manage graphical ordering ends.
 	 */
 	private final SequenceDiagramOrderServices orderServices = new SequenceDiagramOrderServices();
+
+	private final SequenceDiagramUMLHelper umlHelper = new SequenceDiagramUMLHelper();
+
 
 	/**
 	 * Returns the {@link Lifeline}s in the provided {@code interaction}.
@@ -156,21 +161,20 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 * @return the {@link TimeObservation}s that have an event on an element displayed on the {@code interaction} Sequence Diagram.
 	 */
 	public Collection<EAnnotation> getTimeObservationCandidates(Interaction interaction) {
-		List<EAnnotation> result = new ArrayList<>();
-		Collection<TimeObservation> timeObservations = EMFUtils.getAncestors(Package.class, interaction).stream()
+		return EMFUtils.getAncestors(Package.class, interaction).stream()
 				.flatMap(pack -> pack.getOwnedElements().stream())
 				.filter(TimeObservation.class::isInstance)
 				.map(TimeObservation.class::cast)
+				.filter(obs -> umlHelper.getOwningInteraction(obs.getEvent()) == interaction)
+				.flatMap(obs -> collectAssociatedEnds(obs.getEvent()))
 				.toList();
-		for (TimeObservation timeObservation : timeObservations) {
-			if (timeObservation.getEvent() != null) {
-				Optional.ofNullable(orderServices.getStartingEnd(timeObservation.getEvent()))
-				.ifPresent(result::add);
-				Optional.ofNullable(orderServices.getFinishingEnd(timeObservation.getEvent()))
-				.ifPresent(result::add);
-			}
-		}
-		return result;
+	}
+
+	private Stream<EAnnotation> collectAssociatedEnds(NamedElement event) {
+		return Stream.of(
+				orderServices.getStartingEnd(event),
+				orderServices.getFinishingEnd(event))
+				.filter(Objects::nonNull);
 	}
 
 	/**
