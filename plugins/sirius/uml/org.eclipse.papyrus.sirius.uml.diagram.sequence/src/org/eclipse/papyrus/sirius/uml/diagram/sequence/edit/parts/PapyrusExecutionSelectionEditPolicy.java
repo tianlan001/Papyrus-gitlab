@@ -13,7 +13,7 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.edit.parts;
 
-import java.util.List;
+import java.util.stream.Stream;
 
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
@@ -36,14 +36,20 @@ public class PapyrusExecutionSelectionEditPolicy extends ExecutionSelectionEditP
 	@Override
 	protected Command getMoveCommand(ChangeBoundsRequest request) {
 		EditPart targetEditPart = this.getTargetEditPart(request);
-		return (targetEditPart instanceof PapyrusExecutionEditPart executionEditPart &&
-				(containsMessages(executionEditPart.getTargetConnections()) || containsMessages(executionEditPart.getSourceConnections()))) ? new ICommandProxy(org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand.INSTANCE)
+		return targetEditPart instanceof PapyrusExecutionEditPart executionEditPart &&
+				executionContainsMessage(executionEditPart) ? new ICommandProxy(org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand.INSTANCE)
 						: super.getMoveCommand(request);
 	}
 
-	private boolean containsMessages(List<? extends ConnectionEditPart> connections) {
-		return connections.stream().anyMatch(connection -> !isLinkEdge(connection));
+	private boolean executionContainsMessage(PapyrusExecutionEditPart executionEditPart) {
+		return Stream.concat(executionEditPart.getTargetConnections().stream(), executionEditPart.getSourceConnections().stream())
+				.anyMatch(connection -> !isLinkEdge(connection))
+				|| executionEditPart.getChildren().stream()
+						.filter(PapyrusExecutionEditPart.class::isInstance)
+						.map(PapyrusExecutionEditPart.class::cast)
+						.anyMatch(this::executionContainsMessage);
 	}
+
 
 	/**
 	 * We want to exclude link edges which are not ordered.

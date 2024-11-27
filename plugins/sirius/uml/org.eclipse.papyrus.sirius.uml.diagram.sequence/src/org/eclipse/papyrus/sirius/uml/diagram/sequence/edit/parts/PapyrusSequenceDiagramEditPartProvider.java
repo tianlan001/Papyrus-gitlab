@@ -15,8 +15,6 @@ package org.eclipse.papyrus.sirius.uml.diagram.sequence.edit.parts;
 
 import java.util.Objects;
 
-import org.eclipse.gmf.runtime.common.core.service.IOperation;
-import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.sequence.business.internal.elements.Execution;
@@ -34,23 +32,14 @@ public class PapyrusSequenceDiagramEditPartProvider extends SequenceDiagramEditP
 
 	@Override
 	protected Class<?> getNodeEditPartClass(View view) {
-		if (Execution.notationPredicate().apply(view)) {
+
+		if (Execution.notationPredicate().apply(view)
+				&& view.getDiagram() != null
+				&& view.getDiagram().getElement() instanceof DDiagram diagram
+				&& Objects.equals(diagram.getDescription().getName(), SEQUENCE_DIAGRAM_NAME)) {
 			return PapyrusExecutionEditPart.class;
 		}
 		return super.getNodeEditPartClass(view);
 	}
 
-	@Override
-	public synchronized boolean provides(IOperation operation) {
-		if (operation instanceof IEditPartOperation editPartOperation && editPartOperation.getView() != null
-				&& editPartOperation.getView().getDiagram() != null
-				&& editPartOperation.getView().getDiagram().getElement() instanceof DDiagram diagram) {
-			if (Objects.equals(diagram.getDescription().getName(), SEQUENCE_DIAGRAM_NAME)) {
-				return super.provides(editPartOperation);
-			} else {
-				return false;
-			}
-		}
-		return super.provides(operation);
-	}
 }
