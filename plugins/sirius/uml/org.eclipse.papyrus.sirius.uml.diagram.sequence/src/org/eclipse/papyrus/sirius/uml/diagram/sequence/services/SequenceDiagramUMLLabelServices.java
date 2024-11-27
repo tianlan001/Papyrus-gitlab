@@ -43,15 +43,13 @@ import org.eclipse.uml2.uml.ValueSpecification;
  */
 public class SequenceDiagramUMLLabelServices {
 
+	private static final String UNDEFINED = "<Undefined>"; //$NON-NLS-1$
+
 	private final UMLLabelServices labelServices = new UMLLabelServices();
 
 	private final INamedElementNameProvider namedElementNameProvider = new LabelElementNameProvider();
 
 	private final SequenceDiagramUMLHelper umlHelper = new SequenceDiagramUMLHelper();
-
-	private final SequenceDiagramOrderServices orderService = new SequenceDiagramOrderServices();
-
-	private static final String UNDEFINED = "<Undefined>"; //$NON-NLS-1$
 
 	/**
 	 * Computes the label of the provided {@link Message}.
