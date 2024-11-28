@@ -36,6 +36,7 @@ import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.OccurrenceSpecification;
 
 /**
  * Manages the global end ordering of the Sequence Diagram.
@@ -570,6 +571,28 @@ public class SequenceDiagramOrderServices {
 	 */
 	private boolean isIncludingFragment(Element element) {
 		return element instanceof ExecutionSpecification;
+	}
+
+	/**
+	 * Finds the end associated to provided occurrence specification.
+	 * <p>
+	 * If no end is available, return null.
+	 * </p>
+	 *
+	 * @param element
+	 *            occurrence to get associated end.
+	 * @return associated end in containing interface or null
+	 */
+	public EAnnotation findOccurrenceEnd(OccurrenceSpecification element) {
+		if (element != null && element.getEnclosingInteraction() != null) {
+			for (EAnnotation end : getEndsOrdering(element.getEnclosingInteraction())) {
+				if (element == getEndFragment(end)) { // Occurrence is always the main reference.
+					return end; // Found
+				}
+			}
+		}
+		// Not found.
+		return null;
 	}
 
 }

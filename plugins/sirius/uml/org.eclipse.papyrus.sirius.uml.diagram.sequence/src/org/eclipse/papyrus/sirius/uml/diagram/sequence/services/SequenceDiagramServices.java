@@ -26,10 +26,7 @@ import org.eclipse.papyrus.sirius.uml.diagram.common.services.DeleteServices;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramReorderElementSwitch;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramSemanticReorderHelper;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
-import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.ToolHelpers;
-import org.eclipse.papyrus.uml.domain.services.EMFUtils;
 import org.eclipse.papyrus.uml.domain.services.labels.ElementDefaultNameProvider;
-import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.sequence.description.ObservationPointMapping;
 import org.eclipse.sirius.diagram.sequence.ordering.EventEnd;
@@ -43,7 +40,6 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
-import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Lifeline;
@@ -51,7 +47,6 @@ import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.MessageSort;
 import org.eclipse.uml2.uml.NamedElement;
-import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.StateInvariant;
 import org.eclipse.uml2.uml.TimeObservation;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -481,72 +476,6 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	}
 
 	/**
-	 * Creates a {@link TimeObservation} on the provided {@code parent}.
-	 *
-	 * @param parent
-	 *            the element on which to create a {@link TimeObservation}
-	 * @param parentView
-	 *            the graphical view representing the {@code parent}
-	 * @param diagram
-	 *            the diagram
-	 * @return the created {@link TimeObservation}, or {@code null} if the creation failed
-	 * @see #canCreateTimeObservation(Element)
-	 */
-	public EObject createTimeObservation(Element parent, DSemanticDecorator parentView, DDiagram diagram) {
-		InteractionFragment start = umlHelper.getSemanticStart(parent);
-		InteractionFragment finish = umlHelper.getSemanticFinish(parent);
-
-		List<TimeObservation> startTimeObservations = umlHelper.getTimeObservationFromEvent(start);
-		List<TimeObservation> finishTimeObservations = umlHelper.getTimeObservationFromEvent(finish);
-
-		// Check which side of the element has been clicked, and try to create a TimeObservation on the
-		// corresponding end. If there is already a TimeObservation on it, try to add it on the other side.
-		// Do nothing if the element already has the maximum number of TimeObservations attached to it.
-
-		InteractionFragment event = null;
-		if (ToolHelpers.isCreationOnStartSide(parent, parentView, diagram)) {
-			if (startTimeObservations.isEmpty()) {
-				event = start;
-			} else if (finishTimeObservations.isEmpty()) {
-				event = finish;
-			}
-		} else // on finish side
-			if (finishTimeObservations.isEmpty()) {
-				event = finish;
-			} else if (startTimeObservations.isEmpty()) {
-				event = start;
-			}
-
-		if (event == null) { // already created.
-			return null;
-		}
-
-		return createTimeObservationWithEvent(event, parentView);
-	}
-
-	/**
-	 * Creates a {@link TimeObservation} and sets its event to {@code event}.
-	 *
-	 * @param event
-	 *            the event to set for the {@link TimeObservation}
-	 * @param parentView
-	 *            the graphical element representing the parent of the {@link TimeObservation} to create
-	 * @return the created {@link TimeObservation}
-	 */
-	private TimeObservation createTimeObservationWithEvent(Element event, DSemanticDecorator parentView) {
-		TimeObservation result = null;
-		if (event instanceof NamedElement namedEvent) {
-			Package ancestorPackage = EMFUtils.getAncestor(Package.class, event);
-			CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
-			// We can use the CommonDiagramServices to create TimeObservations: they aren't directly affected by
-			// reorders, and are always created at the right location.
-			result = (TimeObservation) commonDiagramServices.createElement(ancestorPackage, UML.getTimeObservation().getName(), UML.getPackage_PackagedElement().getName(), parentView);
-			result.setEvent(namedEvent);
-		}
-		return result;
-	}
-
-	/**
 	 * Deletes the provided {@code element}.
 	 * <p>
 	 * This method performs some Sequence-specific deletion operations, e.g. on {@link TimeObservation} elements that
@@ -631,7 +560,7 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 * @see SequenceDiagramUMLHelper#getOwningInteraction(Element)
 	 */
 	public Interaction getOwningInteraction(Element element) {
-		return new SequenceDiagramUMLHelper().getOwningInteraction(element);
+		return umlHelper.getOwningInteraction(element);
 	}
 
 	/**

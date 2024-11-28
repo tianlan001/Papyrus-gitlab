@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
 import org.eclipse.papyrus.uml.domain.services.EMFUtils;
 import org.eclipse.uml2.uml.CombinedFragment;
+import org.eclipse.uml2.uml.DurationConstraint;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
@@ -101,7 +102,7 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 * @return the {@link CombinedFragment} contained in the provided {@code interaction}
 	 */
 	public Collection<CombinedFragment> getCombinedFragmentCandidates(Interaction interaction) {
-		return this.getInteractionFragments(CombinedFragment.class, interaction);
+		return getAllFragments(CombinedFragment.class, interaction);
 	}
 
 	/**
@@ -123,7 +124,7 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 * @return the {@link InteractionUse} contained in the provided {@code interaction}
 	 */
 	public Collection<InteractionUse> getInteractionUseCandidates(Interaction interaction) {
-		return this.getInteractionFragments(InteractionUse.class, interaction);
+		return getAllFragments(InteractionUse.class, interaction);
 	}
 
 	/**
@@ -145,8 +146,8 @@ public class SequenceDiagramSemanticCandidatesServices {
 		// They are represented with invisible circles that allow end user to select them and target them
 		// with tools.
 		return orderServices.getEndsOrdering(interaction).stream()
-				.filter(eAnnotation -> orderServices.getEndFragment(eAnnotation) instanceof OccurrenceSpecification)
-				.filter(eAnnotation -> !timeObservationCandidates.contains(eAnnotation))
+				.filter(end -> orderServices.getEndFragment(end) instanceof OccurrenceSpecification)
+				.filter(end -> !timeObservationCandidates.contains(end))
 				.toList();
 	}
 
@@ -191,17 +192,8 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 *            the interaction to search into
 	 * @return the {@code type} fragments contained in the provided {@code interaction}
 	 */
-	private <T extends InteractionFragment> Collection<T> getInteractionFragments(Class<T> type, Interaction interaction) {
-		List<T> results = new ArrayList<>();
-		for (InteractionFragment fragment : interaction.getFragments()) {
-			if (type.isInstance(fragment)) {
-				results.add(type.cast(fragment));
-			}
-			if (fragment instanceof CombinedFragment combinedFragment) {
-				results.addAll(this.getInteractionFragments(type, combinedFragment));
-			}
-		}
-		return results;
+	private <T extends InteractionFragment> Collection<T> getAllFragments(Class<T> type, Interaction interaction) {
+		return joinAllFragments(interaction.getFragments(), type, new ArrayList<>());
 	}
 
 	/**
@@ -218,20 +210,31 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 *            the combined fragment to search into
 	 * @return the {@code type} fragments contained in the provided {@code combinedFragment}
 	 */
-	private <T extends InteractionFragment> Collection<T> getInteractionFragments(Class<T> type, CombinedFragment combinedFragment) {
-		List<T> results = new ArrayList<>();
-		for (InteractionOperand operand : combinedFragment.getOperands()) {
-			for (InteractionFragment fragment : operand.getFragments()) {
-				if (type.isInstance(fragment)) {
-					results.add(type.cast(fragment));
-				}
-				if (fragment instanceof CombinedFragment childCombinedFragment) {
-					results.addAll(this.getInteractionFragments(type, childCombinedFragment));
+	private <T extends InteractionFragment> Collection<T> joinAllFragments(List<InteractionFragment> fragments, Class<T> type, Collection<T> results) {
+		for (InteractionFragment fragment : fragments) {
+			if (type.isInstance(fragment)) {
+				results.add(type.cast(fragment));
+			}
+			if (fragment instanceof CombinedFragment combined) {
+				for (InteractionOperand operand : combined.getOperands()) {
+					joinAllFragments(operand.getFragments(), type, results);
 				}
 			}
 		}
 		return results;
 	}
 
-
+	/**
+	 * Returns the {@link DurationConstraint} contained in the provided {@code interaction}.
+	 *
+	 * @param parent
+	 *            the {@link Interaction} to search into
+	 * @return the {@link DurationConstraint} contained in the provided {@code interaction}
+	 */
+	public Collection<DurationConstraint> getDurationConstraintCandidates(Interaction parent) {
+		return parent.getOwnedRules().stream()
+				.filter(DurationConstraint.class::isInstance)
+				.map(DurationConstraint.class::cast)
+				.toList();
+	}
 }
