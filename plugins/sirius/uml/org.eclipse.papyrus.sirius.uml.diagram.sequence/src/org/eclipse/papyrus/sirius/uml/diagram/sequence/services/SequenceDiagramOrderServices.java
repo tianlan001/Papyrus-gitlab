@@ -93,7 +93,7 @@ public class SequenceDiagramOrderServices {
 	 *
 	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
 	 */
-	public EAnnotation createStartingEnd(Element baseElement) {
+	public EAnnotation createStartingEnd(NamedElement baseElement) {
 		return createEnd(baseElement, START_ANNOTATION_SOURCE);
 	}
 
@@ -110,7 +110,7 @@ public class SequenceDiagramOrderServices {
 	 *
 	 * @see #createAnnotationWithReference(InteractionFragment, Element, String)
 	 */
-	public EAnnotation createFinishingEnd(Element baseElement) {
+	public EAnnotation createFinishingEnd(NamedElement baseElement) {
 		return createEnd(baseElement, FINISH_ANNOTATION_SOURCE);
 	}
 
@@ -137,7 +137,7 @@ public class SequenceDiagramOrderServices {
 	 *            the source of the {@link EAnnotation}
 	 * @return the created {@link EAnnotation}
 	 */
-	private EAnnotation createEnd(Element baseElement, String endId) {
+	private EAnnotation createEnd(NamedElement baseElement, String endId) {
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
 		annotation.setSource(endId);
 
@@ -176,12 +176,13 @@ public class SequenceDiagramOrderServices {
 	 *            annotation used as event end
 	 * @return element
 	 */
-	public Element getEndOwner(EAnnotation end) {
+	public NamedElement getEndOwner(EAnnotation end) {
 		List<EObject> refs = end.getReferences();
+		int index = 0;
 		if (refs.size() > 1) {
-			return (Element) refs.get(1);
+			index = 1;
 		}
-		return (Element) refs.get(0);
+		return (NamedElement) refs.get(index);
 	}
 
 

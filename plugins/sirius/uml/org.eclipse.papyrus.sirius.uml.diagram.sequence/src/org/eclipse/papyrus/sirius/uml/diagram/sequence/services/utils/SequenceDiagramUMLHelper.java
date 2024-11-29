@@ -13,7 +13,6 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -188,13 +187,9 @@ public class SequenceDiagramUMLHelper {
 	 *            the event to retrieve the {@link TimeObservation}s from
 	 * @return the {@link TimeObservation}s associated to the provided {@code event}
 	 */
-	public List<TimeObservation> getTimeObservationFromEvent(Element event) {
-		List<TimeObservation> result = new ArrayList<>();
-		if (event instanceof NamedElement namedElement) {
-			ECrossReferenceAdapter crossReferencer = ECrossReferenceAdapter.getCrossReferenceAdapter(namedElement);
-			result = TimeObservationHelper.getTimeObservations(namedElement, crossReferencer);
-		}
-		return result;
+	public static List<TimeObservation> getTimeObservationsFromEvent(NamedElement event) {
+		ECrossReferenceAdapter crossReferencer = ECrossReferenceAdapter.getCrossReferenceAdapter(event);
+		return TimeObservationHelper.getTimeObservations(event, crossReferencer);
 	}
 
 	/**
@@ -204,13 +199,12 @@ public class SequenceDiagramUMLHelper {
 	 *            the event end to retrieve the {@link TimeObservation} from
 	 * @return the {@link TimeObservation} associated to the provided {@code end}
 	 */
-	public Optional<TimeObservation> getTimeObservationFromEnd(EAnnotation end) {
-		Optional<TimeObservation> result = Optional.empty();
+	public static Optional<TimeObservation> getTimeObservationFromEnd(EAnnotation end) {
 		InteractionFragment fragment = new SequenceDiagramOrderServices().getEndFragment(end);
 		if (fragment != null) {
-			result = getTimeObservationFromEvent(fragment).stream().findFirst();
+			return getTimeObservationsFromEvent(fragment).stream().findFirst();
 		}
-		return result;
+		return Optional.empty();
 	}
 
 	/**

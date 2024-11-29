@@ -19,26 +19,30 @@ import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.ViewpointHelpers;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.sequence.ui.tool.internal.edit.policy.ExecutionSelectionEditPolicy;
 import org.eclipse.sirius.viewpoint.description.IdentifiedElement;
 
 /**
  * We override the Sirius ExecutionSelectionEditPolicy to prevent execution move when messages are attached to them.
+ *
+ * @author <a href="mailto:florian.barbin@obeo.fr">Florian Barbin</a>
  */
 @SuppressWarnings("restriction")
 public class PapyrusExecutionSelectionEditPolicy extends ExecutionSelectionEditPolicy {
 
-	private static final String LINK_MAPPING_ID = "SD_Link"; //$NON-NLS-1$
-
 	@Override
 	protected Command getMoveCommand(ChangeBoundsRequest request) {
 		EditPart targetEditPart = this.getTargetEditPart(request);
-		return targetEditPart instanceof PapyrusExecutionEditPart executionEditPart &&
-				executionContainsMessage(executionEditPart) ? new ICommandProxy(org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand.INSTANCE)
-						: super.getMoveCommand(request);
+		if (targetEditPart instanceof PapyrusExecutionEditPart executionEditPart
+				&& executionContainsMessage(executionEditPart)) {
+			return new ICommandProxy(UnexecutableCommand.INSTANCE);
+		}
+		return super.getMoveCommand(request);
 	}
 
 	private boolean executionContainsMessage(PapyrusExecutionEditPart executionEditPart) {
@@ -50,7 +54,6 @@ public class PapyrusExecutionSelectionEditPolicy extends ExecutionSelectionEditP
 						.anyMatch(this::executionContainsMessage);
 	}
 
-
 	/**
 	 * We want to exclude link edges which are not ordered.
 	 */
@@ -58,6 +61,6 @@ public class PapyrusExecutionSelectionEditPolicy extends ExecutionSelectionEditP
 		return connectionEditPart.getModel() instanceof Edge gmfEdge
 				&& gmfEdge.getElement() instanceof DEdge dEdge
 				&& dEdge.getActualMapping() instanceof IdentifiedElement identifiedElement
-				&& LINK_MAPPING_ID.equals(identifiedElement.getName());
+				&& ViewpointHelpers.LINK_MAPPING_ID.equals(identifiedElement.getName());
 	}
 }

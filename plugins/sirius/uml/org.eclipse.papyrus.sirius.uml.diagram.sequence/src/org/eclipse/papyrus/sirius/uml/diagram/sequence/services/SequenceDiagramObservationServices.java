@@ -18,10 +18,10 @@ import java.util.List;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.ViewpointHelpers;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
-import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.ToolHelpers;
 import org.eclipse.papyrus.uml.domain.services.EMFUtils;
-import org.eclipse.sirius.diagram.DDiagram;
+import org.eclipse.sirius.diagram.sequence.description.ObservationPointMapping;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.uml2.uml.DurationConstraint;
 import org.eclipse.uml2.uml.Element;
@@ -65,47 +65,54 @@ public class SequenceDiagramObservationServices {
 	}
 
 	/**
-	 * Creates a {@link TimeObservation} on the provided {@code parent}.
+	 * Returns {@code true} if a {@link TimeObservation} can be created on the provided {@code parent}.
 	 *
 	 * @param parent
+	 *            the element to check
+	 * @return {@code true} if a {@link TimeObservation} can be created on the provided {@code parent}
+	 */
+	public static boolean canCreateTimeObservation(DSemanticDecorator view) {
+		// boolean result = false;
+		// if (parent instanceof ExecutionSpecification || parent instanceof Message) {
+		// result = umlHelper.getTimeObservationFromEvent(umlHelper.getSemanticStart(parent)).isEmpty()
+		// || umlHelper.getTimeObservationFromEvent(umlHelper.getSemanticFinish(parent)).isEmpty();
+		// }
+		// return result;
+		boolean end = view.getTarget() instanceof EAnnotation;
+		return end &&
+				ViewpointHelpers.isMapping(view, ObservationPointMapping.class, ViewpointHelpers.OBSERVABLE_END_ID);
+	}
+
+	/**
+	 * Creates a {@link TimeObservation} on the provided {@code end}.
+	 *
+	 * @param end
 	 *            the element on which to create a {@link TimeObservation}
 	 * @param parentView
 	 *            the graphical view representing the {@code parent}
-	 * @param diagram
-	 *            the diagram
 	 * @return the created {@link TimeObservation}, or {@code null} if the creation failed
 	 * @see #canCreateTimeObservation(Element)
 	 */
-	public static EObject createTimeObservation(Element parent, DSemanticDecorator parentView, DDiagram diagram) {
-		InteractionFragment start = UML_HELPER.getSemanticStart(parent);
-		InteractionFragment finish = UML_HELPER.getSemanticFinish(parent);
+	public static EObject createTimeObservation(EAnnotation end, DSemanticDecorator parentView) {
+		NamedElement event = ORDER_SERVICES.getEndFragment(end);
 
-		List<TimeObservation> startTimeObservations = UML_HELPER.getTimeObservationFromEvent(start);
-		List<TimeObservation> finishTimeObservations = UML_HELPER.getTimeObservationFromEvent(finish);
-
-		// Check which side of the element has been clicked, and try to create a TimeObservation on the
-		// corresponding end. If there is already a TimeObservation on it, try to add it on the other side.
-		// Do nothing if the element already has the maximum number of TimeObservations attached to it.
-
-		InteractionFragment event = null;
-		if (ToolHelpers.isCreationOnStartSide(parent, parentView, diagram)) {
-			if (startTimeObservations.isEmpty()) {
-				event = start;
-			} else if (finishTimeObservations.isEmpty()) {
-				event = finish;
-			}
-		} else // on finish side
-		if (finishTimeObservations.isEmpty()) {
-			event = finish;
-		} else if (startTimeObservations.isEmpty()) {
-			event = start;
-		}
-
-		if (event == null) { // already created.
+		List<TimeObservation> existingObservations = SequenceDiagramUMLHelper.getTimeObservationsFromEvent(event);
+		if (!existingObservations.isEmpty()) { // already created.
 			return null;
 		}
 
 		return createTimeObservationWithEvent(event, parentView);
+	}
+
+	/**
+	 * Gets the TimeObservation associated by this end.
+	 *
+	 * @param end
+	 *            annotation used as end
+	 * @return related time observation or null
+	 */
+	public static TimeObservation getAssociatedTimeObservation(EAnnotation end) {
+		return SequenceDiagramUMLHelper.getTimeObservationFromEnd(end).orElse(null);
 	}
 
 	/**
@@ -190,7 +197,7 @@ public class SequenceDiagramObservationServices {
 		// There is an issue in
 		// org.eclipse.papyrus.uml.domain.services.create.ElementConfigurer$ElementInitializerImpl#caseDurationConstraint(DurationConstraint)
 		// The container is added 'constrainedElements'
-		// From Spec, there should only 1 or 2 elements indicating the border of
+		// From Spec, there should only 1 or 2 elements indicating which end to use.
 
 		List<OccurrenceSpecification> ends = element.getConstrainedElements().stream()
 				.filter(OccurrenceSpecification.class::isInstance)
@@ -203,7 +210,10 @@ public class SequenceDiagramObservationServices {
 			// In theory, element.firstEvents are exclusive.
 			// So the information is duplicated in the MOF.
 			// A flag was enough.
-			if (start == element.getFirstEvents().get(0)) {
+			@SuppressWarnings("boxing") // protected by EMF.
+			boolean firstEvent = element.getFirstEvents().get(0);
+
+			if (start == firstEvent) {
 				result = ends.get(0);
 			} else {
 				result = ends.get(1);

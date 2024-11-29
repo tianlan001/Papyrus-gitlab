@@ -13,7 +13,6 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.core.runtime.Plugin;
@@ -27,6 +26,8 @@ import org.slf4j.LoggerFactory;
 public class Activator extends Plugin {
 	/** The plug-in ID. */
 	public static final String PLUGIN_ID = "org.eclipse.papyrus.sirius.uml.diagram.sequence"; //$NON-NLS-1$
+
+	public static final String VIEWPOINT_PATH = PLUGIN_ID + "/description/papyrus_sequence.odesign"; //$NON-NLS-1$
 
 	/** This plug-in's shared instance. */
 	private static Activator plugin;
@@ -49,7 +50,7 @@ public class Activator extends Plugin {
 
 	/**
 	 * Returns the shared instance.
-	 * 
+	 *
 	 * @return the shared instance
 	 */
 	public static Activator getDefault() {
@@ -58,20 +59,19 @@ public class Activator extends Plugin {
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
 	@Override
 	public void start(final BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		viewpoints = new HashSet<Viewpoint>();
-		viewpoints.addAll(ViewpointRegistry.getInstance().registerFromPlugin(PLUGIN_ID + "/description/papyrus_sequence.odesign")); //$NON-NLS-1$
+		viewpoints = ViewpointRegistry.getInstance().registerFromPlugin(VIEWPOINT_PATH);
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	@Override
@@ -81,7 +81,6 @@ public class Activator extends Plugin {
 			for (Viewpoint viewpoint : viewpoints) {
 				ViewpointRegistry.getInstance().disposeFromPlugin(viewpoint);
 			}
-			viewpoints.clear();
 			viewpoints = null;
 		}
 		super.stop(context);

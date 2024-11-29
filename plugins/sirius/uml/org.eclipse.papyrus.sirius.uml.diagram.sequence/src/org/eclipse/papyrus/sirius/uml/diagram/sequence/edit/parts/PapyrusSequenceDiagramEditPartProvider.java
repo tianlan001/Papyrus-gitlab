@@ -13,9 +13,8 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.edit.parts;
 
-import java.util.Objects;
-
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.ViewpointHelpers;
 import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.sequence.business.internal.elements.Execution;
 import org.eclipse.sirius.diagram.sequence.ui.tool.internal.provider.SequenceDiagramEditPartProvider;
@@ -28,15 +27,12 @@ import org.eclipse.sirius.diagram.sequence.ui.tool.internal.provider.SequenceDia
 @SuppressWarnings("restriction")
 public class PapyrusSequenceDiagramEditPartProvider extends SequenceDiagramEditPartProvider {
 
-	private static final String SEQUENCE_DIAGRAM_NAME = "SequenceDiagram"; //$NON-NLS-1$
-
 	@Override
 	protected Class<?> getNodeEditPartClass(View view) {
-
 		if (Execution.notationPredicate().apply(view)
 				&& view.getDiagram() != null
 				&& view.getDiagram().getElement() instanceof DDiagram diagram
-				&& Objects.equals(diagram.getDescription().getName(), SEQUENCE_DIAGRAM_NAME)) {
+				&& ViewpointHelpers.isSequenceDiagram(diagram)) {
 			return PapyrusExecutionEditPart.class;
 		}
 		return super.getNodeEditPartClass(view);

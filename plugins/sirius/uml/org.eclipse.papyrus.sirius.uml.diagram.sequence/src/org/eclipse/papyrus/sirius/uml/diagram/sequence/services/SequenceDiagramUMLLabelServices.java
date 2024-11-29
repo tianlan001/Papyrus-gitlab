@@ -49,8 +49,6 @@ public class SequenceDiagramUMLLabelServices {
 
 	private final INamedElementNameProvider namedElementNameProvider = new LabelElementNameProvider();
 
-	private final SequenceDiagramUMLHelper umlHelper = new SequenceDiagramUMLHelper();
-
 	/**
 	 * Computes the label of the provided {@link Message}.
 	 * <p>
@@ -112,8 +110,8 @@ public class SequenceDiagramUMLLabelServices {
 	 * @return the label of the {@link TimeObservation} represented by the provided {@code event}
 	 */
 	public String renderTimeObservationLabelSD(EAnnotation event, DDiagram diagram) {
-		return umlHelper.getTimeObservationFromEnd(event)
-				.map(timeObsevation -> labelServices.renderLabel(timeObsevation, diagram))
+		return SequenceDiagramUMLHelper.getTimeObservationFromEnd(event)
+				.map(observation -> labelServices.renderLabel(observation, diagram))
 				.orElse(UMLCharacters.EMPTY);
 	}
 

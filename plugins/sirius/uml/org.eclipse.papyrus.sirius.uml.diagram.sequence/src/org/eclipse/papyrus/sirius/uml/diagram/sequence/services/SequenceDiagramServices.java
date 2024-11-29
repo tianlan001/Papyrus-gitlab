@@ -14,7 +14,6 @@
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
@@ -23,11 +22,11 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.papyrus.sirius.uml.diagram.common.core.services.AbstractDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.DeleteServices;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.ViewpointHelpers;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramReorderElementSwitch;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramSemanticReorderHelper;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
 import org.eclipse.papyrus.uml.domain.services.labels.ElementDefaultNameProvider;
-import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.sequence.description.ObservationPointMapping;
 import org.eclipse.sirius.diagram.sequence.ordering.EventEnd;
 import org.eclipse.sirius.diagram.sequence.ordering.OrderingFactory;
@@ -460,22 +459,6 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	}
 
 	/**
-	 * Returns {@code true} if a {@link TimeObservation} can be created on the provided {@code parent}.
-	 *
-	 * @param parent
-	 *            the element to check
-	 * @return {@code true} if a {@link TimeObservation} can be created on the provided {@code parent}
-	 */
-	public boolean canCreateTimeObservation(Element parent) {
-		boolean result = false;
-		if (parent instanceof ExecutionSpecification || parent instanceof Message) {
-			result = umlHelper.getTimeObservationFromEvent(umlHelper.getSemanticStart(parent)).isEmpty()
-					|| umlHelper.getTimeObservationFromEvent(umlHelper.getSemanticFinish(parent)).isEmpty();
-		}
-		return result;
-	}
-
-	/**
 	 * Deletes the provided {@code element}.
 	 * <p>
 	 * This method performs some Sequence-specific deletion operations, e.g. on {@link TimeObservation} elements that
@@ -490,17 +473,15 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 */
 	public boolean deleteSD(EObject element, DSemanticDecorator elementView) {
 		EObject elementToDelete = element;
-		if (element instanceof EAnnotation eAnnotation) {
+		if (element instanceof EAnnotation end) {
 			// Do not delete EAnnotations if they aren't handled below (this is the case for EAnnotation
 			// representing ends without observations).
 			elementToDelete = null;
-			if (elementView instanceof DNode dNode) {
-				if (dNode.getMapping() instanceof ObservationPointMapping mapping
-						&& Objects.equals(mapping.getName(), "SD_TimeObservation")) { //$NON-NLS-1$
-					// Check the mapping name, we can't rely on the domain type (EAnnotation)
-					elementToDelete = umlHelper.getTimeObservationFromEnd(eAnnotation).orElse(null);
-				}
+			if (ViewpointHelpers.isMapping(elementView, ObservationPointMapping.class, TimeObservation.class)) {
+				// Check the mapping name, we can't rely on the domain type (EAnnotation)
+				elementToDelete = SequenceDiagramUMLHelper.getTimeObservationFromEnd(end).orElse(null);
 			}
+
 		}
 		boolean result = false;
 		if (elementToDelete != null) {
