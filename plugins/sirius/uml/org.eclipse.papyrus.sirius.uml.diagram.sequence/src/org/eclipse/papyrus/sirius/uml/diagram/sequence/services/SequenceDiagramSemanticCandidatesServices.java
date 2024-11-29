@@ -15,15 +15,21 @@ package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
 import org.eclipse.papyrus.uml.domain.services.EMFUtils;
 import org.eclipse.uml2.uml.CombinedFragment;
+import org.eclipse.uml2.uml.Comment;
+import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.DurationConstraint;
+import org.eclipse.uml2.uml.DurationObservation;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
@@ -128,7 +134,7 @@ public class SequenceDiagramSemanticCandidatesServices {
 	}
 
 	/**
-	 * Returns the {@link EAnnotation} that aren't associated to an existing observation point.
+	 * Returns the {@link EAnnotation} end that aren't associated to an existing observation point.
 	 * <p>
 	 * This method is used to represent all the event ends that aren't already represented by another observation
 	 * point mapping. This allows to represent them on the diagram, and create tool (e.g. bracket edges) that
@@ -139,15 +145,15 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 *            the {@link Interaction} represented by the Sequence Diagram
 	 * @return the {@link EAnnotation} that aren't associated to an existing observation point
 	 */
-	public Collection<EAnnotation> getEmptyObservationCandidates(Interaction interaction) {
-		Collection<EAnnotation> timeObservationCandidates = getTimeObservationCandidates(interaction);
+	public Collection<EAnnotation> getImplicitTimeObservationCandidates(Interaction interaction) {
+		Collection<EAnnotation> explicits = getTimeObservationCandidates(interaction);
 		// Empty observation points are all the EAnnotations that aren't represented by another Observation
 		// Point mapping (e.g. TimeObservation), and represent the start/finish of a message or execution.
 		// They are represented with invisible circles that allow end user to select them and target them
 		// with tools.
 		return orderServices.getEndsOrdering(interaction).stream()
 				.filter(end -> orderServices.getEndFragment(end) instanceof OccurrenceSpecification)
-				.filter(end -> !timeObservationCandidates.contains(end))
+				.filter(end -> !explicits.contains(end))
 				.toList();
 	}
 
@@ -163,10 +169,10 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 */
 	public Collection<EAnnotation> getTimeObservationCandidates(Interaction interaction) {
 		return EMFUtils.getAncestors(Package.class, interaction).stream()
-				.flatMap(pack -> pack.getOwnedElements().stream())
+				.flatMap(pack -> pack.getPackagedElements().stream())
 				.filter(TimeObservation.class::isInstance)
 				.map(TimeObservation.class::cast)
-				.filter(obs -> umlHelper.getOwningInteraction(obs.getEvent()) == interaction)
+				.filter(obs -> isRelatedEvent(obs.getEvent(), interaction))
 				.flatMap(obs -> collectAssociatedEnds(obs.getEvent()))
 				.toList();
 	}
@@ -176,6 +182,43 @@ public class SequenceDiagramSemanticCandidatesServices {
 				orderServices.getStartingEnd(event),
 				orderServices.getFinishingEnd(event))
 				.filter(Objects::nonNull);
+	}
+
+	/**
+	 * Returns the {@link EAnnotation} that aren't associated to an existing observation point.
+	 * <p>
+	 * This method is used to represent all the event ends that aren't already represented by another observation
+	 * point mapping. This allows to represent them on the diagram, and create tool (e.g. bracket edges) that
+	 * target them.
+	 * </p>
+	 *
+	 * @param interaction
+	 *            the {@link Interaction} represented by the Sequence Diagram
+	 * @return the {@link EAnnotation} that aren't associated to an existing observation point
+	 */
+	public Collection<DurationObservation> getDurationObservationCandidates(Interaction interaction, boolean single) {
+		return EMFUtils.getAncestors(Package.class, interaction).stream()
+				.flatMap(pack -> pack.getPackagedElements().stream())
+				.filter(DurationObservation.class::isInstance)
+				.map(DurationObservation.class::cast)
+				.filter(obs -> isDurationObservationCandidate(obs, interaction, single))
+				.toList();
+	}
+
+	private boolean isDurationObservationCandidate(DurationObservation observation, Interaction container, boolean single) {
+		boolean matching = false;
+		List<NamedElement> events = observation.getEvents();
+		if (events.size() == 1 && single) {
+			matching = isRelatedEvent(events.get(0), container);
+		} else if (events.size() == 2 && !single) {
+			matching = isRelatedEvent(events.get(0), container);
+			matching = matching && isRelatedEvent(events.get(1), container);
+		}
+		return matching;
+	}
+
+	private boolean isRelatedEvent(NamedElement element, Interaction container) {
+		return umlHelper.getOwningInteraction(element) == container;
 	}
 
 	/**
@@ -237,4 +280,17 @@ public class SequenceDiagramSemanticCandidatesServices {
 				.map(DurationConstraint.class::cast)
 				.toList();
 	}
+
+	public Collection<? extends EObject> getSdLinkTargets(Element element) {
+		Collection<? extends EObject> result = Collections.emptyList();
+		if (element instanceof Constraint constraint) {
+			result = constraint.getConstrainedElements();
+		} else if (element instanceof Comment comment) {
+			result = comment.getAnnotatedElements();
+		} else if (element instanceof DurationObservation observation) {
+			result = observation.getEvents();
+		}
+		return result;
+	}
+
 }
