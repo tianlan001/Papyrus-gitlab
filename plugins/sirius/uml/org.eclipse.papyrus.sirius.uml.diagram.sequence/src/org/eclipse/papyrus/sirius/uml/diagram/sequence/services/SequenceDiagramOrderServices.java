@@ -78,7 +78,7 @@ public class SequenceDiagramOrderServices {
 	/**
 	 * The UML helper used to manipulate the semantic model associated to the Sequence Diagram.
 	 */
-	private final SequenceDiagramUMLHelper umlHelper = new SequenceDiagramUMLHelper();
+	private static final SequenceDiagramUMLHelper UML_HELPER = new SequenceDiagramUMLHelper();
 
 	/**
 	 * Creates a <i>starting end</i> {@link EAnnotation} for the given {@code baseElement}.
@@ -148,7 +148,7 @@ public class SequenceDiagramOrderServices {
 			annotation.getReferences().add(baseElement);
 		}
 
-		Interaction owningInteraction = umlHelper.getOwningInteraction(baseElement);
+		Interaction owningInteraction = UML_HELPER.getOwningInteraction(baseElement);
 		EAnnotation orderingAnnotation = getOrderingAnnotation(owningInteraction);
 		orderingAnnotation.getContents().add(annotation);
 		return annotation;
@@ -184,7 +184,6 @@ public class SequenceDiagramOrderServices {
 		}
 		return (NamedElement) refs.get(index);
 	}
-
 
 	/**
 	 * Returns {@code true} if the provided {@code annotation} represents a starting end.
@@ -313,7 +312,7 @@ public class SequenceDiagramOrderServices {
 		// but is unique when access by its property.
 		boolean ignoreId = element instanceof ExecutionSpecification;
 
-		Interaction rootInteraction = umlHelper.getOwningInteraction(element);
+		Interaction rootInteraction = UML_HELPER.getOwningInteraction(element);
 		for (EAnnotation end : getEndsOrdering(rootInteraction)) {
 			boolean matchingId = ignoreId || endId.equals(end.getSource());
 			if (matchingId && getEndFragment(end) == semanticEnd) {
@@ -343,13 +342,12 @@ public class SequenceDiagramOrderServices {
 	private InteractionFragment getSemanticEnd(String source, Element element) {
 		InteractionFragment result = null;
 		if (START_ANNOTATION_SOURCE.equals(source)) {
-			result = umlHelper.getSemanticStart(element);
+			result = UML_HELPER.getSemanticStart(element);
 		} else if (FINISH_ANNOTATION_SOURCE.equals(source)) {
-			result = umlHelper.getSemanticFinish(element);
+			result = UML_HELPER.getSemanticFinish(element);
 		}
 		return result;
 	}
-
 
 	/**
 	 * Returns the ordering of the elements contained in the {@code interaction}.
@@ -410,10 +408,10 @@ public class SequenceDiagramOrderServices {
 		if (eObject instanceof EAnnotation annotation
 				&& !annotation.getReferences().isEmpty()
 				&& annotation.getReferences().get(0) instanceof InteractionFragment head
-				// Reminder: 'getEndFragment' is not applicable here:
-				// we want to evaluate if the content is valid
-				// before using 'getEndFragment'
-				) {
+		// Reminder: 'getEndFragment' is not applicable here:
+		// we want to evaluate if the content is valid
+		// before using 'getEndFragment'
+		) {
 			if (head instanceof MessageOccurrenceSpecification
 					|| head instanceof ExecutionOccurrenceSpecification) {
 				// Annotation for message and execution occurrence should have a second reference to the base element.
@@ -494,38 +492,134 @@ public class SequenceDiagramOrderServices {
 	 * @return selected elements.
 	 */
 	public <T extends InteractionFragment> Collection<T> selectIncludedFragments(NamedElement parent, Class<T> type) {
-		Lifeline covered = umlHelper.getCoveredLifeline(parent);
+		FragmentSearch<T> search = createFragmentSearch(parent, type);
 
-		List<T> result = new ArrayList<>();
-
-		int depth = -1; // Not at expected level
-		if (parent == covered) {
-			depth = 0; // Root events
-		}
-
-		for (EAnnotation end : getEndsOrdering(covered.getInteraction())) {
+		for (EAnnotation end : getEndsOrdering(search.covered.getInteraction())) {
 			InteractionFragment element = getEndFragment(end);
-
-			if (umlHelper.getCoveredLifeline(element) == covered) {
+			if (search.isCovered(element)) {
 				Element current = getIncludingFragment(end);
 				if (isStartingEnd(end)) {
-					depth = selectIncludedFragment(current, depth, parent, type, result);
-				} else if (isFinishingEnd(end)) {
-					boolean including = isIncludingFragment(current);
-					if (current == parent
-							|| depth == 0 && including) {
-						// no need to go further
-						break;
-					} else if (depth != -1 && including) {
-						// In expected fragment
-						depth--;
-					}
+					search.selectOnStart(current);
+				} else if (isFinishingEnd(end)
+						&& search.isDoneOnFinish(current)) {
+					return search.result; // Container is finished: no need to go further
 				}
 			}
 		}
 
-		return result;
+		return search.result;
 	}
+
+
+	/**
+	 * Creates a search context to explore an interaction.
+	 *
+	 * @param <T>
+	 *            type of searched elements
+	 * @param parent
+	 *            container of searched elements
+	 * @param type
+	 *            class of searched elements
+	 * @return search context
+	 */
+	private <T> FragmentSearch<T> createFragmentSearch(NamedElement parent, Class<T> type) {
+		Lifeline lifeline = UML_HELPER.getCoveredLifeline(parent);
+		int initialDepth = -1; // by default, not at expected level.
+		if (parent == lifeline) {
+			initialDepth = 0; // Root events
+		}
+
+		return new FragmentSearch<>(lifeline, parent, type,
+				// record cannot contain state but an array can.
+				new int[] { initialDepth },
+				new ArrayList<>()); // result
+	}
+
+	/**
+	 * Context of search of sub-fragments using ends.
+	 *
+	 * @param <T>
+	 *            type of fragments
+	 * @param covered
+	 *            lifeline of fragments
+	 * @param parent
+	 *            container of fragments
+	 * @param type
+	 *            type of fragments
+	 * @param depth
+	 *            depth of containment (-1 if not started)
+	 * @param result
+	 *            list of found elements
+	 */
+	private record FragmentSearch<T>(Lifeline covered, NamedElement parent,
+			Class<T> type, int[] depth, List<T> result) {
+
+		/**
+		 * Evaluates if fragment is applicable in this search.
+		 *
+		 * @param element
+		 *            current fragment
+		 * @return true if applicable
+		 */
+		boolean isCovered(InteractionFragment element) {
+			return UML_HELPER.getCoveredLifeline(element) == covered;
+		}
+
+		/**
+		 * Adds an element in result if it matches the search.
+		 * <p>
+		 * Depth is also updated if needed.
+		 * </p>
+		 *
+		 * @param current
+		 *            candidate to add
+		 */
+		void selectOnStart(Element current) {
+			if (current == parent) {
+				if (depth[0] == -1) {
+					depth[0] = 0;
+				} // else duplicated start (ignored).
+			} else if (0 <= depth[0]) { // in parent
+				if (depth[0] == 0 && type.isInstance(current)) {
+					// proper level and content.
+					result.add(type.cast(current));
+				}
+				if (isIncludingFragment(current)) {
+					depth[0]++;
+				}
+			}
+		}
+
+		/**
+		 * Evaluates if a fragment is container of events.
+		 *
+		 * @param element
+		 *            fragment to evaluate
+		 * @return true if container.
+		 */
+		boolean isIncludingFragment(Element element) {
+			return element instanceof ExecutionSpecification;
+		}
+
+		/**
+		 * Evaluates if the search is over on a ending event.
+		 *
+		 * @param current
+		 *            finished element
+		 * @return true if search should stop.
+		 */
+		boolean isDoneOnFinish(Element current) {
+			if (current == parent || depth[0] == 0 && isIncludingFragment(current)) {
+				return true;
+			}
+			if (depth[0] > 0 && isIncludingFragment(current)) {
+				// In expected fragment
+				depth[0]--;
+			}
+			return false;
+		}
+
+	};
 
 	private InteractionFragment getIncludingFragment(EAnnotation end) {
 		InteractionFragment element = getEndFragment(end);
@@ -533,45 +627,12 @@ public class SequenceDiagramOrderServices {
 		InteractionFragment result = null;
 		// Cannot used getEndOwner for messages.
 		// Execution is not the owner.
-		if (element instanceof MessageOccurrenceSpecification occurence) {
-			result = OccurrenceSpecificationHelper.getExecutionFromStartOccurrence(occurence)
-					.or(() -> OccurrenceSpecificationHelper.getExecutionFromFinishOccurrence(occurence))
-					.orElse(null);
+		if (element instanceof MessageOccurrenceSpecification occurrence) {
+			result = SequenceDiagramUMLHelper.getAssociatedExecution(occurrence);
 		} else if (getEndOwner(end) instanceof InteractionFragment fragment) {
 			result = fragment;
 		}
 		return result;
-	}
-
-	private <T extends InteractionFragment> int selectIncludedFragment(Element current, int depth, NamedElement parent, Class<T> type, List<T> result) {
-		int newDepth = depth;
-		if (current == parent) {
-			if (depth == -1) {
-				newDepth = 0;
-			} // else duplicated start (ignored).
-		} else if (0 <= depth) { // in parent
-			if (depth == 0 // proper level
-					&& type.isInstance(current)) { // expected kind
-				@SuppressWarnings("unchecked")
-				T targetedElement = (T) current;
-				result.add(targetedElement);
-			}
-			if (isIncludingFragment(current)) {
-				newDepth = depth + 1;
-			}
-		}
-		return newDepth;
-	}
-
-	/**
-	 * Evaluates if a fragment is container of events.
-	 *
-	 * @param element
-	 *            fragment to evaluate
-	 * @return true if container.
-	 */
-	private boolean isIncludingFragment(Element element) {
-		return element instanceof ExecutionSpecification;
 	}
 
 	/**
@@ -592,8 +653,7 @@ public class SequenceDiagramOrderServices {
 				}
 			}
 		}
-		// Not found.
-		return null;
+		return null; // Not found.
 	}
 
 }

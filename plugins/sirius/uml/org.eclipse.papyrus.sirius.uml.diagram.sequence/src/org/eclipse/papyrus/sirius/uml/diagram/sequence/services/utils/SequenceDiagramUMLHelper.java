@@ -19,6 +19,7 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.util.ECrossReferenceAdapter;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramOrderServices;
+import org.eclipse.papyrus.uml.domain.services.internal.helpers.OccurrenceSpecificationHelper;
 import org.eclipse.papyrus.uml.domain.services.internal.helpers.TimeObservationHelper;
 import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.Element;
@@ -152,8 +153,8 @@ public class SequenceDiagramUMLHelper {
 			result = executionSpecification.getStart();
 		} else if (element instanceof Message message) {
 			result = (MessageOccurrenceSpecification) message.getSendEvent();
-		} else {
-			result = (InteractionFragment) element;
+		} else if (element instanceof InteractionFragment fragment) {
+			result = fragment;
 		}
 		return result;
 	}
@@ -174,8 +175,8 @@ public class SequenceDiagramUMLHelper {
 			result = executionSpecification.getFinish();
 		} else if (element instanceof Message message) {
 			result = (MessageOccurrenceSpecification) message.getReceiveEvent();
-		} else {
-			result = (InteractionFragment) element;
+		} else if (element instanceof InteractionFragment fragment) {
+			result = fragment;
 		}
 		return result;
 	}
@@ -243,5 +244,22 @@ public class SequenceDiagramUMLHelper {
 			result = getCoveredLifeline(fragment);
 		}
 		return result;
+	}
+
+	/**
+	 * Returns associated Execution Specification.
+	 *
+	 * @param occurrence
+	 *            event in an Interaction
+	 * @return associated Execution Specification of null
+	 */
+	public static ExecutionSpecification getAssociatedExecution(OccurrenceSpecification occurrence) {
+		if (occurrence instanceof ExecutionOccurrenceSpecification eos) {
+			return eos.getExecution();
+		}
+
+		return OccurrenceSpecificationHelper.getExecutionFromStartOccurrence(occurrence)
+				.or(() -> OccurrenceSpecificationHelper.getExecutionFromFinishOccurrence(occurrence))
+				.orElse(null);
 	}
 }
