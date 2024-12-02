@@ -13,10 +13,13 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BiPredicate;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
@@ -178,8 +181,11 @@ public class SequenceDiagramOrderServices {
 	 */
 	public NamedElement getEndOwner(EAnnotation end) {
 		List<EObject> refs = end.getReferences();
-		int index = 0;
+		int index = 0; // By default, the owner is the only reference.
 		if (refs.size() > 1) {
+			// For complex case,
+			// (message, execution at least)
+			// owner is second reference
 			index = 1;
 		}
 		return (NamedElement) refs.get(index);
@@ -442,6 +448,46 @@ public class SequenceDiagramOrderServices {
 		return interaction.getEAnnotation(ORDERING_ANNOTATION_SOURCE);
 	}
 
+	/**
+	 * Finds the context of a fragment.
+	 * <p>
+	 * The context is either the ExecutionSpecification or the lifeline. The context is
+	 * the element where a fragment happens. <br/>
+	 * There is no direct relation-ship in the model. Context must be found by recreating
+	 * the {@link ExecutionSpecification} superposition.
+	 * </p>
+	 *
+	 * @param element
+	 *            fragment to get the context from
+	 * @return context (not null unless the fragment is headless)
+	 */
+	public Element findIncludingFragment(InteractionFragment element) {
+		Deque<Element> stack = new ArrayDeque<>();
+		Lifeline covered = UML_HELPER.getCoveredLifeline(element);
+
+		iterateCoveredFragments(covered, (end, current) -> {
+			boolean found = element == getEndFragment(end);
+
+			boolean keepOn = true;
+			if (isStartingEnd(end) && isIncludingFragment(current)) {
+				stack.push(current);
+
+			} else if (!found && isFinishingEnd(end) && isIncludingFragment(current)) {
+				if (stack.isEmpty()) {
+					// Unexpected end. Stop search.
+					keepOn = false;
+				} else {
+					stack.pop();
+				}
+			}
+			return keepOn && !found;
+		});
+
+		if (stack.isEmpty()) {
+			return covered;
+		}
+		return stack.peek();
+	}
 
 	/**
 	 * Refreshes the annotations dealing with ends order.
@@ -477,6 +523,28 @@ public class SequenceDiagramOrderServices {
 	}
 
 	/**
+	 * Iterates on fragments of covered lifeline in the order of execution.
+	 * <p>
+	 * For each, event calls {@code continuingTask}. The task indicates if the iteration
+	 * must continue.
+	 * </p>
+	 *
+	 * @param covered
+	 *            {@link Lifeline} to iterate on
+	 * @param continuingTask
+	 *            task to perform on each element
+	 */
+	private void iterateCoveredFragments(Lifeline covered, BiPredicate<EAnnotation, Element> continuingTask) {
+		for (EAnnotation end : getEndsOrdering(covered.getInteraction())) {
+			if (UML_HELPER.getCoveredLifeline(getEndFragment(end)) == covered) {
+				if (!continuingTask.test(end, getIncludingFragment(end))) {
+					break;
+				}
+			}
+		}
+	}
+
+	/**
 	 * Selects the fragment contains directly by the lifeline or an Execution Specification.
 	 * <p>
 	 * There is no indication of containment between some fragments, so real containment is
@@ -493,19 +561,14 @@ public class SequenceDiagramOrderServices {
 	 */
 	public <T extends InteractionFragment> Collection<T> selectIncludedFragments(NamedElement parent, Class<T> type) {
 		FragmentSearch<T> search = createFragmentSearch(parent, type);
-
-		for (EAnnotation end : getEndsOrdering(search.covered.getInteraction())) {
-			InteractionFragment element = getEndFragment(end);
-			if (search.isCovered(element)) {
-				Element current = getIncludingFragment(end);
-				if (isStartingEnd(end)) {
-					search.selectOnStart(current);
-				} else if (isFinishingEnd(end)
-						&& search.isDoneOnFinish(current)) {
-					return search.result; // Container is finished: no need to go further
-				}
+		iterateCoveredFragments(UML_HELPER.getCoveredLifeline(parent), (end, current) -> {
+			if (isStartingEnd(end)) {
+				search.selectOnStart(current);
+			} else if (isFinishingEnd(end) && search.isSelectionOver(current)) {
+				return false; // Container is finished: no need to go further
 			}
-		}
+			return true;
+		});
 
 		return search.result;
 	}
@@ -523,13 +586,12 @@ public class SequenceDiagramOrderServices {
 	 * @return search context
 	 */
 	private <T> FragmentSearch<T> createFragmentSearch(NamedElement parent, Class<T> type) {
-		Lifeline lifeline = UML_HELPER.getCoveredLifeline(parent);
 		int initialDepth = -1; // by default, not at expected level.
-		if (parent == lifeline) {
+		if (parent == UML_HELPER.getCoveredLifeline(parent)) {
 			initialDepth = 0; // Root events
 		}
 
-		return new FragmentSearch<>(lifeline, parent, type,
+		return new FragmentSearch<>(parent, type,
 				// record cannot contain state but an array can.
 				new int[] { initialDepth },
 				new ArrayList<>()); // result
@@ -540,8 +602,6 @@ public class SequenceDiagramOrderServices {
 	 *
 	 * @param <T>
 	 *            type of fragments
-	 * @param covered
-	 *            lifeline of fragments
 	 * @param parent
 	 *            container of fragments
 	 * @param type
@@ -551,19 +611,8 @@ public class SequenceDiagramOrderServices {
 	 * @param result
 	 *            list of found elements
 	 */
-	private record FragmentSearch<T>(Lifeline covered, NamedElement parent,
+	private record FragmentSearch<T>(NamedElement parent,
 			Class<T> type, int[] depth, List<T> result) {
-
-		/**
-		 * Evaluates if fragment is applicable in this search.
-		 *
-		 * @param element
-		 *            current fragment
-		 * @return true if applicable
-		 */
-		boolean isCovered(InteractionFragment element) {
-			return UML_HELPER.getCoveredLifeline(element) == covered;
-		}
 
 		/**
 		 * Adds an element in result if it matches the search.
@@ -591,24 +640,13 @@ public class SequenceDiagramOrderServices {
 		}
 
 		/**
-		 * Evaluates if a fragment is container of events.
-		 *
-		 * @param element
-		 *            fragment to evaluate
-		 * @return true if container.
-		 */
-		boolean isIncludingFragment(Element element) {
-			return element instanceof ExecutionSpecification;
-		}
-
-		/**
 		 * Evaluates if the search is over on a ending event.
 		 *
 		 * @param current
 		 *            finished element
 		 * @return true if search should stop.
 		 */
-		boolean isDoneOnFinish(Element current) {
+		boolean isSelectionOver(Element current) {
 			if (current == parent || depth[0] == 0 && isIncludingFragment(current)) {
 				return true;
 			}
@@ -620,6 +658,17 @@ public class SequenceDiagramOrderServices {
 		}
 
 	};
+
+	/**
+	 * Evaluates if a fragment is container of events.
+	 *
+	 * @param element
+	 *            fragment to evaluate
+	 * @return true if container.
+	 */
+	private static boolean isIncludingFragment(Element element) {
+		return element instanceof ExecutionSpecification;
+	}
 
 	private InteractionFragment getIncludingFragment(EAnnotation end) {
 		InteractionFragment element = getEndFragment(end);

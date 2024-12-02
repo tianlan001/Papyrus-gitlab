@@ -39,10 +39,12 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
+import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
+import org.eclipse.uml2.uml.MessageEnd;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.MessageSort;
 import org.eclipse.uml2.uml.NamedElement;
@@ -562,6 +564,53 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 			return result;
 		}
 		return null;
+	}
+
+	/**
+	 * Returns the context where the message is sent.
+	 * <p>
+	 * If the message is lost, the context is the message it self.
+	 * Otherwise, context is receiving execution or lifeline.
+	 * </p>
+	 *
+	 * @param element
+	 *            message to get the context from
+	 * @return context of sending
+	 */
+	public Element getMessageSendContext(Message element) {
+		return getMessageEndContext(element, element.getSendEvent());
+	}
+
+	/**
+	 * Returns the context where the message is received.
+	 * <p>
+	 * If the message is found, the context is the message it self.
+	 * Otherwise, context is receiving execution or lifeline.
+	 * </p>
+	 *
+	 * @param element
+	 *            message to get the context from
+	 * @return context of reception
+	 */
+	public Element getMessageReceiveContext(Message element) {
+		return getMessageEndContext(element, element.getReceiveEvent());
+	}
+
+	/**
+	 * Returns the context where a message event happens.
+	 * <p>
+	 * The context is the message it self or and execution or a lifeline.
+	 * </p>
+	 *
+	 * @param element
+	 *            message to get the context from
+	 * @return context of event
+	 */
+	private Element getMessageEndContext(Message element, MessageEnd end) {
+		if (end instanceof InteractionFragment event) {
+			return orderService.findIncludingFragment(event);
+		}
+		return element;
 	}
 
 	/**
