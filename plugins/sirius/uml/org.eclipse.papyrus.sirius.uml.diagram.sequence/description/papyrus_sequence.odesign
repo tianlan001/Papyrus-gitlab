@@ -92,7 +92,15 @@
         </edgeMappings>
         <edgeMappings name="SD_DurationConstraint" semanticCandidatesExpression="aql:self.getDurationConstraintCandidates()" synchronizationLock="true" sourceMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_EmptyObservation']" targetMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_EmptyObservation']" targetFinderExpression="aql:self.getDurationConstraintTarget()" sourceFinderExpression="aql:self.getDurationConstraintSource()" domainClass="uml::DurationConstraint" useDomainElement="true">
           <style xsi:type="style:BracketEdgeStyleDescription" sourceArrow="InputArrow">
-            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_gray']"/>
+            <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="SD_DurationObservation2" semanticCandidatesExpression="aql:self.getDurationObservationCandidates(false)" synchronizationLock="true" sourceMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_EmptyObservation']" targetMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_EmptyObservation']" targetFinderExpression="aql:self.getDurationObservationTarget()" sourceFinderExpression="aql:self.getDurationObservationSource()" domainClass="uml::DurationObservation" useDomainElement="true">
+          <style xsi:type="style:BracketEdgeStyleDescription" sourceArrow="InputArrow">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_gray']"/>
             <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
@@ -299,7 +307,16 @@
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.setLinkTarget(target, sourceView,'SD_Link')"/>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool_2:EdgeCreationDescription" name="CreateDurationConstraintTool" label="Duration Constraint" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_DurationConstraint']">
+          <ownedTools xsi:type="tool_2:EdgeCreationDescription" name="CreateDurationObservationTool" label="Duration Observation" precondition="aql:preSource.canCreateDurationObservation(preTarget)" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_DurationObservation2']" extraSourceMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" extraTargetMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.createDurationObservation(target, sourceView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_2:EdgeCreationDescription" name="CreateDurationConstraintTool" label="Duration Constraint" precondition="aql:preSource &lt;> preTarget" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_DurationConstraint']">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>

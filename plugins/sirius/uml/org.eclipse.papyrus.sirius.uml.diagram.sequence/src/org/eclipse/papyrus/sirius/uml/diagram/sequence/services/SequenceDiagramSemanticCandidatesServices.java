@@ -21,7 +21,6 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
 import org.eclipse.papyrus.uml.domain.services.EMFUtils;
 import org.eclipse.uml2.uml.CombinedFragment;
@@ -185,32 +184,34 @@ public class SequenceDiagramSemanticCandidatesServices {
 	}
 
 	/**
-	 * Returns the {@link EAnnotation} that aren't associated to an existing observation point.
+	 * Returns the DurationObservation of an interaction.
 	 * <p>
-	 * This method is used to represent all the event ends that aren't already represented by another observation
-	 * point mapping. This allows to represent them on the diagram, and create tool (e.g. bracket edges) that
-	 * target them.
+	 * Duration Observation has 2 kinds of representation based on the number of elements.
+	 * A flag indicates the expected kind.
 	 * </p>
 	 *
 	 * @param interaction
 	 *            the {@link Interaction} represented by the Sequence Diagram
-	 * @return the {@link EAnnotation} that aren't associated to an existing observation point
+	 * @param single
+	 *            flag to get observation with only 1 related element
+	 * @return the {@link DurationObservation} used in the interaction
 	 */
 	public Collection<DurationObservation> getDurationObservationCandidates(Interaction interaction, boolean single) {
 		return EMFUtils.getAncestors(Package.class, interaction).stream()
 				.flatMap(pack -> pack.getPackagedElements().stream())
-				.filter(DurationObservation.class::isInstance)
+				.filter(element -> element instanceof DurationObservation obs
+						&& isDurationObservationCandidate(obs, interaction, single))
 				.map(DurationObservation.class::cast)
-				.filter(obs -> isDurationObservationCandidate(obs, interaction, single))
 				.toList();
 	}
 
 	private boolean isDurationObservationCandidate(DurationObservation observation, Interaction container, boolean single) {
 		boolean matching = false;
 		List<NamedElement> events = observation.getEvents();
-		if (events.size() == 1 && single) {
+		// Well-formed observation can have 1 ou 2 events only.
+		if (single && events.size() == 1) {
 			matching = isRelatedEvent(events.get(0), container);
-		} else if (events.size() == 2 && !single) {
+		} else if (!single && events.size() == 2) {
 			matching = isRelatedEvent(events.get(0), container);
 			matching = matching && isRelatedEvent(events.get(1), container);
 		}
@@ -236,31 +237,33 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 * @return the {@code type} fragments contained in the provided {@code interaction}
 	 */
 	private <T extends InteractionFragment> Collection<T> getAllFragments(Class<T> type, Interaction interaction) {
-		return joinAllFragments(interaction.getFragments(), type, new ArrayList<>());
+		return collectAllFragments(interaction.getFragments(), type, new ArrayList<>());
 	}
 
 	/**
-	 * Returns all the {@code type} fragments contained in the provided {@code CombinedFragment}.
+	 * Add all the {@code type} fragments contained in the provided list of fragments in a list.
 	 * <p>
 	 * This method searches for nested fragments contained in child {@link CombinedFragment}s.
 	 * </p>
 	 *
 	 * @param <T>
 	 *            the type of the fragments to retrieve
+	 * @param fragments
+	 *            elements to collect in
 	 * @param type
 	 *            the type of the fragments to retrieve
-	 * @param combinedFragment
-	 *            the combined fragment to search into
-	 * @return the {@code type} fragments contained in the provided {@code combinedFragment}
+	 * @param results
+	 *            list to fill
+	 * @return provided lists with all fragments.
 	 */
-	private <T extends InteractionFragment> Collection<T> joinAllFragments(List<InteractionFragment> fragments, Class<T> type, Collection<T> results) {
+	private <T extends InteractionFragment> Collection<T> collectAllFragments(List<InteractionFragment> fragments, Class<T> type, Collection<T> results) {
 		for (InteractionFragment fragment : fragments) {
 			if (type.isInstance(fragment)) {
 				results.add(type.cast(fragment));
 			}
 			if (fragment instanceof CombinedFragment combined) {
 				for (InteractionOperand operand : combined.getOperands()) {
-					joinAllFragments(operand.getFragments(), type, results);
+					collectAllFragments(operand.getFragments(), type, results);
 				}
 			}
 		}
@@ -281,8 +284,23 @@ public class SequenceDiagramSemanticCandidatesServices {
 				.toList();
 	}
 
-	public Collection<? extends EObject> getSdLinkTargets(Element element) {
-		Collection<? extends EObject> result = Collections.emptyList();
+	/**
+	 * Returns the targets of related elements in Sequence Diagram.
+	 * <p>
+	 * This applies to:
+	 * <ul>
+	 * <li>Constraint to get constrained Elements</li>
+	 * <li>Comment to get annotated Elements</li>
+	 * <li>DurationObservation to event when only 1 is implied.</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * @param element
+	 *            UML element that has links in Sequence Diagram
+	 * @return related elements
+	 */
+	public Collection<? extends Element> getSdLinkTargets(Element element) {
+		Collection<? extends Element> result = Collections.emptyList();
 		if (element instanceof Constraint constraint) {
 			result = constraint.getConstrainedElements();
 		} else if (element instanceof Comment comment) {
