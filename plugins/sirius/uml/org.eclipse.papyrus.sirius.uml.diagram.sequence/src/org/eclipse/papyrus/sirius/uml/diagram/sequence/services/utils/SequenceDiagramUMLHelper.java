@@ -202,10 +202,10 @@ public class SequenceDiagramUMLHelper {
 	 */
 	public static Optional<TimeObservation> getTimeObservationFromEnd(EAnnotation end) {
 		InteractionFragment fragment = new SequenceDiagramOrderServices().getEndFragment(end);
-		if (fragment != null) {
-			return getTimeObservationsFromEvent(fragment).stream().findFirst();
+		if (fragment == null) {
+			return Optional.empty();
 		}
-		return Optional.empty();
+		return getTimeObservationsFromEvent(fragment).stream().findFirst();
 	}
 
 	/**
