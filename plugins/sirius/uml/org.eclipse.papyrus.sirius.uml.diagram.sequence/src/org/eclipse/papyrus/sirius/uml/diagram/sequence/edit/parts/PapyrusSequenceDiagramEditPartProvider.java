@@ -20,7 +20,7 @@ import org.eclipse.sirius.diagram.sequence.business.internal.elements.Execution;
 import org.eclipse.sirius.diagram.sequence.ui.tool.internal.provider.SequenceDiagramEditPartProvider;
 
 /**
- * Provides a specific factory to contribute Papyrus Sequence specific EditParts
+ * Provides a specific factory to contribute Papyrus Sequence specific EditParts.
  *
  * @author <a href="mailto:florian.barbin@obeo.fr">Florian Barbin</a>
  */

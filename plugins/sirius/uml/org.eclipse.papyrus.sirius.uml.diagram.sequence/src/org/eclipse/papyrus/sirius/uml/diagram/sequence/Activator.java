@@ -20,10 +20,9 @@ import org.eclipse.sirius.business.api.componentization.ViewpointRegistry;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.uml2.uml.edit.UMLEditPlugin;
 import org.osgi.framework.BundleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Activator extends Plugin {
+
 	/** The plug-in ID. */
 	public static final String PLUGIN_ID = "org.eclipse.papyrus.sirius.uml.diagram.sequence"; //$NON-NLS-1$
 
@@ -33,11 +32,6 @@ public class Activator extends Plugin {
 	private static Activator plugin;
 
 	private static Set<Viewpoint> viewpoints;
-
-	/**
-	 * Logging Helper
-	 */
-	public static Logger log = LoggerFactory.getLogger(Activator.class);
 
 	/**
 	 * Default constructor for the plug-in.

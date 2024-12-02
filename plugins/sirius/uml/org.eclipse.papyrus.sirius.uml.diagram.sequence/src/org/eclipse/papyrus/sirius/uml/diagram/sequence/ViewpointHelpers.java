@@ -26,6 +26,9 @@ import org.eclipse.uml2.uml.Element;
  */
 public final class ViewpointHelpers {
 
+	/** Id used for diagram name. */
+	public static final String DIAGRAM_NAME = "SequenceDiagram"; //$NON-NLS-1$
+
 	/** Id used for link mappings. */
 	private static final String DEFAULT_PREFIX = "SD_"; //$NON-NLS-1$
 
@@ -35,8 +38,9 @@ public final class ViewpointHelpers {
 	/** Id used for mapping of observable. */
 	public static final String OBSERVABLE_END_ID = DEFAULT_PREFIX + "EmptyObservation"; //$NON-NLS-1$
 
-	/** Id used for diagram name. */
-	public static final String DIAGRAM_NAME = "SequenceDiagram"; //$NON-NLS-1$
+	private ViewpointHelpers() {
+		// Prevent instantiation.
+	}
 
 	/**
 	 * Evaluates if a diagram a sequence diagram.
@@ -116,8 +120,5 @@ public final class ViewpointHelpers {
 		return isMapping(view, RepresentationElementMapping.class, getMappingName(umlType));
 	}
 
-	private ViewpointHelpers() {
-		// Prevent instantiation.
-	}
 
 }
