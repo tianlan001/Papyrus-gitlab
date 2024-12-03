@@ -36,7 +36,7 @@ public final class ViewpointHelpers {
 	public static final String LINK_MAPPING_ID = DEFAULT_PREFIX + "Link"; //$NON-NLS-1$
 
 	/** Id used for mapping of observable. */
-	public static final String OBSERVABLE_END_ID = DEFAULT_PREFIX + "EmptyObservation"; //$NON-NLS-1$
+	public static final String OBSERVABLE_END_ID = DEFAULT_PREFIX + "ImplicitTimeElement"; //$NON-NLS-1$
 
 	private ViewpointHelpers() {
 		// Prevent instantiation.

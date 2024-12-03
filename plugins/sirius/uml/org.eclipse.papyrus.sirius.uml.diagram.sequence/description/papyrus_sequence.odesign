@@ -19,6 +19,12 @@
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               </style>
             </borderedNodeMappings>
+            <borderedNodeMappings xsi:type="description_1:EndOfLifeMapping" name="SD_ResizeAnchor" preconditionExpression="aql:true" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_NoDelete']" semanticCandidatesExpression="var:self" synchronizationLock="true" domainClass="uml::Lifeline">
+              <style xsi:type="style:WorkspaceImageDescription" labelSize="9" showIcon="false" labelExpression="" sizeComputationExpression="2" workspacePath="/org.eclipse.papyrus.sirius.uml.diagram.sequence/icons/transparent_anchor.svg">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </style>
+            </borderedNodeMappings>
             <style xsi:type="style:SquareDescription" labelSize="9" labelExpression="" labelPosition="node" resizeKind="NSEW" width="1" height="40">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -43,7 +49,7 @@
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
         </nodeMappings>
-        <nodeMappings xsi:type="description_1:ObservationPointMapping" name="SD_EmptyObservation" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" semanticCandidatesExpression="aql:self.getImplicitTimeObservationCandidates()" semanticElements="aql:self.references->at(2)" synchronizationLock="true" domainClass="ecore::EAnnotation">
+        <nodeMappings xsi:type="description_1:ObservationPointMapping" name="SD_ImplicitTimeElement" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" semanticCandidatesExpression="aql:self.getImplicitTimeObservationCandidates()" semanticElements="aql:self.references->at(2)" synchronizationLock="true" domainClass="ecore::EAnnotation">
           <style xsi:type="style:WorkspaceImageDescription" labelSize="9" showIcon="false" labelExpression="" sizeComputationExpression="2" workspacePath="/org.eclipse.papyrus.sirius.uml.diagram.sequence/icons/transparent_anchor.svg">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -55,7 +61,7 @@
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
         </nodeMappings>
-        <nodeMappings name="SD_DurationObservation" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getDurationObservationCandidates(true)" synchronizationLock="true" domainClass="uml::DurationObservation">
+        <nodeMappings name="SD_SingleDurationObservation" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getDurationObservationCandidates(true)" synchronizationLock="true" domainClass="uml::DurationObservation">
           <style xsi:type="style:WorkspaceImageDescription" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/org.eclipse.papyrus.sirius.uml.diagram.sequence/icons/simple_label.svg">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -85,12 +91,12 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="SD_Link" preconditionExpression="aql:not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_Link']" synchronizationLock="true" sourceMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Comment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Constraint'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_DurationObservation']" targetMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_CombinedFragment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_CombinedFragment']/@subContainerMappings[name='SD_InteractionOperand'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Comment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Constraint'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_InteractionUse'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_StateInvariant'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation']" targetFinderExpression="aql:self.getSdLinkTargets()" reconnections="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectLinkSource'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectLinkTarget']">
+        <edgeMappings name="SD_Link" preconditionExpression="aql:not(sourceView.isCompartmentView()) and not(targetView.isCompartmentView())" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_Link']" synchronizationLock="true" sourceMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Comment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Constraint'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_SingleDurationObservation']" targetMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_CombinedFragment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_CombinedFragment']/@subContainerMappings[name='SD_InteractionOperand'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Comment'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Constraint'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_InteractionUse'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_StateInvariant'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation']" targetFinderExpression="aql:self.getSdLinkTargets()" reconnections="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectLinkSource'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.3/@ownedTools[name='ReconnectLinkTarget']">
           <style lineStyle="dot" targetArrow="NoDecoration">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
         </edgeMappings>
-        <edgeMappings name="SD_DurationConstraint" semanticCandidatesExpression="aql:self.getDurationConstraintCandidates()" synchronizationLock="true" sourceMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_EmptyObservation']" targetMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_EmptyObservation']" targetFinderExpression="aql:self.getDurationConstraintTarget()" sourceFinderExpression="aql:self.getDurationConstraintSource()" domainClass="uml::DurationConstraint" useDomainElement="true">
+        <edgeMappings name="SD_DurationConstraint" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getDurationConstraintCandidates()" synchronizationLock="true" sourceMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_ImplicitTimeElement']" targetMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_ImplicitTimeElement']" targetFinderExpression="aql:self.getDurationConstraintTarget()" sourceFinderExpression="aql:self.getDurationConstraintSource()" domainClass="uml::DurationConstraint" useDomainElement="true">
           <style xsi:type="style:BracketEdgeStyleDescription" sourceArrow="InputArrow">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_gray']"/>
             <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
@@ -98,7 +104,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="SD_DurationObservation2" semanticCandidatesExpression="aql:self.getDurationObservationCandidates(false)" synchronizationLock="true" sourceMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_EmptyObservation']" targetMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_EmptyObservation']" targetFinderExpression="aql:self.getDurationObservationTarget()" sourceFinderExpression="aql:self.getDurationObservationSource()" domainClass="uml::DurationObservation" useDomainElement="true">
+        <edgeMappings name="SD_DualDurationObservation" deletionDescription="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.2/@ownedTools[name='SD_Delete_All']" labelDirectEdit="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@toolSections.6/@ownedTools[name='NamedElement_name_EditionTool']" semanticCandidatesExpression="aql:self.getDurationObservationCandidates(false)" synchronizationLock="true" sourceMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_ImplicitTimeElement']" targetMapping="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeObservation'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_ImplicitTimeElement']" targetFinderExpression="aql:self.getDurationObservationTarget()" sourceFinderExpression="aql:self.getDurationObservationSource()" domainClass="uml::DurationObservation" useDomainElement="true">
           <style xsi:type="style:BracketEdgeStyleDescription" sourceArrow="InputArrow">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_gray']"/>
             <centerLabelStyleDescription labelSize="9" labelExpression="aql:self.renderLabel(diagram)">
@@ -141,7 +147,7 @@
             </initialOperation>
             <predecessor name="predecessor"/>
           </ownedTools>
-          <ownedTools xsi:type="tool:ExecutionCreationTool" documentation="Create an Action Execution Specification" name="CreateActionExecutionSpecificationTool" label="Action Execution Specification" precondition="aql:container.oclIsKindOf(uml::Lifeline) or container.oclIsKindOf(uml::ExecutionSpecification)" nodeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/ActionExecutionSpecification.gif">
+          <ownedTools xsi:type="tool:ExecutionCreationTool" documentation="Create an Action Execution Specification" name="CreateActionExecutionSpecificationTool" label="Action Execution Specification" precondition="aql:container.oclIsKindOf(uml::Lifeline) or container.oclIsKindOf(uml::ExecutionSpecification)" elementsToSelect="aql:newElement" nodeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/ActionExecutionSpecification.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -153,7 +159,7 @@
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
           </ownedTools>
-          <ownedTools xsi:type="tool:ExecutionCreationTool" documentation="Create a Behavior Execution Specification" name="CreateBehaviorExecutionSpecificationTool" label="Behavior Execution Specification" precondition="aql:container.oclIsKindOf(uml::Lifeline) or container.oclIsKindOf(uml::ExecutionSpecification)" nodeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/BehaviorExecutionSpecification.gif">
+          <ownedTools xsi:type="tool:ExecutionCreationTool" documentation="Create a Behavior Execution Specification" name="CreateBehaviorExecutionSpecificationTool" label="Behavior Execution Specification" precondition="aql:container.oclIsKindOf(uml::Lifeline) or container.oclIsKindOf(uml::ExecutionSpecification)" elementsToSelect="aql:newElement" nodeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/BehaviorExecutionSpecification.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -298,16 +304,7 @@
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
           </ownedTools>
-          <ownedTools xsi:type="tool_2:EdgeCreationDescription" name="CreateLinkTool" label="Link" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Link']">
-            <sourceVariable name="source"/>
-            <targetVariable name="target"/>
-            <sourceViewVariable name="sourceView"/>
-            <targetViewVariable name="targetView"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.setLinkTarget(target, sourceView,'SD_Link')"/>
-            </initialOperation>
-          </ownedTools>
-          <ownedTools xsi:type="tool_2:EdgeCreationDescription" name="CreateDurationObservationTool" label="Duration Observation" precondition="aql:preSource.canCreateDurationObservation(preTarget)" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_DurationObservation2']" extraSourceMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" extraTargetMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message']">
+          <ownedTools xsi:type="tool_2:EdgeCreationDescription" name="CreateDurationObservationTool" label="Duration Observation" precondition="aql:preSource.canCreateDurationObservation(preTarget)" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_DualDurationObservation']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/DurationObservation.gif" extraSourceMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification']" extraTargetMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_Lifeline']/@borderedNodeMappings[name='SD_Lifeline_Execution']/@borderedNodeMappings[name='SD_ExecutionSpecification'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message']">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -316,13 +313,22 @@
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.createDurationObservation(target, sourceView)"/>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool_2:EdgeCreationDescription" name="CreateDurationConstraintTool" label="Duration Constraint" precondition="aql:preSource &lt;> preTarget" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_DurationConstraint']">
+          <ownedTools xsi:type="tool_2:EdgeCreationDescription" name="CreateDurationConstraintTool" label="Duration Constraint" precondition="aql:preSource &lt;> preTarget" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_DurationConstraint']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/DurationConstraint.gif">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
             <targetViewVariable name="targetView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.createDurationConstraint(target, sourceView)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_2:EdgeCreationDescription" name="CreateLinkTool" label="Link" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Link']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.setLinkTarget(target, sourceView,'SD_Link')"/>
             </initialOperation>
           </ownedTools>
         </toolSections>
@@ -335,13 +341,19 @@
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.deleteSD(elementView)"/>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool_2:DeleteElementDescription" name="SD_Delete_Link">
+          <ownedTools xsi:type="tool_2:DeleteElementDescription" name="SD_Delete_Link" precondition="aql:not(self.oclIsKindOf(uml::DurationObservation)">
             <element name="element"/>
             <elementView name="elementView"/>
             <containerView name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.deleteLink(elementView)"/>
             </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_2:DeleteElementDescription" name="SD_NoDelete" precondition="aql:false">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation/>
           </ownedTools>
         </toolSections>
         <toolSections name="Reconnect">
