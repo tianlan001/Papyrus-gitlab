@@ -135,15 +135,15 @@ public class SequenceDiagramSemanticCandidatesServices {
 
 	/**
 	 * Returns the Message Lost End candidates, contained in the provided{@code interaction}. Message Lost End are
-	 * {@link Message}s without receiveEvent.
+	 * {@link Message}s without receiveEvent or sendEvent.
 	 * 
 	 * @param interaction
 	 *            the {@link Interaction} to search into
 	 * @return the Message Lost End candidates, contained in the provided{@code interaction}.
 	 */
-	public Collection<Message> getMessageLostEndCandidates(Interaction interaction) {
+	public Collection<Message> getLostFoundMessageCandidates(Interaction interaction) {
 		return interaction.getMessages().stream()
-				.filter(msg -> msg.getReceiveEvent() == null)
+				.filter(msg -> msg.getReceiveEvent() == null || msg.getSendEvent() == null)
 				.toList();
 	}
 

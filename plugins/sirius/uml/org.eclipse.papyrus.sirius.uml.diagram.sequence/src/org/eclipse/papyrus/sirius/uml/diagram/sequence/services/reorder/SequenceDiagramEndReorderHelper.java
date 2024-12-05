@@ -95,25 +95,30 @@ public class SequenceDiagramEndReorderHelper {
 	}
 
 	/**
-	 * Moves the starting end of an element after the {@code newStartingEndPredecessor}.
+	 * Moves the end of an element after the {@code predecessor}.
 	 * <p>
 	 * This method performs the graphical reordering of an element.
 	 * </p>
 	 * 
 	 * @param interactionElement
 	 *            the semantic element to move
-	 * @param newStartingEndPredecessor
-	 *            the ordering end preceding the starting end of the {@code interactionElement}
+	 * @param start
+	 *            indicates if the predecessor of the starting end of {@code interactionElement} is reordered; otherwise, the predecessor of the finishing end of {@code interactionElement} is reordered.
+	 * @param predecessor
+	 *            the ordering end preceding the end of the {@code interactionElement}
 	 * @param endsOrdering
 	 *            the global end ordering
 	 */
-	public void applyEndReorderStart(Element interactionElement, EAnnotation newStartingEndPredecessor, List<EAnnotation> endsOrdering) {
-		EAnnotation startEnd = orderService.getStartingEnd(interactionElement);
-
-		endsOrdering.remove(startEnd);
-
-		int newStartEndIndex = endsOrdering.indexOf(newStartingEndPredecessor) + 1;
-		endsOrdering.add(newStartEndIndex, startEnd);
+	public void applySingleEndReorder(Element interactionElement, boolean start, EAnnotation predecessor, List<EAnnotation> endsOrdering) {
+		EAnnotation end;
+		if (start) {
+			end = orderService.getStartingEnd(interactionElement);
+		} else {
+			end = orderService.getFinishingEnd(interactionElement);
+		}
+		endsOrdering.remove(end);
+		int newEndIndex = endsOrdering.indexOf(predecessor) + 1;
+		endsOrdering.add(newEndIndex, end);
 	}
 
 	private boolean isEndInFragment(EAnnotation end, InteractionFragment fragment) {

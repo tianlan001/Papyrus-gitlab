@@ -256,8 +256,11 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 			reorderInFragments(semanticStart, startingEndPredecessor);
 			reorderInFragments(semanticFinish, getApplicableFinishEnd());
 		} else if (semanticFinish == null) {
-			reorderStartEnd();
+			reorderEnd(true);
 			reorderInFragments(semanticStart, startingEndPredecessor);
+		} else if (semanticStart == null) {
+			reorderEnd(false);
+			reorderInFragments(semanticFinish, getApplicableFinishEnd());
 		}
 		return message;
 	}
@@ -335,10 +338,17 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	}
 
 	/**
-	 * Reorder the starting End of an element using its predecessors.
+	 * Reorder the End of an element using its predecessor.
+	 * 
+	 * @param start
+	 *            if the {@code startingEndPredecessor} is reordered; otherwise, the {@code finishingEndPredecessor} is reordered
 	 */
-	private void reorderStartEnd() {
-		endReorderHelper.applyEndReorderStart(current, startingEndPredecessor, ends);
+	private void reorderEnd(boolean start) {
+		EAnnotation predecessor = startingEndPredecessor;
+		if (!start) {
+			predecessor = finishingEndPredecessor;
+		}
+		endReorderHelper.applySingleEndReorder(current, start, predecessor, ends);
 	}
 
 }
