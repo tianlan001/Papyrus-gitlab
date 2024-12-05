@@ -179,11 +179,14 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 			NamedElement target, EventEnd startingEndPredecessor, EventEnd finishingEndPredecessor) {
 		setDefaultName(message);
 		message.setMessageSort(type);
-		initializeMessageEvent(message, UML.getMessage_SendEvent(), source);
-		initializeMessageEvent(message, UML.getMessage_ReceiveEvent(), target);
-		orderService.createStartingEnd(message);
-		orderService.createFinishingEnd(message);
-
+		if (source != null) {
+			initializeMessageEvent(message, UML.getMessage_SendEvent(), source);
+			orderService.createStartingEnd(message);
+		}
+		if (target != null) {
+			initializeMessageEvent(message, UML.getMessage_ReceiveEvent(), target);
+			orderService.createFinishingEnd(message);
+		}
 		return updateElementOrderWithEvents(message, startingEndPredecessor, finishingEndPredecessor);
 	}
 

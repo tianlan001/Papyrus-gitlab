@@ -27,6 +27,7 @@ import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Message;
+import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.StateInvariant;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.util.UMLSwitch;
@@ -137,7 +138,7 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 */
 	@Override
 	public Element caseCombinedFragment(CombinedFragment combinedFragment) {
-		reorderEnds();
+		reorderBothEnds();
 		reorderInFragments(combinedFragment, startingEndPredecessor);
 
 		if (startingEndPredecessor != finishingEndPredecessor && combinedFragment.getOperands().size() == 1) {
@@ -181,7 +182,7 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 */
 	@Override
 	public Element caseExecutionSpecification(ExecutionSpecification execution) {
-		reorderEnds();
+		reorderBothEnds();
 
 		reorderInFragments(execution.getStart(), startingEndPredecessor);
 		reorderInFragments(execution.getFinish(), getApplicableFinishEnd());
@@ -230,7 +231,7 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 */
 	@Override
 	public Element caseInteractionUse(InteractionUse interactionUse) {
-		reorderEnds();
+		reorderBothEnds();
 		reorderInFragments(interactionUse, startingEndPredecessor);
 		return interactionUse;
 	}
@@ -248,16 +249,22 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 */
 	@Override
 	public Element caseMessage(Message message) {
-		reorderEnds();
-
-		reorderInFragments(umlHelper.getSemanticStart(message), startingEndPredecessor);
-		reorderInFragments(umlHelper.getSemanticFinish(message), getApplicableFinishEnd());
+		MessageOccurrenceSpecification semanticStart = (MessageOccurrenceSpecification) message.getSendEvent();
+		MessageOccurrenceSpecification semanticFinish = (MessageOccurrenceSpecification) message.getReceiveEvent();
+		if (semanticFinish != null && semanticStart != null) {
+			reorderBothEnds();
+			reorderInFragments(semanticStart, startingEndPredecessor);
+			reorderInFragments(semanticFinish, getApplicableFinishEnd());
+		} else if (semanticFinish == null) {
+			reorderStartEnd();
+			reorderInFragments(semanticStart, startingEndPredecessor);
+		}
 		return message;
 	}
 
 	@Override
 	public Element caseStateInvariant(StateInvariant stateInvariant) {
-		reorderEnds();
+		reorderBothEnds();
 		reorderInFragments(stateInvariant, startingEndPredecessor);
 		return stateInvariant;
 	}
@@ -323,8 +330,15 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 *            true if element is instantaneous
 	 * @return ends with new order
 	 */
-	private void reorderEnds() {
-		endReorderHelper.applyEndReorder(current, startingEndPredecessor, finishingEndPredecessor, ends);
+	private void reorderBothEnds() {
+		endReorderHelper.applyBothEndsReorder(current, startingEndPredecessor, finishingEndPredecessor, ends);
+	}
+
+	/**
+	 * Reorder the starting End of an element using its predecessors.
+	 */
+	private void reorderStartEnd() {
+		endReorderHelper.applyEndReorderStart(current, startingEndPredecessor, ends);
 	}
 
 }

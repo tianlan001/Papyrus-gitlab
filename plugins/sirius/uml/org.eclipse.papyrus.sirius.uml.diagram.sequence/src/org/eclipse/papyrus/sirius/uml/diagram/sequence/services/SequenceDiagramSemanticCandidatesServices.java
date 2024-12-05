@@ -35,6 +35,7 @@ import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.InteractionUse;
 import org.eclipse.uml2.uml.Lifeline;
+import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.OccurrenceSpecification;
 import org.eclipse.uml2.uml.Package;
@@ -130,6 +131,20 @@ public class SequenceDiagramSemanticCandidatesServices {
 	 */
 	public Collection<InteractionUse> getInteractionUseCandidates(Interaction interaction) {
 		return getAllFragments(InteractionUse.class, interaction);
+	}
+
+	/**
+	 * Returns the Message Lost End candidates, contained in the provided{@code interaction}. Message Lost End are
+	 * {@link Message}s without receiveEvent.
+	 * 
+	 * @param interaction
+	 *            the {@link Interaction} to search into
+	 * @return the Message Lost End candidates, contained in the provided{@code interaction}.
+	 */
+	public Collection<Message> getMessageLostEndCandidates(Interaction interaction) {
+		return interaction.getMessages().stream()
+				.filter(msg -> msg.getReceiveEvent() == null)
+				.toList();
 	}
 
 	/**
