@@ -44,6 +44,7 @@ import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Manifestation;
 import org.eclipse.uml2.uml.Message;
+import org.eclipse.uml2.uml.MessageSort;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Package;
@@ -658,14 +659,29 @@ public class SemanticCandidatesServices {
 	}
 
 	/**
-	 * Get all {@link Message} form the given {@code interaction}.
+	 * Get all {@link Message} from the given {@code interaction} except create messages.
 	 * 
 	 * @param interaction
 	 *            the {@link Interaction} to search into
 	 * @return the messages contained in the interaction
 	 */
 	public Collection<Message> getMessageCandidates(final Interaction interaction) {
-		return interaction.getMessages();
+		return interaction.getMessages().stream()
+				.filter(msg -> MessageSort.CREATE_MESSAGE_LITERAL != msg.getMessageSort())
+				.toList();
+	}
+
+	/**
+	 * Get all {@link Message} Create from the given {@code interaction}.
+	 * 
+	 * @param interactionthe
+	 *            {@link Interaction} to search into
+	 * @return the "message creates" contained in the interaction
+	 */
+	public Collection<Message> getMessageCreateCandidates(final Interaction interaction) {
+		return interaction.getMessages().stream()
+				.filter(msg -> MessageSort.CREATE_MESSAGE_LITERAL == msg.getMessageSort())
+				.toList();
 	}
 
 	/**
