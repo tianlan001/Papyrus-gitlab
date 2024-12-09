@@ -35,6 +35,7 @@ import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.uml2.uml.ActionExecutionSpecification;
 import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
 import org.eclipse.uml2.uml.CombinedFragment;
+import org.eclipse.uml2.uml.DestructionOccurrenceSpecification;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.ExecutionSpecification;
@@ -270,13 +271,30 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the target of the event
 	 */
 	private MessageOccurrenceSpecification initializeMessageEvent(Message message, EReference eventReference, NamedElement eventTarget) {
-		MessageOccurrenceSpecification result = UML.getUMLFactory().createMessageOccurrenceSpecification();
+		MessageOccurrenceSpecification result;
+		if (MessageSort.DELETE_MESSAGE_LITERAL.equals(message.getMessageSort()) && UML.getMessage_ReceiveEvent() == eventReference) {
+			result = UML.getUMLFactory().createDestructionOccurrenceSpecification();
+		} else {
+			result = UML.getUMLFactory().createMessageOccurrenceSpecification();
+		}
 		message.getInteraction().getFragments().add(result);
 		result.setName(message.getName() + eventReference.getName());
 		result.setMessage(message);
 		message.eSet(eventReference, result);
 		result.setCovered(umlHelper.getCoveredLifeline(eventTarget));
 		return result;
+	}
+
+	/**
+	 * Indicates of the specified {@code lifeline} ends with a {@link DestructionOccurrenceSpecification}.
+	 * 
+	 * @param lifeline
+	 *            the {@link Lifeline} to search in.
+	 * @return {@code true} if the {@link Lifeline} ends with a {@link DestructionOccurrenceSpecification}; {@code false} otherwise
+	 */
+	public boolean isDestroyed(Lifeline lifeline) {
+		return lifeline.getCoveredBys().stream()
+				.anyMatch(DestructionOccurrenceSpecification.class::isInstance);
 	}
 
 	/**

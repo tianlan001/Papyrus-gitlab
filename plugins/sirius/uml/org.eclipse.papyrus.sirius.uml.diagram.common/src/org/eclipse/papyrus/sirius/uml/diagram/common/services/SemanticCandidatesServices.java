@@ -659,7 +659,7 @@ public class SemanticCandidatesServices {
 	}
 
 	/**
-	 * Get all {@link Message} from the given {@code interaction} except create messages.
+	 * Get all {@link Message} from the given {@code interaction} except delete and create messages.
 	 * 
 	 * @param interaction
 	 *            the {@link Interaction} to search into
@@ -667,7 +667,8 @@ public class SemanticCandidatesServices {
 	 */
 	public Collection<Message> getMessageCandidates(final Interaction interaction) {
 		return interaction.getMessages().stream()
-				.filter(msg -> MessageSort.CREATE_MESSAGE_LITERAL != msg.getMessageSort())
+				.filter(msg -> MessageSort.CREATE_MESSAGE_LITERAL != msg.getMessageSort()
+						&& MessageSort.DELETE_MESSAGE_LITERAL != msg.getMessageSort())
 				.toList();
 	}
 
@@ -681,6 +682,19 @@ public class SemanticCandidatesServices {
 	public Collection<Message> getMessageCreateCandidates(final Interaction interaction) {
 		return interaction.getMessages().stream()
 				.filter(msg -> MessageSort.CREATE_MESSAGE_LITERAL == msg.getMessageSort())
+				.toList();
+	}
+
+	/**
+	 * Get all {@link Message} Delete from the given {@code interaction}.
+	 * 
+	 * @param interactionthe
+	 *            {@link Interaction} to search into
+	 * @return the "message deletes" contained in the interaction
+	 */
+	public Collection<Message> getMessageDeleteCandidates(final Interaction interaction) {
+		return interaction.getMessages().stream()
+				.filter(msg -> MessageSort.DELETE_MESSAGE_LITERAL == msg.getMessageSort())
 				.toList();
 	}
 
