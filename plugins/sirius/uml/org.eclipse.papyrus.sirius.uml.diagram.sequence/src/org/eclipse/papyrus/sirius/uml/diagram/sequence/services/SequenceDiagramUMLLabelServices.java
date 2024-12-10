@@ -109,8 +109,8 @@ public class SequenceDiagramUMLLabelServices {
 	 *            the diagram
 	 * @return the label of the {@link TimeObservation} represented by the provided {@code event}
 	 */
-	public String renderTimeObservationLabelSD(EAnnotation event, DDiagram diagram) {
-		return SequenceDiagramUMLHelper.getTimeObservationFromEnd(event)
+	public String renderTimeElementLabelSD(EAnnotation event, DDiagram diagram) {
+		return SequenceDiagramUMLHelper.getTimeElementFromEnd(event)
 				.map(observation -> labelServices.renderLabel(observation, diagram))
 				.orElse(UMLCharacters.EMPTY);
 	}

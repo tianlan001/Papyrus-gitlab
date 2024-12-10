@@ -13,14 +13,16 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.ViewpointHelpers;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDiagramUMLHelper;
-import org.eclipse.papyrus.uml.domain.services.EMFUtils;
+import org.eclipse.papyrus.uml.domain.services.UMLHelper;
 import org.eclipse.sirius.diagram.sequence.description.ObservationPointMapping;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.uml2.uml.DurationConstraint;
@@ -28,13 +30,14 @@ import org.eclipse.uml2.uml.DurationObservation;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
-import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageEnd;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.OccurrenceSpecification;
-import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.PackageableElement;
+import org.eclipse.uml2.uml.TimeConstraint;
 import org.eclipse.uml2.uml.TimeObservation;
 import org.eclipse.uml2.uml.UMLPackage;
 
@@ -75,6 +78,9 @@ public final class SequenceDiagramObservationServices {
 	 */
 	private static final SequenceDiagramOrderServices ORDER_SERVICES = new SequenceDiagramOrderServices();
 
+	/** Common services. */
+	private static final CommonDiagramServices COMMONS = new CommonDiagramServices();
+
 	// No creation allows for utilities class
 	private SequenceDiagramObservationServices() {
 	}
@@ -91,7 +97,7 @@ public final class SequenceDiagramObservationServices {
 	 *            the user-selected view
 	 * @return {@code true} if a {@link TimeObservation} can be created on the provided {@code parent}
 	 */
-	public static boolean canCreateTimeObservation(DSemanticDecorator view) {
+	public static boolean canCreateTimeElement(DSemanticDecorator view) {
 		boolean end = view.getTarget() instanceof EAnnotation;
 		return end &&
 				ViewpointHelpers.isMapping(view, ObservationPointMapping.class, ViewpointHelpers.OBSERVABLE_END_ID);
@@ -105,17 +111,69 @@ public final class SequenceDiagramObservationServices {
 	 * @param parentView
 	 *            the graphical view representing the {@code parent}
 	 * @return the created {@link TimeObservation}, or {@code null} if the creation failed
-	 * @see #canCreateTimeObservation(Element)
+	 * @see #canCreateTimeElement(Element)
 	 */
-	public static EObject createTimeObservation(EAnnotation end, DSemanticDecorator parentView) {
+	public static TimeObservation createTimeObservation(EAnnotation end, DSemanticDecorator parentView) {
+		return createTimeElement(end, event -> {
+			Namespace container = UMLHelper.getPackagedContainer(event);
+
+			// We can use the CommonDiagramServices to create TimeObservations: they aren't directly affected by
+			// reorders, and are always created at the right location.
+			TimeObservation result = (TimeObservation) COMMONS.createElement(container,
+					UML.getTimeObservation().getName(), "packagedElement", //$NON-NLS-1$
+					parentView);
+			result.setEvent(event);
+			return result;
+		});
+	}
+
+	/**
+	 * Creates a {@link TimeConstraint} on the provided {@code end}.
+	 *
+	 * @param end
+	 *            the element on which to create a {@link TimeConstraint}
+	 * @param parentView
+	 *            the graphical view representing the {@code parent}
+	 * @return the created {@link TimeConstraint}, or {@code null} if the creation failed
+	 * @see #canCreateTimeElement(DSemanticDecorator)
+	 */
+	public static TimeConstraint createTimeConstraint(EAnnotation end, DSemanticDecorator parentView) {
+		return createTimeElement(end, event -> {
+
+			Interaction interaction = UML_HELPER.getOwningInteraction(event);
+			TimeConstraint result = (TimeConstraint) COMMONS
+					.createElement(interaction, UML.getTimeConstraint().getName(),
+							UML.getNamespace_OwnedRule().getName(), parentView);
+			result.getConstrainedElements().add(event);
+
+			return result;
+		});
+	}
+
+	/**
+	 * Creates an time-related element on the provided {@code end}.
+	 * <p>
+	 * If an element is already exists the creation is not performed.
+	 * </p>
+	 *
+	 * @param <T>
+	 *            type of created element.
+	 * @param end
+	 *            the element on which to create the element
+	 * @param factory
+	 *            the function to create semantic element
+	 * @return the created {@link TimeObservation}, or {@code null} if the creation failed
+	 * @see #canCreateTimeElement(Element)
+	 */
+	private static <T extends PackageableElement> T createTimeElement(EAnnotation end, Function<NamedElement, T> factory) {
 		NamedElement event = ORDER_SERVICES.getEndFragment(end);
 
-		List<TimeObservation> existingObservations = SequenceDiagramUMLHelper.getTimeObservationsFromEvent(event);
-		if (!existingObservations.isEmpty()) { // already created.
+		List<PackageableElement> existingElements = SequenceDiagramUMLHelper.getTimeElementsFromEvent(event);
+		if (!existingElements.isEmpty()) { // already created.
 			return null;
 		}
 
-		return createTimeObservationWithEvent(event, parentView);
+		return factory.apply(event);
 	}
 
 	/**
@@ -125,59 +183,15 @@ public final class SequenceDiagramObservationServices {
 	 *            annotation used as end
 	 * @return related time observation or null
 	 */
-	public static TimeObservation getAssociatedTimeObservation(EAnnotation end) {
-		return SequenceDiagramUMLHelper.getTimeObservationFromEnd(end).orElse(null);
+	public static PackageableElement getAssociatedTimeElement(EAnnotation end) {
+		return SequenceDiagramUMLHelper.getTimeElementFromEnd(end).orElse(null);
 	}
 
 	/**
-	 * Creates a {@link TimeObservation} and sets its event to {@code event}.
-	 *
-	 * @param event
-	 *            the event to set for the {@link TimeObservation}
-	 * @param parentView
-	 *            the graphical element representing the parent of the {@link TimeObservation} to create
-	 * @return the created {@link TimeObservation}
-	 */
-	private static TimeObservation createTimeObservationWithEvent(NamedElement event, DSemanticDecorator parentView) {
-		Package ancestorPackage = EMFUtils.getAncestor(Package.class, event);
-		CommonDiagramServices commonDiagramServices = new CommonDiagramServices();
-		// We can use the CommonDiagramServices to create TimeObservations: they aren't directly affected by
-		// reorders, and are always created at the right location.
-		TimeObservation result = (TimeObservation) commonDiagramServices.createElement(ancestorPackage, UML.getTimeObservation().getName(), UML.getPackage_PackagedElement().getName(), parentView);
-		result.setEvent(event);
-		return result;
-	}
-
-
-	/**
-	 * Creates a {@link DurationConstraint} between the provided {@code source} and {@code target}.
+	 * Gets the end source of provided duration element.
 	 * <p>
-	 * Duration constraints can be created between {@link OccurrenceSpecification}. These elements are represented
-	 * by <i>observation point</i> mappings, which are defined on {@link EAnnotation}.
+	 * A duration element can be {@link DurationConstraint} or {@link DurationObservation}.
 	 * </p>
-	 *
-	 * @param source
-	 *            the source {@link EAnnotation}
-	 * @param target
-	 *            the target {@link EAnnotation}
-	 * @param parentView
-	 *            the graphical parent
-	 * @return the created {@link DurationConstraint}
-	 */
-	public static DurationConstraint createDurationConstraint(EAnnotation source, EAnnotation target, DSemanticDecorator parentView) {
-		InteractionFragment sourceFragment = ORDER_SERVICES.getEndFragment(source);
-		InteractionFragment targetFragment = ORDER_SERVICES.getEndFragment(target);
-		Interaction interaction = UML_HELPER.getOwningInteraction(sourceFragment);
-		DurationConstraint result = (DurationConstraint) new CommonDiagramServices().createElement(interaction, UML.getDurationConstraint().getName(), UML.getNamespace_OwnedRule().getName(), parentView);
-		result.getConstrainedElements().add(sourceFragment);
-		result.getConstrainedElements().add(targetFragment);
-		// See warning above on DurationConstraint
-
-		return result;
-	}
-
-	/**
-	 * Gets the end source of provided constraint.
 	 * <p>
 	 * The constraint must be related to 2 (and only 2) {@link OccurrenceSpecification}s
 	 * in the same Interaction.
@@ -187,12 +201,15 @@ public final class SequenceDiagramObservationServices {
 	 *            a duration constraint.
 	 * @return end from interaction
 	 */
-	public static EAnnotation getDurationConstraintSource(DurationConstraint element) {
-		return getDurationEnd(element, true);
+	public static EAnnotation getDurationElementSource(PackageableElement element) {
+		return getEndFromEventPair(getDurationEnds(element), true);
 	}
 
 	/**
-	 * Gets the end target of provided constraint.
+	 * Gets the end target of provided duration element.
+	 * <p>
+	 * A duration element can be {@link DurationConstraint} or {@link DurationObservation}.
+	 * </p>
 	 * <p>
 	 * The constraint must be related to 2 (and only 2) {@link OccurrenceSpecification}s
 	 * in the same Interaction.
@@ -202,27 +219,32 @@ public final class SequenceDiagramObservationServices {
 	 *            a duration constraint.
 	 * @return end from interaction
 	 */
-	public static EAnnotation getDurationConstraintTarget(DurationConstraint element) {
-		return getDurationEnd(element, false);
+	public static EAnnotation getDurationElementTarget(PackageableElement element) {
+		return getEndFromEventPair(getDurationEnds(element), false);
 	}
 
-	private static EAnnotation getDurationEnd(DurationConstraint element, boolean first) {
-		// See warning above on DurationConstraint for this filtering.
+	private static List<? extends NamedElement> getDurationEnds(PackageableElement element) {
 
-		// On creation,
-		// org.eclipse.papyrus.uml.domain.services.create.ElementConfigurer
-		// $ElementInitializerImpl
-		// #caseDurationConstraint(DurationConstraint)
-		// introduces an additional element (Owning interaction).
-		// This is not conform with Specification 2.5 but as expected by the CEA.
-		// Following code filter unexpected elements.
-		List<OccurrenceSpecification> ends = element.getConstrainedElements().stream()
-				.filter(OccurrenceSpecification.class::isInstance)
-				.map(OccurrenceSpecification.class::cast)
-				.toList();
+		// See warning above on Duration for this filtering.
+		List<? extends NamedElement> result = Collections.emptyList();
 
-		// For a well-formed duration, only 2 OccurrenceSpecification are expressed.
-		return getEndFromEventPair(ends, first);
+		if (element instanceof DurationConstraint constraint) {
+			// On creation,
+			// org.eclipse.papyrus.uml.domain.services.create.ElementConfigurer
+			// $ElementInitializerImpl
+			// #caseDurationConstraint(DurationConstraint)
+			// introduces an additional element (Owning interaction).
+			// This is not conform with Specification 2.5 but as expected by the CEA.
+			// Following code filter unexpected elements.
+			result = constraint.getConstrainedElements().stream()
+					.filter(OccurrenceSpecification.class::isInstance)
+					.map(OccurrenceSpecification.class::cast)
+					.toList();
+		} else if (element instanceof DurationObservation observation) {
+			result = observation.getEvents();
+		}
+
+		return result;
 	}
 
 	private static EAnnotation getEndFromEventPair(List<? extends NamedElement> values, boolean first) {
@@ -241,29 +263,7 @@ public final class SequenceDiagramObservationServices {
 	}
 
 	/**
-	 * Gets the end source of provided observation.
-	 *
-	 * @param element
-	 *            a duration constraint.
-	 * @return end from interaction
-	 */
-	public static EAnnotation getDurationObservationSource(DurationObservation element) {
-		return getEndFromEventPair(element.getEvents(), true);
-	}
-
-	/**
-	 * Gets the end source of provided observation.
-	 *
-	 * @param element
-	 *            a duration constraint.
-	 * @return end from interaction
-	 */
-	public static EAnnotation getDurationObservationTarget(DurationObservation element) {
-		return getEndFromEventPair(element.getEvents(), false);
-	}
-
-	/**
-	 * Evaluates if it is possible to create an duration observation between 2 elements.
+	 * Evaluates if it is possible to create an duration element between 2 elements.
 	 * <p>
 	 * Elements are assumed to belong to the same interaction. Only structural valid elements
 	 * must be used: {@link EAnnotation}s attached to {@link OccurrenceSpecification}s,
@@ -283,7 +283,7 @@ public final class SequenceDiagramObservationServices {
 	 *            the other end of the duration
 	 * @return true if selection implies a duration
 	 */
-	public static boolean canCreateDurationObservation(EObject source, EObject target) {
+	public static boolean canCreateDurationElement(EObject source, EObject target) {
 		boolean result = true; // For most of selection, it is possible
 		if (source == target) {
 			result = hasDuration(source);
@@ -291,8 +291,52 @@ public final class SequenceDiagramObservationServices {
 			result = containsDuration(message, target);
 		} else if (target instanceof Message message) {
 			result = containsDuration(message, source);
+		} // else executions have duration
+
+		return result && areFragmentSiblings(adaptToOccurrence(source), adaptToOccurrence(target));
+	}
+
+
+	/**
+	 * Provides an {@link OccurrenceSpecification} for a selected element.
+	 * <p>
+	 * Only supported case are {@link EAnnotation} end, {@link Message}
+	 * and {@link ExecutionSpecification}.
+	 * </p>
+	 *
+	 * @param element
+	 *            element from selection
+	 * @return the first event of element or the event itself
+	 */
+	private static OccurrenceSpecification adaptToOccurrence(EObject element) {
+		OccurrenceSpecification result = null;
+		if (element instanceof OccurrenceSpecification value) {
+			result = value;
+		} else if (element instanceof ExecutionSpecification exec) {
+			result = exec.getStart();
+		} else if (element instanceof Message message) {
+			result = (OccurrenceSpecification) message.getSendEvent();
+		} else if (element instanceof EAnnotation end
+				&& ORDER_SERVICES.getEndFragment(end) instanceof OccurrenceSpecification value) {
+			result = value;
 		}
 		return result;
+	}
+
+	/**
+	 * Evaluates if 2 occurrences belong to the same container of fragment.
+	 *
+	 * @param source
+	 *            first occurrence
+	 *
+	 * @param target
+	 *            second occurrence
+	 * @return true if siblings
+	 */
+	private static boolean areFragmentSiblings(OccurrenceSpecification source,
+			OccurrenceSpecification target) {
+		return source != null && target != null
+				&& source.getEnclosingOperand() == target.getEnclosingOperand();
 	}
 
 	private static boolean containsDuration(Message message, EObject other) {
@@ -318,13 +362,12 @@ public final class SequenceDiagramObservationServices {
 	/**
 	 * Creates a {@link DurationConstraint} between the provided {@code source} and {@code target}.
 	 * <p>
-	 * Duration constraints can be created between {@link OccurrenceSpecification}.
-	 * These elements are represented
-	 * by <i>observation point</i> mappings, which are defined on {@link EAnnotation}.
+	 * Duration observation can be created between {@link OccurrenceSpecification} or related-elements
+	 * like {@link Message} and {@link ExecutionSpecification}.
 	 * </p>
 	 * <p>
 	 * This method must be called with parameters which validates
-	 * 'canCreateDurationObservation' function.
+	 * {@link #canCreateDurationElement(EObject, EObject)} function.
 	 * </p>
 	 *
 	 * @param source
@@ -335,19 +378,54 @@ public final class SequenceDiagramObservationServices {
 	 *            the graphical parent
 	 * @return the created {@link DurationConstraint}
 	 */
+	public static DurationConstraint createDurationConstraint(EObject source, EObject target, DSemanticDecorator parentView) {
+		return createDuration(source, target, context -> {
+			Interaction interaction = UML_HELPER.getOwningInteraction(context);
+			return (DurationConstraint) COMMONS
+					.createElement(interaction, UML.getDurationConstraint().getName(),
+							UML.getNamespace_OwnedRule().getName(), parentView);
+		});
+	}
+
+
+	/**
+	 * Creates a {@link DurationObservation} between the provided {@code source} and {@code target}.
+	 * <p>
+	 * Duration observation can be created between {@link OccurrenceSpecification} or related-elements
+	 * like {@link Message} and {@link ExecutionSpecification}.
+	 * </p>
+	 * <p>
+	 * This method must be called with parameters which validates
+	 * {@link #canCreateDurationElement(EObject, EObject)} function.
+	 * </p>
+	 *
+	 * @param source
+	 *            one end of a duration
+	 * @param target
+	 *            the other end of a duration
+	 * @param parentView
+	 *            the graphical parent
+	 * @return the created {@link DurationObservation}
+	 */
 	public static DurationObservation createDurationObservation(EObject source, EObject target, DSemanticDecorator view) {
+		return createDuration(source, target, context -> {
+			Namespace container = UMLHelper.getPackagedContainer(context);
+			return (DurationObservation) COMMONS
+					.createElement(container,
+							UML.getDurationObservation().getName(),
+							"packagedElement", //$NON-NLS-1$
+							view);
+		});
+	}
+
+	private static <T extends PackageableElement> T createDuration(EObject source, EObject target, Function<Element, T> factory) {
 		DurationEventCandidate sourceSet = createDurationEventCandidate(source);
 		DurationEventCandidate targetSet = createDurationEventCandidate(target);
 		if (!sourceSet.isValid() || !targetSet.isValid()) {
 			return null;
 		}
 
-		Package container = EMFUtils.getAncestor(Package.class, source);
-		DurationObservation result = (DurationObservation) new CommonDiagramServices()
-				.createElement(container,
-						UML.getDurationObservation().getName(),
-						UML.getPackage_PackagedElement().getName(),
-						view);
+		T result = factory.apply(sourceSet.getContext());
 
 		// Order of cases matter.
 		if (!sourceSet.applySingleEvent(result, targetSet)
@@ -377,7 +455,7 @@ public final class SequenceDiagramObservationServices {
 	}
 
 	/**
-	 * Set of candidates to associate to a Duration Observation.
+	 * Set of candidates to associate to a Duration Element.
 	 *
 	 * @param event
 	 *            event if directly selected
@@ -392,40 +470,48 @@ public final class SequenceDiagramObservationServices {
 			return message != null || execution != null;
 		}
 
-		void addInEvents(DurationObservation result) {
+		NamedElement getContext() {
+			if (message != null) {
+				return message;
+			}
+			return execution;
+		}
+
+		void addInEvents(PackageableElement result) {
 			NamedElement element = message;
 			if (execution != null) {
 				element = execution;
 			}
 
 			boolean first = event == null || UML_HELPER.getSemanticStart(element) == event;
-			addEvent(result, element, first);
+			addEventEnd(result, element, first);
 		}
 
-		boolean applySingleEvent(DurationObservation value, DurationEventCandidate other) {
-			NamedElement single = null;
+		boolean applySingleEvent(PackageableElement parent, DurationEventCandidate other) {
+			NamedElement value = null;
 			// Different parts of same element can be selected.
 			if (message != null && message == other.message) {
-				single = message;
+				value = message;
 			} else if (execution != null && execution == other.execution) {
-				single = execution;
+				value = execution;
 			}
-			if (single == null) {
+			if (value == null) {
 				return false;
 			}
-			value.getEvents().add(single);
+			addEvent(parent, value);
+
 			// 1 element => no first event.
 			return true;
 		}
 
-		boolean applySharedEvent(DurationObservation value, DurationEventCandidate other) {
+		boolean applySharedEvent(PackageableElement value, DurationEventCandidate other) {
 			return applySharedMessageEvent(value, message, other.execution)
 					|| applySharedMessageEvent(value, other.message, execution);
 		}
 
 	}
 
-	private static boolean applySharedMessageEvent(DurationObservation value, Message message, ExecutionSpecification execution) {
+	private static boolean applySharedMessageEvent(PackageableElement value, Message message, ExecutionSpecification execution) {
 		if (message == null || execution == null) {
 			return false;
 		}
@@ -435,19 +521,19 @@ public final class SequenceDiagramObservationServices {
 		// Otherwise no duration to observe.
 
 		if (message.getReceiveEvent() == execution.getStart()) {
-			addEvent(value, message, true);
-			addEvent(value, execution, false);
+			addEventEnd(value, message, true);
+			addEventEnd(value, execution, false);
 			result = true;
 		} else if (message.getSendEvent() == execution.getFinish()) {
-			addEvent(value, execution, true);
-			addEvent(value, message, false);
+			addEventEnd(value, execution, true);
+			addEventEnd(value, message, false);
 			result = true;
 		}
 
 		return result;
 	}
 
-	private static void addEvent(DurationObservation parent, NamedElement event, boolean firstEvent) {
+	private static void addEventEnd(PackageableElement parent, NamedElement event, boolean firstEvent) {
 		// See warning above on DurationObservation.
 		OccurrenceSpecification end;
 		if (firstEvent) {
@@ -455,7 +541,15 @@ public final class SequenceDiagramObservationServices {
 		} else {
 			end = (OccurrenceSpecification) UML_HELPER.getSemanticFinish(event);
 		}
-		parent.getEvents().add(end);
+		addEvent(parent, end);
+	}
+
+	private static void addEvent(PackageableElement parent, NamedElement event) {
+		if (parent instanceof DurationConstraint constraint) {
+			constraint.getConstrainedElements().add(event);
+		} else if (parent instanceof DurationObservation observation) {
+			observation.getEvents().add(event);
+		}
 	}
 
 }

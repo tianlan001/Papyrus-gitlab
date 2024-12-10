@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.util.ECrossReferenceAdapter;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.SequenceDiagramOrderServices;
 import org.eclipse.papyrus.uml.domain.services.internal.helpers.OccurrenceSpecificationHelper;
-import org.eclipse.papyrus.uml.domain.services.internal.helpers.TimeObservationHelper;
+import org.eclipse.papyrus.uml.domain.services.internal.helpers.UMLTemporalHelper;
 import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
@@ -32,6 +32,7 @@ import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.OccurrenceSpecification;
+import org.eclipse.uml2.uml.PackageableElement;
 import org.eclipse.uml2.uml.TimeObservation;
 
 /**
@@ -57,9 +58,9 @@ public class SequenceDiagramUMLHelper {
 			if (fragment.getEnclosingInteraction() != null) {
 				result = fragment.getEnclosingInteraction();
 			} else if (fragment.getEnclosingOperand() != null) {
-				result = this.getOwningInteraction(fragment.getEnclosingOperand());
+				result = getOwningInteraction(fragment.getEnclosingOperand());
 			} else if (fragment.getOwner() instanceof CombinedFragment combinedFragment) {
-				result = this.getOwningInteraction(combinedFragment);
+				result = getOwningInteraction(combinedFragment);
 			} else if (fragment instanceof Interaction interaction) {
 				result = interaction;
 			}
@@ -188,9 +189,9 @@ public class SequenceDiagramUMLHelper {
 	 *            the event to retrieve the {@link TimeObservation}s from
 	 * @return the {@link TimeObservation}s associated to the provided {@code event}
 	 */
-	public static List<TimeObservation> getTimeObservationsFromEvent(NamedElement event) {
+	public static List<PackageableElement> getTimeElementsFromEvent(NamedElement event) {
 		ECrossReferenceAdapter crossReferencer = ECrossReferenceAdapter.getCrossReferenceAdapter(event);
-		return TimeObservationHelper.getTimeObservations(event, crossReferencer);
+		return UMLTemporalHelper.getTimeElements(event, crossReferencer);
 	}
 
 	/**
@@ -200,12 +201,12 @@ public class SequenceDiagramUMLHelper {
 	 *            the event end to retrieve the {@link TimeObservation} from
 	 * @return the {@link TimeObservation} associated to the provided {@code end}
 	 */
-	public static Optional<TimeObservation> getTimeObservationFromEnd(EAnnotation end) {
+	public static Optional<PackageableElement> getTimeElementFromEnd(EAnnotation end) {
 		InteractionFragment fragment = new SequenceDiagramOrderServices().getEndFragment(end);
 		if (fragment == null) {
 			return Optional.empty();
 		}
-		return getTimeObservationsFromEvent(fragment).stream().findFirst();
+		return getTimeElementsFromEvent(fragment).stream().findFirst();
 	}
 
 	/**

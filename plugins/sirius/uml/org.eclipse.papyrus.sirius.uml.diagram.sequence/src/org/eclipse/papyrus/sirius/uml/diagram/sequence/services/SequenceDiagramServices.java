@@ -482,9 +482,9 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 			// Do not delete EAnnotations if they aren't handled below (this is the case for EAnnotation
 			// representing ends without observations).
 			elementToDelete = null;
-			if (ViewpointHelpers.isMapping(elementView, ObservationPointMapping.class, TimeObservation.class)) {
+			if (ViewpointHelpers.isMapping(elementView, ObservationPointMapping.class, ViewpointHelpers.TIME_END_ID)) {
 				// Check the mapping name, we can't rely on the domain type (EAnnotation)
-				elementToDelete = SequenceDiagramUMLHelper.getTimeObservationFromEnd(end).orElse(null);
+				elementToDelete = SequenceDiagramUMLHelper.getTimeElementFromEnd(end).orElse(null);
 			}
 
 		}
