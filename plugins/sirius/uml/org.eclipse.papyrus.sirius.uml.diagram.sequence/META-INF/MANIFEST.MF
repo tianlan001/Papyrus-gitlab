@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.25.0,4.0.0)",
  org.eclipse.uml2.uml.edit;bundle-version="[5.5.0,6.0.0)",
  org.eclipse.uml2.uml;bundle-version="[5.5.0,6.0.0)",
  org.eclipse.papyrus.sirius.log;bundle-version="[7.0.0,8.0.0)",
- org.eclipse.sirius.common;bundle-version="[7.0.7,8.0.0)"
+ org.eclipse.sirius.common;bundle-version="[7.4.1,8.0.0)",
+ com.google.guava;bundle-version="[33.3.0,33.4.0)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Activator: org.eclipse.papyrus.sirius.uml.diagram.sequence.Activator
@@ -26,4 +27,3 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-ManifestVersion: 2
 Automatic-Module-Name: org.eclipse.papyrus.sirius.uml.diagram.sequence
-Import-Package: com.google.common.base;version="[33.3.0,34.0.0)"
