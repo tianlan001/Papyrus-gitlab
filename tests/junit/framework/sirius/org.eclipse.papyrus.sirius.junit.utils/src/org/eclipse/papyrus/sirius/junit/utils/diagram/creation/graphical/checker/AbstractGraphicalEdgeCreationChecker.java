@@ -73,20 +73,19 @@ public abstract class AbstractGraphicalEdgeCreationChecker implements IGraphical
 	/**
 	 * The expected number of additional edges.
 	 */
-	protected int expectedAdditionalEdges;
+	protected int expectedAdditionalEdges = DEFAULT_CREATED_ELEMENTS_NUMBER;
 
 	/**
 	 * The expected number of additional children in the container.
 	 */
-	protected int expectedAdditionalChildren;
+	protected int expectedAdditionalChildren = DEFAULT_CREATED_ELEMENTS_NUMBER;
 
 	/**
 	 * The expected number of additional created elements in the diagram.
 	 */
-	protected int expectedCreatedElements;
+	protected int expectedCreatedElements = DEFAULT_CREATED_ELEMENTS_NUMBER;
 
 	/**
-	 * 
 	 * Constructor.
 	 *
 	 * @param diagram
@@ -105,28 +104,17 @@ public abstract class AbstractGraphicalEdgeCreationChecker implements IGraphical
 		this.nbGraphicalContainerChildren = getGraphicalOwnerChildrenSize();
 		this.nbGraphicalEdge = this.diagram.getEdges().size();
 
-		this.expectedAdditionalEdges = DEFAULT_CREATED_ELEMENTS_NUMBER;
-		this.expectedAdditionalChildren = DEFAULT_CREATED_ELEMENTS_NUMBER;
-		this.expectedCreatedElements = DEFAULT_CREATED_ELEMENTS_NUMBER;
-
-		Assert.assertNotEquals(-1, this.nbGraphicalContainerChildren);
-		Assert.assertNotEquals(-1, this.nbGraphicalEdge);
 	}
 
 	/**
-	 * 
-	 * @return
-	 *         the number of owned children in the graphical parent
+	 * Returns the number of children elements of parent.
+	 *
+	 * @return number of element
 	 */
 	protected int getGraphicalOwnerChildrenSize() {
-		return GraphicalOwnerUtils.getGraphicalOwnerChildrenSize(this.graphicalParent);
+		List<?> children = GraphicalOwnerUtils.getChildren(graphicalParent);
+		return children.size();
 	}
-
-	/**
-	 * @see org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.IGraphicalRepresentationElementChecker#validateRepresentationElement(org.eclipse.sirius.viewpoint.DRepresentationElement)
-	 *
-	 * @param createdElementRepresentation
-	 */
 
 	@Override
 	public void validateRepresentationElement(DRepresentationElement createdElementRepresentation) {
@@ -137,13 +125,13 @@ public abstract class AbstractGraphicalEdgeCreationChecker implements IGraphical
 		checkCreatedElementMapping(createdElementRepresentation);
 
 		// 3. check the number of created element
-		checkNumberOfCreatedElement(createdElementRepresentation);
+		checkElementsSizes(true, "creation"); //$NON-NLS-1$
 	}
 
 
 	/**
-	 * check the type of the created element
-	 * 
+	 * Check the type of the created element
+	 *
 	 * @param createdElementRepresentation
 	 *            the created {@link DRepresentationElement}
 	 */
@@ -153,36 +141,50 @@ public abstract class AbstractGraphicalEdgeCreationChecker implements IGraphical
 
 	/**
 	 * Check the mapping of the created element
-	 * 
+	 *
 	 * @param createdElementRepresentation
 	 *            the created {@link DRepresentationElement}
 	 */
 	protected void checkCreatedElementMapping(final DRepresentationElement createdElementRepresentation) {
 		Assert.assertEquals("The mapping is not the expected one.", getEdgeMappingType(), createdElementRepresentation.getMapping().getName()); //$NON-NLS-1$
+
+		// check the parent of the created element is the expected one.
+		Assert.assertEquals("Parent of the created graphical element is wrong", //$NON-NLS-1$
+				this.graphicalParent, createdElementRepresentation.eContainer());
 	}
 
 	/**
 	 * Check the number of created element. In this implementation we always consider that 1 edge has been created.
-	 * 
+	 *
 	 * @param createdElementRepresentation
 	 *            the created {@link DRepresentationElement}
 	 */
-	protected void checkNumberOfCreatedElement(final DRepresentationElement createdElementRepresentation) {
-		// check the parent of the created element is the expected one.
-		Assert.assertEquals("The parent of the created graphical element is not the expected one.", this.graphicalParent, createdElementRepresentation.eContainer()); //$NON-NLS-1$
+	protected void checkElementsSizes(boolean after, String phase) {
 
 		// check we create only one edge
-		Assert.assertEquals("The parent representation must contain only one additional element.", this.nbGraphicalContainerChildren + getExpectedAdditionalChildren(), getGraphicalOwnerChildrenSize()); //$NON-NLS-1$
-		Assert.assertEquals("The diagram must contain one additional edge after creating an Edge", this.nbGraphicalEdge + getExpectedAdditionalEdges(), diagram.getEdges().size()); //$NON-NLS-1$
+		int newChildren = getExpectedAdditionalChildren();
+		int newEdges = getExpectedAdditionalEdges();
+		int newElements = getNumberOfExpectedCreatedElement();
+		if (!after) {
+			newChildren = 0;
+			newEdges = 0;
+			newElements = 0;
+		}
+
+		Assert.assertEquals("Invalid number of additional elements in parent on " + phase, //$NON-NLS-1$
+				newChildren, getGraphicalOwnerChildrenSize() - nbGraphicalContainerChildren);
+		Assert.assertEquals("Invalid number of additional edge on " + phase, //$NON-NLS-1$
+				newEdges, diagram.getEdges().size() - nbGraphicalEdge);
 
 		// check the total number of created element in the diagram
-		List<?> semanticChildren = this.semanticDiagram.getDiagramElements();
-		Assert.assertEquals(this.nbSiriusDiagramTotalElement + getNumberOfExpectedCreatedElement(), semanticChildren.size());
+		List<?> semanticChildren = semanticDiagram.getDiagramElements();
+		Assert.assertEquals("Invalid number of additional elements in Diagram on " + phase, //$NON-NLS-1$
+				newElements, semanticChildren.size() - nbSiriusDiagramTotalElement);
 	}
 
 	/**
 	 * Get the expected number of additional children in the container.
-	 * 
+	 *
 	 * @return the expected number of additional children in the container.
 	 */
 	public int getExpectedAdditionalChildren() {
@@ -191,7 +193,7 @@ public abstract class AbstractGraphicalEdgeCreationChecker implements IGraphical
 
 	/**
 	 * Set the expected number of additional children in the container.
-	 * 
+	 *
 	 * @param expectedChildren
 	 *            the expected number of additional children in the container.
 	 */
@@ -201,7 +203,7 @@ public abstract class AbstractGraphicalEdgeCreationChecker implements IGraphical
 
 	/**
 	 * Get the expected number of additional edges.
-	 * 
+	 *
 	 * @return the expected number of additional edges.
 	 */
 	public int getExpectedAdditionalEdges() {
@@ -210,7 +212,7 @@ public abstract class AbstractGraphicalEdgeCreationChecker implements IGraphical
 
 	/**
 	 * Set the expected number of additional edges.
-	 * 
+	 *
 	 * @param expectedEdges
 	 *            the expected number of additional edges.
 	 */
@@ -220,7 +222,7 @@ public abstract class AbstractGraphicalEdgeCreationChecker implements IGraphical
 
 	/**
 	 * Get the expected number of additional created elements in the diagram.
-	 * 
+	 *
 	 * @return the expected number of additional created elements in the diagram.
 	 */
 	public int getNumberOfExpectedCreatedElement() {
@@ -229,7 +231,7 @@ public abstract class AbstractGraphicalEdgeCreationChecker implements IGraphical
 
 	/**
 	 * Set the expected number of additional created elements in the diagram.
-	 * 
+	 *
 	 * @param expectedElements
 	 *            the expected number of additional created elements in the diagram.
 	 */
@@ -244,9 +246,7 @@ public abstract class AbstractGraphicalEdgeCreationChecker implements IGraphical
 
 	@Override
 	public void validateAfterUndo() {
-		Assert.assertEquals("The diagram must contains the same number of elements as initially", this.nbSiriusDiagramTotalElement, this.semanticDiagram.getDiagramElements().size()); //$NON-NLS-1$
-		Assert.assertEquals("The graphical owner must contains the same number of elements as initially", this.nbGraphicalContainerChildren, getGraphicalOwnerChildrenSize()); //$NON-NLS-1$
-		Assert.assertEquals("The diagram must contain no more edges after undoing the creation of the Edge", this.nbGraphicalEdge, this.diagram.getEdges().size()); //$NON-NLS-1$
+		checkElementsSizes(false, "undo"); //$NON-NLS-1$
 	}
 
 	/**
@@ -256,14 +256,11 @@ public abstract class AbstractGraphicalEdgeCreationChecker implements IGraphical
 
 	@Override
 	public void validateAfterRedo() {
-		Assert.assertEquals(this.nbSiriusDiagramTotalElement + getNumberOfExpectedCreatedElement(), this.semanticDiagram.getDiagramElements().size());
-		// check we create only one edge
-		Assert.assertEquals("The parent edge must contain only one additional element.", this.nbGraphicalContainerChildren + getExpectedAdditionalChildren(), getGraphicalOwnerChildrenSize()); //$NON-NLS-1$
-		Assert.assertEquals("The diagram must contain one additional edge after redoing the creation of the Edge", this.nbGraphicalEdge + getExpectedAdditionalEdges(), diagram.getEdges().size()); //$NON-NLS-1$
+		checkElementsSizes(true, "redo"); //$NON-NLS-1$
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 *         the expected mapping type for the created edge
 	 */

@@ -49,15 +49,15 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 	/**
 	 * The expected number of additional created elements in the {@code containmentFeature}.
 	 */
-	protected int expectedCreatedElements;
+	protected int expectedCreatedElements = DEFAULT_CREATED_ELEMENTS_NUMBER;
 
 	/**
 	 * The expected number of associated semantic elements.
 	 */
-	protected int expectedAssociatedElements;
+	protected int expectedAssociatedElements = DEFAULT_CREATED_ELEMENTS_NUMBER;
 
 	/**
-	 * 
+	 *
 	 * Constructor.
 	 *
 	 * @param expectedOwner
@@ -69,9 +69,6 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 		this.semanticOwner = expectedOwner;
 		this.containmentFeature = containmentFeature;
 		this.nbChildren = getContainmentFeatureValue().size();
-
-		this.expectedCreatedElements = DEFAULT_CREATED_ELEMENTS_NUMBER;
-		this.expectedAssociatedElements = DEFAULT_CREATED_ELEMENTS_NUMBER;
 	}
 
 	/**
@@ -82,7 +79,7 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 	@Override
 	public void validateRepresentationElement(DRepresentationElement createdElementRepresentation) {
 		final List<EObject> semanticElements = createdElementRepresentation.getSemanticElements();
-		Assert.assertEquals("The created edge representation must have 1 associated semantic element", getExpectedAssociatedElements(), semanticElements.size()); //$NON-NLS-1$
+		Assert.assertEquals("Number associated element is wrong", getExpectedAssociatedElements(), semanticElements.size()); //$NON-NLS-1$
 
 		final EObject element = semanticElements.get(0);
 		validateSemanticElementInstance(element);
@@ -91,60 +88,60 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 
 	/**
 	 * This method checks the expected owner of the created element
-	 * 
+	 *
 	 * @param semanticElement
 	 *            the owner of the created element
 	 */
 	protected void validateSemanticOwner(final EObject semanticElement) {
-		Assert.assertTrue("The semantic owner doesn't contains the created element.", getContainmentFeatureValue().contains(semanticElement)); //$NON-NLS-1$
-		Assert.assertEquals("The owner contains more than one additional element after the creation.", this.nbChildren + this.getNumberOfExpectedCreatedElement(), getContainmentFeatureValue().size()); //$NON-NLS-1$
+		Assert.assertTrue("Owner does not contain the created element.", getContainmentFeatureValue().contains(semanticElement)); //$NON-NLS-1$
+		Assert.assertEquals("Owner contains the number of elements.", nbChildren + getNumberOfExpectedCreatedElement(), getContainmentFeatureValue().size()); //$NON-NLS-1$
 	}
 
 	/**
 	 * this method validate the type of the created element
-	 * 
+	 *
 	 * @param createdElement
 	 *            the created element
-	 * 
+	 *
 	 */
 	protected abstract void validateSemanticElementInstance(final EObject createdElement);
 
 	/**
 	 * Get the expected number of associated semantic elements.
-	 * 
+	 *
 	 * @return the expected number of associated semantic elements.
 	 */
 	public int getExpectedAssociatedElements() {
-		return this.expectedAssociatedElements;
+		return expectedAssociatedElements;
 	}
 
 	/**
 	 * Set the expected number of associated semantic elements.
-	 * 
-	 * @param expectedAssociatedElements
+	 *
+	 * @param value
 	 *            the expected number of associated semantic elements.
 	 */
-	public void setExpectedAssociatedElements(int expectedAssociatedElements) {
-		this.expectedAssociatedElements = expectedAssociatedElements;
+	public void setExpectedAssociatedElements(int value) {
+		expectedAssociatedElements = value;
 	}
 
 	/**
 	 * Get the expected number of additional created elements in the checked {@code containmentFeature}.
-	 * 
+	 *
 	 * @return the expected number of additional created elements in the checked {@code containmentFeature}.
 	 */
 	public int getNumberOfExpectedCreatedElement() {
-		return this.expectedCreatedElements;
+		return expectedCreatedElements;
 	}
 
 	/**
 	 * Set the expected number of additional created elements in the checked {@code containmentFeature}.
-	 * 
-	 * @param expectedElements
+	 *
+	 * @param value
 	 *            the expected number of additional created elements in the checked {@code containmentFeature}.
 	 */
-	public void setExpectedCreatedElements(int expectedElements) {
-		this.expectedCreatedElements = expectedElements;
+	public void setExpectedCreatedElements(int value) {
+		expectedCreatedElements = value;
 	}
 
 	/**
@@ -153,7 +150,7 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 	 */
 	@Override
 	public void validateAfterUndo() {
-		Assert.assertEquals("The semantic owner must contains the same number of elements as initially", this.nbChildren, getContainmentFeatureValue().size()); //$NON-NLS-1$
+		Assert.assertEquals("Owner must contain the same number of elements as initially", nbChildren, getContainmentFeatureValue().size()); //$NON-NLS-1$
 	}
 
 	/**
@@ -162,11 +159,11 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 	 */
 	@Override
 	public void validateAfterRedo() {
-		Assert.assertEquals("The owner contains more than one additional element after the redo.", this.nbChildren + this.getNumberOfExpectedCreatedElement(), getContainmentFeatureValue().size()); //$NON-NLS-1$
+		Assert.assertEquals("Owner contains unexpected number of element after the redo.", nbChildren + getNumberOfExpectedCreatedElement(), getContainmentFeatureValue().size()); //$NON-NLS-1$
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 *         the value of the feature that should contain the created element
 	 */
@@ -175,15 +172,15 @@ public abstract class AbstractSemanticEdgeCreationChecker implements ISemanticRe
 		if (!owningFeature.isMany()) {
 			throw new UnsupportedOperationException("The case where the owning feature is not multi-valued is not yet implemented"); //$NON-NLS-1$
 		}
-		return ((Collection<?>) this.semanticOwner.eGet(getContainmentFeature()));
+		return ((Collection<?>) semanticOwner.eGet(getContainmentFeature()));
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 *         the containment feature of the created element
 	 */
 	protected EReference getContainmentFeature() {
-		return this.containmentFeature;
+		return containmentFeature;
 	}
 }

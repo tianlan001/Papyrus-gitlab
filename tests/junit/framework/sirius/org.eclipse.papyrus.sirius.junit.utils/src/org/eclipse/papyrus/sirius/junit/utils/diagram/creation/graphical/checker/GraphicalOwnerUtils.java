@@ -36,28 +36,30 @@ public class GraphicalOwnerUtils {
 	}
 
 	/**
+	 * Returns the number of children elements of provided diagram element.
 	 *
-	 * @return
-	 *         the number of owned children in the graphical parent
+	 * @param graphicalParent
+	 *            the graphical parent. It should be an element from Sirius Diagram metamodel
+	 * @return the owned elements
 	 */
 	public static final int getGraphicalOwnerChildrenSize(final EObject graphicalParent) {
 		return getChildren(graphicalParent).size();
 	}
 
 	/**
+	 * Returns the children elements of provided diagram element.
 	 *
 	 * @param graphicalParent
 	 *            the graphical parent. It should be an element from Sirius Diagram metamodel
-	 * @return
-	 *         the list of owned element
+	 * @return the owned elements
 	 */
 	public static final List<? extends EObject> getChildren(final EObject graphicalParent) {
-		if (graphicalParent instanceof DDiagram) {
-			return ((DDiagram) graphicalParent).getOwnedDiagramElements();
-		} else if (graphicalParent instanceof DDiagramElementContainer) {
-			return ((DDiagramElementContainer) graphicalParent).getElements();
-		} else if (graphicalParent instanceof DNode) {
-			return ((DNode) graphicalParent).getOwnedBorderedNodes();
+		if (graphicalParent instanceof DDiagram diagram) {
+			return diagram.getOwnedDiagramElements();
+		} else if (graphicalParent instanceof DDiagramElementContainer container) {
+			return container.getElements();
+		} else if (graphicalParent instanceof DNode node) {
+			return node.getOwnedBorderedNodes();
 		}
 		throw new UnsupportedOperationException(NLS.bind("The type {0} is not yet supported", graphicalParent.eClass().getName())); //$NON-NLS-1$
 

@@ -30,23 +30,42 @@ public class SemanticEdgeCreationChecker extends AbstractSemanticEdgeCreationChe
 
 	/**
 	 * Constructor.
+	 * <p>
+	 * Expected type is containment type.
+	 * </p>
 	 *
 	 * @param expectedOwner
+	 *            expected owner
+	 * @param containmentFeature
+	 *            containment feature
+	 */
+	@SuppressWarnings("unchecked")
+	public SemanticEdgeCreationChecker(EObject expectedOwner, EReference containmentFeature) {
+		this(expectedOwner, containmentFeature,
+				(Class<? extends Element>) containmentFeature.getEReferenceType().getInstanceClass());
+	}
+
+
+	/**
+	 * Constructor.
+	 *
+	 * @param expectedOwner
+	 *            expected owner
+	 * @param containmentFeature
+	 *            containment feature
+	 * @param expectedType
+	 *            type of created element
 	 */
 	public SemanticEdgeCreationChecker(final EObject expectedOwner, EReference containmentFeature, Class<? extends Element> expectedType) {
 		super(expectedOwner, containmentFeature);
 		this.expectedType = expectedType;
 	}
 
-	/**
-	 * @see org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.SemanticEdgeCreationChecker.tests.checkers.creation.semantic.AssociationSemanticCreationChecker#validateSemanticElementInstance(org.eclipse.emf.ecore.EObject)
-	 *
-	 * @param semanticElement
-	 */
-
 	@Override
 	protected void validateSemanticElementInstance(EObject semanticElement) {
-		Assert.assertTrue(NLS.bind("The created element must be a UML {0} instead of a {1}.", expectedType.getName(), semanticElement.eClass().getName()), this.expectedType.isInstance(semanticElement)); //$NON-NLS-1$
+		Assert.assertTrue(NLS.bind("The created element must be a UML {0} instead of a {1}.", //$NON-NLS-1$
+				expectedType.getName(), semanticElement.eClass().getName()),
+				expectedType.isInstance(semanticElement));
 	}
 
 }

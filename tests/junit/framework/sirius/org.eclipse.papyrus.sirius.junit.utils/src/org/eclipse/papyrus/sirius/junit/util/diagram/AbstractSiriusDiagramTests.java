@@ -48,6 +48,28 @@ import org.junit.Rule;
  */
 public abstract class AbstractSiriusDiagramTests {// extends AbstractPapyrusTest {
 
+	/** Indicates if the tested diagram should be synchronized. */
+	private boolean synchronization = false;
+
+	/**
+	 * Sets if diagram is synchronized.
+	 *
+	 * @param value
+	 *            the synchronizedDiagram to set
+	 */
+	public void setSynchronization(boolean value) {
+		this.synchronization = value;
+	}
+
+	/**
+	 * Returns if diagram is synchronized.
+	 *
+	 * @return the synchronization
+	 */
+	public boolean isSynchronization() {
+		return synchronization;
+	}
+
 	/**
 	 * The editor fixture
 	 */
@@ -95,7 +117,7 @@ public abstract class AbstractSiriusDiagramTests {// extends AbstractPapyrusTest
 	 * @return Node from a container representation which is on the root of the diagram.
 	 */
 	protected AbstractDNode getNodeFromContainer(final String elementNameNode, final String mappingTypeName, EObject graphicalContainer, EObject semanticContainer) {
-		this.checkSiriusDiagramSynchronization(false);
+		this.checkSiriusDiagramSynchronization(isSynchronization());
 
 		// setup
 		Assert.assertTrue(this.getRootElement() instanceof Namespace);
@@ -127,8 +149,7 @@ public abstract class AbstractSiriusDiagramTests {// extends AbstractPapyrusTest
 		Assert.assertNotNull("We can't find the diagram", diagram); //$NON-NLS-1$
 
 		for (EObject dDiagramElement : GraphicalOwnerUtils.getChildren(graphicalContainer)) {
-			if (dDiagramElement instanceof AbstractDNode && mappingTypeName.equals(((AbstractDNode) dDiagramElement).getMapping().getName())) {
-				AbstractDNode abstractNode = (AbstractDNode) dDiagramElement;
+			if (dDiagramElement instanceof AbstractDNode abstractNode && mappingTypeName.equals(((AbstractDNode) dDiagramElement).getMapping().getName())) {
 				if (element.equals(abstractNode.getSemanticElements().get(0))) {
 					return abstractNode;
 				}
@@ -251,7 +272,7 @@ public abstract class AbstractSiriusDiagramTests {// extends AbstractPapyrusTest
 	 * @return Edge from the diagram.
 	 */
 	protected DEdge getEdgeFromDiagram(final EdgeTarget graphicalSource, final EdgeTarget graphicalTarget, final String mappingTypeName) {
-		this.checkSiriusDiagramSynchronization(false);
+		this.checkSiriusDiagramSynchronization(isSynchronization());
 
 		DEdge foundEdge = null;
 		for (DEdge dEdge : this.getDDiagram().getEdges()) {
@@ -288,7 +309,7 @@ public abstract class AbstractSiriusDiagramTests {// extends AbstractPapyrusTest
 
 
 	/**
-	 * Get the active GMF {@link Diagram}.
+	 * Returns the active GMF {@link Diagram}.
 	 *
 	 * @return the active GMF {@link Diagram}.
 	 */
@@ -297,20 +318,20 @@ public abstract class AbstractSiriusDiagramTests {// extends AbstractPapyrusTest
 	}
 
 	/**
-	 * Get the active Sirius {@link DDiagram}.
+	 * Returns the active Sirius {@link DDiagram}.
 	 *
 	 * @return the active Sirius {@link DDiagram}
 	 */
-	protected final DDiagram getDDiagram() {
+	public final DDiagram getDDiagram() {
 		return (DDiagram) this.getDiagram().getElement();
 	}
 
 	/**
-	 * Get the semantic {@link Model}.
+	 * Returns the semantic {@link Model}.
 	 *
 	 * @return the semantic {@link Model}.
 	 */
-	protected final org.eclipse.uml2.uml.Package getModel() {
+	public final org.eclipse.uml2.uml.Package getModel() {
 		return this.fixture.getModel();
 	}
 }

@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_wiM5cOOEEe2rl-6I9B2Udw" name="Edge_CreationTest">
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_wiM5cOOEEe2rl-6I9B2Udw" name="Edge_CreationTest">
   <packageImport xmi:type="uml:PackageImport" xmi:id="_wklfEOOEEe2rl-6I9B2Udw">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
-  <packagedElement xmi:type="uml:Interaction" xmi:id="_6Lyp4OOEEe2rl-6I9B2Udw">
-    <lifeline xmi:type="uml:Lifeline" xmi:id="_69DuwOOEEe2rl-6I9B2Udw" name="Lifeline1" coveredBy="_8KWBQOOEEe2rl-6I9B2Udw _8KWoUOOEEe2rl-6I9B2Udw _8KWoUeOEEe2rl-6I9B2Udw"/>
-    <lifeline xmi:type="uml:Lifeline" xmi:id="_7RSSUOOEEe2rl-6I9B2Udw" name="Lifeline2" coveredBy="_89Z14OOEEe2rl-6I9B2Udw _89ac8OOEEe2rl-6I9B2Udw _89ac8eOEEe2rl-6I9B2Udw"/>
-    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_8KWoUOOEEe2rl-6I9B2Udw" name="ActionExecutionSpecification1Start" covered="_69DuwOOEEe2rl-6I9B2Udw" execution="_8KWBQOOEEe2rl-6I9B2Udw"/>
-    <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_8KWBQOOEEe2rl-6I9B2Udw" name="ActionExecutionSpecification1" covered="_69DuwOOEEe2rl-6I9B2Udw" finish="_8KWoUeOEEe2rl-6I9B2Udw" start="_8KWoUOOEEe2rl-6I9B2Udw"/>
-    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_89ac8OOEEe2rl-6I9B2Udw" name="ActionExecutionSpecification2Start" covered="_7RSSUOOEEe2rl-6I9B2Udw" execution="_89Z14OOEEe2rl-6I9B2Udw"/>
-    <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_89Z14OOEEe2rl-6I9B2Udw" name="ActionExecutionSpecification2" covered="_7RSSUOOEEe2rl-6I9B2Udw" finish="_89ac8eOEEe2rl-6I9B2Udw" start="_89ac8OOEEe2rl-6I9B2Udw"/>
-    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_89ac8eOEEe2rl-6I9B2Udw" name="ActionExecutionSpecification2Finish" covered="_7RSSUOOEEe2rl-6I9B2Udw" execution="_89Z14OOEEe2rl-6I9B2Udw"/>
-    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_8KWoUeOEEe2rl-6I9B2Udw" name="ActionExecutionSpecification1Finish" covered="_69DuwOOEEe2rl-6I9B2Udw" execution="_8KWBQOOEEe2rl-6I9B2Udw"/>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_6Lyp4OOEEe2rl-6I9B2Udw" name="Interaction1">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_DbJrwLedEe-Bl5NVUKVLDA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.end">
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_JRZtcLedEe-Bl5NVUKVLDA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.start" references="_JRYfULedEe-Bl5NVUKVLDA _IPKNULedEe-Bl5NVUKVLDA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_KNVKMLedEe-Bl5NVUKVLDA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.start" references="_KNUjILedEe-Bl5NVUKVLDA _KNTVALedEe-Bl5NVUKVLDA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_JRaUgLedEe-Bl5NVUKVLDA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.finish" references="_JRZGYLedEe-Bl5NVUKVLDA _IPKNULedEe-Bl5NVUKVLDA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_KNVKMbedEe-Bl5NVUKVLDA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.finish" references="_KNUjIbedEe-Bl5NVUKVLDA _KNTVALedEe-Bl5NVUKVLDA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_yieTQLfwEe-ip_Lsu_BdZA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.start" references="_yiaB0LfwEe-ip_Lsu_BdZA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_yijLwLfwEe-ip_Lsu_BdZA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.start" references="_yibP8LfwEe-ip_Lsu_BdZA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_0x9CkbfwEe-ip_Lsu_BdZA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.start" references="_0x8bgLfwEe-ip_Lsu_BdZA _0x6mULfwEe-ip_Lsu_BdZA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_4zqkgLfwEe-ip_Lsu_BdZA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.start" references="_4zp9cLfwEe-ip_Lsu_BdZA _4zovULfwEe-ip_Lsu_BdZA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_0x9CkrfwEe-ip_Lsu_BdZA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.finish" references="_0x9CkLfwEe-ip_Lsu_BdZA _0x6mULfwEe-ip_Lsu_BdZA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_4zqkgbfwEe-ip_Lsu_BdZA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.finish" references="_4zp9cbfwEe-ip_Lsu_BdZA _4zovULfwEe-ip_Lsu_BdZA"/>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_yijLwbfwEe-ip_Lsu_BdZA" source="org.eclipse.papyrus.sirius.uml.diagram.sequence.finish" references="_yiaB0LfwEe-ip_Lsu_BdZA"/>
+    </eAnnotations>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_69DuwOOEEe2rl-6I9B2Udw" name="Lifeline1" coveredBy="_IPKNULedEe-Bl5NVUKVLDA _JRYfULedEe-Bl5NVUKVLDA _JRZGYLedEe-Bl5NVUKVLDA _yiaB0LfwEe-ip_Lsu_BdZA _yibP8LfwEe-ip_Lsu_BdZA _0x6mULfwEe-ip_Lsu_BdZA _0x8bgLfwEe-ip_Lsu_BdZA _0x9CkLfwEe-ip_Lsu_BdZA"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_7RSSUOOEEe2rl-6I9B2Udw" name="Lifeline2" coveredBy="_KNTVALedEe-Bl5NVUKVLDA _KNUjILedEe-Bl5NVUKVLDA _KNUjIbedEe-Bl5NVUKVLDA _yiaB0LfwEe-ip_Lsu_BdZA _yibP8LfwEe-ip_Lsu_BdZA _4zovULfwEe-ip_Lsu_BdZA _4zp9cLfwEe-ip_Lsu_BdZA _4zp9cbfwEe-ip_Lsu_BdZA"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_JRYfULedEe-Bl5NVUKVLDA" name="ActionExecutionSpecification1start" covered="_69DuwOOEEe2rl-6I9B2Udw" execution="_IPKNULedEe-Bl5NVUKVLDA"/>
+    <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_IPKNULedEe-Bl5NVUKVLDA" name="ExecutionSpecification1" covered="_69DuwOOEEe2rl-6I9B2Udw" finish="_JRZGYLedEe-Bl5NVUKVLDA" start="_JRYfULedEe-Bl5NVUKVLDA"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_KNUjILedEe-Bl5NVUKVLDA" name="ActionExecutionSpecification2start" covered="_7RSSUOOEEe2rl-6I9B2Udw" execution="_KNTVALedEe-Bl5NVUKVLDA"/>
+    <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_KNTVALedEe-Bl5NVUKVLDA" name="ExecutionSpecification2" covered="_7RSSUOOEEe2rl-6I9B2Udw" finish="_KNUjIbedEe-Bl5NVUKVLDA" start="_KNUjILedEe-Bl5NVUKVLDA"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_JRZGYLedEe-Bl5NVUKVLDA" name="ActionExecutionSpecification1finish" covered="_69DuwOOEEe2rl-6I9B2Udw" execution="_IPKNULedEe-Bl5NVUKVLDA"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_KNUjIbedEe-Bl5NVUKVLDA" name="ActionExecutionSpecification2finish" covered="_7RSSUOOEEe2rl-6I9B2Udw" execution="_KNTVALedEe-Bl5NVUKVLDA"/>
+    <fragment xmi:type="uml:CombinedFragment" xmi:id="_yiaB0LfwEe-ip_Lsu_BdZA" name="CombinedFragment1" covered="_69DuwOOEEe2rl-6I9B2Udw _7RSSUOOEEe2rl-6I9B2Udw">
+      <operand xmi:type="uml:InteractionOperand" xmi:id="_yibP8LfwEe-ip_Lsu_BdZA" name="InteractionOperand1" covered="_69DuwOOEEe2rl-6I9B2Udw _7RSSUOOEEe2rl-6I9B2Udw">
+        <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_0x8bgLfwEe-ip_Lsu_BdZA" name="ActionExecutionSpecification1start" covered="_69DuwOOEEe2rl-6I9B2Udw" execution="_0x6mULfwEe-ip_Lsu_BdZA"/>
+        <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_0x6mULfwEe-ip_Lsu_BdZA" name="ExecutionSpecification3" covered="_69DuwOOEEe2rl-6I9B2Udw" finish="_0x9CkLfwEe-ip_Lsu_BdZA" start="_0x8bgLfwEe-ip_Lsu_BdZA"/>
+        <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_4zp9cLfwEe-ip_Lsu_BdZA" name="ActionExecutionSpecification1start" covered="_7RSSUOOEEe2rl-6I9B2Udw" execution="_4zovULfwEe-ip_Lsu_BdZA"/>
+        <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_4zovULfwEe-ip_Lsu_BdZA" name="ExecutionSpecification4" covered="_7RSSUOOEEe2rl-6I9B2Udw" finish="_4zp9cbfwEe-ip_Lsu_BdZA" start="_4zp9cLfwEe-ip_Lsu_BdZA"/>
+        <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_0x9CkLfwEe-ip_Lsu_BdZA" name="ActionExecutionSpecification1finish" covered="_69DuwOOEEe2rl-6I9B2Udw" execution="_0x6mULfwEe-ip_Lsu_BdZA"/>
+        <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_4zp9cbfwEe-ip_Lsu_BdZA" name="ActionExecutionSpecification1finish" covered="_7RSSUOOEEe2rl-6I9B2Udw" execution="_4zovULfwEe-ip_Lsu_BdZA"/>
+        <guard xmi:type="uml:InteractionConstraint" xmi:id="_yiiksLfwEe-ip_Lsu_BdZA" name="guard"/>
+      </operand>
+    </fragment>
   </packagedElement>
 </uml:Model>
