@@ -63,7 +63,6 @@ public class SDCreateMessagesTest extends AbstractCreateEdgeTests {
 	 *            test description
 	 */
 	public SDCreateMessagesTest(EdgeCreation description) {
-		setSynchronization(true);
 		usecase = description;
 	}
 

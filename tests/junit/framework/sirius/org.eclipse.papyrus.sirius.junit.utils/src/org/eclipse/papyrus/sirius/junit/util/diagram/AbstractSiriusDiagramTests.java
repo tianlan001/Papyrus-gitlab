@@ -313,7 +313,7 @@ public abstract class AbstractSiriusDiagramTests {// extends AbstractPapyrusTest
 	 *
 	 * @return the active GMF {@link Diagram}.
 	 */
-	protected final Diagram getDiagram() {
+	public final Diagram getDiagram() {
 		return this.fixture.getActiveDiagram().getDiagramView();
 	}
 

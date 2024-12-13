@@ -49,21 +49,21 @@ public abstract class AbstractCreateNodeTests extends AbstractSiriusDiagramTests
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 *         the semantic owner to use for the test
 	 */
 	protected abstract EObject getSemanticOwner();
 
 	/**
-	 * 
+	 *
 	 * @return
 	 *         the "top" node of the graphical container
 	 */
 	protected abstract EObject getTopGraphicalContainer();
 
 	/**
-	 * 
+	 *
 	 * @param mappingID
 	 *            the mapping used by the subnode
 	 * @return
@@ -93,7 +93,7 @@ public abstract class AbstractCreateNodeTests extends AbstractSiriusDiagramTests
 
 	/**
 	 * This method creates the node and checks that the diagram is unsynchronized
-	 * 
+	 *
 	 * @param creationToolId
 	 *            the ID of the creation tool to used
 	 * @param checker
@@ -102,23 +102,7 @@ public abstract class AbstractCreateNodeTests extends AbstractSiriusDiagramTests
 	 *            the graphical container to use to create the node
 	 */
 	protected void createNode(final String creationToolId, final SemanticAndGraphicalCreationChecker checker, final EObject graphicalContainer) {
-		createNode(creationToolId, checker, graphicalContainer, false);
-	}
-
-	/**
-	 * This method create the node and checks the status of the current diagram (synchronized or not synchronized)
-	 * 
-	 * @param creationToolId
-	 *            the ID of the creation tool to used
-	 * @param checker
-	 *            the checker used to validate the creation of the node
-	 * @param graphicalContainer
-	 *            the graphical container to use to create the node
-	 * @param isSynchronized
-	 *            <code>true</code> if the diagram must be synchronized
-	 */
-	protected void createNode(final String creationToolId, final SemanticAndGraphicalCreationChecker checker, final EObject graphicalContainer, final boolean isSynchronized) {
-		checkSiriusDiagramSynchronization(isSynchronized);
+		checkSiriusDiagramSynchronization(isSynchronization());
 		int initialChildrenNumber = GraphicalOwnerUtils.getGraphicalOwnerChildrenSize(graphicalContainer);
 
 		boolean result = applyCreationTool(creationToolId, getDDiagram(), graphicalContainer);
@@ -147,7 +131,7 @@ public abstract class AbstractCreateNodeTests extends AbstractSiriusDiagramTests
 
 	/**
 	 * Applies the node creation tool with the provided parameters.
-	 * 
+	 *
 	 * @param creationToolId
 	 *            the ID of the creation tool to use
 	 * @param diagram

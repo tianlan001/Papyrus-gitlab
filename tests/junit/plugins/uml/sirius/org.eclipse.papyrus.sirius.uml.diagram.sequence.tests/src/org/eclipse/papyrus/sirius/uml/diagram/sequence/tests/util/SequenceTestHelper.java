@@ -13,7 +13,11 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.tests.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -21,19 +25,32 @@ import java.util.function.Function;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.papyrus.sirius.junit.util.diagram.AbstractCreateEdgeTests;
 import org.eclipse.papyrus.sirius.junit.util.diagram.AbstractSiriusDiagramTests;
+import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.checker.SemanticAndGraphicalCreationChecker;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.DEdgeCreationChecker;
+import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.DNodeCreationChecker;
 import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.GraphicalOwnerUtils;
+import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.graphical.checker.IGraphicalRepresentationElementCreationChecker;
+import org.eclipse.papyrus.sirius.junit.utils.diagram.creation.semantic.checker.SemanticNodeCreationChecker;
+import org.eclipse.papyrus.sirius.junit.utils.rules.SiriusDiagramEditorFixture;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.tests.ContainmentFeatureHelper;
+import org.eclipse.papyrus.sirius.uml.diagram.sequence.tests.CreationToolsIds;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.tests.MappingTypes;
 import org.eclipse.sirius.diagram.AbsoluteBoundsFilter;
 import org.eclipse.sirius.diagram.AbstractDNode;
+import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.DNode;
+import org.eclipse.sirius.diagram.DSemanticDiagram;
 import org.eclipse.sirius.diagram.EdgeTarget;
 import org.eclipse.sirius.diagram.sequence.description.InstanceRoleMapping;
 import org.eclipse.sirius.viewpoint.DRepresentation;
 import org.eclipse.sirius.viewpoint.DRepresentationElement;
+import org.eclipse.sirius.viewpoint.DSemanticDecorator;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionSpecification;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.Lifeline;
@@ -48,12 +65,94 @@ import org.junit.Assert;
 @SuppressWarnings("boxing")
 public class SequenceTestHelper {
 
-	private final AbstractSiriusDiagramTests context;
+	/**
+	 * Use-case for test suite to create nodes.
+	 * <p>
+	 * Provides the parameters for a test instance.
+	 * </p>
+	 *
+	 * @param type
+	 *            class of element to create
+	 * @param location
+	 *            indicates where the creation should happen
+	 * @param createdElement
+	 *            number of created elements
+	 * @param createdView
+	 *            number of created view elements
+	 *
+	 */
+	public record NodeCreation(Class<? extends Element> type, Point location, int newElementNumber, int newViewNumber) {
 
-	private final int lifelineSize;
+		@Override
+		public final String toString() {
+			return getCreationTool();
+		}
+
+		/**
+		 * Returns the VSM name of the creation tool.
+		 *
+		 * @return name of tool
+		 */
+		public String getCreationTool() {
+			return CreationToolsIds.getCreationToolId(type);
+		}
+
+		/**
+		 * Returns name of expected mapping of created element.
+		 *
+		 * @return name of mapping
+		 */
+		public String getMappingType() {
+			return MappingTypes.getMappingType(type);
+		}
+
+		/**
+		 * Returns the containment feature of created element.
+		 *
+		 * @return reference
+		 */
+		public EReference getContainment() {
+			return ContainmentFeatureHelper.getContainmentFeature(type);
+		}
+
+		/**
+		 * Creates a Creation Checker based this use-case.
+		 *
+		 * @param elementOwner
+		 *            owner of created element
+		 * @param viewContainer
+		 *            container of created view
+		 * @param helper
+		 *            helper of test
+		 * @return created checker
+		 */
+		public SemanticAndGraphicalCreationChecker createNodeChecker(SequenceTestHelper helper, EObject elementOwner, EObject viewContainer) {
+			Diagram diagram = helper.context.getDiagram();
+			DNodeCreationChecker viewChecker = new DNodeCreationChecker(diagram, viewContainer, getMappingType());
+			viewChecker.setExpectedCreatedElements(newViewNumber);
+
+			return createChecker(elementOwner, viewChecker);
+		}
+
+		private SemanticAndGraphicalCreationChecker createChecker(EObject elementOwner, IGraphicalRepresentationElementCreationChecker viewChecker) {
+			SemanticNodeCreationChecker modelChecker = new SemanticNodeCreationChecker(elementOwner, getContainment(), type());
+			modelChecker.setExpectedCreatedElements(newElementNumber());
+			return new SemanticAndGraphicalCreationChecker(modelChecker, viewChecker);
+		}
+
+		public boolean applyTool(SequenceTestHelper helper, String toolId, EObject containerView) {
+			SiriusDiagramEditorFixture fixture = helper.context.fixture;
+			DDiagram diagram = helper.context.getDDiagram();
+			if (location() != null) {
+				return fixture.applyNodeCreationToolFromPalette(toolId, diagram, containerView, location, null);
+			}
+			return fixture.applyContainerCreationTool(toolId, diagram, containerView);
+		}
+
+	}
 
 	/**
-	 * Enumeration to access node
+	 * Enumeration to access node using simple identification.
 	 */
 	public enum ViewKind {
 
@@ -74,6 +173,9 @@ public class SequenceTestHelper {
 		}
 	}
 
+	private final AbstractSiriusDiagramTests context;
+	private final int lifelineSize;
+
 	/**
 	 * Constructor.
 	 *
@@ -83,6 +185,7 @@ public class SequenceTestHelper {
 	public SequenceTestHelper(AbstractSiriusDiagramTests test, int lineNumber) {
 		context = Objects.requireNonNull(test);
 		lifelineSize = lineNumber;
+		test.setSynchronization(true);
 	}
 
 	/**
@@ -104,6 +207,45 @@ public class SequenceTestHelper {
 	public Interaction getRoot() {
 		return (Interaction) context.getModel().getMembers().get(0);
 	}
+
+
+	/**
+	 * Returns the view associated with this semantic element in the diagram.
+	 *
+	 * @param target
+	 *            of the view
+	 * @return the associated view
+	 * @throws AssertionError
+	 *             if view do not exists or several view are found
+	 */
+	public DSemanticDecorator getSingleView(EObject target) {
+		return getSingleView(target, (DSemanticDiagram) context.getDDiagram());
+	}
+
+	/**
+	 * Returns the view associated with this semantic
+	 *
+	 * @param target
+	 *            target of the view
+	 * @param container
+	 *            container of the view
+	 *
+	 * @return the associated view
+	 * @throws AssertionError
+	 *             if view do not exists or several view are found
+	 */
+	public DSemanticDecorator getSingleView(EObject target, DSemanticDecorator container) {
+		assertNotNull(target);
+
+		List<DSemanticDecorator> views = container.eContents().stream()
+				.filter(DSemanticDecorator.class::isInstance)
+				.map(DSemanticDecorator.class::cast)
+				.filter(view -> view.getTarget() == target)
+				.toList();
+		assertEquals(1, views.size());
+		return views.get(0);
+	}
+
 
 	/**
 	 * Returns the lifeline view using its indexed name.
