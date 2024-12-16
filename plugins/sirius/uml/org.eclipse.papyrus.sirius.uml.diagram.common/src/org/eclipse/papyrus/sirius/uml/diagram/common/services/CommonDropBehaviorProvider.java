@@ -1,7 +1,7 @@
 /*****************************************************************************
- * Copyright (c) 2023 CEA LIST, Obeo.
+ * Copyright (c) 2023, 2024 CEA LIST.
  *
- * All rights reserved. This program and the accompanying materials
+ * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
  * https://www.eclipse.org/legal/epl-2.0/
@@ -90,8 +90,7 @@ public class CommonDropBehaviorProvider extends AbstractDiagramServices {
 	 *            indicates if the root semantic element is also displayed as a root container
 	 */
 	public void dragAndDropSemantic(EObject droppedElement, Object containerView, boolean isDiagramWithRoot) {
-		if (containerView != null && containerView instanceof DSemanticDecorator) {
-			DSemanticDecorator targetView = (DSemanticDecorator) containerView;
+		if (containerView != null && containerView instanceof DSemanticDecorator targetView) {
 			DnDStatus semanticDroppedStatus = this.externalSourceToRepresentationDropBehaviorProvider.drop(droppedElement, targetView.getTarget(), this.getECrossReferenceAdapter(droppedElement), new EditableChecker());
 			if (State.DONE == semanticDroppedStatus.getState() || State.NOTHING == semanticDroppedStatus.getState()) {
 				for (EObject elementToDisplay : semanticDroppedStatus.getElementsToDisplay()) {

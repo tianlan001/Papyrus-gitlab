@@ -16,6 +16,8 @@ package org.eclipse.papyrus.sirius.uml.diagram.sequence.services;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.papyrus.sirius.uml.diagram.common.core.services.AbstractDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDropBehaviorProvider;
+import org.eclipse.papyrus.uml.domain.services.drop.diagrams.SequenceExternalSourceToRepresentationDropBehaviorProvider;
+import org.eclipse.papyrus.uml.domain.services.drop.diagrams.SequenceExternalSourceToRepresentationDropChecker;
 import org.eclipse.papyrus.uml.domain.services.drop.diagrams.SequenceInternalSourceToRepresentationDropBehaviorProvider;
 import org.eclipse.papyrus.uml.domain.services.drop.diagrams.SequenceInternalSourceToRepresentationDropChecker;
 
@@ -27,23 +29,54 @@ import org.eclipse.papyrus.uml.domain.services.drop.diagrams.SequenceInternalSou
 public class SequenceDiagramDropBehaviorProvider extends AbstractDiagramServices {
 
 	/**
-	 * Check if a given droppedElement can be drag and dropped into a given newContainer.
+	 * Drag and drop a given semantic {@code droppedElement} from ModelExplorer into a graphical {@code containerView}.
+	 * 
+	 * @param droppedElement
+	 *            the semantic uml element to D&D,
+	 * @param containerView
+	 *            the graphical container
+	 */
+	public void dragAndDropSemanticSD(EObject droppedElement, Object containerView) {
+		CommonDropBehaviorProvider.newCommonDropBehaviorProvider()
+				.externalSourceToRepresentationDropBehaviorProvider(new SequenceExternalSourceToRepresentationDropBehaviorProvider())
+				.build()
+				.dragAndDropSemantic(droppedElement, containerView, true);
+	}
+
+	/**
+	 * Check if a given {@code droppedElement} can be drag and dropped from ModelExplorer into a given {@code newContainer}.
 	 * 
 	 * @param droppedElement
 	 *            the UML element to drag and drop,
 	 * @param newContainer
 	 *            the new container of the drop,
-	 * @return <code>true</code> if droppedElement can be drag and dropped into a newContainer, <code>false</code> otherwise.
+	 * @return <code>true</code> if {@code droppedElement} can be drag and dropped into a {@code newContainer}, <code>false</code> otherwise.
+	 */
+	public boolean canDragAndDropSemanticSD(EObject droppedElement, EObject newContainer) {
+		return CommonDropBehaviorProvider.newCommonDropBehaviorProvider()
+				.externalSourceToRepresentationDropChecker(new SequenceExternalSourceToRepresentationDropChecker())
+				.build()
+				.candDragAndDropSemantic(droppedElement, newContainer);
+	}
+
+	/**
+	 * Check if a given {@code droppedElement} can be drag and dropped into a given {@code newContainer=.
+	 * 
+	 * @param droppedElement
+	 *            the UML element to drag and drop,
+	 * @param newContainer
+	 *            the new container of the drop,
+	 * @return <code>true</code> if {@code droppedElement} can be drag and dropped into a {@code newContainer}, <code>false</code> otherwise.
 	 */
 	public boolean canDragAndDropGraphicSD(EObject droppedElement, EObject newContainer) {
-		CommonDropBehaviorProvider commonDropBehaviorProvider = CommonDropBehaviorProvider.newCommonDropBehaviorProvider()
+		return CommonDropBehaviorProvider.newCommonDropBehaviorProvider()
 				.internalSourceToRepresentationDropChecker(new SequenceInternalSourceToRepresentationDropChecker())
-				.build();
-		return commonDropBehaviorProvider.candDragAndDropGraphic(droppedElement, newContainer);
+				.build()
+				.candDragAndDropGraphic(droppedElement, newContainer);
 	}
-	
+
 	/**
-	 * Drag and drop a given droppedElement into a graphical containerView.
+	 * Drag and drop a given {@code droppedElement} into a graphical {@code containerView}.
 	 * 
 	 * @param droppedElement
 	 *            the UML element to D&D,
@@ -55,9 +88,9 @@ public class SequenceDiagramDropBehaviorProvider extends AbstractDiagramServices
 	 *            the new graphical container
 	 */
 	public void dragAndDropGraphicSD(EObject droppedElement, EObject oldContainer, EObject newContainer, Object containerView) {
-		CommonDropBehaviorProvider commonDropBehaviorProvider = CommonDropBehaviorProvider.newCommonDropBehaviorProvider()
+		CommonDropBehaviorProvider.newCommonDropBehaviorProvider()
 				.internalSourceToRepresentationDropBehaviorProvider(new SequenceInternalSourceToRepresentationDropBehaviorProvider())
-				.build();
-		commonDropBehaviorProvider.dragAndDropGraphic(droppedElement, oldContainer, newContainer, containerView);
+				.build()
+				.dragAndDropGraphic(droppedElement, oldContainer, newContainer, containerView);
 	}
 }
