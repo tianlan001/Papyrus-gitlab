@@ -14,6 +14,7 @@
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder;
 
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAnnotation;
@@ -104,8 +105,8 @@ public class SequenceDiagramSemanticReorderHelper {
 	public Reordering reorderElements(InteractionFragment semanticElement, EAnnotation newEndPredecessor, List<EAnnotation> endsOrdering) {
 		Reordering context = createSemanticReorderEntry(semanticElement, newEndPredecessor, endsOrdering);
 
-		removeInteractionFragment(context.semanticElement());
-		addInteractionFragment(context.semanticElement(), context.newOwner(), context.newContainmentReference(), context.newSemanticPredecessor());
+		removeInteractionFragment(context.element());
+		addInteractionFragment(context.element(), context.owner(), context.containment(), context.predecessor());
 		return context;
 	}
 
@@ -138,13 +139,13 @@ public class SequenceDiagramSemanticReorderHelper {
 	/**
 	 * Returns the owner of the {@code semanticElement} once it is moved after {@code newEndPredecessor}.
 	 * <p>
-	 * This method computes the owner of an element based on the graphical ordering of the diagram. This is typically done as
-	 * part of a reorder, where the graphical elements are moved first, and the new graphical ordering is used to derive the
-	 * semantic ordering.
+	 * This method computes the owner of an element based on the graphical ordering of the diagram.
+	 * This is typically done as part of a reorder, where the graphical elements are moved first, and the
+	 * new graphical ordering is used to derive the semantic ordering.
 	 * </p>
 	 * <p>
-	 * This method can return an {@link InteractionFragment} or an {@link Interaction} (if there is no fragment that can
-	 * contain the element).
+	 * This method can return an {@link InteractionFragment} or an {@link Interaction}
+	 * (if there is no fragment that can contain the element).
 	 * </p>
 	 *
 	 * @param element
@@ -268,13 +269,13 @@ public class SequenceDiagramSemanticReorderHelper {
 	 * @param semanticPredecessor
 	 *            the predecessor in {@code newOwner}'s {@code containmentReference}
 	 */
-
 	public void addInteractionFragment(InteractionFragment fragment, Element newOwner, EReference containmentReference, InteractionFragment semanticPredecessor) {
 		@SuppressWarnings("unchecked")
 		List<InteractionFragment> containment = (List<InteractionFragment>) newOwner.eGet(containmentReference);
 		// Can be -1 if the element should be first in its parent. In this case the semanticPredecessor is usually null.
 		int newElementIndex = containment.indexOf(semanticPredecessor) + 1;
 		containment.add(newElementIndex, fragment);
+
 
 		InteractionFragment associated = getAssociatedFragment(fragment);
 		if (associated != null) {
@@ -327,16 +328,63 @@ public class SequenceDiagramSemanticReorderHelper {
 	/**
 	 * Holds the information required to perform a semantic reordering.
 	 *
-	 * @param semanticElement
+	 * @param element
 	 *            the element to reorder
-	 * @param newOwner
+	 * @param owner
 	 *            the new owner of the element
-	 * @param containmentReference
+	 * @param containment
 	 *            the containment reference to use to store the fragment
-	 * @param newPredecessor
+	 * @param predecessor
 	 *            predecessor in list (first if null)
 	 */
-	public record Reordering(InteractionFragment semanticElement, Element newOwner, EReference newContainmentReference, InteractionFragment newSemanticPredecessor) {
-
+	public record Reordering(InteractionFragment element, Element owner, EReference containment, InteractionFragment predecessor) {
 	}
+
+	/**
+	 * Aligns order of fragments in 'CoveredBy' property.
+	 * <p>
+	 * Using order from fragments in Interaction, move fragments in same order.
+	 * </p>
+	 *
+	 * @param root
+	 *            Interaction to update
+	 * @param lifelines
+	 *            modified lines to order
+	 */
+	public void alignLifelinesCoverage(Interaction root, Set<Lifeline> lifelines) {
+		// Must re-align several lifeline, each one having a dedicated index
+		// In most of case, it is faster to run through the interaction several times
+		// than seek index of different lifelines in a pool of index.
+		lifelines.forEach(lifeline -> alignLifelineEvents(lifeline, 0, root.getFragments()));
+	}
+
+	private int alignLifelineEvents(Lifeline lifeline, int index, List<? extends InteractionFragment> fragments) {
+		int cursor = index;
+		EList<InteractionFragment> order = lifeline.getCoveredBys();
+		for (InteractionFragment fragment : fragments) {
+			if (!fragment.getCovereds().contains(lifeline)) {
+				// Fragment does not belong to this lifeline.
+				continue;
+			}
+
+			if (order.get(cursor) != fragment) {
+				// Wrong place.
+				lifeline.getCoveredBys().move(cursor, fragment);
+			}
+			cursor++; // next index
+
+			if (cursor == lifeline.getCoveredBys().size()) {
+				// No more elements, skip other events.
+				return cursor;
+			} else if (fragment instanceof CombinedFragment composite) {
+				// By construction, if a combined fragment does not cover a lifeline,
+				// there should be no event related in it.
+				cursor = alignLifelineEvents(lifeline, cursor, composite.getOperands());
+			} else if (fragment instanceof InteractionOperand composite) {
+				cursor = alignLifelineEvents(lifeline, cursor, composite.getFragments());
+			}
+		}
+		return cursor;
+	}
+
 }

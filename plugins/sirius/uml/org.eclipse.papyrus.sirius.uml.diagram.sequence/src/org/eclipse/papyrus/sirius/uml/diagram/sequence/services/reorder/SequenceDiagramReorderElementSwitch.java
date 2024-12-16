@@ -13,7 +13,9 @@
  *****************************************************************************/
 package org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
@@ -26,6 +28,7 @@ import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.InteractionUse;
+import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.StateInvariant;
@@ -66,7 +69,7 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	/**
 	 * The helper used to perform semantic reordering operations.
 	 */
-	private final SequenceDiagramSemanticReorderHelper semanticReorderHelper = new SequenceDiagramSemanticReorderHelper();
+	private final SequenceDiagramSemanticReorderHelper elementsReorder = new SequenceDiagramSemanticReorderHelper();
 
 	/**
 	 * The ordering end preceding the starting end of the element to reorder.
@@ -92,6 +95,8 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	 * Current evaluated element.
 	 */
 	private Element current;
+
+	private Set<Lifeline> modifiedLifelines;
 
 	/**
 	 *
@@ -121,8 +126,12 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 				ends = orderService.getEndsOrdering(rootInteraction);
 			}
 			current = element;
+
+			modifiedLifelines = new HashSet<>();
+			super.doSwitch(eObject);
+			elementsReorder.alignLifelinesCoverage(rootInteraction, modifiedLifelines);
 		}
-		return super.doSwitch(eObject);
+		return null;
 	}
 
 	/**
@@ -147,19 +156,25 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 			// move the covered elements inside it.
 			InteractionOperand operand = combinedFragment.getOperands().get(0);
 			// The combined fragment AND the operand are moved, use the operand to compute its new content
-			int combinedFragmentStartIndex = ends.indexOf(orderService.getStartingEnd(operand));
-			int combinedFragmentEndIndex = ends.indexOf(orderService.getFinishingEnd(operand));
-			for (EAnnotation end : ends.subList(combinedFragmentStartIndex + 1, combinedFragmentEndIndex)) {
-				InteractionFragment semanticEnd = orderService.getEndFragment(end);
-				if (umlHelper.isCoveringASubsetOf(semanticEnd, combinedFragment) && semanticEnd.getOwner() == combinedFragment.getOwner()) {
-					// The elements are on the same lifeline and the semanticEnd is a direct children of the new owner of the combinedFragment. This prevents moving elements inside covered combined fragments.
+			int eventStart = ends.indexOf(orderService.getStartingEnd(operand));
+			int eventFinish = ends.indexOf(orderService.getFinishingEnd(operand));
+
+			Element container = combinedFragment.getOwner();
+			for (EAnnotation end : ends.subList(eventStart + 1, eventFinish)) {
+				InteractionFragment event = orderService.getEndFragment(end);
+				if (umlHelper.isCoveringASubsetOf(event, combinedFragment)
+						&& event.getOwner() == container) {
+					// The elements are on the same lifeline and the event is a direct children of the new owner of the combinedFragment.
+					// This prevents moving elements inside covered combined fragments.
 					InteractionFragment lastElementInOperand = null;
 					List<InteractionFragment> fragments = operand.getFragments();
 					if (!fragments.isEmpty()) {
 						// Always add at the end of the operand
 						lastElementInOperand = fragments.get(fragments.size() - 1);
 					}
-					semanticReorderHelper.addInteractionFragment(semanticEnd, operand, UMLPackage.eINSTANCE.getInteractionOperand_Fragment(), lastElementInOperand);
+					elementsReorder.addInteractionFragment(event, operand,
+							UMLPackage.eINSTANCE.getInteractionOperand_Fragment(), lastElementInOperand);
+					modifiedLifelines.addAll(event.getCovereds());
 				}
 			}
 		}
@@ -193,13 +208,15 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 	/**
 	 * Moves the {@code interactionOperand} after {@code startingEndPredecessor}.
 	 * <p>
-	 * {@link InteractionOperand} have their own starting end but no proper finishing end. This means that only their start can
-	 * be reordered. The provided {@code finishingEndPredecessor} is not used to compute the new graphical position of the operand.
+	 * {@link InteractionOperand} have their own starting end but no proper finishing end.
+	 * This means that only their start can be reordered. The provided {@code finishingEndPredecessor}
+	 * is not used to compute the new graphical position of the operand.
 	 * The semantic {@code interactionOperand} can be moved too to reflect the graphical change.
 	 * </p>
 	 * <p>
-	 * This method is called on {@link InteractionOperand} creation as well as during complex reordering of combined fragments located on
-	 * different lifelines. Note that it is not possible to manually reorder an {@link InteractionOperand}.
+	 * This method is called on {@link InteractionOperand} creation as well as during complex
+	 * reordering of combined fragments located on different lifelines.
+	 * Note that it is not possible to manually reorder an {@link InteractionOperand}.
 	 * </p>
 	 *
 	 * @param interactionOperand
@@ -320,8 +337,9 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 		return result;
 	}
 
-	private void reorderInFragments(InteractionFragment semanticEnd, EAnnotation endPredecessor) {
-		semanticReorderHelper.reorderElements(semanticEnd, endPredecessor, ends);
+	private void reorderInFragments(InteractionFragment event, EAnnotation endPredecessor) {
+		elementsReorder.reorderElements(event, endPredecessor, ends);
+		modifiedLifelines.addAll(event.getCovereds());
 	}
 
 	/**
@@ -339,7 +357,7 @@ public class SequenceDiagramReorderElementSwitch extends UMLSwitch<Element> {
 
 	/**
 	 * Reorder the End of an element using its predecessor.
-	 * 
+	 *
 	 * @param start
 	 *            if the {@code startingEndPredecessor} is reordered; otherwise, the {@code finishingEndPredecessor} is reordered
 	 */
