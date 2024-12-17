@@ -35,7 +35,6 @@ import org.eclipse.sirius.diagram.ui.internal.edit.parts.DDiagramEditPart;
 @SuppressWarnings({ "restriction", "nls" })
 public class SequenceDebugView extends AbstractDebugView {
 
-	private static final String LINE_SEPARATOR = "line.separator";
 	/**
 	 * The global ID for the Eclipse View.
 	 */
@@ -86,9 +85,7 @@ public class SequenceDebugView extends AbstractDebugView {
 
 				StringBuilder stringBuilder = new StringBuilder();
 				stringBuilder.append("The following table displays the EMF annotations dedicated to the graphical ordering. They are serialized within the root Interaction.");
-				stringBuilder.append(System.getProperty(LINE_SEPARATOR));
-				stringBuilder.append("----------------------------");
-				stringBuilder.append(System.getProperty(LINE_SEPARATOR));
+				stringBuilder.append("\n");
 				TabularReport report = new TabularReport("EAnnotation source", "EAnnotation referenced element");
 				EAnnotation orderingAnnotation = eModelElement.getEAnnotation(SequenceDiagramOrderServices.ORDERING_ANNOTATION_SOURCE);
 
