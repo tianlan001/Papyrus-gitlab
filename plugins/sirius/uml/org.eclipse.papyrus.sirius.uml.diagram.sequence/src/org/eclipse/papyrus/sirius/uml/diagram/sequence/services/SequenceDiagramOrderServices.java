@@ -158,6 +158,20 @@ public class SequenceDiagramOrderServices {
 	}
 
 	/**
+	 * Remove the given {@code end} {@link EAnnotation} from the list of annotations of the associated {@link Interaction}.
+	 * 
+	 * @param end
+	 *            the {@link EAnnotation} to ermove
+	 * @return {@code true} if the annotation has been removed; {@code false} otherwise.
+	 */
+	public boolean removeEnd(EAnnotation end) {
+		NamedElement endOwner = getEndOwner(end);
+		Interaction owningInteraction = UML_HELPER.getOwningInteraction(endOwner);
+		EAnnotation orderingAnnotation = getOrderingAnnotation(owningInteraction);
+		return orderingAnnotation.getContents().remove(end);
+	}
+
+	/**
 	 * Returns the fragment from Event End.
 	 *
 	 * @param end

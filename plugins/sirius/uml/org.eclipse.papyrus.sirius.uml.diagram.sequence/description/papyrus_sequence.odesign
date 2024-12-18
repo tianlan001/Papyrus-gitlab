@@ -284,45 +284,63 @@
           </ownedTools>
         </toolSections>
         <toolSections name="Edges">
-          <ownedTools xsi:type="tool:MessageCreationTool" name="CreateMessageSyncTool" label="Message Sync" precondition="aql:preSource.canCreateDomainBasedEdge(preTarget, 'Message', 'messages', preSourceView, preTargetView)" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_synchCall.gif">
+          <ownedTools xsi:type="tool:MessageCreationTool" name="CreateMessageSyncTool" label="Message Sync" precondition="aql:preSource.canCreateMessageSD(preTarget, preSourceView, preTargetView)" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_synchCall.gif" extraTargetMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_ImplicitTimeElement'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeElement']">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
             <targetViewVariable name="targetView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.getOwningInteraction()">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="call"/>
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::BehaviorExecutionSpecification" referenceName="fragment" variableName="exec"/>
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="reply"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:call.initializeSyncCall(exec, reply, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.getOwningInteraction()">
+                <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:target.oclIsKindOf(uml::NamedElement)">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="call"/>
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::BehaviorExecutionSpecification" referenceName="fragment" variableName="exec"/>
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="reply"/>
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:call.initializeSyncCall(exec, reply, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:not target.oclIsKindOf(uml::NamedElement)">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="call"/>
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:call.initializeMessageToExecutionStart(uml::MessageSort::synchCall, source, target)"/>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
           </ownedTools>
-          <ownedTools xsi:type="tool:MessageCreationTool" name="CreateMessageAsyncTool" label="Message Async" precondition="aql:preSource.canCreateDomainBasedEdge(preTarget, 'Message', 'messages', preSourceView, preTargetView)" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_asynchCall.gif">
+          <ownedTools xsi:type="tool:MessageCreationTool" name="CreateMessageAsyncTool" label="Message Async" precondition="aql:preSource.canCreateMessageSD(preTarget, preSourceView, preTargetView)" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_asynchCall.gif" extraTargetMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeElement'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_ImplicitTimeElement']">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
             <targetViewVariable name="targetView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.getOwningInteraction()">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::asynchCall, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.getOwningInteraction()">
+                <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:target.oclIsKindOf(uml::NamedElement)">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::asynchCall, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:not target.oclIsKindOf(uml::NamedElement)">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessageToExecutionStart(uml::MessageSort::asynchCall, source, target)"/>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>
             <finishingEndPredecessor name="finishingEndPredecessor"/>
           </ownedTools>
-          <ownedTools xsi:type="tool:MessageCreationTool" name="CreateMessageReplyTool" label="Message Reply" precondition="aql:preSource.canCreateDomainBasedEdge(preTarget, 'Message', 'messages', preSourceView, preTargetView)" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_reply.gif">
+          <ownedTools xsi:type="tool:MessageCreationTool" name="CreateMessageReplyTool" label="Message Reply" precondition="aql:preSource.canCreateMessageSD(preTarget, preSourceView, preTargetView)" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@edgeMappings[name='SD_Message']" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/Message_reply.gif" extraSourceMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_ImplicitTimeElement'] //@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@nodeMappings[name='SD_TimeElement']" connectionStartPrecondition="aql:preSource.oclIsKindOf(uml::NamedElement) or preSource.isFinishingEndExecution()">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
             <targetViewVariable name="targetView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.getOwningInteraction()">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::reply, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+                <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:source.oclIsKindOf(uml::NamedElement)">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessage(uml::MessageSort::reply, source, target, startingEndPredecessor, finishingEndPredecessor)"/>
+                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:not source.oclIsKindOf(uml::NamedElement)">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::Message" referenceName="message" variableName="newMessage"/>
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:newMessage.initializeMessageFromExecutionFinish(uml::MessageSort::reply, target, source)"/>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
             <startingEndPredecessor name="startingEndPredecessor"/>

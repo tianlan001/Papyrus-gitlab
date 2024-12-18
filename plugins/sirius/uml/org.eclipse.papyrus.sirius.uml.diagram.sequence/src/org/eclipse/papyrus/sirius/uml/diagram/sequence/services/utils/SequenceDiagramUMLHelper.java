@@ -183,6 +183,19 @@ public class SequenceDiagramUMLHelper {
 	}
 
 	/**
+	 * Returns all temporal elements ({@link TimeObservation}, {@link DurationObservation},
+	 * {@link TimeConstraint}, {@link DurationConstraint}) associated to the provided {@code event}.
+	 * 
+	 * @param event
+	 *            the event to retrieve the temporal elements from
+	 * @return temporal elements associated to the provided {@code event}
+	 */
+	public static List<PackageableElement> getTemporalElementsFromEvent(NamedElement event) {
+		ECrossReferenceAdapter crossReferencer = ECrossReferenceAdapter.getCrossReferenceAdapter(event);
+		return UMLTemporalHelper.getTemporalElements(event, crossReferencer);
+	}
+
+	/**
 	 * Returns the {@link TimeObservation}s associated to the provided {@code event}.
 	 *
 	 * @param event

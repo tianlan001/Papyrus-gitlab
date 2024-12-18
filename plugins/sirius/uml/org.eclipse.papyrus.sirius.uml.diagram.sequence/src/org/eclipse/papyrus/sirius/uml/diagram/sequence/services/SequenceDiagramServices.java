@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.papyrus.sirius.uml.diagram.common.core.services.AbstractDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.CommonDiagramServices;
 import org.eclipse.papyrus.sirius.uml.diagram.common.services.DeleteServices;
+import org.eclipse.papyrus.sirius.uml.diagram.common.services.DomainBasedEdgeServices;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.ViewpointHelpers;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramReorderElementSwitch;
 import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.reorder.SequenceDiagramSemanticReorderHelper;
@@ -49,6 +50,7 @@ import org.eclipse.uml2.uml.MessageEnd;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.MessageSort;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.OccurrenceSpecification;
 import org.eclipse.uml2.uml.StateInvariant;
 import org.eclipse.uml2.uml.TimeObservation;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -112,6 +114,8 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 */
 	private final SequenceDiagramUMLHelper umlHelper = new SequenceDiagramUMLHelper();
 
+	private final DomainBasedEdgeServices edgeService = new DomainBasedEdgeServices();
+
 
 	/**
 	 * Creates a semantic {@link Lifeline} in the provided {@code parent}.
@@ -150,6 +154,37 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	}
 
 	/**
+	 * Check if a {@link Message} can be create with the provided {@code source} and {@code target}.
+	 * 
+	 * @param source
+	 *            the semantic source
+	 * @param target
+	 *            the semantic target
+	 * @param sourceView
+	 *            the source {@link DSemanticDecorator} of the new edge
+	 * @param targetView
+	 *            the target {@link DSemanticDecorator} of the new edge
+	 * @return {@code true} if the {@link Message} can be created; {@code false} otherwise
+	 */
+	public boolean canCreateMessageSD(EObject source, EObject target, DSemanticDecorator sourceView, DSemanticDecorator targetView) {
+		EObject realSource = source;
+		EObject realTarget = target;
+		boolean allowedEnd = true;
+		if (target instanceof EAnnotation end) {
+			realTarget = orderService.getEndOwner(end);
+			allowedEnd = isStartingEndExecution(end);
+		} else if (source instanceof EAnnotation end) {
+			realSource = orderService.getEndOwner(end);
+			allowedEnd = isFinishingEndExecution(end);
+		}
+
+		return allowedEnd
+				&& edgeService.canCreateDomainBasedEdge(realSource, realTarget,
+						Message.class.getSimpleName(),
+						UML.getInteraction_Message().getName(), sourceView, targetView);
+	}
+
+	/**
 	 * Initializes a semantic {@link Message}.
 	 * <p>
 	 * Default name is provided and send and receive {@link MessageOccurrenceSpecification} are created.
@@ -162,10 +197,6 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	 *            the {@link Message} to initialize
 	 * @param type
 	 *            the type of the {@link Message} to set
-	 * @param sendEvent
-	 *            the sendEvent {@link MessageOccurrenceSpecification} to initialize
-	 * @param receiveEvent
-	 *            the receiveEvent {@link MessageOccurrenceSpecification} to initialize
 	 * @param source
 	 *            the source element of the message
 	 * @param target
@@ -189,6 +220,87 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 			orderService.createFinishingEnd(message);
 		}
 		return updateElementOrderWithEvents(message, startingEndPredecessor, finishingEndPredecessor);
+	}
+
+	/**
+	 * Initializes a {@link Message}, created on the starting end of the execution {@code targetExec}.
+	 * <p>
+	 * For a synchronous message, the execution already exists, and the reply is not created.
+	 * </p>
+	 * 
+	 * @param message
+	 *            the {@link Message} to initialize
+	 * @param type
+	 *            the type of the {@link Message} to set
+	 * @param source
+	 *            the source element of the message
+	 * @param executionEndTarget
+	 *            the execution end to which the message is created
+	 * @return the initialized {@link Message}
+	 */
+	public Message initializeMessageToExecutionStart(Message message, MessageSort type, NamedElement source, EAnnotation executionEndTarget) {
+		ExecutionSpecification executionTarget = (ExecutionSpecification) orderService.getEndOwner(executionEndTarget);
+		return initializeMessageOnExecution(message, type, source, executionTarget, executionEndTarget, UML.getExecutionSpecification_Start(), UML.getMessage_ReceiveEvent());
+	}
+
+	/**
+	 * Initializes a {@link Message}, created on the finishing end of the execution {@code targetExec}.
+	 * 
+	 * @param message
+	 *            the {@link Message} to initialize
+	 * @param type
+	 *            the type of the {@link Message} to set
+	 * @param target
+	 *            the target element of the message
+	 * @param executionEndSource
+	 *            the execution end from which the message is created
+	 * @return the initialized {@link Message}
+	 */
+	public Message initializeMessageFromExecutionFinish(Message message, MessageSort type, NamedElement target, EAnnotation executionEndSource) {
+		ExecutionSpecification executionSource = (ExecutionSpecification) orderService.getEndOwner(executionEndSource);
+		return initializeMessageOnExecution(message, type, executionSource, target, executionEndSource, UML.getExecutionSpecification_Finish(), UML.getMessage_SendEvent());
+	}
+
+	/**
+	 * Configures the {@link Message} to connect with the {@link ExecutionSpecification} of the {@code executionEnd}.
+	 * 
+	 * @param message
+	 *            the {@link Message} to initialize
+	 * @param type
+	 *            the type of the {@link Message} to set
+	 * @param source
+	 *            the source element of the message
+	 * @param target
+	 *            the target element of the message
+	 * @param executionEnd
+	 *            the execution end to connect with the {@link Message}
+	 * @param executionReference
+	 *            the reference to use to set the start or finish of the {@link ExecutionSpecification}
+	 * @param messageReference
+	 *            the reference to use to get the sendEvent or receiveEvent of the {@link Message}
+	 * @return the initialized {@link Message}
+	 */
+	private Message initializeMessageOnExecution(Message message, MessageSort type, NamedElement source, NamedElement target, EAnnotation executionEnd,
+			EReference executionReference, EReference messageReference) {
+		EventEnd executionEvent = toEventEnd(executionEnd);
+		ExecutionSpecification execution = (ExecutionSpecification) orderService.getEndOwner(executionEnd);
+
+		initializeMessage(message, type, source, target, executionEvent, executionEvent);
+
+		OccurrenceSpecification executionFragment = (OccurrenceSpecification) orderService.getEndFragment(executionEnd);
+		MessageOccurrenceSpecification messageFragment = (MessageOccurrenceSpecification) message.eGet(messageReference);
+
+		// Updates objects referencing the old fragment to the new fragment
+		SequenceDiagramObservationServices.replaceFragmentReferences(executionFragment, messageFragment);
+
+		// Update execution start/finish reference
+		execution.eSet(executionReference, messageFragment);
+
+		// Remove the old fragment
+		deleteServices.delete(executionFragment);
+		orderService.removeEnd(executionEnd);
+
+		return message;
 	}
 
 	/**
@@ -239,8 +351,6 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 
 		return invocation;
 	}
-
-
 
 	/**
 	 * Creates an Sirius end for this end.
@@ -295,6 +405,28 @@ public class SequenceDiagramServices extends AbstractDiagramServices {
 	public boolean isDestroyed(Lifeline lifeline) {
 		return lifeline.getCoveredBys().stream()
 				.anyMatch(DestructionOccurrenceSpecification.class::isInstance);
+	}
+
+	/**
+	 * Indicates if the specified {@code end} is the starting end of an {@link ExecutionSpecification}.
+	 * 
+	 * @param end
+	 *            the end to check
+	 * @return {@code true} if the end is a starting end of an {@link ExecutionSpecification}; {@code false} otherwise.
+	 */
+	public boolean isStartingEndExecution(EAnnotation end) {
+		return orderService.getEndOwner(end) instanceof ExecutionSpecification && orderService.isStartingEnd(end);
+	}
+
+	/**
+	 * Indicates if the specified {@code end} is the finishing end of an {@link ExecutionSpecification}.
+	 * 
+	 * @param end
+	 *            the end to check
+	 * @return {@code true} if the end is a finishing end of an {@link ExecutionSpecification}; {@code false} otherwise.
+	 */
+	public boolean isFinishingEndExecution(EAnnotation end) {
+		return orderService.getEndOwner(end) instanceof ExecutionSpecification && orderService.isFinishingEnd(end);
 	}
 
 	/**

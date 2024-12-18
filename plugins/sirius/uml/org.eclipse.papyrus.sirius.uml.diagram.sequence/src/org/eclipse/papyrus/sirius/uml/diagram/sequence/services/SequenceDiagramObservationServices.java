@@ -25,6 +25,7 @@ import org.eclipse.papyrus.sirius.uml.diagram.sequence.services.utils.SequenceDi
 import org.eclipse.papyrus.uml.domain.services.UMLHelper;
 import org.eclipse.sirius.diagram.sequence.description.ObservationPointMapping;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
+import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.DurationConstraint;
 import org.eclipse.uml2.uml.DurationObservation;
 import org.eclipse.uml2.uml.Element;
@@ -550,6 +551,40 @@ public final class SequenceDiagramObservationServices {
 		} else if (parent instanceof DurationObservation observation) {
 			observation.getEvents().add(event);
 		}
+	}
+
+	/**
+	 * Redirects event references from {@code previous} {@link OccurrenceSpecification} to the {@code next} {@link OccurrenceSpecification}.
+	 * <p>
+	 * This method must be consistent with the logic used in
+	 * {@link org.eclipse.papyrus.uml.domain.services.destroy.ElementDependencyCollector.DestroyDependencyCollectorSwitch#caseOccurrenceSpecification(OccurrenceSpecification)}
+	 * </p>
+	 *
+	 * @param previous
+	 *            the fragment for which references must be deleted
+	 * @param next
+	 *            the fragment for which references must be added
+	 */
+	public static void replaceFragmentReferences(OccurrenceSpecification previous, OccurrenceSpecification next) {
+		List<?> temporals = SequenceDiagramUMLHelper.getTemporalElementsFromEvent(previous);
+		temporals.forEach(element -> {
+			if (element instanceof TimeObservation timeObs) {
+				timeObs.setEvent(next);
+			} else {
+				List<? super OccurrenceSpecification> refs;
+				if (element instanceof DurationObservation durationObs) {
+					refs = durationObs.getEvents();
+				} else { // Duration or Time Constraints
+					refs = ((Constraint) element).getConstrainedElements();
+				}
+				refs.set(refs.indexOf(previous), next);
+			}
+		});
+
+		// To replace opposite reference, we need to copy the EList.
+		// Otherwise, ConcurrentModificationException will rise.
+		List.copyOf(previous.getToBefores()).forEach(ordering -> ordering.setAfter(next));
+		List.copyOf(previous.getToAfters()).forEach(ordering -> ordering.setBefore(next));
 	}
 
 }
