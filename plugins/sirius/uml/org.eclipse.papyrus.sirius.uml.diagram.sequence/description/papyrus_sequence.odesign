@@ -160,7 +160,7 @@
           </style>
         </containerMappings>
         <containerMappings xsi:type="description_1:InteractionContainerMapping" name="SD_Interaction" semanticCandidatesExpression="aql:self" synchronizationLock="true" domainClass="uml::Interaction">
-          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.renderLabel(diagram)" labelAlignment="LEFT">
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="9" labelExpression="aql:self.name" labelAlignment="LEFT">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
@@ -267,19 +267,6 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.createElement('uml::Constraint','ownedRule',containerView)"/>
             </initialOperation>
-          </ownedTools>
-          <ownedTools xsi:type="tool:InteractionUseCreationTool" name="CreateInteractionUseTool" label="Interaction Use" containerMappings="//@ownedViewpoints[name='SequenceDiagram']/@ownedRepresentations[name='SequenceDiagram']/@defaultLayer/@containerMappings[name='SD_InteractionUse']">
-            <variable name="variable"/>
-            <viewVariable name="viewVariable"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:variable.getOwningInteraction()">
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="uml::InteractionUse" referenceName="fragment" variableName="newInteractionUse"/>
-                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:variable.initializeInteractionUse(newInteractionUse, startingEndPredecessor, finishingEndPredecessor, coveredLifelines)"/>
-              </firstModelOperations>
-            </initialOperation>
-            <startingEndPredecessor name="startingEndPredecessor"/>
-            <finishingEndPredecessor name="finishingEndPredecessor"/>
-            <coveredLifelines name="coveredLifelines"/>
           </ownedTools>
           <ownedTools xsi:type="tool_1:ToolDescription" name="CreateTimeObservationTool" label="Time Observation" precondition="aql:elementView.canCreateTimeElement()" iconPath="/org.eclipse.uml2.uml.edit/icons/full/obj16/TimeObservation.gif">
             <element name="element"/>
