@@ -695,8 +695,9 @@ public class SequenceDiagramOrderServices {
 	 * @return associated end in containing interface or null
 	 */
 	public EAnnotation findOccurrenceEnd(OccurrenceSpecification element) {
-		if (element != null && element.getEnclosingInteraction() != null) {
-			for (EAnnotation end : getEndsOrdering(element.getEnclosingInteraction())) {
+		Interaction owner = UML_HELPER.getOwningInteraction(element);
+		if (element != null && owner != null) {
+			for (EAnnotation end : getEndsOrdering(owner)) {
 				if (element == getEndFragment(end)) { // Occurrence is always the main reference.
 					return end; // Found
 				}
