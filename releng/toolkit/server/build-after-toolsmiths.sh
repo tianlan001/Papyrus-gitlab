@@ -11,7 +11,7 @@
 #
 # Contributors:
 #    Nicolas Bros (Mia-Software)
-#	 Camille Letavernier (CEA LIST)
+#    Camille Letavernier (CEA LIST)
 #--------------------------------------------------------------------------------
 
 ########## publishing ##########
@@ -37,11 +37,11 @@ COMPACT_BUILD_ID="$BUILD_TIMESTAMP"
 FULL_BUILD_ID=${buildType}${COMPACT_BUILD_ID}
 
 if [ -n "$BUILD_ALIAS" ]; then
-  updateZipName=Papyrus-Toolsmiths-${BUILD_ALIAS}.zip
+  updateZipName=Papyrus-Desktop-Toolsmiths-${BUILD_ALIAS}.zip
 else
-  updateZipName=Papyrus-Toolsmiths-${FULL_BUILD_ID}.zip
+  updateZipName=Papyrus-Desktop-Toolsmiths-${FULL_BUILD_ID}.zip
 fi
-zipName="Papyrus-Toolsmiths.zip"
+zipName="Papyrus-Desktop-Toolsmiths.zip"
 
 rm -rf tmp
 #mkdir -p "tmp/$FULL_BUILD_ID"
